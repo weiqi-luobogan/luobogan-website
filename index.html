@@ -1025,18 +1025,27 @@
       state.dimScore[q.d] += score;
       document.getElementById('fb-score').textContent = '+' + score + ' 分';
       document.getElementById('fb-explain').textContent = q.e;
-      document.getElementById('q-feedback').style.display = 'block';
+      const fb = document.getElementById('q-feedback');
+      fb.style.display = 'block';
+      // 自动滚到反馈区，让「下一题」按钮进入视线
+      setTimeout(() => { fb.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 60);
+      // 2.5 秒后自动跳下一题（用户可主动点按钮提前跳）
+      if (_autoNextTimer) clearTimeout(_autoNextTimer);
+      _autoNextTimer = setTimeout(goNext, 2500);
     }
 
     // ===== 下一题 =====
-    document.getElementById('btn-next').addEventListener('click', () => {
+    let _autoNextTimer = null;
+    function goNext(){
+      if (_autoNextTimer) { clearTimeout(_autoNextTimer); _autoNextTimer = null; }
       state.idx++;
       if (state.idx >= 30) {
         showResult();
       } else {
         renderQuestion();
       }
-    });
+    }
+    document.getElementById('btn-next').addEventListener('click', goNext);
 
     // ===== 展示结果 =====
     function showResult(){
