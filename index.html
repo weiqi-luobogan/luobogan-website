@@ -310,6 +310,43 @@
       line-height: 1.9;
     }
     .culture-body strong { color: var(--ink); font-weight: 700; }
+
+    /* ===== Showcase 5秒轮播 ===== */
+    .showcase-container { position: relative; max-width: 900px; margin: 0 auto; }
+    .showcase-frame { position: relative; width: 100%; padding-bottom: 56%; background: #efe9dd; border: 1px solid var(--line); overflow: hidden; }
+    .showcase-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1s ease-in-out; display: flex; align-items: center; justify-content: center; }
+    .showcase-slide.active { opacity: 1; }
+    .showcase-slide img { max-width: 100%; max-height: 100%; object-fit: contain; }
+    .showcase-caption { text-align: center; margin-top: 16px; color: var(--ink); font-size: 15px; letter-spacing: 0.02em; }
+    .showcase-dots { display: flex; justify-content: center; gap: 10px; margin-top: 14px; }
+    .showcase-dot { width: 8px; height: 8px; border-radius: 50%; background: #d5cdbd; cursor: pointer; transition: all 0.3s; border: none; padding: 0; }
+    .showcase-dot.active { background: var(--seal); width: 24px; border-radius: 4px; }
+    /* ===== Teaching 教学理念 ===== */
+    .teaching-entry { border: 1px solid var(--line); background: #fff; padding: 24px 22px; cursor: pointer; transition: all 0.25s; text-align: left; display: flex; flex-direction: column; gap: 10px; width: 100%; font-family: inherit; }
+    .teaching-entry:hover { border-color: var(--seal); box-shadow: 0 6px 22px rgba(168,54,42,0.08); transform: translateY(-2px); }
+    .teaching-entry-icon { font-size: 28px; color: var(--seal); line-height: 1; }
+    .teaching-entry-title { font-size: 18px; font-weight: 700; color: var(--ink); letter-spacing: 0.02em; }
+    .teaching-entry-desc { font-size: 13px; color: #6b6b6b; line-height: 1.7; }
+    .teaching-entry-count { font-size: 12px; color: var(--seal); margin-top: 4px; letter-spacing: 0.05em; }
+    .teaching-list-item { padding: 18px 20px; border-bottom: 1px solid var(--line); cursor: pointer; transition: all 0.25s; }
+    .teaching-list-item:hover { background: #faf7f0; padding-left: 26px; }
+    .teaching-list-item h4 { font-size: 16px; font-weight: 600; color: var(--ink); margin-bottom: 6px; }
+    .teaching-list-item p { font-size: 13px; color: #6b6b6b; line-height: 1.6; }
+    .teaching-back { display: inline-flex; align-items: center; gap: 6px; color: var(--seal); font-size: 13px; cursor: pointer; margin-bottom: 20px; background: none; border: none; padding: 0; font-family: inherit; }
+    .teaching-back:hover { text-decoration: underline; }
+    .teaching-body { color: #4a4a4a; font-style: normal; line-height: 1.9; font-size: 15px; }
+    .teaching-body strong { color: var(--ink); font-weight: 700; }
+    .teaching-body h3 { font-size: 18px; font-weight: 700; color: var(--ink); margin: 24px 0 12px; }
+    .teaching-body h4 { font-size: 16px; font-weight: 700; color: var(--ink); margin: 20px 0 10px; }
+    .teaching-body p { margin: 12px 0; }
+    .teaching-body blockquote { border-left: 3px solid var(--seal); padding: 6px 16px; margin: 16px 0; background: #faf7f0; font-style: italic; color: #555; }
+    .teaching-body ul, .teaching-body ol { margin: 12px 0; padding-left: 24px; }
+    .teaching-body li { margin: 6px 0; }
+    /* ===== 右侧悬浮索引栏 ===== */
+    .side-nav { position: fixed; right: 18px; top: 50%; transform: translateY(-50%); z-index: 40; display: flex; flex-direction: column; gap: 6px; }
+    .side-nav a { display: block; padding: 7px 12px; background: rgba(255,255,255,0.88); border: 1px solid var(--line); font-size: 12px; color: var(--ink); text-decoration: none; border-radius: 3px; transition: all 0.25s; letter-spacing: 0.03em; -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); text-align: center; min-width: 62px; }
+    .side-nav a:hover { background: var(--seal); color: #fff; border-color: var(--seal); transform: translateX(-4px); }
+    @media (max-width: 900px) { .side-nav { display: none; } }
 </style>
 </head>
 <body>
@@ -327,9 +364,10 @@
       <a href="#projects" class="nav-link">项目</a>
       <a href="#works" class="nav-link">作品</a>
       <a href="#culture" class="nav-link">文化</a>
+      <a href="#teaching" class="nav-link">教学理念</a>
       <a href="#ability-test" class="nav-link">测试</a>
       <a href="#interact" class="nav-link">互动</a>
-      <a href="#contact" class="nav-link text-seal font-medium">加微信</a>
+      <a href="#contact" class="nav-link text-seal font-medium">联系我们</a>
     </nav>
   </div>
 </header>
@@ -357,6 +395,31 @@
     <div class="md:col-span-2 fade-in">
       <div class="aspect-square rounded-full overflow-hidden border border-line bg-white">
         <img src="assets/portrait.jpg" alt="萝卜干" class="w-full h-full object-cover object-[50%_15%]">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Showcase 5秒轮播 ===== -->
+<section id="showcase" class="bg-paper py-14 border-y border-line">
+  <div class="max-w-5xl mx-auto px-6 fade-in">
+    <div class="showcase-container">
+      <div class="showcase-frame">
+        <div class="showcase-slide active" data-idx="0">
+          <img src="assets/portrait.jpg" alt="萝卜干 · 十年围棋教育">
+        </div>
+        <div class="showcase-slide" data-idx="1">
+          <img src="assets/books.jpg" alt="家校共育 4 书">
+        </div>
+        <div class="showcase-slide" data-idx="2">
+          <img src="assets/mindmap.png" alt="围棋教师成长思维导图">
+        </div>
+      </div>
+      <div class="showcase-caption" id="showcase-caption">萝卜干 · 十年围棋教育</div>
+      <div class="showcase-dots">
+        <button class="showcase-dot active" data-idx="0" aria-label="1"></button>
+        <button class="showcase-dot" data-idx="1" aria-label="2"></button>
+        <button class="showcase-dot" data-idx="2" aria-label="3"></button>
       </div>
     </div>
   </div>
@@ -744,6 +807,33 @@
     </div>
 
     <p class="text-xs text-gray-soft leading-relaxed mt-8 max-w-2xl"><em>本栏目会持续更新，之后会加入更多典故、名局解读与围棋礼仪。有想让我讲的题目，欢迎去留言板留言。</em></p>
+  </div>
+</section>
+
+<!-- ===== Teaching 教学理念 ===== -->
+<section id="teaching" class="bg-paper py-24 border-y border-line">
+  <div class="max-w-5xl mx-auto px-6 fade-in">
+    <h2 class="section-title">教学理念</h2>
+    <p class="text-gray-soft text-base leading-relaxed mb-10 max-w-2xl">
+      十年一线教学沉淀的思路、故事和方法论。分为三个方向：技术要怎么教、课堂里遇到什么样的人和事、一个围棋老师是怎么慢慢长起来的。
+    </p>
+
+    <div id="teaching-home" class="grid md:grid-cols-3 gap-5"></div>
+
+    <div id="teaching-list" class="hidden">
+      <button class="teaching-back" onclick="showTeachingHome()">← 返回板块</button>
+      <h3 id="teaching-list-title" class="text-xl font-bold text-ink mb-6"></h3>
+      <div id="teaching-list-body"></div>
+    </div>
+
+    <div id="teaching-detail" class="hidden">
+      <button class="teaching-back" onclick="teachingBackToList()">← 返回列表</button>
+      <h3 id="teaching-detail-title" class="text-2xl font-bold text-ink mb-4"></h3>
+      <p id="teaching-detail-meta" class="text-xs text-gray-soft mb-6"></p>
+      <div id="teaching-detail-body" class="teaching-body"></div>
+    </div>
+
+    <p class="text-xs text-gray-soft leading-relaxed mt-8 max-w-2xl"><em>教学思路会持续沉淀，教学故事也会不断更新。想看什么话题，欢迎去留言板留言。</em></p>
   </div>
 </section>
 
@@ -1492,7 +1582,106 @@
         if (state.idx < total - 1) showDetail(state.cat, state.idx + 1);
       });
     })();
+
+
+// ===== Showcase 5秒轮播 =====
+(function(){
+  var slides = document.querySelectorAll('.showcase-slide');
+  var dots = document.querySelectorAll('.showcase-dot');
+  var caption = document.getElementById('showcase-caption');
+  var captions = ['萝卜干 · 十年围棋教育', '家校共育 4 书', '围棋教师成长思维导图'];
+  if (!slides.length) return;
+  var cur = 0;
+  function show(i){
+    slides.forEach(function(s, k){ s.classList.toggle('active', k === i); });
+    dots.forEach(function(d, k){ d.classList.toggle('active', k === i); });
+    if (caption) caption.textContent = captions[i];
+    cur = i;
+  }
+  dots.forEach(function(d, k){ d.addEventListener('click', function(){ show(k); }); });
+  setInterval(function(){ show((cur + 1) % slides.length); }, 5000);
+})();
+
+// ===== Teaching 教学理念 =====
+var TEACHING_DATA = {"sections":[{"id":"technique","title":"围棋技术探究","icon":"\u265f","desc":"教技术不是只讲手筋、定式，还要讲得懂、讲得对，讲进孩子脑子里。","articles":[]},{"id":"stories","title":"围棋教学故事","icon":"\ud83c\udfaf","desc":"十年一线积累的教学案例，从课堂冲突到家长沟通，都是真实发生过的事。","articles":[]},{"id":"growth","title":"教师成长专栏","icon":"\ud83c\udf31","desc":"一个围棋老师是怎么慢慢长起来的，从新手期到成熟期，坑和门都在这里。","articles":[]}]};
+
+(function(){
+  var home = document.getElementById('teaching-home');
+  var list = document.getElementById('teaching-list');
+  var detail = document.getElementById('teaching-detail');
+  if (!home) return;
+  function renderHome(){
+    home.innerHTML = TEACHING_DATA.sections.map(function(s){
+      return '<button class="teaching-entry" onclick="showTeachingList(\''+s.id+'\')">'
+           + '<div class="teaching-entry-icon">'+s.icon+'</div>'
+           + '<div class="teaching-entry-title">'+s.title+'</div>'
+           + '<div class="teaching-entry-desc">'+s.desc+'</div>'
+           + '<div class="teaching-entry-count">'+s.articles.length+' 篇</div>'
+           + '</button>';
+    }).join('');
+  }
+  window.showTeachingList = function(id){
+    var s = TEACHING_DATA.sections.find(function(x){ return x.id === id; });
+    if (!s) return;
+    home.classList.add('hidden');
+    detail.classList.add('hidden');
+    list.classList.remove('hidden');
+    document.getElementById('teaching-list-title').textContent = s.title;
+    var body = document.getElementById('teaching-list-body');
+    if (s.articles.length){
+      body.innerHTML = s.articles.map(function(a, k){
+        return '<div class="teaching-list-item" onclick="showTeachingDetail(\''+id+'\','+k+')">'
+             + '<h4>'+a.title+'</h4>'
+             + '<p>'+(a.summary || '')+'</p>'
+             + '</div>';
+      }).join('');
+    } else {
+      body.innerHTML = '<p class="text-gray-soft text-sm py-8">这个板块正在整理中，很快上线。</p>';
+    }
+    window.__teachingCurSection = id;
+    window.scrollTo({top: document.getElementById('teaching').offsetTop - 60, behavior: 'smooth'});
+  };
+  window.showTeachingDetail = function(id, k){
+    var s = TEACHING_DATA.sections.find(function(x){ return x.id === id; });
+    if (!s || !s.articles[k]) return;
+    var a = s.articles[k];
+    home.classList.add('hidden');
+    list.classList.add('hidden');
+    detail.classList.remove('hidden');
+    document.getElementById('teaching-detail-title').textContent = a.title;
+    document.getElementById('teaching-detail-meta').textContent = a.meta || '';
+    document.getElementById('teaching-detail-body').innerHTML = a.body || '';
+    window.scrollTo({top: document.getElementById('teaching').offsetTop - 60, behavior: 'smooth'});
+  };
+  window.showTeachingHome = function(){
+    list.classList.add('hidden');
+    detail.classList.add('hidden');
+    home.classList.remove('hidden');
+  };
+  window.teachingBackToList = function(){
+    if (window.__teachingCurSection) showTeachingList(window.__teachingCurSection);
+    else showTeachingHome();
+  };
+  renderHome();
+})();
+
 </script>
+
+
+<!-- ===== 右侧悬浮索引栏 ===== -->
+<aside class="side-nav" aria-label="index">
+  <a href="#hero">首页</a>
+  <a href="#showcase">展示</a>
+  <a href="#about">我是谁</a>
+  <a href="#help">帮你</a>
+  <a href="#projects">项目</a>
+  <a href="#works">作品</a>
+  <a href="#culture">文化</a>
+  <a href="#teaching">教学理念</a>
+  <a href="#ability-test">测试</a>
+  <a href="#interact">互动</a>
+  <a href="#contact">联系</a>
+</aside>
 
 </body>
 </html>
