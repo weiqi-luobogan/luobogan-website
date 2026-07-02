@@ -624,14 +624,14 @@
       <p class="text-gray-soft text-sm mb-6 leading-relaxed">有什么想聊的、想问的、想吐槽的，都可以在这里留下。我会一条条看，回得慢但会回。</p>
       <form id="msg-form" class="card space-y-4" action="https://formsubmit.co/594271924@qq.com" method="POST">
         <input type="hidden" name="_subject" value="[官网留言] 有人在留言板发消息了">
-        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_blacklist" value="casino,viagra,cialis,levitra,backlinks,seo services,seo service,crypto trading,forex trading,binary options,loan offer,escort,xxx,porn">
         <input type="hidden" name="_template" value="table">
         <input type="hidden" name="_next" value="https://weiqiluobogan.com/#interact">
         <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
         <div class="grid md:grid-cols-2 gap-4">
           <div>
             <label class="text-xs text-gray-soft font-inter block mb-1">称呼</label>
-            <input type="text" name="name" required class="w-full border border-line rounded px-3 py-2 bg-paper text-sm focus:outline-none focus:border-seal">
+            <input type="text" name="name" required maxlength="20" class="w-full border border-line rounded px-3 py-2 bg-paper text-sm focus:outline-none focus:border-seal">
           </div>
           <div>
             <label class="text-xs text-gray-soft font-inter block mb-1">身份</label>
@@ -645,11 +645,11 @@
         </div>
         <div>
           <label class="text-xs text-gray-soft font-inter block mb-1">联系方式（可选，微信或邮箱）</label>
-          <input type="text" name="contact" class="w-full border border-line rounded px-3 py-2 bg-paper text-sm focus:outline-none focus:border-seal">
+          <input type="text" name="contact" maxlength="60" class="w-full border border-line rounded px-3 py-2 bg-paper text-sm focus:outline-none focus:border-seal">
         </div>
         <div>
           <label class="text-xs text-gray-soft font-inter block mb-1">留言内容</label>
-          <textarea name="message" rows="5" required class="w-full border border-line rounded px-3 py-2 bg-paper text-sm focus:outline-none focus:border-seal"></textarea>
+          <textarea name="message" rows="5" required minlength="10" maxlength="500" placeholder="留言至少 10 字，不超过 500 字。" class="w-full border border-line rounded px-3 py-2 bg-paper text-sm focus:outline-none focus:border-seal"></textarea>
         </div>
         <div class="flex items-center gap-4 flex-wrap">
           <button type="submit" class="bg-seal text-white px-6 py-2 rounded text-sm hover:opacity-90 transition">提交留言</button>
@@ -702,6 +702,38 @@
     });
   }, { threshold: 0.1 });
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // ===== 留言板反轰炸软防 =====
+  (function(){
+    var form = document.getElementById('msg-form');
+    if(!form) return;
+    var loadedAt = Date.now();
+    var hasHumanBehavior = false;
+    ['mousemove','keydown','touchstart','scroll'].forEach(function(evt){
+      window.addEventListener(evt, function(){ hasHumanBehavior = true; }, {once:true, passive:true});
+    });
+    form.addEventListener('submit', function(ev){
+      var elapsed = Date.now() - loadedAt;
+      if(elapsed < 3000){
+        ev.preventDefault();
+        alert('留言太快啦，稍等几秒再点提交～');
+        return;
+      }
+      if(!hasHumanBehavior){
+        ev.preventDefault();
+        alert('检测到异常行为，请正常浏览页面后再试。');
+        return;
+      }
+      var last = parseInt(localStorage.getItem('_lbg_msg_ts') || '0', 10);
+      if(Date.now() - last < 60000){
+        ev.preventDefault();
+        var wait = Math.ceil((60000 - (Date.now() - last))/1000);
+        alert('每分钟只能留言一次，请 ' + wait + ' 秒后再来。');
+        return;
+      }
+      localStorage.setItem('_lbg_msg_ts', String(Date.now()));
+    });
+  })();
 </script>
 
 </body>
