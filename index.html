@@ -222,7 +222,95 @@
       background: #f8f5ef;
     }
     #radar-wrap svg { max-width: 100%; height: auto; }
-  </style>
+  
+    /* ===== 文化专栏样式 ===== */
+    .culture-entry {
+      background: #fff;
+      border: 1px solid var(--line);
+      padding: 32px 28px;
+      cursor: pointer;
+      transition: all 0.28s ease;
+      position: relative;
+    }
+    .culture-entry:hover {
+      border-color: var(--seal);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(168, 54, 42, 0.08);
+    }
+    .culture-entry-icon {
+      font-size: 34px;
+      margin-bottom: 12px;
+      opacity: 0.85;
+    }
+    .culture-entry-count {
+      font-size: 12px;
+      color: var(--seal);
+      margin-top: 6px;
+      letter-spacing: 1px;
+    }
+    .culture-back {
+      display: inline-block;
+      color: var(--gray-soft, #6b6b6b);
+      font-size: 13px;
+      margin-bottom: 24px;
+      padding: 6px 14px;
+      border: 1px solid var(--line);
+      background: transparent;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .culture-back:hover { color: var(--seal); border-color: var(--seal); }
+    .article-item {
+      padding: 18px 4px;
+      border-bottom: 1px solid var(--line);
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    .article-item:hover { padding-left: 12px; }
+    .article-item:hover .article-item-title { color: var(--seal); }
+    .article-item-title {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--ink);
+      transition: color 0.2s;
+      line-height: 1.55;
+    }
+    .article-item-arrow {
+      color: var(--gray-soft, #6b6b6b);
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+    .culture-body {
+      font-size: 16px;
+      line-height: 1.85;
+      color: #2a2a2a;
+    }
+    .culture-body p { margin-bottom: 1em; }
+    .culture-body h4 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--ink);
+      margin: 1.6em 0 0.6em;
+      padding-left: 12px;
+      border-left: 3px solid var(--seal);
+    }
+    .culture-body ul { margin: 0.8em 0 1.2em; padding-left: 1.4em; }
+    .culture-body li { margin-bottom: 0.4em; list-style: disc; }
+    .culture-body blockquote {
+      border-left: 3px solid var(--seal);
+      background: #f5f0e8;
+      padding: 14px 20px;
+      margin: 1.2em 0;
+      color: #4a4a4a;
+      font-style: normal;
+      line-height: 1.9;
+    }
+    .culture-body strong { color: var(--ink); font-weight: 700; }
+</style>
 </head>
 <body>
 
@@ -597,46 +685,61 @@
 <section id="culture" class="bg-paper py-24">
   <div class="max-w-5xl mx-auto px-6 fade-in">
     <h2 class="section-title">围棋文化</h2>
-    <p class="text-gray-soft text-base leading-relaxed mb-12 max-w-2xl">四千年，围棋不是一门游戏，而是一整套<span class="font-bold text-ink">东方哲学</span>。孩子学的每一步，都是在这套哲学里长大。</p>
+    <p class="text-gray-soft text-base leading-relaxed mb-12 max-w-2xl">四千年，围棋不是一门游戏，而是一整套<span class="font-bold text-ink">东方哲学</span>。这里从四个门推开看：<strong class="text-ink">历史</strong>、<strong class="text-ink">故事</strong>、<strong class="text-ink">典籍</strong>、<strong class="text-ink">人物</strong>。持续更新，慢慢挖。</p>
 
-    <div class="grid md:grid-cols-2 gap-6">
-      <!-- 模块 1 -->
-      <div class="card">
-        <p class="text-xs text-gray-soft mb-3 font-inter tracking-wider">壹 · 溯源</p>
-        <h3 class="text-lg font-bold mb-3">围棋从哪里来</h3>
-        <p class="text-gray-soft text-sm leading-relaxed">从传说中的<span class="font-bold text-base text-ink">尧造围棋</span>说起，这门棋走过了四千多年。相传尧帝为教子丹朱心性沉稳，才发明了它——所以从第一天起，围棋就是<span class="font-bold text-base text-ink">教育工具</span>。汉唐两朝盛行，随遣唐使传入日本，近代又反哺回中国的现代竞技体系。今天全球 70 多个国家在下围棋，根始终在中国。</p>
+    <!-- ======= 视图 1：4 板块入口 ======= -->
+    <div id="culture-home" class="grid md:grid-cols-2 gap-6">
+      <div class="culture-entry" data-cat="history">
+        <div class="culture-entry-icon">📜</div>
+        <p class="text-xs text-gray-soft mb-2 font-inter tracking-wider">壹 · 时间</p>
+        <h3 class="text-xl font-bold mb-2">围棋的历史</h3>
+        <p class="text-gray-soft text-sm leading-relaxed mb-3">从上古神话走来，围棋在中国活了五千年。走一遍它的时间线。</p>
+        <p class="culture-entry-count"><span class="cnt-history">0</span> 篇 · 点击进入 →</p>
       </div>
-
-      <!-- 模块 2 -->
-      <div class="card">
-        <p class="text-xs text-gray-soft mb-3 font-inter tracking-wider">贰 · 别名</p>
-        <h3 class="text-lg font-bold mb-3">一个名字，一层意思</h3>
-        <ul class="text-gray-soft text-sm leading-relaxed space-y-2 list-disc pl-5">
-          <li><span class="font-bold text-base text-ink">手谈</span>——不说话，只谈棋。落子如落言。</li>
-          <li><span class="font-bold text-base text-ink">坐隐</span>——坐着就能隐居。人在这里，心早跑进棋盘的山水。</li>
-          <li><span class="font-bold text-base text-ink">忘忧</span>——最古老的"专注疗法"，一坐几个钟头，烦恼真会散。</li>
-          <li><span class="font-bold text-base text-ink">烂柯</span>——一盘棋走完，人间百年。围棋独有的时间感。</li>
-        </ul>
+      <div class="culture-entry" data-cat="story">
+        <div class="culture-entry-icon">📖</div>
+        <p class="text-xs text-gray-soft mb-2 font-inter tracking-wider">贰 · 记忆</p>
+        <h3 class="text-xl font-bold mb-2">围棋的故事</h3>
+        <p class="text-gray-soft text-sm leading-relaxed mb-3">五千年里，围棋不只是棋，它是无数故事的容器。挑几个我常讲的。</p>
+        <p class="culture-entry-count"><span class="cnt-story">0</span> 则 · 点击进入 →</p>
       </div>
-
-      <!-- 模块 3 -->
-      <div class="card">
-        <p class="text-xs text-gray-soft mb-3 font-inter tracking-wider">叁 · 故事</p>
-        <h3 class="text-lg font-bold mb-3">我常给孩子讲的三个故事</h3>
-        <ul class="text-gray-soft text-sm leading-relaxed space-y-3 list-disc pl-5">
-          <li><span class="font-bold text-base text-ink">烂柯山</span>：晋人王质入山看两位老翁下棋，一局未终，砍柴的斧柄早已朽烂，回村时同辈皆已作古。</li>
-          <li><span class="font-bold text-base text-ink">王积薪梦授</span>：唐代大国手王积薪投宿荒野，深夜听婆媳隔房下棋，全凭口报着法；醒来再摆，棋艺大进。</li>
-          <li><span class="font-bold text-base text-ink">新布局革命</span>：20 世纪 30 年代，吴清源与木谷实合作"新布局"，一夜推翻千年定式，把围棋推进了现代竞技的门。</li>
-        </ul>
+      <div class="culture-entry" data-cat="classics">
+        <div class="culture-entry-icon">📚</div>
+        <p class="text-xs text-gray-soft mb-2 font-inter tracking-wider">叁 · 传承</p>
+        <h3 class="text-xl font-bold mb-2">围棋典籍</h3>
+        <p class="text-gray-soft text-sm leading-relaxed mb-3">两千年来中国人为围棋写过的书，浩如烟海。挑几本最重要的说说。</p>
+        <p class="culture-entry-count"><span class="cnt-classics">0</span> 部 · 点击进入 →</p>
       </div>
+      <div class="culture-entry" data-cat="people">
+        <div class="culture-entry-icon">👤</div>
+        <p class="text-xs text-gray-soft mb-2 font-inter tracking-wider">肆 · 人物</p>
+        <h3 class="text-xl font-bold mb-2">历史名人</h3>
+        <p class="text-gray-soft text-sm leading-relaxed mb-3">把围棋推向今天的，是一批批具体的人。他们的故事比棋谱更精彩。</p>
+        <p class="culture-entry-count"><span class="cnt-people">0</span> 位 · 点击进入 →</p>
+      </div>
+    </div>
 
-      <!-- 模块 4 -->
-      <div class="card">
-        <p class="text-xs text-gray-soft mb-3 font-inter tracking-wider">肆 · 我的教法</p>
-        <h3 class="text-lg font-bold mb-3">为什么先讲文化，再教棋</h3>
-        <p class="text-gray-soft text-sm leading-relaxed mb-3">在我这里，孩子第一节课<span class="font-bold text-base text-ink">不摸棋</span>——先讲围棋从哪里来。</p>
-        <p class="text-gray-soft text-sm leading-relaxed mb-3">有家长问我这是不是浪费时间。我想说：孩子一辈子会赢很多局、也会输很多局，让他真正走下去的，不是招法，是"我在下的是什么"。<span class="font-bold text-base text-ink">知道这门棋活了四千年，就不会因为输一两盘想放弃</span>。</p>
-        <p class="text-gray-soft text-sm leading-relaxed">技术会随年龄涨；<span class="font-bold text-base text-ink">文化底座早搭好，孩子一辈子都稳</span>。</p>
+    <!-- ======= 视图 2：某板块的文章列表 ======= -->
+    <div id="culture-list" style="display:none">
+      <button id="cul-back-home" class="culture-back">← 返回文化</button>
+      <div class="mb-6">
+        <p class="text-xs text-gray-soft mb-2 font-inter tracking-wider" id="cul-cat-tag"></p>
+        <h3 class="text-3xl font-bold mb-3" id="cul-cat-title"></h3>
+        <p class="text-gray-soft text-base leading-relaxed" id="cul-cat-intro"></p>
+      </div>
+      <div class="border-t border-line pt-6" id="cul-article-list"></div>
+    </div>
+
+    <!-- ======= 视图 3：文章详情 ======= -->
+    <div id="culture-detail" style="display:none">
+      <button id="cul-back-list" class="culture-back">← 返回列表</button>
+      <p class="text-xs text-gray-soft mb-2 font-inter tracking-wider" id="cul-detail-cat"></p>
+      <h3 class="text-3xl font-bold mb-6 leading-snug" id="cul-detail-title"></h3>
+      <article class="culture-body" id="cul-detail-body"></article>
+      <div class="border-t border-line mt-10 pt-6 flex justify-between items-center text-sm">
+        <button id="cul-prev" class="text-gray-soft hover:text-seal transition">← 上一篇</button>
+        <button id="cul-back-list-2" class="text-gray-soft hover:text-seal transition">返回列表</button>
+        <button id="cul-next" class="text-gray-soft hover:text-seal transition">下一篇 →</button>
       </div>
     </div>
 
@@ -1306,6 +1409,89 @@
     });
   })();
 
+
+    // ===== 围棋文化专栏 =====
+    const CULTURE_DATA = {"history": {"icon": "📜", "title": "围棋的历史", "intro": "从上古神话走来，围棋在中国已经活了五千年。", "articles": [{"title": "起源：一门被叫做「神仙的游戏」的棋", "body": "\n<p>围棋究竟是谁发明的、发明于什么时候，到今天都没有定论。这件事很有意思——一门活了五千年的游戏，起源反而是个迷。所以老祖宗干脆把它叫做<strong>「神仙的游戏」</strong>。</p>\n\n<p>但有一个规律：几乎所有关于围棋诞生的传说，都跟<strong>「教孩子」</strong>有关。</p>\n\n<ul>\n  <li><strong>尧造围棋教丹朱</strong>：上古尧帝的儿子丹朱顽皮好动、坐不住，尧帝就发明了围棋教他静心。</li>\n  <li><strong>舜造围棋教商均</strong>：舜帝的儿子商均愚钝呆板，舜帝造围棋让他学会推演思考。</li>\n  <li><strong>箕子说</strong>：商朝箕子隐居山西陵川，观测天象、推演星辰，围棋由此诞生。1993 年国家邮电部专门在陵川设立「棋子山一日邮局」，举行围棋特种邮票首发式。</li>\n</ul>\n\n<p>战国的《世本·作篇》记：「尧造围棋，丹朱善之。」东晋张华《博物志》：「尧造围棋，以教子丹朱。或云：舜以子商均愚，故作围棋以教之。」——这是流传至今最权威的两条文献。</p>\n\n<p>我教了十年围棋，特别喜欢跟家长讲这一段。为什么？因为这告诉我们一件事：<strong>围棋从诞生的第一天起，本质就是教育工具，不是游戏</strong>。今天很多家长问我\"孩子学围棋有什么用\"，我常想笑——五千年前的尧舜就已经把答案写好了：教孩子静心、教孩子思考、教孩子在一进一退里学会分寸。</p>\n\n<p>这个「初心」，我们后人不能忘。</p>\n"}, {"title": "春秋战国：第一位有名字的围棋老师叫「弈秋」", "body": "\n<p>围棋老师这个职业，最早是从春秋时期一个鲁国人开始的——他的名字叫<strong>弈秋</strong>（也写作「奕秋」）。他是中国历史上第一位有名有姓的围棋老师。</p>\n\n<p>那时候通行的棋盘是 <strong>17 路</strong>（今天的 19 路是唐代才定下来的）。弈秋教两个学生下棋，被孟子写进了《告子》篇里，成了千古流传的教育经典：</p>\n\n<blockquote>「弈秋，通国之善弈者也。使弈秋诲二人弈，其一人专心致志，惟弈秋之为听；一人虽听之，一心以为有鸿鹄将至，思援弓缴而射之。虽与之俱学，弗若之矣。为是其智弗若与？曰：非然也。」</blockquote>\n\n<p>说白了：<strong>两个学生跟同一个老师学棋，一个专心听讲，一个走神想射天上的大雁。同样时间、同样师资，结果天差地远。孟子说，这不是智商问题，是专注度的问题</strong>。</p>\n\n<p>诸子百家对围棋的态度也很有意思，四家给了四种解读：</p>\n<ul>\n  <li>儒家把它当作智者贤士的休闲活动；</li>\n  <li>纵横家把它看成模拟天下兴衰的镜子；</li>\n  <li>兵家把它当兵法教科书；</li>\n  <li>道家把它当天地万物和自然规律的缩影。</li>\n</ul>\n\n<p>这四家的解读，今天依然是围棋文化解读的四条主线。</p>\n\n<p><strong>我最感触的一点是</strong>：两千多年前，一个围棋老师教两个孩子，遇到的核心问题是\"专注\"；两千多年后，我在教室里，家长最常问我的问题还是\"我家孩子怎么坐不住\"。<strong>围棋老师从古至今面对的核心命题，从来没变过</strong>。</p>\n"}, {"title": "隋唐盛世：19 路棋盘定型，围棋十诀问世", "body": "\n<p>如果说春秋战国是围棋文化的萌芽期，那隋唐就是<strong>围棋的第一个高光时代</strong>。三件大事都发生在这个时期：</p>\n\n<h4>一、19 路棋盘正式取代 17 路</h4>\n<p>从上古到隋唐，围棋棋盘走过了 13 路、15 路、17 路的漫长演化，到隋唐时期 <strong>19 路 361 交叉点</strong>成为公认标准，一直沿用至今。有意思的是，同时期的朝鲜半岛（当时称\"新罗\"\"高丽\"）还在流行 15、17 路棋盘，出土的皇室围棋文物中有 17 颗座子（预先摆在四角星位的棋子），这套规则被称为<strong>「巡将制度」</strong>。</p>\n\n<h4>二、围棋成为「琴棋书画」四艺之一</h4>\n<p>唐代把围棋正式纳入士人必修的四大艺——琴、棋、书、画。<strong>「棋」成为衡量一个文化人素养的硬指标</strong>。宫廷设立了「棋待诏」这个专职官职，专门陪皇帝和贵族下棋，第一批\"体制内职业棋手\"由此诞生。</p>\n\n<h4>三、王积薪写下《围棋十诀》</h4>\n<p>唐玄宗时期的第一国手王积薪，写下了流传至今的<strong>《围棋十诀》</strong>——「不得贪胜、入界宜缓、攻彼顾我、弃子争先、舍小就大、逢危须弃、慎勿轻速、动须相应、彼强自保、势孤取和」。</p>\n\n<p>这十句话一千三百年过去了，AlphaGo 都下过，还是句句管用。<strong>它讲的不是招法，是心法</strong>。</p>\n\n<p>唐代还发生了两件影响围棋走向的事：</p>\n<ul>\n  <li><strong>围棋随遣唐使传入日本</strong>——最早由吉备真备带回，此后日本围棋独立发展了一千多年，反过来在近代影响了中国。</li>\n  <li><strong>棋盘上开始出现「花点」标记</strong>——就是今天棋盘上的九个圆点，用来标定星位。这是唐代人对现代棋盘的最后一个贡献。</li>\n</ul>\n\n<p><strong>今天我们下的每一盘棋，用的都是唐代人定下来的棋盘、唐代人写下来的心法。</strong>这不是一句客气话——是历史真的这样传下来的。</p>\n"}]}, "story": {"icon": "📖", "title": "围棋的故事", "intro": "五千年里，围棋不只是棋，它是无数故事的容器。", "articles": [{"title": "关羽刮骨疗毒时，桌上放着一盘围棋", "body": "\n<p>三国里最广为流传的故事之一，是「关羽刮骨疗毒」。但很多人没注意到一个细节：<strong>关羽当时在下围棋</strong>。</p>\n\n<p>关羽在攻打樊城的时候，被曹军的毒箭射中右臂，箭毒渗入骨头。神医华佗前来诊治，说必须\"破臂作创，刮骨去毒\"，才能保命。华佗担心疼痛，建议先麻醉。关羽却拒绝了。</p>\n\n<p>他做了什么呢？<strong>叫来马良陪自己下棋</strong>。华佗当场用刀切开手臂、刮骨去毒，血流盈盘，关羽却\"饮酒食肉，谈笑弈棋，全无痛苦之色\"。</p>\n\n<p>这就是《三国志》里记载的这段故事。</p>\n\n<p>——很多人把这段故事解读为\"关羽勇武过人\"，我倒觉得没那么简单。<strong>围棋在这里起到的作用，是「专注治痛」</strong>。人在极度专注一件事的时候，大脑会屏蔽掉大量的痛感信号。今天我们叫它\"心流\"，古人不懂神经科学，但他们知道<strong>下围棋能让人忘记疼痛</strong>——这几乎是围棋最早的「疗愈功能」实录。</p>\n\n<p>后来的历史里，还有很多类似的故事：宋代范仲淹在西北军营用下棋缓解焦虑，明代徐霞客在山中用下棋消解孤旅，直到今天，还有很多癌症病人在化疗时下围棋——不是消遣，是<strong>用专注对抗痛苦</strong>。</p>\n\n<p>关羽刮骨那盘棋下没下完，历史没记。但我总觉得，那盘棋比后来任何一场战争都值得纪念。</p>\n"}, {"title": "谢安在下棋，前方八万北军压境", "body": "\n<p>公元 383 年，前秦皇帝苻坚率八十七万大军南下攻晋，扬言要「投鞭断流」。东晋朝廷能拿出来的只有<strong>八万北府军</strong>。这就是历史上著名的「淝水之战」。</p>\n\n<p>当时东晋的宰相是谢安。战报一封一封从前线传来，朝堂上下人心惶惶。谢安做了什么呢？</p>\n\n<p><strong>他在下围棋。</strong></p>\n\n<p>那天谢安约了侄子谢玄下棋——谢玄就是北府军的实际统帅，正准备出发上前线。谢安拉住他不让走，说：「我们下完这盘棋再说。」两人对弈，谢安<strong>手中黑白棋子从未停顿</strong>，脸上没有一丝焦虑。谢玄看叔父这样淡定，心里也稳了，去了前线。</p>\n\n<p>更精彩的是后半段。前方战报传来「秦师大败」，谢安展开一看，看完继续下棋，一句话不说。旁边人急得不行，忍不住问：「怎么样了？」谢安只淡淡回一句：<strong>「小儿辈大破贼。」</strong>——小孩子们把敌军打败了。</p>\n\n<p>然后继续下棋。</p>\n\n<p>——这段故事我教了十年棋，讲过至少五十遍。<strong>它讲的不是围棋本身，讲的是围棋人的「定力」</strong>。八万对八十七万的战争胜负未定，作为最高决策者，谢安不是不紧张，是<strong>知道自己一紧张，整个东晋的军心就会崩</strong>。他用一盘棋把这种紧张压下去，用一盘棋撑住了整个东晋的心气。</p>\n\n<p>我常跟家长说：<strong>孩子学围棋，学的不是招法，是这种压得住场的定力</strong>。以后他们工作、创业、当领导，遇到大事的时候能不能像谢安那样先稳住自己——这个能力，比多少证书都值钱。</p>\n"}, {"title": "烂柯：一盘棋走完，人间已过百年", "body": "\n<p>「烂柯」是围棋众多别称里最有想象力的一个。故事来自晋朝任昉《述异记》：</p>\n\n<p>晋朝有个樵夫叫<strong>王质</strong>，某天进山砍柴，走着走着看见山中有两位白发老翁在下围棋。他把砍柴的斧头（柄）搁在一旁，站在旁边看这两位下棋。看着看着入迷了——一局未终，抬头一看，<strong>手边的斧柄已经腐烂</strong>（\"柯\"就是斧柄的意思）。</p>\n\n<p>王质心里一惊，赶紧回村。到了村口，发现<strong>整个村子的人他一个都不认识了</strong>——他同辈的人早已作古，村里流传的是他失踪几十年、上百年的传说。</p>\n\n<p>「烂柯」从此成了围棋的雅号，专指<strong>下棋时的时间感</strong>。</p>\n\n<p>——为什么这个故事能流传这么久？我觉得有两层意思。</p>\n\n<p>第一层是<strong>物理上的时间感</strong>。所有认真下过围棋的人都知道，坐下来对一盘复杂的棋，两三个小时不知不觉就过去了。你完全感觉不到时间在流逝。围棋是极少数能<strong>让人「感觉不到时间」</strong>的活动。</p>\n\n<p>第二层更深——<strong>它讲的是人与\"世俗时间\"的抽离</strong>。王质在山里看那两位下棋的时候，村里的时间照常在走，人的生老病死照常在发生。但王质本人，是<strong>暂时活在另一套时间尺度里</strong>的。围棋不是逃避现实，围棋是让你短暂地跳出现实，去看那些日常里看不到的东西。</p>\n\n<p>我常常跟大孩子讲这个故事。他们上初中之后压力大、时间紧，越是这样越应该学会「烂柯」——<strong>每天给自己 20 分钟，让世界暂停一下</strong>。这不是浪费时间，这是自我修复。</p>\n\n<p>浙江衢州有一座「烂柯山」，就是根据这个传说得名的。今天还是围棋人的朝圣地。</p>\n"}]}, "classics": {"icon": "📚", "title": "围棋典籍", "intro": "两千年来，中国人为围棋写过的书，浩如烟海。这里挑几本最重要的。", "articles": [{"title": "《敦煌棋经》：世界上现存最早的围棋书", "body": "\n<p>今天所有围棋书的「老祖宗」，是一本叫做<strong>《敦煌棋经》</strong>的书（原名《棊经》）。</p>\n\n<p>这本书作者不详，写于北周时期（大约公元 6 世纪）——距今约 1500 年。它被<strong>抄写在敦煌石窟一部佛经画卷的背面</strong>，全书原有七篇，其中一篇残缺了一半。</p>\n\n<p>怎么判断它是北周的？很有意思——因为经文里把黑子写作<strong>「乌子」</strong>。这是为了避讳北周皇帝宇文泰的字「黑獭」——古人写书遇到皇帝的名或字，都要换一个字，这叫「避讳」。学者从这个字的用法，判定这本书是北周时期的。</p>\n\n<p>这本书的命运也很曲折——清光绪年间在敦煌「藏经洞」被发现，之后<strong>被英国探险家斯坦因连同其他七千余卷经书一起「骗」走</strong>。今天这本书藏于伦敦大英博物馆，馆藏编号 <strong>S.5574</strong>。中国人想看自己老祖宗写的第一本围棋书，得去大英博物馆。</p>\n\n<p>《敦煌棋经》讲了什么？七篇里主要讨论：</p>\n<ul>\n  <li>棋盘、棋子的规格与由来；</li>\n  <li>对弈的基本原则；</li>\n  <li>观棋、评棋的方法；</li>\n  <li>围棋对性情、修身的作用。</li>\n</ul>\n\n<p>它开创了一个传统——<strong>围棋书不只是讲招法，更要讲道理</strong>。这个传统后来被唐宋元明清一代代传下来，直到今天日韩围棋书里还能看到这种影子。</p>\n\n<p>——我讲这本书的时候，孩子们最喜欢问的问题永远是「为什么在英国」。我说，这是历史给我们上的一课：<strong>文化再深厚，也扛不住不重视</strong>。我们今天做围棋教育，做的其实也是「让下一代重视自己的文化」这件事。</p>\n"}, {"title": "《围棋十诀》：一千三百年前的十条心法，今天依然管用", "body": "\n<p>《围棋十诀》是唐代第一国手<strong>王积薪</strong>写下的十条对弈准则。全文只有 40 个字，却影响了此后一千三百年的所有围棋高手。</p>\n\n<p>原文如下：</p>\n<blockquote>\n一、不得贪胜<br>\n二、入界宜缓<br>\n三、攻彼顾我<br>\n四、弃子争先<br>\n五、舍小就大<br>\n六、逢危须弃<br>\n七、慎勿轻速<br>\n八、动须相应<br>\n九、彼强自保<br>\n十、势孤取和\n</blockquote>\n\n<p>我一条一条给你解释：</p>\n\n<p><strong>一、不得贪胜</strong>——想赢的心不能太重，否则出昏招。<br>\n<strong>二、入界宜缓</strong>——进入对方领地要慢，不能急躁。<br>\n<strong>三、攻彼顾我</strong>——攻击对方的时候，先要看自己安不安全。<br>\n<strong>四、弃子争先</strong>——舍得放弃一些子，去抢先手。<br>\n<strong>五、舍小就大</strong>——小地方可以让，大地方一定要抢。<br>\n<strong>六、逢危须弃</strong>——遇到危险的子，果断放弃，不要留恋。<br>\n<strong>七、慎勿轻速</strong>——不要走得太快，要三思。<br>\n<strong>八、动须相应</strong>——每一手都要跟前面呼应，不能各下各的。<br>\n<strong>九、彼强自保</strong>——对方强的地方，先保护好自己。<br>\n<strong>十、势孤取和</strong>——势力单薄的时候，谋求和平共处。</p>\n\n<p>这十条今天还有人反复研究——2016 年 AlphaGo 和李世石那盘世界大战，日本围棋界还专门用这十诀分析 AlphaGo 的招法，发现<strong>AlphaGo 违反十诀的次数远比人类少</strong>。</p>\n\n<p>——但我最想说的不是这个。我最想说的是：<strong>这十条，把「不得贪胜」放在第一位</strong>。</p>\n\n<p>一千三百年前的中国人就已经想明白了——赢，是围棋所有问题里最不重要的一个。<strong>不贪，才是所有智慧的起点</strong>。今天很多家长逼孩子考级、逼孩子赢棋、逼孩子拿冠军，从头到尾都在教孩子「贪胜」。王积薪要是知道，估计会气得从坟里跳出来。</p>\n\n<p>孩子学围棋，我第一堂课就讲这十条。<strong>技术会忘，心法不会</strong>。</p>\n"}]}, "people": {"icon": "👤", "title": "历史名人", "intro": "两千多年里，把围棋推向今天的，是一批批具体的人。", "articles": [{"title": "弈秋：中国历史上第一位有名字的围棋老师", "body": "\n<p>弈秋（生卒年不详），春秋末期鲁国人。是中国历史上<strong>第一位有名有姓的围棋老师</strong>，也是有史可查的第一位围棋\"专业选手\"。</p>\n\n<p>孟子把他写进了《告子》篇里，一句话概括他的水平：<strong>「弈秋，通国之善弈者也。」</strong>——全国最会下棋的人。</p>\n\n<p>关于他为什么叫「弈秋」，历史上有两种说法：</p>\n<ul>\n  <li>一种说他姓弈名秋，是本名；</li>\n  <li>一种说「弈」是他的职业标签——\"下棋的秋\"，用职业加名字来称呼他，就像后来叫「庖丁」（做饭的丁）、「优孟」（表演的孟）一样。</li>\n</ul>\n\n<p>我倾向于后一种说法——<strong>春秋战国时期，中国就有了以围棋为职业的人</strong>，这在整个人类文明史上都是非常早的。同时期的希腊人在下双陆棋，同时期的埃及人在下塞尼特棋，但都没有「专业棋手」这个身份。</p>\n\n<p>弈秋教两个学生，一个专心听讲、一个走神想射大雁，同样时间学出来天差地远的故事，是孟子借来讲「专心致志」这个道理的。<strong>但也正因为这个故事，弈秋被后人尊为「围棋教师的祖师爷」</strong>。</p>\n\n<p>——我作为一个教了十年围棋的人，其实非常想对弈秋说一句：「师祖，两千多年过去了，你当年遇到的问题，我今天还在遇到。」</p>\n\n<p>教围棋这件事，从弈秋开始就有两个永恒的核心问题：</p>\n<ul>\n  <li><strong>怎么让孩子专心</strong>——弈秋没解决，我也还在琢磨。</li>\n  <li><strong>怎么因材施教</strong>——同一个老师，能不能带出两种孩子。这条弈秋也交给后人了。</li>\n</ul>\n\n<p>但至少有一件事是弈秋证明了的：<strong>围棋老师，能被史书写进去、能被诸子百家引用、能流传两千多年</strong>。这份职业尊严，是我们后人应该守住的。</p>\n"}, {"title": "吴清源：一夜推翻千年定式的人", "body": "\n<p>如果说中国围棋两千年里挑一个人代表现代，那一定是<strong>吴清源</strong>（1914–2014）。</p>\n\n<p>他是福建人，7 岁学棋，11 岁进入北平的段祺瑞棋社，14 岁东渡日本。<strong>从 20 岁到 65 岁，一个人打遍日本围棋界几乎所有顶尖高手，无一败绩</strong>——这个战绩至今没有第二个围棋人做到过。日本人称他「昭和棋圣」。</p>\n\n<p>但吴清源最厉害的不是战绩。是他<strong>掀翻了整个围棋界一千年的开局理论</strong>。</p>\n\n<p>20 世纪 30 年代，日本围棋界流行的开局叫「本因坊定式」——从德川时代传下来的一套开局套路，几百年没变过。1933 年，年仅 19 岁的吴清源和他的朋友<strong>木谷实</strong>，联手发表了一套全新的开局理论，起名叫<strong>「新布局」</strong>。</p>\n\n<p>核心内容就两点：</p>\n<ul>\n  <li>不再抢占棋盘四角（当时的正统），而是抢占<strong>棋盘中央</strong>；</li>\n  <li>不再拘泥于「守角」「拆二」这类固定套路，而是<strong>整体规划、大局优先</strong>。</li>\n</ul>\n\n<p>「新布局」一出，日本围棋界震动。老一辈棋手气得跳脚说这是「歪门邪道」，年轻棋手却疯狂追随。<strong>一夜之间，一千年的开局定式被推翻</strong>。今天所有围棋 AI 走的开局，本质上都是新布局的延伸。</p>\n\n<p>吴清源一生打的名局无数，我最喜欢的是他打的<strong>「十番棋」</strong>——每次跟一个对手连打十盘定胜负。他前后打了六次「十番棋」，把六位当时日本最顶尖的棋手全部「打降级」（日本围棋规则里，输太多要降段位）。整个日本围棋界，被他一个人打得抬不起头。</p>\n\n<p>——我常跟学员说吴清源的故事，但我讲他，重点不是他赢了多少盘。我讲的是<strong>三件事</strong>：</p>\n\n<p><strong>第一，一个中国孩子在日本，靠一门棋活成了他们的国师</strong>。这是文化自信的活广告。</p>\n\n<p><strong>第二，他 19 岁敢推翻一千年的定式</strong>。围棋教会他的不是守成，是敢想。</p>\n\n<p><strong>第三，吴清源晚年信奉「六合之棋」——不再执着胜负，只求棋局的完整和谐</strong>。这是围棋人的最高境界：赢过所有人之后，还能放下\"赢\"这件事。</p>\n\n<p>吴清源 2014 年过世，享年 100 岁。他这一辈子，就是围棋这门棋能给一个人的所有答案。</p>\n"}]}};
+    (function initCulture() {
+      // 填充计数
+      Object.keys(CULTURE_DATA).forEach(k => {
+        const el = document.querySelector('.cnt-' + k);
+        if (el) el.textContent = CULTURE_DATA[k].articles.length;
+      });
+
+      const homeEl = document.getElementById('culture-home');
+      const listEl = document.getElementById('culture-list');
+      const detailEl = document.getElementById('culture-detail');
+      const state = { cat: null, idx: 0 };
+
+      function showHome() {
+        homeEl.style.display = 'grid';
+        listEl.style.display = 'none';
+        detailEl.style.display = 'none';
+        scrollToCulture();
+      }
+
+      function showList(cat) {
+        state.cat = cat;
+        const data = CULTURE_DATA[cat];
+        document.getElementById('cul-cat-tag').textContent = data.icon + '   ' + {'history':'壹 · 时间','story':'贰 · 记忆','classics':'叁 · 传承','people':'肆 · 人物'}[cat];
+        document.getElementById('cul-cat-title').textContent = data.title;
+        document.getElementById('cul-cat-intro').textContent = data.intro;
+        const listBox = document.getElementById('cul-article-list');
+        listBox.innerHTML = '';
+        data.articles.forEach((a, i) => {
+          const item = document.createElement('div');
+          item.className = 'article-item';
+          item.innerHTML = '<span class="article-item-title">' + (i + 1).toString().padStart(2, '0') + ' · ' + a.title + '</span><span class="article-item-arrow">→</span>';
+          item.addEventListener('click', () => showDetail(cat, i));
+          listBox.appendChild(item);
+        });
+        homeEl.style.display = 'none';
+        listEl.style.display = 'block';
+        detailEl.style.display = 'none';
+        scrollToCulture();
+      }
+
+      function showDetail(cat, idx) {
+        state.cat = cat;
+        state.idx = idx;
+        const data = CULTURE_DATA[cat];
+        const article = data.articles[idx];
+        document.getElementById('cul-detail-cat').textContent = data.icon + '   ' + data.title;
+        document.getElementById('cul-detail-title').textContent = article.title;
+        document.getElementById('cul-detail-body').innerHTML = article.body;
+        // 上下篇按钮
+        const prev = document.getElementById('cul-prev');
+        const next = document.getElementById('cul-next');
+        prev.style.visibility = idx > 0 ? 'visible' : 'hidden';
+        next.style.visibility = idx < data.articles.length - 1 ? 'visible' : 'hidden';
+        homeEl.style.display = 'none';
+        listEl.style.display = 'none';
+        detailEl.style.display = 'block';
+        scrollToCulture();
+      }
+
+      function scrollToCulture() {
+        window.scrollTo({ top: document.getElementById('culture').offsetTop - 20, behavior: 'smooth' });
+      }
+
+      // 绑定入口卡片
+      document.querySelectorAll('.culture-entry').forEach(el => {
+        el.addEventListener('click', () => showList(el.dataset.cat));
+      });
+      // 返回按钮
+      document.getElementById('cul-back-home').addEventListener('click', showHome);
+      document.getElementById('cul-back-list').addEventListener('click', () => showList(state.cat));
+      document.getElementById('cul-back-list-2').addEventListener('click', () => showList(state.cat));
+      // 上下篇
+      document.getElementById('cul-prev').addEventListener('click', () => {
+        if (state.idx > 0) showDetail(state.cat, state.idx - 1);
+      });
+      document.getElementById('cul-next').addEventListener('click', () => {
+        const total = CULTURE_DATA[state.cat].articles.length;
+        if (state.idx < total - 1) showDetail(state.cat, state.idx + 1);
+      });
+    })();
 </script>
 
 </body>
