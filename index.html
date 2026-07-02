@@ -152,6 +152,7 @@
       <a href="#help" class="nav-link">我能帮你</a>
       <a href="#projects" class="nav-link">项目</a>
       <a href="#works" class="nav-link">作品</a>
+      <a href="#interact" class="nav-link">互动</a>
       <a href="#contact" class="nav-link text-seal font-medium">加微信</a>
     </nav>
   </div>
@@ -503,6 +504,85 @@
     </div>
   </div>
 </section>
+
+<!-- ===== Interact ===== -->
+<section id="interact" class="bg-paper-2 py-24 border-y border-line">
+  <div class="max-w-5xl mx-auto px-6 fade-in">
+    <h2 class="section-title">互动</h2>
+    <p class="text-gray-soft mb-12 text-sm">每周挑一个真实问题聊聊，也欢迎你在下方直接留言。</p>
+
+    <!-- 每周话题 -->
+    <div class="mb-16">
+      <div class="flex items-baseline gap-3 mb-6 flex-wrap">
+        <span class="seal">每周话题</span>
+        <span class="text-xs text-gray-soft font-inter tracking-wider">第 001 期</span>
+      </div>
+      <div class="card">
+        <p class="text-xs text-gray-soft mb-3 font-inter">本周问题</p>
+        <h3 class="text-xl font-bold mb-4">明明会做题，一到实战就"下崩"，问题出在哪？</h3>
+        <ul class="text-gray-soft text-sm leading-relaxed space-y-2 list-disc pl-5 mb-4">
+          <li><span class="font-bold text-base text-ink">会做题不等于会实战</span>——死活题里"知道答案"跟对局里"想到答案"是两码事。</li>
+          <li><span class="font-bold text-base text-ink">下崩不是异常</span>——对棋力还没稳定的孩子来说，是必经阶段。</li>
+          <li><span class="font-bold text-base text-ink">家长最容易踩的坑</span>——一崩就要求"再复盘一次"，反而让孩子越来越怕下棋。</li>
+        </ul>
+        <p class="text-xs text-gray-soft leading-relaxed"><em>下周话题预告：怎么带孩子度过第一次"下崩"？欢迎在下方留言板留下你的思考。</em></p>
+      </div>
+    </div>
+
+    <!-- 留言板 -->
+    <div>
+      <div class="flex items-baseline gap-3 mb-6 flex-wrap">
+        <span class="seal">留言板</span>
+      </div>
+      <p class="text-gray-soft text-sm mb-6 leading-relaxed">有什么想聊的、想问的、想吐槽的，都可以在这里留下。我会一条条看，回得慢但会回。</p>
+      <form id="msg-form" class="card space-y-4" onsubmit="return handleMsgSubmit(event);">
+        <div class="grid md:grid-cols-2 gap-4">
+          <div>
+            <label class="text-xs text-gray-soft font-inter block mb-1">称呼</label>
+            <input type="text" name="name" required class="w-full border border-line rounded px-3 py-2 bg-paper text-sm focus:outline-none focus:border-seal">
+          </div>
+          <div>
+            <label class="text-xs text-gray-soft font-inter block mb-1">身份</label>
+            <select name="role" class="w-full border border-line rounded px-3 py-2 bg-paper text-sm focus:outline-none focus:border-seal">
+              <option>家长</option>
+              <option>老师</option>
+              <option>学员 / 棋友</option>
+              <option>其他</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label class="text-xs text-gray-soft font-inter block mb-1">联系方式（可选，微信或邮箱）</label>
+          <input type="text" name="contact" class="w-full border border-line rounded px-3 py-2 bg-paper text-sm focus:outline-none focus:border-seal">
+        </div>
+        <div>
+          <label class="text-xs text-gray-soft font-inter block mb-1">留言内容</label>
+          <textarea name="message" rows="5" required class="w-full border border-line rounded px-3 py-2 bg-paper text-sm focus:outline-none focus:border-seal"></textarea>
+        </div>
+        <div class="flex items-center gap-4 flex-wrap">
+          <button type="submit" class="bg-seal text-white px-6 py-2 rounded text-sm hover:opacity-90 transition">提交留言</button>
+          <span class="text-xs text-gray-soft">不方便打字，直接扫下方二维码加微信也一样。</span>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script>
+function handleMsgSubmit(e){
+  e.preventDefault();
+  var f = e.target;
+  var name = (f.name.value||"").trim();
+  var role = f.role.value;
+  var contact = (f.contact.value||"").trim();
+  var msg = (f.message.value||"").trim();
+  if(!name || !msg){ alert('称呼和留言内容需要填一下～'); return false; }
+  var subject = encodeURIComponent('[官网留言] ' + role + ' · ' + name);
+  var body = encodeURIComponent('称呼：'+name+'\n身份：'+role+'\n联系方式：'+contact+'\n\n留言内容：\n'+msg);
+  window.location.href = 'mailto:REPLACE_EMAIL@example.com?subject='+subject+'&body='+body;
+  return false;
+}
+</script>
 
 <!-- ===== Contact ===== -->
 <section id="contact" class="bg-paper-2 py-24 border-y border-line">
