@@ -535,7 +535,12 @@
         <span class="seal">留言板</span>
       </div>
       <p class="text-gray-soft text-sm mb-6 leading-relaxed">有什么想聊的、想问的、想吐槽的，都可以在这里留下。我会一条条看，回得慢但会回。</p>
-      <form id="msg-form" class="card space-y-4" onsubmit="return handleMsgSubmit(event);">
+      <form id="msg-form" class="card space-y-4" action="https://formsubmit.co/594271924@qq.com" method="POST">
+        <input type="hidden" name="_subject" value="[官网留言] 有人在留言板发消息了">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_next" value="https://weiqiluobogan.com/#interact">
+        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
         <div class="grid md:grid-cols-2 gap-4">
           <div>
             <label class="text-xs text-gray-soft font-inter block mb-1">称呼</label>
@@ -567,22 +572,6 @@
     </div>
   </div>
 </section>
-
-<script>
-function handleMsgSubmit(e){
-  e.preventDefault();
-  var f = e.target;
-  var name = (f.name.value||"").trim();
-  var role = f.role.value;
-  var contact = (f.contact.value||"").trim();
-  var msg = (f.message.value||"").trim();
-  if(!name || !msg){ alert('称呼和留言内容需要填一下～'); return false; }
-  var subject = encodeURIComponent('[官网留言] ' + role + ' · ' + name);
-  var body = encodeURIComponent('称呼：'+name+'\n身份：'+role+'\n联系方式：'+contact+'\n\n留言内容：\n'+msg);
-  window.location.href = 'mailto:REPLACE_EMAIL@example.com?subject='+subject+'&body='+body;
-  return false;
-}
-</script>
 
 <!-- ===== Contact ===== -->
 <section id="contact" class="bg-paper-2 py-24 border-y border-line">
