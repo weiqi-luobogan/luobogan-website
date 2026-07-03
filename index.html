@@ -347,6 +347,23 @@
     .side-nav a { display: block; padding: 7px 12px; background: rgba(255,255,255,0.88); border: 1px solid var(--line); font-size: 12px; color: var(--ink); text-decoration: none; border-radius: 3px; transition: all 0.25s; letter-spacing: 0.03em; -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); text-align: center; min-width: 62px; }
     .side-nav a:hover { background: var(--seal); color: #fff; border-color: var(--seal); transform: translateX(-4px); }
     @media (max-width: 900px) { .side-nav { display: none; } }
+
+  /* ===== 折叠板块 ===== */
+  .collapsible { display: none; }
+  .collapsible.open { display: block; animation: fadeSlideIn 0.5s ease-out; }
+  @keyframes fadeSlideIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ===== side-nav 增强 ===== */
+  .side-nav-title { font-size: 11px; color: var(--gray-soft); letter-spacing: 0.2em; margin-bottom: 8px; padding-left: 4px; opacity: 0.7; }
+  .side-nav a.active { background: var(--seal); color: #fff; border-color: var(--seal); transform: translateX(-4px); }
+
+  /* ===== 品牌箴言 creed ===== */
+  .creed { padding: 90px 24px; text-align: center; background: var(--paper); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .creed-line { font-size: 22px; letter-spacing: 0.18em; color: var(--ink); font-weight: 600; line-height: 1.6; }
+  @media (min-width: 768px) { .creed-line { font-size: 30px; } }
+  .creed-sep { display: inline-block; margin: 0 12px; color: var(--seal); font-weight: normal; }
+  .creed-sub { margin-top: 24px; font-size: 13px; color: var(--gray-soft); letter-spacing: 0.15em; }
+
 </style>
 </head>
 <body>
@@ -359,15 +376,10 @@
       <span class="font-bold tracking-wider">萝卜干</span>
     </a>
     <nav class="hidden md:flex items-center gap-8 text-sm">
-      <a href="#about" class="nav-link">我是谁</a>
-      <a href="#help" class="nav-link">我能帮你</a>
-      <a href="#projects" class="nav-link">项目</a>
-      <a href="#works" class="nav-link">作品</a>
-      <a href="#culture" class="nav-link">文化</a>
-      <a href="#teaching" class="nav-link">教学理念</a>
-      <a href="#ability-test" class="nav-link">测试</a>
-      <a href="#interact" class="nav-link">互动</a>
-      <a href="#contact" class="nav-link text-seal font-medium">联系我们</a>
+      <a href="#hero" class="nav-link nav-home">首页</a>
+      <a href="#showcase" class="nav-link nav-home">展示</a>
+      <a href="#creed" class="nav-link nav-home">箴言</a>
+      <a href="#contact" class="nav-link nav-toggle text-seal font-medium" data-target="contact">联系我们</a>
     </nav>
   </div>
 </header>
@@ -425,8 +437,14 @@
   </div>
 </section>
 
+<section id="creed" class="creed">
+  <div class="creed-line">每颗棋子都同样重要<span class="creed-sep">·</span>每个孩子都同样优秀</div>
+  <div class="creed-sub">LUO BO GAN · MISSION</div>
+</section>
+
+
 <!-- ===== About ===== -->
-<section id="about" class="bg-paper-2 py-24 border-y border-line">
+<section id="about" class="bg-paper-2 py-24 border-y border-line collapsible">
   <div class="max-w-3xl mx-auto px-6 fade-in">
     <h2 class="section-title">我是谁</h2>
     <div class="space-y-6 text-base md:text-lg">
@@ -448,7 +466,7 @@
 </section>
 
 <!-- ===== Help ===== -->
-<section id="help" class="bg-paper py-24">
+<section id="help" class="bg-paper py-24 collapsible">
   <div class="max-w-5xl mx-auto px-6 fade-in">
     <h2 class="section-title">我能帮你解决什么</h2>
     <div class="grid md:grid-cols-3 gap-6">
@@ -481,7 +499,7 @@
 </section>
 
 <!-- ===== Projects ===== -->
-<section id="projects" class="bg-paper-2 py-24 border-y border-line">
+<section id="projects" class="bg-paper-2 py-24 border-y border-line collapsible">
   <div class="max-w-5xl mx-auto px-6 fade-in">
     <h2 class="section-title">我正在做的项目</h2>
     <p class="text-gray-soft mb-12 text-sm">所有项目均长期开放，加微信咨询入群方式。</p>
@@ -568,7 +586,7 @@
 </section>
 
 <!-- ===== Works ===== -->
-<section id="works" class="bg-paper py-24">
+<section id="works" class="bg-paper py-24 collapsible">
   <div class="max-w-5xl mx-auto px-6 fade-in">
     <h2 class="section-title">作品展示</h2>
     <p class="text-gray-soft mb-10 text-sm">这几年沉淀下来的两件事：一套<span class="font-bold text-base text-ink">家校共育四书</span>，一份<span class="font-bold text-base text-ink">2025 版围棋思维导图</span>。都还在持续打磨。</p>
@@ -745,7 +763,7 @@
 </section>
 
 <!-- ===== Culture ===== -->
-<section id="culture" class="bg-paper py-24">
+<section id="culture" class="bg-paper py-24 collapsible">
   <div class="max-w-5xl mx-auto px-6 fade-in">
     <h2 class="section-title">围棋文化</h2>
     <p class="text-gray-soft text-base leading-relaxed mb-12 max-w-2xl">四千年，围棋不是一门游戏，而是一整套<span class="font-bold text-ink">东方哲学</span>。这里从四个门推开看：<strong class="text-ink">历史</strong>、<strong class="text-ink">故事</strong>、<strong class="text-ink">典籍</strong>、<strong class="text-ink">人物</strong>。持续更新，慢慢挖。</p>
@@ -811,7 +829,7 @@
 </section>
 
 <!-- ===== Teaching 教学理念 ===== -->
-<section id="teaching" class="bg-paper py-24 border-y border-line">
+<section id="teaching" class="bg-paper py-24 border-y border-line collapsible">
   <div class="max-w-5xl mx-auto px-6 fade-in">
     <h2 class="section-title">教学理念</h2>
     <p class="text-gray-soft text-base leading-relaxed mb-10 max-w-2xl">
@@ -838,7 +856,7 @@
 </section>
 
 <!-- ===== Ability Test ===== -->
-<section id="ability-test" class="bg-paper-2 py-24 border-y border-line">
+<section id="ability-test" class="bg-paper-2 py-24 border-y border-line collapsible">
   <div class="max-w-4xl mx-auto px-6 fade-in">
     <h2 class="section-title">围棋能力测试</h2>
     <p class="text-gray-soft text-base leading-relaxed mb-10 max-w-2xl">
@@ -943,7 +961,7 @@
 </section>
 
 <!-- ===== Interact ===== -->
-<section id="interact" class="bg-paper-2 py-24 border-y border-line">
+<section id="interact" class="bg-paper-2 py-24 border-y border-line collapsible">
   <div class="max-w-5xl mx-auto px-6 fade-in">
     <h2 class="section-title">互动</h2>
     <p class="text-gray-soft mb-12 text-sm">每周挑一个真实问题聊聊，也欢迎你在下方直接留言。</p>
@@ -1022,7 +1040,7 @@
 </section>
 
 <!-- ===== Contact ===== -->
-<section id="contact" class="bg-paper-2 py-24 border-y border-line">
+<section id="contact" class="bg-paper-2 py-24 border-y border-line collapsible">
   <div class="max-w-3xl mx-auto px-6 fade-in">
     <h2 class="section-title">加我微信</h2>
     <div class="grid md:grid-cols-2 gap-12 items-center">
@@ -1669,19 +1687,78 @@ var TEACHING_DATA = {"sections":[{"id":"technique","title":"围棋技术探究",
 
 
 <!-- ===== 右侧悬浮索引栏 ===== -->
-<aside class="side-nav" aria-label="index">
-  <a href="#hero">首页</a>
-  <a href="#showcase">展示</a>
-  <a href="#about">我是谁</a>
-  <a href="#help">帮你</a>
-  <a href="#projects">项目</a>
-  <a href="#works">作品</a>
-  <a href="#culture">文化</a>
-  <a href="#teaching">教学理念</a>
-  <a href="#ability-test">测试</a>
-  <a href="#interact">互动</a>
-  <a href="#contact">联系</a>
+<aside class="side-nav" aria-label="板块导航">
+  <div class="side-nav-title">板块</div>
+  <a href="#about" class="nav-toggle" data-target="about">我是谁</a>
+  <a href="#help" class="nav-toggle" data-target="help">我能帮你</a>
+  <a href="#projects" class="nav-toggle" data-target="projects">项目</a>
+  <a href="#works" class="nav-toggle" data-target="works">作品</a>
+  <a href="#culture" class="nav-toggle" data-target="culture">文化</a>
+  <a href="#teaching" class="nav-toggle" data-target="teaching">教学理念</a>
+  <a href="#ability-test" class="nav-toggle" data-target="ability-test">测试</a>
+  <a href="#interact" class="nav-toggle" data-target="interact">互动</a>
 </aside>
 
+
+<script>
+/* ===== 折叠板块交互（独占展开）===== */
+(function(){
+  const HEADER_OFFSET = 72;
+  function scrollToEl(el){
+    if(!el) return;
+    const top = el.getBoundingClientRect().top + window.pageYOffset - HEADER_OFFSET;
+    window.scrollTo({ top: top, behavior: 'smooth' });
+  }
+  function openSection(id){
+    // 独占模式：关闭其他
+    document.querySelectorAll('.collapsible.open').forEach(el => {
+      if(el.id !== id) el.classList.remove('open');
+    });
+    const target = document.getElementById(id);
+    if(!target) return;
+    if(target.classList.contains('collapsible')){
+      target.classList.add('open');
+    }
+    // 更新 side-nav active
+    document.querySelectorAll('.side-nav a').forEach(a => a.classList.remove('active'));
+    const btn = document.querySelector('.side-nav a[data-target="' + id + '"]');
+    if(btn) btn.classList.add('active');
+    // 平滑滚动
+    setTimeout(() => scrollToEl(target), 60);
+  }
+  // 折叠触发器（顶部"联系我们" + 侧栏 8 按钮）
+  document.querySelectorAll('.nav-toggle').forEach(a => {
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      const id = this.dataset.target;
+      if(id) openSection(id);
+    });
+  });
+  // 顶部主页按钮（首页/展示/箴言）：仅滚动
+  document.querySelectorAll('.nav-home').forEach(a => {
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      const id = this.getAttribute('href').slice(1);
+      scrollToEl(document.getElementById(id));
+    });
+  });
+  // 首页 hero 里的"看正在做什么"按钮 → 展开 projects
+  const projBtn = document.querySelector('a[href="#projects"].btn-secondary');
+  if(projBtn){
+    projBtn.addEventListener('click', function(e){
+      e.preventDefault();
+      openSection('projects');
+    });
+  }
+  // 首页 hero 里的"加我微信"按钮 → 展开 contact
+  const contactBtn = document.querySelector('a[href="#contact"].btn-primary');
+  if(contactBtn){
+    contactBtn.addEventListener('click', function(e){
+      e.preventDefault();
+      openSection('contact');
+    });
+  }
+})();
+</script>
 </body>
 </html>
