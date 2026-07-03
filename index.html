@@ -384,12 +384,86 @@
     .side-nav { position: fixed; right: 18px; top: 50%; transform: translateY(-50%); z-index: 40; display: flex; flex-direction: column; gap: 6px; }
     .side-nav a { display: block; padding: 7px 12px; background: rgba(255,255,255,0.88); border: 1px solid var(--line); font-size: 12px; color: var(--ink); text-decoration: none; border-radius: 3px; transition: all 0.25s; letter-spacing: 0.03em; -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); text-align: center; min-width: 62px; }
     .side-nav a:hover { background: var(--seal); color: #fff; border-color: var(--seal); transform: translateX(-4px); }
-    @media (max-width: 900px) { .side-nav { display: none; } }
+    @media (max-width: 900px) {
+      .side-nav {
+        position: fixed; top: 0; right: -280px;
+        transform: none;
+        height: 100vh; width: 260px;
+        padding: 68px 20px 24px;
+        background: rgba(248,245,239,0.98);
+        border-left: 1px solid var(--line);
+        box-shadow: -6px 0 20px rgba(0,0,0,0.10);
+        display: flex; flex-direction: column; gap: 8px;
+        justify-content: flex-start;
+        transition: right 0.3s ease;
+        z-index: 66;
+        overflow-y: auto;
+        -ms-overflow-style: none; scrollbar-width: none;
+      }
+      .side-nav::-webkit-scrollbar { display: none; }
+      .side-nav.mobile-open { right: 0; }
+      .side-nav a { min-width: 100%; padding: 12px 16px; font-size: 14px; text-align: left; }
+      .side-nav-title { text-align: left; padding-left: 4px; margin-bottom: 16px; }
+      .mobile-menu-btn { display: flex; }
+      body.body-lock .mobile-menu-btn { display: none; }
+      body.side-open .mobile-menu-btn { display: none; }
+    }
 
-  /* ===== 折叠板块 ===== */
+  /* ===== 折叠板块 → 全屏面板 ===== */
   .collapsible { display: none; }
-  .collapsible.open { display: block; animation: fadeSlideIn 0.5s ease-out; }
+  .collapsible.open {
+    display: block;
+    position: fixed; inset: 0;
+    z-index: 60;
+    background: var(--paper);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    animation: panelIn 0.32s ease-out;
+    padding-top: 68px !important;
+    padding-bottom: 60px !important;
+  }
+  .collapsible.open::-webkit-scrollbar { display: none; }
+  #about.collapsible.open, #ability-test.collapsible.open, #interact.collapsible.open, #contact.collapsible.open, #projects.collapsible.open, #teaching.collapsible.open { background: var(--paper-2); }
+  @keyframes panelIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes fadeSlideIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+  body.body-lock { overflow: hidden; }
+
+  /* ===== 面板关闭按钮 ===== */
+  .panel-close {
+    position: fixed; top: 16px; right: 20px;
+    z-index: 68;
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: var(--seal); color: #fff;
+    border: none; cursor: pointer;
+    font-size: 22px; line-height: 1;
+    align-items: center; justify-content: center;
+    display: none;
+    box-shadow: 0 4px 14px rgba(168,54,42,0.28);
+    transition: transform 0.2s;
+  }
+  .panel-close:hover { transform: scale(1.08); }
+  body.body-lock .panel-close { display: flex; }
+
+  /* ===== 移动端汉堡菜单按钮 ===== */
+  .mobile-menu-btn {
+    display: none;
+    position: fixed; top: 16px; right: 20px;
+    z-index: 55;
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: var(--seal); color: #fff;
+    border: none; cursor: pointer;
+    font-size: 20px; line-height: 1;
+    align-items: center; justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+
+  /* ===== 全局滚动条隐藏（保留滚动能力）===== */
+  html, body { -ms-overflow-style: none; scrollbar-width: none; }
+  html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; }
 
   /* ===== side-nav 增强 ===== */
   .side-nav-title { font-size: 15px; font-weight: 700; color: var(--seal); letter-spacing: 0.35em; margin-bottom: 12px; padding-left: 4px; opacity: 1; text-align: center; }
@@ -1881,14 +1955,27 @@ var TEACHING_DATA = {"sections":[{"id":"technique","title":"围棋技术探究",
     if(!target) return;
     if(target.classList.contains('collapsible')){
       target.classList.add('open');
+      document.body.classList.add('body-lock');
+      // 面板内滚动重置到顶部
+      setTimeout(() => { target.scrollTop = 0; }, 30);
+    } else {
+      // 非折叠段（hero/showcase/mission/contact）走滚动
+      setTimeout(() => scrollToEl(target), 60);
     }
     // 更新 side-nav active
     document.querySelectorAll('.side-nav a').forEach(a => a.classList.remove('active'));
     const btn = document.querySelector('.side-nav a[data-target="' + id + '"]');
     if(btn) btn.classList.add('active');
-    // 平滑滚动
-    setTimeout(() => scrollToEl(target), 60);
+    // 关闭移动端菜单
+    document.querySelector('.side-nav').classList.remove('mobile-open');
+    document.body.classList.remove('side-open');
   }
+  function closeAllPanels(){
+    document.querySelectorAll('.collapsible.open').forEach(el => el.classList.remove('open'));
+    document.body.classList.remove('body-lock');
+    document.querySelectorAll('.side-nav a').forEach(a => a.classList.remove('active'));
+  }
+  window.closeAllPanels = closeAllPanels;
   // 折叠触发器（顶部"联系我们" + 侧栏 8 按钮）
   document.querySelectorAll('.nav-toggle').forEach(a => {
     a.addEventListener('click', function(e){
@@ -1928,7 +2015,38 @@ var TEACHING_DATA = {"sections":[{"id":"technique","title":"围棋技术探究",
       openSection('contact');
     });
   }
+  // 面板关闭按钮
+  const closeBtn = document.getElementById('panelCloseBtn');
+  if(closeBtn){
+    closeBtn.addEventListener('click', closeAllPanels);
+  }
+  // ESC 关闭面板
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape') closeAllPanels();
+  });
+  // 移动端汉堡按钮
+  const menuBtn = document.getElementById('mobileMenuBtn');
+  if(menuBtn){
+    menuBtn.addEventListener('click', function(){
+      const sn = document.querySelector('.side-nav');
+      const willOpen = !sn.classList.contains('mobile-open');
+      sn.classList.toggle('mobile-open');
+      document.body.classList.toggle('side-open', willOpen);
+    });
+  }
+  // 点击侧栏外区域（面板背景）关闭移动端菜单
+  document.addEventListener('click', function(e){
+    const sn = document.querySelector('.side-nav');
+    if(!sn.classList.contains('mobile-open')) return;
+    if(sn.contains(e.target)) return;
+    if(e.target.closest('#mobileMenuBtn')) return;
+    sn.classList.remove('mobile-open');
+    document.body.classList.remove('side-open');
+  });
 })();
 </script>
+
+<button class="panel-close" id="panelCloseBtn" aria-label="关闭面板">×</button>
+<button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="板块菜单">☰</button>
 </body>
 </html>
