@@ -313,7 +313,7 @@
 
     /* ===== Showcase 5秒轮播 ===== */
     .showcase-container { position: relative; max-width: 900px; margin: 0 auto; }
-    .showcase-frame { position: relative; width: 100%; padding-bottom: 56%; background: #efe9dd; border: 1px solid var(--line); overflow: hidden; }
+    .showcase-frame { position: relative; width: 100%; padding-bottom: 40%; background: #efe9dd; border: 1px solid var(--line); overflow: hidden; }
     .showcase-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1s ease-in-out; display: flex; align-items: center; justify-content: center; }
     .showcase-slide.active { opacity: 1; }
     .showcase-slide img { max-width: 100%; max-height: 100%; object-fit: contain; }
@@ -354,7 +354,7 @@
   @keyframes fadeSlideIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
 
   /* ===== side-nav 增强 ===== */
-  .side-nav-title { font-size: 11px; color: var(--gray-soft); letter-spacing: 0.2em; margin-bottom: 8px; padding-left: 4px; opacity: 0.7; }
+  .side-nav-title { font-size: 15px; font-weight: 700; color: var(--seal); letter-spacing: 0.35em; margin-bottom: 12px; padding-left: 4px; opacity: 1; text-align: center; }
   .side-nav a.active { background: var(--seal); color: #fff; border-color: var(--seal); transform: translateX(-4px); }
 
   /* ===== 品牌箴言 creed ===== */
@@ -437,27 +437,26 @@
       <img src="assets/logo.jpg" alt="萝卜干" class="h-9 w-9 object-contain">
       <span class="font-bold tracking-wider">萝卜干</span>
     </a>
-    <nav class="hidden md:flex items-center gap-8 text-sm">
-      <a href="#hero" class="nav-link nav-home">首页</a>
-      <a href="#showcase" class="nav-link nav-home">展示</a>
-      <a href="#hero" class="nav-link nav-home">箴言</a>
+    <nav class="hidden md:flex items-center gap-6 text-sm">
+      <a href="#ability-test" class="nav-link nav-toggle" data-target="ability-test" data-role="teacher">教学能力测试 · 教师版</a>
+      <a href="#ability-test" class="nav-link nav-toggle" data-target="ability-test" data-role="parent">教育认知度测试 · 家长版</a>
       <a href="#contact" class="nav-link nav-toggle text-seal font-medium" data-target="contact">联系我们</a>
     </nav>
   </div>
 </header>
 
 <!-- ===== Hero ===== -->
-<section id="hero" class="bg-paper pt-12 pb-8 md:pt-14 md:pb-10">
+<section id="hero" class="bg-paper pt-6 pb-3 md:pt-8 md:pb-4">
   <div class="max-w-4xl mx-auto px-6 text-center fade-in">
     <div class="hero-tag">LUO BO GAN · MISSION</div>
-    <h1 class="hero-h1 mt-4 text-3xl md:text-5xl font-bold leading-snug tracking-wider">
+    <h1 class="hero-h1 mt-2 text-2xl md:text-4xl font-bold leading-snug tracking-wider">
       让围棋，成为每个普通孩子<br>都能享受的智力教育
     </h1>
   </div>
 </section>
 
 <!-- ===== Showcase 5秒轮播 ===== -->
-<section id="showcase" class="bg-paper py-14 border-y border-line">
+<section id="showcase" class="bg-paper py-4 border-y border-line">
   <div class="max-w-5xl mx-auto px-6 fade-in">
     <div class="showcase-container">
       <div class="showcase-frame">
@@ -542,17 +541,17 @@
 </section>
 
 
-<section id="mission" class="bg-paper pt-10 pb-16 md:pt-12 md:pb-20">
+<section id="mission" class="bg-paper pt-4 pb-6 md:pt-6 md:pb-8">
   <div class="max-w-4xl mx-auto px-6 text-center fade-in">
     <div class="hero-creed">
       每颗棋子都同样重要<span class="creed-sep">·</span>每个孩子都同样优秀
     </div>
-    <p class="hero-mission text-base md:text-lg leading-loose">
+    <p class="hero-mission text-sm md:text-base leading-relaxed">
       我是萝卜干，专注围棋教育内容创作与体系研究。<br>
       为围棋老师、小机构校长、围棋家长，<br>
       提供可落地的教学、运营、陪伴方案。
     </p>
-    <div class="mt-8 flex flex-wrap gap-4 justify-center">
+    <div class="mt-4 flex flex-wrap gap-4 justify-center">
       <a href="#contact" class="btn-primary nav-toggle" data-target="contact">加我微信</a>
       <a href="#projects" class="btn-secondary nav-toggle" data-target="projects">看正在做什么</a>
     </div>
@@ -564,7 +563,7 @@
 <!-- ===== About ===== -->
 <section id="about" class="bg-paper-2 py-24 border-y border-line collapsible">
   <div class="max-w-3xl mx-auto px-6 fade-in">
-    <h2 class="section-title">我是谁</h2>
+    <h2 class="section-title">自我介绍</h2>
     <div class="space-y-6 text-base md:text-lg">
       <blockquote>
         我叫萝卜干。这些年，我做的事情就一件——把围棋这件事讲清楚：让普通孩子学得进去、家长教得明白、老师上得轻松。
@@ -586,7 +585,7 @@
 <!-- ===== Help ===== -->
 <section id="help" class="bg-paper py-24 collapsible">
   <div class="max-w-5xl mx-auto px-6 fade-in">
-    <h2 class="section-title">我能帮你解决什么</h2>
+    <h2 class="section-title">我的能力</h2>
     <div class="grid md:grid-cols-3 gap-6">
       <div class="card">
         <span class="seal self-start">围棋老师</span>
@@ -619,7 +618,7 @@
 <!-- ===== Projects ===== -->
 <section id="projects" class="bg-paper-2 py-24 border-y border-line collapsible">
   <div class="max-w-5xl mx-auto px-6 fade-in">
-    <h2 class="section-title">我正在做的项目</h2>
+    <h2 class="section-title">围棋课程</h2>
     <p class="text-gray-soft mb-12 text-sm">所有项目均长期开放，加微信咨询入群方式。</p>
 
     <!-- 教师向 -->
@@ -706,7 +705,7 @@
 <!-- ===== Works ===== -->
 <section id="works" class="bg-paper py-24 collapsible">
   <div class="max-w-5xl mx-auto px-6 fade-in">
-    <h2 class="section-title">作品展示</h2>
+    <h2 class="section-title">图书与思维导图</h2>
     <p class="text-gray-soft mb-10 text-sm">这几年沉淀下来的两件事：一套<span class="font-bold text-base text-ink">家校共育四书</span>，一份<span class="font-bold text-base text-ink">2025 版围棋思维导图</span>。都还在持续打磨。</p>
 
     <!-- 四书 -->
@@ -1081,7 +1080,7 @@
 <!-- ===== Interact ===== -->
 <section id="interact" class="bg-paper-2 py-24 border-y border-line collapsible">
   <div class="max-w-5xl mx-auto px-6 fade-in">
-    <h2 class="section-title">互动</h2>
+    <h2 class="section-title">留言板</h2>
     <p class="text-gray-soft mb-12 text-sm">每周挑一个真实问题聊聊，也欢迎你在下方直接留言。</p>
 
     <!-- 每周话题 -->
@@ -1806,15 +1805,14 @@ var TEACHING_DATA = {"sections":[{"id":"technique","title":"围棋技术探究",
 
 <!-- ===== 右侧悬浮索引栏 ===== -->
 <aside class="side-nav" aria-label="板块导航">
-  <div class="side-nav-title">板块</div>
-  <a href="#about" class="nav-toggle" data-target="about">我是谁</a>
-  <a href="#help" class="nav-toggle" data-target="help">我能帮你</a>
-  <a href="#projects" class="nav-toggle" data-target="projects">项目</a>
-  <a href="#works" class="nav-toggle" data-target="works">作品</a>
-  <a href="#culture" class="nav-toggle" data-target="culture">文化</a>
+  <div class="side-nav-title">板 块</div>
+  <a href="#about" class="nav-toggle" data-target="about">自我介绍</a>
+  <a href="#help" class="nav-toggle" data-target="help">我的能力</a>
+  <a href="#works" class="nav-toggle" data-target="works">图书与导图</a>
+  <a href="#projects" class="nav-toggle" data-target="projects">围棋课程</a>
   <a href="#teaching" class="nav-toggle" data-target="teaching">教学理念</a>
-  <a href="#ability-test" class="nav-toggle" data-target="ability-test">测试</a>
-  <a href="#interact" class="nav-toggle" data-target="interact">互动</a>
+  <a href="#culture" class="nav-toggle" data-target="culture">围棋文化</a>
+  <a href="#interact" class="nav-toggle" data-target="interact">留言板</a>
 </aside>
 
 
@@ -1824,8 +1822,17 @@ var TEACHING_DATA = {"sections":[{"id":"technique","title":"围棋技术探究",
   const HEADER_OFFSET = 72;
   function scrollToEl(el){
     if(!el) return;
-    const top = el.getBoundingClientRect().top + window.pageYOffset - HEADER_OFFSET;
-    window.scrollTo({ top: top, behavior: 'smooth' });
+    const rect = el.getBoundingClientRect();
+    const topAbs = rect.top + window.pageYOffset;
+    // 元素小于 viewport-100 时上下居中；否则顶部靠 viewport 12% (标题清晰可见)
+    const vh = window.innerHeight;
+    let target;
+    if (rect.height + 40 < vh) {
+      target = topAbs - (vh - rect.height) / 2;
+    } else {
+      target = topAbs - vh * 0.12;
+    }
+    window.scrollTo({ top: Math.max(0, target), behavior: 'smooth' });
   }
   function openSection(id){
     // 独占模式：关闭其他
@@ -1849,7 +1856,14 @@ var TEACHING_DATA = {"sections":[{"id":"technique","title":"围棋技术探究",
     a.addEventListener('click', function(e){
       e.preventDefault();
       const id = this.dataset.target;
+      const role = this.dataset.role;
       if(id) openSection(id);
+      if(role){
+        setTimeout(function(){
+          const tabBtn = document.querySelector('.test-tab-btn[data-role="'+role+'"]');
+          if(tabBtn && !tabBtn.classList.contains('active')) tabBtn.click();
+        }, 120);
+      }
     });
   });
   // 顶部主页按钮（首页/展示/箴言）：仅滚动
