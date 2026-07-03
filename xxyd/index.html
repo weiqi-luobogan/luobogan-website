@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>学习园地 | 萝卜干聊围棋教育</title>
+<meta name="description" content="每周一课，围棋老师自媒体招生系统方法论。互动学习页 + 定位卡生成器，边学边落笔。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="../assets/logo.jpg" type="image/jpeg">
+<style>
+  :root{
+    --ink:#1a1a1a; --ink-soft:#2a2a2a;
+    --paper:#f8f5ef; --paper-2:#f2ede2;
+    --seal:#a8362a; --seal-light:#c74e3f;
+    --gray:#4a4a4a; --gray-soft:#6b6b6b;
+    --line:#e6e0d5;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:'Noto Serif SC','Songti SC',serif;
+    font-size:16px;line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+  }
+  .en{font-family:'Inter',sans-serif;letter-spacing:.02em}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+
+  header.site-header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(248,245,239,.95);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .header-inner{
+    max-width:1080px;margin:0 auto;padding:14px 20px;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+  }
+  .brand{display:flex;align-items:center;gap:10px;font-weight:600}
+  .brand img{width:32px;height:32px;border-radius:6px;object-fit:cover}
+  .brand small{color:var(--gray-soft);font-size:12px;margin-left:6px}
+  nav.top-nav{display:flex;align-items:center;gap:18px;font-size:14px}
+  nav.top-nav a{color:var(--gray)}
+  nav.top-nav a:hover{color:var(--seal)}
+  nav.top-nav a.cta{color:#fff;background:var(--seal);padding:6px 14px;border-radius:20px}
+  @media (max-width:640px){ .brand small{display:none} .hide-sm{display:none} }
+
+  main{max-width:960px;margin:0 auto;padding:0 20px}
+
+  .hero{padding:70px 0 40px;text-align:center;border-bottom:1px dashed var(--line)}
+  .hero .en-lbl{font-family:'Inter',sans-serif;font-size:13px;letter-spacing:.3em;color:var(--seal);margin-bottom:14px}
+  .hero h1{font-size:36px;font-weight:900;margin:0 0 14px;line-height:1.3}
+  .hero .sub{color:var(--gray);font-size:16px;max-width:640px;margin:0 auto 18px}
+  .hero .tag-row{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:16px}
+  .hero .tag{
+    font-size:13px;color:var(--seal);background:rgba(168,54,42,.08);
+    padding:5px 14px;border-radius:20px;
+  }
+  @media (min-width:768px){ .hero h1{font-size:44px} }
+
+  section.list-sec{padding:50px 0}
+  .sec-title{font-size:24px;font-weight:700;margin:0 0 24px;padding-left:12px;border-left:3px solid var(--seal)}
+
+  .lesson-list{display:grid;gap:16px;grid-template-columns:1fr}
+  @media (min-width:640px){.lesson-list{grid-template-columns:repeat(2,1fr)}}
+
+  .lesson-card{
+    background:#fff;border:1px solid var(--line);border-radius:12px;
+    padding:20px 22px;display:flex;flex-direction:column;gap:10px;
+    transition:all .25s;position:relative;overflow:hidden;
+  }
+  .lesson-card.active{
+    border-color:var(--seal);
+    box-shadow:0 8px 24px rgba(168,54,42,.12);
+  }
+  .lesson-card.active::before{
+    content:'新';
+    position:absolute;top:14px;right:16px;
+    background:var(--seal);color:#fff;
+    font-size:12px;padding:2px 10px;border-radius:20px;
+    font-family:'Inter',sans-serif;letter-spacing:.05em;
+  }
+  .lesson-card.locked{opacity:.55;cursor:not-allowed}
+  .lesson-card .no{
+    font-family:'Inter',sans-serif;font-size:12px;color:var(--seal);
+    letter-spacing:.2em;
+  }
+  .lesson-card .l-title{font-size:19px;font-weight:700;color:var(--ink);line-height:1.4}
+  .lesson-card .l-desc{color:var(--gray);font-size:13px;line-height:1.75;flex-grow:1}
+  .lesson-card .l-meta{
+    display:flex;justify-content:space-between;align-items:center;
+    font-size:12px;color:var(--gray-soft);margin-top:8px;
+    padding-top:12px;border-top:1px dashed var(--line);
+  }
+  .lesson-card .l-meta .go{
+    color:var(--seal);font-weight:600;font-size:13px;
+  }
+  .lesson-card.locked .l-meta .go{color:var(--gray-soft)}
+
+  .about-box{
+    background:var(--paper-2);padding:26px 24px;border-radius:12px;
+    margin-top:24px;
+  }
+  .about-box h3{margin:0 0 10px;font-size:18px}
+  .about-box p{color:var(--ink-soft);font-size:14px;line-height:1.85;margin:0 0 8px}
+  .about-box .hl{color:var(--seal);font-weight:600}
+
+  footer.site-footer{
+    padding:32px 20px;text-align:center;color:var(--gray-soft);
+    font-size:13px;border-top:1px solid var(--line);
+  }
+  footer.site-footer a{color:var(--seal)}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../" class="brand">
+      <img src="../assets/logo.jpg" alt="萝卜干">
+      <span>萝卜干</span>
+      <small>· 学习园地</small>
+    </a>
+    <nav class="top-nav">
+      <a href="../" class="hide-sm">返回主站</a>
+      <a href="../#contact" class="cta">加微信</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="en-lbl">LEARNING GARDEN</div>
+    <h1>学习园地 · 每周一课</h1>
+    <p class="sub">面向围棋教育从业者的自媒体招生系统课。<br>不是纯 PPT，是可以边学边动手的互动学习页。</p>
+    <div class="tag-row">
+      <span class="tag">10 节系统课</span>
+      <span class="tag">每周更新</span>
+      <span class="tag">互动 + 定位卡生成</span>
+      <span class="tag">免费公开</span>
+    </div>
+  </section>
+
+  <section class="list-sec">
+    <h2 class="sec-title">当前课程 · 围棋老师的自媒体招生</h2>
+    <div class="lesson-list">
+
+      <a href="lesson-01.html" class="lesson-card active">
+        <div class="no">LESSON 01 · 2026.06.25</div>
+        <div class="l-title">账号定位 + 赛道现状</div>
+        <div class="l-desc">先想清楚定位再开机。三类账号自测 + 三秒真伪自检 + 个人 IP 定位卡 V0.1 现场生成。</div>
+        <div class="l-meta">
+          <span>60 分钟 · 22 页要点 · 3 处互动</span>
+          <span class="go">进入学习 →</span>
+        </div>
+      </a>
+
+      <div class="lesson-card locked">
+        <div class="no">LESSON 02 · 敬请期待</div>
+        <div class="l-title">平台选择与内容形态匹配</div>
+        <div class="l-desc">抖音 / 视频号 / 小红书 / B 站，各自的算法脾气、粉丝画像与内容形态。</div>
+        <div class="l-meta">
+          <span>下周更新</span>
+          <span class="go">待更新</span>
+        </div>
+      </div>
+
+      <div class="lesson-card locked">
+        <div class="no">LESSON 03 · 敬请期待</div>
+        <div class="l-title">选题库搭建与脚本公式</div>
+        <div class="l-desc">从 0 到 1 搭建你自己的选题库，学会最基础的三段式脚本公式。</div>
+        <div class="l-meta">
+          <span>敬请期待</span>
+          <span class="go">待更新</span>
+        </div>
+      </div>
+
+      <div class="lesson-card locked">
+        <div class="no">LESSON 04-10 · 敬请期待</div>
+        <div class="l-title">拍摄 / 封面 / 私域 / 转化 / 复盘 / 长期主义</div>
+        <div class="l-desc">从拍摄剪辑最小可行方案到账号资产化、团队化，构建完整的招生闭环。</div>
+        <div class="l-meta">
+          <span>陆续更新</span>
+          <span class="go">待更新</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="about-box">
+      <h3>关于学习园地</h3>
+      <p>这里只放<span class="hl">每周分享的课件</span>，不做别的东西。呼应第 1 课讲的定位原则——<span class="hl">"账号不是杂货铺，是专卖店"</span>，栏目本身也一样。</p>
+      <p>其他资料（拆解表模板 / 脚本模板 / 家长信话术库等）未来会放到独立的「资料下载」栏目，不会混在这里。</p>
+      <p>课件都是免费公开的。如果学完想让我点评一下你的作业，欢迎<a href="../#contact" style="color:var(--seal);font-weight:600">加微信</a>——第 1 课凭定位卡可以免费点评一次。</p>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div>© 萝卜干聊围棋教育 · <a href="../">weiqiluobogan.com</a></div>
+  <div style="margin-top:6px">学习园地 · 每周一课 · Updated 2026.07.03</div>
+</footer>
+</body>
+</html>
