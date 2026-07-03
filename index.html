@@ -459,6 +459,8 @@
     }
     section#hero { padding-top: 84px !important; padding-bottom: 40px !important; }
     section#mission { padding-top: 68px !important; padding-bottom: 48px !important; }
+    /* fix: flex column + mx-auto 会禁用 stretch，导致 wrapper 塌陷到 content-min-width。显式 100% 宽度让 max-width 与 mx-auto 正常生效 */
+    section#hero > div, section#showcase > div, section#mission > div { width: 100%; }
     /* showcase 内部内容压缩，尽量塞入一屏 */
     section#showcase .showcase-frame { max-height: calc(100vh - 140px); }
     /* 面板打开时，禁用 body scroll-snap */
