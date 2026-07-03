@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第 1 课 · 账号定位 + 赛道现状 | 学习园地 · 萝卜干聊围棋教育</title>
+<meta name="description" content="围棋老师自媒体招生十次课 · 第 1 课。先想清楚定位，再开机拍摄。附三类账号自测 / 三秒真伪定位自检 / 个人 IP 定位卡 V0.1 生成器。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="../assets/logo.jpg" type="image/jpeg">
+<style>
+  :root{
+    --ink:#1a1a1a; --ink-soft:#2a2a2a;
+    --paper:#f8f5ef; --paper-2:#f2ede2;
+    --seal:#a8362a; --seal-light:#c74e3f;
+    --gray:#4a4a4a; --gray-soft:#6b6b6b;
+    --line:#e6e0d5;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:'Noto Serif SC','Songti SC',serif;
+    font-size:16px;line-height:1.75;
+    -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  }
+  .en,.mono{font-family:'Inter',sans-serif;letter-spacing:.02em}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+
+  /* 进度条 */
+  #progress-bar{
+    position:fixed;top:0;left:0;height:3px;width:0%;
+    background:linear-gradient(90deg,var(--seal),var(--seal-light));
+    z-index:100;transition:width .15s ease-out;
+  }
+
+  /* Header */
+  header.site-header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(248,245,239,.95);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .header-inner{
+    max-width:1080px;margin:0 auto;padding:14px 20px;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+  }
+  .brand{display:flex;align-items:center;gap:10px;font-weight:600}
+  .brand img{width:32px;height:32px;border-radius:6px;object-fit:cover}
+  .brand span{font-size:15px}
+  .brand small{color:var(--gray-soft);font-size:12px;margin-left:6px}
+  nav.top-nav{display:flex;align-items:center;gap:18px;font-size:14px}
+  nav.top-nav a{color:var(--gray)}
+  nav.top-nav a:hover{color:var(--seal)}
+  nav.top-nav a.cta{color:#fff;background:var(--seal);padding:6px 14px;border-radius:20px}
+  nav.top-nav a.cta:hover{background:var(--seal-light);color:#fff}
+  @media (max-width:640px){
+    nav.top-nav a.hide-sm{display:none}
+    .brand small{display:none}
+  }
+
+  /* 通用容器 */
+  main{max-width:960px;margin:0 auto;padding:0 20px}
+  section{padding:56px 0;border-bottom:1px dashed var(--line)}
+  section:last-child{border-bottom:none}
+  .section-eyebrow{
+    font-family:'Inter',sans-serif;font-size:12px;letter-spacing:.2em;
+    color:var(--seal);text-transform:uppercase;margin-bottom:12px;
+  }
+  .section-title{
+    font-size:28px;font-weight:700;line-height:1.35;margin:0 0 10px;
+    color:var(--ink);
+  }
+  .section-subtitle{color:var(--gray-soft);font-size:15px;margin-bottom:32px}
+  @media (min-width:768px){
+    .section-title{font-size:34px}
+    section{padding:72px 0}
+  }
+  .hl{color:var(--seal);font-weight:600}
+  .card{
+    background:#fff;border:1px solid var(--line);border-radius:12px;
+    padding:20px;box-shadow:0 1px 2px rgba(0,0,0,.02);
+  }
+  .card.paper{background:var(--paper-2)}
+  .grid{display:grid;gap:14px}
+  .grid.g2{grid-template-columns:1fr}
+  .grid.g3{grid-template-columns:1fr}
+  .grid.g4{grid-template-columns:1fr}
+  @media (min-width:640px){
+    .grid.g2{grid-template-columns:1fr 1fr}
+    .grid.g3{grid-template-columns:1fr 1fr 1fr}
+    .grid.g4{grid-template-columns:1fr 1fr}
+  }
+  @media (min-width:900px){
+    .grid.g4{grid-template-columns:repeat(4,1fr)}
+  }
+  blockquote.pull{
+    border-left:3px solid var(--seal);padding:8px 18px;margin:20px 0;
+    color:var(--ink-soft);font-size:17px;line-height:1.85;background:var(--paper-2);
+    border-radius:0 8px 8px 0;
+  }
+  .fade-up{opacity:0;transform:translateY(20px);transition:all .7s ease}
+  .fade-up.in{opacity:1;transform:none}
+
+  /* Hero */
+  .hero{padding:60px 0 40px;text-align:center}
+  .hero .num{
+    font-family:'Inter',sans-serif;font-size:14px;letter-spacing:.3em;
+    color:var(--seal);margin-bottom:14px;
+  }
+  .hero h1{
+    font-size:34px;font-weight:900;margin:0 0 16px;line-height:1.3;
+    color:var(--ink);
+  }
+  .hero .sub{color:var(--gray);font-size:16px;max-width:640px;margin:0 auto 20px}
+  .hero .meta{color:var(--gray-soft);font-size:13px}
+  .hero .divider{
+    width:60px;height:2px;background:var(--seal);
+    margin:24px auto;
+  }
+  @media (min-width:768px){
+    .hero h1{font-size:46px}
+    .hero{padding:80px 0 50px}
+  }
+
+  /* 十次课地图 */
+  .map-wrap{margin-top:22px}
+  .map-grid{
+    display:grid;grid-template-columns:repeat(2,1fr);gap:10px;
+  }
+  @media (min-width:640px){.map-grid{grid-template-columns:repeat(5,1fr)}}
+  .map-item{
+    background:#fff;border:1px solid var(--line);border-radius:10px;
+    padding:12px 10px;text-align:center;position:relative;
+    transition:all .2s;
+  }
+  .map-item .no{
+    font-family:'Inter',sans-serif;font-size:11px;color:var(--gray-soft);
+    letter-spacing:.15em;margin-bottom:6px;
+  }
+  .map-item .tt{font-size:13px;color:var(--ink-soft);line-height:1.5}
+  .map-item.active{
+    background:var(--seal);border-color:var(--seal);color:#fff;
+    box-shadow:0 6px 20px rgba(168,54,42,.25);transform:translateY(-2px);
+  }
+  .map-item.active .no,.map-item.active .tt{color:#fff}
+  .map-item .badge-now{
+    position:absolute;top:-10px;left:50%;transform:translateX(-50%);
+    background:#fff;color:var(--seal);border:1px solid var(--seal);
+    font-size:11px;padding:2px 10px;border-radius:20px;font-weight:600;
+    font-family:'Inter',sans-serif;letter-spacing:.1em;
+  }
+
+  /* 三目标 */
+  .goal-card{padding:22px 20px}
+  .goal-card .goal-no{
+    font-family:'Inter',sans-serif;font-size:12px;letter-spacing:.2em;
+    color:var(--seal);margin-bottom:10px;
+  }
+  .goal-card .goal-t{font-size:18px;font-weight:600;margin-bottom:8px}
+  .goal-card .goal-d{color:var(--gray);font-size:14px;line-height:1.7}
+
+  /* 引言 & 双路径 */
+  .path-compare{margin-top:20px}
+  .path-card{padding:18px 16px}
+  .path-card.bad{border-left:4px solid #999}
+  .path-card.good{border-left:4px solid var(--seal)}
+  .path-card .path-lbl{
+    font-family:'Inter',sans-serif;font-size:12px;letter-spacing:.15em;
+    color:var(--gray-soft);margin-bottom:8px;text-transform:uppercase;
+  }
+  .path-card.good .path-lbl{color:var(--seal)}
+  .path-card .path-t{font-weight:600;margin-bottom:12px;font-size:16px}
+  .path-steps{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:13px}
+  .path-steps .step{
+    background:var(--paper-2);padding:5px 10px;border-radius:6px;
+    color:var(--ink-soft);
+  }
+  .path-card.good .path-steps .step{background:rgba(168,54,42,.08);color:var(--seal)}
+  .path-steps .arrow{color:var(--gray-soft);font-family:'Inter',sans-serif}
+
+  /* 互动卡：三类账号自测 */
+  .interact{
+    background:var(--paper-2);border:1px dashed var(--seal);
+    border-radius:14px;padding:24px 20px;margin-top:20px;
+  }
+  .interact .interact-eyebrow{
+    display:inline-block;background:var(--seal);color:#fff;
+    font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.2em;
+    padding:3px 10px;border-radius:20px;margin-bottom:12px;
+  }
+  .interact .interact-q{font-size:17px;font-weight:600;margin-bottom:16px;line-height:1.6}
+  .account-buttons{display:grid;gap:10px;grid-template-columns:1fr}
+  @media (min-width:640px){.account-buttons{grid-template-columns:repeat(3,1fr)}}
+  .account-btn{
+    background:#fff;border:1px solid var(--line);border-radius:10px;
+    padding:14px;cursor:pointer;text-align:left;
+    transition:all .2s;font-family:inherit;
+  }
+  .account-btn:hover{border-color:var(--seal);transform:translateY(-2px);box-shadow:0 4px 12px rgba(168,54,42,.1)}
+  .account-btn.selected{background:var(--seal);color:#fff;border-color:var(--seal)}
+  .account-btn.selected .ab-desc{color:rgba(255,255,255,.85)}
+  .account-btn .ab-t{font-size:15px;font-weight:600;margin-bottom:4px}
+  .account-btn .ab-desc{color:var(--gray-soft);font-size:12px;line-height:1.6}
+  #accountResult{margin-top:18px;display:none}
+  #accountResult.show{display:block;animation:fadeIn .4s ease}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .result-box{
+    background:#fff;border-left:4px solid var(--seal);
+    padding:16px 18px;border-radius:0 10px 10px 0;
+  }
+  .result-box .rb-tag{
+    display:inline-block;font-family:'Inter',sans-serif;font-size:11px;
+    letter-spacing:.15em;padding:2px 8px;border-radius:12px;margin-bottom:8px;
+  }
+  .result-box.rec .rb-tag{background:rgba(168,54,42,.12);color:var(--seal)}
+  .result-box.warn .rb-tag{background:rgba(120,120,120,.15);color:var(--gray)}
+  .result-box .rb-t{font-size:16px;font-weight:600;margin-bottom:8px}
+  .result-box .rb-d{color:var(--ink-soft);font-size:14px;line-height:1.8}
+  .result-box .rb-d li{margin-bottom:4px}
+
+  /* 数据卡 */
+  .stat-card{padding:20px 18px;text-align:center}
+  .stat-card .stat-num{
+    font-family:'Inter',sans-serif;font-size:36px;font-weight:700;
+    color:var(--seal);line-height:1;margin-bottom:8px;
+  }
+  .stat-card .stat-lbl{color:var(--gray-soft);font-size:13px}
+  .conclusion-box{
+    margin-top:16px;background:var(--paper-2);padding:14px 18px;
+    border-radius:10px;font-size:14px;color:var(--ink-soft);line-height:1.8;
+  }
+
+  /* 反例 */
+  .bad-list{display:grid;gap:12px;grid-template-columns:1fr}
+  @media (min-width:640px){.bad-list{grid-template-columns:repeat(3,1fr)}}
+  .bad-card{padding:16px;border-left:3px solid #b0b0b0}
+  .bad-card .bad-t{font-weight:600;font-size:15px;margin-bottom:6px;color:var(--ink-soft)}
+  .bad-card .bad-d{color:var(--gray);font-size:13px;line-height:1.7}
+  .vs-box{
+    display:grid;grid-template-columns:1fr;gap:12px;margin-top:20px;
+    align-items:stretch;
+  }
+  @media (min-width:640px){.vs-box{grid-template-columns:1fr auto 1fr}}
+  .vs-side{padding:18px}
+  .vs-side.left{background:#fff;border:1px solid var(--line);border-radius:10px}
+  .vs-side.right{background:rgba(168,54,42,.05);border:1px solid var(--seal);border-radius:10px}
+  .vs-side .vs-lbl{font-size:12px;color:var(--gray-soft);margin-bottom:6px;letter-spacing:.1em}
+  .vs-side.right .vs-lbl{color:var(--seal)}
+  .vs-side .vs-t{font-size:16px;font-weight:600;margin-bottom:8px}
+  .vs-side .vs-d{font-size:13px;color:var(--ink-soft);line-height:1.7}
+  .vs-mid{display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;color:var(--seal);font-size:20px;font-weight:700}
+
+  /* 四件套元素 */
+  .elem-card{padding:20px 18px;text-align:center;position:relative}
+  .elem-card .en{
+    font-size:12px;color:var(--seal);letter-spacing:.2em;margin-bottom:8px;
+  }
+  .elem-card .zh{font-size:20px;font-weight:700;margin-bottom:8px}
+  .elem-card .desc{color:var(--gray);font-size:13px;line-height:1.7}
+
+  /* 详细卡：身份/用户/内容/差异化 */
+  .detail-block{margin-top:20px}
+  .detail-block .db-title{
+    font-size:20px;font-weight:600;margin-bottom:14px;
+    padding-left:12px;border-left:3px solid var(--seal);
+  }
+  .compare-2col{display:grid;gap:12px;grid-template-columns:1fr}
+  @media (min-width:640px){.compare-2col{grid-template-columns:1fr 1fr}}
+  .compare-2col .wrong,.compare-2col .right{padding:16px}
+  .compare-2col .wrong{background:#f5f2eb;border:1px dashed #b0b0b0;border-radius:8px}
+  .compare-2col .right{background:rgba(168,54,42,.05);border:1px solid var(--seal);border-radius:8px}
+  .compare-2col .lbl{font-size:12px;color:var(--gray-soft);margin-bottom:6px;letter-spacing:.1em}
+  .compare-2col .right .lbl{color:var(--seal)}
+  .compare-2col .txt{font-size:14px;line-height:1.75;color:var(--ink-soft)}
+  .example-box{
+    margin-top:14px;padding:14px 16px;background:var(--paper-2);
+    border-radius:8px;font-size:14px;color:var(--ink-soft);line-height:1.8;
+  }
+  .example-box .ex-lbl{
+    font-family:'Inter',sans-serif;font-size:11px;color:var(--seal);
+    letter-spacing:.15em;margin-bottom:6px;
+  }
+
+  /* 内容主线比例可视化 */
+  .ratio-vis{
+    display:flex;height:38px;border-radius:6px;overflow:hidden;
+    margin:16px 0 10px;font-family:'Inter',sans-serif;font-size:12px;
+    color:#fff;font-weight:600;
+  }
+  .ratio-vis .rv-main{background:var(--seal);flex:80;display:flex;align-items:center;justify-content:center}
+  .ratio-vis .rv-side{background:#9a9a9a;flex:20;display:flex;align-items:center;justify-content:center}
+  .week-table{
+    width:100%;border-collapse:collapse;margin-top:12px;font-size:14px;
+    background:#fff;border-radius:8px;overflow:hidden;
+  }
+  .week-table th,.week-table td{
+    padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);
+  }
+  .week-table th{background:var(--paper-2);font-weight:600;font-size:13px;color:var(--gray)}
+  .week-table td:first-child{color:var(--seal);font-weight:600;font-family:'Inter',sans-serif}
+
+  /* 差异化：三种切法 */
+  .diff-list{display:grid;gap:12px;grid-template-columns:1fr;margin-top:14px}
+  @media (min-width:640px){.diff-list{grid-template-columns:repeat(3,1fr)}}
+  .diff-card{padding:16px;background:#fff;border:1px solid var(--line);border-radius:10px}
+  .diff-card .df-t{font-weight:600;font-size:15px;margin-bottom:6px;color:var(--seal)}
+  .diff-card .df-d{font-size:13px;color:var(--ink-soft);line-height:1.7}
+
+  /* 三秒自检 */
+  .check-item{padding:18px;margin-bottom:12px}
+  .check-item .ci-q{font-size:16px;font-weight:600;margin-bottom:10px}
+  .check-options{display:flex;gap:10px}
+  .check-opt{
+    flex:1;padding:10px;background:#fff;border:1px solid var(--line);
+    border-radius:8px;cursor:pointer;text-align:center;font-size:14px;
+    font-family:inherit;transition:all .2s;
+  }
+  .check-opt:hover{border-color:var(--seal)}
+  .check-opt.on-yes{background:var(--seal);color:#fff;border-color:var(--seal)}
+  .check-opt.on-no{background:#8a8a8a;color:#fff;border-color:#8a8a8a}
+  #checkResult{margin-top:18px;display:none}
+  #checkResult.show{display:block;animation:fadeIn .4s ease}
+  .score-badge{
+    display:inline-block;font-family:'Inter',sans-serif;font-size:13px;
+    letter-spacing:.1em;padding:3px 12px;border-radius:20px;
+    background:var(--seal);color:#fff;margin-bottom:10px;
+  }
+
+  /* 定位卡生成器 */
+  .card-gen{margin-top:20px}
+  .form-group{margin-bottom:14px}
+  .form-group label{
+    display:block;font-size:13px;color:var(--gray);margin-bottom:6px;
+    font-weight:600;
+  }
+  .form-group input, .form-group textarea{
+    width:100%;padding:10px 12px;border:1px solid var(--line);
+    border-radius:8px;font-family:inherit;font-size:14px;
+    background:#fff;color:var(--ink);resize:vertical;
+  }
+  .form-group input:focus, .form-group textarea:focus{
+    outline:none;border-color:var(--seal);
+  }
+  .form-group .hint{font-size:12px;color:var(--gray-soft);margin-top:4px}
+  .gen-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+  .btn{
+    padding:10px 18px;border-radius:8px;cursor:pointer;font-size:14px;
+    font-family:inherit;font-weight:600;border:1px solid transparent;
+    transition:all .2s;
+  }
+  .btn.primary{background:var(--seal);color:#fff}
+  .btn.primary:hover{background:var(--seal-light)}
+  .btn.ghost{background:transparent;border-color:var(--line);color:var(--ink-soft)}
+  .btn.ghost:hover{border-color:var(--seal);color:var(--seal)}
+  #cardPreview{
+    margin-top:20px;text-align:center;
+  }
+  #cardPreview canvas{
+    max-width:100%;height:auto;border:1px solid var(--line);
+    border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.08);
+  }
+
+  /* 微信弹窗 */
+  .modal-mask{
+    position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:200;
+    display:none;align-items:center;justify-content:center;padding:20px;
+  }
+  .modal-mask.show{display:flex}
+  .modal-box{
+    background:var(--paper);border-radius:14px;padding:28px 24px;
+    max-width:340px;text-align:center;position:relative;
+  }
+  .modal-box .close{
+    position:absolute;top:10px;right:14px;font-size:24px;color:var(--gray-soft);
+    cursor:pointer;background:none;border:none;
+  }
+  .modal-box img{width:180px;height:180px;object-fit:cover;margin:14px auto;border-radius:8px}
+  .modal-box .m-t{font-size:18px;font-weight:600;margin-bottom:8px}
+  .modal-box .m-d{color:var(--gray);font-size:14px;line-height:1.7;margin-bottom:10px}
+  .modal-box .m-wx{
+    font-family:'Inter',sans-serif;font-size:15px;color:var(--seal);
+    font-weight:600;background:var(--paper-2);padding:8px 14px;
+    border-radius:6px;display:inline-block;margin-bottom:8px;
+  }
+  .modal-box .m-note{color:var(--gray-soft);font-size:12px;line-height:1.6}
+
+  /* 作业 & 预告 */
+  .hw-list{display:grid;gap:12px;grid-template-columns:1fr;margin-top:14px}
+  @media (min-width:640px){.hw-list{grid-template-columns:repeat(3,1fr)}}
+  .hw-card{padding:16px 18px;background:#fff;border:1px solid var(--line);border-radius:10px}
+  .hw-card .hw-no{font-family:'Inter',sans-serif;font-size:12px;color:var(--seal);letter-spacing:.2em;margin-bottom:6px}
+  .hw-card .hw-t{font-weight:600;margin-bottom:6px}
+  .hw-card .hw-d{font-size:13px;color:var(--gray);line-height:1.7}
+  .next-box{
+    margin-top:20px;padding:22px;background:linear-gradient(135deg,rgba(168,54,42,.06),rgba(168,54,42,.02));
+    border:1px solid var(--seal);border-radius:12px;
+  }
+  .next-box .nb-lbl{font-size:12px;color:var(--seal);letter-spacing:.2em;margin-bottom:6px;font-family:'Inter',sans-serif}
+  .next-box .nb-t{font-size:20px;font-weight:700;margin-bottom:8px}
+  .next-box .nb-d{color:var(--gray);font-size:14px;line-height:1.8}
+
+  /* 联系方式 */
+  .contact-final{
+    text-align:center;padding:36px 20px;background:var(--paper-2);
+    border-radius:14px;margin-top:20px;
+  }
+  .contact-final img{width:160px;height:160px;object-fit:cover;margin:14px auto;border-radius:8px}
+  .contact-final .c-wx{
+    font-family:'Inter',sans-serif;font-size:18px;color:var(--seal);
+    font-weight:600;margin-bottom:6px;
+  }
+  .contact-final .c-note{color:var(--gray);font-size:13px;line-height:1.7}
+
+  /* Footer */
+  footer.site-footer{
+    padding:32px 20px;text-align:center;color:var(--gray-soft);
+    font-size:13px;border-top:1px solid var(--line);
+  }
+  footer.site-footer a{color:var(--seal)}
+
+  /* utility */
+  .mt-l{margin-top:20px}
+  .mb-l{margin-bottom:20px}
+  .txt-center{text-align:center}
+</style>
+</head>
+<body>
+<div id="progress-bar"></div>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../" class="brand">
+      <img src="../assets/logo.jpg" alt="萝卜干">
+      <span>萝卜干</span>
+      <small>· 学习园地</small>
+    </a>
+    <nav class="top-nav">
+      <a href="./" class="hide-sm">课程列表</a>
+      <a href="../" class="hide-sm">返回主站</a>
+      <a href="#contact" class="cta">加微信</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- Hero -->
+  <section class="hero fade-up">
+    <div class="num">LESSON 01 · 2026.06.25</div>
+    <h1>账号定位 + 赛道现状</h1>
+    <p class="sub">先定位，再开机；先想清楚，再开拍。<br>今晚 60 分钟，认知赛道 · 落笔定位 · 学会自检。</p>
+    <div class="divider"></div>
+    <div class="meta">围棋老师的自媒体招生 · 十次课系列 · 第 1 / 10 课</div>
+  </section>
+
+  <!-- 十次课地图 -->
+  <section class="fade-up">
+    <div class="section-eyebrow">10-WEEK FULL MAP</div>
+    <h2 class="section-title">十次课全景地图 · 你今晚在哪一站</h2>
+    <p class="section-subtitle">每节 60 分钟 · 每周 1 节 · 2 个半月走完从零到闭环</p>
+    <div class="map-wrap">
+      <div class="map-grid" id="mapGrid"></div>
+    </div>
+  </section>
+
+  <!-- 三目标 -->
+  <section class="fade-up">
+    <div class="section-eyebrow">THREE GOALS TONIGHT</div>
+    <h2 class="section-title">今晚 60 分钟要让你做到的三件事</h2>
+    <p class="section-subtitle">今晚不讲拍摄、不讲剪辑、只讲"想清楚"</p>
+    <div class="grid g3">
+      <div class="card goal-card">
+        <div class="goal-no">GOAL 01</div>
+        <div class="goal-t">认知赛道</div>
+        <div class="goal-d">能说清楚围棋赛道三类典型账号，并知道自己应该走哪一类。</div>
+      </div>
+      <div class="card goal-card">
+        <div class="goal-no">GOAL 02</div>
+        <div class="goal-t">实战输出</div>
+        <div class="goal-d">能当场写出自己的「个人 IP 定位卡 V0.1」，完成从 0 到 1 的跨越。</div>
+      </div>
+      <div class="card goal-card">
+        <div class="goal-no">GOAL 03</div>
+        <div class="goal-t">避坑自检</div>
+        <div class="goal-d">能识别"伪定位"和"真定位"的区别，回去自检，避免做无用功。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 开篇钩子 & 双路径 -->
+  <section class="fade-up">
+    <div class="section-eyebrow">POSITIONING BEFORE SHOOTING</div>
+    <h2 class="section-title">你想清楚定位再开拍了吗？</h2>
+    <blockquote class="pull">
+      我跟太多老师聊过，<span class="hl">90%</span> 的老师上来就问："我先拍几条试试水？"<br>
+      <span class="hl">10%</span> 的老师才会先坐下来问："我的定位到底是什么？"<br>
+      三个月后回头看——真正把号做起来的，几乎全部来自那 10%。
+    </blockquote>
+    <div class="grid g2 path-compare">
+      <div class="card path-card bad">
+        <div class="path-lbl">常规路径 · 90% 老师</div>
+        <div class="path-t">盲目开拍 → 试水失败 → 账号做废</div>
+        <div class="path-steps">
+          <span class="step">盲目开拍</span>
+          <span class="arrow">→</span>
+          <span class="step">试水失败</span>
+          <span class="arrow">→</span>
+          <span class="step">账号做废</span>
+        </div>
+      </div>
+      <div class="card path-card good">
+        <div class="path-lbl">黄金路径 · 10% 老师</div>
+        <div class="path-t">定位先行 → 精准选题 → 高效获客</div>
+        <div class="path-steps">
+          <span class="step">定位先行</span>
+          <span class="arrow">→</span>
+          <span class="step">精准选题</span>
+          <span class="arrow">→</span>
+          <span class="step">高效获客</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 互动 1：三类账号自测 -->
+  <section class="fade-up">
+    <div class="section-eyebrow">INTERACTION · 01</div>
+    <h2 class="section-title">你打算做哪一类账号？</h2>
+    <p class="section-subtitle">围棋教育赛道，账号本质上就三大类。选错了，后面九节课白学。</p>
+    <div class="interact">
+      <span class="interact-eyebrow">POP QUIZ</span>
+      <div class="interact-q">选一个你目前最像的账号定位——</div>
+      <div class="account-buttons">
+        <button class="account-btn" data-key="official">
+          <div class="ab-t">A · 机构官方号</div>
+          <div class="ab-desc">机构名字直接注册，主体是"XX 围棋"</div>
+        </button>
+        <button class="account-btn" data-key="ip">
+          <div class="ab-t">B · 老师 IP 号</div>
+          <div class="ab-desc">用真人做前台，围绕"某老师"人格展开</div>
+        </button>
+        <button class="account-btn" data-key="parent">
+          <div class="ab-t">C · 家长视角号</div>
+          <div class="ab-desc">从家长陪学的视角讲围棋启蒙</div>
+        </button>
+      </div>
+      <div id="accountResult"></div>
+    </div>
+  </section>
+
+  <!-- 赛道数据 & 趋势 -->
+  <section class="fade-up">
+    <div class="section-eyebrow">TRACK ANALYSIS</div>
+    <h2 class="section-title">围棋赛道现状 · 数据说话</h2>
+    <p class="section-subtitle">围棋不是红海，也不是死赛道，是典型的"腰部空、头部薄"。</p>
+    <div class="grid g3">
+      <div class="card stat-card">
+        <div class="stat-num">&lt; 30</div>
+        <div class="stat-lbl">全网围棋教育垂类头部账号（10 万粉以上）</div>
+      </div>
+      <div class="card stat-card">
+        <div class="stat-num">1~5 万</div>
+        <div class="stat-lbl">腰部账号数量级 · 大量位置空缺</div>
+      </div>
+      <div class="card stat-card">
+        <div class="stat-num">0</div>
+        <div class="stat-lbl">头部垄断玩家 · 没有绝对权威</div>
+      </div>
+    </div>
+    <div class="conclusion-box">
+      <span class="hl">结论：</span>围棋教育赛道现在还是<span class="hl">"抢腰部"</span>的窗口期。你不需要成为顶流，做到 1-5 万垂直粉就足够养活一家线下机构。
+    </div>
+  </section>
+
+  <!-- 未来趋势 -->
+  <section class="fade-up">
+    <div class="section-eyebrow">FUTURE TRENDS</div>
+    <h2 class="section-title">未来 12 个月的四大趋势</h2>
+    <p class="section-subtitle">看清趋势，别把力气用在退潮的方向上。</p>
+    <div class="grid g4">
+      <div class="card">
+        <div class="section-eyebrow">TREND 01</div>
+        <div style="font-weight:600;margin-bottom:8px">人格化胜过机构化</div>
+        <div style="color:var(--gray);font-size:13px;line-height:1.7">观众关注"人"而不是"机构"。有温度的老师 IP 会跑赢冷冰冰的官方号。</div>
+      </div>
+      <div class="card">
+        <div class="section-eyebrow">TREND 02</div>
+        <div style="font-weight:600;margin-bottom:8px">教育理念 &gt; 棋艺展示</div>
+        <div style="color:var(--gray);font-size:13px;line-height:1.7">家长要的是"孩子跟你学到什么"，不是"老师有多厉害"。</div>
+      </div>
+      <div class="card">
+        <div class="section-eyebrow">TREND 03</div>
+        <div style="font-weight:600;margin-bottom:8px">短视频 → 直播 → 私域</div>
+        <div style="color:var(--gray);font-size:13px;line-height:1.7">短视频只是入口，转化必须走到私域。没有闭环的账号不算真账号。</div>
+      </div>
+      <div class="card">
+        <div class="section-eyebrow">TREND 04</div>
+        <div style="font-weight:600;margin-bottom:8px">县城 &amp; 三四线是蓝海</div>
+        <div style="color:var(--gray);font-size:13px;line-height:1.7">一线城市卷，但县城家长信息差大、竞争少，反而是回报率最高的市场。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 三个反例 & 杂货铺 vs 专卖店 -->
+  <section class="fade-up">
+    <div class="section-eyebrow">COMMON PITFALLS</div>
+    <h2 class="section-title">三种把号做废的典型打法</h2>
+    <p class="section-subtitle">照镜子式列举，看看你有没有踩坑。</p>
+    <div class="bad-list">
+      <div class="card bad-card">
+        <div class="bad-t">01 · 什么都拍，什么都不精</div>
+        <div class="bad-d">今天讲手筋、明天拍段子、后天带娃直播。看起来很勤奋，实际粉丝画像一片混乱。</div>
+      </div>
+      <div class="card bad-card">
+        <div class="bad-t">02 · 只发比赛集锦</div>
+        <div class="bad-d">高段棋友爱看，家长看不懂。围棋教育账号做成了棋友交流社群，转化率趋近于零。</div>
+      </div>
+      <div class="card bad-card">
+        <div class="bad-t">03 · 硬广式招生</div>
+        <div class="bad-d">开口就是"欢迎报名""特价 998"，账号变传单，别说粉丝，连算法都不推。</div>
+      </div>
+    </div>
+    <div class="vs-box">
+      <div class="vs-side left">
+        <div class="vs-lbl en">WRONG · 杂货铺</div>
+        <div class="vs-t">什么都卖，什么都不擅长</div>
+        <div class="vs-d">粉丝画像混乱，算法不知道推给谁，最后哪一类人都留不下。</div>
+      </div>
+      <div class="vs-mid">VS</div>
+      <div class="vs-side right">
+        <div class="vs-lbl en">RIGHT · 专卖店</div>
+        <div class="vs-t">只卖一样东西，卖得最深</div>
+        <div class="vs-d">用户一眼看懂你是谁、能给他什么。算法也知道该把你推给谁。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 四件套总览 -->
+  <section class="fade-up">
+    <div class="section-eyebrow">FOUR CORE ELEMENTS</div>
+    <h2 class="section-title">定位四件套 · 缺一不可</h2>
+    <p class="section-subtitle">下面所有关于内容、脚本、选题的决策，都要往这四件套上对齐。</p>
+    <div class="grid g4">
+      <div class="card elem-card">
+        <div class="en">01 · IDENTITY</div>
+        <div class="zh">身份标签</div>
+        <div class="desc">你是谁？<br>用一句话说清楚。</div>
+      </div>
+      <div class="card elem-card">
+        <div class="en">02 · AUDIENCE</div>
+        <div class="zh">用户标签</div>
+        <div class="desc">你说给谁听？<br>越具体越好。</div>
+      </div>
+      <div class="card elem-card">
+        <div class="en">03 · CONTENT</div>
+        <div class="zh">内容主线</div>
+        <div class="desc">你长期讲什么？<br>三主一辅够用。</div>
+      </div>
+      <div class="card elem-card">
+        <div class="en">04 · DIFFERENCE</div>
+        <div class="zh">差异化</div>
+        <div class="desc">你凭什么不一样？<br>找到那一根钉子。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 身份标签详解 -->
+  <section class="fade-up">
+    <div class="section-eyebrow">ELEMENT 01 · IDENTITY</div>
+    <h2 class="section-title">身份标签 · 你是谁</h2>
+    <p class="section-subtitle">一句话就能让家长记住你是干什么的，才叫身份标签。</p>
+    <div class="detail-block">
+      <div class="db-title">正误对比</div>
+      <div class="compare-2col">
+        <div class="wrong">
+          <div class="lbl">❌ 错误示范</div>
+          <div class="txt">"我是一名热爱围棋、致力于推广围棋教育、有着丰富教学经验的资深围棋老师。"<br><br>——太长、太满、太笼统，家长记不住任何一个词。</div>
+        </div>
+        <div class="right">
+          <div class="lbl">✔ 正确示范</div>
+          <div class="txt">"我是一个聊围棋教育的十年老兵。"<br><br>——短、准、有画面感，"教育" + "十年" 是钉子。</div>
+        </div>
+      </div>
+      <div class="example-box">
+        <div class="ex-lbl">CASE · 萝卜干示例</div>
+        身份标签 = <span class="hl">聊围棋教育的十年老兵</span><br>
+        · "聊" —— 分享 &amp; 讨论，不是纯教学，降低距离感<br>
+        · "围棋教育" —— 不是围棋、不是棋艺，明确锚定"教育"<br>
+        · "十年老兵" —— 时间证明，天然自带信任
+      </div>
+    </div>
+  </section>
+
+  <!-- 用户标签详解 -->
+  <section class="fade-up">
+    <div class="section-eyebrow">ELEMENT 02 · AUDIENCE</div>
+    <h2 class="section-title">用户标签 · 你说给谁听</h2>
+    <p class="section-subtitle">用户越具体，内容越有力量；用户越模糊，内容越像空气。</p>
+    <div class="detail-block">
+      <div class="db-title">用户标签公式</div>
+      <div class="card">
+        <div style="font-size:15px;line-height:1.9;color:var(--ink-soft)">
+          <span class="hl">用户标签 = 人群定语 + 核心焦虑 + 期待结果</span><br><br>
+          示例：<br>
+          · 人群定语：<span class="hl">3-8 岁孩子的家长</span><br>
+          · 核心焦虑：<span class="hl">想让孩子学围棋，但不知道怎么选、怎么陪</span><br>
+          · 期待结果：<span class="hl">用最少的时间让孩子真正入门</span>
+        </div>
+      </div>
+    </div>
+    <div class="detail-block">
+      <div class="db-title">同选题 · 两种脚本效果对比</div>
+      <div class="compare-2col">
+        <div class="wrong">
+          <div class="lbl">❌ 用户不清晰</div>
+          <div class="txt"><b>标题：</b>孩子学围棋有什么好处<br><br><b>内容：</b>围棋能锻炼思维、培养专注力、提高情商……<br><br>——正确，但空洞。谁都能说，谁都留不下。</div>
+        </div>
+        <div class="right">
+          <div class="lbl">✔ 用户清晰</div>
+          <div class="txt"><b>标题：</b>4 岁太小学围棋？家长最容易踩的 3 个坑<br><br><b>内容：</b>4 岁孩子适合学什么、不适合学什么，家长该怎么陪……<br><br>——精准打到 4 岁家长焦虑，转化率翻倍。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 内容主线详解 -->
+  <section class="fade-up">
+    <div class="section-eyebrow">ELEMENT 03 · CONTENT</div>
+    <h2 class="section-title">内容主线 · 你长期讲什么</h2>
+    <p class="section-subtitle">三主一辅：三条主线撑起 80% 内容，一条辅线留 20% 灵活空间。</p>
+    <div class="detail-block">
+      <div class="db-title">内容配比：80% 主线 + 20% 辅线</div>
+      <div class="ratio-vis">
+        <div class="rv-main">主线 80%</div>
+        <div class="rv-side">辅线 20%</div>
+      </div>
+      <div style="color:var(--gray-soft);font-size:13px">主线沉淀垂直标签，辅线保持内容的呼吸感和多样性。</div>
+    </div>
+    <div class="detail-block">
+      <div class="db-title">周计划模板（示例）</div>
+      <table class="week-table">
+        <tr><th>周内</th><th>内容类型</th><th>选题方向</th></tr>
+        <tr><td>周一</td><td>主线 A</td><td>围棋教育理念 · 家长常见误区</td></tr>
+        <tr><td>周三</td><td>主线 B</td><td>陪学方法 · 家长在家该怎么做</td></tr>
+        <tr><td>周五</td><td>主线 C</td><td>孩子成长案例 · 学员真实故事</td></tr>
+        <tr><td>周日</td><td>辅线</td><td>行业热点 / 生活日常 / 幕后花絮</td></tr>
+      </table>
+    </div>
+    <div class="detail-block">
+      <div class="db-title">CASE · 县城老师的三主一辅</div>
+      <div class="example-box">
+        <div class="ex-lbl">县城围棋老师 · 转化路径案例</div>
+        某县城老师，起号三个月做到 8000 精准粉，线下机构一次招生 40 人。<br>
+        · 主线 A：<span class="hl">家长陪学怎么办</span>（60% 家长有需求）<br>
+        · 主线 B：<span class="hl">4-8 岁孩子怎么启蒙</span>（精准锁定报班期）<br>
+        · 主线 C：<span class="hl">机构选择避坑指南</span>（塑造行业老兵形象）<br>
+        · 辅线：县城生活 / 学员小故事（真实感 + 拉近距离）
+      </div>
+    </div>
+  </section>
+
+  <!-- 差异化详解 -->
+  <section class="fade-up">
+    <div class="section-eyebrow">ELEMENT 04 · DIFFERENCE</div>
+    <h2 class="section-title">差异化 · 你凭什么不一样</h2>
+    <p class="section-subtitle">同一个赛道，别人也在做，你的钉子是什么？</p>
+    <div class="detail-block">
+      <div class="db-title">三种可能的切法</div>
+      <div class="diff-list">
+        <div class="diff-card">
+          <div class="df-t">切人群</div>
+          <div class="df-d">别人做全龄，你只做 4-6 岁启蒙；别人做家长，你只做爸爸陪学。</div>
+        </div>
+        <div class="diff-card">
+          <div class="df-t">切场景</div>
+          <div class="df-d">别人做机构教学，你只做家庭陪学；别人做线下，你只做在家复盘。</div>
+        </div>
+        <div class="diff-card">
+          <div class="df-t">切风格</div>
+          <div class="df-d">别人做正经科普，你做犀利吐槽；别人拍教学画面，你只出真人聊天。</div>
+        </div>
+      </div>
+    </div>
+    <div class="detail-block">
+      <div class="db-title">三个"以为是差异化，其实不是"的坑</div>
+      <div class="bad-list">
+        <div class="card bad-card">
+          <div class="bad-t">01 · "我更专业"</div>
+          <div class="bad-d">段位、证书、履历——每一个围棋老师都能说。这不是差异，是入场券。</div>
+        </div>
+        <div class="card bad-card">
+          <div class="bad-t">02 · "我更用心"</div>
+          <div class="bad-d">情绪表达，不是内容差异。家长听得多了，反而不信。</div>
+        </div>
+        <div class="card bad-card">
+          <div class="bad-t">03 · "我更便宜"</div>
+          <div class="bad-d">价格战永远打不赢，且会拉低你的定位。真正的差异不在钱上。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 互动 2：三秒自检 -->
+  <section class="fade-up">
+    <div class="section-eyebrow">INTERACTION · 02</div>
+    <h2 class="section-title">三秒真伪定位自检</h2>
+    <p class="section-subtitle">三个问题，回答 是 / 否 —— 看看你的定位是真的还是伪的。</p>
+    <div class="interact">
+      <span class="interact-eyebrow">SELF CHECK</span>
+      <div class="check-item card">
+        <div class="ci-q">Q1 · 你能不能用一句话说清楚"你是谁 + 说给谁听"？</div>
+        <div class="check-options">
+          <button class="check-opt" data-q="1" data-v="yes">是 · 我能</button>
+          <button class="check-opt" data-q="1" data-v="no">否 · 我不能</button>
+        </div>
+      </div>
+      <div class="check-item card">
+        <div class="ci-q">Q2 · 你的账号，别的老师能不能复制？</div>
+        <div class="check-options">
+          <button class="check-opt" data-q="2" data-v="no">否 · 换个人就不成立</button>
+          <button class="check-opt" data-q="2" data-v="yes">是 · 换个人也能做</button>
+        </div>
+      </div>
+      <div class="check-item card">
+        <div class="ci-q">Q3 · 你的用户，看完一条视频后能不能记住你？</div>
+        <div class="check-options">
+          <button class="check-opt" data-q="3" data-v="yes">是 · 我有记忆点</button>
+          <button class="check-opt" data-q="3" data-v="no">否 · 记不住</button>
+        </div>
+      </div>
+      <div id="checkResult"></div>
+    </div>
+  </section>
+
+  <!-- 互动 3：定位卡 V0.1 生成器 -->
+  <section class="fade-up">
+    <div class="section-eyebrow">INTERACTION · 03 · CORE</div>
+    <h2 class="section-title">个人 IP 定位卡 V0.1 · 现场落笔</h2>
+    <p class="section-subtitle">今晚课后作业的核心。填四个字段，一键生成属于你的定位卡（可保存到手机分享朋友圈）。</p>
+    <div class="interact card-gen">
+      <span class="interact-eyebrow">CARD MAKER</span>
+      <div class="interact-q">来，把它写下来 ——</div>
+
+      <div class="form-group">
+        <label>① 身份标签（你是谁）</label>
+        <input type="text" id="f-identity" placeholder="例如：一个聊围棋教育的十年老兵" maxlength="30">
+        <div class="hint">短、准、有画面感。控制在 15 字内更好记。</div>
+      </div>
+      <div class="form-group">
+        <label>② 用户标签（说给谁听）</label>
+        <input type="text" id="f-audience" placeholder="例如：3-8 岁孩子的家长，想让孩子学围棋但不知道怎么陪" maxlength="40">
+        <div class="hint">人群 + 焦虑 + 期待，越具体越好。</div>
+      </div>
+      <div class="form-group">
+        <label>③ 内容主线（三主一辅）</label>
+        <input type="text" id="f-content" placeholder="例如：家长陪学 / 启蒙方法 / 机构避坑 + 生活日常" maxlength="40">
+        <div class="hint">三条主线用 " / " 分隔，一条辅线用 "+" 连接。</div>
+      </div>
+      <div class="form-group">
+        <label>④ 差异化（凭什么不一样）</label>
+        <input type="text" id="f-diff" placeholder="例如：只讲教育不讲棋艺，只做家长不做棋友" maxlength="30">
+        <div class="hint">找到那一根钉子。可以从人群/场景/风格三选一切入。</div>
+      </div>
+
+      <div class="gen-actions">
+        <button class="btn primary" id="btnGen">生成定位卡</button>
+        <button class="btn ghost" id="btnReset">清空重填</button>
+      </div>
+
+      <div id="cardPreview"></div>
+
+      <div class="gen-actions" id="cardActions" style="display:none">
+        <button class="btn primary" id="btnSave">保存图片到相册</button>
+        <button class="btn ghost" id="btnFeedback">找萝卜干点评一次</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 作业 -->
+  <section class="fade-up">
+    <div class="section-eyebrow">HOMEWORK</div>
+    <h2 class="section-title">今晚课后作业</h2>
+    <p class="section-subtitle">三件事，全部做完再进入第 2 课。</p>
+    <div class="hw-list">
+      <div class="hw-card">
+        <div class="hw-no">HW · 01</div>
+        <div class="hw-t">生成你的定位卡 V0.1</div>
+        <div class="hw-d">用上面的生成器，把定位卡保存到手机，明天早上再打开看一次。</div>
+      </div>
+      <div class="hw-card">
+        <div class="hw-no">HW · 02</div>
+        <div class="hw-t">三秒自检</div>
+        <div class="hw-d">拿定位卡对着三个自检问题过一遍，哪一条 &quot;否&quot; 就补哪一条。</div>
+      </div>
+      <div class="hw-card">
+        <div class="hw-no">HW · 03</div>
+        <div class="hw-t">找同赛道 3 个对标账号</div>
+        <div class="hw-d">从抖音/视频号/小红书各找 1 个围棋教育账号，观察它的定位四件套是什么。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 第 2 课预告 -->
+  <section class="fade-up">
+    <div class="section-eyebrow">NEXT LESSON</div>
+    <h2 class="section-title">下节课预告</h2>
+    <div class="next-box">
+      <div class="nb-lbl">LESSON 02 · 2026.07.02</div>
+      <div class="nb-t">平台选择与内容形态匹配</div>
+      <div class="nb-d">定位定好了，下一步就要决定你的战场在哪。抖音 / 视频号 / 小红书 / B 站，各自适合什么样的老师？<br>下节课我们把每个平台的算法脾气、粉丝画像、内容形态一个个拆开看，帮你选对第一个主战场。</div>
+    </div>
+  </section>
+
+  <!-- 联系方式 -->
+  <section class="fade-up" id="contact">
+    <div class="section-eyebrow">CONTACT</div>
+    <h2 class="section-title">加微信 · 把定位卡发我点评一次</h2>
+    <p class="section-subtitle">这是第 1 课的专属福利：把你生成的定位卡发给我，我会亲自点评一次，就当作是学习礼物。</p>
+    <div class="contact-final">
+      <img src="../assets/wechat-qr.jpg" alt="萝卜干微信二维码">
+      <div class="c-wx">yxwq0909</div>
+      <div class="c-note">
+        添加时备注：<span class="hl">「第 1 课定位卡点评」</span><br>
+        我会看到备注后优先通过。
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div>© 萝卜干聊围棋教育 · <a href="../">weiqiluobogan.com</a></div>
+  <div style="margin-top:6px">学习园地 · Lesson 01 · Updated 2026.07.03</div>
+</footer>
+
+<!-- 微信弹窗 -->
+<div class="modal-mask" id="wechatModal">
+  <div class="modal-box">
+    <button class="close" id="modalClose">×</button>
+    <div class="m-t">把定位卡发我，免费点评一次</div>
+    <div class="m-d">这是第 1 课的作业礼物 —— 找到你定位卡里最需要打磨的那根钉子。</div>
+    <img src="../assets/wechat-qr.jpg" alt="萝卜干微信">
+    <div class="m-wx">yxwq0909</div>
+    <div class="m-note">添加时备注「第 1 课定位卡点评」</div>
+  </div>
+</div>
+
+<script>
+/* ============ 数据 ============ */
+const LESSON_MAP = [
+  {no:'01', tt:'账号定位<br>+ 赛道现状', active:true, now:true},
+  {no:'02', tt:'平台选择与<br>内容形态匹配'},
+  {no:'03', tt:'选题库搭建<br>与脚本公式'},
+  {no:'04', tt:'拍摄与剪辑<br>最小可行方案'},
+  {no:'05', tt:'标题封面与<br>流量入口'},
+  {no:'06', tt:'评论区运营<br>与私域引流'},
+  {no:'07', tt:'家长画像与<br>信任路径'},
+  {no:'08', tt:'转化链条：<br>从关注到成交'},
+  {no:'09', tt:'数据复盘与<br>迭代节奏'},
+  {no:'10', tt:'长期主义：<br>账号资产化'}
+];
+
+const ACCOUNT_DATA = {
+  official:{
+    tag:'warn', tagText:'不推荐',
+    title:'A · 机构官方号 —— 上限低，不推荐',
+    lines:[
+      '<b>人格弱：</b>机构名做主体，观众记不住"人"，信任积累慢。',
+      '<b>上限低：</b>参考同类账号，官方号做到 500 - 3000 粉就基本封顶。',
+      '<b>转化差：</b>家长关注机构等同于看广告，天然带戒备心。',
+      '<b>建议：</b>如果一定要做，只作为矩阵账号里的辅助号，不能当主号做。'
+    ]
+  },
+  ip:{
+    tag:'rec', tagText:'推荐',
+    title:'B · 老师 IP 号 —— 默认推荐',
+    lines:[
+      '<b>人格强：</b>真人做前台，观众记住"你是谁"，信任积累快。',
+      '<b>起号慢，但天花板高：</b>前 3 个月熬得住，后面爆发力强，能做到 1 - 5 万垂直粉。',
+      '<b>转化强：</b>家长关注的是"这个老师"，加微信、报班意愿高于官方号 3-5 倍。',
+      '<b>建议：</b>90% 的围棋老师应该走这条路，就是本套课程默认打法。'
+    ]
+  },
+  parent:{
+    tag:'warn', tagText:'本质错位',
+    title:'C · 家长视角号 —— 老师不适合做',
+    lines:[
+      '<b>身份错位：</b>你是老师，装成家长讲陪学，早晚被识破，一旦失信极难挽回。',
+      '<b>用户拒斥：</b>家长本身也在做家长号，同赛道竞争，还没有专业优势。',
+      '<b>转化断层：</b>粉丝以为你是同类，一旦发现你是老师要招生，落差感极大。',
+      '<b>建议：</b>这类账号适合"真的家长"来做，机构老师不要错位打这条路。'
+    ]
+  }
+};
+
+const CHECK_QUESTIONS = [
+  { id:1, right:'yes' },
+  { id:2, right:'no'  },
+  { id:3, right:'yes' }
+];
+
+const CHECK_RESULTS = {
+  3:{
+    tag:'真定位', tagCls:'rec',
+    title:'✔ 3/3 · 真定位',
+    body:'祝贺，你的定位是真的。可以直接进入第 2 课，选平台开机拍摄。<br>建议本周就发出你的第一条视频，别再犹豫。'
+  },
+  2:{
+    tag:'半真定位', tagCls:'rec',
+    title:'⚠ 2/3 · 半真定位',
+    body:'定位有雏形，但缺一块。找到你答"否"的那道题，专门补一下再拍。<br>不建议现在就大量发内容，先把短板补齐，避免账号方向漂移。'
+  },
+  1:{
+    tag:'伪定位', tagCls:'warn',
+    title:'✘ 0-1/3 · 伪定位',
+    body:'先别着急拍。回到定位卡生成器，把四个字段认真填一遍。<br>宁可多花 3 天想清楚，也别浪费 3 个月拍废号。<br>——把生成的定位卡发我，免费点评一次。'
+  }
+};
+
+/* ============ 十次课地图渲染 ============ */
+(function renderMap(){
+  const box = document.getElementById('mapGrid');
+  if(!box) return;
+  box.innerHTML = LESSON_MAP.map(l => `
+    <div class="map-item ${l.active?'active':''}">
+      ${l.now?'<span class="badge-now">今晚</span>':''}
+      <div class="no">${l.no}</div>
+      <div class="tt">${l.tt}</div>
+    </div>
+  `).join('');
+})();
+
+/* ============ 进度条 ============ */
+(function progressBar(){
+  const bar = document.getElementById('progress-bar');
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement;
+    const scrolled = h.scrollTop;
+    const total = h.scrollHeight - h.clientHeight;
+    const pct = total>0 ? (scrolled/total)*100 : 0;
+    bar.style.width = pct + '%';
+  }, {passive:true});
+})();
+
+/* ============ fade-up 观察 ============ */
+(function fadeIO(){
+  const items = document.querySelectorAll('.fade-up');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, {threshold:0.08});
+  items.forEach(el => io.observe(el));
+})();
+
+/* ============ 互动 1 · 三类账号自测 ============ */
+(function accountQuiz(){
+  const btns = document.querySelectorAll('.account-btn');
+  const box = document.getElementById('accountResult');
+  btns.forEach(btn => btn.addEventListener('click', () => {
+    btns.forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    const key = btn.dataset.key;
+    const d = ACCOUNT_DATA[key];
+    box.innerHTML = `
+      <div class="result-box ${d.tag}">
+        <span class="rb-tag">${d.tagText}</span>
+        <div class="rb-t">${d.title}</div>
+        <ul class="rb-d">${d.lines.map(l => `<li>${l}</li>`).join('')}</ul>
+      </div>
+    `;
+    box.classList.add('show');
+  }));
+})();
+
+/* ============ 互动 2 · 三秒自检 ============ */
+(function selfCheck(){
+  const state = {1:null,2:null,3:null};
+  const opts = document.querySelectorAll('.check-opt');
+  const box = document.getElementById('checkResult');
+  opts.forEach(opt => opt.addEventListener('click', () => {
+    const q = opt.dataset.q;
+    const v = opt.dataset.v;
+    state[q] = v;
+    // 同题清空其他按钮
+    document.querySelectorAll(`.check-opt[data-q="${q}"]`).forEach(o => {
+      o.classList.remove('on-yes','on-no');
+    });
+    // 正确答案配色更醒
+    const isRight = (CHECK_QUESTIONS.find(x=>x.id==q).right === v);
+    opt.classList.add(isRight?'on-yes':'on-no');
+    renderCheck();
+  }));
+  function renderCheck(){
+    if(state[1]==null || state[2]==null || state[3]==null) return;
+    let score = 0;
+    CHECK_QUESTIONS.forEach(q => { if(state[q.id] === q.right) score++; });
+    const key = score >= 3 ? 3 : (score === 2 ? 2 : 1);
+    const r = CHECK_RESULTS[key];
+    box.innerHTML = `
+      <div class="result-box ${r.tagCls}">
+        <span class="score-badge">得分 ${score} / 3</span>
+        <div class="rb-t">${r.title}</div>
+        <div class="rb-d">${r.body}</div>
+      </div>
+    `;
+    box.classList.add('show');
+  }
+})();
+
+/* ============ 互动 3 · Canvas 定位卡生成器 ============ */
+(function cardMaker(){
+  const btnGen = document.getElementById('btnGen');
+  const btnReset = document.getElementById('btnReset');
+  const btnSave = document.getElementById('btnSave');
+  const btnFeedback = document.getElementById('btnFeedback');
+  const preview = document.getElementById('cardPreview');
+  const actions = document.getElementById('cardActions');
+
+  let logoImg = new Image();
+  let qrImg = new Image();
+  let logoLoaded = false, qrLoaded = false;
+  logoImg.crossOrigin = 'anonymous';
+  qrImg.crossOrigin = 'anonymous';
+  logoImg.onload = () => logoLoaded = true;
+  qrImg.onload = () => qrLoaded = true;
+  logoImg.src = '../assets/logo.jpg';
+  qrImg.src = '../assets/wechat-qr.jpg';
+
+  btnGen.addEventListener('click', () => {
+    const identity = document.getElementById('f-identity').value.trim();
+    const audience = document.getElementById('f-audience').value.trim();
+    const content  = document.getElementById('f-content').value.trim();
+    const diff     = document.getElementById('f-diff').value.trim();
+    if(!identity || !audience || !content || !diff){
+      alert('先把四个字段都填一下吧～ 缺一个就不叫定位卡了。');
+      return;
+    }
+    drawCard({identity, audience, content, diff});
+    actions.style.display = 'flex';
+    preview.scrollIntoView({behavior:'smooth', block:'center'});
+  });
+
+  btnReset.addEventListener('click', () => {
+    ['f-identity','f-audience','f-content','f-diff'].forEach(id => {
+      document.getElementById(id).value = '';
+    });
+    preview.innerHTML = '';
+    actions.style.display = 'none';
+  });
+
+  btnSave.addEventListener('click', () => {
+    const canvas = preview.querySelector('canvas');
+    if(!canvas) return;
+    const url = canvas.toDataURL('image/png');
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = '个人IP定位卡_V0.1_萝卜干.png';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  });
+
+  btnFeedback.addEventListener('click', () => {
+    document.getElementById('wechatModal').classList.add('show');
+  });
+
+  function drawCard(data){
+    const W = 1080, H = 1350;
+    const canvas = document.createElement('canvas');
+    canvas.width = W; canvas.height = H;
+    const ctx = canvas.getContext('2d');
+
+    // 底：宣纸
+    ctx.fillStyle = '#f8f5ef';
+    ctx.fillRect(0, 0, W, H);
+
+    // 纸纹（细网点，非常淡）
+    ctx.fillStyle = 'rgba(200,190,170,0.08)';
+    for(let y=0; y<H; y+=6){
+      for(let x=0; x<W; x+=6){
+        if((x+y)%12===0) ctx.fillRect(x, y, 1, 1);
+      }
+    }
+
+    // 双边框：外粗印章红细，内细
+    ctx.strokeStyle = '#a8362a';
+    ctx.lineWidth = 8;
+    ctx.strokeRect(48, 48, W-96, H-96);
+    ctx.lineWidth = 2;
+    ctx.strokeRect(72, 72, W-144, H-144);
+
+    // 顶部标签
+    ctx.fillStyle = '#a8362a';
+    ctx.fillRect(W/2 - 200, 128, 400, 60);
+    ctx.fillStyle = '#fff';
+    ctx.font = 'bold 28px "Noto Serif SC", serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('个人 IP 定位卡 V0.1', W/2, 158);
+
+    // 主标题
+    ctx.fillStyle = '#1a1a1a';
+    ctx.font = 'bold 60px "Noto Serif SC", serif';
+    ctx.fillText('我的定位', W/2, 280);
+
+    // 分隔小线
+    ctx.strokeStyle = '#a8362a';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(W/2 - 40, 330);
+    ctx.lineTo(W/2 + 40, 330);
+    ctx.stroke();
+
+    // 四行内容 · 序号 + 标签 + 内容
+    const items = [
+      {no:'①', label:'身份',   val:data.identity},
+      {no:'②', label:'用户',   val:data.audience},
+      {no:'③', label:'内容',   val:data.content},
+      {no:'④', label:'差异',   val:data.diff}
+    ];
+    let y = 410;
+    ctx.textAlign = 'left';
+    items.forEach(it => {
+      // 序号红点
+      ctx.fillStyle = '#a8362a';
+      ctx.font = 'bold 42px "Noto Serif SC", serif';
+      ctx.fillText(it.no, 130, y);
+
+      // 标签（小灰）
+      ctx.fillStyle = '#8a8a8a';
+      ctx.font = '24px "Noto Serif SC", serif';
+      ctx.fillText(it.label, 190, y - 20);
+
+      // 内容主体（自动换行）
+      ctx.fillStyle = '#1a1a1a';
+      ctx.font = 'bold 32px "Noto Serif SC", serif';
+      wrapText(ctx, it.val, 190, y + 20, W - 300, 44);
+      y += 145;
+    });
+
+    // 底部区域：logo + 名字 + 域名  |  二维码
+    const bottomY = H - 220;
+
+    // 底部分隔线
+    ctx.strokeStyle = '#e6e0d5';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(130, bottomY - 20);
+    ctx.lineTo(W - 130, bottomY - 20);
+    ctx.stroke();
+
+    // logo
+    if(logoLoaded){
+      ctx.save();
+      ctx.beginPath();
+      const cx = 180, cy = bottomY + 40, r = 40;
+      ctx.arc(cx, cy, r, 0, Math.PI*2);
+      ctx.closePath();
+      ctx.clip();
+      ctx.drawImage(logoImg, cx-r, cy-r, r*2, r*2);
+      ctx.restore();
+    }
+
+    // 名字 + 域名
+    ctx.textAlign = 'left';
+    ctx.fillStyle = '#1a1a1a';
+    ctx.font = 'bold 30px "Noto Serif SC", serif';
+    ctx.fillText('萝卜干聊围棋教育', 240, bottomY + 28);
+
+    ctx.fillStyle = '#a8362a';
+    ctx.font = '22px "Inter", sans-serif';
+    ctx.fillText('weiqiluobogan.com', 240, bottomY + 62);
+
+    // 二维码
+    if(qrLoaded){
+      const qrSize = 140;
+      const qrX = W - qrSize - 130;
+      const qrY = bottomY - 20;
+      ctx.fillStyle = '#fff';
+      ctx.fillRect(qrX - 6, qrY - 6, qrSize + 12, qrSize + 12);
+      ctx.drawImage(qrImg, qrX, qrY, qrSize, qrSize);
+      // 微信号
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#4a4a4a';
+      ctx.font = '18px "Inter", sans-serif';
+      ctx.fillText('yxwq0909', qrX + qrSize/2, qrY + qrSize + 24);
+    }
+
+    // 印章装饰（右上角）
+    ctx.save();
+    ctx.translate(W - 180, 220);
+    ctx.rotate(-Math.PI / 60);
+    ctx.fillStyle = '#a8362a';
+    ctx.fillRect(-45, -45, 90, 90);
+    ctx.fillStyle = '#fff';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.font = 'bold 26px "Noto Serif SC", serif';
+    ctx.fillText('萝卜', 0, -14);
+    ctx.fillText('干印', 0, 18);
+    ctx.restore();
+
+    preview.innerHTML = '';
+    preview.appendChild(canvas);
+  }
+
+  function wrapText(ctx, text, x, y, maxWidth, lineHeight){
+    // 中文按字拆分，英文/数字按词拆分
+    const chars = text.split('');
+    let line = '', lines = [];
+    chars.forEach(ch => {
+      const test = line + ch;
+      if(ctx.measureText(test).width > maxWidth && line){
+        lines.push(line);
+        line = ch;
+      } else {
+        line = test;
+      }
+    });
+    if(line) lines.push(line);
+    // 最多显示 2 行
+    if(lines.length > 2){
+      lines = lines.slice(0, 2);
+      lines[1] = lines[1].slice(0, -1) + '…';
+    }
+    lines.forEach((ln, i) => ctx.fillText(ln, x, y + i * lineHeight));
+  }
+})();
+
+/* ============ 微信弹窗 ============ */
+(function wechatModal(){
+  const mask = document.getElementById('wechatModal');
+  const closeBtn = document.getElementById('modalClose');
+  closeBtn.addEventListener('click', () => mask.classList.remove('show'));
+  mask.addEventListener('click', (e) => {
+    if(e.target === mask) mask.classList.remove('show');
+  });
+})();
+</script>
+</body>
+</html>
