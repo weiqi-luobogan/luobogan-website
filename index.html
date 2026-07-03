@@ -31,9 +31,11 @@
   <style>
     :root {
       --ink: #1a1a1a;
+      --ink-soft: #2a2a2a;
       --paper: #f8f5ef;
       --paper-2: #f2ede2;
       --seal: #a8362a;
+      --seal-light: #c74e3f;
       --gray: #4a4a4a;
       --line: #e6e0d5;
     }
@@ -97,6 +99,42 @@
       height: 2px;
       background: var(--seal);
     }
+
+    /* ===== 排版规范 v1 · 印章红点缀 + 层次强化 ===== */
+    /* 内联关键词高亮：正文中的重点关键词一律用印章红加粗 */
+    .hl {
+      color: var(--seal);
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+    /* section 大标题下的引言段（副标题级） */
+    .section-lead {
+      color: var(--ink);
+      font-size: 15px;
+      line-height: 1.95;
+      letter-spacing: 0.03em;
+      margin-bottom: 2.5rem;
+      max-width: 46rem;
+    }
+    @media (min-width: 768px) {
+      .section-lead { font-size: 16.5px; }
+    }
+    .section-lead .hl { font-size: 1em; }
+    /* 卡片正文全局加深、加大、加行距 */
+    .card p.text-gray-soft {
+      color: var(--ink-soft);
+      font-size: 15px;
+      line-height: 1.95;
+      letter-spacing: 0.02em;
+    }
+    .card p.text-xs.text-gray-soft {
+      color: #555;
+      font-size: 12.5px;
+      line-height: 1.75;
+    }
+    .card h3 { color: var(--ink); letter-spacing: 0.04em; }
+    .card h3.text-xl { font-size: 22px; }
+    .card p + p { margin-top: 0.6rem; }
     .fade-in {
       opacity: 0;
       transform: translateY(20px);
@@ -309,7 +347,7 @@
       font-style: normal;
       line-height: 1.9;
     }
-    .culture-body strong { color: var(--ink); font-weight: 700; }
+    .culture-body strong { color: var(--seal); font-weight: 700; letter-spacing: 0.02em; }
 
     /* ===== Showcase 5秒轮播 ===== */
     .showcase-container { position: relative; max-width: 900px; margin: 0 auto; }
@@ -334,11 +372,11 @@
     .teaching-list-item p { font-size: 13px; color: #6b6b6b; line-height: 1.6; }
     .teaching-back { display: inline-flex; align-items: center; gap: 6px; color: var(--seal); font-size: 13px; cursor: pointer; margin-bottom: 20px; background: none; border: none; padding: 0; font-family: inherit; }
     .teaching-back:hover { text-decoration: underline; }
-    .teaching-body { color: #4a4a4a; font-style: normal; line-height: 1.9; font-size: 15px; }
-    .teaching-body strong { color: var(--ink); font-weight: 700; }
-    .teaching-body h3 { font-size: 18px; font-weight: 700; color: var(--ink); margin: 24px 0 12px; }
-    .teaching-body h4 { font-size: 16px; font-weight: 700; color: var(--ink); margin: 20px 0 10px; }
-    .teaching-body p { margin: 12px 0; }
+    .teaching-body { color: #2a2a2a; font-style: normal; line-height: 1.95; font-size: 15.5px; }
+    .teaching-body strong { color: var(--seal); font-weight: 700; letter-spacing: 0.02em; }
+    .teaching-body h3 { font-size: 20px; font-weight: 700; color: var(--ink); margin: 28px 0 14px; padding-left: 12px; border-left: 3px solid var(--seal); }
+    .teaching-body h4 { font-size: 17px; font-weight: 700; color: var(--seal); margin: 22px 0 10px; }
+    .teaching-body p { margin: 16px 0; }
     .teaching-body blockquote { border-left: 3px solid var(--seal); padding: 6px 16px; margin: 16px 0; background: #faf7f0; font-style: italic; color: #555; }
     .teaching-body ul, .teaching-body ol { margin: 12px 0; padding-left: 24px; }
     .teaching-body li { margin: 6px 0; }
@@ -619,7 +657,7 @@
 <section id="projects" class="bg-paper-2 py-24 border-y border-line collapsible">
   <div class="max-w-5xl mx-auto px-6 fade-in">
     <h2 class="section-title">围棋课程</h2>
-    <p class="text-gray-soft mb-12 text-sm">所有项目均长期开放，加微信咨询入群方式。</p>
+    <p class="section-lead" style="margin-bottom:3rem">所有项目均长期开放，加微信咨询入群方式。</p>
 
     <!-- 教师向 -->
     <div class="mb-16">
@@ -632,28 +670,28 @@
           <h3 class="text-xl font-bold mb-2">线上训练营</h3>
           <p class="text-xs text-gray-soft mb-3 font-inter">长期开放</p>
           <p class="text-gray-soft text-sm leading-relaxed">
-            教师系统性能力训练营。每期围绕一个核心专题，集中打磨<span class="font-bold text-base text-ink">备课逻辑</span>、<span class="font-bold text-base text-ink">课堂节奏</span>、<span class="font-bold text-base text-ink">家长沟通</span>、<span class="font-bold text-base text-ink">续班话术</span>。适合刚入行 1-3 年的老师，以及想告别野路子教学的独立老师。
+            教师系统性能力训练营。每期围绕一个核心专题，集中打磨<span class="hl">备课逻辑</span>、<span class="hl">课堂节奏</span>、<span class="hl">家长沟通</span>、<span class="hl">续班话术</span>。适合刚入行 1-3 年的老师，以及想告别野路子教学的独立老师。
           </p>
         </div>
         <div class="card">
           <h3 class="text-xl font-bold mb-2">周四群内体系化分享</h3>
           <p class="text-xs text-gray-soft mb-3 font-inter">每周四 · 长期</p>
           <p class="text-gray-soft text-sm leading-relaxed">
-            面向<span class="text-ink font-medium">萝卜围棋圈</span>成员的每周体系化分享。本季度主题：<span class="font-bold text-base text-ink">围棋老师如何做好自媒体</span>；下季度主题：<span class="font-bold text-base text-ink">家校沟通与招生宣传</span>。每期一个小切口，长期滚动更新。
+            面向<span class="text-ink font-medium">萝卜围棋圈</span>成员的每周体系化分享。本季度主题：<span class="hl">围棋老师如何做好自媒体</span>；下季度主题：<span class="hl">家校沟通与招生宣传</span>。每期一个小切口，长期滚动更新。
           </p>
         </div>
         <div class="card">
           <h3 class="text-xl font-bold mb-2">教师成长群</h3>
           <p class="text-xs text-gray-soft mb-3 font-inter">每周三 / 周四早 · 长期</p>
           <p class="text-gray-soft text-sm leading-relaxed">
-            以《<span class="font-bold text-base text-ink">围棋教师成长手册</span>》为主干，<span class="font-bold text-base text-ink">二十次课</span>系统串讲从教学理念到课堂落地的全流程。每次课配套<span class="font-bold text-base text-ink">课程回放</span>、<span class="font-bold text-base text-ink">教学笔记</span>、<span class="font-bold text-base text-ink">教学 PPT</span>，加入即可反复复用。
+            以《<span class="hl">围棋教师成长手册</span>》为主干，<span class="hl">二十次课</span>系统串讲从教学理念到课堂落地的全流程。每次课配套<span class="hl">课程回放</span>、<span class="hl">教学笔记</span>、<span class="hl">教学 PPT</span>，加入即可反复复用。
           </p>
         </div>
         <div class="card">
           <h3 class="text-xl font-bold mb-2">围棋专题训练课</h3>
           <p class="text-xs text-gray-soft mb-3 font-inter">长期开放 · 按专题排课</p>
           <p class="text-gray-soft text-sm leading-relaxed">
-            面向<span class="font-bold text-base text-ink">野狐 10 级到 3 段</span>棋友的专项训练营，四大模块——<span class="font-bold text-base text-ink">围棋布局</span>、<span class="font-bold text-base text-ink">中盘战斗</span>、<span class="font-bold text-base text-ink">打入专题</span>、<span class="font-bold text-base text-ink">官子提升</span>，按专题轮转，逐一打透实战短板。
+            面向<span class="hl">野狐 10 级到 3 段</span>棋友的专项训练营，四大模块——<span class="hl">围棋布局</span>、<span class="hl">中盘战斗</span>、<span class="hl">打入专题</span>、<span class="hl">官子提升</span>，按专题轮转，逐一打透实战短板。
           </p>
         </div>
       </div>
@@ -670,7 +708,7 @@
           <h3 class="text-xl font-bold mb-2">家长群</h3>
           <p class="text-xs text-gray-soft mb-3 font-inter">长期开放</p>
           <p class="text-gray-soft text-sm leading-relaxed">
-            面向少儿围棋家长的长期交流群。日常围绕<span class="font-bold text-base text-ink">孩子学棋进度</span>、<span class="font-bold text-base text-ink">家中陪练</span>、<span class="font-bold text-base text-ink">升级冲段节奏</span>、<span class="font-bold text-base text-ink">赛事信息</span>展开。每周一次固定分享教育心得，无广告、无强制打卡。
+            面向少儿围棋家长的长期交流群。日常围绕<span class="hl">孩子学棋进度</span>、<span class="hl">家中陪练</span>、<span class="hl">升级冲段节奏</span>、<span class="hl">赛事信息</span>展开。每周一次固定分享教育心得，无广告、无强制打卡。
           </p>
         </div>
       </div>
@@ -687,14 +725,14 @@
           <h3 class="text-xl font-bold mb-2">一对一</h3>
           <p class="text-xs text-gray-soft mb-3 font-inter">长期开放 · 预约制</p>
           <p class="text-gray-soft text-sm leading-relaxed">
-            针对个体棋友的深度陪跑。集中解决<span class="font-bold text-base text-ink">卡段瓶颈</span>、<span class="font-bold text-base text-ink">思维盲点</span>、<span class="font-bold text-base text-ink">赛前突击</span>等具体问题。<span class="font-bold text-base text-ink">每次 45 分钟</span>，面向 5 岁到成人，可试听一次再决定是否长期。
+            针对个体棋友的深度陪跑。集中解决<span class="hl">卡段瓶颈</span>、<span class="hl">思维盲点</span>、<span class="hl">赛前突击</span>等具体问题。<span class="hl">每次 45 分钟</span>，面向 5 岁到成人，可试听一次再决定是否长期。
           </p>
         </div>
         <div class="card">
           <h3 class="text-xl font-bold mb-2">围棋专题训练营</h3>
           <p class="text-xs text-gray-soft mb-3 font-inter">长期开放 · 按专题排期</p>
           <p class="text-gray-soft text-sm leading-relaxed">
-            面向孩子的短期专项训练营。围绕<span class="font-bold text-base text-ink">死活手筋</span>、<span class="font-bold text-base text-ink">布局感觉</span>、<span class="font-bold text-base text-ink">吃子技巧</span>、<span class="font-bold text-base text-ink">基本官子</span>四大专题轮转开营，每期 6-8 次课，适合 15 级到 3 级的孩子按短板选营。
+            面向孩子的短期专项训练营。围绕<span class="hl">死活手筋</span>、<span class="hl">布局感觉</span>、<span class="hl">吃子技巧</span>、<span class="hl">基本官子</span>四大专题轮转开营，每期 6-8 次课，适合 15 级到 3 级的孩子按短板选营。
           </p>
         </div>
       </div>
@@ -706,7 +744,7 @@
 <section id="works" class="bg-paper py-24 collapsible">
   <div class="max-w-5xl mx-auto px-6 fade-in">
     <h2 class="section-title">图书与思维导图</h2>
-    <p class="text-gray-soft mb-10 text-sm">这几年沉淀下来的两件事：一套<span class="font-bold text-base text-ink">家校共育四书</span>，一份<span class="font-bold text-base text-ink">2025 版围棋思维导图</span>。都还在持续打磨。</p>
+    <p class="section-lead">这几年沉淀下来的两件事：一套<span class="hl">家校共育四书</span>，一份<span class="hl">2025 版围棋思维导图</span>。都还在持续打磨。</p>
 
     <!-- 四书 -->
     <div class="mb-16">
@@ -716,7 +754,7 @@
       </div>
       <div class="mb-8">
         <img src="assets/books/main.jpg" alt="家校共育四书 全家福" class="w-full rounded shadow-sm border border-line">
-        <p class="text-xs text-gray-soft mt-3 leading-relaxed">围绕<span class="font-bold text-base text-ink">围棋教育</span>与<span class="font-bold text-base text-ink">家庭教育</span>写成的四卷手册，分别面向老师、校长、家长与家庭日常。</p>
+        <p class="text-xs text-gray-soft mt-3 leading-relaxed">围绕<span class="hl">围棋教育</span>与<span class="hl">家庭教育</span>写成的四卷手册，分别面向老师、校长、家长与家庭日常。</p>
       </div>
       <div class="grid md:grid-cols-4 gap-6">
         <div class="card">
@@ -756,7 +794,7 @@
         <span class="seal">2025 版围棋思维导图</span>
         <span class="text-xs text-gray-soft font-inter tracking-wider">精选 15 张</span>
       </div>
-      <p class="text-xs text-gray-soft mb-8 leading-relaxed">从<span class="font-bold text-base text-ink">教学体系</span>、<span class="font-bold text-base text-ink">启蒙入门</span>、<span class="font-bold text-base text-ink">棋力提升</span>到<span class="font-bold text-base text-ink">家庭教育</span>，把这些年琢磨出来的东西画成一张张图。点击可放大查看。</p>
+      <p class="text-xs text-gray-soft mb-8 leading-relaxed">从<span class="hl">教学体系</span>、<span class="hl">启蒙入门</span>、<span class="hl">棋力提升</span>到<span class="hl">家庭教育</span>，把这些年琢磨出来的东西画成一张张图。点击可放大查看。</p>
 
       <div class="mb-10">
         <h3 class="text-lg font-bold mb-2">教学体系</h3>
@@ -883,7 +921,7 @@
 <section id="culture" class="bg-paper py-24 collapsible">
   <div class="max-w-5xl mx-auto px-6 fade-in">
     <h2 class="section-title">围棋文化</h2>
-    <p class="text-gray-soft text-base leading-relaxed mb-12 max-w-2xl">四千年，围棋不是一门游戏，而是一整套<span class="font-bold text-ink">东方哲学</span>。这里从四个门推开看：<strong class="text-ink">历史</strong>、<strong class="text-ink">故事</strong>、<strong class="text-ink">典籍</strong>、<strong class="text-ink">人物</strong>。持续更新，慢慢挖。</p>
+    <p class="section-lead" style="margin-bottom:3rem">四千年，围棋不是一门游戏，而是一整套<span class="hl">东方哲学</span>。这里从四个门推开看：<strong class="hl">历史</strong>、<strong class="hl">故事</strong>、<strong class="hl">典籍</strong>、<strong class="hl">人物</strong>。持续更新，慢慢挖。</p>
 
     <!-- ======= 视图 1：4 板块入口 ======= -->
     <div id="culture-home" class="grid md:grid-cols-2 gap-6">
@@ -949,7 +987,7 @@
 <section id="teaching" class="bg-paper py-24 border-y border-line collapsible">
   <div class="max-w-5xl mx-auto px-6 fade-in">
     <h2 class="section-title">教学理念</h2>
-    <p class="text-gray-soft text-base leading-relaxed mb-10 max-w-2xl">
+    <p class="section-lead">
       十年一线教学沉淀的思路、故事和方法论。分为三个方向：技术要怎么教、课堂里遇到什么样的人和事、一个围棋老师是怎么慢慢长起来的。
     </p>
 
@@ -976,8 +1014,8 @@
 <section id="ability-test" class="bg-paper-2 py-24 border-y border-line collapsible">
   <div class="max-w-4xl mx-auto px-6 fade-in">
     <h2 class="section-title">围棋能力测试</h2>
-    <p class="text-gray-soft text-base leading-relaxed mb-10 max-w-2xl">
-      围棋教育里，最难的不是技术，是"人"这一面。这里两套 30 题自评，帮你把自己在孩子学棋 / 教学状态里的位置照一照镜子。做完会给你一张<span class="font-bold text-base text-ink">段位认证证书</span>，可以保存分享。
+    <p class="section-lead">
+      围棋教育里，最难的不是技术，是"人"这一面。这里两套 30 题自评，帮你把自己在孩子学棋 / 教学状态里的位置照一照镜子。做完会给你一张<span class="hl">段位认证证书</span>，可以保存分享。
     </p>
 
     <!-- ==== Tab 切换 ==== -->
@@ -989,12 +1027,12 @@
     <!-- ==== 状态 1：介绍屏 ==== -->
     <div id="test-intro" class="card">
       <h3 id="intro-title" class="text-xl font-bold mb-3">家长版 · 教育认知度测评</h3>
-      <p id="intro-desc" class="text-sm text-gray-soft leading-relaxed mb-6">这套题面向孩子在学围棋、正在学、或者考虑让孩子学的家长。它不测围棋水平，测的是你作为家长的<span class="font-bold text-ink">教育理念、期望管理、陪伴方式、教育视野</span>四个维度。</p>
+      <p id="intro-desc" class="text-sm text-gray-soft leading-relaxed mb-6">这套题面向孩子在学围棋、正在学、或者考虑让孩子学的家长。它不测围棋水平，测的是你作为家长的<span class="hl">教育理念、期望管理、陪伴方式、教育视野</span>四个维度。</p>
       <div class="grid grid-cols-2 gap-4 text-xs text-gray-soft mb-6">
-        <div><span class="font-bold text-ink">题量</span>：30 道</div>
-        <div><span class="font-bold text-ink">题型</span>：单选 20 · 判断 8 · 简答 2</div>
-        <div><span class="font-bold text-ink">用时</span>：约 10-15 分钟</div>
-        <div><span class="font-bold text-ink">满分</span>：150 分</div>
+        <div><span class="hl">题量</span>：30 道</div>
+        <div><span class="hl">题型</span>：单选 20 · 判断 8 · 简答 2</div>
+        <div><span class="hl">用时</span>：约 10-15 分钟</div>
+        <div><span class="hl">满分</span>：150 分</div>
       </div>
       <p class="text-xs text-gray-soft mb-6 leading-relaxed"><em>提示：本测评为萝卜干个人教育理念评估工具，结果和证书代表教育认知度参考，不代表围棋段位。</em></p>
       <button id="btn-start" class="bg-seal text-white px-8 py-3 rounded text-sm hover:opacity-90 transition">开始测评 →</button>
@@ -1018,11 +1056,11 @@
           <p class="text-xs text-gray-soft mb-4"><em>先在心里想一想你的答案，然后点击查看参考要点，做一次真实自评。</em></p>
           <button id="btn-show-ref" class="bg-seal text-white px-6 py-2 rounded text-sm mb-4">查看参考要点</button>
           <div id="essay-ref" style="display:none" class="bg-paper border-l-2 border-seal px-4 py-3 mb-4 text-sm leading-relaxed">
-            <p class="font-bold mb-2 text-ink">参考要点：</p>
+            <p class="hl mb-2">参考要点：</p>
             <ul id="essay-ref-list" class="space-y-1 text-gray-soft"></ul>
           </div>
           <div id="essay-self-eval" style="display:none">
-            <p class="text-sm mb-3 font-bold text-ink">你刚才想到的接近哪一档？</p>
+            <p class="text-sm mb-3 hl">你刚才想到的接近哪一档？</p>
             <div class="grid grid-cols-3 gap-2">
               <button class="essay-btn" data-score="5">完全想到<br><span class="essay-btn-sub">+5 分</span></button>
               <button class="essay-btn" data-score="3">想到一半<br><span class="essay-btn-sub">+3 分</span></button>
@@ -1053,7 +1091,7 @@
             <p class="text-xs text-gray-soft mb-2 font-inter tracking-wider">总得分</p>
             <p class="text-4xl font-bold text-seal leading-none"><span id="res-score"></span><span class="text-lg text-gray-soft"> / 150</span></p>
             <p class="text-sm mt-4">段位定位</p>
-            <p class="text-lg font-bold text-ink" id="res-level"></p>
+            <p class="text-lg hl" id="res-level"></p>
           </div>
           <div>
             <p class="text-xs text-gray-soft mb-2 font-inter tracking-wider">四维度雷达</p>
@@ -1071,7 +1109,7 @@
           <button id="btn-retry" class="border border-ink text-ink px-6 py-2 rounded text-sm hover:bg-ink hover:text-white transition">重做本版</button>
           <button id="btn-switch" class="border border-ink text-ink px-6 py-2 rounded text-sm hover:bg-ink hover:text-white transition">做另一版</button>
         </div>
-        <p class="text-xs text-gray-soft mt-6 leading-relaxed"><em>觉得测评有共鸣的，可以扫下方"加我微信"二维码或搜索 <span class="font-bold text-ink">yxwq0909</span> 找我聊聊。</em></p>
+        <p class="text-xs text-gray-soft mt-6 leading-relaxed"><em>觉得测评有共鸣的，可以扫下方"加我微信"二维码或搜索 <span class="hl">yxwq0909</span> 找我聊聊。</em></p>
       </div>
     </div>
   </div>
@@ -1081,7 +1119,7 @@
 <section id="interact" class="bg-paper-2 py-24 border-y border-line collapsible">
   <div class="max-w-5xl mx-auto px-6 fade-in">
     <h2 class="section-title">留言板</h2>
-    <p class="text-gray-soft mb-12 text-sm">每周挑一个真实问题聊聊，也欢迎你在下方直接留言。</p>
+    <p class="section-lead" style="margin-bottom:3rem">每周挑一个真实问题聊聊，也欢迎你在下方直接留言。</p>
 
     <!-- 每周话题 -->
     <div class="mb-16">
@@ -1093,10 +1131,10 @@
         <p class="text-xs text-gray-soft mb-3 font-inter">本周问题</p>
         <h3 class="text-xl font-bold mb-4">什么样的围棋老师，才算是优秀的围棋老师？</h3>
         <ul class="text-gray-soft text-sm leading-relaxed space-y-2 list-disc pl-5 mb-4">
-          <li><span class="font-bold text-base text-ink">懂棋不等于会教</span>——段位高不代表能把道理讲进小孩心里，教学是另一门专业活。</li>
-          <li><span class="font-bold text-base text-ink">看孩子几年后的样子</span>——好老师追求"离开我以后你还能自己走"，不是"只有跟着我才行"。</li>
-          <li><span class="font-bold text-base text-ink">不神化胜负</span>——赢和输都是学习工具，一盘输棋讲得好，比十盘赢棋更值。</li>
-          <li><span class="font-bold text-base text-ink">敢对家长说真话</span>——什么阶段该猛、什么阶段该缓，直接说，不为了续费遮遮掩掩。</li>
+          <li><span class="hl">懂棋不等于会教</span>——段位高不代表能把道理讲进小孩心里，教学是另一门专业活。</li>
+          <li><span class="hl">看孩子几年后的样子</span>——好老师追求"离开我以后你还能自己走"，不是"只有跟着我才行"。</li>
+          <li><span class="hl">不神化胜负</span>——赢和输都是学习工具，一盘输棋讲得好，比十盘赢棋更值。</li>
+          <li><span class="hl">敢对家长说真话</span>——什么阶段该猛、什么阶段该缓，直接说，不为了续费遮遮掩掩。</li>
         </ul>
         <p class="text-xs text-gray-soft leading-relaxed"><em>你心里"优秀围棋老师"的标准是什么？欢迎在下方留言板留下你的看法。</em></p>
       </div>
@@ -1106,7 +1144,7 @@
         <summary class="cursor-pointer text-gray-soft font-inter tracking-wider text-xs hover:text-seal transition">往期回顾（点开展开）</summary>
         <div class="mt-4 pt-4 border-t border-line space-y-2">
           <p class="text-xs text-gray-soft font-inter">第 001 期</p>
-          <p class="font-bold text-base text-ink">明明会做题，一到实战就"下崩"，问题出在哪？</p>
+          <p class="hl">明明会做题，一到实战就"下崩"，问题出在哪？</p>
           <p class="text-gray-soft leading-relaxed">会做题≠会实战；下崩是学棋孩子的必经阶段；家长最容易踩的坑，是一崩就要求"再复盘一次"，反而让孩子越来越怕下棋。</p>
         </div>
       </details>
@@ -1255,11 +1293,11 @@
     const INTROS = {
       parent: {
         title: '家长版 · 教育认知度测评',
-        desc: '这套题面向孩子在学围棋、正在学、或者考虑让孩子学的家长。它不测围棋水平，测的是你作为家长的<span class="font-bold text-ink">教育理念、期望管理、陪伴方式、教育视野</span>四个维度。'
+        desc: '这套题面向孩子在学围棋、正在学、或者考虑让孩子学的家长。它不测围棋水平，测的是你作为家长的<span class="hl">教育理念、期望管理、陪伴方式、教育视野</span>四个维度。'
       },
       teacher: {
         title: '教师版 · 教学能力自评',
-        desc: '这套题面向围棋教师、机构老师、少儿围棋教练。它不测你的棋力（那是另一件事），测的是<span class="font-bold text-ink">教学能力、家长沟通、职业理念、儿童心理</span>四个维度的综合状态。'
+        desc: '这套题面向围棋教师、机构老师、少儿围棋教练。它不测你的棋力（那是另一件事），测的是<span class="hl">教学能力、家长沟通、职业理念、儿童心理</span>四个维度的综合状态。'
       }
     };
 
