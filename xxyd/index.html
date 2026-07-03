@@ -82,6 +82,9 @@
     font-size:12px;padding:2px 10px;border-radius:20px;
     font-family:'Inter',sans-serif;letter-spacing:.05em;
   }
+  .lesson-card.published::before{
+    content:'已发布';background:var(--gray-soft);
+  }
   .lesson-card.locked{opacity:.55;cursor:not-allowed}
   .lesson-card .no{
     font-family:'Inter',sans-serif;font-size:12px;color:var(--seal);
@@ -146,7 +149,7 @@
     <h2 class="sec-title">当前课程 · 围棋老师的自媒体招生</h2>
     <div class="lesson-list">
 
-      <a href="lesson-01.html" class="lesson-card active">
+      <a href="lesson-01.html" class="lesson-card active published">
         <div class="no">LESSON 01 · 2026.06.25</div>
         <div class="l-title">账号定位 + 赛道现状</div>
         <div class="l-desc">先想清楚定位再开机。三类账号自测 + 三秒真伪自检 + 个人 IP 定位卡 V0.1 现场生成。</div>
@@ -156,10 +159,20 @@
         </div>
       </a>
 
+      <a href="lesson-02.html" class="lesson-card active">
+        <div class="no">LESSON 02 · 2026.07.02</div>
+        <div class="l-title">谜底藏在谜面里 · 围棋老师的选题课</div>
+        <div class="l-desc">选题不是拍脑袋。从学生身上反推选题 + 8 种个人风格自测 + 选题打分卡实时算分，当堂产出一周排期。</div>
+        <div class="l-meta">
+          <span>60 分钟 · 22 页要点 · 3 处互动</span>
+          <span class="go">进入学习 →</span>
+        </div>
+      </a>
+
       <div class="lesson-card locked">
-        <div class="no">LESSON 02 · 敬请期待</div>
-        <div class="l-title">平台选择与内容形态匹配</div>
-        <div class="l-desc">抖音 / 视频号 / 小红书 / B 站，各自的算法脾气、粉丝画像与内容形态。</div>
+        <div class="no">LESSON 03 · 敬请期待</div>
+        <div class="l-title">账号搭建 + 平台选择</div>
+        <div class="l-desc">抖音 / 视频号 / 小红书 / B 站，账号资料该怎么填、四大平台的算法脾气与内容形态差异。</div>
         <div class="l-meta">
           <span>下周更新</span>
           <span class="go">待更新</span>
@@ -167,19 +180,9 @@
       </div>
 
       <div class="lesson-card locked">
-        <div class="no">LESSON 03 · 敬请期待</div>
-        <div class="l-title">选题库搭建与脚本公式</div>
-        <div class="l-desc">从 0 到 1 搭建你自己的选题库，学会最基础的三段式脚本公式。</div>
-        <div class="l-meta">
-          <span>敬请期待</span>
-          <span class="go">待更新</span>
-        </div>
-      </div>
-
-      <div class="lesson-card locked">
         <div class="no">LESSON 04-10 · 敬请期待</div>
-        <div class="l-title">拍摄 / 封面 / 私域 / 转化 / 复盘 / 长期主义</div>
-        <div class="l-desc">从拍摄剪辑最小可行方案到账号资产化、团队化，构建完整的招生闭环。</div>
+        <div class="l-title">脚本 / 拍摄 / 封面 / 私域 / 转化 / 复盘 / 长期主义</div>
+        <div class="l-desc">从三段式脚本公式到最小可行拍摄方案，再到账号资产化、团队化，构建完整的招生闭环。</div>
         <div class="l-meta">
           <span>陆续更新</span>
           <span class="go">待更新</span>
@@ -199,7 +202,7 @@
 
 <footer class="site-footer">
   <div>© 萝卜干聊围棋教育 · <a href="../">weiqiluobogan.com</a></div>
-  <div style="margin-top:6px">学习园地 · 每周一课 · Updated 2026.07.03</div>
+  <div style="margin-top:6px">学习园地 · 每周一课 · Updated 2026.07.03 · Lesson 02 已上线</div>
 </footer>
 </body>
 </html>
