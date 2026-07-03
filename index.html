@@ -364,6 +364,44 @@
   .creed-sep { display: inline-block; margin: 0 12px; color: var(--seal); font-weight: normal; }
   .creed-sub { margin-top: 24px; font-size: 13px; color: var(--gray-soft); letter-spacing: 0.15em; }
 
+
+  /* ===== hero 简化 ===== */
+  .hero-tag { font-size: 11px; letter-spacing: 0.35em; color: var(--seal); font-weight: 600; opacity: 0.85; }
+  .hero-h1 { color: var(--ink); }
+
+  /* ===== showcase 自适应高度 ===== */
+  .showcase-frame { padding-bottom: 0 !important; min-height: 680px; height: auto; display: flex; align-items: stretch; }
+  @media (max-width: 767px) { .showcase-frame { min-height: 620px; } }
+  .showcase-slide { position: absolute; inset: 0; padding: 16px; display: flex; }
+
+  /* ===== 思维导图铺满 ===== */
+  .mindmap-wrap { flex: 1; display: flex; align-items: center; justify-content: center; padding: 8px; background: #fff; }
+  .mindmap-img { max-width: 100%; max-height: 100%; height: auto; width: auto; object-fit: contain; }
+
+  /* ===== 分享课表卡片 ===== */
+  .schedule-card { flex: 1; display: flex; flex-direction: column; padding: 14px 14px; overflow-y: auto; background: #fbf8f2; border: 1px solid var(--line); }
+  .schedule-head { text-align: center; padding-bottom: 10px; border-bottom: 1px dashed var(--line); }
+  .schedule-title { font-size: 20px; font-weight: 700; color: var(--ink); letter-spacing: 0.15em; }
+  @media (min-width: 768px) { .schedule-title { font-size: 24px; } }
+  .schedule-sub { margin-top: 4px; font-size: 12px; color: var(--gray-soft); letter-spacing: 0.1em; }
+  .schedule-grid { flex: 1; display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 14px; }
+  @media (min-width: 900px) { .schedule-grid { grid-template-columns: 5fr 7fr; gap: 18px; } }
+  .schedule-col { display: flex; flex-direction: column; padding: 12px 14px; background: #fff; border: 1px solid var(--line); border-top: 3px solid var(--seal); }
+  .col-badge { display: inline-block; align-self: flex-start; padding: 3px 10px; background: var(--seal); color: #fff; font-size: 10.5px; letter-spacing: 0.12em; font-weight: 600; }
+  .col-badge-q4 { background: #7a6a3f; }
+  .col-title { margin-top: 8px; font-size: 15px; font-weight: 700; color: var(--ink); letter-spacing: 0.05em; }
+  .col-src { margin-top: 2px; font-size: 11px; color: var(--gray-soft); }
+  .col-list { margin-top: 10px; padding-left: 22px; list-style: decimal; color: var(--ink); }
+  .col-list li { font-size: 12px; line-height: 1.85; padding-left: 3px; }
+  @media (min-width: 768px) { .col-list li { font-size: 12.5px; } }
+  .col-list-two { column-count: 1; }
+  @media (min-width: 900px) { .col-list-two { column-count: 2; column-gap: 20px; } }
+  .col-list .li-done { color: #8a8a8a; text-decoration: line-through; text-decoration-color: rgba(0,0,0,0.25); }
+  .col-list .li-done .chk { display: inline-block; margin-left: -18px; margin-right: 6px; width: 14px; color: #38753b; font-weight: 700; text-decoration: none; }
+  .schedule-foot { margin-top: 12px; text-align: center; font-size: 11px; color: var(--gray-soft); letter-spacing: 0.15em; padding-top: 8px; border-top: 1px dashed var(--line); }
+
+  /* ===== mission 简介 ===== */
+  .mission-text { color: var(--ink); letter-spacing: 0.05em; }
 </style>
 </head>
 <body>
@@ -385,30 +423,12 @@
 </header>
 
 <!-- ===== Hero ===== -->
-<section id="hero" class="bg-paper py-24 md:py-32">
-  <div class="max-w-5xl mx-auto px-6 grid md:grid-cols-5 gap-12 items-center">
-    <div class="md:col-span-3 fade-in">
-      <span class="seal">LUO BO GAN</span>
-      <h1 class="mt-6 text-3xl md:text-5xl font-bold leading-tight tracking-wider">
-        让围棋，<br>
-        成为每个普通孩子<br>
-        都能享受的智力教育
-      </h1>
-      <p class="mt-8 text-gray-soft text-base md:text-lg leading-relaxed">
-        我是萝卜干，专注围棋教育内容创作与体系研究。<br>
-        为围棋老师、小机构校长、围棋家长，<br>
-        提供可落地的教学、运营、陪伴方案。
-      </p>
-      <div class="mt-10 flex flex-wrap gap-4">
-        <a href="#contact" class="btn-primary">加我微信</a>
-        <a href="#projects" class="btn-secondary">看正在做什么</a>
-      </div>
-    </div>
-    <div class="md:col-span-2 fade-in">
-      <div class="aspect-square rounded-full overflow-hidden border border-line bg-white">
-        <img src="assets/portrait.jpg" alt="萝卜干" class="w-full h-full object-cover object-[50%_15%]">
-      </div>
-    </div>
+<section id="hero" class="bg-paper py-20 md:py-28">
+  <div class="max-w-4xl mx-auto px-6 text-center fade-in">
+    <div class="hero-tag">LUO BO GAN · MISSION</div>
+    <h1 class="hero-h1 mt-6 text-3xl md:text-5xl font-bold leading-snug tracking-wider">
+      让围棋，成为每个普通孩子<br>都能享受的智力教育
+    </h1>
   </div>
 </section>
 
@@ -417,21 +437,75 @@
   <div class="max-w-5xl mx-auto px-6 fade-in">
     <div class="showcase-container">
       <div class="showcase-frame">
-        <div class="showcase-slide active" data-idx="0">
-          <img src="assets/portrait.jpg" alt="萝卜干 · 十年围棋教育">
-        </div>
-        <div class="showcase-slide" data-idx="1">
-          <img src="assets/books/main.jpg" alt="家校共育 4 书">
-        </div>
-        <div class="showcase-slide" data-idx="2">
-          <img src="assets/mind/edu_overview.jpg" alt="围棋教师成长思维导图">
-        </div>
+        
+<div class="showcase-slide active" data-idx="0">
+  <div class="schedule-card">
+    <div class="schedule-head">
+      <div class="schedule-title">萝卜干 · 分享课表</div>
+      <div class="schedule-sub">2026 下半年 · 区内围棋教育分享</div>
+    </div>
+    <div class="schedule-grid">
+      <!-- Q3 · 短视频招生课 10 讲 -->
+      <div class="schedule-col">
+        <div class="col-badge">Q3 · 7-9 月 · 进行中</div>
+        <div class="col-title">围棋短视频招生课 · 10 讲</div>
+        <div class="col-src">每周 1 节 / 每节 60 分钟</div>
+        <ol class="col-list">
+          <li class="li-done"><span class="chk">✓</span>账号定位 + 赛道现状</li>
+          <li class="li-done"><span class="chk">✓</span>账号搭建 + 平台选择</li>
+          <li>选题方法 · 30 个围棋教育选题清单</li>
+          <li>脚本结构与口播文案</li>
+          <li>拍摄实操 · 最小可行方案</li>
+          <li>剪映剪辑</li>
+          <li>标题封面与发布策略</li>
+          <li>数据复盘与账号诊断</li>
+          <li>公域到私域转化（分水岭）</li>
+          <li>长期运营与 IP 化</li>
+        </ol>
       </div>
-      <div class="showcase-caption" id="showcase-caption">萝卜干 · 十年围棋教育</div>
+      <!-- Q4 · 教师 90 天成长营 20 讲 -->
+      <div class="schedule-col">
+        <div class="col-badge col-badge-q4">Q4 · 10-12 月 · 预告</div>
+        <div class="col-title">围棋教师 90 天成长营 · 20 讲</div>
+        <div class="col-src">源自《围棋教师成长手册》</div>
+        <ol class="col-list col-list-two">
+          <li>围棋教师的四重身份</li>
+          <li>儿童心理与教学环境</li>
+          <li>围棋知识体系全局地图</li>
+          <li>气与数气</li>
+          <li>棋形与联络</li>
+          <li>连接与分断</li>
+          <li>对杀入门</li>
+          <li>紧气与对杀进阶</li>
+          <li>死活基础</li>
+          <li>死活题教学法</li>
+          <li>布局与官子</li>
+          <li>一节课怎么上</li>
+          <li>课堂管理与互动</li>
+          <li>教学体系与阶段规划</li>
+          <li>家长沟通</li>
+          <li>成交与续费</li>
+          <li>日常沟通与问题处理</li>
+          <li>模拟授课上 · 启蒙课实战</li>
+          <li>模拟授课下 · 初级课实战</li>
+          <li>结业答辩</li>
+        </ol>
+      </div>
+    </div>
+    <div class="schedule-foot">合作邀约 · 招生咨询 · 微信 yxwq0909</div>
+  </div>
+</div>
+        
+<div class="showcase-slide" data-idx="1">
+  <div class="mindmap-wrap">
+    <img src="assets/mind/system_overview.jpg" alt="围棋教学体系思维导图" class="mindmap-img">
+  </div>
+</div>
+      </div>
+      <div class="showcase-caption" id="showcase-caption">2026 下半年 · 分享课表</div>
       <div class="showcase-dots">
-        <button class="showcase-dot active" data-idx="0" aria-label="1"></button>
-        <button class="showcase-dot" data-idx="1" aria-label="2"></button>
-        <button class="showcase-dot" data-idx="2" aria-label="3"></button>
+        <button class="showcase-dot active" data-idx="0" aria-label="课表"></button>
+        <button class="showcase-dot" data-idx="1" aria-label="思维导图"></button>
       </div>
     </div>
   </div>
@@ -441,6 +515,21 @@
   <div class="creed-line">每颗棋子都同样重要<span class="creed-sep">·</span>每个孩子都同样优秀</div>
   <div class="creed-sub">LUO BO GAN · MISSION</div>
 </section>
+
+<section id="mission" class="bg-paper py-20">
+  <div class="max-w-3xl mx-auto px-6 text-center fade-in">
+    <p class="mission-text text-base md:text-lg leading-loose">
+      我是萝卜干，专注围棋教育内容创作与体系研究。<br>
+      为围棋老师、小机构校长、围棋家长，<br>
+      提供可落地的教学、运营、陪伴方案。
+    </p>
+    <div class="mt-10 flex flex-wrap gap-4 justify-center">
+      <a href="#contact" class="btn-primary nav-toggle" data-target="contact">加我微信</a>
+      <a href="#projects" class="btn-secondary nav-toggle" data-target="projects">看正在做什么</a>
+    </div>
+  </div>
+</section>
+
 
 
 <!-- ===== About ===== -->
