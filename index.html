@@ -355,7 +355,7 @@
     .showcase-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1s ease-in-out; display: flex; align-items: center; justify-content: center; }
     .showcase-slide.active { opacity: 1; }
     .showcase-slide img { max-width: 100%; max-height: 100%; object-fit: contain; }
-    .showcase-caption { text-align: center; margin-top: 16px; color: var(--ink); font-size: 15px; letter-spacing: 0.02em; }
+    .showcase-caption { text-align: center; margin-top: 20px; color: var(--ink); font-size: 18px; letter-spacing: 0.05em; font-weight: 500; }
     .showcase-dots { display: flex; justify-content: center; gap: 10px; margin-top: 14px; }
     .showcase-dot { width: 8px; height: 8px; border-radius: 50%; background: #d5cdbd; cursor: pointer; transition: all 0.3s; border: none; padding: 0; }
     .showcase-dot.active { background: var(--seal); width: 24px; border-radius: 4px; }
@@ -382,7 +382,7 @@
     .teaching-body li { margin: 6px 0; }
     /* ===== 右侧悬浮索引栏 ===== */
     .side-nav { position: fixed; right: 18px; top: 50%; transform: translateY(-50%); z-index: 40; display: flex; flex-direction: column; gap: 6px; }
-    .side-nav a { display: block; padding: 7px 12px; background: rgba(255,255,255,0.88); border: 1px solid var(--line); font-size: 12px; color: var(--ink); text-decoration: none; border-radius: 3px; transition: all 0.25s; letter-spacing: 0.03em; -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); text-align: center; min-width: 62px; }
+    .side-nav a { display: block; padding: 9px 14px; background: rgba(255,255,255,0.88); border: 1px solid var(--line); font-size: 14px; color: var(--ink); text-decoration: none; border-radius: 3px; transition: all 0.25s; letter-spacing: 0.05em; -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); text-align: center; min-width: 84px; font-weight: 500; }
     .side-nav a:hover { background: var(--seal); color: #fff; border-color: var(--seal); transform: translateX(-4px); }
     @media (max-width: 900px) {
       .side-nav {
@@ -436,74 +436,93 @@
   @keyframes fadeSlideIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
   body.body-lock { overflow: hidden; }
 
-  /* ===== 桌面端 scroll-snap 翻页 ===== */
+  /* ===== 桌面端 scroll-snap 横向翻页（左右滑）===== */
   @media (min-width: 901px) {
-    html {
-      scroll-snap-type: y mandatory;
-      scroll-behavior: smooth;
-      height: 100vh;
-      overflow-y: scroll;
-      overscroll-behavior: none;
-    }
+    html, body { height: 100vh; overflow: hidden; overscroll-behavior: none; }
     body { min-height: 100vh; }
-    section#hero, section#showcase, section#mission {
+    .page-track {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      display: flex; flex-direction: row;
+      overflow-x: auto; overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      z-index: 1;
+    }
+    .page-track::-webkit-scrollbar { display: none; }
+    .page-track > section#hero, .page-track > section#showcase, .page-track > section#mission {
       scroll-snap-align: start;
       scroll-snap-stop: always;
+      flex: 0 0 100vw;
+      width: 100vw;
+      height: 100vh;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding-top: 68px !important;
-      padding-bottom: 20px !important;
+      padding-top: 84px !important;
+      padding-bottom: 60px !important;
       box-sizing: border-box;
+      overflow-y: auto;
+      scrollbar-width: none;
     }
-    section#hero { padding-top: 84px !important; padding-bottom: 40px !important; }
-    section#mission { padding-top: 68px !important; padding-bottom: 48px !important; }
+    .page-track > section::-webkit-scrollbar { display: none; }
+    section#hero { padding-top: 100px !important; padding-bottom: 60px !important; }
+    section#mission { padding-top: 84px !important; padding-bottom: 60px !important; }
     /* fix: flex column + mx-auto 会禁用 stretch，导致 wrapper 塌陷到 content-min-width。显式 100% 宽度让 max-width 与 mx-auto 正常生效 */
     section#hero > div, section#showcase > div, section#mission > div { width: 100%; }
-    /* showcase 内部内容压缩，尽量塞入一屏 */
-    section#showcase .showcase-frame { max-height: calc(100vh - 140px); }
-    /* 面板打开时，禁用 body scroll-snap */
-    body.body-lock { overflow: hidden; }
+    /* showcase 内部压缩，尽量塞入一屏 */
+    section#showcase .showcase-frame { max-height: calc(100vh - 200px); }
+    /* 面板打开时，把横向翻页 track 藏起来（避免键盘/滚轮冲突） */
+    body.body-lock .page-track { visibility: hidden; }
+  }
+  /* 移动端 fallback：page-track 变纯竖排（不做横向翻页，直接上下滚） */
+  @media (max-width: 900px) {
+    .page-track { display: block; }
   }
 
-  /* ===== 翻页箭头按钮（桌面端专用）===== */
+  /* ===== 翻页箭头按钮（桌面端专用 · 左右两侧）===== */
   .slide-arrow {
     display: none;
     position: fixed;
-    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
     z-index: 45;
-    width: 40px; height: 40px;
+    width: 46px; height: 46px;
     border-radius: 50%;
     background: rgba(255,255,255,0.92);
     border: 1px solid var(--line);
     color: var(--seal);
     cursor: pointer;
-    font-size: 18px; line-height: 1;
+    font-size: 22px; line-height: 1;
     align-items: center; justify-content: center;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
     transition: all 0.25s;
     -webkit-backdrop-filter: blur(6px);
     backdrop-filter: blur(6px);
+    font-family: -apple-system, "Segoe UI", sans-serif;
   }
-  .slide-arrow:hover { background: var(--seal); color: #fff; border-color: var(--seal); }
-  #slideUpBtn { bottom: calc(50vh + 24px); }
-  #slideDownBtn { bottom: calc(50vh - 64px); }
+  .slide-arrow:hover { background: var(--seal); color: #fff; border-color: var(--seal); transform: translateY(-50%) scale(1.08); }
+  #slideUpBtn { left: 24px; }
+  #slideDownBtn { right: 96px; }
   @media (min-width: 901px) {
     .slide-arrow { display: flex; }
     body.body-lock .slide-arrow { display: none; }
   }
 
-  /* ===== 翻页 dots（桌面端右下）===== */
+  /* ===== 翻页 dots（桌面端底部居中横向）===== */
   .slide-dots {
     display: none;
     position: fixed;
-    left: 24px;
-    top: 50%;
-    transform: translateY(-50%);
+    left: 50%;
+    bottom: 24px;
+    transform: translateX(-50%);
     z-index: 45;
-    flex-direction: column;
-    gap: 10px;
+    flex-direction: row;
+    gap: 12px;
   }
   .slide-dot {
     width: 8px; height: 8px;
@@ -513,7 +532,7 @@
     transition: all 0.25s;
   }
   .slide-dot:hover { background: rgba(168,54,42,0.5); }
-  .slide-dot.active { background: var(--seal); height: 22px; border-radius: 4px; }
+  .slide-dot.active { background: var(--seal); width: 26px; border-radius: 4px; }
   @media (min-width: 901px) {
     .slide-dots { display: flex; }
     body.body-lock .slide-dots { display: none; }
@@ -560,7 +579,7 @@
   html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; }
 
   /* ===== side-nav 增强 ===== */
-  .side-nav-title { font-size: 15px; font-weight: 700; color: var(--seal); letter-spacing: 0.35em; margin-bottom: 12px; padding-left: 4px; opacity: 1; text-align: center; }
+  .side-nav-title { font-size: 16px; font-weight: 700; color: var(--seal); letter-spacing: 0.4em; margin-bottom: 14px; padding-left: 4px; opacity: 1; text-align: center; }
   .side-nav a.active { background: var(--seal); color: #fff; border-color: var(--seal); transform: translateX(-4px); }
 
   /* ===== 品牌箴言 creed ===== */
@@ -572,7 +591,7 @@
 
 
   /* ===== hero 简化 ===== */
-  .hero-tag { font-size: 11px; letter-spacing: 0.35em; color: var(--seal); font-weight: 600; opacity: 0.85; }
+  .hero-tag { font-size: 13px; letter-spacing: 0.4em; color: var(--seal); font-weight: 600; opacity: 0.85; }
   .hero-h1 { color: var(--ink); }
 
   /* ===== showcase 自适应高度 ===== */
@@ -614,23 +633,23 @@
     margin-top: 36px;
     padding-top: 28px;
     border-top: 1px solid var(--line);
-    font-size: 18px;
+    font-size: 20px;
     letter-spacing: 0.15em;
     color: var(--ink);
     font-weight: 600;
     line-height: 1.6;
   }
   @media (min-width: 768px) {
-    .hero-creed { font-size: 22px; margin-top: 44px; padding-top: 36px; }
+    .hero-creed { font-size: 30px; margin-top: 52px; padding-top: 40px; }
   }
   .hero-mission {
     margin-top: 30px;
     color: var(--ink);
     letter-spacing: 0.05em;
-    opacity: 0.88;
+    opacity: 0.9;
   }
   @media (min-width: 768px) {
-    .hero-mission { margin-top: 36px; }
+    .hero-mission { margin-top: 40px; }
   }
 
   /* ===== 手机端专用紧凑布局（v2）===== */
@@ -685,10 +704,11 @@
 </header>
 
 <!-- ===== Hero ===== -->
+<main class="page-track" id="pageTrack">
 <section id="hero" class="bg-paper pt-6 pb-3 md:pt-8 md:pb-4">
   <div class="max-w-4xl mx-auto px-6 text-center fade-in">
     <div class="hero-tag">LUO BO GAN · MISSION</div>
-    <h1 class="hero-h1 mt-2 text-2xl md:text-4xl font-bold leading-snug tracking-wider">
+    <h1 class="hero-h1 mt-2 text-3xl md:text-6xl font-bold leading-snug tracking-wider">
       让围棋，成为每个普通孩子<br>都能享受的智力教育
     </h1>
   </div>
@@ -785,7 +805,7 @@
     <div class="hero-creed">
       每颗棋子都同样重要<span class="creed-sep">·</span>每个孩子都同样优秀
     </div>
-    <p class="hero-mission text-sm md:text-base leading-relaxed">
+    <p class="hero-mission text-base md:text-lg leading-relaxed">
       我是萝卜干，专注围棋教育内容创作与体系研究。<br>
       为围棋老师、小机构校长、围棋家长，<br>
       提供可落地的教学、运营、陪伴方案。
@@ -796,6 +816,7 @@
     </div>
   </div>
 </section>
+</main>
 
 
 
@@ -2083,8 +2104,16 @@ var TEACHING_DATA = {"sections":[{"id":"technique","title":"围棋技术探究",
 /* ===== 折叠板块交互（独占展开）===== */
 (function(){
   const HEADER_OFFSET = 72;
+  const HORIZONTAL_SLIDE_IDS = ['hero','showcase','mission'];
   function scrollToEl(el){
     if(!el) return;
+    // 桌面端横向翻页 3 段之一，走 goToSlide（横向 scroll）
+    if(window.innerWidth >= 901 && HORIZONTAL_SLIDE_IDS.includes(el.id)){
+      if(typeof window.goToSlide === 'function'){
+        window.goToSlide(HORIZONTAL_SLIDE_IDS.indexOf(el.id));
+        return;
+      }
+    }
     const rect = el.getBoundingClientRect();
     const topAbs = rect.top + window.pageYOffset;
     // 元素小于 viewport-100 时上下居中；否则顶部靠 viewport 12% (标题清晰可见)
@@ -2204,30 +2233,41 @@ var TEACHING_DATA = {"sections":[{"id":"technique","title":"围棋技术探究",
   // ESC 关闭面板
   document.addEventListener('keydown', function(e){
     if(e.key === 'Escape') closeAllPanels();
-    // 桌面上下键翻页（未打开面板时）
+    // 桌面左右键翻页（未打开面板时）；保留 ↑↓/PageUp/PageDown 兼容
     if(!document.body.classList.contains('body-lock') && window.innerWidth >= 901){
-      if(e.key === 'ArrowDown' || e.key === 'PageDown'){
+      if(e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === 'PageDown'){
         e.preventDefault(); slideBy(1);
-      } else if(e.key === 'ArrowUp' || e.key === 'PageUp'){
+      } else if(e.key === 'ArrowLeft' || e.key === 'ArrowUp' || e.key === 'PageUp'){
         e.preventDefault(); slideBy(-1);
       }
     }
   });
-  // 翻页函数：找到当前 snap 目标并切换
+  // 横向翻页：page-track 元素 scrollLeft / viewport width
   const SLIDE_IDS = ['hero','showcase','mission'];
+  function pageTrack(){ return document.getElementById('pageTrack'); }
   function currentSlideIdx(){
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    const vh = window.innerHeight;
-    return Math.round(scrollTop / vh);
+    const pt = pageTrack();
+    if(!pt || window.innerWidth < 901) return 0;
+    return Math.round(pt.scrollLeft / window.innerWidth);
   }
   function slideBy(delta){
     const idx = currentSlideIdx();
     const next = Math.max(0, Math.min(SLIDE_IDS.length - 1, idx + delta));
-    const el = document.getElementById(SLIDE_IDS[next]);
-    if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
-    updateSlideDots(next);
+    goToSlide(next);
+  }
+  function goToSlide(idx){
+    const pt = pageTrack();
+    if(!pt) return;
+    if(window.innerWidth >= 901){
+      pt.scrollTo({ left: idx * window.innerWidth, behavior: 'smooth' });
+    } else {
+      const el = document.getElementById(SLIDE_IDS[idx]);
+      if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+    updateSlideDots(idx);
   }
   window.slideBy = slideBy;
+  window.goToSlide = goToSlide;
   // 更新箭头显隐 + dots
   function updateSlideDots(idx){
     if(idx === undefined) idx = currentSlideIdx();
@@ -2239,24 +2279,35 @@ var TEACHING_DATA = {"sections":[{"id":"technique","title":"围棋技术探究",
     if(up) up.style.opacity = idx === 0 ? '0.25' : '1';
     if(down) down.style.opacity = idx === SLIDE_IDS.length - 1 ? '0.25' : '1';
   }
-  // 监听滚动 → 更新 active dot
+  // 监听 page-track 横向滚动 → 更新 active dot
   let scrollTimer = null;
-  window.addEventListener('scroll', function(){
+  function onTrackScroll(){
     clearTimeout(scrollTimer);
-    scrollTimer = setTimeout(updateSlideDots, 80);
+    scrollTimer = setTimeout(() => updateSlideDots(), 80);
+  }
+  // 延迟挂载（等 DOM ready）
+  setTimeout(() => {
+    const pt = pageTrack();
+    if(pt) pt.addEventListener('scroll', onTrackScroll, { passive: true });
+    updateSlideDots(0);
+  }, 100);
+  // 窗口尺寸变化时保证当前页对齐
+  window.addEventListener('resize', () => {
+    const idx = currentSlideIdx();
+    const pt = pageTrack();
+    if(pt && window.innerWidth >= 901){
+      pt.scrollLeft = idx * window.innerWidth;
+    }
   });
   // dots 点击跳转
   document.addEventListener('click', function(e){
     const dot = e.target.closest('.slide-dot');
     if(!dot) return;
     const idx = parseInt(dot.dataset.idx, 10);
-    if(!isNaN(idx)){
-      const el = document.getElementById(SLIDE_IDS[idx]);
-      if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
-    }
+    if(!isNaN(idx)) goToSlide(idx);
   });
   // 初始化
-  setTimeout(updateSlideDots, 100);
+  setTimeout(() => updateSlideDots(0), 100);
 })();
 </script>
 
@@ -2264,8 +2315,8 @@ var TEACHING_DATA = {"sections":[{"id":"technique","title":"围棋技术探究",
 <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="板块菜单">☰</button>
 
 <!-- 桌面端上下翻页控件 -->
-<button class="slide-arrow" id="slideUpBtn" aria-label="上一页">▲</button>
-<button class="slide-arrow" id="slideDownBtn" aria-label="下一页">▼</button>
+<button class="slide-arrow" id="slideUpBtn" aria-label="上一页">‹</button>
+<button class="slide-arrow" id="slideDownBtn" aria-label="下一页">›</button>
 <div class="slide-dots">
   <div class="slide-dot active" data-idx="0" title="首页"></div>
   <div class="slide-dot" data-idx="1" title="课表 · 图书"></div>
