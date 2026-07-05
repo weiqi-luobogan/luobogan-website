@@ -378,6 +378,94 @@
     .teaching-body h4 { font-size: 17px; font-weight: 700; color: var(--seal); margin: 22px 0 10px; }
     .teaching-body p { margin: 16px 0; }
     .teaching-body blockquote { border-left: 3px solid var(--seal); padding: 6px 16px; margin: 16px 0; background: #faf7f0; font-style: italic; color: #555; }
+
+    /* ===== 练棋指东 v1 ===== */
+    .practice-entry-card {
+      margin-top: 22px; display: block; width: 100%;
+      background: linear-gradient(135deg, #fdfaf3, #f6efe0);
+      border: 1px solid var(--seal); border-radius: 6px;
+      padding: 26px 30px; text-align: left; cursor: pointer;
+      transition: all 0.28s ease; font-family: inherit; position: relative;
+    }
+    .practice-entry-card:hover { box-shadow: 0 8px 26px rgba(168,54,42,0.14); transform: translateY(-2px); }
+    .practice-entry-badge {
+      display: inline-block; font-family: 'Inter', sans-serif;
+      font-size: 10px; letter-spacing: 0.25em; color: var(--seal);
+      border: 1px solid var(--seal); padding: 3px 10px; border-radius: 20px; margin-bottom: 12px;
+    }
+    .practice-entry-title { font-size: 22px; font-weight: 700; color: var(--ink); letter-spacing: 0.04em; margin-bottom: 8px; }
+    .practice-entry-sub { font-size: 14px; color: #5a5a5a; line-height: 1.75; margin-bottom: 14px; }
+    .practice-entry-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .practice-entry-tag { font-size: 12px; padding: 3px 10px; background: #fff; border: 1px solid var(--line); color: #6a6a6a; border-radius: 3px; }
+    .practice-entry-arrow { position: absolute; right: 24px; top: 50%; transform: translateY(-50%); color: var(--seal); font-size: 22px; }
+
+    #practice-guide .section-lead { margin-bottom: 24px; }
+    .practice-notes { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin: 20px 0 36px; }
+    .practice-note { background: #fff; border-left: 3px solid var(--seal); padding: 14px 16px; }
+    .practice-note-idx { font-family: 'Inter', sans-serif; font-size: 11px; color: var(--seal); letter-spacing: 0.2em; }
+    .practice-note-txt { font-size: 14px; color: var(--ink-soft); line-height: 1.75; margin-top: 4px; }
+
+    .practice-module { margin: 44px 0; padding-top: 20px; border-top: 1px dashed var(--line); }
+    .practice-module-title { font-size: 20px; font-weight: 700; color: var(--ink); padding-left: 12px; border-left: 3px solid var(--seal); margin-bottom: 8px; }
+    .practice-module-desc { font-size: 13px; color: #6b6b6b; margin-bottom: 20px; }
+
+    /* 模块 A：阶段 tab */
+    .stage-tabs { display: flex; flex-wrap: wrap; gap: 0; border-bottom: 1px solid var(--line); margin-bottom: 20px; }
+    .stage-tab { background: none; border: none; padding: 12px 22px; font-size: 15px; color: #6b6b6b; cursor: pointer; font-family: inherit; border-bottom: 2px solid transparent; transition: all 0.2s; letter-spacing: 0.03em; }
+    .stage-tab:hover { color: var(--seal); }
+    .stage-tab.active { color: var(--seal); border-bottom-color: var(--seal); font-weight: 700; }
+    .stage-panel { display: none; padding: 8px 4px; }
+    .stage-panel.active { display: block; }
+    .stage-panel h4 { font-size: 16px; font-weight: 700; color: var(--seal); margin: 18px 0 10px; }
+    .stage-panel ul { list-style: none; padding: 0; }
+    .stage-panel ul li { position: relative; padding: 6px 0 6px 20px; font-size: 14.5px; color: var(--ink-soft); line-height: 1.85; }
+    .stage-panel ul li:before { content: '·'; color: var(--seal); position: absolute; left: 6px; font-weight: 700; }
+    .stage-panel .kv-row { display: flex; gap: 14px; margin: 10px 0; flex-wrap: wrap; }
+    .stage-panel .kv-tag { background: #fff; border: 1px solid var(--line); padding: 5px 12px; font-size: 13px; color: var(--ink-soft); }
+
+    /* 模块 B：题型判断器 */
+    .quiztype-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
+    .quiztype-card { background: #fff; border: 1px solid var(--line); padding: 20px 18px; cursor: pointer; transition: all 0.25s; }
+    .quiztype-card:hover, .quiztype-card.active { border-color: var(--seal); box-shadow: 0 4px 14px rgba(168,54,42,0.1); }
+    .quiztype-card .qt-name { font-size: 17px; font-weight: 700; color: var(--seal); margin-bottom: 6px; }
+    .quiztype-card .qt-feat { font-size: 13px; color: #666; line-height: 1.7; }
+    .quiztype-detail { margin-top: 20px; padding: 22px 24px; background: #faf7f0; border: 1px solid var(--line); display: none; }
+    .quiztype-detail.show { display: block; }
+    .quiztype-detail h5 { font-size: 15px; font-weight: 700; color: var(--seal); margin: 4px 0 12px; }
+    .quiztype-detail ol { padding-left: 22px; margin: 0; }
+    .quiztype-detail ol li { font-size: 14px; color: var(--ink-soft); line-height: 1.9; padding: 3px 0; }
+
+    /* 模块 C：记忆周期 */
+    .memcycle-box { background: #fff; border: 1px solid var(--line); padding: 22px 26px; }
+    .memcycle-input { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-bottom: 20px; }
+    .memcycle-input label { font-size: 14px; color: var(--ink-soft); }
+    .memcycle-input input[type=date] { padding: 8px 12px; border: 1px solid var(--line); font-family: inherit; font-size: 14px; }
+    .memcycle-input button { background: var(--seal); color: #fff; border: none; padding: 9px 20px; font-family: inherit; font-size: 14px; cursor: pointer; letter-spacing: 0.05em; }
+    .memcycle-input button:hover { background: var(--seal-light); }
+    .memcycle-result { margin-top: 10px; }
+    .memcycle-row { display: grid; grid-template-columns: 110px 1fr; gap: 14px; padding: 10px 0; border-bottom: 1px dashed var(--line); font-size: 14px; }
+    .memcycle-row:last-child { border-bottom: none; }
+    .memcycle-row .mc-cycle { color: var(--seal); font-weight: 700; }
+    .memcycle-row .mc-desc { color: var(--ink-soft); line-height: 1.7; }
+    .memcycle-hint { margin-top: 14px; font-size: 12.5px; color: #888; line-height: 1.8; }
+
+    /* 模块 D：6:3:1 计算器 */
+    .ratio631-box { background: #fff; border: 1px solid var(--line); padding: 22px 26px; }
+    .ratio631-input { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-bottom: 20px; }
+    .ratio631-input select, .ratio631-input input[type=number] { padding: 8px 12px; border: 1px solid var(--line); font-family: inherit; font-size: 14px; }
+    .ratio631-input button { background: var(--seal); color: #fff; border: none; padding: 9px 20px; font-family: inherit; font-size: 14px; cursor: pointer; letter-spacing: 0.05em; }
+    .ratio631-input button:hover { background: var(--seal-light); }
+    .ratio631-result { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-top: 10px; }
+    .ratio631-card { padding: 18px 20px; background: #faf7f0; border-left: 3px solid var(--seal); }
+    .ratio631-card .r-ratio { font-family: 'Inter', sans-serif; font-size: 26px; font-weight: 700; color: var(--seal); }
+    .ratio631-card .r-label { font-size: 13.5px; color: var(--ink-soft); margin: 6px 0 4px; font-weight: 600; }
+    .ratio631-card .r-desc { font-size: 12.5px; color: #6b6b6b; line-height: 1.7; }
+    .ratio631-hint { margin-top: 16px; font-size: 12.5px; color: #888; line-height: 1.8; }
+
+    .practice-back { display: inline-flex; align-items: center; gap: 6px; color: var(--seal); font-size: 13px; cursor: pointer; margin-bottom: 20px; background: none; border: none; padding: 0; font-family: inherit; }
+    .practice-back:hover { text-decoration: underline; }
+    /* ===== 练棋指东 v1 END ===== */
+
     .teaching-body ul, .teaching-body ol { margin: 12px 0; padding-left: 24px; }
     .teaching-body li { margin: 6px 0; }
     /* ===== 右侧悬浮索引栏 ===== */
@@ -1215,6 +1303,23 @@
 
     <div id="teaching-home" class="grid md:grid-cols-3 gap-5"></div>
 
+    <button class="practice-entry-card" onclick="showPracticeGuide()">
+      <div class="practice-entry-badge">实操手册 · INTERACTIVE</div>
+      <div class="practice-entry-title">练棋指东 · 十年一线练棋方法论</div>
+      <div class="practice-entry-sub">
+        围棋练习到底怎么练才有效？启蒙、入门、布局、中盘、死活对杀分别抓什么？
+        题目做完不会做怎么办？多久复习一次？该做多难的题？——一份可交互的练棋操作手册。
+      </div>
+      <div class="practice-entry-tags">
+        <span class="practice-entry-tag">阶段导航</span>
+        <span class="practice-entry-tag">题型判断器</span>
+        <span class="practice-entry-tag">记忆周期表</span>
+        <span class="practice-entry-tag">6:3:1 训练配比</span>
+      </div>
+      <span class="practice-entry-arrow">→</span>
+    </button>
+
+
     <div id="teaching-list" class="hidden">
       <button class="teaching-back" onclick="showTeachingHome()">← 返回板块</button>
       <h3 id="teaching-list-title" class="text-xl font-bold text-ink mb-6"></h3>
@@ -1227,6 +1332,214 @@
       <p id="teaching-detail-meta" class="text-xs text-gray-soft mb-6"></p>
       <div id="teaching-detail-body" class="teaching-body"></div>
     </div>
+
+    
+    <div id="practice-guide" class="hidden">
+      <button class="practice-back" onclick="hidePracticeGuide()">← 返回教学理念</button>
+      <h3 class="text-2xl font-bold text-ink mb-3" style="letter-spacing:0.06em">练棋指东</h3>
+      <p class="section-lead" style="margin-bottom:22px">
+        围棋练习不是"做得多"就有效，而是"做得对"才有效。这份手册把十年一线沉淀的
+        <span class="hl">练棋方法论</span>拆成 6 条底线注意 + 4 大交互模块，
+        给家长、学员和新老师一份可以直接照做的操作书。
+      </p>
+
+      <!-- 6 条注意事项 -->
+      <div class="practice-notes">
+        <div class="practice-note"><div class="practice-note-idx">NOTE 01</div>
+          <div class="practice-note-txt"><strong>训练强度 vs 兴趣维系</strong>：强度可以给，但不能把兴趣掐死。孩子每天愿意坐下来的时长，就是当前强度的上限。</div></div>
+        <div class="practice-note"><div class="practice-note-idx">NOTE 02</div>
+          <div class="practice-note-txt"><strong>分阶段抓不同重点</strong>：启蒙抓气与吃逃，入门抓死活与定式，布局抓大局观，中盘抓攻防判断——阶段错位就是白练。</div></div>
+        <div class="practice-note"><div class="practice-note-idx">NOTE 03</div>
+          <div class="practice-note-txt"><strong>持续坚持</strong>：围棋是复利式积累，一周一次不如每天 20 分钟。宁可少，不可断。</div></div>
+        <div class="practice-note"><div class="practice-note-idx">NOTE 04</div>
+          <div class="practice-note-txt"><strong>阶段目标 + 检验模板</strong>：每个阶段要给孩子一个"能不能做到"的具体指标，不要模糊说"进步了"。</div></div>
+        <div class="practice-note"><div class="practice-note-idx">NOTE 05</div>
+          <div class="practice-note-txt"><strong>输赢不是唯一评判</strong>：升级、拿奖只是副产物，看孩子的思考深度、复盘习惯、心态稳定，才是真的评价。</div></div>
+        <div class="practice-note"><div class="practice-note-idx">NOTE 06</div>
+          <div class="practice-note-txt"><strong>素养类练习不可忽视</strong>：观察次序、价值判断、目标判断这些"看不见"的东西，才是决定孩子能走多远的地基。</div></div>
+      </div>
+
+      <!-- 模块 A：阶段导航 -->
+      <div class="practice-module">
+        <div class="practice-module-title">模块 A · 分阶段练什么</div>
+        <div class="practice-module-desc">点击 tab 切换 5 个阶段的知识点与训练方法。</div>
+        <div class="stage-tabs">
+          <button class="stage-tab active" data-stage="qm">启蒙</button>
+          <button class="stage-tab" data-stage="rm">入门</button>
+          <button class="stage-tab" data-stage="bj">布局</button>
+          <button class="stage-tab" data-stage="zp">中盘</button>
+          <button class="stage-tab" data-stage="sh">死活 · 对杀</button>
+        </div>
+
+        <div class="stage-panel active" data-stage="qm">
+          <h4>核心知识点</h4>
+          <ul>
+            <li>封锁：把对方的棋盖住，让它没气可逃</li>
+            <li>一步吃 / 一步逃：单颗子的攻防基本功</li>
+            <li>形状：好形（虎口、小尖、拆二）vs 坏形（愚形、凝形、裂形）</li>
+            <li>占角、守角、挂角：三步一体，角部第一课</li>
+            <li>气：一颗棋、两颗棋、一块棋的气分别怎么数</li>
+            <li>行棋步伐：一间跳、二间跳、小飞、大飞</li>
+          </ul>
+          <h4>推荐训练方法</h4>
+          <div class="kv-row">
+            <span class="kv-tag">摆子游戏（老师摆一步，孩子模仿）</span>
+            <span class="kv-tag">《101 一步吃子千题》</span>
+            <span class="kv-tag">守角挂角基础练习</span>
+            <span class="kv-tag">行棋步伐熟练题</span>
+          </div>
+          <h4>注意事项</h4>
+          <ul><li><strong>不贪多图快</strong>：一个概念不熟不进下一个，是启蒙唯一的原则。</li></ul>
+        </div>
+
+        <div class="stage-panel" data-stage="rm">
+          <h4>吃子技巧</h4>
+          <div class="kv-row">
+            <span class="kv-tag">双打吃</span><span class="kv-tag">征吃</span><span class="kv-tag">扑吃</span>
+            <span class="kv-tag">枷吃</span><span class="kv-tag">倒扑</span><span class="kv-tag">接不归</span>
+          </div>
+          <h4>死活初步</h4>
+          <ul>
+            <li>认眼位：什么是真眼、假眼</li>
+            <li>基本眼形：直三、直四、方四、板六、盘角曲四……</li>
+            <li>做眼与破眼的基本技巧</li>
+          </ul>
+          <h4>十三路 / 十九路练围空</h4>
+          <ul><li>从小棋盘练到全局，理解"围地"这个目标</li></ul>
+          <h4>常见角部定式</h4>
+          <div class="kv-row">
+            <span class="kv-tag">星位 · 双枪</span><span class="kv-tag">星位 · 尖顶拆回</span>
+            <span class="kv-tag">星位 · 夹击</span><span class="kv-tag">星位 · 点三三</span>
+            <span class="kv-tag">小目 · 托退</span><span class="kv-tag">小目 · 尖顶</span>
+            <span class="kv-tag">小目 · 秀策流</span>
+          </div>
+          <h4>观察素养（三条铁律）</h4>
+          <ul>
+            <li>先看角，再看边</li>
+            <li>先看接触处（气紧、断点、劫争）</li>
+            <li>先看棋的块数（数一下场上有几条大龙）</li>
+          </ul>
+        </div>
+
+        <div class="stage-panel" data-stage="bj">
+          <h4>布局核心概念</h4>
+          <ul>
+            <li>分断：识别对方的断点，学会先手扳、先手挤</li>
+            <li>气紧：判断哪一块气紧、哪一块气松</li>
+            <li>棋形三忌：<strong>愚形</strong>（挤在一起没效率）/ <strong>凝形</strong>（子力重复）/ <strong>裂形</strong>（自己内部有断点）</li>
+            <li>强弱判断：谁强、谁弱、谁需要补</li>
+            <li>厚薄判断：厚势往哪里发挥、薄棋往哪里补</li>
+            <li>形势判断：数一次目、看一次全局，再决定下一手</li>
+          </ul>
+          <h4>布局角部手段</h4>
+          <div class="kv-row">
+            <span class="kv-tag">压 · 长</span><span class="kv-tag">托 · 退</span>
+            <span class="kv-tag">尖顶 · 立</span><span class="kv-tag">点角 · 打入</span>
+          </div>
+          <h4>布局大场与急所</h4>
+          <ul>
+            <li>急所（关生死）：<strong>先急后大</strong>——生死永远优先于大小</li>
+            <li>小天王山：局部要点，双方都想抢</li>
+            <li>大天王山：全局要点，抢到就赚一大目</li>
+            <li>劳逸：让对方跑，自己捡便宜</li>
+          </ul>
+        </div>
+
+        <div class="stage-panel" data-stage="zp">
+          <h4>中盘四大主题</h4>
+          <ul>
+            <li><strong>厚势运用</strong>：厚势不围空，用来攻杀、用来限制</li>
+            <li><strong>攻杀思路</strong>：攻不是为了吃，是为了得利——追杀过程中围空、扩张</li>
+            <li><strong>侵消手段</strong>：能打入就打入，不能打入就浅浅消一下</li>
+            <li><strong>形势判断</strong>：中盘每 5 手数一次目，落后就要出招，领先就要简明</li>
+          </ul>
+          <h4>常犯错误</h4>
+          <ul>
+            <li>见空就围，见断就断——没有全局观</li>
+            <li>为了吃棋不惜自己被吃——本末倒置</li>
+            <li>厚势旁边围空——把厚势变成薄壳</li>
+          </ul>
+        </div>
+
+        <div class="stage-panel" data-stage="sh">
+          <h4>死活题 · 6 条注意事项</h4>
+          <ul>
+            <li>先看<strong>前置条件</strong>——这块棋是不是被封锁了？（没封锁就先跑）</li>
+            <li>满足条件再<strong>算变化</strong>——不要一上来就开算</li>
+            <li>时刻<strong>数气</strong>——气数变化决定所有判断</li>
+            <li>目标明确：是<strong>活棋</strong>，不是救子——弃子活棋是常有的事</li>
+            <li>先考虑<strong>活不活</strong>，再考虑活多大</li>
+            <li>能双活就不打劫，能劫活就不硬死——收益顺序：双活 &gt; 劫活 &gt; 死</li>
+          </ul>
+          <h4>对杀题 · 6 条做题次序</h4>
+          <ul>
+            <li>先确认<strong>前置条件</strong>——真的相互包围？</li>
+            <li>找<strong>扭十字</strong>——一手棋能不能同时紧对方气、松自己气</li>
+            <li>时刻<strong>数气</strong>——不数气都是瞎算</li>
+            <li>数气注意<strong>类型</strong>：内气、外气、公气分开数</li>
+            <li>连接后<strong>一起数气</strong>——分块数气容易漏</li>
+            <li>气不够时学会<strong>保留弃子</strong>——弃一部分保住主力</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 模块 B：题型判断器 -->
+      <div class="practice-module">
+        <div class="practice-module-title">模块 B · 题目类型判断器</div>
+        <div class="practice-module-desc">拿到一道题，第一件事不是算变化，是分类——点击卡片看该类型的做题次序。</div>
+        <div class="quiztype-grid" id="quiztype-grid"></div>
+        <div class="quiztype-detail" id="quiztype-detail"></div>
+      </div>
+
+      <!-- 模块 C：记忆周期表 -->
+      <div class="practice-module">
+        <div class="practice-module-title">模块 C · 记忆周期表</div>
+        <div class="practice-module-desc">
+          艾宾浩斯遗忘曲线在围棋练习上的落地版：一道错题，要在 5 分钟 / 12 小时 / 1 天 / 2 天 / 4 天 / 7 天 / 15 天 / 1 月 / 3 月 / 半年
+          分别复习一次，才能真的沉进本能。选一个日期，看今天该复习哪些历史批次。
+        </div>
+        <div class="memcycle-box">
+          <div class="memcycle-input">
+            <label for="mc-date">选择日期：</label>
+            <input type="date" id="mc-date">
+            <button onclick="calcMemcycle()">计算今日复习清单</button>
+          </div>
+          <div class="memcycle-result" id="mc-result"></div>
+          <div class="memcycle-hint">
+            用法：假设你把每天做错的题记在小本子上（叫作"批次"），今天该复习的，就是列表里对应日期做错的那些题。
+            全对为止再擦掉，永远不放过。
+          </div>
+        </div>
+      </div>
+
+      <!-- 模块 D：6:3:1 计算器 -->
+      <div class="practice-module">
+        <div class="practice-module-title">模块 D · 6:3:1 训练配比计算器</div>
+        <div class="practice-module-desc">
+          做题难度不是越难越好。低 2 级（60%）打基础找信心，同级（30%）测水平，高 1 级（10%）挑战成长。
+          输入孩子当前棋力，直接看这周该做哪些难度的题、各多少道。
+        </div>
+        <div class="ratio631-box">
+          <div class="ratio631-input">
+            <label>当前棋力：</label>
+            <select id="r631-type">
+              <option value="ji">级（数字大=水平低）</option>
+              <option value="duan">段（数字大=水平高）</option>
+            </select>
+            <input type="number" id="r631-num" min="1" max="30" value="10">
+            <label>本周总题量：</label>
+            <input type="number" id="r631-total" min="10" max="500" value="100">
+            <button onclick="calcRatio631()">生成本周训练清单</button>
+          </div>
+          <div class="ratio631-result" id="r631-result"></div>
+          <div class="ratio631-hint">
+            示例：10 级 · 每周 100 题 → 60 道 12 级题夯基础 + 30 道 10 级题测水平 + 10 道 9 级题挑战成长。
+            比例可以微调，但结构不能反——反过来先做高级题，一定崩。
+          </div>
+        </div>
+      </div>
+    </div>
+
 
     <p class="text-xs text-gray-soft leading-relaxed mt-8 max-w-2xl"><em>教学思路会持续沉淀，教学故事也会不断更新。想看什么话题，欢迎去留言板留言。</em></p>
   </div>
@@ -2083,6 +2396,191 @@ var TEACHING_DATA = {"sections":[{"id":"technique","title":"围棋技术探究",
   };
   renderHome();
 })();
+
+// ===== 练棋指东 v1 =====
+(function(){
+  var homeEl = document.getElementById('teaching-home');
+  var listEl = document.getElementById('teaching-list');
+  var detailEl = document.getElementById('teaching-detail');
+  var guideEl = document.getElementById('practice-guide');
+  if (!guideEl) return;
+  var entryBtn = document.querySelector('.practice-entry-card');
+
+  window.showPracticeGuide = function(){
+    if (homeEl) homeEl.classList.add('hidden');
+    if (listEl) listEl.classList.add('hidden');
+    if (detailEl) detailEl.classList.add('hidden');
+    if (entryBtn) entryBtn.classList.add('hidden');
+    guideEl.classList.remove('hidden');
+    var teachingSec = document.getElementById('teaching');
+    if (teachingSec && teachingSec.classList.contains('collapsible')) {
+      setTimeout(function(){ teachingSec.scrollTop = 0; }, 30);
+    } else {
+      window.scrollTo({top: document.getElementById('teaching').offsetTop - 60, behavior:'smooth'});
+    }
+  };
+  window.hidePracticeGuide = function(){
+    guideEl.classList.add('hidden');
+    if (homeEl) homeEl.classList.remove('hidden');
+    if (entryBtn) entryBtn.classList.remove('hidden');
+  };
+
+  // ---- 模块 A：阶段 tab ----
+  var stageTabs = document.querySelectorAll('.stage-tab');
+  var stagePanels = document.querySelectorAll('.stage-panel');
+  stageTabs.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var s = btn.getAttribute('data-stage');
+      stageTabs.forEach(function(b){ b.classList.remove('active'); });
+      stagePanels.forEach(function(p){ p.classList.remove('active'); });
+      btn.classList.add('active');
+      document.querySelector('.stage-panel[data-stage="'+s+'"]').classList.add('active');
+    });
+  });
+
+  // ---- 模块 B：题型判断器 ----
+  var QUIZ_TYPES = [
+    {id:'lianluo', name:'联络题', feat:'被相互包围/相互分断，要靠连接把子救回', steps:[
+      '识形：先看两块棋是不是真的被分断（不是就跳过）',
+      '找关键点：通常在双方接触处、断点或气紧位置',
+      '算联络路径：能小尖、能虎口、能靠还是要挖',
+      '推演对方阻断手段：对方最强的抵抗在哪',
+      '选最简明的一手：能一步接就不用两步',
+      '再确认气：接上之后气够不够，是否已死结'
+    ]},
+    {id:'chizi', name:'吃子题', feat:'对方棋形有缺陷 + 我方力量强大，可主动紧气', steps:[
+      '识形：找对方的弱点（愚形、断头、气紧、无根）',
+      '判断我方强弱：包围圈够不够严，附近有没有援兵',
+      '选紧气方向：优先紧内气（关生死），再紧外气（关大小）',
+      '推演对方逃跑手筋：征、枷、倒扑、扑，都要预判',
+      '避免自己气紧：紧对方气的同时，自己气要够',
+      '收网：确认是完全吃掉还是打劫，收益是否值得'
+    ]},
+    {id:'duisha', name:'对杀题', feat:'相互分断 + 相互包围，只能吃对方才能生存', steps:[
+      '前置条件：真的对杀了？还是能双活/一方能跑',
+      '找扭十字：一手能同时紧对方气 + 松自己气',
+      '数气：内气、外气、公气分别数清楚',
+      '气数比对：谁多谁少，多多少',
+      '连接后一起数气：分块数容易漏公气',
+      '不够就弃子：主力保住比全吃更重要'
+    ]},
+    {id:'sihuo', name:'死活题', feat:'一块棋被包围，要么做眼活棋，要么破眼杀棋', steps:[
+      '前置条件：这块棋真的被封锁了？（没封先跑）',
+      '目标明确：是活棋（不是救子），弃子活棋很常见',
+      '找眼位：现有眼形、能做成什么形',
+      '算关键点：一步棋决定死活的那个点在哪',
+      '推演对方破眼：对方最强的破眼手段是什么',
+      '收益比较：双活 &gt; 劫活 &gt; 死；先活再谈大小'
+    ]}
+  ];
+  var qtGrid = document.getElementById('quiztype-grid');
+  var qtDetail = document.getElementById('quiztype-detail');
+  if (qtGrid) {
+    qtGrid.innerHTML = QUIZ_TYPES.map(function(q){
+      return '<div class="quiztype-card" data-id="'+q.id+'">'
+           + '<div class="qt-name">'+q.name+'</div>'
+           + '<div class="qt-feat">'+q.feat+'</div>'
+           + '</div>';
+    }).join('');
+    qtGrid.querySelectorAll('.quiztype-card').forEach(function(card){
+      card.addEventListener('click', function(){
+        var id = card.getAttribute('data-id');
+        var q = QUIZ_TYPES.find(function(x){ return x.id === id; });
+        qtGrid.querySelectorAll('.quiztype-card').forEach(function(c){ c.classList.remove('active'); });
+        card.classList.add('active');
+        qtDetail.innerHTML = '<h5>'+q.name+' · 做题次序（6 步）</h5><ol>'
+          + q.steps.map(function(s){ return '<li>'+s+'</li>'; }).join('') + '</ol>';
+        qtDetail.classList.add('show');
+      });
+    });
+  }
+
+  // ---- 模块 C：记忆周期 ----
+  var CYCLES = [
+    {days: 5/1440, label:'5 分钟', desc:'刚做错时立刻擦掉重做，直到全对'},
+    {days: 0.5,    label:'12 小时', desc:'当天晚上或次日早晨再看一次'},
+    {days: 1,      label:'1 天',    desc:'第二天原题重做'},
+    {days: 2,      label:'2 天',    desc:'第三天原题重做'},
+    {days: 4,      label:'4 天',    desc:'第五天再回顾'},
+    {days: 7,      label:'7 天',    desc:'一周后回顾'},
+    {days: 15,     label:'15 天',   desc:'半月后回顾'},
+    {days: 30,     label:'1 个月',  desc:'一个月后回顾'},
+    {days: 90,     label:'3 个月',  desc:'三个月后回顾（此时基本沉进本能）'},
+    {days: 180,    label:'半年',    desc:'半年后终检，全对就毕业'}
+  ];
+  var mcDate = document.getElementById('mc-date');
+  if (mcDate) {
+    var todayStr = new Date().toISOString().slice(0,10);
+    mcDate.value = todayStr;
+  }
+  window.calcMemcycle = function(){
+    var val = document.getElementById('mc-date').value;
+    if (!val) return;
+    var d = new Date(val + 'T00:00:00');
+    var res = document.getElementById('mc-result');
+    var rows = CYCLES.map(function(c){
+      var back = new Date(d.getTime() - c.days * 86400000);
+      var y = back.getFullYear();
+      var m = String(back.getMonth()+1).padStart(2,'0');
+      var dd = String(back.getDate()).padStart(2,'0');
+      var label = c.days < 1 ? '今天' : y + '-' + m + '-' + dd;
+      return '<div class="memcycle-row">'
+           + '<div class="mc-cycle">'+c.label+'前</div>'
+           + '<div class="mc-desc"><strong>'+label+'</strong> 的批次 · '+c.desc+'</div>'
+           + '</div>';
+    }).join('');
+    res.innerHTML = rows;
+  };
+
+  // ---- 模块 D：6:3:1 计算器 ----
+  function formatLevel(type, num){
+    if (num <= 0) return type === 'ji' ? '1级' : '1段';
+    return num + (type === 'ji' ? '级' : '段');
+  }
+  function adjust(type, num, offset){
+    // 级：数字变小 = 变强；段：数字变大 = 变强
+    var newNum, newType = type;
+    if (type === 'ji') {
+      newNum = num - offset;
+      if (newNum <= 0) { newType = 'duan'; newNum = 1 - newNum; }
+    } else {
+      newNum = num + offset;
+      if (newNum <= 0) { newType = 'ji'; newNum = 1 - newNum; }
+    }
+    return formatLevel(newType, newNum);
+  }
+  window.calcRatio631 = function(){
+    var type = document.getElementById('r631-type').value;
+    var num = parseInt(document.getElementById('r631-num').value, 10);
+    var total = parseInt(document.getElementById('r631-total').value, 10);
+    if (!num || num < 1 || !total || total < 10) return;
+    // 低 2 级（比当前弱 2 级）= 从"当前"降 2 级：级往数字大方向、段往数字小方向
+    // 我们统一按"当前棋力"上下浮动来表达：低=更弱，高=更强
+    // 弱化 offset 传负数，强化传正数
+    var weakLabel = adjust(type, num, type === 'ji' ? +2 : -2);
+    var sameLabel = formatLevel(type, num);
+    var strongLabel = adjust(type, num, type === 'ji' ? -1 : +1);
+    var w = Math.round(total * 0.6);
+    var s = Math.round(total * 0.3);
+    var h = total - w - s;
+    var res = document.getElementById('r631-result');
+    res.innerHTML =
+      '<div class="ratio631-card"><div class="r-ratio">60%</div>'
+        + '<div class="r-label">'+weakLabel+' 题 · '+w+' 道</div>'
+        + '<div class="r-desc">夯基础、找信心。每题 1-2 分钟解决，追求"一看就懂"。</div></div>'
+      + '<div class="ratio631-card"><div class="r-ratio">30%</div>'
+        + '<div class="r-label">'+sameLabel+' 题 · '+s+' 道</div>'
+        + '<div class="r-desc">测水平。做对说明当前棋力扎实，做错记入错题本进入记忆周期。</div></div>'
+      + '<div class="ratio631-card"><div class="r-ratio">10%</div>'
+        + '<div class="r-label">'+strongLabel+' 题 · '+h+' 道</div>'
+        + '<div class="r-desc">挑战成长。想 5 分钟再翻答案，读棋不做题。</div></div>';
+  };
+  // 初始跑一次
+  if (document.getElementById('r631-result')) window.calcRatio631();
+  if (document.getElementById('mc-result')) window.calcMemcycle();
+})();
+// ===== 练棋指东 v1 END =====
+
 
 </script>
 
