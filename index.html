@@ -468,6 +468,9 @@
     .ratio631-input select, .ratio631-input input[type=number] { padding: 8px 12px; border: 1px solid var(--line); font-family: inherit; font-size: 14px; }
     .ratio631-input button { background: var(--seal); color: #fff; border: none; padding: 9px 20px; font-family: inherit; font-size: 14px; cursor: pointer; letter-spacing: 0.05em; }
     .ratio631-input button:hover { background: var(--seal-light); }
+    .memcycle-input button:active, .ratio631-input button:active { transform: scale(0.96); }
+    @keyframes flashIn { 0% { opacity: 0.35; transform: translateY(-3px); } 100% { opacity: 1; transform: translateY(0); } }
+    .flash-in { animation: flashIn 0.35s ease-out; }
     .ratio631-result { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-top: 10px; }
     .ratio631-card { padding: 18px 20px; background: #faf7f0; border-left: 3px solid var(--seal); }
     .ratio631-card .r-ratio { font-family: 'Inter', sans-serif; font-size: 26px; font-weight: 700; color: var(--seal); }
@@ -3042,6 +3045,7 @@ var TEACHING_DATA = {"sections":[{"id":"technique","title":"围棋技术探究",
            + '</div>';
     }).join('');
     res.innerHTML = rows;
+    res.classList.remove('flash-in'); void res.offsetWidth; res.classList.add('flash-in');
   };
 
   // ---- 模块 D：6:3:1 计算器 ----
@@ -3086,10 +3090,19 @@ var TEACHING_DATA = {"sections":[{"id":"technique","title":"围棋技术探究",
       + '<div class="ratio631-card"><div class="r-ratio">10%</div>'
         + '<div class="r-label">'+strongLabel+' 题 · '+h+' 道</div>'
         + '<div class="r-desc">挑战成长。想 5 分钟再翻答案，读棋不做题。</div></div>';
+    res.classList.remove('flash-in'); void res.offsetWidth; res.classList.add('flash-in');
   };
   // 初始跑一次
   if (document.getElementById('r631-result')) window.calcRatio631();
   if (document.getElementById('mc-result')) window.calcMemcycle();
+  // 输入变化自动重算
+  if (mcDate) mcDate.addEventListener('change', window.calcMemcycle);
+  var r631Type = document.getElementById('r631-type');
+  var r631Num = document.getElementById('r631-num');
+  var r631Total = document.getElementById('r631-total');
+  if (r631Type) r631Type.addEventListener('change', window.calcRatio631);
+  if (r631Num) r631Num.addEventListener('input', window.calcRatio631);
+  if (r631Total) r631Total.addEventListener('input', window.calcRatio631);
 
 
   // ---- 模块 E：高阶练棋思考 ----
