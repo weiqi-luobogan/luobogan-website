@@ -471,6 +471,9 @@
     .memcycle-input button:active, .ratio631-input button:active { transform: scale(0.96); }
     @keyframes flashIn { 0% { opacity: 0.35; transform: translateY(-3px); } 100% { opacity: 1; transform: translateY(0); } }
     .flash-in { animation: flashIn 0.35s ease-out; }
+    .download-csv-btn { display: inline-flex; align-items: center; gap: 6px; margin-top: 18px; padding: 8px 16px; background: transparent; color: var(--seal); border: 1px solid var(--seal); font-family: inherit; font-size: 13px; cursor: pointer; letter-spacing: 0.05em; transition: background 0.2s, color 0.2s; grid-column: 1 / -1; justify-self: start; }
+    .download-csv-btn:hover { background: var(--seal); color: #fff; }
+    .download-csv-btn:active { transform: scale(0.96); }
     .ratio631-result { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-top: 10px; }
     .ratio631-card { padding: 18px 20px; background: #faf7f0; border-left: 3px solid var(--seal); }
     .ratio631-card .r-ratio { font-family: 'Inter', sans-serif; font-size: 26px; font-weight: 700; color: var(--seal); }
@@ -3033,18 +3036,43 @@ var TEACHING_DATA = {"sections":[{"id":"technique","title":"围棋技术探究",
     if (!val) return;
     var d = new Date(val + 'T00:00:00');
     var res = document.getElementById('mc-result');
+    var todayList = [];
     var rows = CYCLES.map(function(c){
       var back = new Date(d.getTime() - c.days * 86400000);
       var y = back.getFullYear();
       var m = String(back.getMonth()+1).padStart(2,'0');
       var dd = String(back.getDate()).padStart(2,'0');
       var label = c.days < 1 ? '今天' : y + '-' + m + '-' + dd;
+      todayList.push([c.label+'前', label, c.desc, '']);
       return '<div class="memcycle-row">'
            + '<div class="mc-cycle">'+c.label+'前</div>'
            + '<div class="mc-desc"><strong>'+label+'</strong> 的批次 · '+c.desc+'</div>'
            + '</div>';
     }).join('');
-    res.innerHTML = rows;
+    // 组装可直接使用的错题本工作模板 CSV
+    var csv = [];
+    csv.push(['围棋错题复习跟踪表 · 基于艾宾浩斯遗忘曲线']);
+    csv.push(['基准日期', val]);
+    csv.push(['生成时间', new Date().toLocaleString('zh-CN')]);
+    csv.push([]);
+    csv.push(['【第一部分】今日复习任务清单（今天要复习哪些历史批次）']);
+    csv.push(['复习节点','对应批次日期','操作说明','是否完成 √']);
+    todayList.forEach(function(r){ csv.push(r); });
+    csv.push([]);
+    csv.push(['【第二部分】错题登记 + 10 次复习打卡表（每天做错的题填入下方，复习一次打一个√）']);
+    csv.push(['批次日期','题号','题型','内容/棋图页码','5分钟','12小时','1天','2天','4天','7天','15天','1月','3月','半年','全对毕业']);
+    // 预填 30 行空白，默认第一批次为今天
+    for (var i=0; i<30; i++){
+      csv.push([i<10 ? val : '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']);
+    }
+    csv.push([]);
+    csv.push(['【使用说明】']);
+    csv.push(['1. 每天做错的题按批次日期、题号登记到第二部分，可以按天分批次填入不同日期']);
+    csv.push(['2. 复习一次就在对应节点栏打一个 √，10 次全对了在末尾"全对毕业"栏打 √']);
+    csv.push(['3. 第一部分每天更新：修改基准日期重新下载，即可获得当天要复习的所有历史批次']);
+    csv.push(['4. 建议每天固定时间（如晚饭后 15 分钟）打开这张表处理"今日复习任务清单"']);
+    window.__mcCsv = { rows: csv, filename: '围棋错题复习跟踪表_'+val+'.csv' };
+    res.innerHTML = rows + '<button class="download-csv-btn" onclick="downloadCsv(\'mc\')">📥 下载"错题复习跟踪表"（Excel 可直接打开填写）</button>';
     res.classList.remove('flash-in'); void res.offsetWidth; res.classList.add('flash-in');
   };
 
@@ -3090,7 +3118,57 @@ var TEACHING_DATA = {"sections":[{"id":"technique","title":"围棋技术探究",
       + '<div class="ratio631-card"><div class="r-ratio">10%</div>'
         + '<div class="r-label">'+strongLabel+' 题 · '+h+' 道</div>'
         + '<div class="r-desc">挑战成长。想 5 分钟再翻答案，读棋不做题。</div></div>';
+    // 把每档周总量分到周一~周日（前 remainder 天多 1 道）
+    function split7(t){
+      var base = Math.floor(t/7), rem = t%7, arr = [];
+      for (var i=0;i<7;i++) arr.push(base + (i<rem ? 1 : 0));
+      return arr;
+    }
+    var wDays = split7(w), sDays = split7(s), hDays = split7(h);
+    var dayHeader = ['周一','周二','周三','周四','周五','周六','周日'];
+    var totalDays = [0,1,2,3,4,5,6].map(function(i){ return wDays[i]+sDays[i]+hDays[i]; });
+    var csv = [];
+    csv.push(['围棋周训练打卡表 · 6:3:1 难度配比']);
+    csv.push(['当前棋力', sameLabel]);
+    csv.push(['本周总题量', total+' 道']);
+    csv.push(['生成时间', new Date().toLocaleString('zh-CN')]);
+    csv.push([]);
+    csv.push(['难度档位','占比','棋力','本周总量'].concat(dayHeader).concat(['完成情况 √']));
+    csv.push(['低 2 级（打基础）','60%',weakLabel,w+' 道'].concat(wDays).concat(['']));
+    csv.push(['同级（测水平）','30%',sameLabel,s+' 道'].concat(sDays).concat(['']));
+    csv.push(['高 1 级（挑战）','10%',strongLabel,h+' 道'].concat(hDays).concat(['']));
+    csv.push(['每日合计','','',total+' 道'].concat(totalDays).concat(['']));
+    csv.push([]);
+    csv.push(['【使用说明】']);
+    csv.push(['1. 顺序：每天先做低 2 级题热身找信心，再做同级题验证水平，最后挑战高 1 级']);
+    csv.push(['2. 记录：每完成一档，在"完成情况"格子里打 √ 或写实际完成数']);
+    csv.push(['3. 错题：所有做错的题按当天日期登记进《错题复习跟踪表》，进入 10 次复习循环']);
+    csv.push(['4. 底线：三档比例不要反转——不要先做高级题、也不要跳过低级题，一定崩']);
+    csv.push(['5. 复盘：周日晚上花 10 分钟看这张表，估算这周实际完成率，下周再调总量']);
+    window.__r631Csv = { rows: csv, filename: '围棋周训练打卡表_'+sameLabel+'_'+total+'题.csv' };
+    res.innerHTML += '<button class="download-csv-btn" onclick="downloadCsv(\'r631\')">📥 下载"周训练打卡表"（Excel 可直接打开填写）</button>';
     res.classList.remove('flash-in'); void res.offsetWidth; res.classList.add('flash-in');
+  };
+  // 通用 CSV 下载函数（BOM + 转义，Excel 中文不乱码）
+  window.downloadCsv = function(kind){
+    var data = kind === 'mc' ? window.__mcCsv : window.__r631Csv;
+    if (!data) return;
+    var csv = '\ufeff' + data.rows.map(function(row){
+      return row.map(function(cell){
+        var s = cell == null ? '' : String(cell);
+        s = s.replace(/"/g, '""');
+        return /[",\n\r]/.test(s) ? '"'+s+'"' : s;
+      }).join(',');
+    }).join('\r\n');
+    var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = data.filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
   };
   // 初始跑一次
   if (document.getElementById('r631-result')) window.calcRatio631();
