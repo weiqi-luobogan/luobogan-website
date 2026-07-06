@@ -528,6 +528,157 @@
     }
 
     /* ===== 练棋建议 v1 END ===== */
+    /* ===== 给家长的建议 v6 ===== */
+    .parent-entry-card{
+      display:block;width:100%;text-align:left;
+      background:linear-gradient(135deg,#f7f1e6 0%,#ede2ce 100%);
+      border:1px solid #c9b892;border-radius:6px;
+      padding:22px 26px;margin:8px 0 32px 0;
+      position:relative;transition:transform .18s ease,box-shadow .18s ease;
+      cursor:pointer;
+    }
+    .parent-entry-card:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(90,70,40,.14)}
+    .parent-entry-badge{font-size:12px;letter-spacing:.14em;color:#8a6b3a;font-weight:700;margin-bottom:8px}
+    .parent-entry-title{font-size:20px;font-weight:700;color:#2a2620;margin-bottom:8px;letter-spacing:.04em}
+    .parent-entry-sub{font-size:14px;color:#5a5248;line-height:1.75;margin-bottom:12px}
+    .parent-entry-tags{display:flex;flex-wrap:wrap;gap:8px}
+    .parent-entry-tag{
+      font-size:12px;color:#6b5636;background:#f0e6d0;
+      border:1px solid #d6c39a;border-radius:3px;padding:3px 10px;letter-spacing:.05em;
+    }
+    .parent-entry-arrow{
+      position:absolute;right:22px;top:50%;transform:translateY(-50%);
+      color:#8a6b3a;font-size:22px;font-weight:300;
+    }
+    .parent-hero{
+      background:#faf5eb;border-left:3px solid #8a6b3a;
+      padding:18px 22px;margin:16px 0 34px 0;border-radius:2px;
+    }
+    .parent-hero p{font-size:15px;line-height:1.9;color:#3d3a34;margin:0 0 10px 0}
+    .parent-hero p:last-child{margin-bottom:0}
+    .parent-stage{
+      background:#fdfbf5;border:1px solid #e6dcc4;border-radius:4px;
+      padding:0;margin:0 0 32px 0;overflow:hidden;
+    }
+    .parent-stage-hero-img{
+      display:block;width:100%;height:auto;
+      border-bottom:1px solid #e6dcc4;cursor:zoom-in;
+      transition:opacity .18s ease;
+    }
+    .parent-stage-hero-img:hover{opacity:.92}
+    .parent-stage-body{padding:24px 28px}
+    .parent-stage-badge{
+      display:inline-block;font-size:12px;letter-spacing:.14em;
+      color:#8a6b3a;background:#f0e6d0;padding:3px 10px;border-radius:2px;
+      margin-bottom:10px;font-weight:700;
+    }
+    .parent-stage-title{
+      font-size:22px;font-weight:700;color:#2a2620;
+      letter-spacing:.06em;margin:0 0 6px 0;
+    }
+    .parent-stage-sub{
+      font-size:13px;color:#8a8378;margin-bottom:16px;letter-spacing:.05em;
+    }
+    .parent-stage h4{
+      font-size:15px;font-weight:700;color:#2a2620;
+      margin:22px 0 10px 0;padding-left:10px;border-left:3px solid #8a6b3a;
+      letter-spacing:.06em;
+    }
+    .parent-stage h4:first-of-type{margin-top:0}
+    .parent-portrait{
+      font-size:14px;line-height:1.9;color:#3d3a34;
+      background:#faf5eb;padding:12px 16px;border-radius:2px;margin:0;
+    }
+    .parent-do-list{
+      list-style:none;padding:0;margin:0;
+      display:grid;grid-template-columns:1fr;gap:10px;
+    }
+    .parent-do-list li{
+      font-size:14px;line-height:1.85;color:#3d3a34;
+      padding:10px 14px 10px 46px;background:#fdfbf5;
+      border:1px solid #efe6d0;border-radius:3px;
+      position:relative;
+    }
+    .parent-do-list li::before{
+      content:attr(data-idx);
+      position:absolute;left:12px;top:10px;
+      font-size:12px;font-weight:700;color:#a48b5a;
+      background:#f0e6d0;border-radius:2px;padding:2px 6px;letter-spacing:.05em;
+    }
+    .parent-persona{
+      display:grid;grid-template-columns:1fr 1fr;gap:14px;
+    }
+    .parent-persona-col{
+      background:#fdfbf5;border:1px solid #efe6d0;border-radius:3px;
+      padding:12px 16px;
+    }
+    .parent-persona-tag{
+      display:inline-block;font-size:12px;font-weight:700;
+      color:#fff;background:#8a6b3a;padding:2px 10px;border-radius:2px;
+      letter-spacing:.05em;margin-bottom:8px;
+    }
+    .parent-persona-tag.out{background:#a15a4a}
+    .parent-persona-col p{font-size:13.5px;line-height:1.85;color:#3d3a34;margin:0}
+    .parent-tips{list-style:none;padding:0;margin:0;}
+    .parent-tips li{
+      font-size:13.5px;line-height:1.85;color:#3d3a34;
+      padding:4px 0 4px 20px;position:relative;
+    }
+    .parent-tips li::before{
+      content:"·";position:absolute;left:6px;top:2px;
+      color:#8a6b3a;font-size:20px;font-weight:700;
+    }
+    .parent-quote{
+      background:#f0e6d0;border-left:4px solid #a48b5a;
+      padding:12px 18px;margin:18px 0 0 0;border-radius:2px;
+    }
+    .parent-quote p{
+      font-size:14px;line-height:1.85;color:#4d453a;
+      margin:0;font-style:italic;letter-spacing:.02em;
+    }
+    .parent-quote .quote-from{
+      display:block;margin-top:6px;font-size:12px;color:#8a8378;font-style:normal;
+    }
+    .parent-table-wrap{
+      overflow-x:auto;margin:14px 0 32px 0;
+      border:1px solid #e6dcc4;border-radius:3px;
+    }
+    .parent-summary-table,.parent-continuity-table{
+      width:100%;min-width:640px;border-collapse:collapse;
+      font-size:13px;color:#3d3a34;background:#fdfbf5;
+    }
+    .parent-summary-table th,.parent-continuity-table th{
+      background:#f0e6d0;color:#4d453a;font-weight:700;
+      padding:10px 12px;text-align:left;letter-spacing:.04em;
+      border-bottom:1px solid #d6c39a;white-space:nowrap;
+    }
+    .parent-summary-table td,.parent-continuity-table td{
+      padding:9px 12px;border-bottom:1px solid #efe6d0;line-height:1.7;
+      vertical-align:top;
+    }
+    .parent-summary-table tr:last-child td,
+    .parent-continuity-table tr:last-child td{border-bottom:none}
+    .parent-summary-table td:first-child,
+    .parent-continuity-table td:first-child{
+      font-weight:700;color:#4d453a;background:#faf5eb;white-space:nowrap;
+    }
+    .parent-close{
+      background:#faf5eb;border-left:3px solid #8a6b3a;
+      padding:16px 22px;margin:16px 0 8px 0;border-radius:2px;
+    }
+    .parent-close p{font-size:14.5px;line-height:1.9;color:#3d3a34;margin:0 0 8px 0}
+    .parent-close p:last-child{margin-bottom:0}
+    .parent-close .parent-close-note{
+      display:block;margin-top:14px;font-size:12px;color:#8a8378;
+      letter-spacing:.05em;text-align:right;
+    }
+    @media (max-width:640px){
+      .parent-persona{grid-template-columns:1fr}
+      .parent-stage-body{padding:18px 18px}
+      .parent-stage-title{font-size:19px}
+    }
+    /* ===== 给家长的建议 v6 END ===== */
+
 
     .teaching-body ul, .teaching-body ol { margin: 12px 0; padding-left: 24px; }
     .teaching-body li { margin: 6px 0; }
@@ -1380,6 +1531,21 @@
       <span class="practice-entry-arrow">→</span>
     </button>
 
+    <button class="parent-entry-card" onclick="showParentGuide()">
+      <div class="parent-entry-badge">给家长的建议 · PARENT GUIDE</div>
+      <div class="parent-entry-title">三阶段家长角色 · 陪孩子学围棋的正确姿势</div>
+      <div class="parent-entry-sub">
+        孩子学围棋的这几年，不是匀速前进的——它会经过三个味道完全不一样的阶段。摘自《围棋家长成长手册》第三章，把启蒙期、级位期、段位期一段一段拆开讲：每个阶段孩子什么样、家长可以怎么做、内向孩子和外向孩子分别要注意什么。
+      </div>
+      <div class="parent-entry-tags">
+        <span class="parent-entry-tag">启蒙期 · 玩伴</span>
+        <span class="parent-entry-tag">级位期 · 陪练</span>
+        <span class="parent-entry-tag">段位期 · 观众</span>
+        <span class="parent-entry-tag">内外向气质细化</span>
+      </div>
+      <span class="parent-entry-arrow">→</span>
+    </button>
+
     <div id="teaching-home" class="grid md:grid-cols-3 gap-5"></div>
 
 
@@ -1619,6 +1785,209 @@
         <div class="adv-panel-wrap" id="adv-panel"></div>
       </div>
     </div>
+
+    <div id="parent-guide" class="hidden">
+      <button class="practice-back" onclick="hideParentGuide()">← 返回教学理念</button>
+      <h3 class="text-2xl font-bold text-ink mb-3" style="letter-spacing:0.06em">给家长的建议 · 三阶段家长角色</h3>
+      <p class="section-lead" style="margin-bottom:22px">
+        陪孩子学围棋的这几年，不是匀速前进的——它会经过三个味道完全不一样的阶段。这份建议摘自《<span class="hl">围棋家长成长手册</span>》第三章，把启蒙期、级位期、段位期一段一段拆开讲，希望能给每一位陪孩子走这条路的家长，一份可以温和照做的参考。
+      </p>
+
+      <div class="parent-hero">
+        <p>孩子学围棋的这几年，棋盘上的内容在变，孩子的脑子在变，您要扮演的角色也得跟着变。</p>
+        <p>最常见的错位，是孩子已经走到第二阶段，家长还停留在第一阶段的"我陪着你玩"；或者孩子才在第一阶段，家长已经按第三阶段的"该自己独立思考"在要求他。前一种会让孩子觉得家长太黏太轻飘飘，后一种会把孩子推到一个他接不住的位置。</p>
+        <p>下面按<b>三个阶段 × 五个板块</b>展开：这个阶段的孩子是什么样、您可以怎么做、内向和外向孩子分别怎么处理、小提醒、以及李老师和萝卜老师在这个阶段最想对家长说的话。</p>
+      </div>
+
+      <div class="parent-stage" id="parent-stage-qm">
+        <img class="parent-stage-hero-img ppt-figure" src="assets/parent/parent_qm.jpg" alt="启蒙期 · 玩中学，守护兴趣">
+        <div class="parent-stage-body">
+          <span class="parent-stage-badge">STAGE 01 · 启蒙期（0 基础 - 业余 1 级）</span>
+          <h3 class="parent-stage-title">启蒙期 · 玩中学，守护兴趣</h3>
+          <div class="parent-stage-sub">家长角色：<span class="hl">玩伴</span>　·　一句话姿态：他玩，您也玩</div>
+
+          <h4>孩子是什么样的</h4>
+          <p class="parent-portrait">5~7 岁，以<b>具体形象思维</b>为主，听不懂"势"，但对"小怪兽被吃掉"这种拟人化说法理解力惊人。单次有效注意力 <b>5~10 分钟</b>，中间走神是正常的。会反复忘掉规则、赢了就乐疯输了就大哭，也会突然蹦出一句让您惊呆的话。请先放心：这不是您家孩子的问题，是这个年纪本来就这样。</p>
+
+          <h4>家长可以这样做</h4>
+          <ul class="parent-do-list">
+          <li data-idx="01"><b>把"上课"换成"玩游戏"</b>——说"来玩救小棋子的游戏"，比说"来做死活题"效果好一万倍。每次 10~15 分钟就收，留一点"还没玩够"的感觉。</li>
+          <li data-idx="02"><b>有技巧地让棋</b>——故意留一个小破绽（一颗子叫吃没救、一块棋眼位不全），让孩子自己发现。他获得的成就感，远大于您送他十颗子。</li>
+          <li data-idx="03"><b>规则全部用童话语言</b>——"气"是"棋子的呼吸"，"提子"是"没气了被抬走"，"打劫"是"两颗子吵起来轮流抢"。5 岁的大脑就这么工作。</li>
+          <li data-idx="04"><b>每周固定"家庭围棋日"</b>——不一定下棋，看《棋魂》、让他当小老师、玩五子棋都行。重点是让"围棋"和"家""开心""被陪伴"绑在一起。</li>
+          <li data-idx="05"><b>准备一个"鼓励系统"</b>——贴纸册、徽章、玻璃球都行。重点是奖励"过程动作"（主动数气、复摆题、输棋没哭），不奖励"赢了几盘"。</li>
+          <li data-idx="06"><b>每两周和老师沟通一次</b>——问"我回家可以陪着练什么"，不要问"他什么时候升级"。这两个问题给老师的信号完全不同。</li>
+          <li data-idx="07"><b>把"今天赢没赢"从嘴边删掉</b>——只问三个问题之一：今天最开心的是哪一瞬间？学到了什么好玩的？老师有没有夸你？</li>
+          </ul>
+
+          <h4>分气质细化 · 内向 vs 外向</h4>
+          <p style="font-size:13.5px;color:#5a5248;line-height:1.85;margin:0 0 12px 0">同样一句话、同样一道题，对内向和外向孩子要换两种用法。</p>
+          <div class="parent-persona">
+            <div class="parent-persona-col">
+              <span class="parent-persona-tag">内向孩子</span>
+              <p>课上不举手不代表没听懂，是处理速度慢半拍。回家<b>重做不重讲</b>——直接把题摆出来让他自己再摆一次。出门前 <b>20 分钟</b>预告"我们要去围棋课了"，别在棋室门口逼他和老师同学打招呼。赢棋以后在<b>车里、家里</b>夸，不要当众大声夸——他会退缩。</p>
+            </div>
+            <div class="parent-persona-col">
+              <span class="parent-persona-tag out">外向孩子</span>
+              <p>课上举手最积极、讲得最热闹，但享受的是"被看见"不是"想明白"。落子前加一个<b>深呼吸小仪式</b>，每盘棋后让他<b>当小老师</b>讲一遍。家庭围棋日<b>刻意给他设计"表演环节"</b>（给爷爷奶奶演示怎么吃子），舞台需求被满足了，他在课上就不会用插嘴抢答去抢老师的注意力。</p>
+            </div>
+          </div>
+
+          <h4>小提醒</h4>
+          <ul class="parent-tips">
+          <li>别急着纠正错误，等这盘下完再用"我们一起看看还有没有别的下法"开头。</li>
+          <li>孩子说"不想下棋了"，请认真听——先分清是今天不想还是最近都不太想。不要用"以后再也不学"威胁他，他会当真。</li>
+          <li>绘本和动画是好朋友：《棋魂》《围棋少年》《黑子白子落星盘》《喜羊羊之奇幻围棋》，让围棋在孩子心里有"故事感"。</li>
+          <li>不要在饭桌上复盘。饭桌留给吃饭和闲聊，棋的事单独找小段时间说。</li>
+          </ul>
+
+      <div class="parent-quote"><p>启蒙期的家长其实只要做一件事——让孩子下完课走出教室的时候，是笑着的。剩下的，慢慢来都来得及。<span class="quote-from">—— 李老师</span></p></div>
+      <div class="parent-quote"><p>启蒙期最重要的，不是孩子学会了多少规则，是他在围棋这件事上，找到了一个"我说了算"的感觉。<span class="quote-from">—— 萝卜老师手记</span></p></div>
+        </div>
+      </div>
+
+
+      <div class="parent-stage" id="parent-stage-jw">
+        <img class="parent-stage-hero-img ppt-figure" src="assets/parent/parent_jw.jpg" alt="级位期 · 耐心引导，培养习惯">
+        <div class="parent-stage-body">
+          <span class="parent-stage-badge">STAGE 02 · 级位期（业余 1 级 - 1 段）</span>
+          <h3 class="parent-stage-title">级位期 · 耐心引导，培养习惯</h3>
+          <div class="parent-stage-sub">家长角色：<span class="hl">陪练员 + 情绪容器</span>　·　一句话姿态：他练，您陪；他哭，您接</div>
+
+          <h4>孩子是什么样的</h4>
+          <p class="parent-portrait">8~10 岁，开始具备 <b>2~3 步逻辑推理</b>，能听懂"气""目""厚薄"，但要在具体棋形上才反应过来。单次注意力 <b>15~25 分钟</b>。开始有"我的棋风"——爱屠龙、爱围空、爱搅劫。会输给比自己弱的孩子并因此崩溃。<b>段位不涨</b>是家长的头号焦虑——这是整个学棋路上最长、最磨人的一段。</p>
+
+          <h4>家长可以这样做</h4>
+          <ul class="parent-do-list">
+          <li data-idx="01"><b>每天 15 分钟死活题，比每周末 2 小时强一百倍</b>——雷打不动，固定在饭后或睡前。家长陪着坐就行，他做题您做自己的事，关键是"在场"。</li>
+          <li data-idx="02"><b>建立"复盘三句话"</b>——每盘棋后问：最得意哪一手？最遗憾哪一手？<b>再下一遍你从哪一手开始改？</b>第三个问题最关键，它是计算力真正长出来的方式。</li>
+          <li data-idx="03"><b>把"应该赢"三个字从嘴边删掉</b>——换成"这盘你下到第几手的时候开始觉得难受？"过程在哪里，进步就在哪里。</li>
+          <li data-idx="04"><b>引入低压力比赛</b>——从棋室内小循环赛、亲子赛开始，家长<b>全程陪但坐在他视线之外</b>。比完先问"哪一盘最难下"，不要问"第几名"。</li>
+          <li data-idx="05"><b>开始引导打谱</b>——一周一局，选短小漂亮的对局。让好棋形"手熟"。您不需要懂，把谱摆完说一句"这个棋形挺好看的"就够了。</li>
+          <li data-idx="06"><b>每月一次"诊断式"沟通</b>——问老师"我们家最近卡在哪、原因是什么"。拿到诊断后针对性练。盲目刷题在级位阶段效率最低。</li>
+          <li data-idx="07"><b>学会读懂"段位停滞"</b>——从 5 级升 4 级，可能要在 5 级水平上打磨 3~6 个月。把眼睛从"段位"挪到"做题准确率、复盘深度、对局思考"上，这才是进步的真正标尺。</li>
+          </ul>
+
+          <h4>分气质细化 · 内向 vs 外向</h4>
+          <p style="font-size:13.5px;color:#5a5248;line-height:1.85;margin:0 0 12px 0">级位期是内向和外向孩子分化最明显的阶段，家长要用完全不同的方式来陪。</p>
+          <div class="parent-persona">
+            <div class="parent-persona-col">
+              <span class="parent-persona-tag">内向孩子</span>
+              <p>警惕"<b>内伤型情绪</b>"——输了不哭不闹，回家自己默默不说话，情绪压在心里没散掉。主动给他"非语言陪伴"的出口：散步、买冰棒、聊棋以外的事，比追问"你怎么了"有用得多。请老师<b>多排"够一够能赢"的对手</b>，少排"能轻松赢"的。赛前一周<b>降低压力</b>，不再加练。</p>
+            </div>
+            <div class="parent-persona-col">
+              <span class="parent-persona-tag out">外向孩子</span>
+              <p>警惕"<b>虚高的自我评价</b>"——讲得自信但不一定真懂，网棋胜率比线下高一大截。<b>每天网棋不超过 2 局</b>（即使他求着还要下）；每盘复盘让他自己说，他说着说着会自己发现"这手没想清楚"。赛前一周<b>反而要保持"还在练"的紧张感</b>，完全歇着他会手生。</p>
+            </div>
+          </div>
+
+          <h4>小提醒</h4>
+          <ul class="parent-tips">
+          <li>把"你这里下错了"换成"我们来想想还有没有更好的选择"——这一句话的改动，是级位期家长最值得做的一件事。</li>
+          <li>不要在家长群里晒段位排名。孩子的耳朵会从同学那里转回来。</li>
+          <li>复盘放在棋下完 30 分钟以后，情绪先冷却，效率会高很多。</li>
+          <li>允许孩子偶尔有"完全不想碰围棋"的一周——一年几次这样的时间，长期感情反而更稳。</li>
+          </ul>
+
+      <div class="parent-quote"><p>段位是结果，能力是因。您天天浇水的应该是根，不是天天去看花开了没。<span class="quote-from">—— 李老师</span></p></div>
+      <div class="parent-quote"><p>级位期的家长，往往不是做得太少，是话太多。把一些话憋回去，比说出来更有用。<span class="quote-from">—— 萝卜老师手记</span></p></div>
+        </div>
+      </div>
+
+
+      <div class="parent-stage" id="parent-stage-dw">
+        <img class="parent-stage-hero-img ppt-figure" src="assets/parent/parent_dw.jpg" alt="段位期 · 支持与放手，见证成长">
+        <div class="parent-stage-body">
+          <span class="parent-stage-badge">STAGE 03 · 段位期（业余 1 段以上）</span>
+          <h3 class="parent-stage-title">段位期 · 支持与放手，见证成长</h3>
+          <div class="parent-stage-sub">家长角色：<span class="hl">观众 + 后勤</span>　·　一句话姿态：他下，您看；他比赛，您备好早餐</div>
+
+          <h4>孩子是什么样的</h4>
+          <p class="parent-portrait">10~14 岁，<b>抽象推理 + 全局视野</b>初步具备，能听懂"味道""效率""急所"并主动应用。单次注意力 <b>45 分钟~2 小时</b>。开始有自己的棋观，会反驳您、反驳老师。也开始出现半年到一年的<b>高原期</b>。<b>学业和围棋的平衡</b>是段位期的头号焦虑。段位阶段是孩子是否会"终身保留围棋"的分水岭。</p>
+
+          <h4>家长可以这样做</h4>
+          <ul class="parent-do-list">
+          <li data-idx="01"><b>把"陪练"角色彻底交给老师和孩子自己</b>——不要再坐在孩子旁边陪他做题。您要做的是<b>后勤 + 情绪 + 边界</b>：管好睡眠、管好赛程、在情绪崩塌时接得住他。</li>
+          <li data-idx="02"><b>重新约定"学业 vs 围棋"比例</b>——开一次家庭会议，把每周时间、比赛季调整、寒暑假安排摊出来谈。<b>让孩子参与决策</b>，而不是您单方面宣布。</li>
+          <li data-idx="03"><b>比赛跟队从"全程跟"改成"按需跟"</b>——早送晚接。形式上独立，情感上不缺位：出发前的早餐陪他吃、晚上接他回家的车里有他爱听的音乐。</li>
+          <li data-idx="04"><b>引入"赛后 24 小时不复盘"原则</b>——段位赛的情绪冲击远大于级位赛。这一天他想吃顿好的、打一晚游戏、睡到中午都行。24 小时以后再聊"哪几盘最难"。</li>
+          <li data-idx="05"><b>支持他看职业棋谱和棋坛纪录片</b>——吴清源、聂卫平、李昌镐、柯洁、申真谞、一力辽。让孩子知道围棋世界比"棋室 + 段位证书"大得多，段位停滞时心态会稳很多。</li>
+          <li data-idx="06"><b>准备好谈"要不要走专业"</b>——如果孩子在业余 3 段以上、自己表达过"想再往上走"，要主动和老师深谈天赋、年龄、家庭投入。家长只提供信息和资源，<b>不替他做决定</b>。</li>
+          <li data-idx="07"><b>做好"兴趣阶段性退潮"的心理准备</b>——特别是青春期前后。不要用"你都学这么多年了不能放弃"道德绑架。可以先调整为每周一次，让围棋在他生活里柔一些。</li>
+          </ul>
+
+          <h4>分气质细化 · 内向 vs 外向</h4>
+          <p style="font-size:13.5px;color:#5a5248;line-height:1.85;margin:0 0 12px 0">段位期的孩子已经会藏心事，家长最重要的能力是"读懂他不说的话"。</p>
+          <div class="parent-persona">
+            <div class="parent-persona-col">
+              <span class="parent-persona-tag">内向孩子</span>
+              <p>心里有很多话但不说——对棋、对老师、对家长都有判断，却全憋着。学会读<b>非语言信号</b>：突然不愿意去棋室、比赛回来不说话，都可能不是您以为的原因。<b>少问、多陪</b>，用散步、开车、睡前关灯这些低压力场合等他自己开口。主动问他研究的定式（"那个定式最近研究得怎么样了"），比问十句"今天怎么样"都管用——他要的是"被认真对待"。</p>
+            </div>
+            <div class="parent-persona-col">
+              <span class="parent-persona-tag out">外向孩子</span>
+              <p>自信和自我怀疑<b>反复横跳</b>——今天觉得马上冲段，明天觉得不是这块料。您要当"<b>稳定的低音线</b>"：他嗨时您不跟着嗨过头，他塌时您不跟着塌下来。青春期社交圈会挤占练棋时间，不要指责"你怎么现在都不学了"——<b>帮他在围棋圈里建立同龄人社交</b>，一起下棋、报队赛，让围棋也变成"和朋友一起做的事"。</p>
+            </div>
+          </div>
+
+          <h4>小提醒</h4>
+          <ul class="parent-tips">
+          <li>段位证书没有您想象的那么重要。孩子真正带走的是这十几年养成的思考方式。</li>
+          <li>如果孩子想暂停一段时间，请支持他。告诉他"围棋永远在这里等你回来"——这句话十年后他还会记得。</li>
+          <li>不要在亲戚朋友面前展示孩子的段位。段位期孩子的自尊已经很敏感。</li>
+          <li>过了 4 段以后，孩子的进步主要靠"自己练"，不是靠"被教"。家长这个时候越往后退，孩子越往前走。</li>
+          <li>学业和围棋出现冲突时，尊重孩子自己的优先级排序——如果他主动选择学业为重，请不要"为他可惜"。</li>
+          </ul>
+
+      <div class="parent-quote"><p>段位期的家长，真正的本事不是"陪着孩子学"，是"问出孩子的真实想法，并且尊重它"。这是孩子能在围棋这条路上走远的根本。<span class="quote-from">—— 萝卜老师手记</span></p></div>
+        </div>
+      </div>
+
+
+    <h3 style="font-size:20px;font-weight:700;color:#2a2620;margin:40px 0 8px 0;letter-spacing:.06em">三阶段速查总览</h3>
+    <p style="font-size:13.5px;color:#5a5248;margin:0 0 12px 0;line-height:1.8">下一次拿不准"现在该用哪种姿态"的时候，可以一眼扫过去对照。</p>
+    <div class="parent-table-wrap">
+      <table class="parent-summary-table">
+        <thead><tr><th>维度</th><th>启蒙期</th><th>级位期</th><th>段位期</th></tr></thead>
+        <tbody>
+          <tr><td>关键词</td><td>玩中学，守护兴趣</td><td>耐心引导，培养习惯</td><td>支持与放手，见证成长</td></tr>
+          <tr><td>典型年龄</td><td>5~7 岁</td><td>8~10 岁</td><td>10~14 岁</td></tr>
+          <tr><td>思维特征</td><td>具体形象思维</td><td>初步逻辑推理（2~3 步）</td><td>抽象推理 + 全局视野</td></tr>
+          <tr><td>单次注意力</td><td>5~10 分钟</td><td>15~25 分钟</td><td>45 分钟 ~ 2 小时</td></tr>
+          <tr><td>典型节奏</td><td>单课 10~15 分钟"游戏"</td><td>每天 15 分钟死活题</td><td>自主练习 + 自主打谱</td></tr>
+          <tr><td>家长头号焦虑</td><td>"他怎么学得比别人慢"</td><td>段位停滞</td><td>学业 vs 围棋如何平衡</td></tr>
+          <tr><td>家长该做</td><td>配合 + 童话 + 鼓励过程</td><td>陪练 + 复盘三句话 + 读懂停滞</td><td>后勤 + 边界 + 24 小时缓冲</td></tr>
+          <tr><td>最忌讳</td><td>灌输抽象概念 / 过早段位赛</td><td>把段位变成家庭 KPI</td><td>继续用级位期方式介入</td></tr>
+          <tr><td>与老师沟通</td><td>两周一次问"陪练什么"</td><td>每月一次问"卡在哪、原因"</td><td>关键节点深谈（专业 / 阶段调整）</td></tr>
+          <tr><td>比赛跟队</td><td>全程陪</td><td>全程陪但坐在视线之外</td><td>按需跟（早送晚接）</td></tr>
+          <tr><td>复盘方式</td><td>不强制复盘</td><td>复盘三句话</td><td>赛后 24 小时再开口</td></tr>
+          <tr><td>内向孩子</td><td>重做不重讲 / 出门 20 分钟预告</td><td>安全出口 / 排"够一够"的对手</td><td>少问多陪 / 散步车上聊</td></tr>
+          <tr><td>外向孩子</td><td>慢仪式 / 设"表演环节"</td><td>控网棋时长 / 让他自己复盘</td><td>当稳定的低音线 / 建围棋同龄人圈</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+
+    <h3 style="font-size:20px;font-weight:700;color:#2a2620;margin:32px 0 8px 0;letter-spacing:.06em">结语：三阶段角色的连续性</h3>
+    <p style="font-size:13.5px;color:#5a5248;margin:0 0 12px 0;line-height:1.8">如果把三个阶段画成一条线，家长角色其实是这样变化的。</p>
+    <div class="parent-table-wrap">
+      <table class="parent-continuity-table">
+        <thead><tr><th>阶段</th><th>家长角色</th><th>一句话姿态</th></tr></thead>
+        <tbody>
+          <tr><td>启蒙期</td><td>玩伴</td><td>他玩，您也玩</td></tr>
+          <tr><td>级位期</td><td>陪练员 + 情绪容器</td><td>他练，您陪；他哭，您接</td></tr>
+          <tr><td>段位期</td><td>观众 + 后勤</td><td>他下，您看；他比赛，您备好早餐</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="parent-close">
+      <p>这三个角色之间没有明确的分界线。<b>最聪明的家长，是会在孩子还在级位期的时候，就开始预演段位期的姿态</b>——稍微往后退一步、稍微少说一句、稍微多忍一忍。这种"提前一步退场"的智慧，让孩子在每一个阶段的过渡上，都走得比同龄人更顺。</p>
+      <p>愿您在三个阶段都找到自己舒服的位置。愿您和孩子，在每一个阶段，都笑得出来。</p>
+      <span class="parent-close-note">—— 摘编自《围棋家长成长手册》第三章 · 萝卜老师</span>
+    </div>
+
+    </div>
+
 
 
     <p class="text-xs text-gray-soft leading-relaxed mt-8 max-w-2xl"><em>教学思路会持续沉淀，教学故事也会不断更新。想看什么话题，欢迎去留言板留言。</em></p>
@@ -2901,6 +3270,46 @@ var TEACHING_DATA = {"sections":[{"id":"technique","title":"围棋技术探究",
 })();
 // ===== 练棋建议 v1 END =====
 
+// ===== 给家长的建议 v6 =====
+function showParentGuide(){
+  var t = document.getElementById('teaching');
+  var home = document.getElementById('teaching-home');
+  var list = document.getElementById('teaching-list');
+  var detail = document.getElementById('teaching-detail');
+  var practiceEntry = document.querySelector('.practice-entry-card');
+  var parentEntry = document.querySelector('.parent-entry-card');
+  var pg = document.getElementById('parent-guide');
+  var pcg = document.getElementById('practice-guide');
+  if(home) home.style.display='none';
+  if(list) list.classList.add('hidden');
+  if(detail) detail.classList.add('hidden');
+  if(practiceEntry) practiceEntry.style.display='none';
+  if(parentEntry) parentEntry.style.display='none';
+  if(pcg) pcg.classList.add('hidden');
+  if(pg){ pg.classList.remove('hidden'); }
+  if(t){
+    var y = t.getBoundingClientRect().top + window.pageYOffset - 20;
+    window.scrollTo({top:y, behavior:'smooth'});
+  }
+}
+function hideParentGuide(){
+  var home = document.getElementById('teaching-home');
+  var practiceEntry = document.querySelector('.practice-entry-card');
+  var parentEntry = document.querySelector('.parent-entry-card');
+  var pg = document.getElementById('parent-guide');
+  if(pg) pg.classList.add('hidden');
+  if(home) home.style.display='';
+  if(practiceEntry) practiceEntry.style.display='';
+  if(parentEntry) parentEntry.style.display='';
+  var t = document.getElementById('teaching');
+  if(t){
+    var y = t.getBoundingClientRect().top + window.pageYOffset - 20;
+    window.scrollTo({top:y, behavior:'smooth'});
+  }
+}
+// ===== 给家长的建议 v6 END =====
+
+
 
 </script>
 
@@ -3142,4 +3551,4 @@ var TEACHING_DATA = {"sections":[{"id":"technique","title":"围棋技术探究",
 </div>
 </body>
 </html>
-<!-- redeploy-47eed18dv4r1_v5 -->
+<!-- redeploy-47eed18dv4r1_v5_v6 -->
