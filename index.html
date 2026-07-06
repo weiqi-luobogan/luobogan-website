@@ -1734,18 +1734,18 @@
       <div class="practice-module">
         <div class="practice-module-title">模块 C · 记忆周期表</div>
         <div class="practice-module-desc">
-          艾宾浩斯遗忘曲线在围棋练习上的落地版：一道错题，要在 5 分钟 / 12 小时 / 1 天 / 2 天 / 4 天 / 7 天 / 15 天 / 1 月 / 3 月 / 半年
-          分别复习一次，才能真的沉进本能。选一个日期，看今天该复习哪些历史批次。
+          艾宾浩斯遗忘曲线在围棋练习上的落地版：今天做错的一道题，要在 5 分钟 / 12 小时 / 1 天 / 2 天 / 4 天 / 7 天 / 15 天 / 1 月 / 3 月 / 半年
+          之后各复习一次，才能真的沉进本能。选一个基准日期（默认今天），看这批错题未来该在哪些时间点回来复习。
         </div>
         <div class="memcycle-box">
           <div class="memcycle-input">
-            <label for="mc-date">选择日期：</label>
+            <label for="mc-date">基准日期：</label>
             <input type="date" id="mc-date">
-            <button onclick="calcMemcycle()">计算今日复习清单</button>
+            <button onclick="calcMemcycle()">生成本批错题的复习计划</button>
           </div>
           <div class="memcycle-result" id="mc-result"></div>
           <div class="memcycle-hint">
-            用法：假设你把每天做错的题记在小本子上（叫作"批次"），今天该复习的，就是列表里对应日期做错的那些题。
+            用法：把当天做错的题记在小本子上（叫作"批次"），按下方给出的日期，一次次回来重做。
             全对为止再擦掉，永远不放过。
           </div>
         </div>
@@ -3036,41 +3036,41 @@ var TEACHING_DATA = {"sections":[{"id":"technique","title":"围棋技术探究",
     if (!val) return;
     var d = new Date(val + 'T00:00:00');
     var res = document.getElementById('mc-result');
-    var todayList = [];
+    var planList = [];
     var rows = CYCLES.map(function(c){
-      var back = new Date(d.getTime() - c.days * 86400000);
-      var y = back.getFullYear();
-      var m = String(back.getMonth()+1).padStart(2,'0');
-      var dd = String(back.getDate()).padStart(2,'0');
-      var label = c.days < 1 ? '今天' : y + '-' + m + '-' + dd;
-      todayList.push([c.label+'前', label, c.desc, '']);
+      var forward = new Date(d.getTime() + c.days * 86400000);
+      var y = forward.getFullYear();
+      var m = String(forward.getMonth()+1).padStart(2,'0');
+      var dd = String(forward.getDate()).padStart(2,'0');
+      var label = c.days < 1 ? '当天' : y + '-' + m + '-' + dd;
+      planList.push([c.label+'后', label, c.desc, '']);
       return '<div class="memcycle-row">'
-           + '<div class="mc-cycle">'+c.label+'前</div>'
-           + '<div class="mc-desc"><strong>'+label+'</strong> 的批次 · '+c.desc+'</div>'
+           + '<div class="mc-cycle">'+c.label+'后</div>'
+           + '<div class="mc-desc"><strong>'+label+'</strong> 复习 · '+c.desc+'</div>'
            + '</div>';
     }).join('');
     // 组装可直接使用的错题本工作模板 CSV
     var csv = [];
     csv.push(['围棋错题复习跟踪表 · 基于艾宾浩斯遗忘曲线']);
-    csv.push(['基准日期', val]);
+    csv.push(['基准日期（本批错题登记日）', val]);
     csv.push(['生成时间', new Date().toLocaleString('zh-CN')]);
     csv.push([]);
-    csv.push(['【第一部分】今日复习任务清单（今天要复习哪些历史批次）']);
-    csv.push(['复习节点','对应批次日期','操作说明','是否完成 √']);
-    todayList.forEach(function(r){ csv.push(r); });
+    csv.push(['【第一部分】本批错题的复习计划（今日登记后，未来在这些节点各复习一次）']);
+    csv.push(['复习节点','对应日期','操作说明','是否完成 √']);
+    planList.forEach(function(r){ csv.push(r); });
     csv.push([]);
-    csv.push(['【第二部分】错题登记 + 10 次复习打卡表（每天做错的题填入下方，复习一次打一个√）']);
-    csv.push(['批次日期','题号','题型','内容/棋图页码','5分钟','12小时','1天','2天','4天','7天','15天','1月','3月','半年','全对毕业']);
-    // 预填 30 行空白，默认第一批次为今天
+    csv.push(['【第二部分】错题登记 + 10 次复习打卡表(每天做错的题填入下方,复习一次打一个√)']);
+    csv.push(['批次日期','题号','题型','内容/棋图页码','5分钟后','12小时后','1天后','2天后','4天后','7天后','15天后','1月后','3月后','半年后','全对毕业']);
+    // 预填 30 行空白，默认第一批次为基准日期
     for (var i=0; i<30; i++){
       csv.push([i<10 ? val : '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']);
     }
     csv.push([]);
     csv.push(['【使用说明】']);
-    csv.push(['1. 每天做错的题按批次日期、题号登记到第二部分，可以按天分批次填入不同日期']);
+    csv.push(['1. 每天做错的题按"批次日期=当天"登记到第二部分，题号/题型/棋图页码方便日后翻找']);
     csv.push(['2. 复习一次就在对应节点栏打一个 √，10 次全对了在末尾"全对毕业"栏打 √']);
-    csv.push(['3. 第一部分每天更新：修改基准日期重新下载，即可获得当天要复习的所有历史批次']);
-    csv.push(['4. 建议每天固定时间（如晚饭后 15 分钟）打开这张表处理"今日复习任务清单"']);
+    csv.push(['3. 若想生成"某一天新错题"的复习计划，把基准日期改成那一天再重新下载一份']);
+    csv.push(['4. 建议每天固定时间(如晚饭后 15 分钟)翻表:先做到期的老批次,再登记今天的新错题']);
     window.__mcCsv = { rows: csv, filename: '围棋错题复习跟踪表_'+val+'.csv' };
     res.innerHTML = rows + '<button class="download-csv-btn" onclick="downloadCsv(\'mc\')">📥 下载"错题复习跟踪表"（Excel 可直接打开填写）</button>';
     res.classList.remove('flash-in'); void res.offsetWidth; res.classList.add('flash-in');
