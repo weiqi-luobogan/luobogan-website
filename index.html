@@ -492,6 +492,41 @@
     .lightbox-close { position: absolute; top: 18px; right: 24px; color: #fff; font-size: 26px; background: none; border: none; cursor: pointer; font-family: inherit; letter-spacing: 0.1em; }
     .lightbox-close:hover { color: #f4c96a; }
 
+
+    /* 模块 E · 高阶练棋思考（v5） */
+    .adv-tabs { display: flex; flex-wrap: wrap; gap: 0; border-bottom: 1px solid var(--line); margin-bottom: 22px; }
+    .adv-tab { background: none; border: none; padding: 12px 22px; font-size: 15px; color: #6b6b6b; cursor: pointer; font-family: inherit; border-bottom: 2px solid transparent; transition: all 0.2s; letter-spacing: 0.03em; }
+    .adv-tab:hover { color: var(--seal); }
+    .adv-tab.active { color: var(--seal); border-bottom-color: var(--seal); font-weight: 700; }
+    .adv-panel-wrap { padding: 4px 2px 0; }
+    .adv-lead { font-size: 14.5px; color: var(--ink-soft); line-height: 1.9; margin: 0 0 20px; padding: 14px 18px; background: #faf7f0; border-left: 3px solid var(--seal); }
+    .adv-points { list-style: none; padding: 0; margin: 0 0 22px; }
+    .adv-points li { position: relative; padding: 8px 0 8px 26px; font-size: 14px; color: var(--ink-soft); line-height: 1.9; border-bottom: 1px dashed rgba(200,180,140,0.35); }
+    .adv-points li:last-child { border-bottom: none; }
+    .adv-points li::before { content: ""; position: absolute; left: 6px; top: 18px; width: 6px; height: 6px; background: var(--seal); border-radius: 50%; opacity: 0.7; }
+    .adv-steps { display: flex; flex-direction: column; gap: 10px; margin: 0 0 22px; }
+    .adv-step { display: grid; grid-template-columns: 44px 88px 1fr; gap: 14px; align-items: start; padding: 14px 16px; background: #fff; border: 1px solid var(--line); border-left: 3px solid var(--seal); }
+    .adv-step .adv-step-no { font-family: 'Inter', sans-serif; font-size: 22px; font-weight: 700; color: var(--seal); line-height: 1.2; }
+    .adv-step .adv-step-tag { font-size: 13px; font-weight: 700; color: var(--ink); background: #f2ebde; padding: 4px 10px; border-radius: 3px; text-align: center; letter-spacing: 0.15em; align-self: start; }
+    .adv-step .adv-step-body .adv-step-title { font-size: 14.5px; font-weight: 700; color: var(--seal); margin-bottom: 4px; }
+    .adv-step .adv-step-body .adv-step-desc { font-size: 13.5px; color: var(--ink-soft); line-height: 1.85; }
+    .adv-branches { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin: 0 0 22px; }
+    .adv-branch { background: #fff; border: 1px solid var(--line); padding: 16px 18px; }
+    .adv-branch .adv-branch-name { font-size: 14.5px; font-weight: 700; color: var(--seal); margin: 0 0 10px; padding-bottom: 8px; border-bottom: 1px dashed var(--line); letter-spacing: 0.06em; }
+    .adv-branch ul { list-style: none; padding: 0; margin: 0; }
+    .adv-branch ul li { padding: 6px 0 6px 14px; font-size: 13px; color: var(--ink-soft); line-height: 1.85; position: relative; }
+    .adv-branch ul li::before { content: "·"; position: absolute; left: 4px; color: var(--seal); font-weight: 700; }
+    .adv-mid-list { display: flex; flex-direction: column; gap: 8px; margin: 0 0 22px; }
+    .adv-mid-cell { display: grid; grid-template-columns: 60px 1fr; gap: 14px; align-items: center; padding: 12px 16px; background: #fff; border: 1px solid var(--line); border-left: 3px solid var(--seal); }
+    .adv-mid-cell .adv-mid-tag { font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 700; color: var(--seal); text-align: center; padding: 6px 0; background: #f7f1e2; border-radius: 3px; letter-spacing: 0.1em; }
+    .adv-mid-cell .adv-mid-body .adv-mid-title { font-size: 14.5px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+    .adv-mid-cell .adv-mid-body .adv-mid-desc { font-size: 13px; color: var(--ink-soft); line-height: 1.85; }
+    .adv-hint { margin-top: 14px; font-size: 12.5px; color: #888; line-height: 1.75; font-style: italic; }
+    @media (max-width: 640px) {
+      .adv-step { grid-template-columns: 40px 76px 1fr; gap: 10px; padding: 12px 12px; }
+      .adv-mid-cell { grid-template-columns: 48px 1fr; gap: 10px; padding: 10px 12px; }
+    }
+
     /* ===== 练棋建议 v1 END ===== */
 
     .teaching-body ul, .teaching-body ol { margin: 12px 0; padding-left: 24px; }
@@ -1569,6 +1604,19 @@
             比例可以微调，但结构不能反——反过来先做高级题，一定崩。
           </div>
         </div>
+      </div>
+
+      <!-- 模块 E：高阶练棋思考 -->
+      <div class="practice-module">
+        <div class="practice-module-title">模块 E · 高阶练棋思考</div>
+        <div class="practice-module-desc">观察 · 目标 · 布局 · 中盘 —— 让思考路径成为下意识。这四页思维导图是《练棋指东》最重要的骨架，基础篇吐完一胚气下去。</div>
+        <div class="adv-tabs" role="tablist">
+          <button class="adv-tab active" data-adv="observe" type="button">1. 观察</button>
+          <button class="adv-tab" data-adv="goal" type="button">2. 确立目标</button>
+          <button class="adv-tab" data-adv="layout" type="button">3. 布局思考</button>
+          <button class="adv-tab" data-adv="midgame" type="button">4. 中盘思考</button>
+        </div>
+        <div class="adv-panel-wrap" id="adv-panel"></div>
       </div>
     </div>
 
@@ -2674,6 +2722,153 @@ var TEACHING_DATA = {"sections":[{"id":"technique","title":"围棋技术探究",
   if (document.getElementById('r631-result')) window.calcRatio631();
   if (document.getElementById('mc-result')) window.calcMemcycle();
 
+
+  // ---- 模块 E：高阶练棋思考 ----
+  var ADVANCED_TOPICS = {
+    observe: {
+      name: '观察',
+      lead: '拿到一手棋，先不算、先看。观察是整个思考的起点，也是最容易被跳过的一步。一手好棋往往不是算出来的，是看出来的。',
+      img: 'assets/ppt/advanced_observe.png',
+      imgCap: '观察实战示例（点击放大）',
+      points: [
+        '看接触处：双方短兵相接的位置，往往就是急所所在',
+        '看子力分布：判断双方棋块的根据、出头、棋形、联络',
+        '看强弱：和对方挨着的棋子容易变弱，需要格外留意',
+        '判断危险棋子的价值与生存能力（丢不丢得起、能不能活）',
+        '依据场合的混乱程度依次观察，急所与大场按场合看',
+        '见合处（两个方向都能走、差别不大）暂时不走，先处理别处'
+      ],
+      hint: '图中 B、C、D 三个红框就是典型的实战观察对象：什么地方强、什么地方弱、哪里是见合可以暂不走。'
+    },
+    goal: {
+      name: '确立目标',
+      lead: '观察完之后要做的第二件事，是想清楚这一手要做什么。看似简单，很多人就是在这一步上日复一日地失去方向。',
+      img: 'assets/ppt/advanced_goal.png',
+      imgCap: '计算力提升 · 五步流程（点击放大）',
+      steps: [
+        { no: 1, tag: '判断', title: '避免战斗', desc: '联络、生根、整形等手段，避免不必要、或明显不利局面下的战斗' },
+        { no: 2, tag: '归类', title: '确立战斗类型', desc: '确立战斗类型，检索该类型下所需的条件与常用方法，对局面进行分析' },
+        { no: 3, tag: '目的', title: '根据战斗类型明确目的', desc: '明确落子目的，构思正确的变化图形' },
+        { no: 4, tag: '变化', title: '基于目的的变化图', desc: '思考与目的相关的变化图，并判定目的能否实现、双方手段是否合理' },
+        { no: 5, tag: '验证', title: '对变化图进行检验思考', desc: '确保变化图是正确、合理、符合双方利益的图形' }
+      ],
+      hint: '这五步一步都不能跳：跳了判断就是盲打，跳了验证就容易足先。'
+    },
+    layout: {
+      name: '布局思考',
+      lead: '布局阶段的思路，可以拆成三条线：角部怎么走、要点怎么找、策略怎么定。',
+      img: 'assets/ppt/advanced_layout.png',
+      imgCap: '围棋布局思维导图（点击放大）',
+      branches: [
+        { name: '角部手段', items: [
+          '抢占空角 → 建立根据（获得实地 / 获得发展）',
+          '挂角守角',
+          '选择定式：方向判断（全局配合）+ 熟悉定式（避免上当）',
+          '布局结构：两翼张开 / 连片发展 / 箱型结构 / 立体结构'
+        ]},
+        { name: '布局要点', items: [
+          '布局急所：根据 / 棋形 / 出头 / 联络 要点（战略要点：事关生死或劳逸）',
+          '布局大场：小天王山 / 大天王山 / 两翼张开 / 发展方向（发展要点：模样 / 外势大小）',
+          '全局配合：连片分投 / 打入侵消 / 夹逼方向',
+          '价值比较：一般急所优于大场'
+        ]},
+        { name: '策略提炼', items: [
+          '方向判断：棋走宽处 + 有效配合',
+          '强弱判断：子力对比 / 棋形结构 / 根据情况 / 出路分析',
+          '厚薄判断：形棋分寸',
+          '形势判断：地盘对比 / 发展对比 → 招法与战略选择（保守或激进）'
+        ]}
+      ],
+      hint: '布局不是每一手都要三大分支都想一遍，而是把这个骨架记在心里，遇到对应情境时自然调用。'
+    },
+    midgame: {
+      name: '中盘思考',
+      lead: '中盘是一盘棋最热闹也最容易翻车的阶段。思考的骨架就是“1-2-3-4-5”：一个观察、两个问题、三个棋形、四大急所、五大判断。',
+      img: 'assets/ppt/advanced_midgame.png',
+      imgCap: '中盘提升思维导图（点击放大）',
+      mid: [
+        { tag: '一', title: '一个观察', desc: '先看接触处、看块数；凡义当争一招净、争取一个先手' },
+        { tag: '二', title: '两个问题：断点 + 气紧', desc: '断点（棋从断处生：防被断/自己断点）+ 气紧（有气才能活：防紧气/避免撞气）——围棋的基础就是分断、包围、紧气' },
+        { tag: '三', title: '三个棋形：愚形 / 裂形 / 凝形', desc: '愚形（凝结、气变少，看结果不全是坏棋）/ 裂形（分裂、各处不活，基本全部坏棋）/ 凝形（发展重复、子效低下）' },
+        { tag: '四', title: '四大急所：根据 / 出头 / 联络 / 棋形', desc: '根据（做活空间）/ 出头（不被包围）/ 联络（连强分弱）/ 棋形（方便战斗、方便做活）' },
+        { tag: '五', title: '五大判断：类型 / 强弱 / 方向 / 厚薄 / 价值', desc: '类型（吃子/对杀/死活/官子/布局）/ 强弱（攻守脱先）/ 方向（行棋方向）/ 厚薄（开拆逼攻距离）/ 价值（战斗次序）' }
+      ],
+      hint: '1 看 → 2 想 → 3 避 → 4 抢 → 5 判：看接触、想断气、避坏形、抢急所、判五大。'
+    }
+  };
+
+  var advPanel = document.getElementById('adv-panel');
+  var advTabs = document.querySelectorAll('.adv-tab');
+
+  function renderAdv(key){
+    var t = ADVANCED_TOPICS[key];
+    if (!t) return '';
+    var body = '';
+    body += '<div class="adv-lead">' + t.lead + '</div>';
+
+    if (t.points) {
+      body += '<ul class="adv-points">' + t.points.map(function(p){ return '<li>'+p+'</li>'; }).join('') + '</ul>';
+    }
+
+    if (t.steps) {
+      body += '<div class="adv-steps">' + t.steps.map(function(s){
+        return '<div class="adv-step">'
+             + '<div class="adv-step-no">'+s.no+'</div>'
+             + '<div class="adv-step-tag">'+s.tag+'</div>'
+             + '<div class="adv-step-body">'
+             + '<div class="adv-step-title">'+s.title+'</div>'
+             + '<div class="adv-step-desc">'+s.desc+'</div>'
+             + '</div>'
+             + '</div>';
+      }).join('') + '</div>';
+    }
+
+    if (t.branches) {
+      body += '<div class="adv-branches">' + t.branches.map(function(b){
+        return '<div class="adv-branch"><div class="adv-branch-name">'+b.name+'</div>'
+             + '<ul>'+b.items.map(function(i){ return '<li>'+i+'</li>'; }).join('')+'</ul>'
+             + '</div>';
+      }).join('') + '</div>';
+    }
+
+    if (t.mid) {
+      body += '<div class="adv-mid-list">' + t.mid.map(function(m){
+        return '<div class="adv-mid-cell">'
+             + '<div class="adv-mid-tag">'+m.tag+'</div>'
+             + '<div class="adv-mid-body">'
+             + '<div class="adv-mid-title">'+m.title+'</div>'
+             + '<div class="adv-mid-desc">'+m.desc+'</div>'
+             + '</div>'
+             + '</div>';
+      }).join('') + '</div>';
+    }
+
+    if (t.img) {
+      body += '<figure class="ppt-figure" data-lightbox="'+t.img+'">'
+           + '<img src="'+t.img+'" alt="'+t.name+' 思维导图" loading="lazy" />'
+           + '<figcaption class="ppt-cap">'+t.imgCap+'</figcaption>'
+           + '</figure>';
+    }
+
+    if (t.hint) {
+      body += '<div class="adv-hint">'+t.hint+'</div>';
+    }
+
+    return body;
+  }
+
+  if (advPanel) {
+    advPanel.innerHTML = renderAdv('observe');
+    advTabs.forEach(function(tab){
+      tab.addEventListener('click', function(){
+        var key = tab.getAttribute('data-adv');
+        advTabs.forEach(function(x){ x.classList.remove('active'); });
+        tab.classList.add('active');
+        advPanel.innerHTML = renderAdv(key);
+      });
+    });
+  }
+
   // ---- lightbox（PPT 原图放大） ----
   (function(){
     var overlay = document.createElement('div');
@@ -2947,4 +3142,4 @@ var TEACHING_DATA = {"sections":[{"id":"technique","title":"围棋技术探究",
 </div>
 </body>
 </html>
-<!-- redeploy-47eed18dv4r1 -->
+<!-- redeploy-47eed18dv4r1_v5 -->
