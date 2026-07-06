@@ -477,6 +477,21 @@
 
     .practice-back { display: inline-flex; align-items: center; gap: 6px; color: var(--seal); font-size: 13px; cursor: pointer; margin-bottom: 20px; background: none; border: none; padding: 0; font-family: inherit; }
     .practice-back:hover { text-decoration: underline; }
+
+    /* 练棋建议 · PPT 原图配套（v4） */
+    .ppt-figure { margin: 0 0 24px; background: #fff; border: 1px solid var(--line); padding: 14px 14px 10px; cursor: zoom-in; transition: box-shadow .25s; }
+    .ppt-figure:hover { box-shadow: 0 4px 14px rgba(168,54,42,0.12); }
+    .ppt-figure img { display: block; width: 100%; height: auto; }
+    .ppt-figure .ppt-cap { margin-top: 8px; font-size: 12.5px; color: #888; letter-spacing: 0.04em; text-align: center; }
+    .ppt-figure .ppt-cap::before { content: "▲ "; color: var(--seal); opacity: 0.6; }
+    .quiztype-detail .ppt-figure { margin: 20px 0 0; padding: 10px; background: #fff; }
+    .quiztype-detail .ppt-figure .ppt-cap { text-align: left; padding-left: 4px; }
+    .lightbox-overlay { position: fixed; inset: 0; background: rgba(20,15,10,0.86); z-index: 9999; display: none; align-items: center; justify-content: center; padding: 40px; cursor: zoom-out; }
+    .lightbox-overlay.show { display: flex; }
+    .lightbox-overlay img { max-width: 100%; max-height: 100%; box-shadow: 0 12px 40px rgba(0,0,0,0.5); background: #fff; }
+    .lightbox-close { position: absolute; top: 18px; right: 24px; color: #fff; font-size: 26px; background: none; border: none; cursor: pointer; font-family: inherit; letter-spacing: 0.1em; }
+    .lightbox-close:hover { color: #f4c96a; }
+
     /* ===== 练棋建议 v1 END ===== */
 
     .teaching-body ul, .teaching-body ol { margin: 12px 0; padding-left: 24px; }
@@ -1500,6 +1515,10 @@
       <div class="practice-module">
         <div class="practice-module-title">模块 B · 题目类型判断器</div>
         <div class="practice-module-desc">拿到一道题，第一件事不是算变化，是分类——点击卡片看该类型的做题次序。</div>
+        <figure class="ppt-figure" data-lightbox="assets/ppt/quiztype_flow.png">
+          <img src="assets/ppt/quiztype_flow.png" alt="通用做题次序 · 五步鱼骨图" loading="lazy" />
+          <figcaption class="ppt-cap">通用做题次序 · 五步鱼骨图（点击放大）</figcaption>
+        </figure>
         <div class="quiztype-grid" id="quiztype-grid"></div>
         <div class="quiztype-detail" id="quiztype-detail"></div>
       </div>
@@ -2508,6 +2527,18 @@ var TEACHING_DATA = {"sections":[{"id":"technique","title":"围棋技术探究",
           ['6 格',      '12 气']
         ],
         hint: '对杀有眼一方，眼位越大、气越多；这是"有眼杀无眼"的量化依据。'
+      },
+      img: {
+        src: 'assets/ppt/duisha_flow.png',
+        alt: '围棋对杀思维导图（4 大分支）',
+        cap: '对杀思维导图 · 4 大分支路径（点击放大）'
+      }
+    },
+    sihuo: {
+      img: {
+        src: 'assets/ppt/sihuo_flow.png',
+        alt: '围棋死活思维导图',
+        cap: '死活思维导图 · 做活与破眼路径（点击放大）'
       }
     }
   };
@@ -2543,6 +2574,12 @@ var TEACHING_DATA = {"sections":[{"id":"technique","title":"围棋技术探究",
                    + '</tbody></table>'
                    + (kb.dayan.hint ? '<div class="kcard-hint">'+kb.dayan.hint+'</div>' : '')
                    + '</div>';
+          }
+          if (kb.img) {
+            kbHtml += '<figure class="ppt-figure" data-lightbox="'+kb.img.src+'">'
+                   + '<img src="'+kb.img.src+'" alt="'+kb.img.alt+'" loading="lazy" />'
+                   + '<figcaption class="ppt-cap">'+kb.img.cap+'</figcaption>'
+                   + '</figure>';
           }
         }
         qtDetail.innerHTML = '<h5>'+q.name+' · 做题次序（6 步）</h5><ol>'
@@ -2636,6 +2673,36 @@ var TEACHING_DATA = {"sections":[{"id":"technique","title":"围棋技术探究",
   // 初始跑一次
   if (document.getElementById('r631-result')) window.calcRatio631();
   if (document.getElementById('mc-result')) window.calcMemcycle();
+
+  // ---- lightbox（PPT 原图放大） ----
+  (function(){
+    var overlay = document.createElement('div');
+    overlay.className = 'lightbox-overlay';
+    overlay.innerHTML = '<button class="lightbox-close" aria-label="关闭">✕ 关闭</button><img alt="" />';
+    document.body.appendChild(overlay);
+    var lbImg = overlay.querySelector('img');
+    function open(src, alt){
+      lbImg.src = src;
+      lbImg.alt = alt || '';
+      overlay.classList.add('show');
+      document.body.style.overflow = 'hidden';
+    }
+    function close(){
+      overlay.classList.remove('show');
+      lbImg.src = '';
+      document.body.style.overflow = '';
+    }
+    overlay.addEventListener('click', close);
+    document.addEventListener('keydown', function(e){ if (e.key === 'Escape') close(); });
+    document.addEventListener('click', function(e){
+      var fig = e.target.closest && e.target.closest('.ppt-figure');
+      if (!fig) return;
+      if (fig.closest('.lightbox-overlay')) return;
+      var src = fig.getAttribute('data-lightbox') || (fig.querySelector('img') && fig.querySelector('img').src);
+      var alt = fig.querySelector('img') ? fig.querySelector('img').alt : '';
+      if (src) open(src, alt);
+    });
+  })();
 })();
 // ===== 练棋建议 v1 END =====
 
@@ -2880,4 +2947,4 @@ var TEACHING_DATA = {"sections":[{"id":"technique","title":"围棋技术探究",
 </div>
 </body>
 </html>
-<!-- redeploy-47eed18d -->
+<!-- redeploy-47eed18dv4 -->
