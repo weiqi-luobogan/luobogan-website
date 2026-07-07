@@ -4981,13 +4981,15 @@ function hideParentGuide(){
       document.querySelectorAll('.tool-group').forEach(function(g){
         g.style.display = (g.id === 'toolgroup-' + group) ? '' : 'none';
       });
+      if(typeof setNav === 'function') setNav({section:'tools', group: group});
     });
   });
   // 卡片按钮 data-tool-anchor → 滚到工具箱内的模块（同 section 内）
   document.querySelectorAll('[data-tool-anchor]').forEach(function(a){
     a.addEventListener('click', function(e){
       e.preventDefault();
-      const target = document.getElementById(this.dataset.toolAnchor);
+      const anchorId = this.dataset.toolAnchor;
+      const target = document.getElementById(anchorId);
       if(!target) return;
       const section = document.getElementById('tools');
       if(section && section.classList.contains('open')){
@@ -5005,6 +5007,12 @@ function hideParentGuide(){
         const first = target.querySelector('.qa4-item');
         if(first && !first.classList.contains('open')) first.classList.add('open');
       }, 400);
+      // 记录导航状态：进入某个工具卡对应的 practice-module
+      if(typeof setNav === 'function'){
+        var activeTab = document.querySelector('.tool-tab.active');
+        var g = activeTab ? activeTab.dataset.toolgroup : 'teacher';
+        setNav({section:'tools', group: g, tool: anchorId});
+      }
     });
   });
 })();
@@ -6417,6 +6425,112 @@ function hideParentGuide(){
     }
     window.scrollTo({ top: Math.max(0, target), behavior: 'smooth' });
   }
+  // ===== 导航状态管理器 · 让浏览器返回按钮回到上一个位置 =====
+  function parseHash(){
+    var h = location.hash || '';
+    if(h.indexOf('#tools?') === 0){
+      var p = new URLSearchParams(h.slice(7));
+      return {section:'tools', group:p.get('g')||'teacher', tool:p.get('t')||''};
+    }
+    if(h && h[0] === '#'){
+      var id = h.slice(1).split('?')[0];
+      return {section:id, group:'', tool:''};
+    }
+    return {section:'', group:'teacher', tool:''};
+  }
+  function serializeHash(s){
+    if(!s.section) return '';
+    if(s.section === 'tools'){
+      var parts = [];
+      if(s.group && s.group !== 'teacher') parts.push('g=' + s.group);
+      if(s.tool) parts.push('t=' + s.tool);
+      return parts.length ? '#tools?' + parts.join('&') : '#tools';
+    }
+    return '#' + s.section;
+  }
+  function setActiveTab(group){
+    document.querySelectorAll('.tool-tab').forEach(function(b){
+      b.classList.toggle('active', b.dataset.toolgroup === group);
+    });
+    document.querySelectorAll('.tool-group').forEach(function(g){
+      g.style.display = (g.id === 'toolgroup-' + group) ? '' : 'none';
+    });
+  }
+  function saveScroll(){
+    var s = parseHash();
+    if(s.section){
+      var el = document.getElementById(s.section);
+      if(el && el.classList.contains('collapsible')){
+        try{ sessionStorage.setItem('_ns_' + s.section, String(el.scrollTop)); }catch(e){}
+      }
+    }
+  }
+  function restoreState(s){
+    document.querySelectorAll('.collapsible.open').forEach(function(el){
+      if(el.id !== s.section) el.classList.remove('open');
+    });
+    if(!s.section){
+      document.body.classList.remove('body-lock');
+      document.querySelectorAll('.side-nav a').forEach(function(a){ a.classList.remove('active'); });
+      return;
+    }
+    var tgt = document.getElementById(s.section);
+    if(!tgt) return;
+    if(tgt.classList.contains('collapsible')){
+      tgt.classList.add('open');
+      document.body.classList.add('body-lock');
+      var saved = null;
+      try{ saved = sessionStorage.getItem('_ns_' + s.section); }catch(e){}
+      tgt.scrollTop = saved ? parseInt(saved, 10) || 0 : 0;
+    } else {
+      setTimeout(function(){ scrollToEl(tgt); }, 60);
+    }
+    document.querySelectorAll('.side-nav a').forEach(function(a){ a.classList.remove('active'); });
+    var nb = document.querySelector('.side-nav a[data-target="' + s.section + '"]');
+    if(nb) nb.classList.add('active');
+    if(s.section === 'tools'){
+      setActiveTab(s.group || 'teacher');
+      if(s.tool){
+        var tm = document.getElementById(s.tool);
+        if(tm){
+          setTimeout(function(){
+            var sn = document.getElementById('tools');
+            if(sn && sn.classList.contains('open')){
+              requestAnimationFrame(function(){
+                var sr = sn.getBoundingClientRect(), tr = tm.getBoundingClientRect();
+                var top = sn.scrollTop + (tr.top - sr.top) - 56;
+                sn.scrollTo({top: Math.max(0, top), behavior:'smooth'});
+              });
+            } else {
+              tm.scrollIntoView({behavior:'smooth', block:'start'});
+            }
+          }, 80);
+        }
+      }
+    }
+  }
+  function setNav(o){
+    saveScroll();
+    var cur = parseHash();
+    var ns = {section: o.section || '', group: o.group || '', tool: o.tool || ''};
+    if(serializeHash(ns) === serializeHash(cur)) return;
+    try{ history.pushState(ns, '', serializeHash(ns) || location.pathname + location.search); }catch(e){}
+  }
+  window.addEventListener('popstate', function(e){
+    if(e.state && e.state.section !== undefined){
+      restoreState(e.state);
+    } else {
+      restoreState(parseHash());
+    }
+  });
+  // 页面初次加载：若有 hash 则恢复
+  (function(){
+    var s = parseHash();
+    if(s.section){
+      setTimeout(function(){ restoreState(s); try{ history.replaceState(s, '', serializeHash(s)); }catch(e){} }, 50);
+    }
+  })();
+  // ===== NavState END =====
   function openSection(id){
     // 独占模式：关闭其他
     document.querySelectorAll('.collapsible.open').forEach(el => {
@@ -6440,11 +6554,13 @@ function hideParentGuide(){
     // 关闭移动端菜单
     document.querySelector('.side-nav').classList.remove('mobile-open');
     document.body.classList.remove('side-open');
+    setNav({section: id});
   }
   function closeAllPanels(){
     document.querySelectorAll('.collapsible.open').forEach(el => el.classList.remove('open'));
     document.body.classList.remove('body-lock');
     document.querySelectorAll('.side-nav a').forEach(a => a.classList.remove('active'));
+    setNav({section: ''});
   }
   window.closeAllPanels = closeAllPanels;
   // 折叠触发器（顶部"联系我们" + 侧栏 8 按钮）
