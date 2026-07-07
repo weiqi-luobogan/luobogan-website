@@ -1898,6 +1898,7 @@
             <h4>❶ 基本信息</h4>
             <div class="feedback-row"><label>学员姓名：</label><input type="text" id="fb-name" value="张一然" placeholder="示例：张一然"></div>
             <div class="feedback-row"><label>授课老师：</label><input type="text" id="fb-teacher" value="萝卜老师" placeholder="示例：萝卜老师"></div>
+            <div class="feedback-row"><label>机构印章：</label><input type="text" id="fb-stamp" value="萝卜围棋" placeholder="示例：XX围棋 / XX棋院（右上红印文字，2~8 字最佳）" maxlength="10"></div>
             <div class="feedback-row"><label>反馈周期：</label>
               <select id="fb-period">
                 <option>本月</option>
@@ -3586,7 +3587,7 @@ function hideParentGuide(){
     });
   });
   // 其他输入实时预览
-  ['fb-name','fb-teacher','fb-period','fb-stage','fb-strength','fb-weakness','fb-advice'].forEach(function(id){
+  ['fb-name','fb-teacher','fb-stamp','fb-period','fb-stage','fb-strength','fb-weakness','fb-advice'].forEach(function(id){
     var el = document.getElementById(id);
     if (el) {
       var evt = (el.tagName === 'SELECT') ? 'change' : 'input';
@@ -3597,6 +3598,7 @@ function hideParentGuide(){
   function getData(){
     var name = (document.getElementById('fb-name').value || '').trim() || '学员';
     var teacher = (document.getElementById('fb-teacher').value || '').trim() || '老师';
+    var stamp = (document.getElementById('fb-stamp').value || '').trim() || '萝卜围棋';
     var period = document.getElementById('fb-period').value;
     var stage = document.getElementById('fb-stage').value;
     var radVals = [];
@@ -3604,7 +3606,7 @@ function hideParentGuide(){
     var barVals = [];
     for (var j=1;j<=5;j++) barVals.push(parseFloat(document.getElementById('fb-bar-'+j).textContent));
     return {
-      name: name, teacher: teacher, period: period, stage: stage,
+      name: name, teacher: teacher, stamp: stamp, period: period, stage: stage,
       radVals: radVals, barVals: barVals,
       strength: (document.getElementById('fb-strength').value||'').trim(),
       weakness: (document.getElementById('fb-weakness').value||'').trim(),
@@ -3749,6 +3751,57 @@ function hideParentGuide(){
     }
   }
 
+  // 自适应印章：根据字数智能分行 + 动态字号，2~10 字均可
+  function drawStamp(ctx, cx, cy, size, text, rotate){
+    var chars = String(text || '萝卜围棋').split('');
+    var n = chars.length;
+    if (n === 0) { chars = ['萝','卜','围','棋']; n = 4; }
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate(rotate || 0);
+    // 印章底色（水墨印章红）
+    ctx.fillStyle = '#a8362a';
+    ctx.fillRect(-size/2, -size/2, size, size);
+    // 细描边（增加印章厚重感）
+    ctx.strokeStyle = 'rgba(255,240,220,0.55)';
+    ctx.lineWidth = 1.2;
+    ctx.strokeRect(-size/2 + 3, -size/2 + 3, size - 6, size - 6);
+    // 文字准备
+    ctx.fillStyle = '#f8f5ef';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    // 分行策略（对中文印章更协调）
+    var topLine, botLine;
+    if (n === 1)      { topLine = chars.join(''); botLine = ''; }
+    else if (n === 2) { topLine = chars[0]; botLine = chars[1]; }
+    else              { var topN = Math.ceil(n/2); topLine = chars.slice(0,topN).join(''); botLine = chars.slice(topN).join(''); }
+    var pad = size * 0.11;
+    var innerW = size - 2*pad;
+    var lineH = (size - 2*pad) / (botLine ? 2 : 1);
+    var maxLen = Math.max(topLine.length, botLine.length, 1);
+    var cellW = innerW / maxLen;
+    // 字号自适应：取行高与格宽的较小值，再乘系数
+    var fs = Math.floor(Math.min(cellW, lineH) * (maxLen === 1 ? 0.78 : 0.88));
+    fs = Math.max(8, Math.min(fs, 26));
+    ctx.font = '700 ' + fs + 'px "Noto Serif SC", "Songti SC", serif';
+    function drawLine(line, y){
+      var ln = line.length;
+      if (ln === 0) return;
+      if (ln === 1) { ctx.fillText(line, 0, y); return; }
+      var span = innerW;
+      var step = span / ln;
+      var startX = -span/2 + step/2;
+      for (var i=0;i<ln;i++) ctx.fillText(line[i], startX + i*step, y);
+    }
+    if (!botLine){
+      drawLine(topLine, 0);
+    } else {
+      drawLine(topLine, -lineH/2);
+      drawLine(botLine, lineH/2);
+    }
+    ctx.restore();
+  }
+
   function wrapText(ctx, text, x, y, maxW, lineH){
     if (!text) return y;
     var chars = String(text).split('');
@@ -3805,19 +3858,8 @@ function hideParentGuide(){
     ctx.font = '400 13px "Noto Serif SC", serif';
     ctx.fillText('· 围棋是普通孩子的教育 ·', 82, 102);
 
-    // 印章（右）
-    ctx.save();
-    ctx.translate(W-100, 88);
-    ctx.rotate(-0.06);
-    ctx.fillStyle = '#a8362a';
-    ctx.fillRect(-30, -30, 60, 60);
-    ctx.fillStyle = '#f8f5ef';
-    ctx.font = '700 15px "Noto Serif SC", serif';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText('萝卜', 0, -10);
-    ctx.fillText('围棋', 0, 10);
-    ctx.restore();
+    // 印章（右上）· 自适应字数
+    drawStamp(ctx, W-100, 88, 72, d.stamp, -0.06);
 
     // 分割线
     var y = 140;
