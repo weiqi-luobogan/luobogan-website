@@ -1207,6 +1207,108 @@
     header .max-w-5xl { padding-left: 16px !important; padding-right: 60px !important; }
   }
 
+  /* ===== 手机端修复 v3 · 2026-07-07 ===== */
+  @media (max-width: 640px) {
+    /* 1. 工具箱三档 tab 强制三等分平铺 · 防止换行错位 */
+    .tool-tabs {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr 1fr !important;
+      gap: 6px !important;
+      justify-content: initial !important;
+    }
+    .tool-tab {
+      padding: 8px 4px !important;
+      font-size: 12px !important;
+      justify-content: center;
+      letter-spacing: 0.02em !important;
+      gap: 4px !important;
+      min-width: 0;
+    }
+    .tool-tab-count {
+      padding: 1px 5px !important;
+      font-size: 10px !important;
+      margin-left: 1px !important;
+    }
+
+    /* 2. 卡片 grid 手机端全宽 1 列 · 防溢出 */
+    .c2-cards { grid-template-columns: 1fr !important; }
+    .quiztype-grid { grid-template-columns: 1fr !important; }
+    .adv-branches { grid-template-columns: 1fr !important; }
+    .quiztype-detail .qi-grid { grid-template-columns: 1fr 1fr !important; gap: 8px; }
+    .ratio631-result { grid-template-columns: 1fr 1fr !important; }
+    .practice-notes { grid-template-columns: 1fr 1fr !important; gap: 10px; }
+
+    /* 3. 各类 tab 列表手机端改为横滑 · 避免 wrap 成多行错位 */
+    .sop-nav, .b2-cats, .b3-tabs, .c1-cats, .c2-tabs,
+    .adv-tabs, .stage-tabs, .qa4-cats {
+      flex-wrap: nowrap !important;
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      padding-bottom: 6px;
+    }
+    .sop-nav::-webkit-scrollbar,
+    .b2-cats::-webkit-scrollbar,
+    .b3-tabs::-webkit-scrollbar,
+    .c1-cats::-webkit-scrollbar,
+    .c2-tabs::-webkit-scrollbar,
+    .adv-tabs::-webkit-scrollbar,
+    .stage-tabs::-webkit-scrollbar,
+    .qa4-cats::-webkit-scrollbar { display: none; }
+    .sop-nav-item, .b2-cat, .b3-tab, .c1-cat, .c2-tab,
+    .adv-tab, .stage-tab, .qa4-cat {
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
+    /* 4. 家长阶段总表横滑提示 */
+    .parent-table-wrap::after {
+      content: '← 左右滑动查看完整表格 →';
+      display: block;
+      font-size: 10.5px;
+      color: #9a8f80;
+      text-align: center;
+      padding: 6px 0 2px;
+      letter-spacing: 0.08em;
+      border-top: 1px dashed rgba(154,143,128,0.4);
+      margin-top: 4px;
+    }
+
+    /* 5. adv-step 极窄屏堆叠：编号占左，标签+正文放右侧 */
+    .adv-step {
+      grid-template-columns: 36px 1fr !important;
+      gap: 10px !important;
+      padding: 12px 12px !important;
+    }
+    .adv-step .adv-step-no {
+      font-size: 20px !important;
+    }
+    .adv-step .adv-step-tag {
+      grid-column: 2 / 3;
+      justify-self: start;
+      margin-bottom: 6px;
+      padding: 3px 10px;
+      font-size: 11.5px;
+      letter-spacing: 0.1em;
+    }
+    .adv-step .adv-step-body { grid-column: 2 / 3; }
+
+    /* 6. 输入行手机端换行避免挤压 */
+    .memcycle-input, .ratio631-input {
+      gap: 8px;
+    }
+    .memcycle-input label, .ratio631-input label {
+      width: 100%;
+    }
+
+    /* 7. 反馈单预览手机端不再 sticky 且限高 */
+    .feedback-preview { position: static !important; padding: 10px !important; }
+    .feedback-preview canvas { max-height: 320px; object-fit: contain; }
+  }
+  /* ===== 手机端修复 v3 END ===== */
+
 </style>
 </head>
 <body>
