@@ -550,6 +550,56 @@
       .b3-card-title { font-size: 14.5px; }
     }
 
+    /* ===== C1 学棋常见问题手册 ===== */
+    .c1-wrap { margin-top: 8px; }
+    .c1-search-row { margin-bottom: 16px; }
+    .c1-search-row input { width: 100%; padding: 12px 16px; border: 1px solid var(--line); border-radius: 6px; background: #fbf8f4; font-size: 14px; font-family: inherit; color: var(--ink); outline: none; transition: border-color 0.2s; }
+    .c1-search-row input:focus { border-color: var(--seal); background: #fff; }
+    .c1-cats { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+    .c1-cat { background: #fbf8f4; border: 1px solid var(--line); color: #6b6b6b; padding: 7px 14px; border-radius: 20px; font-size: 13px; cursor: pointer; font-family: inherit; transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px; }
+    .c1-cat:hover { border-color: var(--seal); color: var(--seal); }
+    .c1-cat.active { background: var(--seal); border-color: var(--seal); color: #fff; }
+    .c1-cat-count { font-size: 11px; opacity: 0.7; }
+    .c1-list { display: flex; flex-direction: column; gap: 14px; }
+    .c1-item { background: #fff; border: 1px solid var(--line); border-radius: 6px; padding: 18px 20px 16px; transition: border-color 0.2s; }
+    .c1-item:hover { border-color: var(--seal); }
+    .c1-item-tag { display: inline-block; background: #fbf1ea; color: var(--seal); font-size: 11px; padding: 3px 9px; border-radius: 10px; margin-bottom: 8px; letter-spacing: 0.04em; }
+    .c1-item-q { font-size: 15.5px; font-weight: 700; color: var(--ink); margin-bottom: 10px; line-height: 1.6; }
+    .c1-item-q::before { content: 'Q '; color: var(--seal); font-weight: 700; margin-right: 2px; }
+    .c1-item-a { font-size: 14px; color: #4a4a4a; line-height: 1.9; margin-bottom: 10px; }
+    .c1-item-a::before { content: 'A '; color: #999; font-weight: 700; margin-right: 4px; }
+    .c1-item-tip { font-size: 12.5px; color: #7a7264; line-height: 1.75; padding: 10px 14px; background: #fbf8f4; border-left: 3px solid var(--seal); border-radius: 3px; margin-top: 8px; }
+    .c1-item-tip-lead { font-weight: 700; color: var(--seal); margin-right: 4px; }
+    .c1-foot { text-align: center; font-size: 12px; color: #9a9a9a; margin-top: 24px; padding-top: 16px; border-top: 1px dashed var(--line); line-height: 1.7; }
+
+    /* ===== C2 六商家庭教育库 ===== */
+    .c2-wrap { margin-top: 8px; }
+    .c2-tabs { display: flex; flex-wrap: wrap; gap: 0; border-bottom: 1px solid var(--line); margin-bottom: 20px; }
+    .c2-tab { background: none; border: none; padding: 12px 20px; font-size: 14px; color: #6b6b6b; cursor: pointer; font-family: inherit; border-bottom: 2px solid transparent; transition: all 0.2s; letter-spacing: 0.03em; display: inline-flex; align-items: center; gap: 6px; }
+    .c2-tab:hover { color: var(--seal); }
+    .c2-tab.active { color: var(--seal); border-bottom-color: var(--seal); font-weight: 700; }
+    .c2-tab-icon { font-size: 15px; }
+    .c2-panel { display: none; padding: 4px 2px; }
+    .c2-panel.active { display: block; }
+    .c2-panel-desc { font-size: 13.5px; color: #7a7264; line-height: 1.9; margin-bottom: 20px; padding: 12px 16px; background: #fbf8f4; border-left: 3px solid var(--seal); border-radius: 4px; }
+    .c2-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 14px; }
+    .c2-card { background: #fff; border: 1px solid var(--line); border-radius: 6px; padding: 16px 18px 14px; transition: border-color 0.2s; }
+    .c2-card:hover { border-color: var(--seal); }
+    .c2-card-scene { font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 10px; line-height: 1.55; }
+    .c2-card-block { font-size: 13.5px; line-height: 1.85; margin-bottom: 8px; color: #4a4a4a; }
+    .c2-card-block-lead { display: inline-block; font-weight: 700; color: var(--seal); margin-right: 6px; font-size: 12.5px; letter-spacing: 0.04em; }
+    .c2-card-block:last-child { margin-bottom: 0; }
+    .c2-foot { text-align: center; font-size: 12px; color: #9a9a9a; margin-top: 24px; padding-top: 16px; border-top: 1px dashed var(--line); line-height: 1.7; }
+
+    @media (max-width: 640px) {
+      .c1-item { padding: 15px 16px 14px; }
+      .c1-item-q { font-size: 14.5px; }
+      .c1-cat { padding: 6px 12px; font-size: 12px; }
+      .c2-tab { padding: 10px 14px; font-size: 13px; }
+      .c2-card { padding: 14px 16px; }
+      .c2-card-scene { font-size: 14.5px; }
+    }
+
     /* 模块 A：阶段 tab */
     .stage-tabs { display: flex; flex-wrap: wrap; gap: 0; border-bottom: 1px solid var(--line); margin-bottom: 20px; }
     .stage-tab { background: none; border: none; padding: 12px 22px; font-size: 15px; color: #6b6b6b; cursor: pointer; font-family: inherit; border-bottom: 2px solid transparent; transition: all 0.2s; letter-spacing: 0.03em; }
@@ -1524,7 +1574,7 @@
         <span class="tool-tab-dot"></span>校长运营 <span class="tool-tab-count">3</span>
       </button>
       <button class="tool-tab" data-toolgroup="parent" type="button" role="tab">
-        <span class="tool-tab-dot"></span>家长参考 <span class="tool-tab-count coming">2</span>
+        <span class="tool-tab-dot"></span>家长参考 <span class="tool-tab-count">2</span>
       </button>
     </div>
 
@@ -1678,12 +1728,40 @@
           <div class="tool-group-desc">家庭教育 · 围棋价值 · 陪伴方式</div>
         </div>
       </div>
-      <div class="rounded-lg border border-dashed border-line bg-paper p-12 mt-8 text-center">
-        <div class="text-sm text-gray-soft mb-2">🌱 建设中</div>
-        <div class="text-sm text-gray-soft">孩子学棋常见问题手册 · 六商家庭教育库 · 陪伴指南</div>
-        <div class="text-xs text-gray-soft mt-6" style="max-width:540px;margin-left:auto;margin-right:auto">
-          <em>家长视角的内容会放在这里，让家长也能从网站里找到对自己有用的东西，而不只是"看老师有多厉害"。</em>
+      <div class="grid md:grid-cols-2 gap-6 mt-8">
+
+        <!-- C1 · 学棋常见问题手册 -->
+        <div class="rounded-lg border-2 border-seal bg-paper p-6 flex flex-col" style="min-height:320px">
+          <div class="text-xs tracking-widest text-seal font-medium mb-3">TOOL 08 · 新 · 家长工具</div>
+          <h3 class="text-xl font-bold mb-3 text-ink">学棋常见问题手册</h3>
+          <p class="text-sm text-gray-soft leading-relaxed mb-5 flex-1">
+            家长最常有的 20 个疑问：几岁开始、家长不会怎么办、段位有没有用、孩子不想学怎么办……<span class="hl">5 大类 20 条</span>，每条都是家长视角的实在回答 + 可落地的做法，不讲空话。
+          </p>
+          <div class="text-xs text-gray-soft mb-4">
+            <span style="display:inline-block;margin-right:12px">📖 5 大类 · 20 条</span>
+            <span style="display:inline-block">💡 每条附建议</span>
+          </div>
+          <a href="#tools" class="inline-block text-center bg-seal text-white px-5 py-3 rounded font-medium hover:bg-ink transition" data-tool-anchor="tool-c1">
+            打开手册 →
+          </a>
         </div>
+
+        <!-- C2 · 六商家庭教育库 -->
+        <div class="rounded-lg border-2 border-seal bg-paper p-6 flex flex-col" style="min-height:320px">
+          <div class="text-xs tracking-widest text-seal font-medium mb-3">TOOL 09 · 新 · 家长工具</div>
+          <h3 class="text-xl font-bold mb-3 text-ink">六商家庭教育库</h3>
+          <p class="text-sm text-gray-soft leading-relaxed mb-5 flex-1">
+            智商 / 情商 / 逆商 / 德商 / 志商 / 健商——从围棋教育里长出来的<span class="hl">六个维度 24 个场景</span>。每个场景写「孩子什么表现 → 家长常见误区 → 怎么做更好」，不是喊口号，是具体动作。
+          </p>
+          <div class="text-xs text-gray-soft mb-4">
+            <span style="display:inline-block;margin-right:12px">🌱 6 商 · 24 场景</span>
+            <span style="display:inline-block">👨‍👩‍👧 家长可执行</span>
+          </div>
+          <a href="#tools" class="inline-block text-center bg-seal text-white px-5 py-3 rounded font-medium hover:bg-ink transition" data-tool-anchor="tool-c2">
+            打开教育库 →
+          </a>
+        </div>
+
       </div>
     </div>
 
@@ -1755,6 +1833,41 @@
         <div id="b3Panels"></div>
         <div class="b3-foot">
           <em>* 招生话术的第一原则是"真"，第二才是"顺"；下面所有稿子都欢迎按你自己的语感改，不要照读。</em>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== C1 学棋常见问题手册 ===== -->
+    <div class="practice-module" id="tool-c1" style="margin-top:56px">
+      <div class="practice-module-title">学棋常见问题手册 · 5 大类 20 条</div>
+      <div class="practice-module-desc">
+        家长视角写的一份 FAQ。不是给老师看的话术，是给家长自己看的答案——写清楚"孩子该几岁开始 / 家长不会围棋能不能陪 / 段位有没有用 / 突然不想学怎么办"这些真实的疑问。每一条都附一条 <span class="hl">"家长可以做的"</span> 落地建议。
+      </div>
+
+      <div class="c1-wrap">
+        <div class="c1-search-row">
+          <input type="text" id="c1Search" placeholder="🔎 直接搜问题，比如「几岁」「段位」「不想学」" autocomplete="off" />
+        </div>
+        <div class="c1-cats" id="c1Cats" role="tablist" aria-label="学棋问题分类"></div>
+        <div class="c1-list" id="c1List"></div>
+        <div class="c1-foot">
+          <em>* 每个孩子的路径不一样，这份手册只提供"多数情况下的普适建议"；家里的具体情况欢迎单独来聊。</em>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== C2 六商家庭教育库 ===== -->
+    <div class="practice-module" id="tool-c2" style="margin-top:56px">
+      <div class="practice-module-title">六商家庭教育库 · 6 商 24 场景</div>
+      <div class="practice-module-desc">
+        从围棋教育里长出来的六个维度：<span class="hl">智商 · 情商 · 逆商 · 德商 · 志商 · 健商</span>。每个维度挑 4 个家庭里真实会遇到的场景——写"孩子什么表现 / 家长常见的误区 / 建议怎么做"，不写口号，只写动作。
+      </div>
+
+      <div class="c2-wrap">
+        <div class="c2-tabs" id="c2Tabs" role="tablist" aria-label="六商维度"></div>
+        <div id="c2Panels"></div>
+        <div class="c2-foot">
+          <em>* 家庭教育没有标准答案，这里写的是一个方向而不是一个方法；能不能落地看家庭具体节奏。</em>
         </div>
       </div>
     </div>
@@ -5765,6 +5878,499 @@ function hideParentGuide(){
   else init();
 })();
 // ===== B3 END =====
+
+
+// ===== C1 START =====
+(function() {
+  var CAT_META = [
+    { key: 'all',     label: '全部',       icon: '🗂' },
+    { key: 'start',   label: '启蒙类',     icon: '🌱' },
+    { key: 'method',  label: '学习方法',   icon: '📖' },
+    { key: 'exam',    label: '段位比赛',   icon: '🏆' },
+    { key: 'state',   label: '学习状态',   icon: '💭' },
+    { key: 'teacher', label: '老师机构',   icon: '👨\u200d🏫' }
+  ];
+
+  var C1_DATA = [
+    {
+      id: 'c1-01', cat: 'start',
+      q: '孩子几岁开始学围棋比较合适？',
+      a: '普适答案是 4-6 岁。这个阶段孩子已经能听懂规则、有 15-20 分钟的短时专注力，也没被学科作业压满时间。太早开始，孩子只是"跟着玩"，坐不住效果差；晚一点开始也完全来得及——我见过 8 岁开始学的孩子，3 年冲到业余 3 段的例子并不少。关键不是几岁开始，而是"开始时状态对不对"。',
+      tip: '在孩子表现出对棋类、拼图、找规律类东西感兴趣的那一年切入最好；孩子哭闹拒绝就先缓半年，别硬推。'
+    },
+    {
+      id: 'c1-02', cat: 'start',
+      q: '家长完全不会围棋，能陪孩子一起学吗？',
+      a: '完全可以，而且很多学得最好的孩子，家长恰恰是"不会但支持"。家长会围棋反而容易两个极端：要么忍不住教（教错还不自知），要么把自己的挫败感带给孩子。不会的家长只做三件事——按时送课、每天给孩子 15 分钟的固定练棋时间、把老师留的作业帮忙拍照回传，这就是 100 分的家长了。',
+      tip: '不用报"家长课"，也不用刷 AI 学；把家里那副棋买好，摆在孩子随时能拿到的地方，就够了。'
+    },
+    {
+      id: 'c1-03', cat: 'start',
+      q: '学围棋要不要买棋盘、买书、报网课？',
+      a: '起步只需要一副棋和一本对应级别的死活题册。棋盘选带线的木质或磁性折叠款都行，不用追品牌；书按老师推荐的级别买，不要跳级。网课可以做补充，不必一开始就报——线下课的核心是"面对面的对局体验"，网课的核心是"高频重复训练"，两个作用不同。孩子还没入门就先冲网课，容易变成"看别人下棋"。',
+      tip: '棋买好一点（能用 3 年）、书按级别配（多了看不完反而压力）、网课等孩子过了入门再考虑。'
+    },
+    {
+      id: 'c1-04', cat: 'start',
+      q: '每周学几次比较合适？',
+      a: '入门阶段一周 1-2 次课 + 每天 15-20 分钟家庭练棋，是最稳的节奏。一周 3 次以上课时对幼儿园/小学低年级孩子来说容易反噬——课上得多但没时间消化，孩子会开始"应付"而不是"投入"。等孩子过了 10 级左右，可以调到 2 次课，加上更多的对局练习。一节课学得少不怕，学得进心里最重要。',
+      tip: '如果发现孩子上课越来越"眼神飘"，先不要加课时；反而应该少一点课，多一点自己下的时间。'
+    },
+    {
+      id: 'c1-05', cat: 'method',
+      q: '孩子在家怎么练棋？',
+      a: '在家的练习分三块：死活题、对局、复盘。死活题是"练眼力"，每天 5-10 题，做对不做多；对局是"练思考"，找同水平对手下一盘就够了，输赢不重要；复盘是"练总结"，输了的棋回头看两处关键手就好，不用全盘讲。这三块加起来一天 20-30 分钟，长期比一周狂练 2 小时管用得多。',
+      tip: '把"每天 15 分钟练棋"固定在饭后或作业前的一个时间点，形成条件反射；比要求"多练"更有效。'
+    },
+    {
+      id: 'c1-06', cat: 'method',
+      q: '死活题一定要做吗？做多少？',
+      a: '死活题是围棋的"看题快慢"训练——就像数学的口算。不做不行，但堆量也不对。低段（15-8 级）每天 5-8 题；中段（7-1 级）每天 10-15 题；有段位以后按老师配的题册来。判断"做得对不对"，比"做得多不多"更重要——一道题做错三次比做对十道更值得复盘。做完题让孩子讲一句"为什么这样"，这一步不能省。',
+      tip: '给孩子准备一本"错题本"（家长写、孩子讲），每周翻一次，是最有效的死活题训练法。'
+    },
+    {
+      id: 'c1-07', cat: 'method',
+      q: 'AI 围棋软件、对弈平台，让孩子玩不玩？',
+      a: 'AI 是好工具，但要"分年龄用"。10 岁以下不推荐让孩子长时间用 AI 对局——孩子分不清"AI 的下法"和"人类的下法"，容易学到脱离实际的招式。10 岁以上，用 AI 复盘（不是对局）是好事，能看到自己每一手的胜率变化。至于对弈平台，让孩子在有段位后再上，防止低段被"外挂选手"打击到不想下。',
+      tip: '把 AI 定位成"复盘工具"而不是"陪练"——孩子下完棋，家长陪着一起用 AI 看关键分歧手就够了。'
+    },
+    {
+      id: 'c1-08', cat: 'method',
+      q: '网课/直播课有用吗？可以代替线下课吗？',
+      a: '网课作为"补充"很有用，作为"主课"要看阶段。入门阶段（15 级前）线下课更好——孩子需要老师面对面的规则纠错、对局仪式感、和同龄人的现场对局。中段以后网课的效率反而更高，特别是"分级题库讲解"这类内容。全程只上网课的孩子，我见过的大部分卡在了 3-5 级——不是学不动，是缺"下真棋"的机会。',
+      tip: '把网课和线下课看成"知识"和"实战"两条腿；只有一条腿会走得又慢又歪。'
+    },
+    {
+      id: 'c1-09', cat: 'exam',
+      q: '段位是怎么定的？低段和高段差多少？',
+      a: '业余段位由各地围棋协会/棋院组织考试认定，从入门级 25 级一路到业余 1 段，往上到业余 5 段是普通孩子能到的天花板，业余 6-7 段接近半职业水平。低段到高段的差距不是"多下几盘棋"，是"看棋的方式换了"——从"这步能吃子吗"变成"这步 20 手以后对整盘什么影响"。这个跃迁通常要 2-3 年时间。',
+      tip: '别拿孩子的段位和别人比，只和"半年前的自己"比；每半年能进 1 个级/段，就是非常健康的节奏。'
+    },
+    {
+      id: 'c1-10', cat: 'exam',
+      q: '孩子要不要去参加比赛？',
+      a: '要，但不是"越多越好"。比赛的核心价值不是拿奖，是让孩子体会"完整的一盘棋 90 分钟不能悔棋"的真实感——这个体验在教室里永远给不了。低段孩子建议一年 2-3 场地方性小比赛就够了；中段可以增加到 4-6 场；到 1 段以后再考虑升段赛/大赛。频繁参赛反而会让孩子对"输赢"过度敏感。',
+      tip: '第一次带孩子参赛，比结果更重要的是"让孩子觉得比赛好玩"——赢了不狂喜，输了不批评，这一步做对了后面就好带。'
+    },
+    {
+      id: 'c1-11', cat: 'exam',
+      q: '孩子比赛输了大哭，怎么办？',
+      a: '先允许他哭。哭本身没错——孩子在乎才会哭，比赛的第一课就是"面对在乎的东西输了怎么办"。家长最容易犯的两个错：一是当场讲道理"下次注意"，二是马上安慰"没关系不重要"。这两个都会让孩子觉得"我的情绪不被接住"。正确的做法是坐旁边陪着，等他哭完，问一句"哪一步你现在还耿耿于怀"。让他说出来，比家长讲十句都强。',
+      tip: '比赛回来当天不复盘，第二天再心平气和地一起看那一盘；情绪没过去，讲什么棋都白讲。'
+    },
+    {
+      id: 'c1-12', cat: 'exam',
+      q: '冲段（冲职业段位）有没有必要？',
+      a: '99% 的孩子不用冲职业段。冲职业段是极小概率事件——全国每年录取几十人，需要从 5 岁开始每天 6-8 小时训练，还要天赋、经济支持、心理素质多方配合。绝大多数孩子学围棋的意义是"通过围棋长出思考力和抗挫力"，不是"以下棋为职业"。业余 3-5 段就是很好的成绩，够孩子受用一辈子。',
+      tip: '如果老师主动提"这孩子可以往职业方向试试"，慎重考虑：这是一条会挤掉童年大部分内容的路，得先想清楚。'
+    },
+    {
+      id: 'c1-13', cat: 'exam',
+      q: '业余段位对升学、对将来有没有实际用处？',
+      a: '直接看"用处"的话：部分地区中小学有围棋特长生招生、部分高校有围棋招生（政策每年不同）；业余 5 段以上可以做兼职教练；有段位证书是简历亮点但不是"敲门砖"。间接的用处更重要——学 5 年围棋的孩子，逻辑思维、面对失败的能力、独处安静的能力，比同龄人明显不一样。这些东西没证书，但陪孩子一辈子。',
+      tip: '别把段位当升学工具期待，反而让孩子放松学；等段位到了自然带来的"附加价值"才最持久。'
+    },
+    {
+      id: 'c1-14', cat: 'state',
+      q: '孩子学着学着突然不想学了，怎么办？',
+      a: '先停下来找原因，别硬推也别马上放弃。"不想学"背后可能是：最近连输几盘不甘心、老师换了不适应、家长压力太大、同学劝退、单纯累了。不同的原因要不同解——赢不了就调对手强度，不适应就等适应，家长压大就先松一松。围棋没有"必须学下去"的理由，但也没有"随便就放弃"的必要——先弄清楚再决定。',
+      tip: '和孩子聊的时候，别问"为什么不想学了"（他答不上来），问"最近下棋哪一次让你觉得难受"，具体的问题才有答案。'
+    },
+    {
+      id: 'c1-15', cat: 'state',
+      q: '孩子学得比同龄人慢，是不是没天赋？',
+      a: '大概率不是。围棋的"起步快慢"和长期水平几乎没有相关性——我见过很多前 3 个月学得慢的孩子，一年后反超；也见过起步很快的孩子在 5 级就卡住。真正拉开差距的是"能不能持续"，不是"起步快不快"。学得慢通常是三个原因：练习量不够、老师讲得跳、孩子还没找到自己的节奏。查这三个，比归因"天赋"务实得多。',
+      tip: '把"天赋"这个词从家里的日常语言里删掉；孩子听见家长说"没天赋"，比真没天赋更耽误事。'
+    },
+    {
+      id: 'c1-16', cat: 'state',
+      q: '男孩女孩学围棋有差别吗？',
+      a: '生理上差别很小；反倒是家长的心态差别更大。男孩容易被期待"要有霸气、要冲段"，女孩容易被认为"下着玩就好"。这两种预期都会影响孩子的实际学习状态。围棋本身没有性别偏好，只看是不是坐得住、想不想赢、能不能复盘——这些和性别关系不大。历史上业余高段女棋手不少，职业女子第一人芮乃伟九段就是很好的例子。',
+      tip: '不要用"男孩子应该……"或"女孩子怎么……"这样的话给孩子设边界；把她/他当成一个具体的孩子，而不是一个性别。'
+    },
+    {
+      id: 'c1-17', cat: 'state',
+      q: '学围棋会不会影响文化课/主科成绩？',
+      a: '正常投入不会，反而通常有正向影响——围棋练的"看题快、能推演、能坐得住"，对数学和阅读理解都有好处。只有两种情况会冲突：一是比赛/训练期投入过大挤压学习时间；二是家长期待太高，孩子在围棋上失利后连带影响学习状态。这两种情况都是"配比问题"而不是"围棋本身的问题"，调节好比例就没事。',
+      tip: '小学阶段围棋周投入建议控制在 5-8 小时以内（含课程和练习）；超过这个量对多数孩子来说就开始挤主课了。'
+    },
+    {
+      id: 'c1-18', cat: 'teacher',
+      q: '怎么选一个靠谱的围棋老师/机构？',
+      a: '看三点就够了。第一，老师的自身水平——业余 5 段或职业段位是基本线，不是越高越好，是"够高且愿意认真教"最好。第二，教学方式——愿意讲复盘、给孩子留个性化作业的比"上完课就走"的强得多。第三，机构环境——不看装修、看孩子进教室时开心不开心，孩子的状态是最真实的评判。',
+      tip: '选之前先去试听 1-2 节课，重点看老师怎么对待落后的孩子——对落后的孩子不敷衍的机构，通常也不会敷衍别的孩子。'
+    },
+    {
+      id: 'c1-19', cat: 'teacher',
+      q: '一对一好还是小班好？',
+      a: '小班（3-6 人）更适合大多数孩子。围棋是要"下棋"的，一对一没有实战对手，孩子练的是"回答老师问题"，缺"和同龄人对局"的核心训练。一对一更适合两种情况：一是有明确冲段目标的孩子，需要个性化训练；二是性格特别内向、在集体里完全跟不上的孩子，需要过渡。日常成长期的孩子，小班的教学效果反而更好。',
+      tip: '如果孩子在小班里落后，不要马上换一对一——先看是不是老师照顾不到，或者课时排得不合适，再决定。'
+    },
+    {
+      id: 'c1-20', cat: 'teacher',
+      q: '换老师、换机构会不会耽误孩子？',
+      a: '短期会有 1-3 个月的过渡期，长期看要分情况。因"孩子不适应现在的老师"而换：多数会更好，值得。因"贪便宜"或"跟风"而换：多数会更糟，不值得。判断标准是"新的地方能提供什么现在没有的"——是更合适的班型、更懂孩子的老师、更近的距离，还是只是更便宜。答案是后者的时候，通常不建议换。',
+      tip: '换之前先和现老师沟通一次，说清楚孩子哪里不适应；有 50% 的情况其实老师可以调整，不用真换。'
+    }
+  ];
+
+  var $cats = document.getElementById('c1Cats');
+  var $list = document.getElementById('c1List');
+  var $search = document.getElementById('c1Search');
+  if (!$cats || !$list) return;
+
+  var currentCat = 'all';
+  var currentKw = '';
+
+  function escapeHtml(s) {
+    return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+
+  function countByCat(key) {
+    if (key === 'all') return C1_DATA.length;
+    var n = 0;
+    for (var i = 0; i < C1_DATA.length; i++) if (C1_DATA[i].cat === key) n++;
+    return n;
+  }
+
+  function renderCats() {
+    var html = '';
+    for (var i = 0; i < CAT_META.length; i++) {
+      var c = CAT_META[i];
+      html += '<button class="c1-cat' + (c.key === currentCat ? ' active' : '') + '" data-key="' + c.key + '" type="button" role="tab">'
+        + '<span>' + c.icon + '</span>'
+        + '<span>' + escapeHtml(c.label) + '</span>'
+        + '<span class="c1-cat-count">' + countByCat(c.key) + '</span>'
+        + '</button>';
+    }
+    $cats.innerHTML = html;
+  }
+
+  function renderList() {
+    var kw = (currentKw || '').trim().toLowerCase();
+    var items = [];
+    for (var i = 0; i < C1_DATA.length; i++) {
+      var it = C1_DATA[i];
+      if (currentCat !== 'all' && it.cat !== currentCat) continue;
+      if (kw) {
+        var hay = (it.q + it.a + (it.tip || '')).toLowerCase();
+        if (hay.indexOf(kw) === -1) continue;
+      }
+      items.push(it);
+    }
+    if (!items.length) {
+      $list.innerHTML = '<div style="text-align:center;color:#9a9a9a;font-size:13px;padding:32px 0">没有匹配的问题；换个词试试</div>';
+      return;
+    }
+    var tagMap = {};
+    for (var j = 0; j < CAT_META.length; j++) tagMap[CAT_META[j].key] = CAT_META[j].label;
+    var html = '';
+    for (var k = 0; k < items.length; k++) {
+      var it2 = items[k];
+      var idx = String(k + 1).padStart(2, '0');
+      html += '<div class="c1-item">'
+        + '<div class="c1-item-tag">' + escapeHtml(tagMap[it2.cat] || '') + ' · ' + idx + '</div>'
+        + '<div class="c1-item-q">' + escapeHtml(it2.q) + '</div>'
+        + '<div class="c1-item-a">' + escapeHtml(it2.a) + '</div>'
+        + (it2.tip ? ('<div class="c1-item-tip"><span class="c1-item-tip-lead">家长可以做的：</span>' + escapeHtml(it2.tip) + '</div>') : '')
+        + '</div>';
+    }
+    $list.innerHTML = html;
+  }
+
+  function bindCats() {
+    $cats.addEventListener('click', function(e) {
+      var btn = e.target.closest('.c1-cat');
+      if (!btn) return;
+      currentCat = btn.getAttribute('data-key');
+      renderCats();
+      renderList();
+    });
+  }
+
+  function bindSearch() {
+    if (!$search) return;
+    var tm = null;
+    $search.addEventListener('input', function() {
+      clearTimeout(tm);
+      var v = this.value;
+      tm = setTimeout(function() { currentKw = v; renderList(); }, 120);
+    });
+  }
+
+  function init() {
+    renderCats();
+    renderList();
+    bindCats();
+    bindSearch();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+// ===== C1 END =====
+
+// ===== C2 START =====
+(function() {
+  var C2_TABS = [
+    { key: 'iq', name: '智商 · IQ',    icon: '🧠', desc: '认知与学习力：会看、能想、可复盘，不是"聪不聪明"，而是"能不能持续把新东西装进脑子"。' },
+    { key: 'eq', name: '情商 · EQ',    icon: '💗', desc: '情绪与沟通力：认得出自己的情绪、说得出别人的感受，比"懂事"更底层的能力。' },
+    { key: 'aq', name: '逆商 · AQ',    icon: '🛡', desc: '抗挫与坚持力：面对"不会 / 输了 / 卡住"时不崩，围棋教育最擅长养出来的能力。' },
+    { key: 'mq', name: '德商 · MQ',    icon: '⚖', desc: '品德与规矩感：遵守规则、尊重对手、不占便宜，围棋里叫"棋品"，做人叫"人品"。' },
+    { key: 'wq', name: '志商 · WQ',    icon: '🎯', desc: '目标与内驱力：知道自己为什么在做这件事，能自己往前走一段，不靠家长盯。' },
+    { key: 'hq', name: '健商 · HQ',    icon: '🌿', desc: '身心与生活力：坐得住也动得开、能睡好也能情绪自洽，学习的底盘。' }
+  ];
+
+  var C2_DATA = {
+    iq: [
+      {
+        id: 'c2-iq-01',
+        scene: '孩子做题总是漏想一步，"看不到下一步是什么"',
+        show: '简单题做得快，稍微复杂就漏算——不是没能力，是习惯性"看到一步就动"，没有停顿去想第二步。',
+        mistake: '很多家长会说"你怎么这么粗心"——但这不是粗心，是"看棋习惯"没建立起来。批评没用，反而让孩子越来越怕做题。',
+        action: '让孩子做题时口头念出"如果我这样下，对方会怎么应"，把"下一步预测"变成一个显性动作；坚持 4 周，"看下一步"就会变成习惯。'
+      },
+      {
+        id: 'c2-iq-02',
+        scene: '老师讲的题当场懂了，回家再做又不会',
+        show: '课上听得点头如捣蒜，甚至能复述老师的话；回家做类似题却又卡住，好像什么都没学过。',
+        mistake: '家长第一反应"是不是没认真听"——其实是"听懂"和"能用"之间隔着一步：主动复述。孩子只是被动接收了，没变成自己的东西。',
+        action: '课后当天，让孩子用自己的话把课上讲的那道题讲一遍给你听（家长完全不会围棋也不影响）；讲不出来的地方就是没吃透，第二天问老师。'
+      },
+      {
+        id: 'c2-iq-03',
+        scene: '读题读一半就动手，题干里的关键信息用不上',
+        show: '死活题里明明标注了"黑先"，孩子看成"白先"就开始算；对局中老师提示了"看看角上"，眼睛依然只盯中腹。',
+        mistake: '常见反应是催"你再看看题啊"——催没用，孩子的问题是"注意力分配"，不是"没看到"。要教方法而不是喊口号。',
+        action: '教孩子读题三步：先读题干（谁先手）、再看棋形（哪里是重点）、最后才落子；开始时可以让孩子用手指指着读，训练"看全"的习惯。'
+      },
+      {
+        id: 'c2-iq-04',
+        scene: '只喜欢想简单题，稍难一点就说"我不会"',
+        show: '简单题嗖嗖做，一道稍难题看两眼就说"我不会"，把书合上，好像已经放弃思考了。',
+        mistake: '家长这时候容易说"再想想 / 你就是不动脑"——批评会让孩子把"难题"和"被骂"绑在一起，以后更抗拒。',
+        action: '把难题切小：不要求"做出来"，只要求"说出三个不同的下法"（哪怕都是错的）；孩子先敢想，才会敢做——想的门槛低了，做的门槛自然低。'
+      }
+    ],
+    eq: [
+      {
+        id: 'c2-eq-01',
+        scene: '输棋后情绪失控——摔子、大哭、赖着不走',
+        show: '一盘棋输了，孩子把棋子扒拉一地、趴桌上哭 20 分钟、或者赖在教室里不肯回家。',
+        mistake: '家长第一反应是"就一盘棋至于吗"——这句话最伤：孩子的世界里那一盘就是全部。也别硬讲道理，情绪没走完时讲道理等于火上浇油。',
+        action: '先蹲下、给孩子一点空间；等他哭完/平静了，问一句"你现在最难过的是哪一步"。让他"把情绪说出来"，就是最好的情绪训练——不需要你解决，需要你在场。'
+      },
+      {
+        id: 'c2-eq-02',
+        scene: '想赢的心太重，不敢和高手下',
+        show: '一到和比自己强的人对局，孩子就找借口——头疼、要上厕所、要喝水，或者直接说"我不下"。',
+        mistake: '家长说"你要勇敢啊"没用——这不是勇敢的问题，是"输不起"的问题。用"勇敢"要求，只会让孩子更羞愧。',
+        action: '换个框架告诉孩子："和高手下不是为了赢，是为了看他和你不一样的下法。"——把"胜负"框换成"学习"框，压力小很多，孩子反而愿意去下。'
+      },
+      {
+        id: 'c2-eq-03',
+        scene: '和同学下棋起争执，动手或告状',
+        show: '在教室或课后和同学下棋，因为一个"数目算错"或"这步该不该悔"起了争执，喊起来甚至推搡。',
+        mistake: '家长最容易做的是"帮忙判对错"——但孩子需要的不是判决，是"学会自己解决冲突"。你判了这次，下次他还是不会自己处理。',
+        action: '教孩子三句话："我觉得是这样，你觉得呢""我们请老师看一下""这盘算平，重下一盘"。让他有话可说，冲突自然就少。'
+      },
+      {
+        id: 'c2-eq-04',
+        scene: '在陌生环境里不敢说话，教室里从不举手',
+        show: '在家很活跃，一进教室或比赛场就"变哑巴"；老师问问题，明明会也不举手；被叫到就低头小声。',
+        mistake: '家长喜欢当着别人的面推一把"你说啊 / 你怎么不说话"——公开推更让孩子退缩。孩子的"社交能量"是要慢慢累的，不是逼出来的。',
+        action: '给孩子设"迷你目标"：这堂课举一次手就好、下课主动和一个同学说一句话；小目标一个一个达成，比空喊"要开朗"有效 10 倍。'
+      }
+    ],
+    aq: [
+      {
+        id: 'c2-aq-01',
+        scene: '遇到难题第一反应是"我不会"',
+        show: '死活题、复盘题、任何看起来"不像做过"的题，孩子第一句话就是"这我不会"——甚至没读题。',
+        mistake: '家长说"这么简单你怎么不会"——雪上加霜。"我不会"背后是"我怕做错被否定"，不是真的不会。',
+        action: '把"我不会"翻译成"我要开始想了"——每次孩子说"我不会"，家长回一句"那你先猜一个"，把"不会"从终点变成起点。'
+      },
+      {
+        id: 'c2-aq-02',
+        scene: '被老师纠正一次，接下来一整节课都低气压',
+        show: '老师点评了一句"这里下错了"，孩子从此这节课都提不起精神，眼睛盯着棋盘发呆，作业也不做。',
+        mistake: '家长回来劝"老师都是为你好"——道理孩子懂，问题是他"感觉不好"没被处理。硬讲道理会让孩子觉得"我的感受不重要"。',
+        action: '先承认他的感受："被当众说错，谁都会不舒服，妈妈也会。"然后再问他"你觉得老师说的那一手，问题在哪"——先接情绪，再谈内容。'
+      },
+      {
+        id: 'c2-aq-03',
+        scene: '连输三盘后不肯继续下',
+        show: '一节课下了 3 盘全输，孩子把棋子一收"我不下了"，剩下的时间就发呆。',
+        mistake: '家长逼"再下一盘啊 / 输了怕什么"——逼有一定概率适得其反，让孩子更抗拒"输"。',
+        action: '这个时候不要求"再下"，改成"我们复盘一下今天下得最好的一手"——把注意力从"整体输"转到"局部好"，孩子的自信才会长回来。下次自然愿意再下。'
+      },
+      {
+        id: 'c2-aq-04',
+        scene: '某个阶段进步慢，孩子说"我不想学了"',
+        show: '学了 2 年，最近半年段位没动、题也做不出新突破，孩子突然一句"我不想学了"。',
+        mistake: '家长要么马上答应"那咱不学了"，要么反过来强推"你必须坚持"——两个极端都不对。围棋每 6-12 个月会有一次"平台期"，是正常的。',
+        action: '和孩子说："我们先休 2 周，不做题、不上课，只每天下一盘。"——让节奏松下来，通常 2 周后孩子自己就会说"我还是想上课"，因为他离不开这个东西了。'
+      }
+    ],
+    mq: [
+      {
+        id: 'c2-mq-01',
+        scene: '输棋后耍赖、悔棋、赖账',
+        show: '眼看要输，孩子突然说"这手我没下清楚，重下"；或者数目算完了赖着不承认。',
+        mistake: '家长觉得"孩子还小无所谓"——错。围棋里的"悔棋"是最典型的规则问题，从小让过就是给"规则可以商量"这个观念开门。',
+        action: '第一次发生时就立场明确："落子无悔是围棋最基本的规则，妈妈不同意重下"——但同时给出路"这盘认输，下一盘再来"。规则+机会一起给。'
+      },
+      {
+        id: 'c2-mq-02',
+        scene: '赢了对方后嘲笑"你太菜了"',
+        show: '赢了一盘，孩子一脸得意，甚至冲着对手说"就这水平还敢下棋"、"太简单了"。',
+        mistake: '家长笑呵呵不制止——"孩子高兴一下嘛"。这是最容易被忽视的品德问题，长期养成后到中学阶段会变成明显的人际问题。',
+        action: '当场（不当着对手面）拉过来告诉他："赢是你的实力，尊重对手是你的教养。下次赢了先握手说「谢谢」。"围棋礼仪不是形式，是训练场。'
+      },
+      {
+        id: 'c2-mq-03',
+        scene: '老师不看时偷偷违规',
+        show: '课上老师转身讲题，孩子偷偷用手挪了对方一颗棋子；或者做题时偷偷翻答案。',
+        mistake: '家长可能觉得"这多小事"——真不小。孩子从这里学的是"有人看我就守规矩，没人看我就无所谓"，这个逻辑会跟到成年。',
+        action: '发现后严肃谈一次（不打不骂）："没有人监督也遵守规则，才叫「真的懂了」。"让孩子把这次的违规自己告诉老师，是最好的一课。'
+      },
+      {
+        id: 'c2-mq-04',
+        scene: '拿别人的东西不问就用',
+        show: '在教室里拿同学的棋子、笔、书不问一声就用，或者把对方的棋盒里的子倒出来玩。',
+        mistake: '家长要么在一边看着不吭声，要么就是替孩子道歉带过——两种做法都让孩子失去了"自己学会尊重物权"的机会。',
+        action: '教孩子一句话就够了："你要用别人的东西，先说「能借给我用一下吗」。"练 3-5 次，成习惯。围棋教室是最好的"物权教育"场所——每副棋都有主。'
+      }
+    ],
+    wq: [
+      {
+        id: 'c2-wq-01',
+        scene: '学什么都是"三分钟热度"',
+        show: '钢琴、画画、跆拳道、围棋——每样都学一阵子就说不想学了，家里各种半途而废的物品。',
+        mistake: '家长最容易的两个反应：一是继续换新的项目"总能找到孩子喜欢的"，二是骂孩子"没长性"。两个都跑偏。',
+        action: '选一样先"守住"——不追求进步，只追求"稳定投入"。围棋是好选项（成本低、节奏温和、每周 1-2 次即可）。持续 6 个月不动，就是给孩子"我能坚持一件事"的证据。'
+      },
+      {
+        id: 'c2-wq-02',
+        scene: '只有奖励才愿意练棋',
+        show: '"练完 10 道题给你看动画片"、"考上段给你买乐高"——一开始好用，后来发现没奖励就不动。',
+        mistake: '家长以为奖励能"培养兴趣"，实际上奖励是把"内在动力"替换成了"外在动力"。外在动力必须一直加码才有效，最后带不动。',
+        action: '把奖励从"物品"换成"结果本身的价值"——练完题不奖零食，改成"你今天多做的这 5 道题，就是下周下棋能赢的底气"。让孩子从做的事情本身获得意义感。'
+      },
+      {
+        id: 'c2-wq-03',
+        scene: '不知道自己为什么在学围棋',
+        show: '问孩子"你为什么学围棋"，得到的回答是"我妈让我学的"、"不知道"、"不学干嘛呢"——没有一句是他自己的理由。',
+        mistake: '家长觉得"孩子小不懂无所谓"——恰恰相反，"为什么学"这个问题回答不上来，是所有半途而废的根源。',
+        action: '找一个安静时刻问他："围棋里你觉得最好玩的一件事是什么？"——找到那一件（可能是"想出一步妙手"、可能是"和 XX 下棋"、可能是"考出段位"），把它经常提起，就是他的动力源。'
+      },
+      {
+        id: 'c2-wq-04',
+        scene: '同龄人考段快，孩子焦虑或攀比',
+        show: '孩子回家说"XXX 都 3 段了，我才 1 级"，情绪低落甚至开始抗拒去教室——不想被比较。',
+        mistake: '家长要么跟着焦虑"是的你要加油"，要么打鸡血"你比他强"——前者加重焦虑，后者让孩子不敢面对真实差距。',
+        action: '换掉比较对象："咱不和 XXX 比，和半年前的你比——半年前你还不会双打吃，现在会了；这就是你的进步。"内驱力来自"和自己比"，不是"和别人比"。'
+      }
+    ],
+    hq: [
+      {
+        id: 'c2-hq-01',
+        scene: '一坐就是三小时，肩颈发僵',
+        show: '孩子沉迷做题或对局时，一坐就 2-3 小时不起来，起身时脖子转不动、揉着腰喊酸。',
+        mistake: '家长要么完全不管"专注是好事嘛"，要么突然打断"你必须站起来动一动"——都不好。孩子讨厌"沉浸时被强制打断"。',
+        action: '设一个"20-20-20 闹钟"：每下 20 分钟或做 20 道题，站起来 20 秒（喝水/看远处）。让孩子自己关闹钟，把节奏交给他。这个习惯陪一辈子受益。'
+      },
+      {
+        id: 'c2-hq-02',
+        scene: '用眼过度，视力开始下降',
+        show: '几个月体检一次，视力从 5.0 掉到 4.8，掉到 4.6——伴随长时间看棋盘/屏幕/做题册的量增加。',
+        mistake: '家长要么归因"都是围棋害的要少下"，要么继续视而不见。围棋不是主因，"总用眼距离过近"和"看远时间少"才是。',
+        action: '三个动作：棋盘 / 书本距眼睛 40cm 以上、每半小时看窗外 30 秒、周末户外时间不少于 2 小时。做到这三条，围棋 + 学习都不会伤眼。'
+      },
+      {
+        id: 'c2-hq-03',
+        scene: '为了刷题、下棋熬夜，睡眠不足',
+        show: '孩子说"再做一道就睡"，然后一道变五道；比赛前几天更是熬到 11 点、12 点，第二天上课都困。',
+        mistake: '家长要么陪着熬"这几天冲一下"，要么突然强制关灯——孩子会更抗拒。围棋是长跑，靠熬夜赢不了。',
+        action: '睡眠是最重要的"棋力恢复"。定一条铁律："晚上 9 点后不做题、9 点半必须上床"。比赛前几天反而要更早睡——好状态比多做几道题重要。'
+      },
+      {
+        id: 'c2-hq-04',
+        scene: '情绪压抑、说不出的疲惫',
+        show: '孩子最近做什么都没劲、饭吃得少、笑容变少、连喜欢的围棋也不主动碰——不哭不闹，就是"淡"。',
+        mistake: '家长常见的判断"是青春期 / 是累了 / 是不想学"——都可能不对。孩子的"隐性疲劳"是最容易被忽视的信号。',
+        action: '不管围棋、不管学习，先带孩子去做他真正喜欢的事——爬山、游泳、见朋友、吃一顿他念叨过的东西。给他一段"完全不产出"的时间，情绪自然会回来。'
+      }
+    ]
+  };
+
+  var $tabs = document.getElementById('c2Tabs');
+  var $panels = document.getElementById('c2Panels');
+  if (!$tabs || !$panels) return;
+
+  var currentKey = C2_TABS[0].key;
+
+  function escapeHtml(s) {
+    return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+
+  function renderTabs() {
+    var html = '';
+    for (var i = 0; i < C2_TABS.length; i++) {
+      var t = C2_TABS[i];
+      html += '<button class="c2-tab' + (t.key === currentKey ? ' active' : '') + '" data-key="' + t.key + '" type="button" role="tab">'
+        + '<span class="c2-tab-icon">' + t.icon + '</span>'
+        + '<span>' + escapeHtml(t.name) + '</span>'
+        + '</button>';
+    }
+    $tabs.innerHTML = html;
+  }
+
+  function renderPanels() {
+    var html = '';
+    for (var i = 0; i < C2_TABS.length; i++) {
+      var t = C2_TABS[i];
+      var items = C2_DATA[t.key] || [];
+      var cards = '';
+      for (var j = 0; j < items.length; j++) {
+        var it = items[j];
+        cards += '<div class="c2-card">'
+          + '<div class="c2-card-scene">' + escapeHtml(it.scene) + '</div>'
+          + '<div class="c2-card-block"><span class="c2-card-block-lead">孩子表现</span>' + escapeHtml(it.show) + '</div>'
+          + '<div class="c2-card-block"><span class="c2-card-block-lead">常见误区</span>' + escapeHtml(it.mistake) + '</div>'
+          + '<div class="c2-card-block"><span class="c2-card-block-lead">建议怎么做</span>' + escapeHtml(it.action) + '</div>'
+          + '</div>';
+      }
+      html += '<div class="c2-panel' + (t.key === currentKey ? ' active' : '') + '" data-key="' + t.key + '">'
+        + '<div class="c2-panel-desc">' + escapeHtml(t.desc) + '</div>'
+        + '<div class="c2-cards">' + cards + '</div>'
+        + '</div>';
+    }
+    $panels.innerHTML = html;
+  }
+
+  function bindTabs() {
+    $tabs.addEventListener('click', function(e) {
+      var btn = e.target.closest('.c2-tab');
+      if (!btn) return;
+      currentKey = btn.getAttribute('data-key');
+      Array.prototype.forEach.call($tabs.querySelectorAll('.c2-tab'), function(b) {
+        b.classList.toggle('active', b.getAttribute('data-key') === currentKey);
+      });
+      Array.prototype.forEach.call($panels.querySelectorAll('.c2-panel'), function(p) {
+        p.classList.toggle('active', p.getAttribute('data-key') === currentKey);
+      });
+    });
+  }
+
+  function init() {
+    renderTabs();
+    renderPanels();
+    bindTabs();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+// ===== C2 END =====
 
 
 </script>
