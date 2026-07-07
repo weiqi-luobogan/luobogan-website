@@ -1366,6 +1366,74 @@
   </div>
 </section>
 
+<!-- ===== Tools · 教学工具（一线老师/家长可直接下载使用） ===== -->
+<section id="tools" class="bg-paper-2 py-24 border-y border-line collapsible">
+  <div class="max-w-5xl mx-auto px-6 fade-in">
+    <h2 class="section-title">教学工具</h2>
+    <p class="section-lead">
+      三份可以直接打印/发家长群的<span class="hl">教学工作模板</span>。填完即用，不用再从零设计。适合一线围棋老师、教学机构和陪学的家长。
+    </p>
+
+    <div class="grid md:grid-cols-3 gap-6 mt-8">
+
+      <!-- 卡片 1 · 学情反馈单 -->
+      <div class="rounded-lg border border-line bg-paper p-6 flex flex-col" style="min-height:320px">
+        <div class="text-xs tracking-widest text-seal font-medium mb-3">TOOL 01 · 教师工具</div>
+        <h3 class="text-xl font-bold mb-3 text-ink">学情反馈单</h3>
+        <p class="text-sm text-gray-soft leading-relaxed mb-5 flex-1">
+          每月/每季度给家长一份可视化反馈——雷达图 + 柱状图 + 老师寄语一图流。填完即生成，可自定义机构印章。<span class="hl">下载 PNG 直接发家长群</span>，比一句"进步不错"重一百倍。
+        </p>
+        <div class="text-xs text-gray-soft mb-4">
+          <span style="display:inline-block;margin-right:12px">📊 6 项技术雷达</span>
+          <span style="display:inline-block;margin-right:12px">📈 5 项状态柱状</span>
+          <span style="display:inline-block">🖋 三段老师寄语</span>
+        </div>
+        <a href="#teaching" class="nav-toggle inline-block text-center bg-seal text-white px-5 py-3 rounded font-medium hover:bg-ink transition" data-target="teaching" data-anchor="tool-fb">
+          进入使用 →
+        </a>
+      </div>
+
+      <!-- 卡片 2 · 周训练打卡表 -->
+      <div class="rounded-lg border border-line bg-paper p-6 flex flex-col" style="min-height:320px">
+        <div class="text-xs tracking-widest text-seal font-medium mb-3">TOOL 02 · 教师/家长通用</div>
+        <h3 class="text-xl font-bold mb-3 text-ink">周训练打卡表</h3>
+        <p class="text-sm text-gray-soft leading-relaxed mb-5 flex-1">
+          按 <span class="hl">6:3:1 训练配比</span> 生成一周训练计划——低 2 级打基础、同级测水平、高 1 级挑战成长。输入孩子当前棋力，直接看这周该做哪些难度的题、各多少道。
+        </p>
+        <div class="text-xs text-gray-soft mb-4">
+          <span style="display:inline-block;margin-right:12px">🎯 3 档难度自动配比</span>
+          <span style="display:inline-block">📆 7 天打卡追踪</span>
+        </div>
+        <a href="#teaching" class="nav-toggle inline-block text-center bg-seal text-white px-5 py-3 rounded font-medium hover:bg-ink transition" data-target="teaching" data-anchor="tool-r631">
+          进入使用 →
+        </a>
+      </div>
+
+      <!-- 卡片 3 · 错题复习跟踪表 -->
+      <div class="rounded-lg border border-line bg-paper p-6 flex flex-col" style="min-height:320px">
+        <div class="text-xs tracking-widest text-seal font-medium mb-3">TOOL 03 · 教师/家长通用</div>
+        <h3 class="text-xl font-bold mb-3 text-ink">错题复习跟踪表</h3>
+        <p class="text-sm text-gray-soft leading-relaxed mb-5 flex-1">
+          艾宾浩斯遗忘曲线在围棋练习上的落地版——今天做错的题，要在 <span class="hl">5 分钟 / 12 小时 / 1 天 / 2 天 / 4 天 / 7 天 / 15 天 / 1 月 / 3 月 / 半年</span> 各复习一次，才能真的沉进本能。选一个基准日期，看这批错题该在哪些时间点回来。
+        </p>
+        <div class="text-xs text-gray-soft mb-4">
+          <span style="display:inline-block;margin-right:12px">📅 10 档记忆周期</span>
+          <span style="display:inline-block">✅ 打卡表自动生成</span>
+        </div>
+        <a href="#teaching" class="nav-toggle inline-block text-center bg-seal text-white px-5 py-3 rounded font-medium hover:bg-ink transition" data-target="teaching" data-anchor="tool-mc">
+          进入使用 →
+        </a>
+      </div>
+
+    </div>
+
+    <p class="text-xs text-gray-soft mt-12 text-center leading-relaxed" style="max-width:680px;margin-left:auto;margin-right:auto">
+      <em>更多围棋教学思路 + 练棋方法论，在下方 <a href="#teaching" class="nav-toggle underline hover:text-seal" data-target="teaching">教学理念</a> 板块的《练棋建议》互动手册里。</em>
+    </p>
+
+  </div>
+</section>
+
 <!-- ===== Works ===== -->
 <section id="works" class="bg-paper py-24 collapsible">
   <div class="max-w-5xl mx-auto px-6 fade-in">
@@ -1827,7 +1895,7 @@
       </div>
 
       <!-- 模块 C：记忆周期表 -->
-      <div class="practice-module">
+      <div class="practice-module" id="tool-mc">
         <div class="practice-module-title">模块 C · 记忆周期表</div>
         <div class="practice-module-desc">
           艾宾浩斯遗忘曲线在围棋练习上的落地版：今天做错的一道题，要在 5 分钟 / 12 小时 / 1 天 / 2 天 / 4 天 / 7 天 / 15 天 / 1 月 / 3 月 / 半年
@@ -1848,7 +1916,7 @@
       </div>
 
       <!-- 模块 D：6:3:1 计算器 -->
-      <div class="practice-module">
+      <div class="practice-module" id="tool-r631">
         <div class="practice-module-title">模块 D · 6:3:1 训练配比计算器</div>
         <div class="practice-module-desc">
           做题难度不是越难越好。低 2 级（60%）打基础找信心，同级（30%）测水平，高 1 级（10%）挑战成长。
@@ -1888,7 +1956,7 @@
       </div>
 
       <!-- 模块 F：学情反馈单（教师工具） -->
-      <div class="practice-module">
+      <div class="practice-module" id="tool-fb">
         <div class="practice-module-title">模块 F · 学情反馈单（教师工具）</div>
         <div class="practice-module-desc">
           每月/每季度给家长一份可视化反馈，比一句"这月进步不错"重一百倍。填完自动生成雷达图 + 柱状图 + 老师寄语的一图流反馈单，PNG 下载后直接发家长群或私聊家长；CSV 用于机构存档。
@@ -4074,6 +4142,7 @@ function hideParentGuide(){
   <a href="#works" class="nav-toggle" data-target="works">图书与导图</a>
   <a href="#projects" class="nav-toggle" data-target="projects">围棋课程</a>
   <a href="#groups" class="nav-toggle" data-target="groups">加入社群</a>
+  <a href="#tools" class="nav-toggle" data-target="tools">教学工具</a>
   <a href="#teaching" class="nav-toggle" data-target="teaching">教学理念</a>
   <a href="#culture" class="nav-toggle" data-target="culture">围棋文化</a>
   <a href="#interact" class="nav-toggle" data-target="interact">留言板</a>
@@ -4142,12 +4211,24 @@ function hideParentGuide(){
       e.preventDefault();
       const id = this.dataset.target;
       const role = this.dataset.role;
+      const anchor = this.dataset.anchor;
       if(id) openSection(id);
       if(role){
         setTimeout(function(){
           const tabBtn = document.querySelector('.test-tab-btn[data-role="'+role+'"]');
           if(tabBtn && !tabBtn.classList.contains('active')) tabBtn.click();
         }, 120);
+      }
+      // 展开面板后滚到子锚点（用于 #tools 卡片跳到 teaching 内的具体模块）
+      if(anchor && id){
+        setTimeout(function(){
+          const section = document.getElementById(id);
+          const target = document.getElementById(anchor);
+          if(section && target){
+            const top = target.offsetTop - section.offsetTop - 40;
+            section.scrollTo({top: Math.max(0, top), behavior: 'smooth'});
+          }
+        }, 260);
       }
     });
   });
