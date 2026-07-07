@@ -497,6 +497,59 @@
       .sop-nav-item { padding: 6px 12px; font-size: 12px; }
     }
 
+    /* ===== B2 家长抗拒点应对手册 ===== */
+    .b2-wrap { max-width: 100%; }
+    .b2-cats { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px dashed var(--line); }
+    .b2-cat { background: #fff; border: 1px solid var(--line); color: #6b6b6b; padding: 7px 14px; font-size: 12.5px; font-family: inherit; cursor: pointer; border-radius: 999px; transition: all 0.2s; letter-spacing: 0.02em; }
+    .b2-cat:hover { border-color: var(--seal); color: var(--seal); }
+    .b2-cat.active { background: var(--seal); color: #fff; border-color: var(--seal); box-shadow: 0 3px 10px rgba(168,54,42,0.22); }
+    .b2-cat-count { opacity: 0.7; margin-left: 3px; font-family: 'Times New Roman', serif; }
+    .b2-list { display: flex; flex-direction: column; gap: 22px; }
+    .b2-item { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 22px 26px 20px; box-shadow: 0 1px 6px rgba(0,0,0,0.03); position: relative; }
+    .b2-item-tag { display: inline-block; font-size: 11px; color: #9a8f83; letter-spacing: 0.1em; padding: 2px 10px; background: rgba(168,54,42,0.06); color: var(--seal); border-radius: 3px; margin-bottom: 10px; font-family: inherit; }
+    .b2-item-q { font-size: 16.5px; font-weight: 700; color: var(--ink); line-height: 1.6; margin-bottom: 4px; }
+    .b2-item-q:before { content: '「'; color: var(--seal); margin-right: 2px; }
+    .b2-item-q:after { content: '」'; color: var(--seal); margin-left: 2px; }
+    .b2-item-scene { font-size: 12.5px; color: #9a8f83; margin-bottom: 14px; line-height: 1.6; }
+    .b2-item-cards { display: flex; flex-direction: column; gap: 10px; margin-top: 6px; }
+    .b2-item-card { background: #fbf8f4; border-left: 3px solid var(--seal); padding: 12px 16px; border-radius: 4px; font-size: 14px; line-height: 1.85; color: var(--ink-soft); }
+    .b2-item-card-lead { font-weight: 700; color: var(--seal); margin-right: 6px; font-size: 12.5px; letter-spacing: 0.05em; }
+    .b2-item-tip { font-size: 12.5px; color: #7a7264; margin-top: 14px; padding: 11px 15px; background: rgba(168, 54, 42, 0.04); border-radius: 6px; line-height: 1.75; }
+    .b2-item-tip-lead { font-weight: 700; color: var(--seal); margin-right: 4px; }
+    .b2-foot { text-align: center; font-size: 12px; color: #9a9a9a; margin-top: 24px; padding-top: 16px; border-top: 1px dashed var(--line); line-height: 1.7; }
+
+    /* ===== B3 招生话术库 ===== */
+    .b3-wrap { max-width: 100%; }
+    .b3-tabs { display: flex; flex-wrap: wrap; gap: 0; border-bottom: 1px solid var(--line); margin-bottom: 24px; }
+    .b3-tab { background: none; border: none; padding: 12px 22px; font-size: 15px; color: #6b6b6b; cursor: pointer; font-family: inherit; border-bottom: 2px solid transparent; transition: all 0.2s; letter-spacing: 0.03em; }
+    .b3-tab:hover { color: var(--seal); }
+    .b3-tab.active { color: var(--seal); border-bottom-color: var(--seal); font-weight: 700; }
+    .b3-tab-idx { font-family: 'Times New Roman', serif; font-size: 12px; opacity: 0.7; margin-right: 6px; }
+    .b3-panel { display: none; padding: 4px 2px; }
+    .b3-panel.active { display: block; }
+    .b3-panel-desc { font-size: 13.5px; color: #7a7264; line-height: 1.9; margin-bottom: 20px; padding: 12px 16px; background: #fbf8f4; border-left: 3px solid var(--seal); border-radius: 4px; }
+    .b3-cards { display: flex; flex-direction: column; gap: 20px; }
+    .b3-card { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 20px 24px 18px; box-shadow: 0 1px 6px rgba(0,0,0,0.03); }
+    .b3-card-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px dashed var(--line); }
+    .b3-card-idx { font-family: 'Times New Roman', serif; font-size: 22px; color: var(--seal); font-weight: 700; }
+    .b3-card-title { font-size: 15.5px; font-weight: 700; color: var(--ink); letter-spacing: 0.02em; }
+    .b3-card-scene { font-size: 12.5px; color: #9a8f83; margin-bottom: 12px; line-height: 1.7; }
+    .b3-card-body { background: #fbf8f4; padding: 14px 16px; border-radius: 4px; font-size: 14px; line-height: 1.9; color: var(--ink-soft); border-left: 3px solid var(--seal); }
+    .b3-card-body-lead { font-weight: 700; color: var(--seal); margin-right: 6px; font-size: 12.5px; letter-spacing: 0.05em; }
+    .b3-card-tip { font-size: 12.5px; color: #7a7264; margin-top: 12px; padding: 10px 14px; background: rgba(168, 54, 42, 0.04); border-radius: 6px; line-height: 1.75; }
+    .b3-card-tip-lead { font-weight: 700; color: var(--seal); margin-right: 4px; }
+    .b3-foot { text-align: center; font-size: 12px; color: #9a9a9a; margin-top: 24px; padding-top: 16px; border-top: 1px dashed var(--line); line-height: 1.7; }
+
+    @media (max-width: 640px) {
+      .b2-item { padding: 16px 16px 14px; }
+      .b2-item-q { font-size: 15px; }
+      .b2-cat { padding: 6px 12px; font-size: 12px; }
+      .b3-tab { padding: 10px 14px; font-size: 13.5px; }
+      .b3-card { padding: 14px 16px; }
+      .b3-card-idx { font-size: 20px; }
+      .b3-card-title { font-size: 14.5px; }
+    }
+
     /* 模块 A：阶段 tab */
     .stage-tabs { display: flex; flex-wrap: wrap; gap: 0; border-bottom: 1px solid var(--line); margin-bottom: 20px; }
     .stage-tab { background: none; border: none; padding: 12px 22px; font-size: 15px; color: #6b6b6b; cursor: pointer; font-family: inherit; border-bottom: 2px solid transparent; transition: all 0.2s; letter-spacing: 0.03em; }
@@ -1468,7 +1521,7 @@
         <span class="tool-tab-dot"></span>老师日常 <span class="tool-tab-count">4</span>
       </button>
       <button class="tool-tab" data-toolgroup="principal" type="button" role="tab">
-        <span class="tool-tab-dot"></span>校长运营 <span class="tool-tab-count">2</span>
+        <span class="tool-tab-dot"></span>校长运营 <span class="tool-tab-count">3</span>
       </button>
       <button class="tool-tab" data-toolgroup="parent" type="button" role="tab">
         <span class="tool-tab-dot"></span>家长参考 <span class="tool-tab-count coming">2</span>
@@ -1581,24 +1634,36 @@
           </a>
         </div>
 
-        <!-- B2 · 家长抗拒点应对手册 · 占位 -->
-        <div class="rounded-lg border border-line bg-paper p-6 flex flex-col opacity-70" style="min-height:320px">
-          <div class="text-xs tracking-widest text-seal font-medium mb-3">TOOL 06 · 建设中</div>
+        <!-- B2 · 家长抗拒点应对手册 -->
+        <div class="rounded-lg border-2 border-seal bg-paper p-6 flex flex-col" style="min-height:320px">
+          <div class="text-xs tracking-widest text-seal font-medium mb-3">TOOL 06 · 新 · 校长工具</div>
           <h3 class="text-xl font-bold mb-3 text-ink">家长抗拒点应对手册</h3>
           <p class="text-sm text-gray-soft leading-relaxed mb-5 flex-1">
-            价格 / 时间 / 接送 / 效果 / 换机构 / 孩子不想学——<span class="hl">8 大类常见抗拒</span>，每类 2-3 套应答话术。不是辩论，是先接住情绪再推进方案。
+            价格 / 时间 / 接送 / 效果 / 换机构 / 孩子不想学 / 家人不支持 / 价值——<span class="hl">8 大类 15 条</span>常见抗拒点，每条含 2-3 段应答话术。不是辩论，是先接住情绪再推进方案。
           </p>
           <div class="text-xs text-gray-soft mb-4">
-            <span style="display:inline-block;margin-right:12px">🛡 8 类抗拒点</span>
-            <span style="display:inline-block">💬 每类 2-3 套话术</span>
+            <span style="display:inline-block;margin-right:12px">🛡 8 类 · 15 条抗拒点</span>
+            <span style="display:inline-block">💬 40+ 段应答话术</span>
           </div>
-          <button class="inline-block text-center bg-ink text-paper-2 px-5 py-3 rounded font-medium cursor-not-allowed" disabled>即将上线</button>
+          <a href="#tools" class="inline-block text-center bg-seal text-white px-5 py-3 rounded font-medium hover:bg-ink transition" data-tool-anchor="tool-b2">
+            打开手册 →
+          </a>
         </div>
 
-        <!-- 后续占位 -->
-        <div class="rounded-lg border border-dashed border-line bg-paper p-6 flex flex-col opacity-50" style="min-height:320px;justify-content:center;align-items:center;text-align:center">
-          <div class="text-xs tracking-widest text-seal font-medium mb-2">+ MORE</div>
-          <div class="text-sm text-gray-soft">招生话术库 · 四类型家长 · 家长说明会 SOP · 朋友圈周历</div>
+        <!-- B3 · 招生话术库 -->
+        <div class="rounded-lg border-2 border-seal bg-paper p-6 flex flex-col" style="min-height:320px">
+          <div class="text-xs tracking-widest text-seal font-medium mb-3">TOOL 07 · 新 · 校长工具</div>
+          <h3 class="text-xl font-bold mb-3 text-ink">招生话术库</h3>
+          <p class="text-sm text-gray-soft leading-relaxed mb-5 flex-1">
+            电话邀约 / 微信首次沟通 / 地推现场——<span class="hl">3 大场景 10+ 段话术</span>。含破冰、需求探询、价值锚点、留资技巧，一线课程顾问直接照着用。
+          </p>
+          <div class="text-xs text-gray-soft mb-4">
+            <span style="display:inline-block;margin-right:12px">📞 3 大招生场景</span>
+            <span style="display:inline-block">💬 10+ 段话术模板</span>
+          </div>
+          <a href="#tools" class="inline-block text-center bg-seal text-white px-5 py-3 rounded font-medium hover:bg-ink transition" data-tool-anchor="tool-b3">
+            打开话术库 →
+          </a>
         </div>
 
       </div>
@@ -1658,6 +1723,38 @@
         <div class="sop-timeline" id="sopList"></div>
         <div class="sop-foot">
           <em>* 8 步覆盖 90% 常见场景；具体到不同校区，还需要根据你团队的分工微调（前台/老师/校长各拿到的动作不同）。</em>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== B2 家长抗拒点应对手册 ===== -->
+    <div class="practice-module" id="tool-b2" style="margin-top:56px">
+      <div class="practice-module-title">家长抗拒点应对手册 · 8 类 15 条</div>
+      <div class="practice-module-desc">
+        招生现场最难的不是介绍课程，是接住那句「太贵了」「孩子不想学」「朋友说别家更好」。这份手册把 8 大类共 15 条最常见的抗拒话，逐条拆成"先接情绪 → 再换视角 → 给可执行行动"，写成话术卡随时可翻。
+      </div>
+
+      <div class="b2-wrap">
+        <div class="b2-cats" id="b2Cats" role="tablist" aria-label="抗拒点分类"></div>
+        <div class="b2-list" id="b2List"></div>
+        <div class="b2-foot">
+          <em>* 每一条都不是标准答案，是一个"起手式"；真到现场，先看这个家长关心什么，再从里面挑合适的接。</em>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== B3 招生话术库 ===== -->
+    <div class="practice-module" id="tool-b3" style="margin-top:56px">
+      <div class="practice-module-title">招生话术库 · 3 大场景 10+ 段</div>
+      <div class="practice-module-desc">
+        电话、微信、地推，三个最主要的家长首次接触场景。每一段都按"破冰 → 需求探询 → 价值锚点 → 收尾约见"的结构写，可以直接读稿，也可以拆开当"配件"用。
+      </div>
+
+      <div class="b3-wrap">
+        <div class="b3-tabs" id="b3Tabs" role="tablist" aria-label="招生场景"></div>
+        <div id="b3Panels"></div>
+        <div class="b3-foot">
+          <em>* 招生话术的第一原则是"真"，第二才是"顺"；下面所有稿子都欢迎按你自己的语感改，不要照读。</em>
         </div>
       </div>
     </div>
@@ -5292,6 +5389,382 @@ function hideParentGuide(){
   else init();
 })();
 // ===== B1 SOP END =====
+
+
+// ===== B2 START =====
+(function() {
+  var CAT_META = [
+    { key: 'all',      name: '全部' },
+    { key: 'price',    name: '价格' },
+    { key: 'time',     name: '时间' },
+    { key: 'pickup',   name: '接送' },
+    { key: 'effect',   name: '效果' },
+    { key: 'switch',   name: '换机构' },
+    { key: 'child',    name: '孩子不想学' },
+    { key: 'family',   name: '家人不支持' },
+    { key: 'value',    name: '价值' }
+  ];
+
+  var B2_DATA = [
+    {
+      id: 1, cat: 'price', q: '你们太贵了，隔壁便宜一半',
+      scene: '家长直接把价格摆到台面上，往往是把「贵」当理由，而不是真在比价。',
+      cards: [
+        { lead: '接情绪', txt: '嗯，家长这一步其实一定会算，我理解。我们的价格在这个城市不是最低的，也不是最高的，我把凭什么这个价说给你听，你再决定值不值。' },
+        { lead: '换视角', txt: '围棋这门课，家长最后拼的其实不是一节课多少钱，是三年之后孩子还在不在下、还想不想下。我们教的很多年了，孩子平均在这儿学 2 年以上，你如果按 2 年算下来，单节的差价没有想象的那么大。' },
+        { lead: '给行动', txt: '这样，我不劝你现在报，你先让孩子来上一次正式课，出来我们再聊；如果你觉得课不值这个价，那这钱确实不该花。' }
+      ],
+      tip: '不要辩护「我们不贵」，家长听得出来。要么承认「不便宜，但值」，要么承认「贵，但你可以先试再决定」。'
+    },
+    {
+      id: 2, cat: 'price', q: '能不能打折？或者送几节课？',
+      scene: '家长本能砍价，尤其是被朋友说过「学棋班都可以打折」。',
+      cards: [
+        { lead: '接情绪', txt: '家长这么说我特别理解，能省一点是一点嘛。' },
+        { lead: '换视角', txt: '不过我们的课时费所有校区一个价，不打折，也不送课。原因不是店大欺客，是我们希望在这儿学的每一个孩子拿到的是一样的教学时长、一样认真的老师。一旦开一个口子，后面就会有孩子上着上着觉得「我爸妈没砍到价」——这个不利于长期教。' },
+        { lead: '给行动', txt: '价格我给不了让步，但我可以给你多一次深入了解的机会：孩子来上一次公开课，如果你觉得课本身不值这个价，那不用报；如果你觉得值，我们再聊怎么报。' }
+      ],
+      tip: '不打折 ≠ 冷冰冰。要说明「为什么坚持不打折」，家长反而会信这个机构长期靠谱。'
+    },
+    {
+      id: 3, cat: 'price', q: '现在报名有什么优惠活动吗？',
+      scene: '家长熟悉套路，直接问活动；如果说没有，容易冷场。',
+      cards: [
+        { lead: '接情绪', txt: '这个问题问得对，我们确实经常做家长课堂、公开课、亲子对弈这些活动。' },
+        { lead: '换视角', txt: '但我们没有那种「今天报名立减 X 元」的价格活动，一是所有家长一个价，公平；二是围棋不像别的兴趣课，家长头脑一热报进来、孩子学两个月就走的情况太多了，我们希望是想清楚了再来。' },
+        { lead: '给行动', txt: '你要是关心「值不值」，我建议先来上一次正式课，我们再聊；你要是关心「学得好不好」，可以约老师给孩子做一次一对一的水平评估，不收费。' }
+      ],
+      tip: '价格活动不给，但可以给「体验、评估、家长课堂」这类价值活动，家长感觉不亏。'
+    },
+    {
+      id: 4, cat: 'time', q: '孩子周末课已经排满了，实在挤不进来',
+      scene: '典型的时间抗拒。真挤不进，还是没排上优先级？先分辨。',
+      cards: [
+        { lead: '接情绪', txt: '现在的孩子周末真的挺满的，我完全理解。' },
+        { lead: '换视角', txt: '家长可以想一下：孩子周末的这几项，哪一项是他自己特别喜欢、五年以后还在做的？围棋的价值在于它是一门可以陪孩子走到成年的课，五年、十年都在下，跟一时的兴趣班不太一样。' },
+        { lead: '给行动', txt: '真的排不进来，我们也不勉强。你可以先让孩子来上一次公开课，如果他自己喜欢，回去和家里再商量哪个课的位置可以让出来。孩子选出来的位置，最能坚持。' }
+      ],
+      tip: '不要抢时间。让家长把「选择权」交给孩子，反而更容易报。'
+    },
+    {
+      id: 5, cat: 'time', q: '只有周六能过来，周日不行',
+      scene: '排课冲突。给方案，不给「不行」。',
+      cards: [
+        { lead: '接情绪', txt: '周六可以的家长挺多，你放心，我们会尽量帮你排在合适的时间段。' },
+        { lead: '换视角', txt: '但围棋是一门要连续上的课，一周一次是底线，最好是能保证每周都来。我们这边周六班有几个时间段可选，我先给你看下当前空位；如果都不合适，我把你放到候补名单，一有位置我第一时间告诉你。' },
+        { lead: '给行动', txt: '这两天你先把孩子周六的其他安排定一下，回来告诉我具体几点方便，我帮你锁一个位置。' }
+      ],
+      tip: '不承诺打乱排班给他单独开班，但要给「候补 + 通知」的路径，家长觉得被认真对待。'
+    },
+    {
+      id: 6, cat: 'pickup', q: '家离你们太远了，接送不方便',
+      scene: '接送是真障碍，也是家长犹豫时最常抛出的理由。',
+      cards: [
+        { lead: '接情绪', txt: '家长接送真的不容易，尤其是双职工。我们校区来学的孩子里，也有从很远开车过来的。' },
+        { lead: '换视角', txt: '你可以先想一下：如果孩子真的喜欢围棋、也能坚持下去，接送辛苦一点其实是家长陪伴他成长的一段路。但如果孩子学两个月就没兴趣了，那接送就真的是负担——所以真正的判断标准，是先看孩子学不学得下去。' },
+        { lead: '给行动', txt: '这样，我建议你先带孩子来一次公开课，看看孩子对围棋的反应；如果他喜欢，我们再一起想接送怎么安排——比如你能不能和邻居家长拼车、能不能安排某一天固定接送。这些都是有先例的。' }
+      ],
+      tip: '不要一开口就替家长解决接送，那是他家的事；但要给「拼车、错峰、固定日」这种可行的思路。'
+    },
+    {
+      id: 7, cat: 'effect', q: '学了半年好像没什么进步啊',
+      scene: '在读家长的抗拒，通常是不知道怎么衡量进步，或者对比了段位快的孩子。',
+      cards: [
+        { lead: '接情绪', txt: '家长有这个感受，我特别想认真跟你聊一下，因为这个问题问得对。' },
+        { lead: '换视角', txt: '围棋的进步和很多别的学科不一样，前半年孩子学的是「怎么想」，不是「能不能赢」，所以你从棋局的输赢上看不出来。我们观察进步一般看三件事：孩子愿不愿意坐下来想、面对败棋会不会崩溃、有没有开始自己去看死活题。这三件里，你的孩子这段时间是哪几件在变？' },
+        { lead: '给行动', txt: '如果这三件都没什么变化，那我们要认真复盘，是不是学法出了问题；我可以约老师和你面对面聊 20 分钟，把孩子最近三个月的表现和作业过一遍。' }
+      ],
+      tip: '家长质疑效果，第一反应是「拉他一起看具体数据」，而不是「你孩子还小」这种敷衍。'
+    },
+    {
+      id: 8, cat: 'effect', q: '我朋友家的孩子已经升几段了，我们还没定级',
+      scene: '横向比较是家长焦虑的最大来源。要接住焦虑，但不能怂。',
+      cards: [
+        { lead: '接情绪', txt: '家长这么问，我想先说一句：每个孩子进入围棋的节奏都不一样，慢一点不代表不好。' },
+        { lead: '换视角', txt: '升段的速度和三个因素有关：孩子起步年龄、每周下棋量、以及家里陪不陪着复盘。你朋友家的孩子如果每周比你家多下两次、家里还有人陪复盘，那速度差是应该的。但速度不代表水平，我们这里有升段慢但后期非常稳的孩子——他们后面走得比早熟的孩子远。' },
+        { lead: '给行动', txt: '你如果特别希望速度快一些，我们可以给孩子加一个每周固定的「复盘打卡」，或者让他多参加一次内部对局。但我建议你先和孩子聊，他自己想不想。' }
+      ],
+      tip: '不要贬低别人家的孩子，也不要空口说「他会赶上」。给具体的、可执行的选项。'
+    },
+    {
+      id: 9, cat: 'switch', q: '我朋友说另一家进步更快，我们要不要换过去',
+      scene: '这个问题看似在问「换不换」，其实是在问「你有没有信心」。',
+      cards: [
+        { lead: '接情绪', txt: '家长有这个想法，是希望孩子学得更好，这个心情我完全理解。' },
+        { lead: '换视角', txt: '换机构这个事我一直和家长这么说：孩子刚开始学的头两年，最重要的是稳定，不是「速度」。频繁换机构 → 老师风格不一样 → 孩子的思路会乱，反而变慢。你朋友家孩子如果确实进步快，可以看两个东西：他起步是不是比你孩子早？他家陪棋是不是比你多？如果是这两个，那不是机构的问题。' },
+        { lead: '给行动', txt: '如果你还是想让孩子体验一下另一家，那我完全支持——真的，你去看看回来告诉我感受。你要是最后觉得他家更适合，我给你办正常退费，不留难；你要是回来觉得这儿更合适，我们把节奏抓紧一点。' }
+      ],
+      tip: '大方地让家长去体验，反而是最有底气的姿态。抓着不放，家长跑得更快。'
+    },
+    {
+      id: 10, cat: 'switch', q: '我想找个更严格一点的老师',
+      scene: '家长觉得孩子不够专注、进步慢，第一反应是「换更严的」。',
+      cards: [
+        { lead: '接情绪', txt: '嗯，我想先问一下家长，是最近发生了什么让你有这个想法？孩子在家表现是什么样的？' },
+        { lead: '换视角', txt: '因为「严格」有两种：一种是要求高、目标清晰、复盘认真，这是我们一直在做的；另一种是骂孩子、罚站、掐着手表下棋，我们不做这个。前一种能让孩子长期学下去，后一种短期看着有效，但孩子一放松就崩，往往三个月内就厌学。' },
+        { lead: '给行动', txt: '如果你想要的是前一种，我们可以约老师给你面对面讲讲他对这个孩子的规划；如果你想要的是后一种，那可能确实不是我们的风格，我可以帮你直接说清楚。' }
+      ],
+      tip: '不辩解「我们已经很严」，先问家长「严」在他心里是什么样，再看契合度。'
+    },
+    {
+      id: 11, cat: 'child', q: '孩子最近说不想来上课了',
+      scene: '这是最需要停下来的一句话，不是话术能糊过去的。',
+      cards: [
+        { lead: '接情绪', txt: '家长把这个话告诉我，谢谢你，我特别重视。孩子说这话，一般不是围棋本身出了问题，是某一件具体的事让他不舒服。' },
+        { lead: '换视角', txt: '这周我先做两件事：一，我让老师和孩子单独聊一次，弄清楚是不是同学之间、还是某一次输棋没接住、还是家里最近节奏太紧；二，我请你也和孩子聊一次，不用问「你为什么不想学」，就问「你上次觉得最没意思的一节课，是哪一节」。' },
+        { lead: '给行动', txt: '这周先别停课，把这两件事做完，我们周日晚上通个电话对一下。真的是围棋本身的问题，我们再谈调整；如果不是，我们别让孩子把「不想上」当出口。' }
+      ],
+      tip: '不要用话术把家长顶回去。孩子不想学是真信号，停下来查原因，是老师的专业底色。'
+    },
+    {
+      id: 12, cat: 'child', q: '孩子每次上课都哭，我们撑不住了',
+      scene: '低龄孩子分离焦虑，家长压力比孩子还大。',
+      cards: [
+        { lead: '接情绪', txt: '家长辛苦了，孩子在课上哭，家长在外面比孩子还难受。这个我特别懂。' },
+        { lead: '换视角', txt: '5-6 岁孩子刚开始上课哭，其实是一个心理适应过程，一般三到四次就过去了；但要过去有个前提：家长自己心里要稳，不能孩子一哭就把他抱走，那孩子会记住「一哭就能不上课」。' },
+        { lead: '给行动', txt: '这样我们先做两周实验：这两周你把孩子送到教室门口就走，不停留、不解释；老师会全程接住。两周之后我们回看，如果还是每节都哭，那我们再评估孩子是不是年龄还没到，是不是缓半年再学。' }
+      ],
+      tip: '家长的定力比孩子的哭声更重要。给一个「有边界的观察期」，比空口安慰有力。'
+    },
+    {
+      id: 13, cat: 'family', q: '孩子他爸/爷爷奶奶觉得学围棋没什么用',
+      scene: '家庭内部意见不统一，往往是决策阻力最大的一种。',
+      cards: [
+        { lead: '接情绪', txt: '家里意见不一致挺常见的，尤其是长辈那一代对围棋不熟。你能主动来聊，说明你自己是认真想过这个事的。' },
+        { lead: '换视角', txt: '我不打算说服你先生或者长辈——那是你家的事。我可以给你一些「素材」：围棋是国内唯一被写进教育部课程标准的传统智力项目、几乎所有 985/211 都有围棋社团、清北每年都有围棋特长生。这些不是让孩子走职业，是让长辈看到「这门课不是玩」。' },
+        { lead: '给行动', txt: '这样，你先带孩子来上一次公开课，回去把上课视频发给长辈看，让他们看看老师在教什么；他们看完还是反对，那你再来找我，我们一起想别的办法。' }
+      ],
+      tip: '不越位。家里的问题不由老师说服，但老师可以给弹药和路径。'
+    },
+    {
+      id: 14, cat: 'value', q: '孩子又不走职业，学围棋有什么用',
+      scene: '这是家长最想听「大实话」的一个问题。别装。',
+      cards: [
+        { lead: '接情绪', txt: '这个问题问得好。95% 学围棋的孩子最终不会走职业，我们招生的时候也从不承诺这个。' },
+        { lead: '换视角', txt: '围棋对普通孩子的意义在三件事：一，训练一种叫「先算清再落子」的思维习惯；二，让孩子习惯输——因为在这里，赢家永远只有一个，孩子要学会输了之后第二天还想来；三，让孩子有一个可以陪他一辈子的爱好。这三件事，比升段、比比赛，更是我们做这门课的初心。' },
+        { lead: '给行动', txt: '你先别急着报，让孩子来上一次课，你自己在外面看半节课，看看这个课堂在给孩子什么——你自己看到的，比我说的更算数。' }
+      ],
+      tip: '价值观问题不能靠营销话术回答，只能靠真实教学呈现。老师的自信是最好的话术。'
+    },
+    {
+      id: 15, cat: 'value', q: '还不如让孩子学编程/英语/奥数，那些更实用',
+      scene: '典型的「课程横向比较」焦虑。',
+      cards: [
+        { lead: '接情绪', txt: '这几门课家长确实都在纠结，因为都好，都要学。' },
+        { lead: '换视角', txt: '我一直和家长说：围棋不是「和编程、英语二选一」的关系，它是一门底层课。孩子学编程需要的「先想清楚再动手」、学奥数需要的「多步骤推理」、学英语需要的「坐得住不放弃」，这些围棋都在训。围棋的价值不在于取代任何一门，而在于让别的课学得更省力。' },
+        { lead: '给行动', txt: '这样，你别当围棋是一门「兴趣班」，你当它是给孩子的底层思维打个底，一周一次、坚持两三年就好。你孩子今年 X 岁，其实正是最适合打这个底的时候。' }
+      ],
+      tip: '不贬低别的课。围棋和别的课是「底和面」的关系，说得通、家长听得懂。'
+    }
+  ];
+
+  var $b2Cats = document.getElementById('b2Cats');
+  var $b2List = document.getElementById('b2List');
+  if(!$b2Cats || !$b2List) return;
+
+  var currentCat = 'all';
+
+  function escapeHtml(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function(c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function renderCats() {
+    var html = CAT_META.map(function(c) {
+      var count = c.key === 'all' ? B2_DATA.length : B2_DATA.filter(function(x){ return x.cat === c.key; }).length;
+      return '<button type="button" class="b2-cat' + (c.key === currentCat ? ' active' : '') + '" data-cat="' + c.key + '">' + escapeHtml(c.name) + '<span class="b2-cat-count"> · ' + count + '</span></button>';
+    }).join('');
+    $b2Cats.innerHTML = html;
+  }
+
+  function renderList() {
+    var list = currentCat === 'all' ? B2_DATA : B2_DATA.filter(function(x){ return x.cat === currentCat; });
+    var catNameMap = {};
+    CAT_META.forEach(function(c){ catNameMap[c.key] = c.name; });
+    var html = list.map(function(item) {
+      var cardsHtml = (item.cards || []).map(function(card) {
+        return '<div class="b2-item-card"><span class="b2-item-card-lead">' + escapeHtml(card.lead) + '</span>' + escapeHtml(card.txt) + '</div>';
+      }).join('');
+      return '<div class="b2-item" data-cat="' + item.cat + '">'
+        + '<div class="b2-item-tag">' + escapeHtml(catNameMap[item.cat] || '') + '类 · ' + String(item.id).padStart(2,'0') + '</div>'
+        + '<div class="b2-item-q">' + escapeHtml(item.q) + '</div>'
+        + '<div class="b2-item-scene">' + escapeHtml(item.scene) + '</div>'
+        + '<div class="b2-item-cards">' + cardsHtml + '</div>'
+        + '<div class="b2-item-tip"><span class="b2-item-tip-lead">老师视角：</span>' + escapeHtml(item.tip) + '</div>'
+        + '</div>';
+    }).join('');
+    $b2List.innerHTML = html || '<div style="text-align:center;padding:40px;color:#9a9a9a;font-size:13px;">该分类下暂无内容</div>';
+  }
+
+  function bindCats() {
+    $b2Cats.addEventListener('click', function(e) {
+      var btn = e.target.closest('.b2-cat');
+      if(!btn) return;
+      currentCat = btn.getAttribute('data-cat');
+      renderCats();
+      renderList();
+    });
+  }
+
+  function init() {
+    renderCats();
+    renderList();
+    bindCats();
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+// ===== B2 END =====
+
+
+// ===== B3 START =====
+(function() {
+  var B3_DATA = [
+    {
+      key: 'phone',
+      name: '电话邀约',
+      desc: '电话是招生里最难的一种，因为家长看不到你，只有 20 秒判断要不要继续听。四段稿子分别对应最常见的四类电话场景。',
+      items: [
+        {
+          id: 1, title: '陌生名单 · 首次电话破冰',
+          scene: '从社区/公众号/合作机构拿到的名单，家长完全不认识你。',
+          body: '喂您好，请问是 XX 妈妈吗？我这边是萝卜干围棋教室的老师，姓 X。我们看到孩子之前在 XX（合作方/社区/活动）留过信息，这个电话不是推销，是想告诉你我们这周六在 XX 有一次公开课，孩子 5 岁以上都可以来玩一次，看看喜不喜欢围棋这门课。您方便的话，我把上课地址和时间发到您微信上，您自己看下要不要带孩子过来，好吗？',
+          tip: '陌生电话第一句就要报明「不是推销 + 具体钩子（公开课）+ 转微信」，20 秒内决定。'
+        },
+        {
+          id: 2, title: '老学员转介绍 · 电话',
+          scene: '在读家长推荐的新家长，有基础信任，但不能靠这个信任就拉家常。',
+          body: '喂您好，请问是 XX 妈妈吗？我是萝卜干围棋 X 老师，XX 妈妈之前和我说过您想给孩子看看围棋这门课，让我给您打个电话。我不占您太多时间，先请您跟我讲两句：孩子今年几岁？之前有没有接触过围棋？您对孩子学围棋，主要是希望在哪方面帮到他？——我先了解一下，再看这门课适不适合孩子。',
+          tip: '转介绍电话不能上来就介绍机构，要先把家长的诉求问清楚，让她感觉被认真对待。'
+        },
+        {
+          id: 3, title: '咨询后 3 天 · 未报名回访',
+          scene: '家长咨询过、留了微信、但没报名。这是最容易失联的一段。',
+          body: '喂您好，我是萝卜干围棋 X 老师，前几天您在我们这边咨询过孩子学围棋的事情。这几天您那边考虑得怎么样？我打这个电话不是催您报名，是想问您两个问题：一是您那边还有什么我没解释清楚的？二是您现在纠结的点主要是什么？——我心里有个数，能帮您的我尽量帮，帮不了的我实话告诉您。',
+          tip: '回访电话千万别问「您考虑得怎么样」这种封闭问题，要问「纠结的点是什么」，家长才有话可说。'
+        },
+        {
+          id: 4, title: '电话被挂 · 补一条微信',
+          scene: '电话被挂或没接，第一时间跟一条微信，比第二个电话有效得多。',
+          body: '您好 XX 妈妈，我是萝卜干围棋 X 老师，刚才给您打了电话，可能您在忙。我这里是关于孩子学围棋的一些信息，不是打广告，是您之前留过联系方式；您方便的时候看一下就行，也不用回复我。这周六下午我们有一次公开课，如果孩子有兴趣，可以带他来玩一次；您如果暂时不方便，我也不会再打扰您，一年不超过 4 条消息。',
+          tip: '「一年不超过 4 条消息」是最有效的留资承诺——家长不怕你打广告，怕你烦她。'
+        }
+      ]
+    },
+    {
+      key: 'wechat',
+      name: '微信首次沟通',
+      desc: '微信不像电话，家长有时间琢磨你说的每一句。三段稿子分别对应家长主动来问、被短视频拉来、以及在家长群里主动私聊三种情况。',
+      items: [
+        {
+          id: 1, title: '陌生家长 · 首次咨询',
+          scene: '家长刚加你微信，第一句就问「你们围棋班怎么收费」。',
+          body: 'XX 妈妈您好，我是萝卜干围棋 X 老师。价格这个我一会儿一定告诉您，不打埋伏。不过我想先了解一下孩子的情况，才能告诉您报什么班合适：\n\n1）孩子今年几岁？男孩女孩？\n2）之前有没有接触过围棋？\n3）您希望孩子学围棋主要是解决什么问题（专注力/思维/爱好/其他）？\n\n您回复我这三条，我给您一个具体的建议，而不是一个通用报价。',
+          tip: '不要一上来就发价格表；用三个问题把家长带到「量身建议」的路径上，她才愿意继续聊。'
+        },
+        {
+          id: 2, title: '短视频引来 · 首次沟通',
+          scene: '家长看了你的视频号/抖音/小红书内容才加过来，对你已经有一定信任。',
+          body: '您好呀 XX 妈妈，谢谢您来找我，我看到您是从我那条 XX 视频过来的。我做这个视频号已经有一段时间了，主要是想让家长在报围棋课之前，先知道这门课是学什么、不是学什么。您加我，是想给孩子看看这门课吗？——如果是，先跟我说下孩子几岁，以及您平时在家最关心他哪一块的成长；我不给您发广告链接，就我们两个聊聊。',
+          tip: '短视频引来的家长最烦「营销号」，第一条消息要把她从「潜在客户」拉回「一个具体家长」。'
+        },
+        {
+          id: 3, title: '家长群 · 主动私聊',
+          scene: '你在别人的家长群里发言/答疑，被某位家长关注后加了你。',
+          body: '您好 XX 妈妈，感谢您加我微信。我在群里也就是聊聊围棋相关的东西，不推课的。您如果有任何关于孩子学围棋的问题，比如几岁开始学、要不要考段、在家怎么陪，都可以问我，我尽量给您靠谱的回答。您如果哪天想让孩子来试一次课，也告诉我一声。',
+          tip: '群里加来的家长要「先给专业价值，再谈课」；反过来做，人一定跑。'
+        }
+      ]
+    },
+    {
+      key: 'ground',
+      name: '地推现场',
+      desc: '地推最考验开场那三句话。三段稿子对应最主要的三种现场：社区/学校门口、商圈亲子活动、家长咨询时的留资技巧。',
+      items: [
+        {
+          id: 1, title: '社区/学校门口 · 摆台开场',
+          scene: '家长和孩子路过你的摊位，你有大概 5 秒钟决定他停不停。',
+          body: '（先蹲下来跟孩子说）"小朋友你好呀，你猜猜看这个黑白棋子是干什么的？"——（等孩子回答，看家长跟着停下）——"哎哟这个小朋友真聪明！妈妈您看，这是围棋，我们这周六在 XX 有一次公开课，是给 5 岁以上小朋友玩的，孩子如果感兴趣，我把地址发到您微信上，您来不来都行，先扫一下这个二维码，我送小朋友一张围棋卡通贴纸。"',
+          tip: '地推第一句话一定要跟孩子说，不是跟家长说。孩子停下来，家长自然停。'
+        },
+        {
+          id: 2, title: '商圈亲子活动 · 亲子体验区',
+          scene: '孩子已经在你摊位上摆了几颗棋子，家长在旁边看。',
+          body: '妈妈您看孩子刚刚这几步，其实是有点感觉的，他不是随便乱摆——他在护那个小片。像您孩子这个年龄，围棋刚开始不用求赢，重要的是让他愿意坐下来想。我们这边周末有正式的启蒙班和一次公开课，您可以先加我微信，我给您发地址和时间，您自己看方不方便；不方便的话我也不打扰您。',
+          tip: '现场夸孩子要夸「具体动作」，不要说「你孩子真棒真聪明」，家长听得出真假。'
+        },
+        {
+          id: 3, title: '现场留资 · 三句话结尾',
+          scene: '孩子玩完了，家长开始想走，这时候你只剩 15 秒把她的微信要下来。',
+          body: '妈妈这样，我们不管您今天要不要报，我先把您留下，加个微信。加了我以后，您不用回复我，也不用听我推销；我一年顶多给您发 4 条消息：一条是有公开课的时候、一条是有家长课堂、一条是过年问候、一条是暑期营。您觉得没用随时删掉我，不影响咱们今天见过。您扫一下这个码就行。',
+          tip: '「一年不超过 4 条」这个承诺是全场地推里最好用的留资话术，加粉率能提一大截。'
+        }
+      ]
+    }
+  ];
+
+  var $b3Tabs = document.getElementById('b3Tabs');
+  var $b3Panels = document.getElementById('b3Panels');
+  if(!$b3Tabs || !$b3Panels) return;
+
+  var currentKey = B3_DATA[0].key;
+
+  function escapeHtml(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function(c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function nl2br(s) { return escapeHtml(s).replace(/\n/g, '<br>'); }
+
+  function renderTabs() {
+    var html = B3_DATA.map(function(p, i) {
+      return '<button type="button" class="b3-tab' + (p.key === currentKey ? ' active' : '') + '" data-key="' + p.key + '"><span class="b3-tab-idx">0' + (i+1) + '</span>' + escapeHtml(p.name) + ' · ' + p.items.length + ' 段</button>';
+    }).join('');
+    $b3Tabs.innerHTML = html;
+  }
+
+  function renderPanels() {
+    var html = B3_DATA.map(function(p) {
+      var cardsHtml = p.items.map(function(item) {
+        return '<div class="b3-card">'
+          + '<div class="b3-card-head"><span class="b3-card-idx">' + String(item.id).padStart(2,'0') + '</span><span class="b3-card-title">' + escapeHtml(item.title) + '</span></div>'
+          + '<div class="b3-card-scene">' + escapeHtml(item.scene) + '</div>'
+          + '<div class="b3-card-body"><span class="b3-card-body-lead">话术</span>' + nl2br(item.body) + '</div>'
+          + '<div class="b3-card-tip"><span class="b3-card-tip-lead">老师视角：</span>' + escapeHtml(item.tip) + '</div>'
+          + '</div>';
+      }).join('');
+      return '<div class="b3-panel' + (p.key === currentKey ? ' active' : '') + '" data-key="' + p.key + '">'
+        + '<div class="b3-panel-desc">' + escapeHtml(p.desc) + '</div>'
+        + '<div class="b3-cards">' + cardsHtml + '</div>'
+        + '</div>';
+    }).join('');
+    $b3Panels.innerHTML = html;
+  }
+
+  function bindTabs() {
+    $b3Tabs.addEventListener('click', function(e) {
+      var btn = e.target.closest('.b3-tab');
+      if(!btn) return;
+      currentKey = btn.getAttribute('data-key');
+      Array.prototype.forEach.call($b3Tabs.querySelectorAll('.b3-tab'), function(b) {
+        b.classList.toggle('active', b.getAttribute('data-key') === currentKey);
+      });
+      Array.prototype.forEach.call($b3Panels.querySelectorAll('.b3-panel'), function(p) {
+        p.classList.toggle('active', p.getAttribute('data-key') === currentKey);
+      });
+    });
+  }
+
+  function init() {
+    renderTabs();
+    renderPanels();
+    bindTabs();
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+// ===== B3 END =====
 
 
 </script>
