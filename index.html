@@ -459,6 +459,44 @@
       .tool-tab { padding: 8px 16px; font-size: 13px; }
     }
 
+    /* B1 · 试听/公开课转化 SOP */
+    .sop-wrap { margin-top: 8px; }
+    .sop-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px dashed var(--line); }
+    .sop-nav-item { background: #fff; border: 1px solid var(--line); color: #6b6b6b; padding: 8px 14px; font-size: 12.5px; font-family: inherit; cursor: pointer; border-radius: 999px; transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px; letter-spacing: 0.02em; }
+    .sop-nav-item:hover { border-color: var(--seal); color: var(--seal); }
+    .sop-nav-item.active { background: var(--seal); color: #fff; border-color: var(--seal); box-shadow: 0 3px 10px rgba(168,54,42,0.22); }
+    .sop-nav-item-idx { font-weight: 700; opacity: 0.85; font-family: 'Times New Roman', serif; font-size: 11.5px; }
+    .sop-nav-item-stage { }
+    .sop-timeline { position: relative; padding-left: 6px; }
+    .sop-step { position: relative; background: #fff; border: 1px solid var(--line); border-left: 4px solid var(--seal); padding: 24px 26px 22px; margin-bottom: 20px; border-radius: 0 6px 6px 0; transition: box-shadow 0.25s; scroll-margin-top: 80px; }
+    .sop-step:hover { box-shadow: 0 4px 18px rgba(51,51,51,0.06); }
+    .sop-step.hilite { box-shadow: 0 6px 22px rgba(168,54,42,0.14); border-left-color: var(--ink); }
+    .sop-step-head { display: flex; align-items: flex-start; gap: 18px; margin-bottom: 14px; }
+    .sop-step-idx { font-family: 'Times New Roman', serif; font-size: 38px; font-weight: 700; color: var(--seal); line-height: 1; letter-spacing: -0.02em; min-width: 56px; }
+    .sop-step-head-body { flex: 1; padding-top: 4px; }
+    .sop-step-stage { display: inline-block; font-size: 11px; color: var(--seal); letter-spacing: 0.15em; font-weight: 700; margin-bottom: 4px; }
+    .sop-step-title { font-size: 18px; font-weight: 700; color: var(--ink); margin: 0 0 6px; }
+    .sop-step-goal { font-size: 13px; color: #6b6b6b; line-height: 1.75; font-style: italic; }
+    .sop-step-section-label { font-size: 11px; color: var(--seal); font-weight: 700; letter-spacing: 0.14em; margin: 18px 0 10px; padding-left: 2px; }
+    .sop-step-actions { list-style: none; padding: 0; margin: 0 0 4px; }
+    .sop-step-actions li { position: relative; padding: 5px 0 5px 24px; font-size: 13.5px; color: var(--ink-soft); line-height: 1.75; }
+    .sop-step-actions li::before { content: '☐'; position: absolute; left: 2px; top: 5px; color: var(--seal); font-size: 15px; opacity: 0.75; }
+    .sop-step-cards { }
+    .sop-step-card { background: var(--paper-2); border-left: 3px solid var(--seal); padding: 14px 18px; margin-bottom: 10px; font-size: 13.5px; color: var(--ink); line-height: 1.85; border-radius: 0 4px 4px 0; }
+    .sop-step-card:last-child { margin-bottom: 0; }
+    .sop-step-card-lead { font-size: 11px; color: var(--seal); font-weight: 700; letter-spacing: 0.1em; margin-bottom: 6px; }
+    .sop-step-tip { font-size: 12.5px; color: #7a7264; margin-top: 16px; padding: 12px 16px; background: rgba(168, 54, 42, 0.04); border-radius: 6px; line-height: 1.75; }
+    .sop-step-tip-lead { font-weight: 700; color: var(--seal); margin-right: 4px; }
+    .sop-foot { text-align: center; font-size: 12px; color: #9a9a9a; margin-top: 20px; padding-top: 16px; border-top: 1px dashed var(--line); line-height: 1.7; }
+    @media (max-width: 640px) {
+      .sop-step { padding: 18px 18px 16px; }
+      .sop-step-idx { font-size: 30px; min-width: 44px; }
+      .sop-step-title { font-size: 16px; }
+      .sop-step-actions li { font-size: 13px; }
+      .sop-step-card { padding: 12px 14px; font-size: 13px; }
+      .sop-nav-item { padding: 6px 12px; font-size: 12px; }
+    }
+
     /* 模块 A：阶段 tab */
     .stage-tabs { display: flex; flex-wrap: wrap; gap: 0; border-bottom: 1px solid var(--line); margin-bottom: 20px; }
     .stage-tab { background: none; border: none; padding: 12px 22px; font-size: 15px; color: #6b6b6b; cursor: pointer; font-family: inherit; border-bottom: 2px solid transparent; transition: all 0.2s; letter-spacing: 0.03em; }
@@ -1527,18 +1565,20 @@
       </div>
       <div class="grid md:grid-cols-3 gap-6 mt-8">
 
-        <!-- B1 · 试听/公开课流程 SOP · 占位 -->
-        <div class="rounded-lg border border-line bg-paper p-6 flex flex-col opacity-70" style="min-height:320px">
-          <div class="text-xs tracking-widest text-seal font-medium mb-3">TOOL 05 · 建设中</div>
-          <h3 class="text-xl font-bold mb-3 text-ink">试听/公开课流程 SOP</h3>
+        <!-- B1 · 试听/公开课转化 SOP -->
+        <div class="rounded-lg border-2 border-seal bg-paper p-6 flex flex-col" style="min-height:320px">
+          <div class="text-xs tracking-widest text-seal font-medium mb-3">TOOL 05 · 新 · 校长工具</div>
+          <h3 class="text-xl font-bold mb-3 text-ink">试听/公开课转化 SOP</h3>
           <p class="text-sm text-gray-soft leading-relaxed mb-5 flex-1">
-            12 步一屏走 · 每步含话术 / 道具 / 记录点。前台/老师/校长各角色拿到的动作不一样。<span class="hl">附 xlsx 登记表</span>，现场签完直接录系统。
+            8 个关键节点 · 从首次邀约到 24 小时回访。每一步含 <span class="hl">目标 · checklist · 话术模板 · 老师视角 tip</span>，独立校长和一线课程顾问都能对着做。
           </p>
           <div class="text-xs text-gray-soft mb-4">
-            <span style="display:inline-block;margin-right:12px">🎯 12 步一屏走</span>
-            <span style="display:inline-block">📋 配套登记表</span>
+            <span style="display:inline-block;margin-right:12px">🎯 8 步转化闭环</span>
+            <span style="display:inline-block">💬 24 段话术模板</span>
           </div>
-          <button class="inline-block text-center bg-ink text-paper-2 px-5 py-3 rounded font-medium cursor-not-allowed" disabled>即将上线</button>
+          <a href="#tools" class="inline-block text-center bg-seal text-white px-5 py-3 rounded font-medium hover:bg-ink transition" data-tool-anchor="tool-b1">
+            打开 SOP →
+          </a>
         </div>
 
         <!-- B2 · 家长抗拒点应对手册 · 占位 -->
@@ -1605,6 +1645,22 @@
     <p class="text-xs text-gray-soft mt-12 text-center leading-relaxed" style="max-width:680px;margin-left:auto;margin-right:auto">
       <em>更多围棋教学思路 + 练棋方法论，在下方 <a href="#teaching" class="nav-toggle underline hover:text-seal" data-target="teaching">教学理念</a> 板块的《练棋建议》互动手册里。</em>
     </p>
+
+    <!-- B1 · 试听/公开课转化 SOP · 内容模块（跨角色可见） -->
+    <div class="practice-module" id="tool-b1" style="margin-top:56px">
+      <div class="practice-module-title">试听/公开课转化 SOP · 8 步骤</div>
+      <div class="practice-module-desc">
+        独立校长/一线课程顾问最常见的困境：家长约来了、课上得不错、临门一脚却流失。这份 SOP 把 8 个关键节点写成 checklist + 话术模板，从首次邀约到 24 小时回访，每一步都能对着做。
+      </div>
+
+      <div class="sop-wrap">
+        <div class="sop-nav" id="sopNav" role="tablist" aria-label="SOP 步骤导航"></div>
+        <div class="sop-timeline" id="sopList"></div>
+        <div class="sop-foot">
+          <em>* 8 步覆盖 90% 常见场景；具体到不同校区，还需要根据你团队的分工微调（前台/老师/校长各拿到的动作不同）。</em>
+        </div>
+      </div>
+    </div>
 
   </div>
 </section>
@@ -4987,6 +5043,255 @@ function hideParentGuide(){
   else init();
 })();
 // ===== A4 END =====
+
+
+// ===== B1 SOP START =====
+(function(){
+  const SOP_DATA = [
+    {
+      idx: '01',
+      stage: '邀约前',
+      title: '首次邀约：让家长愿意来',
+      goal: '把"要不要来试听"变成"值得带孩子来看看"。',
+      actions: [
+        '锁定目标：孩子 4-9 岁 · 家长有教育投入意愿 · 通勤不超过 30 分钟',
+        '选一个具体的价值点：观察孩子对逻辑游戏的反应 / 帮孩子找一个能沉下心的兴趣',
+        '给出封闭式时间选项：本周六 15:00 或周日 10:00，不用开放式提问',
+        '不主打"免费"作钩子，改用"公开课"或"启蒙体验课"',
+        '到场信息一次问齐：家长姓名 / 孩子年龄 / 是否接触过围棋 / 是否需要家长旁听'
+      ],
+      cards: [
+        { lead: '首次邀约话术', txt: 'X 妈妈您好，我是萝卜围棋的 XX 老师。这周六下午 3 点我们有一堂启蒙公开课，一共 6 个孩子，家长可以旁听。这堂课不会讲太多规则，主要是看看这个年龄段孩子对围棋的反应——愿意坐下来观察 40 分钟的孩子其实不多。您带 XX 来试试？' },
+        { lead: '家长犹豫时的回应', txt: '没关系，围棋不是每个孩子都合适。这样，我把上周公开课的 3 张照片和一段孩子讨论的短视频发您看看，您自己判断——如果觉得有意思了，随时告诉我，下一场还有名额。' },
+        { lead: '低龄家长（3-4 岁）的边界', txt: 'XX 才 3 岁半的话，我更建议再等半年。我们最好的启蒙年龄是 4 岁半以上——太早坐不住，反而会让孩子对围棋留下"难"的印象。您先把微信留着，孩子过 4 岁我们再联系。' }
+      ],
+      tip: '这一步的核心不是"约到"，是"约到对的人"。低龄硬约来的孩子上课坐不住，反而伤口碑。宁可推掉 3 个不合适的，也不要凑数。'
+    },
+    {
+      idx: '02',
+      stage: '课前 24h',
+      title: '确认到场：防止放鸽子',
+      goal: '把"预约"变成"承诺"，把当天空缺率压到 10% 以下。',
+      actions: [
+        '课前 24 小时电话或微信语音确认——不用文字，文字容易被划过',
+        '再报清时间、地点、要带的东西（一支笔即可，不用买棋具）',
+        '发定位链接 + 停车 / 公交路线提示',
+        '告知课堂总时长（45 分钟上课 + 20 分钟家长沟通）',
+        '如家长有事无法到场，主动推下一场时间，别追着确认',
+        '提前 2 小时准备当日出勤名单，标注每个孩子的年龄和是否接触过围棋'
+      ],
+      cards: [
+        { lead: '24h 确认话术', txt: 'X 妈妈，我是 XX 老师，明天下午 3 点的公开课我们准备了 6 张椅子，其中一张是 XX 的。您明天从家过来大概 X 分钟，我把地图发您微信。明天见！' },
+        { lead: '临时改期话术', txt: '完全理解，孩子生病最重要。我们下周六还有一场，同样时间，我先给您留着位置——您明天孩子好点就告诉我。' }
+      ],
+      tip: '课前 24h 确认一次，能把放鸽子率从 30% 压到 10% 以下。别嫌麻烦，这一步省下的不是时间，是转化率。'
+    },
+    {
+      idx: '03',
+      stage: '到店前 10 分钟',
+      title: '让家长一进门就感觉专业',
+      goal: '第一印象决定 50% 的转化——空间、氛围、老师的准备度，比任何话术都重要。',
+      actions: [
+        '前台 / 迎宾提前 10 分钟站位，提前存好家长微信头像便于对号',
+        '桌上摆好每个试听孩子的姓名牌，手写更好',
+        '教室摆好对局棋、老师自己的教学棋盘',
+        '家长旁听区独立设置，备好茶水和椅子',
+        '备一份《围棋启蒙给家长的 6 个真相》A4 单页（可选：从萝卜家校共育四书中节选）',
+        '试听孩子入座后，老师主动去和家长打招呼寒暄 3-5 分钟'
+      ],
+      cards: [
+        { lead: '迎宾第一句', txt: 'X 妈妈，您是 XX 的妈妈吧？XX 你好，我是 XX 老师，你坐这张凳子——你旁边这个小朋友叫 YY，也是刚学的。' },
+        { lead: '家长寒暄开场', txt: 'XX 平时是您陪的多还是爸爸陪的多？今天来试听主要是您有想法，还是孩子有兴趣？我问这个是想知道，之后要不要和爸爸这一环也打通一下。' }
+      ],
+      tip: '家长第一眼看的不是老师有多牛，是空间干不干净、老师有没有在等我们。提前 10 分钟到位比任何话术都有说服力。'
+    },
+    {
+      idx: '04',
+      stage: '课前 15 分钟',
+      title: '家长首访：先听后说',
+      goal: '摸清家长的真实需求 + 建立信任锚点。80% 的时间让家长说。',
+      actions: [
+        '询问：孩子年龄 / 幼儿园或学校 / 是否接触过围棋 / 家长自己会不会下棋',
+        '询问：为什么想学围棋（智力开发 / 亲戚推荐 / 学校要求 / 孩子自己感兴趣）',
+        '询问：之前有没有学过其他兴趣班，学得怎么样，为什么停',
+        '询问：家里对孩子学围棋的期望时长和目标',
+        '询问：家长最担心什么（学不进去 / 输棋哭 / 时间冲突 / 学费）',
+        '重点：不要一开始就讲我们多好，让家长先说 8 分钟以上'
+      ],
+      cards: [
+        { lead: '开场问', txt: '我们先不聊围棋，我想先了解 XX。他现在几岁半？之前学过什么兴趣班？——学一样兴趣班半途放弃其实特别正常，不用觉得孩子不好。' },
+        { lead: '挖真实需求', txt: '您给孩子安排围棋，是您自己也懂围棋，还是听朋友推荐？听朋友说的家长最多，我一般会建议您别急着报，先让 XX 坐一节课看看反应。' },
+        { lead: '建立专业锚点', txt: '我教围棋很多年了，见过 4 岁进来 12 岁下段的，也见过 6 岁进来 3 个月放弃的。围棋不是每个孩子都适合，但适合的孩子一辈子受益。今天您就看 XX 两个动作：能不能坐住、有没有主动想动子。' }
+      ],
+      tip: '这一步比后面 45 分钟上课都关键。家长说什么你记什么，课后促单就用他自己说的话回敬他。'
+    },
+    {
+      idx: '05',
+      stage: '课堂 45 分钟',
+      title: '让家长看到"我们和别家不一样"',
+      goal: '给家长 3 个具体的证据点——孩子的专注表现、老师的教学功底、课堂的氛围质感。',
+      actions: [
+        '前 5 分钟破冰游戏（吃子接力 / 找气游戏），不要一上来就讲规则',
+        '中间 25 分钟核心教学：一个概念 + 三个例子 + 一次动手（只讲一个知识点，别贪多）',
+        '教学过程中主动叫每个孩子的名字回应——家长听到自家孩子被叫会瞬间放松',
+        '每 8-10 分钟穿插一次围棋古人小故事（吴清源 / 李昌镐小时候）',
+        '最后 10 分钟一次实战小对局，两两配对，老师巡视点评',
+        '下课前留 2 分钟让每个孩子说一句"今天学到的最重要的一件事"'
+      ],
+      cards: [
+        { lead: '教学开场', txt: '来，孩子们，今天我不讲规则。你们看，这个圆圆的黑棋子叫黑子，方形的棋盘上有 361 个交叉点——你们知道我为什么第一节课不讲规则吗？因为围棋最有意思的东西不是规则，是你怎么和另一个人思考的对话。' },
+        { lead: '给家长的画外音', txt: '（转向家长）注意看现在 XX 的眼睛——他刚刚发现了一个自己没想到的答案，那个瞬间的表情，就是我们围棋老师一辈子在找的。这个不是刷题能刷出来的。' },
+        { lead: '收尾金句', txt: '今天课就到这里。围棋这件事有意思在哪里？就在你以为你输了、但你转念一想、你其实赢了一件更大的事——你比昨天多想了一步。' }
+      ],
+      tip: '别炫技别赶进度。家长不是来听你讲多深，是来看你能不能让他家孩子专注 40 分钟。孩子专注了，家长自己会点头。'
+    },
+    {
+      idx: '06',
+      stage: '课后 20 分钟',
+      title: '单独沟通：讲效果，不谈价格',
+      goal: '把课堂表现 + 家长首访痛点 + 我们的方案闭环。',
+      actions: [
+        '先让孩子在教室里自由摆棋 5 分钟，把家长请到隔间 / 走廊',
+        '开场先说孩子的 2 个具体优点，用课堂上真实观察到的细节，不用"很聪明"这类空话',
+        '再说 1 个需要培养的点——不是缺点，是"下一步可以怎么走"',
+        '引用家长首访时的原话，把观察和顾虑对接起来',
+        '给出学习路径建议：先启蒙班 24 课时，3 个月后做一次段级位测试再定方向',
+        '暂时不谈价格，谈路径——家长主动问价才进入下一步'
+      ],
+      cards: [
+        { lead: '开场正向反馈', txt: 'XX 今天做了两件让我印象很深的事——第一，游戏开始前他等所有孩子坐好才动子；第二，最后对局输了一次，没有哭，还想再来一盘。这两个信号，比很多学过半年的孩子都好。' },
+        { lead: '引用家长自己的话', txt: '您刚才跟我说，之前学乐高中途停了。我理解您的顾虑。围棋和乐高不一样的是，围棋每次赢和输都有一个非常清楚的答案，所以孩子放弃的可能性反而低——因为他不服气。' },
+        { lead: '引导到方案（未提价）', txt: 'XX 这样的孩子，我建议先启蒙班 24 课时。3 个月后我们会给他做一次简单的段级位测试，看看是走升段路线还是走综合思维路线，我们再定下一步。' }
+      ],
+      tip: '不要在这一步提价格。家长觉得"这老师不是急着卖课"，反而会主动问。你憋 20 分钟，剩下的转化就会顺很多。'
+    },
+    {
+      idx: '07',
+      stage: '现场促单',
+      title: '三档方案 · 不主动打折',
+      goal: '家长愿意报名 → 引导到合适档位；家长犹豫 → 邀请下一场再看，不施压。',
+      actions: [
+        '给出 2-3 档方案，不要只给一档',
+        '每档说清楚：课时数 / 时长 / 教什么 / 适合什么样的孩子',
+        '主动推中间档（默认锚点）',
+        '给出"现在报名"的具体好处——不是"送多少课时"，而是"这周有位置 / 明天就能插班"',
+        '不主动打折；家长要求打折时，说明我们的定价原则',
+        '家长犹豫 → 邀请他去下一场公开课再看一次（不施压）',
+        '家长决定 → 确认上课时间、家长陪同要求、请假机制'
+      ],
+      cards: [
+        { lead: '三档报法', txt: '我们启蒙班有三档：一档 12 课时，适合先试试；二档 24 课时，适合 3 个月看效果；三档 48 课时，适合已经决定长期学的。大部分家长选二档——因为 12 课时其实看不清楚孩子适不适合，48 课时又占预算太快。' },
+        { lead: '家长要求打折时', txt: 'X 妈妈，我们的课时费所有校区一个价，不打折——因为一旦打折，先报名的家长会不开心。但我可以给您一个具体的东西：今天您报名，我这周六额外加一次 30 分钟专属复盘，专门看 XX 的启蒙适配度。这个是钱换不来的，是我时间的承诺。' },
+        { lead: '家长犹豫时', txt: '没关系，围棋这件事本来就要慎重。下周六下午 3 点还有一场公开课，我给 XX 留一个旁听位置——不用您再交钱，就当您和 XX 再感受一次。您回去和爸爸商量，商量完给我个话。' }
+      ],
+      tip: '当天不报是常态，别急。经验数据是：当天冲动报名的家长后续退课率高，隔一场再报的家长退课率反而低。放长线，别催单。'
+    },
+    {
+      idx: '08',
+      stage: '24h 回访',
+      title: '未成交跟进 · 已成交深化',
+      goal: '40% 的成交发生在当天以外——把回访做成"我是真关心 XX 这个孩子"，不做成"我要问您报不报"。',
+      actions: [
+        '当晚 21:00 前发一条微信：只发孩子上课时的 1-2 张照片 + 一句真实观察（不发广告文案）',
+        '隔天中午 12:00 前电话回访——不用微信语音，电话更正式',
+        '未报名家长：不催报名，只问"还有什么我可以帮您了解的"，挂电话前主动约下一场公开课',
+        '已报名家长：告知第一节课具体安排、教材 / 棋具购买建议、老师微信备注方式',
+        '建立回访跟踪表：家长姓名 / 孩子年龄 / 首访痛点 / 课堂表现 / 是否成交 / 下一步动作',
+        '一周后再做一次轻量回访，无论是否成交（塑造长期关系）'
+      ],
+      cards: [
+        { lead: '当晚微信话术', txt: 'X 妈妈，这是 XX 今天上课的两张照片，第二张是他把黑白棋摆成两条平行线的样子——这个动作说明他已经在观察棋盘规律了，是启蒙期一个很好的信号。' },
+        { lead: '次日电话话术', txt: 'X 妈妈您好，我是萝卜围棋的 XX 老师。昨天 XX 上完课回家有没有说什么？——不用赶着报名，我就是想知道昨天课上有没有他不喜欢的地方。哦，他自己拿棋盒摆了 20 分钟？那说明这个种子已经埋下了。' },
+        { lead: '未成交长期跟进', txt: 'X 妈妈，您和 XX 爸商量得怎么样？——不用给我答复。我下周六还有一场公开课，主题是《围棋和数学的关系》，可能会对 XX 更有吸引力。我给您留个位置，愿意来告诉我一声。' }
+      ],
+      tip: '24h 回访是转化的第二次机会。把它做成关心，不做成催单——催单反而把人赶走。'
+    }
+  ];
+
+  function escapeHtml(s){ return String(s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+
+  function renderNav(){
+    const nav = document.getElementById('sopNav');
+    if(!nav) return;
+    nav.innerHTML = SOP_DATA.map(function(s, i){
+      return '<button class="sop-nav-item" type="button" role="tab" data-sop-target="sop-step-' + s.idx + '">'
+        + '<span class="sop-nav-item-idx">' + s.idx + '</span>'
+        + '<span class="sop-nav-item-stage">' + escapeHtml(s.stage) + '</span>'
+        + '</button>';
+    }).join('');
+  }
+
+  function renderList(){
+    const list = document.getElementById('sopList');
+    if(!list) return;
+    list.innerHTML = SOP_DATA.map(function(s){
+      const actionsHtml = s.actions.map(function(a){ return '<li>' + escapeHtml(a) + '</li>'; }).join('');
+      const cardsHtml = s.cards.map(function(c){
+        return '<div class="sop-step-card">'
+          + '<div class="sop-step-card-lead">' + escapeHtml(c.lead) + '</div>'
+          + escapeHtml(c.txt)
+          + '</div>';
+      }).join('');
+      return '<article class="sop-step" id="sop-step-' + s.idx + '">'
+        + '<div class="sop-step-head">'
+          + '<div class="sop-step-idx">' + s.idx + '</div>'
+          + '<div class="sop-step-head-body">'
+            + '<div class="sop-step-stage">' + escapeHtml(s.stage) + '</div>'
+            + '<h4 class="sop-step-title">' + escapeHtml(s.title) + '</h4>'
+            + '<div class="sop-step-goal">目标：' + escapeHtml(s.goal) + '</div>'
+          + '</div>'
+        + '</div>'
+        + '<div class="sop-step-section-label">◆ 关键动作</div>'
+        + '<ul class="sop-step-actions">' + actionsHtml + '</ul>'
+        + '<div class="sop-step-section-label">◆ 话术模板</div>'
+        + '<div class="sop-step-cards">' + cardsHtml + '</div>'
+        + '<div class="sop-step-tip"><span class="sop-step-tip-lead">老师视角：</span>' + escapeHtml(s.tip) + '</div>'
+      + '</article>';
+    }).join('');
+  }
+
+  function bindNav(){
+    const nav = document.getElementById('sopNav');
+    if(!nav) return;
+    nav.addEventListener('click', function(e){
+      const btn = e.target.closest('.sop-nav-item');
+      if(!btn) return;
+      const targetId = btn.getAttribute('data-sop-target');
+      if(!targetId) return;
+      Array.prototype.forEach.call(nav.querySelectorAll('.sop-nav-item'), function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      const el = document.getElementById(targetId);
+      if(!el) return;
+      // 兼容 collapsible fixed 面板：优先用 scrollIntoView + rect 精修
+      const section = el.closest('section.collapsible');
+      if(section && section.classList.contains('open')){
+        // fixed 面板内滚动
+        requestAnimationFrame(function(){
+          const sRect = section.getBoundingClientRect();
+          const tRect = el.getBoundingClientRect();
+          section.scrollTop += (tRect.top - sRect.top) - 24;
+        });
+      } else {
+        el.scrollIntoView({behavior:'smooth', block:'start'});
+      }
+      // 高亮命中项
+      Array.prototype.forEach.call(document.querySelectorAll('.sop-step.hilite'), function(x){ x.classList.remove('hilite'); });
+      el.classList.add('hilite');
+      setTimeout(function(){ el.classList.remove('hilite'); }, 1400);
+    });
+  }
+
+  function init(){
+    if(!document.getElementById('sopList')) return;
+    renderNav();
+    renderList();
+    bindNav();
+  }
+
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+// ===== B1 SOP END =====
 
 
 </script>
