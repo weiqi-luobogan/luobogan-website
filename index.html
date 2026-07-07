@@ -4619,15 +4619,22 @@ function hideParentGuide(){
         }, 120);
       }
       // 展开面板后滚到子锚点（用于 #tools 卡片跳到 teaching 内的具体模块）
+      // 注意：section 展开后是 position:fixed，offsetTop 在 fixed 元素上行为不稳定，
+      // 必须用 getBoundingClientRect + scrollTop 计算相对位移，才能可靠定位到内部子模块。
       if(anchor && id){
+        // 用 rAF + setTimeout 双保险，等 openSection 里的 scrollTop=0（30ms）与面板 open 布局完成
         setTimeout(function(){
           const section = document.getElementById(id);
           const target = document.getElementById(anchor);
-          if(section && target){
-            const top = target.offsetTop - section.offsetTop - 40;
+          if(!section || !target) return;
+          requestAnimationFrame(function(){
+            const sRect = section.getBoundingClientRect();
+            const tRect = target.getBoundingClientRect();
+            // 子锚点相对面板视觉顶部的位移 + 当前面板已滚距 - 顶部留白
+            const top = section.scrollTop + (tRect.top - sRect.top) - 56;
             section.scrollTo({top: Math.max(0, top), behavior: 'smooth'});
-          }
-        }, 260);
+          });
+        }, 320);
       }
     });
   });
@@ -4771,17 +4778,4 @@ function hideParentGuide(){
 })();
 </script>
 
-<button class="panel-close" id="panelCloseBtn" aria-label="关闭面板">×</button>
-<button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="板块菜单">☰</button>
-
-<!-- 桌面端上下翻页控件 -->
-<button class="slide-arrow" id="slideUpBtn" aria-label="上一页">‹</button>
-<button class="slide-arrow" id="slideDownBtn" aria-label="下一页">›</button>
-<div class="slide-dots">
-  <div class="slide-dot active" data-idx="0" title="首页"></div>
-  <div class="slide-dot" data-idx="1" title="课表 · 图书"></div>
-  <div class="slide-dot" data-idx="2" title="使命"></div>
-</div>
-</body>
-</html>
-<!-- redeploy-47eed18dv4r1_v5_v6 -->
+<button class="panel-close" id="panelCloseBtn" 
