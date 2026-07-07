@@ -409,6 +409,56 @@
     .practice-module-title { font-size: 20px; font-weight: 700; color: var(--ink); padding-left: 12px; border-left: 3px solid var(--seal); margin-bottom: 8px; }
     .practice-module-desc { font-size: 13px; color: #6b6b6b; margin-bottom: 20px; }
 
+    /* ===== 工具箱 · 角色分档 tab ===== */
+    .tool-tab { background: var(--paper); border: 1px solid var(--line); padding: 10px 22px; font-size: 14px; color: var(--ink-soft); cursor: pointer; font-family: inherit; border-radius: 999px; transition: all 0.25s; letter-spacing: 0.03em; display: inline-flex; align-items: center; gap: 8px; }
+    .tool-tab:hover { border-color: var(--seal); color: var(--seal); }
+    .tool-tab.active { background: var(--seal); border-color: var(--seal); color: #fff; font-weight: 600; box-shadow: 0 4px 12px rgba(168, 54, 42, 0.18); }
+    .tool-tab-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--seal); opacity: 0.5; }
+    .tool-tab.active .tool-tab-dot { background: #fff; opacity: 1; }
+    .tool-tab-count { display: inline-block; background: rgba(0,0,0,0.06); padding: 1px 8px; border-radius: 999px; font-size: 11px; margin-left: 2px; }
+    .tool-tab.active .tool-tab-count { background: rgba(255,255,255,0.22); }
+    .tool-tab-count.coming::before { content: '·未上线'; margin-right: 3px; opacity: 0.6; font-size: 10px; }
+
+    .tool-group { margin-top: 40px; animation: fadeSlideIn 0.28s ease-out; }
+    .tool-group-head { display: flex; align-items: center; gap: 16px; padding: 14px 20px; background: var(--paper); border-left: 3px solid var(--seal); border-radius: 4px; }
+    .tool-group-badge { width: 40px; height: 40px; border-radius: 8px; background: var(--seal); color: #fff; font-size: 20px; font-weight: 700; display: flex; align-items: center; justify-content: center; font-family: 'Inter', sans-serif; letter-spacing: 0; }
+    .tool-group-title { font-size: 17px; font-weight: 700; color: var(--ink); }
+    .tool-group-desc { font-size: 12px; color: #7a7264; margin-top: 3px; letter-spacing: 0.02em; }
+
+    /* ===== 家长沟通话术速查 · qa4 ===== */
+    .qa4-wrap { margin-top: 8px; }
+    .qa4-search-row { margin-bottom: 16px; }
+    #qa4Search { width: 100%; padding: 12px 18px; font-size: 14px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); font-family: inherit; color: var(--ink); box-sizing: border-box; transition: border-color 0.2s; }
+    #qa4Search:focus { outline: none; border-color: var(--seal); }
+    .qa4-cats { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+    .qa4-cat { background: var(--paper); border: 1px solid var(--line); padding: 6px 14px; font-size: 12px; color: var(--ink-soft); cursor: pointer; font-family: inherit; border-radius: 999px; transition: all 0.2s; letter-spacing: 0.02em; }
+    .qa4-cat:hover { border-color: var(--seal); color: var(--seal); }
+    .qa4-cat.active { background: var(--seal); border-color: var(--seal); color: #fff; }
+    .qa4-cat-count { opacity: 0.7; margin-left: 4px; font-size: 11px; }
+    .qa4-list { display: flex; flex-direction: column; gap: 14px; }
+    .qa4-item { background: var(--paper); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; transition: box-shadow 0.2s; }
+    .qa4-item.open { box-shadow: 0 4px 16px rgba(61, 43, 31, 0.08); border-color: var(--seal); }
+    .qa4-q { padding: 16px 20px; cursor: pointer; display: flex; align-items: flex-start; gap: 12px; font-size: 14.5px; color: var(--ink); font-weight: 600; line-height: 1.55; user-select: none; }
+    .qa4-q:hover { background: var(--paper-2); }
+    .qa4-q-tag { flex-shrink: 0; font-size: 10px; color: var(--seal); background: rgba(168, 54, 42, 0.08); padding: 2px 8px; border-radius: 4px; margin-top: 3px; letter-spacing: 0.05em; }
+    .qa4-q-txt { flex: 1; }
+    .qa4-q-icon { flex-shrink: 0; color: var(--seal); font-size: 14px; transition: transform 0.2s; margin-top: 4px; }
+    .qa4-item.open .qa4-q-icon { transform: rotate(45deg); }
+    .qa4-a { display: none; padding: 4px 20px 20px 20px; border-top: 1px dashed var(--line); }
+    .qa4-item.open .qa4-a { display: block; }
+    .qa4-a-lead { font-size: 12px; color: #7a7264; margin: 12px 0 10px; letter-spacing: 0.03em; }
+    .qa4-a-card { background: var(--paper-2); border-left: 3px solid var(--seal); padding: 14px 18px; margin-bottom: 10px; font-size: 13.5px; color: var(--ink); line-height: 1.85; border-radius: 0 4px 4px 0; }
+    .qa4-a-card:last-child { margin-bottom: 0; }
+    .qa4-a-card-lead { font-size: 11px; color: var(--seal); font-weight: 700; letter-spacing: 0.1em; margin-bottom: 6px; }
+    .qa4-a-tip { font-size: 12px; color: #7a7264; margin-top: 14px; padding: 10px 14px; background: rgba(168, 54, 42, 0.04); border-radius: 6px; line-height: 1.7; }
+    .qa4-empty { text-align: center; color: #9a9a9a; font-size: 13px; padding: 40px 20px; }
+    @media (max-width: 640px) {
+      .qa4-q { font-size: 13.5px; padding: 14px 16px; }
+      .qa4-a { padding: 4px 16px 16px 16px; }
+      .qa4-a-card { padding: 12px 14px; font-size: 13px; }
+      .tool-tab { padding: 8px 16px; font-size: 13px; }
+    }
+
     /* 模块 A：阶段 tab */
     .stage-tabs { display: flex; flex-wrap: wrap; gap: 0; border-bottom: 1px solid var(--line); margin-bottom: 20px; }
     .stage-tab { background: none; border: none; padding: 12px 22px; font-size: 15px; color: #6b6b6b; cursor: pointer; font-family: inherit; border-bottom: 2px solid transparent; transition: all 0.2s; letter-spacing: 0.03em; }
@@ -1366,65 +1416,190 @@
   </div>
 </section>
 
-<!-- ===== Tools · 教学工具（一线老师/家长可直接下载使用） ===== -->
+<!-- ===== Tools · 围棋教育工具箱（一线老师 / 独立校长 / 家长） ===== -->
 <section id="tools" class="bg-paper-2 py-24 border-y border-line collapsible">
   <div class="max-w-5xl mx-auto px-6 fade-in">
-    <h2 class="section-title">教学工具</h2>
+    <h2 class="section-title">围棋教育工具箱</h2>
     <p class="section-lead">
-      三份可以直接打印/发家长群的<span class="hl">教学工作模板</span>。填完即用，不用再从零设计。适合一线围棋老师、教学机构和陪学的家长。
+      从<span class="hl">一线老师</span>的课堂，到<span class="hl">独立校长</span>的运营，再到陪学的<span class="hl">家长</span>——按你的角色拿工具。所有工具填完即用，不用再从零设计。
     </p>
 
-    <div class="grid md:grid-cols-3 gap-6 mt-8">
+    <!-- 角色分档 Tab -->
+    <div class="tool-tabs" role="tablist" style="margin-top:28px;display:flex;justify-content:center;gap:12px;flex-wrap:wrap">
+      <button class="tool-tab active" data-toolgroup="teacher" type="button" role="tab">
+        <span class="tool-tab-dot"></span>老师日常 <span class="tool-tab-count">4</span>
+      </button>
+      <button class="tool-tab" data-toolgroup="principal" type="button" role="tab">
+        <span class="tool-tab-dot"></span>校长运营 <span class="tool-tab-count">2</span>
+      </button>
+      <button class="tool-tab" data-toolgroup="parent" type="button" role="tab">
+        <span class="tool-tab-dot"></span>家长参考 <span class="tool-tab-count coming">2</span>
+      </button>
+    </div>
 
-      <!-- 卡片 1 · 学情反馈单 -->
-      <div class="rounded-lg border border-line bg-paper p-6 flex flex-col" style="min-height:320px">
-        <div class="text-xs tracking-widest text-seal font-medium mb-3">TOOL 01 · 教师工具</div>
-        <h3 class="text-xl font-bold mb-3 text-ink">学情反馈单</h3>
-        <p class="text-sm text-gray-soft leading-relaxed mb-5 flex-1">
-          每月/每季度给家长一份可视化反馈——雷达图 + 柱状图 + 老师寄语一图流。填完即生成，可自定义机构印章。<span class="hl">下载 PNG 直接发家长群</span>，比一句"进步不错"重一百倍。
-        </p>
-        <div class="text-xs text-gray-soft mb-4">
-          <span style="display:inline-block;margin-right:12px">📊 6 项技术雷达</span>
-          <span style="display:inline-block;margin-right:12px">📈 5 项状态柱状</span>
-          <span style="display:inline-block">🖋 三段老师寄语</span>
+    <!-- 老师日常 -->
+    <div class="tool-group" id="toolgroup-teacher">
+      <div class="tool-group-head">
+        <div class="tool-group-badge">A</div>
+        <div>
+          <div class="tool-group-title">老师日常</div>
+          <div class="tool-group-desc">备课 · 测评 · 家长沟通 · 学员追踪 · 训练配比</div>
         </div>
-        <a href="#teaching" class="nav-toggle inline-block text-center bg-seal text-white px-5 py-3 rounded font-medium hover:bg-ink transition" data-target="teaching" data-anchor="tool-fb">
-          进入使用 →
-        </a>
       </div>
+      <div class="grid md:grid-cols-3 gap-6 mt-8">
 
-      <!-- 卡片 2 · 周训练打卡表 -->
-      <div class="rounded-lg border border-line bg-paper p-6 flex flex-col" style="min-height:320px">
-        <div class="text-xs tracking-widest text-seal font-medium mb-3">TOOL 02 · 教师/家长通用</div>
-        <h3 class="text-xl font-bold mb-3 text-ink">周训练打卡表</h3>
-        <p class="text-sm text-gray-soft leading-relaxed mb-5 flex-1">
-          按 <span class="hl">6:3:1 训练配比</span> 生成一周训练计划——低 2 级打基础、同级测水平、高 1 级挑战成长。输入孩子当前棋力，直接看这周该做哪些难度的题、各多少道。
-        </p>
-        <div class="text-xs text-gray-soft mb-4">
-          <span style="display:inline-block;margin-right:12px">🎯 3 档难度自动配比</span>
-          <span style="display:inline-block">📆 7 天打卡追踪</span>
+        <!-- A1 · 学情反馈单 -->
+        <div class="rounded-lg border border-line bg-paper p-6 flex flex-col" style="min-height:320px">
+          <div class="text-xs tracking-widest text-seal font-medium mb-3">TOOL 01 · 教师工具</div>
+          <h3 class="text-xl font-bold mb-3 text-ink">学情反馈单</h3>
+          <p class="text-sm text-gray-soft leading-relaxed mb-5 flex-1">
+            每月/每季度给家长一份可视化反馈——雷达图 + 柱状图 + 老师寄语一图流。填完即生成，可自定义机构印章。<span class="hl">下载 PNG 直接发家长群</span>，比一句"进步不错"重一百倍。
+          </p>
+          <div class="text-xs text-gray-soft mb-4">
+            <span style="display:inline-block;margin-right:12px">📊 6 项技术雷达</span>
+            <span style="display:inline-block;margin-right:12px">📈 5 项状态柱状</span>
+            <span style="display:inline-block">🖋 三段老师寄语</span>
+          </div>
+          <a href="#teaching" class="nav-toggle inline-block text-center bg-seal text-white px-5 py-3 rounded font-medium hover:bg-ink transition" data-target="teaching" data-anchor="tool-fb">
+            进入使用 →
+          </a>
         </div>
-        <a href="#teaching" class="nav-toggle inline-block text-center bg-seal text-white px-5 py-3 rounded font-medium hover:bg-ink transition" data-target="teaching" data-anchor="tool-r631">
-          进入使用 →
-        </a>
-      </div>
 
-      <!-- 卡片 3 · 错题复习跟踪表 -->
-      <div class="rounded-lg border border-line bg-paper p-6 flex flex-col" style="min-height:320px">
-        <div class="text-xs tracking-widest text-seal font-medium mb-3">TOOL 03 · 教师/家长通用</div>
-        <h3 class="text-xl font-bold mb-3 text-ink">错题复习跟踪表</h3>
-        <p class="text-sm text-gray-soft leading-relaxed mb-5 flex-1">
-          艾宾浩斯遗忘曲线在围棋练习上的落地版——今天做错的题，要在 <span class="hl">5 分钟 / 12 小时 / 1 天 / 2 天 / 4 天 / 7 天 / 15 天 / 1 月 / 3 月 / 半年</span> 各复习一次，才能真的沉进本能。选一个基准日期，看这批错题该在哪些时间点回来。
-        </p>
-        <div class="text-xs text-gray-soft mb-4">
-          <span style="display:inline-block;margin-right:12px">📅 10 档记忆周期</span>
-          <span style="display:inline-block">✅ 打卡表自动生成</span>
+        <!-- A2 · 周训练打卡表 -->
+        <div class="rounded-lg border border-line bg-paper p-6 flex flex-col" style="min-height:320px">
+          <div class="text-xs tracking-widest text-seal font-medium mb-3">TOOL 02 · 教师/家长通用</div>
+          <h3 class="text-xl font-bold mb-3 text-ink">周训练打卡表</h3>
+          <p class="text-sm text-gray-soft leading-relaxed mb-5 flex-1">
+            按 <span class="hl">6:3:1 训练配比</span> 生成一周训练计划——低 2 级打基础、同级测水平、高 1 级挑战成长。输入孩子当前棋力，直接看这周该做哪些难度的题、各多少道。
+          </p>
+          <div class="text-xs text-gray-soft mb-4">
+            <span style="display:inline-block;margin-right:12px">🎯 3 档难度自动配比</span>
+            <span style="display:inline-block">📆 7 天打卡追踪</span>
+          </div>
+          <a href="#teaching" class="nav-toggle inline-block text-center bg-seal text-white px-5 py-3 rounded font-medium hover:bg-ink transition" data-target="teaching" data-anchor="tool-r631">
+            进入使用 →
+          </a>
         </div>
-        <a href="#teaching" class="nav-toggle inline-block text-center bg-seal text-white px-5 py-3 rounded font-medium hover:bg-ink transition" data-target="teaching" data-anchor="tool-mc">
-          进入使用 →
-        </a>
-      </div>
 
+        <!-- A3 · 错题复习跟踪表 -->
+        <div class="rounded-lg border border-line bg-paper p-6 flex flex-col" style="min-height:320px">
+          <div class="text-xs tracking-widest text-seal font-medium mb-3">TOOL 03 · 教师/家长通用</div>
+          <h3 class="text-xl font-bold mb-3 text-ink">错题复习跟踪表</h3>
+          <p class="text-sm text-gray-soft leading-relaxed mb-5 flex-1">
+            艾宾浩斯遗忘曲线在围棋练习上的落地版——今天做错的题，要在 <span class="hl">5 分钟 / 12 小时 / 1 天 / 2 天 / 4 天 / 7 天 / 15 天 / 1 月 / 3 月 / 半年</span> 各复习一次，才能真的沉进本能。选一个基准日期，看这批错题该在哪些时间点回来。
+          </p>
+          <div class="text-xs text-gray-soft mb-4">
+            <span style="display:inline-block;margin-right:12px">📅 10 档记忆周期</span>
+            <span style="display:inline-block">✅ 打卡表自动生成</span>
+          </div>
+          <a href="#teaching" class="nav-toggle inline-block text-center bg-seal text-white px-5 py-3 rounded font-medium hover:bg-ink transition" data-target="teaching" data-anchor="tool-mc">
+            进入使用 →
+          </a>
+        </div>
+
+        <!-- A4 · 家长沟通话术速查 · 新增 -->
+        <div class="rounded-lg border border-seal bg-paper p-6 flex flex-col" style="min-height:320px;border-width:2px">
+          <div class="text-xs tracking-widest text-seal font-medium mb-3">TOOL 04 · 新 · 教师工具</div>
+          <h3 class="text-xl font-bold mb-3 text-ink">家长沟通话术速查</h3>
+          <p class="text-sm text-gray-soft leading-relaxed mb-5 flex-1">
+            家长问"孩子学半年没进步""要不要考段""要不要换老师""走神/输不起/不想练怎么办"——<span class="hl">20+ 常见提问一键搜</span>，每问 2-3 套话术。老师/校长不用现场编，按卡片回就行。
+          </p>
+          <div class="text-xs text-gray-soft mb-4">
+            <span style="display:inline-block;margin-right:12px">💬 20+ 常见提问</span>
+            <span style="display:inline-block">🎯 每问 2-3 套话术</span>
+          </div>
+          <a href="#tools" class="inline-block text-center bg-seal text-white px-5 py-3 rounded font-medium hover:bg-ink transition" data-tool-anchor="tool-a4">
+            打开话术卡 →
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 校长运营 -->
+    <div class="tool-group" id="toolgroup-principal" style="display:none">
+      <div class="tool-group-head">
+        <div class="tool-group-badge">B</div>
+        <div>
+          <div class="tool-group-title">校长运营</div>
+          <div class="tool-group-desc">招生 · 试听 · 转化 · 地推 · 家长说明会</div>
+        </div>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6 mt-8">
+
+        <!-- B1 · 试听/公开课流程 SOP · 占位 -->
+        <div class="rounded-lg border border-line bg-paper p-6 flex flex-col opacity-70" style="min-height:320px">
+          <div class="text-xs tracking-widest text-seal font-medium mb-3">TOOL 05 · 建设中</div>
+          <h3 class="text-xl font-bold mb-3 text-ink">试听/公开课流程 SOP</h3>
+          <p class="text-sm text-gray-soft leading-relaxed mb-5 flex-1">
+            12 步一屏走 · 每步含话术 / 道具 / 记录点。前台/老师/校长各角色拿到的动作不一样。<span class="hl">附 xlsx 登记表</span>，现场签完直接录系统。
+          </p>
+          <div class="text-xs text-gray-soft mb-4">
+            <span style="display:inline-block;margin-right:12px">🎯 12 步一屏走</span>
+            <span style="display:inline-block">📋 配套登记表</span>
+          </div>
+          <button class="inline-block text-center bg-ink text-paper-2 px-5 py-3 rounded font-medium cursor-not-allowed" disabled>即将上线</button>
+        </div>
+
+        <!-- B2 · 家长抗拒点应对手册 · 占位 -->
+        <div class="rounded-lg border border-line bg-paper p-6 flex flex-col opacity-70" style="min-height:320px">
+          <div class="text-xs tracking-widest text-seal font-medium mb-3">TOOL 06 · 建设中</div>
+          <h3 class="text-xl font-bold mb-3 text-ink">家长抗拒点应对手册</h3>
+          <p class="text-sm text-gray-soft leading-relaxed mb-5 flex-1">
+            价格 / 时间 / 接送 / 效果 / 换机构 / 孩子不想学——<span class="hl">8 大类常见抗拒</span>，每类 2-3 套应答话术。不是辩论，是先接住情绪再推进方案。
+          </p>
+          <div class="text-xs text-gray-soft mb-4">
+            <span style="display:inline-block;margin-right:12px">🛡 8 类抗拒点</span>
+            <span style="display:inline-block">💬 每类 2-3 套话术</span>
+          </div>
+          <button class="inline-block text-center bg-ink text-paper-2 px-5 py-3 rounded font-medium cursor-not-allowed" disabled>即将上线</button>
+        </div>
+
+        <!-- 后续占位 -->
+        <div class="rounded-lg border border-dashed border-line bg-paper p-6 flex flex-col opacity-50" style="min-height:320px;justify-content:center;align-items:center;text-align:center">
+          <div class="text-xs tracking-widest text-seal font-medium mb-2">+ MORE</div>
+          <div class="text-sm text-gray-soft">招生话术库 · 四类型家长 · 家长说明会 SOP · 朋友圈周历</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 家长参考 -->
+    <div class="tool-group" id="toolgroup-parent" style="display:none">
+      <div class="tool-group-head">
+        <div class="tool-group-badge">C</div>
+        <div>
+          <div class="tool-group-title">家长参考</div>
+          <div class="tool-group-desc">家庭教育 · 围棋价值 · 陪伴方式</div>
+        </div>
+      </div>
+      <div class="rounded-lg border border-dashed border-line bg-paper p-12 mt-8 text-center">
+        <div class="text-sm text-gray-soft mb-2">🌱 建设中</div>
+        <div class="text-sm text-gray-soft">孩子学棋常见问题手册 · 六商家庭教育库 · 陪伴指南</div>
+        <div class="text-xs text-gray-soft mt-6" style="max-width:540px;margin-left:auto;margin-right:auto">
+          <em>家长视角的内容会放在这里，让家长也能从网站里找到对自己有用的东西，而不只是"看老师有多厉害"。</em>
+        </div>
+      </div>
+    </div>
+
+    <!-- A4 · 家长沟通话术速查 · 内容模块（放在 tab 面板外 · 跨角色可见） -->
+    <div class="practice-module" id="tool-a4" style="margin-top:48px">
+      <div class="practice-module-title">家长沟通话术速查</div>
+      <div class="practice-module-desc">
+        家长问的问题，80% 是重复的。把重复的问题做成话术卡，老师/校长不用现场编，按卡片回就行。
+        先点分类标签快速找——<span class="hl">选场景 → 看提问 → 选话术</span>。
+      </div>
+      <div class="qa4-wrap" id="qa4Wrap">
+        <div class="qa4-search-row">
+          <input type="text" id="qa4Search" placeholder="🔎 直接搜问题，比如「进步」「考段」「不想学」" autocomplete="off" />
+        </div>
+        <div class="qa4-cats" id="qa4Cats">
+          <!-- JS 注入 -->
+        </div>
+        <div class="qa4-list" id="qa4List">
+          <!-- JS 注入 -->
+        </div>
+      </div>
     </div>
 
     <p class="text-xs text-gray-soft mt-12 text-center leading-relaxed" style="max-width:680px;margin-left:auto;margin-right:auto">
@@ -4530,6 +4705,290 @@ function hideParentGuide(){
 // ===== xlsx END =====
 
 
+// ===== 工具箱 · 角色分档 tab 切换 =====
+(function(){
+  document.querySelectorAll('.tool-tab').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      const group = this.dataset.toolgroup;
+      document.querySelectorAll('.tool-tab').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      document.querySelectorAll('.tool-group').forEach(function(g){
+        g.style.display = (g.id === 'toolgroup-' + group) ? '' : 'none';
+      });
+    });
+  });
+  // 卡片按钮 data-tool-anchor → 滚到工具箱内的模块（同 section 内）
+  document.querySelectorAll('[data-tool-anchor]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      const target = document.getElementById(this.dataset.toolAnchor);
+      if(!target) return;
+      const section = document.getElementById('tools');
+      if(section && section.classList.contains('open')){
+        requestAnimationFrame(function(){
+          const sRect = section.getBoundingClientRect();
+          const tRect = target.getBoundingClientRect();
+          const top = section.scrollTop + (tRect.top - sRect.top) - 56;
+          section.scrollTo({top: Math.max(0, top), behavior: 'smooth'});
+        });
+      } else {
+        target.scrollIntoView({behavior: 'smooth', block: 'start'});
+      }
+      // 展开首个 item 让用户第一时间看到内容
+      setTimeout(function(){
+        const first = target.querySelector('.qa4-item');
+        if(first && !first.classList.contains('open')) first.classList.add('open');
+      }, 400);
+    });
+  });
+})();
+
+
+// ===== A4 · 家长沟通话术速查 =====
+(function(){
+  const QA4_DATA = [
+    // 学习进度类
+    { cat: 'progress', tag: '进度', q: '孩子学了半年，感觉一点进步都没有，是不是老师有问题？',
+      cards: [
+        { lead: '共情 · 承接情绪', txt: '您这个感受特别正常，围棋前 3-6 个月的进步大多在"看不见"的地方——理解规则、能坐得住、开始有思考习惯。这些还没换算成段位，但已经在孩子身上生根了。' },
+        { lead: '换角度 · 给具体锚点', txt: '我给您举两个孩子这段时间的具体变化：第一，[写具体事例，如：从每盘都乱下变成开始想 3 步再落子]；第二，[写第二个具体事例]。这些看似小，其实是围棋能力的底层地基。' },
+        { lead: '给方案 · 让家长参与', txt: '接下来我建议这样：每周固定 20 分钟让孩子给您讲一盘对局，讲不通就是没吸收。您反馈给我，我下节课重点讲这部分。这样进步能被您看见、被孩子说出来。' }
+      ],
+      tip: '一句"看不出进步"背后往往是"我担心投入没回报"。先接住这份担心，再用具体事例证明进步，最后给可参与的动作。' },
+
+    { cat: 'progress', tag: '进度', q: '别的孩子已经打上段位了，我家怎么还在级位徘徊？',
+      cards: [
+        { lead: '共情', txt: '每个家长看别人家孩子进步都会有点着急，这是护崽的本能。但围棋这件事，跑得快的不一定跑得远。' },
+        { lead: '拉出个体差异', txt: '孩子进步节奏跟三件事有关：起步年龄、投入时间、思维成熟度。同样 10 岁的孩子，思维发展差距可以是 2 年。我们要看的是他自己的曲线，不是别人的横切面。' },
+        { lead: '给可执行行动', txt: '如果您希望加速，具体可以做两件事：一是把每周训练量从 X 题提到 Y 题（不要多，怕他反感）；二是每周一次死活专项复盘。3 个月我们再看变化。' }
+      ],
+      tip: '"横向比较"是围棋家长最大的焦虑源。老师的价值就是把家长从横向拉回纵向。' },
+
+    { cat: 'progress', tag: '进度', q: '孩子上次比赛输了好多，是不是不是这块料？',
+      cards: [
+        { lead: '接住失望', txt: '一次比赛输棋，家长比孩子还难受，这个我特别理解。但一次比赛不定终局——很多现在段位很高的孩子，第一次比赛都是被打哭的。' },
+        { lead: '换视角看输棋', txt: '输棋恰恰是老师最需要的教学素材。我复盘了他这次的对局，主要问题在 [XX：如布局散/中盘死角/收官松]。这个点我们下阶段针对性练，比闷头做题快得多。' },
+        { lead: '给孩子情绪出口', txt: '这次比赛回来，先别急着让他复盘。给他 3 天缓冲期，允许他不想聊。3 天后我们一起看棋，那时候他自己就会想说了。' }
+      ],
+      tip: '输棋后 72 小时内不要复盘，让情绪先降温。' },
+
+    // 学习动机类
+    { cat: 'motivation', tag: '动机', q: '孩子最近不想学了，一提围棋就皱眉，怎么办？',
+      cards: [
+        { lead: '先判断阶段', txt: '孩子"不想学"分三种：第一次接触觉得难（劝一下）、进入平台期没成就感（换练习方式）、被家长逼太紧了（家长先撤）。您先想想是哪种。' },
+        { lead: '给一个"退一步"的方案', txt: '不用马上让他继续做题。这周我们把训练量减半，只做他喜欢的部分（比如吃子游戏 / 看职业棋手对局讲解 / 亲子对弈）。让他重新对围棋有兴趣，比强行推进重要 10 倍。' },
+        { lead: '家长自己也要看', txt: '孩子的抗拒 60% 是家长陪学方式导致的。您陪他练棋的时候，是"监督做题"还是"和他一起玩"？前者会毁掉围棋，后者能让围棋成为亲子专属时间。' }
+      ],
+      tip: '"不想学"是信号不是判决。找准阶段再对症，别一刀切地"就该坚持"。' },
+
+    { cat: 'motivation', tag: '动机', q: '孩子只想赢，一输就发脾气/哭，是不是心态有问题？',
+      cards: [
+        { lead: '正常化', txt: '5-9 岁孩子输棋哭是发育阶段的正常反应，不是心理问题，是大脑前额叶还没长好，情绪调控能力弱。这个阶段的核心不是让他"不哭"，而是让他学会"哭完继续下"。' },
+        { lead: '三步法', txt: '给您一个具体三步法：一是允许他哭 5 分钟，别劝别讲道理；二是等情绪过了给他一个拥抱，告诉他"输棋很难受，妈妈知道"；三是过 30 分钟后再问他"下一盘想改哪一步？"。慢慢地，他会自己缩短哭的时间。' },
+        { lead: '设立小勋章', txt: '在家里搞个"最冷静失误处理奖"——不是输了不哭就有奖，而是哭完能继续下就有奖。奖励可以是围棋书、棋子贴纸，具体的仪式感比空口鼓励管用。' }
+      ],
+      tip: '"输不起"不是问题，是必经阶段。我们教的是从输不起到能输，不是从输不起到不输。' },
+
+    { cat: 'motivation', tag: '动机', q: '孩子上课总走神，坐不住，是不是不适合学围棋？',
+      cards: [
+        { lead: '拆分原因', txt: '走神通常是三个原因之一：一是内容太难（听不懂就走神）、二是内容太熟（听过就走神）、三是身体累或饿。我下节课观察他具体是哪一种。' },
+        { lead: '给参与感', txt: '接下来我会调整策略：每讲 5 分钟就点一次名让他讲一下自己的想法，让他从"听众"变成"参与者"。参与感一上来，走神会明显减少。' },
+        { lead: '在家配合', txt: '在家训练可以用"番茄钟"——15 分钟专注做题 + 5 分钟起来玩，比一次性 45 分钟效果好。孩子专注力是训练出来的，不是天生的。' }
+      ],
+      tip: '走神不是"不适合"，是"没被激活"。围棋对专注力要求很高，反过来也是练专注的最好载体。' },
+
+    // 段位与比赛
+    { cat: 'segment', tag: '段位', q: '要不要让孩子考段？考不上会不会打击信心？',
+      cards: [
+        { lead: '什么时候该考', txt: '判断能不能考段的标准很简单：孩子在训练题上稳定达到目标段位难度的 70% 正确率、日常对局能守住 6 成胜率、自己有意愿。三个都满足就报，缺一个就再等等。' },
+        { lead: '为什么鼓励考', txt: '段位赛不只是拿证书，更是给孩子一个"围棋成长里程碑"的锚点。有目标 → 有备考 → 有仪式感 → 有沉淀，这套完整体验才是段位的真正价值。' },
+        { lead: '万一没考上', txt: '如果没考上，别把它当失败。跟孩子说"这次我们知道差在哪儿了"，然后针对性练 3 个月再报。围棋段位跟数学考试不同，晚半年拿到一点也不亏。' }
+      ],
+      tip: '段位不是终点，是路上的里程碑。别把"考段"当成育儿的核心 KPI。' },
+
+    { cat: 'segment', tag: '比赛', q: '孩子要不要打省赛/全国赛？我们家不走职业路线',
+      cards: [
+        { lead: '不走职业也该打', txt: '打比赛不等于走职业。比赛的价值在于：一是能见到不同风格的对手，视野打开；二是有紧张感的对局能锻炼心态；三是给孩子一个"和自己认真较劲"的场景。' },
+        { lead: '选比赛的标准', txt: '不是所有比赛都要报。挑那些跟他当前段位差半档的（他能赢一半、输一半的最好），既有挑战又不打击信心。差太远的比赛容易造成心理创伤。' },
+        { lead: '带比赛的方式', txt: '家长带娃打比赛，最重要的是"放松"。您越紧张，孩子越紧张。到了比赛现场就多说"没事玩玩看"，别说"这次一定要拿名次"。' }
+      ],
+      tip: '比赛是围棋教育的组成部分，不是可选项。但选比赛比打比赛更重要。' },
+
+    // 学习方法
+    { cat: 'method', tag: '方法', q: '孩子做题很多但棋力不涨，是不是方法不对？',
+      cards: [
+        { lead: '刷题≠涨棋', txt: '很多孩子做题"过一遍就翻篇"，做过 5000 题记住的可能只有 50 题。真正涨棋的方法是——每道错题反复做 5-10 次，做到闭眼能答出来，这才叫吸收。' },
+        { lead: '推 6:3:1 配比', txt: '题目难度也要配比：60% 简单题（练熟）+ 30% 同级题（测水平）+ 10% 挑战题（顶棋力）。全做难题会挫败感，全做简单题不涨棋。我们网站上有个配比工具可以直接算。' },
+        { lead: '错题周期复习', txt: '错题不是做完就完了，要按 1 天 / 3 天 / 7 天 / 15 天 / 1 月 的节奏回来复习。我们的错题跟踪表可以自动生成复习计划，您可以让孩子按表来。' }
+      ],
+      tip: '涨棋不在题量，在深度和复习节奏。给家长看数据比讲道理管用。' },
+
+    { cat: 'method', tag: '方法', q: '在家怎么陪孩子练棋？我自己不会下',
+      cards: [
+        { lead: '不会下才是优势', txt: '很多家长觉得"我不会下没法陪"，其实反过来——您不会下，孩子就有机会"教您"。让孩子给您讲他今天学的一招，讲不清楚就是没吸收，讲得清楚就是真会了。这是最有效的复习。' },
+        { lead: '三个具体动作', txt: '在家可以做三件事：一是每周固定 20 分钟"棋盘会议"（孩子讲棋 + 家长提问）；二是把孩子的对局记下来贴墙上，一周看一次进步；三是一起看职业棋手的视频，不用懂，感受氛围就够。' },
+        { lead: '避坑', txt: '有两件事千万别做：一是替他决定该下哪里；二是他做题时坐旁边盯着（会让他紧张失误）。您的角色是"围棋粉丝"，不是"围棋教练"。' }
+      ],
+      tip: '"陪伴"不是"辅导"。家长把自己的角色定位对了，孩子才能松。' },
+
+    { cat: 'method', tag: '方法', q: '每天该练多久？练太多怕伤兴趣，太少怕跟不上',
+      cards: [
+        { lead: '按年龄分', txt: '给您一个参考：4-6 岁每天 15 分钟够了；7-9 岁 20-30 分钟；10 岁以上 30-45 分钟。上限是"孩子还想继续"，一旦他显得烦躁就该停，不管有没到时间。' },
+        { lead: '碎片化更重要', txt: '每天 30 分钟 比 每周 3 小时 效果好 3 倍。围棋是"日积月累的手感"，突击练没用。哪怕每天只有 10 分钟，也要让他坐下来看一眼棋。' },
+        { lead: '不要在情绪不好时练', txt: '如果孩子今天在学校不开心/身体不舒服，宁可跳过。带情绪练棋，做 5 分钟就能毁掉未来 5 天的兴趣。' }
+      ],
+      tip: '"少而持续"永远胜过"多而间断"。这个原则在围棋上比在其他任何学科都成立。' },
+
+    // 换老师/机构
+    { cat: 'change', tag: '换机构', q: '朋友推荐了另一家机构，说他们那儿进步快，要不要换？',
+      cards: [
+        { lead: '不用回避', txt: '这个问题您问得好，我也希望您能理性判断而不是被话术带跑。孩子跟着我学，我最希望他学得好，不管在哪。' },
+        { lead: '换的判断标准', txt: '换机构值得的情况：一是老师教学质量明显有差距（听两节试听课就知道）、二是课程体系跟孩子当前阶段不匹配、三是通勤时间超过 1 小时。除此之外，"进步快"往往是别人家的营销话术，不一定真实。' },
+        { lead: '换的代价', txt: '同时也要看代价：换老师意味着孩子要重新建立信任、教学风格要重新适应、课程进度可能回退。这些隐性成本比学费贵得多，尤其孩子已经跟老师有感情的话。' }
+      ],
+      tip: '被家长问"要不要换"时，姿态大方最重要。防守越强，越像被戳穿。' },
+
+    { cat: 'change', tag: '换机构', q: '想换个更严格的老师，让孩子成长快点',
+      cards: [
+        { lead: '先问动机', txt: '您希望"严格"是指什么？是训练量大一些？还是老师态度严一些？还是有考段/比赛目标？三种"严格"要匹配的教学方式完全不同，我先了解您的期待。' },
+        { lead: '严格不等于进步', txt: '围棋教育跟应试教育不同——高压训练在幼小阶段会毁掉兴趣。真正让孩子涨棋的是"内驱力"，不是"外压力"。我在课上要求已经不低（[列举具体做法]），如果需要再加码可以谈。' },
+        { lead: '如果确实要换', txt: '如果您坚持要换严格型老师，我也支持。但建议您先做一件事：跟孩子聊清楚"接下来会更累"，得到他的认可再换。否则换过去他抗拒，反而更糟。' }
+      ],
+      tip: '"想要更严格"背后往往是家长焦虑。别只回应表面诉求。' },
+
+    // 家庭教育与陪伴
+    { cat: 'family', tag: '家庭', q: '孩子做作业拖拉/磨蹭，跟围棋学得下去有关系吗？',
+      cards: [
+        { lead: '有关系但方向反了', txt: '很多家长以为"围棋学好了作业就快了"，其实反过来——先解决作业习惯，围棋才能真正吸收。因为围棋练的专注力是长时段的，而作业拖拉是短时段专注不够。' },
+        { lead: '通用做法', txt: '给您一个通用的方法：作业和围棋都用番茄钟（15 分钟专注 + 5 分钟休息），每完成一个番茄钟画一颗星。20 颗星换一个小奖励。这个方法作业和围棋能一起改善。' },
+        { lead: '看行为背后的信号', txt: '拖拉大部分时候是"内容太难/太无聊"或"觉得反正做完还有下一个任务"。您可以试着问孩子"卡在哪里"，而不是"你为什么这么慢"。这个提问方式的差别，能影响他一辈子。' }
+      ],
+      tip: '家长最容易犯的错——把学科问题（围棋/作业）当成孩子的品格问题（懒/不认真）。' },
+
+    { cat: 'family', tag: '家庭', q: '家里两个孩子，只有一个学围棋，另一个总打扰，怎么办？',
+      cards: [
+        { lead: '把围棋变成"专属时间"', txt: '这个问题很典型。首先要让学围棋的那个孩子有"专属感"——固定时间、固定空间、家长陪伴。这个仪式感对他自己也是激励。' },
+        { lead: '让弟弟妹妹有事做', txt: '同一时间给不学的孩子安排他喜欢的事——积木、绘本、看动画都行。不是排斥他，是让他也有归属的活动。' },
+        { lead: '一起下棋', txt: '如果条件允许，让不学的那个也接触一下——不用报班，就在家玩吃子小游戏。孩子看见哥哥/姐姐有的东西，天然会想要，可能省下报班的钱。' }
+      ],
+      tip: '一家人的围棋氛围，比一个孩子的围棋课重要得多。' },
+
+    // 价值理解
+    { cat: 'value', tag: '价值', q: '围棋到底能带给孩子什么？花这么多钱值不值？',
+      cards: [
+        { lead: '短期价值', txt: '短期看：专注力 · 抗压能力 · 结构化思维。这三个能力反哺到学科上，尤其数学、语文的阅读理解、逻辑推理。有研究显示，围棋孩子的注意力持续时间平均比同龄人长 8-15 分钟。' },
+        { lead: '长期价值', txt: '长期看：围棋是极少数能跟一辈子的技能。20 年后孩子长大，芭蕾、钢琴、绘画大多放下了，但围棋会在他遇到人生困境的时候，成为他自我调节的方式——因为下棋时人是安静的。这份安静，是给他一辈子的礼物。' },
+        { lead: '性价比', txt: '算一笔账：如果学 3 年打进 1 段，投入大概 X 万；换来专注力提升、思维习惯、终身兴趣。跟其他兴趣班比，围棋是"低门槛 + 高上限"的项目，其实是性价比最高的选择之一。' }
+      ],
+      tip: '家长问"值不值"往往不是嫌贵，是想要一个说服自己继续投入的理由。把长期价值说透。' },
+
+    { cat: 'value', tag: '价值', q: '孩子说以后不想当职业棋手，那学围棋还有意义吗？',
+      cards: [
+        { lead: '意义在过程不在结果', txt: '围棋跟职业挂钩的是万分之一。剩下 99.99% 的学棋孩子都不走职业，但没有一个人觉得学围棋白学。为什么？因为围棋给的从来不是"棋手身份"，是"思维习惯"。' },
+        { lead: '举例', txt: '我教过的学生里，有做程序员的、有做医生的、有做设计师的，他们都跟我说：工作中遇到复杂问题不慌，就是当年下棋练出来的——先看全局，再找关键点，再一步步走。这个思维方式，会跟他一辈子。' },
+        { lead: '给方向', txt: '既然孩子不走职业，学习节奏可以放缓，重点从"冲段位"转向"享受围棋"——多看职业比赛、多参加同好交流、把围棋当爱好而不是任务。这样他一辈子都不会放下这个爱好。' }
+      ],
+      tip: '不走职业才是围棋教育的主流。别让"考段"、"打比赛"淹没围棋本身的美。' }
+  ];
+
+  const CAT_META = {
+    'all':        { name: '全部', order: 0 },
+    'progress':   { name: '学习进度', order: 1 },
+    'motivation': { name: '学习动机', order: 2 },
+    'segment':    { name: '段位比赛', order: 3 },
+    'method':     { name: '学习方法', order: 4 },
+    'change':     { name: '换老师/机构', order: 5 },
+    'family':     { name: '家庭教育', order: 6 },
+    'value':      { name: '围棋价值', order: 7 }
+  };
+
+  let currentCat = 'all';
+  let currentSearch = '';
+
+  function renderCats(){
+    const box = document.getElementById('qa4Cats');
+    if(!box) return;
+    // 统计每类数量
+    const counts = {all: QA4_DATA.length};
+    QA4_DATA.forEach(item => { counts[item.cat] = (counts[item.cat] || 0) + 1; });
+    const cats = Object.keys(CAT_META).sort((a,b) => CAT_META[a].order - CAT_META[b].order);
+    box.innerHTML = cats.map(k => {
+      const cnt = counts[k] || 0;
+      if(k !== 'all' && cnt === 0) return '';
+      return '<button class="qa4-cat' + (k === currentCat ? ' active' : '') + '" data-cat="' + k + '">' + CAT_META[k].name + '<span class="qa4-cat-count">(' + cnt + ')</span></button>';
+    }).join('');
+    box.querySelectorAll('.qa4-cat').forEach(btn => {
+      btn.addEventListener('click', function(){
+        currentCat = this.dataset.cat;
+        renderCats();
+        renderList();
+      });
+    });
+  }
+
+  function renderList(){
+    const box = document.getElementById('qa4List');
+    if(!box) return;
+    const kw = currentSearch.trim().toLowerCase();
+    const filtered = QA4_DATA.filter(item => {
+      if(currentCat !== 'all' && item.cat !== currentCat) return false;
+      if(!kw) return true;
+      const hay = (item.q + ' ' + item.tag + ' ' + item.cards.map(c => c.txt).join(' ')).toLowerCase();
+      return hay.indexOf(kw) !== -1;
+    });
+    if(filtered.length === 0){
+      box.innerHTML = '<div class="qa4-empty">没有找到相关问题<br><span style="font-size:11px;opacity:0.7">换个关键词试试，比如「进步」「输棋」「换老师」</span></div>';
+      return;
+    }
+    box.innerHTML = filtered.map((item, idx) => {
+      const cardHtml = item.cards.map(c =>
+        '<div class="qa4-a-card"><div class="qa4-a-card-lead">' + c.lead + '</div>' + c.txt + '</div>'
+      ).join('');
+      const tipHtml = item.tip ? '<div class="qa4-a-tip">💡 <strong>老师视角</strong>：' + item.tip + '</div>' : '';
+      return '<div class="qa4-item" data-idx="' + idx + '">' +
+        '<div class="qa4-q">' +
+          '<span class="qa4-q-tag">' + item.tag + '</span>' +
+          '<span class="qa4-q-txt">' + item.q + '</span>' +
+          '<span class="qa4-q-icon">+</span>' +
+        '</div>' +
+        '<div class="qa4-a">' +
+          '<div class="qa4-a-lead">推荐这样回答（可组合使用）：</div>' +
+          cardHtml +
+          tipHtml +
+        '</div>' +
+      '</div>';
+    }).join('');
+    box.querySelectorAll('.qa4-item').forEach(el => {
+      el.querySelector('.qa4-q').addEventListener('click', function(){
+        el.classList.toggle('open');
+      });
+    });
+  }
+
+  function init(){
+    if(!document.getElementById('qa4List')) return;
+    renderCats();
+    renderList();
+    const searchInput = document.getElementById('qa4Search');
+    if(searchInput){
+      let timer = null;
+      searchInput.addEventListener('input', function(){
+        clearTimeout(timer);
+        const val = this.value;
+        timer = setTimeout(function(){
+          currentSearch = val;
+          renderList();
+        }, 180);
+      });
+    }
+  }
+
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+// ===== A4 END =====
+
+
 </script>
 
 
@@ -4778,4 +5237,17 @@ function hideParentGuide(){
 })();
 </script>
 
-<button class="panel-close" id="panelCloseBtn" 
+<button class="panel-close" id="panelCloseBtn" aria-label="关闭面板">×</button>
+<button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="板块菜单">☰</button>
+
+<!-- 桌面端上下翻页控件 -->
+<button class="slide-arrow" id="slideUpBtn" aria-label="上一页">‹</button>
+<button class="slide-arrow" id="slideDownBtn" aria-label="下一页">›</button>
+<div class="slide-dots">
+  <div class="slide-dot active" data-idx="0" title="首页"></div>
+  <div class="slide-dot" data-idx="1" title="课表 · 图书"></div>
+  <div class="slide-dot" data-idx="2" title="使命"></div>
+</div>
+</body>
+</html>
+<!-- redeploy-47eed18dv4r1_v5_v6 -->
