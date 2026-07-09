@@ -1,0 +1,7 @@
+# https://weiqiluobogan.com/ · 萝卜干聊围棋教育
+# 允许所有搜索引擎抓取
+
+User-agent: *
+Allow: /
+
+Sitemap: https://weiqiluobogan.com/sitemap.xml
