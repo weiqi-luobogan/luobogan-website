@@ -1005,6 +1005,31 @@
   #tools.tg-teacher .practice-module[id^="tool-a"] { display: block; }
   #tools.tg-principal .practice-module[id^="tool-b"] { display: block; }
   #tools.tg-parent .practice-module[id^="tool-c"] { display: block; }
+  /* pm-drawer-fix-2026-07-11 · 工具箱 practice-module 抽屉式改造 · 默认折叠 · 点卡片按钮才展开 · 手风琴互斥 */
+  #tools .practice-module[id^="tool-a"],
+  #tools .practice-module[id^="tool-b"],
+  #tools .practice-module[id^="tool-c"] { display: none !important; }
+  #tools .practice-module.pm-open { display: block !important; animation: fadeSlideIn 0.32s ease; }
+  #tools .practice-module .pm-close-btn {
+    float: right;
+    background: transparent;
+    border: 1px solid var(--seal, #b64a30);
+    color: var(--seal, #b64a30);
+    padding: 4px 14px;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    margin-top: -4px;
+  }
+  #tools .practice-module .pm-close-btn:hover {
+    background: var(--seal, #b64a30);
+    color: #fff;
+  }
+  #tools [data-tool-anchor].pm-btn-open {
+    background: var(--ink, #1a1a1a) !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
   #about.collapsible.open, #ability-test.collapsible.open, #interact.collapsible.open, #contact.collapsible.open, #projects.collapsible.open, #teaching.collapsible.open { background: var(--paper-2); }
   @keyframes panelIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes fadeSlideIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
@@ -5138,6 +5163,9 @@ function hideParentGuide(){
       // pm-group-fix: 联动 practice-module 显示
       var _tsec = document.getElementById('tools');
       if(_tsec){ _tsec.classList.remove('tg-teacher','tg-principal','tg-parent'); _tsec.classList.add('tg-' + group); }
+      // pm-drawer-fix: 切换 tab 时重置所有抽屉为折叠状态
+      document.querySelectorAll('#tools .practice-module.pm-open').forEach(function(m){ m.classList.remove('pm-open'); });
+      document.querySelectorAll('#tools [data-tool-anchor].pm-btn-open').forEach(function(b){ b.classList.remove('pm-btn-open'); });
       if(typeof setNav === 'function') setNav({section:'tools', group: group});
     });
   });
@@ -5149,6 +5177,33 @@ function hideParentGuide(){
       const target = document.getElementById(anchorId);
       if(!target) return;
       const section = document.getElementById('tools');
+      // pm-drawer-fix: 抽屉互斥 · 关闭所有其他 pm-open，展开当前
+      document.querySelectorAll('#tools .practice-module.pm-open').forEach(function(m){
+        if(m !== target) m.classList.remove('pm-open');
+      });
+      document.querySelectorAll('#tools [data-tool-anchor].pm-btn-open').forEach(function(b){
+        if(b !== a) b.classList.remove('pm-btn-open');
+      });
+      target.classList.add('pm-open');
+      a.classList.add('pm-btn-open');
+      // pm-drawer-fix: 注入收起按钮（幂等）
+      if(!target.querySelector('.pm-close-btn')){
+        var title = target.querySelector('.practice-module-title');
+        if(title){
+          var btn = document.createElement('button');
+          btn.className = 'pm-close-btn';
+          btn.type = 'button';
+          btn.textContent = '× 收起';
+          btn.addEventListener('click', function(ev){
+            ev.stopPropagation();
+            target.classList.remove('pm-open');
+            document.querySelectorAll('#tools [data-tool-anchor="' + anchorId + '"]').forEach(function(bb){
+              bb.classList.remove('pm-btn-open');
+            });
+          });
+          title.appendChild(btn);
+        }
+      }
       if(section && section.classList.contains('open')){
         requestAnimationFrame(function(){
           const sRect = section.getBoundingClientRect();
@@ -6615,6 +6670,9 @@ function hideParentGuide(){
     // pm-group-fix: 联动 practice-module
     var _tsec = document.getElementById('tools');
     if(_tsec){ _tsec.classList.remove('tg-teacher','tg-principal','tg-parent'); _tsec.classList.add('tg-' + group); }
+    // pm-drawer-fix: setActiveTab 时同步重置抽屉
+    document.querySelectorAll('#tools .practice-module.pm-open').forEach(function(m){ m.classList.remove('pm-open'); });
+    document.querySelectorAll('#tools [data-tool-anchor].pm-btn-open').forEach(function(b){ b.classList.remove('pm-btn-open'); });
   }
   function saveScroll(){
     var s = parseHash();
