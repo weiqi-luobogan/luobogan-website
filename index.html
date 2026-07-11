@@ -1656,6 +1656,65 @@
     .role-pain .rp-promise{font-size:12px}
   }
 
+  
+  /* ===== Works · Round 172 P5 · 分区视觉强化 · r172-works-partition-2026-07-11 ===== */
+  /* 四书卡 · 右上角卷序罗马数字装饰 */
+  .book-card{position:relative;overflow:hidden}
+  .book-card::before{
+    content: attr(data-vol);
+    position:absolute;top:-6px;right:12px;
+    font-family:'Georgia', 'Times New Roman', serif;
+    font-size:64px;
+    font-weight:800;
+    color:rgba(168,54,42,0.09);
+    line-height:1;
+    pointer-events:none;
+    z-index:1;
+    letter-spacing:-0.02em;
+  }
+  .book-card > *{position:relative;z-index:2}
+
+  /* 4 类导图 · 序号徽章 + 装饰线 + 底部虚线 */
+  .mind-group{
+    padding-bottom:22px;
+    border-bottom:1px dashed var(--line);
+    margin-bottom:32px !important;
+  }
+  .mind-group:last-of-type{border-bottom:none;margin-bottom:0 !important;padding-bottom:0}
+  .mind-h3{
+    position:relative;
+    padding-left:52px;
+    padding-bottom:10px !important;
+    display:inline-block;
+  }
+  .mind-h3::before{
+    content: attr(data-num);
+    position:absolute;left:0;top:2px;
+    font-family:'Inter', sans-serif;
+    font-size:11px;
+    letter-spacing:0.22em;
+    color:var(--seal);
+    font-weight:700;
+    border:1px solid var(--seal);
+    padding:3px 8px;
+    border-radius:2px;
+    line-height:1;
+  }
+  .mind-h3::after{
+    content:"";
+    position:absolute;left:52px;bottom:0;
+    width:36px;height:2px;
+    background:var(--seal);
+    border-radius:1px;
+  }
+  @media (max-width:640px){
+    .book-card::before{font-size:48px;top:-4px;right:8px}
+    .mind-h3{padding-left:44px}
+    .mind-h3::before{font-size:10px;padding:2px 6px}
+    .mind-h3::after{left:44px;width:28px}
+    .mind-group{padding-bottom:18px;margin-bottom:24px !important}
+  }
+
   </style>
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta name="version" content="202607090847">
@@ -2717,28 +2776,28 @@
         <p class="text-xs text-gray-soft mt-3 leading-relaxed">围绕<span class="hl">围棋教育</span>与<span class="hl">家庭教育</span>写成的四卷手册，分别面向老师、校长、家长与家庭日常。</p>
       </div>
       <div class="grid md:grid-cols-4 gap-6">
-        <div class="card">
+        <div class="card book-card" data-vol="I">
           <div class="mb-3 flex items-center justify-center bg-paper-2 rounded" style="aspect-ratio:2/3;overflow:hidden;">
             <img src="assets/books/vol1.jpg" alt="围棋教师成长手册" class="w-full h-full object-cover">
           </div>
           <h3 class="font-bold mb-1">卷一 · 围棋教师成长手册</h3>
           <p class="text-xs text-gray-soft leading-relaxed">写给每一位认真的围棋老师，从教学理念到课堂落地的系统方法。</p>
         </div>
-        <div class="card">
+        <div class="card book-card" data-vol="II">
           <div class="mb-3 flex items-center justify-center bg-paper-2 rounded" style="aspect-ratio:2/3;overflow:hidden;">
             <img src="assets/books/vol2.jpg" alt="围棋校长经营手册" class="w-full h-full object-cover">
           </div>
           <h3 class="font-bold mb-1">卷二 · 围棋校长经营手册</h3>
           <p class="text-xs text-gray-soft leading-relaxed">写给同行校长的一本书，聊招生、教研、留存与团队的实际做法。</p>
         </div>
-        <div class="card">
+        <div class="card book-card" data-vol="III">
           <div class="mb-3 flex items-center justify-center bg-paper-2 rounded" style="aspect-ratio:2/3;overflow:hidden;">
             <img src="assets/books/vol3.jpg" alt="围棋家长成长手册" class="w-full h-full object-cover">
           </div>
           <h3 class="font-bold mb-1">卷三 · 围棋家长成长手册</h3>
           <p class="text-xs text-gray-soft leading-relaxed">陪孩子学棋的家长真心话，把家长最容易踩的坑一次讲清楚。</p>
         </div>
-        <div class="card">
+        <div class="card book-card" data-vol="IV">
           <div class="mb-3 flex items-center justify-center bg-paper-2 rounded" style="aspect-ratio:2/3;overflow:hidden;">
             <img src="assets/books/vol4.jpg" alt="围棋家庭教育手册" class="w-full h-full object-cover">
           </div>
@@ -2756,8 +2815,8 @@
       </div>
       <p class="text-xs text-gray-soft mb-8 leading-relaxed">从<span class="hl">教学体系</span>、<span class="hl">启蒙入门</span>、<span class="hl">棋力提升</span>到<span class="hl">家庭教育</span>，把这些年琢磨出来的东西画成一张张图。点击可放大查看。</p>
 
-      <div class="mb-10">
-        <h3 class="text-lg font-bold mb-2">教学体系</h3>
+      <div class="mb-10 mind-group">
+        <h3 class="text-lg font-bold mb-2 mind-h3" data-num="01">教学体系</h3>
         <p class="text-xs text-gray-soft mb-4 leading-relaxed">围棋教学的整体框架、教学体系、知识清单与计算体系。</p>
         <div class="grid md:grid-cols-4 gap-4">
           <a href="assets/mind/edu_overview.jpg" target="_blank" class="block group">
@@ -2787,8 +2846,8 @@
         </div>
       </div>
 
-      <div class="mb-10">
-        <h3 class="text-lg font-bold mb-2">启蒙入门</h3>
+      <div class="mb-10 mind-group">
+        <h3 class="text-lg font-bold mb-2 mind-h3" data-num="02">启蒙入门</h3>
         <p class="text-xs text-gray-soft mb-4 leading-relaxed">孩子接触围棋的第一站，从兴趣到基本规则、常见问题。</p>
         <div class="grid md:grid-cols-3 gap-4">
           <a href="assets/mind/start_intro.jpg" target="_blank" class="block group">
@@ -2812,8 +2871,8 @@
         </div>
       </div>
 
-      <div class="mb-10">
-        <h3 class="text-lg font-bold mb-2">棋力提升</h3>
+      <div class="mb-10 mind-group">
+        <h3 class="text-lg font-bold mb-2 mind-h3" data-num="03">棋力提升</h3>
         <p class="text-xs text-gray-soft mb-4 leading-relaxed">布局、中盘、死活、冲段，覆盖不同水平的进阶重点。</p>
         <div class="grid md:grid-cols-4 gap-4">
           <a href="assets/mind/skill_layout.jpg" target="_blank" class="block group">
@@ -2843,8 +2902,8 @@
         </div>
       </div>
 
-      <div class="mb-10">
-        <h3 class="text-lg font-bold mb-2">家庭教育</h3>
+      <div class="mb-10 mind-group">
+        <h3 class="text-lg font-bold mb-2 mind-h3" data-num="04">家庭教育</h3>
         <p class="text-xs text-gray-soft mb-4 leading-relaxed">家长如何陪孩子学棋，兼顾成长与家庭沟通。</p>
         <div class="grid md:grid-cols-4 gap-4">
           <a href="assets/mind/family_edu.jpg" target="_blank" class="block group">
