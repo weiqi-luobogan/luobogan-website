@@ -1156,6 +1156,113 @@
   html, body { -ms-overflow-style: none; scrollbar-width: none; }
   html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; }
 
+
+  /* ===== Role Router · Round 171 ===== */
+/* ===== Role Router · 角色分流卡 · Round 171 ===== */
+.role-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+@media (max-width:900px){
+  .role-grid{grid-template-columns:1fr;gap:16px}
+}
+.role-card{
+  display:block;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:6px;
+  padding:26px 22px 22px;
+  text-decoration:none;
+  color:var(--ink);
+  position:relative;
+  transition:all .28s cubic-bezier(.4,.0,.2,1);
+  overflow:hidden;
+}
+.role-card::before{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;
+  height:3px;
+  background:var(--seal);
+  opacity:.85;
+}
+.role-card:hover{
+  transform:translateY(-4px);
+  border-color:var(--seal);
+  box-shadow:0 10px 28px rgba(168,54,42,0.12);
+}
+.role-card.role-teacher::before{background:#a8362a}
+.role-card.role-principal::before{background:#5c4a2e}
+.role-card.role-parent::before{background:#8a6b3a}
+.role-badge{
+  display:inline-block;
+  font-size:11px;
+  letter-spacing:.35em;
+  color:var(--seal);
+  font-weight:700;
+  padding:3px 10px;
+  border:1px solid rgba(168,54,42,0.35);
+  border-radius:2px;
+  margin-bottom:14px;
+  font-family:'Times New Roman',serif;
+}
+.role-card.role-principal .role-badge{color:#5c4a2e;border-color:rgba(92,74,46,0.35)}
+.role-card.role-parent .role-badge{color:#8a6b3a;border-color:rgba(138,107,58,0.35)}
+.role-title{
+  font-size:20px;
+  font-weight:800;
+  color:var(--ink);
+  margin-bottom:8px;
+  letter-spacing:.02em;
+}
+.role-desc{
+  font-size:13.5px;
+  color:var(--gray);
+  line-height:1.7;
+  margin-bottom:18px;
+  padding-bottom:16px;
+  border-bottom:1px dashed var(--line);
+}
+.role-path{
+  list-style:none;
+  padding:0;
+  margin:0 0 18px 0;
+}
+.role-path li{
+  font-size:13px;
+  color:var(--ink-soft);
+  padding:6px 0;
+  line-height:1.6;
+  display:flex;
+  align-items:baseline;
+  gap:10px;
+}
+.rp-num{
+  font-family:'Times New Roman',serif;
+  font-size:12px;
+  color:var(--seal);
+  font-weight:700;
+  min-width:22px;
+  letter-spacing:.05em;
+}
+.role-card.role-principal .rp-num{color:#5c4a2e}
+.role-card.role-parent .rp-num{color:#8a6b3a}
+.role-cta{
+  font-size:13.5px;
+  color:var(--seal);
+  font-weight:600;
+  letter-spacing:.08em;
+  padding-top:6px;
+  border-top:1px solid var(--line);
+  transition:all .24s;
+}
+.role-card.role-principal .role-cta{color:#5c4a2e}
+.role-card.role-parent .role-cta{color:#8a6b3a}
+.role-card:hover .role-cta{
+  padding-left:6px;
+}
+
   /* ===== side-nav 增强 ===== */
   .side-nav-title { font-size: 16px; font-weight: 700; color: var(--seal); letter-spacing: 0.4em; margin-bottom: 14px; padding-left: 4px; opacity: 1; text-align: center; }
   .side-nav a.active { background: var(--seal); color: #fff; border-color: var(--seal); transform: translateX(-4px); }
@@ -1502,219 +1609,87 @@
 </main>
 
 
+<!-- PATCH: r171-arch-rerank-2026-07-11 -->
 
-<!-- ===== About ===== -->
-<section id="about" class="bg-paper-2 py-24 border-y border-line collapsible">
-  <div class="max-w-3xl mx-auto px-6 fade-in">
-    <h2 class="section-title">自我介绍</h2>
-    <div class="space-y-6 text-base md:text-lg">
-      <blockquote>
-        我叫萝卜干。这些年，我做的事情就一件——把围棋这件事讲清楚：让普通孩子学得进去、家长教得明白、老师上得轻松。
-      </blockquote>
-      <blockquote>
-        我画过一张全国围棋机构都在用的思维导图——把围棋教学的逻辑结构整理出来，让教学不再依赖个人天赋。
-      </blockquote>
-      <blockquote>
-        我也写过 4 本围棋教育手册（教师 / 校长 / 家长成长 / 家庭教育），把这些年踩过的坑、想明白的事，留在纸上。
-      </blockquote>
-      <div class="pt-4">
-        <p class="text-sm text-gray-soft tracking-wider">在以下平台分享日常：</p>
-        <p class="mt-2 font-inter text-sm">抖音 / 视频号 / B 站 · <span class="text-ink">萝卜干聊围棋教育</span></p>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- ===== Help ===== -->
-<section id="help" class="bg-paper py-24 collapsible">
+<!-- ===== Role Router · 角色分流卡 · Round 171 ===== -->
+<section id="role-router" class="bg-paper py-14 border-b border-line">
   <div class="max-w-5xl mx-auto px-6 fade-in">
-    <h2 class="section-title">我的能力</h2>
-    <div class="grid md:grid-cols-3 gap-6">
-      <div class="card">
-        <span class="seal self-start">围棋老师</span>
-        <h3 class="text-xl font-bold mt-4 mb-3">教学与沟通</h3>
-        <p class="text-gray-soft text-sm leading-relaxed">
-          备课没思路、孩子不爱听、家长不理解、续费总卡壳——<br>
-          把教学逻辑梳清楚，把和家长的沟通话术做扎实，上课轻松，留人不难。
-        </p>
-      </div>
-      <div class="card">
-        <span class="seal self-start">机构校长</span>
-        <h3 class="text-xl font-bold mt-4 mb-3">运营与发展</h3>
-        <p class="text-gray-soft text-sm leading-relaxed">
-          招生靠口碑、续费靠服务、老师靠成长——<br>
-          一个人也能干，三个人也能管。把小机构的运营底盘搭起来，把人留下来。
-        </p>
-      </div>
-      <div class="card">
-        <span class="seal self-start">围棋家长</span>
-        <h3 class="text-xl font-bold mt-4 mb-3">陪伴与引导</h3>
-        <p class="text-gray-soft text-sm leading-relaxed">
-          孩子学不进去、不爱下棋、输了就哭、考级焦虑——<br>
-          不是棋的问题，是陪伴方式的问题。用对方法，围棋会成为最好的亲子项目。
-        </p>
-      </div>
+    <div style="text-align:center;margin-bottom:12px">
+      <div style="display:inline-block;font-size:12px;letter-spacing:.4em;color:var(--seal);font-weight:700;border:1px solid var(--seal);padding:4px 14px;border-radius:2px">START HERE</div>
     </div>
-  </div>
-</section>
-
-<!-- ===== Projects ===== -->
-<section id="projects" class="bg-paper-2 py-24 border-y border-line collapsible">
-  <div class="max-w-5xl mx-auto px-6 fade-in">
-    <h2 class="section-title">围棋课程</h2>
-    <p class="section-lead" style="margin-bottom:3rem">所有项目均长期开放，加微信咨询入群方式。</p>
-
-    <!-- 教师向 -->
-    <div class="mb-16">
-      <div class="flex items-baseline gap-3 mb-6 flex-wrap">
-        <span class="seal">围棋老师 · 小机构校长</span>
-        <span class="text-xs text-gray-soft font-inter tracking-wider">4 项</span>
-      </div>
-      <div class="grid md:grid-cols-2 gap-6">
-        <div class="card">
-          <h3 class="text-xl font-bold mb-2">线上训练营</h3>
-          <p class="text-xs text-gray-soft mb-3 font-inter">长期开放</p>
-          <p class="text-gray-soft text-sm leading-relaxed">
-            教师系统性能力训练营。每期围绕一个核心专题，集中打磨<span class="hl">备课逻辑</span>、<span class="hl">课堂节奏</span>、<span class="hl">家长沟通</span>、<span class="hl">续班话术</span>。适合刚入行 1-3 年的老师，以及想告别野路子教学的独立老师。
-          </p>
-        </div>
-        <div class="card">
-          <h3 class="text-xl font-bold mb-2">周四群内体系化分享</h3>
-          <p class="text-xs text-gray-soft mb-3 font-inter">每周四 · 长期</p>
-          <p class="text-gray-soft text-sm leading-relaxed">
-            面向<span class="text-ink font-medium">萝卜围棋圈</span>成员的每周体系化分享。本季度主题：<span class="hl">围棋老师如何做好自媒体</span>；下季度主题：<span class="hl">家校沟通与招生宣传</span>。每期一个小切口，长期滚动更新。
-          </p>
-        </div>
-        <div class="card">
-          <h3 class="text-xl font-bold mb-2">教师成长群</h3>
-          <p class="text-xs text-gray-soft mb-3 font-inter">每周三 / 周四早 · 长期</p>
-          <p class="text-gray-soft text-sm leading-relaxed">
-            以《<span class="hl">围棋教师成长手册</span>》为主干，<span class="hl">二十次课</span>系统串讲从教学理念到课堂落地的全流程。每次课配套<span class="hl">课程回放</span>、<span class="hl">教学笔记</span>、<span class="hl">教学 PPT</span>，加入即可反复复用。
-          </p>
-        </div>
-        <div class="card">
-          <h3 class="text-xl font-bold mb-2">围棋专题训练课</h3>
-          <p class="text-xs text-gray-soft mb-3 font-inter">长期开放 · 按专题排课</p>
-          <p class="text-gray-soft text-sm leading-relaxed">
-            面向<span class="hl">野狐 10 级到 3 段</span>棋友的专项训练营，四大模块——<span class="hl">围棋布局</span>、<span class="hl">中盘战斗</span>、<span class="hl">打入专题</span>、<span class="hl">官子提升</span>，按专题轮转，逐一打透实战短板。
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <!-- 家长向 -->
-    <div class="mb-16">
-      <div class="flex items-baseline gap-3 mb-6 flex-wrap">
-        <span class="seal">围棋家长</span>
-        <span class="text-xs text-gray-soft font-inter tracking-wider">1 项</span>
-      </div>
-      <div class="grid md:grid-cols-2 gap-6">
-        <div class="card">
-          <h3 class="text-xl font-bold mb-2">家长群</h3>
-          <p class="text-xs text-gray-soft mb-3 font-inter">长期开放</p>
-          <p class="text-gray-soft text-sm leading-relaxed">
-            面向少儿围棋家长的长期交流群。日常围绕<span class="hl">孩子学棋进度</span>、<span class="hl">家中陪练</span>、<span class="hl">升级冲段节奏</span>、<span class="hl">赛事信息</span>展开。每周一次固定分享教育心得，无广告、无强制打卡。
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <!-- 学生向（孩子学棋） -->
-    <div>
-      <div class="flex items-baseline gap-3 mb-6 flex-wrap">
-        <span class="seal">孩子学棋</span>
-        <span class="text-xs text-gray-soft font-inter tracking-wider">2 项</span>
-      </div>
-      <div class="grid md:grid-cols-2 gap-6">
-        <div class="card">
-          <h3 class="text-xl font-bold mb-2">一对一</h3>
-          <p class="text-xs text-gray-soft mb-3 font-inter">长期开放 · 预约制</p>
-          <p class="text-gray-soft text-sm leading-relaxed">
-            针对个体棋友的深度陪跑。集中解决<span class="hl">卡段瓶颈</span>、<span class="hl">思维盲点</span>、<span class="hl">赛前突击</span>等具体问题。<span class="hl">每次 45 分钟</span>，面向 5 岁到成人，可试听一次再决定是否长期。
-          </p>
-        </div>
-        <div class="card">
-          <h3 class="text-xl font-bold mb-2">围棋专题训练营</h3>
-          <p class="text-xs text-gray-soft mb-3 font-inter">长期开放 · 按专题排期</p>
-          <p class="text-gray-soft text-sm leading-relaxed">
-            面向孩子的短期专项训练营。围绕<span class="hl">死活手筋</span>、<span class="hl">布局感觉</span>、<span class="hl">吃子技巧</span>、<span class="hl">基本官子</span>四大专题轮转开营，每期 6-8 次课，适合 15 级到 3 级的孩子按短板选营。
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== Groups · 入群福利 ===== -->
-<section id="groups" class="bg-paper py-24 border-y border-line collapsible">
-  <div class="max-w-5xl mx-auto px-6 fade-in">
-    <h2 class="section-title">加入社群</h2>
-    <p class="section-lead" style="margin-bottom:3rem">两个长期在运转的群 —— 一个给围棋老师，一个给学棋家庭。都是长期开放，加微信 <span class="hl">yxwq0909</span> 备注身份即可拉入。</p>
-
-    <div class="grid md:grid-cols-2 gap-8">
-
-      <!-- 教师交流群 -->
-      <div class="card" style="padding:32px 28px">
-        <div class="flex items-baseline gap-3 mb-4 flex-wrap">
-          <span class="seal">教师交流群</span>
-          <span class="text-xs text-gray-soft font-inter tracking-wider">长期开放</span>
-        </div>
-        <h3 class="text-2xl font-bold mb-3">萝卜围棋圈 · 教师交流群</h3>
-        <p class="text-gray-soft text-sm leading-relaxed mb-5">
-          面向<span class="hl">刚入行 1-3 年的新老师</span>、<span class="hl">想告别野路子教学的独立老师</span>、以及<span class="hl">小机构的教研骨干</span>。群里没有话术鸡汤，只有一线备课经验、真实课堂案例、家长沟通复盘、招生续班拆解。
-        </p>
-
-        <p class="text-ink font-medium mb-2" style="font-size:14px;letter-spacing:0.05em">加入后你会持续拿到</p>
-        <ul class="text-gray-soft text-sm leading-relaxed" style="list-style:none;padding:0;margin-bottom:20px">
-          <li style="padding:7px 0;border-bottom:1px dashed var(--line)">✓ 每周三 / 周四早《围棋教师成长手册》二十次系统课的<span class="hl">课程回放 · 教学笔记 · 教学 PPT</span></li>
-          <li style="padding:7px 0;border-bottom:1px dashed var(--line)">✓ 每周四晚固定的<span class="hl">体系化专题分享</span>（本季度：老师如何做自媒体；下季度：家校沟通与招生）</li>
-          <li style="padding:7px 0;border-bottom:1px dashed var(--line)">✓ 群内真实一线案例复盘：备课卡壳、课堂失控、家长投诉、续费瓶颈的<span class="hl">具体处理方法</span></li>
-          <li style="padding:7px 0;border-bottom:1px dashed var(--line)">✓ 《围棋教师成长手册》《校长经营手册》<span class="hl">章节节选</span>先于市场同步阅读</li>
-          <li style="padding:7px 0;border-bottom:1px dashed var(--line)">✓ 学员反馈单、试听课台账、教学思维导图等<span class="hl">现成工具包</span>可直接下载套用</li>
-          <li style="padding:7px 0">✓ 群主本人不定期<span class="hl">答疑</span> —— 不是话术模板，是具体情境里怎么做</li>
+    <h2 class="section-title" style="text-align:center;margin:0 auto 12px;padding-bottom:14px;display:block;width:fit-content">你从哪里来？</h2>
+    <p style="text-align:center;color:var(--gray);font-size:14.5px;letter-spacing:.06em;margin-bottom:38px">
+      三条路径 · 各自的学习地图 · 一图看全你需要的东西
+    </p>
+    <div class="role-grid">
+      <!-- 教师路径 -->
+      <a href="#tools" class="role-card role-teacher nav-toggle" data-target="tools" data-group="teacher">
+        <div class="role-badge">TEACHER</div>
+        <div class="role-title">我是围棋老师</div>
+        <div class="role-desc">教学工具 · 试听转化 · 招生话术 · 家长沟通</div>
+        <ul class="role-path">
+          <li><span class="rp-num">01</span> 教育工具箱 · 10 张实战工具</li>
+          <li><span class="rp-num">02</span> 学习园地 · 10 讲招生课</li>
+          <li><span class="rp-num">03</span> 教师成长群 · 每周分享</li>
         </ul>
-
-        <p class="text-xs text-gray-soft mb-4"><em>无广告推送 · 无强制打卡 · 无变现套路 · 只做一件事——让新老师少走弯路。</em></p>
-
-        <div>
-          <a href="#contact" class="btn-primary nav-toggle" data-target="contact">加微信入群 · yxwq0909</a>
-        </div>
-      </div>
-
-      <!-- 家长交流群 -->
-      <div class="card" style="padding:32px 28px">
-        <div class="flex items-baseline gap-3 mb-4 flex-wrap">
-          <span class="seal">家长交流群</span>
-          <span class="text-xs text-gray-soft font-inter tracking-wider">长期开放</span>
-        </div>
-        <h3 class="text-2xl font-bold mb-3">萝卜围棋圈 · 家长交流群</h3>
-        <p class="text-gray-soft text-sm leading-relaxed mb-5">
-          面向<span class="hl">少儿围棋家庭家长</span>的长期陪伴社群。日常围绕孩子学棋进度、家中陪练、升级冲段节奏、赛事信息展开。这里的家长不比孩子段位、不焦虑排名，只讨论<span class="hl">"我这周和孩子之间发生了什么"</span>。
-        </p>
-
-        <p class="text-ink font-medium mb-2" style="font-size:14px;letter-spacing:0.05em">加入后你会持续拿到</p>
-        <ul class="text-gray-soft text-sm leading-relaxed" style="list-style:none;padding:0;margin-bottom:20px">
-          <li style="padding:7px 0;border-bottom:1px dashed var(--line)">✓ 每周一次<span class="hl">教育心得固定分享</span>：陪练技巧、升段应对、情绪疏导、家校沟通</li>
-          <li style="padding:7px 0;border-bottom:1px dashed var(--line)">✓ 《围棋家长成长手册》《围棋家庭教育手册》<span class="hl">章节节选</span>提前阅读</li>
-          <li style="padding:7px 0;border-bottom:1px dashed var(--line)">✓ 家庭围棋周历 · 亲子复盘对话清单 · 家长自查表等<span class="hl">陪伴工具页</span>可下载打印</li>
-          <li style="padding:7px 0;border-bottom:1px dashed var(--line)">✓ 高频<span class="hl">32 个真实问题应答库</span>：孩子输棋大哭、突然不想学、升段考试焦虑</li>
-          <li style="padding:7px 0;border-bottom:1px dashed var(--line)">✓ 全国重要围棋<span class="hl">赛事信息</span>与备赛节奏建议</li>
-          <li style="padding:7px 0">✓ 群主本人不定期<span class="hl">答疑</span> —— 不是打鸡血，是"这种情况我会怎么做"</li>
+        <div class="role-cta">进入教师路径 →</div>
+      </a>
+      <!-- 校长路径 -->
+      <a href="#works" class="role-card role-principal nav-toggle" data-target="works">
+        <div class="role-badge">PRINCIPAL</div>
+        <div class="role-title">我是校长 / 机构负责人</div>
+        <div class="role-desc">教学体系 · 运营手册 · 招生打法 · 团队搭建</div>
+        <ul class="role-path">
+          <li><span class="rp-num">01</span> 家校共育四书 · 教师/校长/家长/家庭</li>
+          <li><span class="rp-num">02</span> 教学体系思维导图</li>
+          <li><span class="rp-num">03</span> Q4 教师 90 天成长营 · 20 讲</li>
         </ul>
-
-        <p class="text-xs text-gray-soft mb-4"><em>无卖课推送 · 无强制打卡 · 无段位攀比 · 只做一件事——让家长在陪孩子学棋的路上少踩坑。</em></p>
-
-        <div>
-          <a href="#contact" class="btn-primary nav-toggle" data-target="contact">加微信入群 · yxwq0909</a>
-        </div>
-      </div>
-
+        <div class="role-cta">进入校长路径 →</div>
+      </a>
+      <!-- 家长路径 -->
+      <a href="#tools" class="role-card role-parent nav-toggle" data-target="tools" data-group="parent">
+        <div class="role-badge">PARENT</div>
+        <div class="role-title">我是围棋家长</div>
+        <div class="role-desc">三阶段角色 · 陪学地图 · 常见问题 · 认知自测</div>
+        <ul class="role-path">
+          <li><span class="rp-num">01</span> 家长三阶段 · 启蒙/级位/段位</li>
+          <li><span class="rp-num">02</span> 教育认知度测评 · 家长版</li>
+          <li><span class="rp-num">03</span> 家长交流群 · 常见问题库</li>
+        </ul>
+        <div class="role-cta">进入家长路径 →</div>
+      </a>
     </div>
-
-    <p class="text-xs text-gray-soft mt-10 text-center leading-relaxed" style="max-width:680px;margin-left:auto;margin-right:auto"><em>两个群都由本人亲自运营 · 不外包 · 不代管。人数越来越多之后，会按批次分群，保证每一位新加入的成员都能看到干货、能被回应。</em></p>
-
   </div>
 </section>
+
+
+
+<!-- ===== 学习园地 引流入口 ===== -->
+<section id="xxyd-entry" class="bg-paper py-16 border-b border-line">
+  <div class="max-w-5xl mx-auto px-6 fade-in">
+    <div style="background:linear-gradient(135deg,rgba(168,54,42,.08),rgba(168,54,42,.02));border:1px solid var(--seal);border-radius:16px;padding:36px 28px;position:relative;overflow:hidden">
+      <div style="position:absolute;top:16px;right:24px;font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.2em;color:var(--seal);background:#fff;padding:4px 12px;border-radius:20px;border:1px solid var(--seal)">NEW · 每周更新</div>
+      <div style="font-family:'Inter',sans-serif;font-size:12px;letter-spacing:.3em;color:var(--seal);margin-bottom:10px">LEARNING GARDEN</div>
+      <h2 style="font-size:28px;font-weight:900;margin:0 0 14px;line-height:1.35;color:var(--ink)">学习园地 · 每周一课</h2>
+      <p style="color:var(--gray);font-size:15px;line-height:1.85;margin:0 0 20px;max-width:640px">
+        面向围棋教育从业者的自媒体招生系统课。<br>
+        <strong style="color:var(--seal)">不是纯 PPT，是可以边学边动手的互动学习页</strong>——三类账号自测、三秒定位自检、个人 IP 定位卡 V0.1 现场生成，一键保存分享。
+      </p>
+      <div style="display:flex;gap:20px;flex-wrap:wrap;margin-bottom:22px;font-size:13px;color:var(--gray-soft)">
+        <span>📖 10 节系统课</span>
+        <span>🎯 3 处深度互动</span>
+        <span>🎁 群主亲自点评作业</span>
+      </div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <a href="/xxyd/lesson-01.html" style="display:inline-block;background:var(--seal);color:#fff;padding:12px 24px;border-radius:8px;font-weight:600;font-size:15px">进入第 1 课 · 账号定位 →</a>
+        <a href="/xxyd/" style="display:inline-block;background:transparent;color:var(--seal);border:1px solid var(--seal);padding:12px 24px;border-radius:8px;font-weight:600;font-size:15px">查看全部课程</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
 
 <!-- ===== Tools · 围棋教育工具箱（一线老师 / 独立校长 / 家长） ===== -->
 <section id="tools" class="bg-paper-2 py-24 border-y border-line collapsible tg-teacher">
@@ -2252,6 +2227,277 @@
   </div>
 </section>
 
+
+
+<!-- ===== Ability Test ===== -->
+<section id="ability-test" class="bg-paper-2 py-24 border-y border-line collapsible">
+  <div class="max-w-4xl mx-auto px-6 fade-in">
+    <h2 class="section-title">围棋能力测试</h2>
+    <p class="section-lead">
+      围棋教育里，最难的不是技术，是"人"这一面。这里两套 30 题自评，帮你把自己在孩子学棋 / 教学状态里的位置照一照镜子。做完会给你一张<span class="hl">段位认证证书</span>，可以保存分享。
+    </p>
+
+    <!-- ==== Tab 切换 ==== -->
+    <div id="test-selector" class="flex gap-3 mb-8">
+      <button class="test-tab-btn active" data-role="parent">家长版</button>
+      <button class="test-tab-btn" data-role="teacher">教师版</button>
+    </div>
+
+    <!-- ==== 状态 1：介绍屏 ==== -->
+    <div id="test-intro" class="card">
+      <h3 id="intro-title" class="text-xl font-bold mb-3">家长版 · 教育认知度测评</h3>
+      <p id="intro-desc" class="text-sm text-gray-soft leading-relaxed mb-6">这套题面向孩子在学围棋、正在学、或者考虑让孩子学的家长。它不测围棋水平，测的是你作为家长的<span class="hl">教育理念、期望管理、陪伴方式、教育视野</span>四个维度。</p>
+      <div class="grid grid-cols-2 gap-4 text-xs text-gray-soft mb-6">
+        <div><span class="hl">题量</span>：30 道</div>
+        <div><span class="hl">题型</span>：单选 20 · 判断 8 · 简答 2</div>
+        <div><span class="hl">用时</span>：约 10-15 分钟</div>
+        <div><span class="hl">满分</span>：150 分</div>
+      </div>
+      <p class="text-xs text-gray-soft mb-6 leading-relaxed"><em>提示：本测评为萝卜干个人教育理念评估工具，结果和证书代表教育认知度参考，不代表围棋段位。</em></p>
+      <button id="btn-start" class="bg-seal text-white px-8 py-3 rounded text-sm hover:opacity-90 transition">开始测评 →</button>
+    </div>
+
+    <!-- ==== 状态 2：答题屏 ==== -->
+    <div id="test-quiz" style="display:none">
+      <div class="progress-bar mb-2"><div id="progress-fill"></div></div>
+      <div class="flex justify-between text-xs text-gray-soft mb-6">
+        <span>第 <span id="q-idx">1</span> / 30 题</span>
+        <span><span id="q-dim"></span> · <span id="q-type"></span></span>
+      </div>
+      <div class="card">
+        <h3 id="q-text" class="text-base font-bold leading-relaxed mb-6"></h3>
+
+        <!-- 单选 / 判断 -->
+        <div id="q-opts" class="space-y-3"></div>
+
+        <!-- 简答 -->
+        <div id="q-essay" style="display:none">
+          <p class="text-xs text-gray-soft mb-4"><em>先在心里想一想你的答案，然后点击查看参考要点，做一次真实自评。</em></p>
+          <button id="btn-show-ref" class="bg-seal text-white px-6 py-2 rounded text-sm mb-4">查看参考要点</button>
+          <div id="essay-ref" style="display:none" class="bg-paper border-l-2 border-seal px-4 py-3 mb-4 text-sm leading-relaxed">
+            <p class="hl mb-2">参考要点：</p>
+            <ul id="essay-ref-list" class="space-y-1 text-gray-soft"></ul>
+          </div>
+          <div id="essay-self-eval" style="display:none">
+            <p class="text-sm mb-3 hl">你刚才想到的接近哪一档？</p>
+            <div class="grid grid-cols-3 gap-2">
+              <button class="essay-btn" data-score="5">完全想到<br><span class="essay-btn-sub">+5 分</span></button>
+              <button class="essay-btn" data-score="3">想到一半<br><span class="essay-btn-sub">+3 分</span></button>
+              <button class="essay-btn" data-score="2">还没想到过<br><span class="essay-btn-sub">+2 分</span></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 反馈 -->
+        <div id="q-feedback" style="display:none" class="mt-6 pt-4 border-t border-line">
+          <p class="text-sm leading-relaxed"><span id="fb-score" class="font-bold text-seal"></span> · <span id="fb-explain" class="text-gray-soft"></span></p>
+          <button id="btn-next" class="bg-ink text-white px-6 py-2 rounded text-sm mt-4">下一题 →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==== 状态 3：结果屏 ==== -->
+    <div id="test-result" style="display:none">
+      <!-- 证书 -->
+      <div id="certificate-wrap" class="mb-6 flex justify-center"></div>
+
+      <!-- 解读卡 -->
+      <div class="card">
+        <h3 class="text-lg font-bold mb-4">测评解读</h3>
+
+        <div class="grid md:grid-cols-2 gap-6 mb-6">
+          <div>
+            <p class="text-xs text-gray-soft mb-2 font-inter tracking-wider">总得分</p>
+            <p class="text-4xl font-bold text-seal leading-none"><span id="res-score"></span><span class="text-lg text-gray-soft"> / 150</span></p>
+            <p class="text-sm mt-4">段位定位</p>
+            <p class="text-lg hl" id="res-level"></p>
+          </div>
+          <div>
+            <p class="text-xs text-gray-soft mb-2 font-inter tracking-wider">四维度雷达</p>
+            <div id="radar-wrap"></div>
+          </div>
+        </div>
+
+        <div class="bg-paper border-l-2 border-seal px-5 py-4 mb-6">
+          <p class="text-xs text-gray-soft mb-2 font-inter tracking-wider">给你的话</p>
+          <p id="res-comment" class="text-sm leading-relaxed"></p>
+        </div>
+
+        <div class="flex gap-3 flex-wrap">
+          <button id="btn-download" class="bg-seal text-white px-6 py-2 rounded text-sm hover:opacity-90">下载证书 PNG</button>
+          <button id="btn-retry" class="border border-ink text-ink px-6 py-2 rounded text-sm hover:bg-ink hover:text-white transition">重做本版</button>
+          <button id="btn-switch" class="border border-ink text-ink px-6 py-2 rounded text-sm hover:bg-ink hover:text-white transition">做另一版</button>
+        </div>
+        <p class="text-xs text-gray-soft mt-6 leading-relaxed"><em>觉得测评有共鸣的，可以扫下方"加我微信"二维码或搜索 <span class="hl">yxwq0909</span> 找我聊聊。</em></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ===== Projects ===== -->
+<section id="projects" class="bg-paper-2 py-24 border-y border-line collapsible">
+  <div class="max-w-5xl mx-auto px-6 fade-in">
+    <h2 class="section-title">围棋课程</h2>
+    <p class="section-lead" style="margin-bottom:3rem">所有项目均长期开放，加微信咨询入群方式。</p>
+
+    <!-- 教师向 -->
+    <div class="mb-16">
+      <div class="flex items-baseline gap-3 mb-6 flex-wrap">
+        <span class="seal">围棋老师 · 小机构校长</span>
+        <span class="text-xs text-gray-soft font-inter tracking-wider">4 项</span>
+      </div>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="card">
+          <h3 class="text-xl font-bold mb-2">线上训练营</h3>
+          <p class="text-xs text-gray-soft mb-3 font-inter">长期开放</p>
+          <p class="text-gray-soft text-sm leading-relaxed">
+            教师系统性能力训练营。每期围绕一个核心专题，集中打磨<span class="hl">备课逻辑</span>、<span class="hl">课堂节奏</span>、<span class="hl">家长沟通</span>、<span class="hl">续班话术</span>。适合刚入行 1-3 年的老师，以及想告别野路子教学的独立老师。
+          </p>
+        </div>
+        <div class="card">
+          <h3 class="text-xl font-bold mb-2">周四群内体系化分享</h3>
+          <p class="text-xs text-gray-soft mb-3 font-inter">每周四 · 长期</p>
+          <p class="text-gray-soft text-sm leading-relaxed">
+            面向<span class="text-ink font-medium">萝卜围棋圈</span>成员的每周体系化分享。本季度主题：<span class="hl">围棋老师如何做好自媒体</span>；下季度主题：<span class="hl">家校沟通与招生宣传</span>。每期一个小切口，长期滚动更新。
+          </p>
+        </div>
+        <div class="card">
+          <h3 class="text-xl font-bold mb-2">教师成长群</h3>
+          <p class="text-xs text-gray-soft mb-3 font-inter">每周三 / 周四早 · 长期</p>
+          <p class="text-gray-soft text-sm leading-relaxed">
+            以《<span class="hl">围棋教师成长手册</span>》为主干，<span class="hl">二十次课</span>系统串讲从教学理念到课堂落地的全流程。每次课配套<span class="hl">课程回放</span>、<span class="hl">教学笔记</span>、<span class="hl">教学 PPT</span>，加入即可反复复用。
+          </p>
+        </div>
+        <div class="card">
+          <h3 class="text-xl font-bold mb-2">围棋专题训练课</h3>
+          <p class="text-xs text-gray-soft mb-3 font-inter">长期开放 · 按专题排课</p>
+          <p class="text-gray-soft text-sm leading-relaxed">
+            面向<span class="hl">野狐 10 级到 3 段</span>棋友的专项训练营，四大模块——<span class="hl">围棋布局</span>、<span class="hl">中盘战斗</span>、<span class="hl">打入专题</span>、<span class="hl">官子提升</span>，按专题轮转，逐一打透实战短板。
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 家长向 -->
+    <div class="mb-16">
+      <div class="flex items-baseline gap-3 mb-6 flex-wrap">
+        <span class="seal">围棋家长</span>
+        <span class="text-xs text-gray-soft font-inter tracking-wider">1 项</span>
+      </div>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="card">
+          <h3 class="text-xl font-bold mb-2">家长群</h3>
+          <p class="text-xs text-gray-soft mb-3 font-inter">长期开放</p>
+          <p class="text-gray-soft text-sm leading-relaxed">
+            面向少儿围棋家长的长期交流群。日常围绕<span class="hl">孩子学棋进度</span>、<span class="hl">家中陪练</span>、<span class="hl">升级冲段节奏</span>、<span class="hl">赛事信息</span>展开。每周一次固定分享教育心得，无广告、无强制打卡。
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 学生向（孩子学棋） -->
+    <div>
+      <div class="flex items-baseline gap-3 mb-6 flex-wrap">
+        <span class="seal">孩子学棋</span>
+        <span class="text-xs text-gray-soft font-inter tracking-wider">2 项</span>
+      </div>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="card">
+          <h3 class="text-xl font-bold mb-2">一对一</h3>
+          <p class="text-xs text-gray-soft mb-3 font-inter">长期开放 · 预约制</p>
+          <p class="text-gray-soft text-sm leading-relaxed">
+            针对个体棋友的深度陪跑。集中解决<span class="hl">卡段瓶颈</span>、<span class="hl">思维盲点</span>、<span class="hl">赛前突击</span>等具体问题。<span class="hl">每次 45 分钟</span>，面向 5 岁到成人，可试听一次再决定是否长期。
+          </p>
+        </div>
+        <div class="card">
+          <h3 class="text-xl font-bold mb-2">围棋专题训练营</h3>
+          <p class="text-xs text-gray-soft mb-3 font-inter">长期开放 · 按专题排期</p>
+          <p class="text-gray-soft text-sm leading-relaxed">
+            面向孩子的短期专项训练营。围绕<span class="hl">死活手筋</span>、<span class="hl">布局感觉</span>、<span class="hl">吃子技巧</span>、<span class="hl">基本官子</span>四大专题轮转开营，每期 6-8 次课，适合 15 级到 3 级的孩子按短板选营。
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ===== Groups · 入群福利 ===== -->
+<section id="groups" class="bg-paper py-24 border-y border-line collapsible">
+  <div class="max-w-5xl mx-auto px-6 fade-in">
+    <h2 class="section-title">加入社群</h2>
+    <p class="section-lead" style="margin-bottom:3rem">两个长期在运转的群 —— 一个给围棋老师，一个给学棋家庭。都是长期开放，加微信 <span class="hl">yxwq0909</span> 备注身份即可拉入。</p>
+
+    <div class="grid md:grid-cols-2 gap-8">
+
+      <!-- 教师交流群 -->
+      <div class="card" style="padding:32px 28px">
+        <div class="flex items-baseline gap-3 mb-4 flex-wrap">
+          <span class="seal">教师交流群</span>
+          <span class="text-xs text-gray-soft font-inter tracking-wider">长期开放</span>
+        </div>
+        <h3 class="text-2xl font-bold mb-3">萝卜围棋圈 · 教师交流群</h3>
+        <p class="text-gray-soft text-sm leading-relaxed mb-5">
+          面向<span class="hl">刚入行 1-3 年的新老师</span>、<span class="hl">想告别野路子教学的独立老师</span>、以及<span class="hl">小机构的教研骨干</span>。群里没有话术鸡汤，只有一线备课经验、真实课堂案例、家长沟通复盘、招生续班拆解。
+        </p>
+
+        <p class="text-ink font-medium mb-2" style="font-size:14px;letter-spacing:0.05em">加入后你会持续拿到</p>
+        <ul class="text-gray-soft text-sm leading-relaxed" style="list-style:none;padding:0;margin-bottom:20px">
+          <li style="padding:7px 0;border-bottom:1px dashed var(--line)">✓ 每周三 / 周四早《围棋教师成长手册》二十次系统课的<span class="hl">课程回放 · 教学笔记 · 教学 PPT</span></li>
+          <li style="padding:7px 0;border-bottom:1px dashed var(--line)">✓ 每周四晚固定的<span class="hl">体系化专题分享</span>（本季度：老师如何做自媒体；下季度：家校沟通与招生）</li>
+          <li style="padding:7px 0;border-bottom:1px dashed var(--line)">✓ 群内真实一线案例复盘：备课卡壳、课堂失控、家长投诉、续费瓶颈的<span class="hl">具体处理方法</span></li>
+          <li style="padding:7px 0;border-bottom:1px dashed var(--line)">✓ 《围棋教师成长手册》《校长经营手册》<span class="hl">章节节选</span>先于市场同步阅读</li>
+          <li style="padding:7px 0;border-bottom:1px dashed var(--line)">✓ 学员反馈单、试听课台账、教学思维导图等<span class="hl">现成工具包</span>可直接下载套用</li>
+          <li style="padding:7px 0">✓ 群主本人不定期<span class="hl">答疑</span> —— 不是话术模板，是具体情境里怎么做</li>
+        </ul>
+
+        <p class="text-xs text-gray-soft mb-4"><em>无广告推送 · 无强制打卡 · 无变现套路 · 只做一件事——让新老师少走弯路。</em></p>
+
+        <div>
+          <a href="#contact" class="btn-primary nav-toggle" data-target="contact">加微信入群 · yxwq0909</a>
+        </div>
+      </div>
+
+      <!-- 家长交流群 -->
+      <div class="card" style="padding:32px 28px">
+        <div class="flex items-baseline gap-3 mb-4 flex-wrap">
+          <span class="seal">家长交流群</span>
+          <span class="text-xs text-gray-soft font-inter tracking-wider">长期开放</span>
+        </div>
+        <h3 class="text-2xl font-bold mb-3">萝卜围棋圈 · 家长交流群</h3>
+        <p class="text-gray-soft text-sm leading-relaxed mb-5">
+          面向<span class="hl">少儿围棋家庭家长</span>的长期陪伴社群。日常围绕孩子学棋进度、家中陪练、升级冲段节奏、赛事信息展开。这里的家长不比孩子段位、不焦虑排名，只讨论<span class="hl">"我这周和孩子之间发生了什么"</span>。
+        </p>
+
+        <p class="text-ink font-medium mb-2" style="font-size:14px;letter-spacing:0.05em">加入后你会持续拿到</p>
+        <ul class="text-gray-soft text-sm leading-relaxed" style="list-style:none;padding:0;margin-bottom:20px">
+          <li style="padding:7px 0;border-bottom:1px dashed var(--line)">✓ 每周一次<span class="hl">教育心得固定分享</span>：陪练技巧、升段应对、情绪疏导、家校沟通</li>
+          <li style="padding:7px 0;border-bottom:1px dashed var(--line)">✓ 《围棋家长成长手册》《围棋家庭教育手册》<span class="hl">章节节选</span>提前阅读</li>
+          <li style="padding:7px 0;border-bottom:1px dashed var(--line)">✓ 家庭围棋周历 · 亲子复盘对话清单 · 家长自查表等<span class="hl">陪伴工具页</span>可下载打印</li>
+          <li style="padding:7px 0;border-bottom:1px dashed var(--line)">✓ 高频<span class="hl">32 个真实问题应答库</span>：孩子输棋大哭、突然不想学、升段考试焦虑</li>
+          <li style="padding:7px 0;border-bottom:1px dashed var(--line)">✓ 全国重要围棋<span class="hl">赛事信息</span>与备赛节奏建议</li>
+          <li style="padding:7px 0">✓ 群主本人不定期<span class="hl">答疑</span> —— 不是打鸡血，是"这种情况我会怎么做"</li>
+        </ul>
+
+        <p class="text-xs text-gray-soft mb-4"><em>无卖课推送 · 无强制打卡 · 无段位攀比 · 只做一件事——让家长在陪孩子学棋的路上少踩坑。</em></p>
+
+        <div>
+          <a href="#contact" class="btn-primary nav-toggle" data-target="contact">加微信入群 · yxwq0909</a>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="text-xs text-gray-soft mt-10 text-center leading-relaxed" style="max-width:680px;margin-left:auto;margin-right:auto"><em>两个群都由本人亲自运营 · 不外包 · 不代管。人数越来越多之后，会按批次分群，保证每一位新加入的成员都能看到干货、能被回应。</em></p>
+
+  </div>
+</section>
+
+
+
 <!-- ===== Works ===== -->
 <section id="works" class="bg-paper py-24 collapsible">
   <div class="max-w-5xl mx-auto px-6 fade-in">
@@ -2429,71 +2675,7 @@
   </div>
 </section>
 
-<!-- ===== Culture ===== -->
-<section id="culture" class="bg-paper py-24 collapsible">
-  <div class="max-w-5xl mx-auto px-6 fade-in">
-    <h2 class="section-title">围棋文化</h2>
-    <p class="section-lead" style="margin-bottom:3rem">四千年，围棋不是一门游戏，而是一整套<span class="hl">东方哲学</span>。这里从四个门推开看：<strong class="hl">历史</strong>、<strong class="hl">故事</strong>、<strong class="hl">典籍</strong>、<strong class="hl">人物</strong>。持续更新，慢慢挖。</p>
 
-    <!-- ======= 视图 1：4 板块入口 ======= -->
-    <div id="culture-home" class="grid md:grid-cols-2 gap-6">
-      <div class="culture-entry" data-cat="history">
-        <div class="culture-entry-icon">📜</div>
-        <p class="text-xs text-gray-soft mb-2 font-inter tracking-wider">壹 · 时间</p>
-        <h3 class="text-xl font-bold mb-2">围棋的历史</h3>
-        <p class="text-gray-soft text-sm leading-relaxed mb-3">从上古神话走来，围棋在中国活了五千年。走一遍它的时间线。</p>
-        <p class="culture-entry-count"><span class="cnt-history">0</span> 篇 · 点击进入 →</p>
-      </div>
-      <div class="culture-entry" data-cat="story">
-        <div class="culture-entry-icon">📖</div>
-        <p class="text-xs text-gray-soft mb-2 font-inter tracking-wider">贰 · 记忆</p>
-        <h3 class="text-xl font-bold mb-2">围棋的故事</h3>
-        <p class="text-gray-soft text-sm leading-relaxed mb-3">五千年里，围棋不只是棋，它是无数故事的容器。挑几个我常讲的。</p>
-        <p class="culture-entry-count"><span class="cnt-story">0</span> 则 · 点击进入 →</p>
-      </div>
-      <div class="culture-entry" data-cat="classics">
-        <div class="culture-entry-icon">📚</div>
-        <p class="text-xs text-gray-soft mb-2 font-inter tracking-wider">叁 · 传承</p>
-        <h3 class="text-xl font-bold mb-2">围棋典籍</h3>
-        <p class="text-gray-soft text-sm leading-relaxed mb-3">两千年来中国人为围棋写过的书，浩如烟海。挑几本最重要的说说。</p>
-        <p class="culture-entry-count"><span class="cnt-classics">0</span> 部 · 点击进入 →</p>
-      </div>
-      <div class="culture-entry" data-cat="people">
-        <div class="culture-entry-icon">👤</div>
-        <p class="text-xs text-gray-soft mb-2 font-inter tracking-wider">肆 · 人物</p>
-        <h3 class="text-xl font-bold mb-2">历史名人</h3>
-        <p class="text-gray-soft text-sm leading-relaxed mb-3">把围棋推向今天的，是一批批具体的人。他们的故事比棋谱更精彩。</p>
-        <p class="culture-entry-count"><span class="cnt-people">0</span> 位 · 点击进入 →</p>
-      </div>
-    </div>
-
-    <!-- ======= 视图 2：某板块的文章列表 ======= -->
-    <div id="culture-list" style="display:none">
-      <button id="cul-back-home" class="culture-back">← 返回文化</button>
-      <div class="mb-6">
-        <p class="text-xs text-gray-soft mb-2 font-inter tracking-wider" id="cul-cat-tag"></p>
-        <h3 class="text-3xl font-bold mb-3" id="cul-cat-title"></h3>
-        <p class="text-gray-soft text-base leading-relaxed" id="cul-cat-intro"></p>
-      </div>
-      <div class="border-t border-line pt-6" id="cul-article-list"></div>
-    </div>
-
-    <!-- ======= 视图 3：文章详情 ======= -->
-    <div id="culture-detail" style="display:none">
-      <button id="cul-back-list" class="culture-back">← 返回列表</button>
-      <p class="text-xs text-gray-soft mb-2 font-inter tracking-wider" id="cul-detail-cat"></p>
-      <h3 class="text-3xl font-bold mb-6 leading-snug" id="cul-detail-title"></h3>
-      <article class="culture-body" id="cul-detail-body"></article>
-      <div class="border-t border-line mt-10 pt-6 flex justify-between items-center text-sm">
-        <button id="cul-prev" class="text-gray-soft hover:text-seal transition">← 上一篇</button>
-        <button id="cul-back-list-2" class="text-gray-soft hover:text-seal transition">返回列表</button>
-        <button id="cul-next" class="text-gray-soft hover:text-seal transition">下一篇 →</button>
-      </div>
-    </div>
-
-    <p class="text-xs text-gray-soft leading-relaxed mt-8 max-w-2xl"><em>本栏目会持续更新，之后会加入更多典故、名局解读与围棋礼仪。有想让我讲的题目，欢迎去留言板留言。</em></p>
-  </div>
-</section>
 
 <!-- ===== Teaching 教学理念 ===== -->
 <section id="teaching" class="bg-paper py-24 border-y border-line collapsible">
@@ -2837,134 +3019,133 @@
   </div>
 </section>
 
-<!-- ===== 学习园地 引流入口 ===== -->
-<section id="xxyd-entry" class="bg-paper py-16 border-b border-line">
+
+
+<!-- ===== Culture ===== -->
+<section id="culture" class="bg-paper py-24 collapsible">
   <div class="max-w-5xl mx-auto px-6 fade-in">
-    <div style="background:linear-gradient(135deg,rgba(168,54,42,.08),rgba(168,54,42,.02));border:1px solid var(--seal);border-radius:16px;padding:36px 28px;position:relative;overflow:hidden">
-      <div style="position:absolute;top:16px;right:24px;font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.2em;color:var(--seal);background:#fff;padding:4px 12px;border-radius:20px;border:1px solid var(--seal)">NEW · 每周更新</div>
-      <div style="font-family:'Inter',sans-serif;font-size:12px;letter-spacing:.3em;color:var(--seal);margin-bottom:10px">LEARNING GARDEN</div>
-      <h2 style="font-size:28px;font-weight:900;margin:0 0 14px;line-height:1.35;color:var(--ink)">学习园地 · 每周一课</h2>
-      <p style="color:var(--gray);font-size:15px;line-height:1.85;margin:0 0 20px;max-width:640px">
-        面向围棋教育从业者的自媒体招生系统课。<br>
-        <strong style="color:var(--seal)">不是纯 PPT，是可以边学边动手的互动学习页</strong>——三类账号自测、三秒定位自检、个人 IP 定位卡 V0.1 现场生成，一键保存分享。
+    <h2 class="section-title">围棋文化</h2>
+    <p class="section-lead" style="margin-bottom:3rem">四千年，围棋不是一门游戏，而是一整套<span class="hl">东方哲学</span>。这里从四个门推开看：<strong class="hl">历史</strong>、<strong class="hl">故事</strong>、<strong class="hl">典籍</strong>、<strong class="hl">人物</strong>。持续更新，慢慢挖。</p>
+
+    <!-- ======= 视图 1：4 板块入口 ======= -->
+    <div id="culture-home" class="grid md:grid-cols-2 gap-6">
+      <div class="culture-entry" data-cat="history">
+        <div class="culture-entry-icon">📜</div>
+        <p class="text-xs text-gray-soft mb-2 font-inter tracking-wider">壹 · 时间</p>
+        <h3 class="text-xl font-bold mb-2">围棋的历史</h3>
+        <p class="text-gray-soft text-sm leading-relaxed mb-3">从上古神话走来，围棋在中国活了五千年。走一遍它的时间线。</p>
+        <p class="culture-entry-count"><span class="cnt-history">0</span> 篇 · 点击进入 →</p>
+      </div>
+      <div class="culture-entry" data-cat="story">
+        <div class="culture-entry-icon">📖</div>
+        <p class="text-xs text-gray-soft mb-2 font-inter tracking-wider">贰 · 记忆</p>
+        <h3 class="text-xl font-bold mb-2">围棋的故事</h3>
+        <p class="text-gray-soft text-sm leading-relaxed mb-3">五千年里，围棋不只是棋，它是无数故事的容器。挑几个我常讲的。</p>
+        <p class="culture-entry-count"><span class="cnt-story">0</span> 则 · 点击进入 →</p>
+      </div>
+      <div class="culture-entry" data-cat="classics">
+        <div class="culture-entry-icon">📚</div>
+        <p class="text-xs text-gray-soft mb-2 font-inter tracking-wider">叁 · 传承</p>
+        <h3 class="text-xl font-bold mb-2">围棋典籍</h3>
+        <p class="text-gray-soft text-sm leading-relaxed mb-3">两千年来中国人为围棋写过的书，浩如烟海。挑几本最重要的说说。</p>
+        <p class="culture-entry-count"><span class="cnt-classics">0</span> 部 · 点击进入 →</p>
+      </div>
+      <div class="culture-entry" data-cat="people">
+        <div class="culture-entry-icon">👤</div>
+        <p class="text-xs text-gray-soft mb-2 font-inter tracking-wider">肆 · 人物</p>
+        <h3 class="text-xl font-bold mb-2">历史名人</h3>
+        <p class="text-gray-soft text-sm leading-relaxed mb-3">把围棋推向今天的，是一批批具体的人。他们的故事比棋谱更精彩。</p>
+        <p class="culture-entry-count"><span class="cnt-people">0</span> 位 · 点击进入 →</p>
+      </div>
+    </div>
+
+    <!-- ======= 视图 2：某板块的文章列表 ======= -->
+    <div id="culture-list" style="display:none">
+      <button id="cul-back-home" class="culture-back">← 返回文化</button>
+      <div class="mb-6">
+        <p class="text-xs text-gray-soft mb-2 font-inter tracking-wider" id="cul-cat-tag"></p>
+        <h3 class="text-3xl font-bold mb-3" id="cul-cat-title"></h3>
+        <p class="text-gray-soft text-base leading-relaxed" id="cul-cat-intro"></p>
+      </div>
+      <div class="border-t border-line pt-6" id="cul-article-list"></div>
+    </div>
+
+    <!-- ======= 视图 3：文章详情 ======= -->
+    <div id="culture-detail" style="display:none">
+      <button id="cul-back-list" class="culture-back">← 返回列表</button>
+      <p class="text-xs text-gray-soft mb-2 font-inter tracking-wider" id="cul-detail-cat"></p>
+      <h3 class="text-3xl font-bold mb-6 leading-snug" id="cul-detail-title"></h3>
+      <article class="culture-body" id="cul-detail-body"></article>
+      <div class="border-t border-line mt-10 pt-6 flex justify-between items-center text-sm">
+        <button id="cul-prev" class="text-gray-soft hover:text-seal transition">← 上一篇</button>
+        <button id="cul-back-list-2" class="text-gray-soft hover:text-seal transition">返回列表</button>
+        <button id="cul-next" class="text-gray-soft hover:text-seal transition">下一篇 →</button>
+      </div>
+    </div>
+
+    <p class="text-xs text-gray-soft leading-relaxed mt-8 max-w-2xl"><em>本栏目会持续更新，之后会加入更多典故、名局解读与围棋礼仪。有想让我讲的题目，欢迎去留言板留言。</em></p>
+  </div>
+</section>
+
+
+<!-- ===== About · Round 171 精简版 ===== -->
+<section id="about" class="bg-paper-2 py-24 border-y border-line collapsible">
+  <div class="max-w-3xl mx-auto px-6 fade-in">
+    <h2 class="section-title">关于萝卜干</h2>
+    <div class="space-y-6 text-base md:text-lg">
+      <blockquote>
+        我是萝卜干 · 教了十来年围棋。这些年做的事情就一件——把围棋这件事讲清楚：<span class="hl">让普通孩子学得进去、家长教得明白、老师上得轻松。</span>
+      </blockquote>
+      <p style="color:var(--gray);line-height:1.9;font-size:15px">
+        围棋教育不是天赋游戏，是可以体系化的手艺。我把这些年踩过的坑、想明白的事，整理成
+        <a href="#works" class="hl nav-toggle" data-target="works" style="text-decoration:underline;text-underline-offset:3px">四本手册和一张思维导图</a>；把工作里能复用的动作，做成
+        <a href="#tools" class="hl nav-toggle" data-target="tools" style="text-decoration:underline;text-underline-offset:3px">教育工具箱</a>；把每周的思考，落到
+        <a href="/xxyd/" class="hl" style="text-decoration:underline;text-underline-offset:3px">学习园地</a>。
       </p>
-      <div style="display:flex;gap:20px;flex-wrap:wrap;margin-bottom:22px;font-size:13px;color:var(--gray-soft)">
-        <span>📖 10 节系统课</span>
-        <span>🎯 3 处深度互动</span>
-        <span>🎁 群主亲自点评作业</span>
-      </div>
-      <div style="display:flex;gap:12px;flex-wrap:wrap">
-        <a href="/xxyd/lesson-01.html" style="display:inline-block;background:var(--seal);color:#fff;padding:12px 24px;border-radius:8px;font-weight:600;font-size:15px">进入第 1 课 · 账号定位 →</a>
-        <a href="/xxyd/" style="display:inline-block;background:transparent;color:var(--seal);border:1px solid var(--seal);padding:12px 24px;border-radius:8px;font-weight:600;font-size:15px">查看全部课程</a>
+      <div class="pt-4">
+        <p class="text-sm text-gray-soft tracking-wider">在以下平台分享日常：</p>
+        <p class="mt-2 font-inter text-sm">抖音 / 视频号 / B 站 · <span class="text-ink">萝卜干聊围棋教育</span></p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== Ability Test ===== -->
-<section id="ability-test" class="bg-paper-2 py-24 border-y border-line collapsible">
-  <div class="max-w-4xl mx-auto px-6 fade-in">
-    <h2 class="section-title">围棋能力测试</h2>
-    <p class="section-lead">
-      围棋教育里，最难的不是技术，是"人"这一面。这里两套 30 题自评，帮你把自己在孩子学棋 / 教学状态里的位置照一照镜子。做完会给你一张<span class="hl">段位认证证书</span>，可以保存分享。
-    </p>
 
-    <!-- ==== Tab 切换 ==== -->
-    <div id="test-selector" class="flex gap-3 mb-8">
-      <button class="test-tab-btn active" data-role="parent">家长版</button>
-      <button class="test-tab-btn" data-role="teacher">教师版</button>
-    </div>
 
-    <!-- ==== 状态 1：介绍屏 ==== -->
-    <div id="test-intro" class="card">
-      <h3 id="intro-title" class="text-xl font-bold mb-3">家长版 · 教育认知度测评</h3>
-      <p id="intro-desc" class="text-sm text-gray-soft leading-relaxed mb-6">这套题面向孩子在学围棋、正在学、或者考虑让孩子学的家长。它不测围棋水平，测的是你作为家长的<span class="hl">教育理念、期望管理、陪伴方式、教育视野</span>四个维度。</p>
-      <div class="grid grid-cols-2 gap-4 text-xs text-gray-soft mb-6">
-        <div><span class="hl">题量</span>：30 道</div>
-        <div><span class="hl">题型</span>：单选 20 · 判断 8 · 简答 2</div>
-        <div><span class="hl">用时</span>：约 10-15 分钟</div>
-        <div><span class="hl">满分</span>：150 分</div>
-      </div>
-      <p class="text-xs text-gray-soft mb-6 leading-relaxed"><em>提示：本测评为萝卜干个人教育理念评估工具，结果和证书代表教育认知度参考，不代表围棋段位。</em></p>
-      <button id="btn-start" class="bg-seal text-white px-8 py-3 rounded text-sm hover:opacity-90 transition">开始测评 →</button>
-    </div>
-
-    <!-- ==== 状态 2：答题屏 ==== -->
-    <div id="test-quiz" style="display:none">
-      <div class="progress-bar mb-2"><div id="progress-fill"></div></div>
-      <div class="flex justify-between text-xs text-gray-soft mb-6">
-        <span>第 <span id="q-idx">1</span> / 30 题</span>
-        <span><span id="q-dim"></span> · <span id="q-type"></span></span>
+<!-- ===== Help ===== -->
+<section id="help" class="bg-paper py-24 collapsible">
+  <div class="max-w-5xl mx-auto px-6 fade-in">
+    <h2 class="section-title">我的能力</h2>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="card">
+        <span class="seal self-start">围棋老师</span>
+        <h3 class="text-xl font-bold mt-4 mb-3">教学与沟通</h3>
+        <p class="text-gray-soft text-sm leading-relaxed">
+          备课没思路、孩子不爱听、家长不理解、续费总卡壳——<br>
+          把教学逻辑梳清楚，把和家长的沟通话术做扎实，上课轻松，留人不难。
+        </p>
       </div>
       <div class="card">
-        <h3 id="q-text" class="text-base font-bold leading-relaxed mb-6"></h3>
-
-        <!-- 单选 / 判断 -->
-        <div id="q-opts" class="space-y-3"></div>
-
-        <!-- 简答 -->
-        <div id="q-essay" style="display:none">
-          <p class="text-xs text-gray-soft mb-4"><em>先在心里想一想你的答案，然后点击查看参考要点，做一次真实自评。</em></p>
-          <button id="btn-show-ref" class="bg-seal text-white px-6 py-2 rounded text-sm mb-4">查看参考要点</button>
-          <div id="essay-ref" style="display:none" class="bg-paper border-l-2 border-seal px-4 py-3 mb-4 text-sm leading-relaxed">
-            <p class="hl mb-2">参考要点：</p>
-            <ul id="essay-ref-list" class="space-y-1 text-gray-soft"></ul>
-          </div>
-          <div id="essay-self-eval" style="display:none">
-            <p class="text-sm mb-3 hl">你刚才想到的接近哪一档？</p>
-            <div class="grid grid-cols-3 gap-2">
-              <button class="essay-btn" data-score="5">完全想到<br><span class="essay-btn-sub">+5 分</span></button>
-              <button class="essay-btn" data-score="3">想到一半<br><span class="essay-btn-sub">+3 分</span></button>
-              <button class="essay-btn" data-score="2">还没想到过<br><span class="essay-btn-sub">+2 分</span></button>
-            </div>
-          </div>
-        </div>
-
-        <!-- 反馈 -->
-        <div id="q-feedback" style="display:none" class="mt-6 pt-4 border-t border-line">
-          <p class="text-sm leading-relaxed"><span id="fb-score" class="font-bold text-seal"></span> · <span id="fb-explain" class="text-gray-soft"></span></p>
-          <button id="btn-next" class="bg-ink text-white px-6 py-2 rounded text-sm mt-4">下一题 →</button>
-        </div>
+        <span class="seal self-start">机构校长</span>
+        <h3 class="text-xl font-bold mt-4 mb-3">运营与发展</h3>
+        <p class="text-gray-soft text-sm leading-relaxed">
+          招生靠口碑、续费靠服务、老师靠成长——<br>
+          一个人也能干，三个人也能管。把小机构的运营底盘搭起来，把人留下来。
+        </p>
       </div>
-    </div>
-
-    <!-- ==== 状态 3：结果屏 ==== -->
-    <div id="test-result" style="display:none">
-      <!-- 证书 -->
-      <div id="certificate-wrap" class="mb-6 flex justify-center"></div>
-
-      <!-- 解读卡 -->
       <div class="card">
-        <h3 class="text-lg font-bold mb-4">测评解读</h3>
-
-        <div class="grid md:grid-cols-2 gap-6 mb-6">
-          <div>
-            <p class="text-xs text-gray-soft mb-2 font-inter tracking-wider">总得分</p>
-            <p class="text-4xl font-bold text-seal leading-none"><span id="res-score"></span><span class="text-lg text-gray-soft"> / 150</span></p>
-            <p class="text-sm mt-4">段位定位</p>
-            <p class="text-lg hl" id="res-level"></p>
-          </div>
-          <div>
-            <p class="text-xs text-gray-soft mb-2 font-inter tracking-wider">四维度雷达</p>
-            <div id="radar-wrap"></div>
-          </div>
-        </div>
-
-        <div class="bg-paper border-l-2 border-seal px-5 py-4 mb-6">
-          <p class="text-xs text-gray-soft mb-2 font-inter tracking-wider">给你的话</p>
-          <p id="res-comment" class="text-sm leading-relaxed"></p>
-        </div>
-
-        <div class="flex gap-3 flex-wrap">
-          <button id="btn-download" class="bg-seal text-white px-6 py-2 rounded text-sm hover:opacity-90">下载证书 PNG</button>
-          <button id="btn-retry" class="border border-ink text-ink px-6 py-2 rounded text-sm hover:bg-ink hover:text-white transition">重做本版</button>
-          <button id="btn-switch" class="border border-ink text-ink px-6 py-2 rounded text-sm hover:bg-ink hover:text-white transition">做另一版</button>
-        </div>
-        <p class="text-xs text-gray-soft mt-6 leading-relaxed"><em>觉得测评有共鸣的，可以扫下方"加我微信"二维码或搜索 <span class="hl">yxwq0909</span> 找我聊聊。</em></p>
+        <span class="seal self-start">围棋家长</span>
+        <h3 class="text-xl font-bold mt-4 mb-3">陪伴与引导</h3>
+        <p class="text-gray-soft text-sm leading-relaxed">
+          孩子学不进去、不爱下棋、输了就哭、考级焦虑——<br>
+          不是棋的问题，是陪伴方式的问题。用对方法，围棋会成为最好的亲子项目。
+        </p>
       </div>
     </div>
   </div>
 </section>
+
+
 
 <!-- ===== Interact ===== -->
 <section id="interact" class="bg-paper-2 py-24 border-y border-line collapsible">
@@ -3045,6 +3226,8 @@
   </div>
 </section>
 
+
+
 <!-- ===== Contact ===== -->
 <section id="contact" class="bg-paper-2 py-24 border-y border-line collapsible">
   <div class="max-w-3xl mx-auto px-6 fade-in">
@@ -3068,6 +3251,7 @@
     </div>
   </div>
 </section>
+
 
 <!-- ===== Footer ===== -->
 <footer class="bg-paper py-12">
@@ -6541,14 +6725,15 @@ var TEACHING_DATA = {"sections":[{"id":"technique","title":"围棋技术探究",
 <!-- ===== 右侧悬浮索引栏 ===== -->
 <aside class="side-nav" aria-label="板块导航">
   <div class="side-nav-title">板 块</div>
-  <a href="#about" class="nav-toggle" data-target="about">自我介绍</a>
-  <a href="#help" class="nav-toggle" data-target="help">我的能力</a>
-  <a href="#works" class="nav-toggle" data-target="works">图书与导图</a>
+  <a href="#tools" class="nav-toggle" data-target="tools">教育工具</a>
+  <a href="#ability-test" class="nav-toggle" data-target="ability-test">能力测试</a>
   <a href="#projects" class="nav-toggle" data-target="projects">围棋课程</a>
   <a href="#groups" class="nav-toggle" data-target="groups">加入社群</a>
-  <a href="#tools" class="nav-toggle" data-target="tools">教学工具</a>
+  <a href="#works" class="nav-toggle" data-target="works">图书与导图</a>
   <a href="#teaching" class="nav-toggle" data-target="teaching">教学理念</a>
   <a href="#culture" class="nav-toggle" data-target="culture">围棋文化</a>
+  <a href="#about" class="nav-toggle" data-target="about">关于萝卜干</a>
+  <a href="#help" class="nav-toggle" data-target="help">我的能力</a>
   <a href="#interact" class="nav-toggle" data-target="interact">留言板</a>
 </aside>
 
