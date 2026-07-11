@@ -1491,7 +1491,33 @@
   }
   /* ===== 手机端修复 v3 END ===== */
 
-</style>
+
+  /* ===== Projects · Round 172 · 分组视觉强化 · r172-proj-group-2026-07-11 ===== */
+  .proj-group{position:relative;padding-left:20px}
+  .proj-group::before{
+    content:"";
+    position:absolute;
+    left:0;top:6px;
+    width:5px;height:28px;
+    border-radius:2px;
+  }
+  .proj-teacher::before{background:#5c4a2e}
+  .proj-parent::before{background:#8a6b3a}
+  .proj-student::before{background:#a8362a}
+  .proj-teacher > .flex .seal{color:#5c4a2e;border-color:#5c4a2e}
+  .proj-parent > .flex .seal{color:#8a6b3a;border-color:#8a6b3a}
+  .proj-student > .flex .seal{color:#a8362a;border-color:#a8362a}
+  .proj-group > .flex{
+    padding-bottom:14px;
+    border-bottom:1px dashed var(--line);
+    margin-bottom:26px !important;
+  }
+  @media (max-width:640px){
+    .proj-group{padding-left:14px}
+    .proj-group::before{width:4px;height:24px;top:4px}
+  }
+
+  </style>
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta name="version" content="202607090847">
   <!-- parent-relocate-2026-07-11 · 家长视角内容从 #teaching 搬迁到 #tools 家长参考 tab -->
@@ -2364,7 +2390,7 @@
     <p class="section-lead" style="margin-bottom:3rem">所有项目均长期开放，加微信咨询入群方式。</p>
 
     <!-- 教师向 -->
-    <div class="mb-16">
+    <div class="mb-16 proj-group proj-teacher">
       <div class="flex items-baseline gap-3 mb-6 flex-wrap">
         <span class="seal">围棋老师 · 小机构校长</span>
         <span class="text-xs text-gray-soft font-inter tracking-wider">4 项</span>
@@ -2402,7 +2428,7 @@
     </div>
 
     <!-- 家长向 -->
-    <div class="mb-16">
+    <div class="mb-16 proj-group proj-parent">
       <div class="flex items-baseline gap-3 mb-6 flex-wrap">
         <span class="seal">围棋家长</span>
         <span class="text-xs text-gray-soft font-inter tracking-wider">1 项</span>
@@ -2419,7 +2445,7 @@
     </div>
 
     <!-- 学生向（孩子学棋） -->
-    <div>
+    <div class="proj-group proj-student">
       <div class="flex items-baseline gap-3 mb-6 flex-wrap">
         <span class="seal">孩子学棋</span>
         <span class="text-xs text-gray-soft font-inter tracking-wider">2 项</span>
