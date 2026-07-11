@@ -998,6 +998,13 @@
   .collapsible.open::-webkit-scrollbar { display: none; }
   /* fade-fix-2026-07-11 · 修复 collapsible 板块打开后 fade-in 依然透明的 bug */
   .collapsible.open .fade-in { opacity: 1 !important; transform: translateY(0) !important; }
+  /* pm-group-fix-2026-07-11 · 工具箱 practice-module 跟随 tab 切换 */
+  #tools .practice-module[id^="tool-a"],
+  #tools .practice-module[id^="tool-b"],
+  #tools .practice-module[id^="tool-c"] { display: none; }
+  #tools.tg-teacher .practice-module[id^="tool-a"] { display: block; }
+  #tools.tg-principal .practice-module[id^="tool-b"] { display: block; }
+  #tools.tg-parent .practice-module[id^="tool-c"] { display: block; }
   #about.collapsible.open, #ability-test.collapsible.open, #interact.collapsible.open, #contact.collapsible.open, #projects.collapsible.open, #teaching.collapsible.open { background: var(--paper-2); }
   @keyframes panelIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes fadeSlideIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
@@ -1705,7 +1712,7 @@
 </section>
 
 <!-- ===== Tools · 围棋教育工具箱（一线老师 / 独立校长 / 家长） ===== -->
-<section id="tools" class="bg-paper-2 py-24 border-y border-line collapsible">
+<section id="tools" class="bg-paper-2 py-24 border-y border-line collapsible tg-teacher">
   <div class="max-w-5xl mx-auto px-6 fade-in">
     <h2 class="section-title">围棋教育工具箱</h2>
     <p class="section-lead">
@@ -5128,6 +5135,9 @@ function hideParentGuide(){
       document.querySelectorAll('.tool-group').forEach(function(g){
         g.style.display = (g.id === 'toolgroup-' + group) ? '' : 'none';
       });
+      // pm-group-fix: 联动 practice-module 显示
+      var _tsec = document.getElementById('tools');
+      if(_tsec){ _tsec.classList.remove('tg-teacher','tg-principal','tg-parent'); _tsec.classList.add('tg-' + group); }
       if(typeof setNav === 'function') setNav({section:'tools', group: group});
     });
   });
@@ -6602,6 +6612,9 @@ function hideParentGuide(){
     document.querySelectorAll('.tool-group').forEach(function(g){
       g.style.display = (g.id === 'toolgroup-' + group) ? '' : 'none';
     });
+    // pm-group-fix: 联动 practice-module
+    var _tsec = document.getElementById('tools');
+    if(_tsec){ _tsec.classList.remove('tg-teacher','tg-principal','tg-parent'); _tsec.classList.add('tg-' + group); }
   }
   function saveScroll(){
     var s = parseHash();
