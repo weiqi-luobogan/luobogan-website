@@ -1,0 +1,1578 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第 3 课 · 账号搭建 + 平台选择 · 围棋老师的自媒体招生课 | 学习园地 · 萝卜干聊围棋教育</title>
+<meta name="description" content="围棋老师自媒体招生十次课 · 第 3 课 · 账号搭建 + 平台选择。抖音 / 视频号 / 小红书 / B 站 四大平台深度对比 + 账号七件套 + 2026 合规红线与内容风口感知。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="../assets/logo.jpg" type="image/jpeg">
+<style>
+  :root{
+    --ink:#1a1a1a; --ink-soft:#2a2a2a;
+    --paper:#f8f5ef; --paper-2:#f2ede2;
+    --seal:#a8362a; --seal-light:#c74e3f;
+    --gray:#4a4a4a; --gray-soft:#6b6b6b;
+    --line:#e6e0d5;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:'Noto Serif SC','Songti SC',serif;
+    font-size:16px;line-height:1.75;
+    -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  }
+  .en,.mono{font-family:'Inter',sans-serif;letter-spacing:.02em}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+
+  /* 进度条 */
+  #progress-bar{
+    position:fixed;top:0;left:0;height:3px;width:0%;
+    background:linear-gradient(90deg,var(--seal),var(--seal-light));
+    z-index:100;transition:width .15s ease-out;
+  }
+
+  /* Header */
+  header.site-header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(248,245,239,.95);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .header-inner{
+    max-width:1080px;margin:0 auto;padding:14px 20px;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+  }
+  .brand{display:flex;align-items:center;gap:10px;font-weight:600}
+  .brand img{width:32px;height:32px;border-radius:6px;object-fit:cover}
+  .brand span{font-size:15px}
+  .brand small{color:var(--gray-soft);font-size:12px;margin-left:6px}
+  nav.top-nav{display:flex;align-items:center;gap:18px;font-size:14px}
+  nav.top-nav a{color:var(--gray)}
+  nav.top-nav a:hover{color:var(--seal)}
+  nav.top-nav a.cta{color:#fff;background:var(--seal);padding:6px 14px;border-radius:20px}
+  nav.top-nav a.cta:hover{background:var(--seal-light);color:#fff}
+  @media (max-width:640px){
+    nav.top-nav a.hide-sm{display:none}
+    .brand small{display:none}
+  }
+
+  /* 通用容器 */
+  main{max-width:960px;margin:0 auto;padding:0 20px}
+  section{padding:56px 0;border-bottom:1px dashed var(--line)}
+  section:last-child{border-bottom:none}
+  .section-eyebrow{
+    font-family:'Inter',sans-serif;font-size:12px;letter-spacing:.2em;
+    color:var(--seal);text-transform:uppercase;margin-bottom:12px;
+  }
+  .section-title{
+    font-size:28px;font-weight:700;line-height:1.35;margin:0 0 10px;
+    color:var(--ink);
+  }
+  .section-subtitle{color:var(--gray-soft);font-size:15px;margin-bottom:32px}
+  @media (min-width:768px){
+    .section-title{font-size:34px}
+    section{padding:72px 0}
+  }
+  .hl{color:var(--seal);font-weight:600}
+  .card{
+    background:#fff;border:1px solid var(--line);border-radius:12px;
+    padding:20px;box-shadow:0 1px 2px rgba(0,0,0,.02);
+  }
+  .card.paper{background:var(--paper-2)}
+  .grid{display:grid;gap:14px}
+  .grid.g2{grid-template-columns:1fr}
+  .grid.g3{grid-template-columns:1fr}
+  .grid.g4{grid-template-columns:1fr}
+  @media (min-width:640px){
+    .grid.g2{grid-template-columns:1fr 1fr}
+    .grid.g3{grid-template-columns:1fr 1fr 1fr}
+    .grid.g4{grid-template-columns:1fr 1fr}
+  }
+  @media (min-width:900px){
+    .grid.g4{grid-template-columns:repeat(4,1fr)}
+  }
+  blockquote.pull{
+    border-left:3px solid var(--seal);padding:8px 18px;margin:20px 0;
+    color:var(--ink-soft);font-size:17px;line-height:1.85;background:var(--paper-2);
+    border-radius:0 8px 8px 0;
+  }
+  .fade-up{opacity:0;transform:translateY(20px);transition:all .7s ease}
+  .fade-up.in{opacity:1;transform:none}
+
+  /* Hero */
+  .hero{padding:60px 0 40px;text-align:center}
+  .hero .num{
+    font-family:'Inter',sans-serif;font-size:14px;letter-spacing:.3em;
+    color:var(--seal);margin-bottom:14px;
+  }
+  .hero h1{
+    font-size:34px;font-weight:900;margin:0 0 16px;line-height:1.3;
+    color:var(--ink);
+  }
+  .hero .sub{color:var(--gray);font-size:16px;max-width:640px;margin:0 auto 20px}
+  .hero .meta{color:var(--gray-soft);font-size:13px}
+  .hero .divider{
+    width:60px;height:2px;background:var(--seal);
+    margin:24px auto;
+  }
+  @media (min-width:768px){
+    .hero h1{font-size:46px}
+    .hero{padding:80px 0 50px}
+  }
+
+  /* 十次课地图 */
+  .map-wrap{margin-top:22px}
+  .map-grid{
+    display:grid;grid-template-columns:repeat(2,1fr);gap:10px;
+  }
+  @media (min-width:640px){.map-grid{grid-template-columns:repeat(5,1fr)}}
+  .map-item{
+    background:#fff;border:1px solid var(--line);border-radius:10px;
+    padding:12px 10px;text-align:center;position:relative;
+    transition:all .2s;
+  }
+  .map-item .no{
+    font-family:'Inter',sans-serif;font-size:11px;color:var(--gray-soft);
+    letter-spacing:.15em;margin-bottom:6px;
+  }
+  .map-item .tt{font-size:13px;color:var(--ink-soft);line-height:1.5}
+  .map-item.active{
+    background:var(--seal);border-color:var(--seal);color:#fff;
+    box-shadow:0 6px 20px rgba(168,54,42,.25);transform:translateY(-2px);
+  }
+  .map-item.active .no,.map-item.active .tt{color:#fff}
+  .map-item .badge-now{
+    position:absolute;top:-10px;left:50%;transform:translateX(-50%);
+    background:#fff;color:var(--seal);border:1px solid var(--seal);
+    font-size:11px;padding:2px 10px;border-radius:20px;font-weight:600;
+    font-family:'Inter',sans-serif;letter-spacing:.1em;
+  }
+
+  /* 三目标 */
+  .goal-card{padding:22px 20px}
+  .goal-card .goal-no{
+    font-family:'Inter',sans-serif;font-size:12px;letter-spacing:.2em;
+    color:var(--seal);margin-bottom:10px;
+  }
+  .goal-card .goal-t{font-size:18px;font-weight:600;margin-bottom:8px}
+  .goal-card .goal-d{color:var(--gray);font-size:14px;line-height:1.7}
+
+  /* 引言 & 双路径 */
+  .path-compare{margin-top:20px}
+  .path-card{padding:18px 16px}
+  .path-card.bad{border-left:4px solid #999}
+  .path-card.good{border-left:4px solid var(--seal)}
+  .path-card .path-lbl{
+    font-family:'Inter',sans-serif;font-size:12px;letter-spacing:.15em;
+    color:var(--gray-soft);margin-bottom:8px;text-transform:uppercase;
+  }
+  .path-card.good .path-lbl{color:var(--seal)}
+  .path-card .path-t{font-weight:600;margin-bottom:12px;font-size:16px}
+  .path-steps{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:13px}
+  .path-steps .step{
+    background:var(--paper-2);padding:5px 10px;border-radius:6px;
+    color:var(--ink-soft);
+  }
+  .path-card.good .path-steps .step{background:rgba(168,54,42,.08);color:var(--seal)}
+  .path-steps .arrow{color:var(--gray-soft);font-family:'Inter',sans-serif}
+
+  /* 互动卡：三类账号自测 */
+  .interact{
+    background:var(--paper-2);border:1px dashed var(--seal);
+    border-radius:14px;padding:24px 20px;margin-top:20px;
+  }
+  .interact .interact-eyebrow{
+    display:inline-block;background:var(--seal);color:#fff;
+    font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.2em;
+    padding:3px 10px;border-radius:20px;margin-bottom:12px;
+  }
+  .interact .interact-q{font-size:17px;font-weight:600;margin-bottom:16px;line-height:1.6}
+  .account-buttons{display:grid;gap:10px;grid-template-columns:1fr}
+  @media (min-width:640px){.account-buttons{grid-template-columns:repeat(3,1fr)}}
+  .account-btn{
+    background:#fff;border:1px solid var(--line);border-radius:10px;
+    padding:14px;cursor:pointer;text-align:left;
+    transition:all .2s;font-family:inherit;
+  }
+  .account-btn:hover{border-color:var(--seal);transform:translateY(-2px);box-shadow:0 4px 12px rgba(168,54,42,.1)}
+  .account-btn.selected{background:var(--seal);color:#fff;border-color:var(--seal)}
+  .account-btn.selected .ab-desc{color:rgba(255,255,255,.85)}
+  .account-btn .ab-t{font-size:15px;font-weight:600;margin-bottom:4px}
+  .account-btn .ab-desc{color:var(--gray-soft);font-size:12px;line-height:1.6}
+  #accountResult{margin-top:18px;display:none}
+  #accountResult.show{display:block;animation:fadeIn .4s ease}
+
+  /* 互动 2 · 8 种隐藏风格网格 */
+  .style-grid{display:grid;gap:10px;grid-template-columns:repeat(2,1fr);margin-top:14px}
+  @media (min-width:640px){.style-grid{grid-template-columns:repeat(4,1fr)}}
+  .style-btn{
+    background:var(--paper);border:1.5px solid var(--line);
+    padding:14px 10px;border-radius:8px;text-align:center;
+    cursor:pointer;transition:all .2s;font-family:inherit;color:var(--ink);
+  }
+  .style-btn:hover{border-color:var(--seal);transform:translateY(-2px);box-shadow:0 4px 12px rgba(168,54,42,.1)}
+  .style-btn.selected{background:var(--seal);color:#fff;border-color:var(--seal)}
+  .style-btn.selected .sb-d{color:rgba(255,255,255,.85)}
+  .style-btn .sb-t{font-size:14px;font-weight:600;margin-bottom:4px}
+  .style-btn .sb-d{color:var(--gray-soft);font-size:11px;line-height:1.5}
+  #styleResult{margin-top:18px;display:none}
+  #styleResult.show{display:block;animation:fadeIn .4s ease}
+
+  /* 互动 3 · 选题打分卡 */
+  .score-header{margin-bottom:16px}
+  .score-header input{
+    width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:8px;
+    font-family:inherit;font-size:15px;background:var(--paper);color:var(--ink);
+  }
+  .score-header input:focus{outline:none;border-color:var(--seal)}
+  .score-row{
+    display:flex;flex-direction:column;gap:8px;padding:14px 0;border-bottom:1px dashed var(--line);
+  }
+  @media (min-width:640px){.score-row{flex-direction:row;align-items:center;gap:16px}}
+  .score-row-lbl{flex:0 0 auto;min-width:130px;font-weight:600;font-size:14px}
+  .score-row-lbl small{display:block;color:var(--gray-soft);font-weight:400;font-size:12px;margin-top:2px}
+  .score-row-btns{display:flex;gap:6px;flex:1}
+  .score-btn{
+    flex:1;padding:8px 4px;border:1.5px solid var(--line);border-radius:6px;
+    background:var(--paper);cursor:pointer;font-family:inherit;font-size:13px;color:var(--gray);
+    transition:all .2s;text-align:center;
+  }
+  .score-btn:hover{border-color:var(--seal)}
+  .score-btn.selected{background:var(--seal);color:#fff;border-color:var(--seal);font-weight:600}
+  .score-summary{
+    margin-top:20px;padding:20px;border-radius:10px;background:var(--paper-2);
+    display:flex;flex-direction:column;gap:8px;align-items:center;text-align:center;
+  }
+  .score-total{font-size:48px;font-weight:900;line-height:1;font-family:'Inter',sans-serif}
+  .score-total small{font-size:16px;color:var(--gray-soft);font-weight:400;margin-left:4px}
+  .score-verdict{font-size:18px;font-weight:600}
+  .score-verdict.red{color:var(--seal)}
+  .score-verdict.yellow{color:#c78a1e}
+  .score-verdict.green{color:#2a7a3f}
+  .score-advice{font-size:13px;color:var(--gray);line-height:1.7;margin-top:4px}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .result-box{
+    background:#fff;border-left:4px solid var(--seal);
+    padding:16px 18px;border-radius:0 10px 10px 0;
+  }
+  .result-box .rb-tag{
+    display:inline-block;font-family:'Inter',sans-serif;font-size:11px;
+    letter-spacing:.15em;padding:2px 8px;border-radius:12px;margin-bottom:8px;
+  }
+  .result-box.rec .rb-tag{background:rgba(168,54,42,.12);color:var(--seal)}
+  .result-box.warn .rb-tag{background:rgba(120,120,120,.15);color:var(--gray)}
+  .result-box .rb-t{font-size:16px;font-weight:600;margin-bottom:8px}
+  .result-box .rb-d{color:var(--ink-soft);font-size:14px;line-height:1.8}
+  .result-box .rb-d li{margin-bottom:4px}
+
+  /* 数据卡 */
+  .stat-card{padding:20px 18px;text-align:center}
+  .stat-card .stat-num{
+    font-family:'Inter',sans-serif;font-size:36px;font-weight:700;
+    color:var(--seal);line-height:1;margin-bottom:8px;
+  }
+  .stat-card .stat-lbl{color:var(--gray-soft);font-size:13px}
+  .conclusion-box{
+    margin-top:16px;background:var(--paper-2);padding:14px 18px;
+    border-radius:10px;font-size:14px;color:var(--ink-soft);line-height:1.8;
+  }
+
+  /* 反例 */
+  .bad-list{display:grid;gap:12px;grid-template-columns:1fr}
+  @media (min-width:640px){.bad-list{grid-template-columns:repeat(3,1fr)}}
+  .bad-card{padding:16px;border-left:3px solid #b0b0b0}
+  .bad-card .bad-t{font-weight:600;font-size:15px;margin-bottom:6px;color:var(--ink-soft)}
+  .bad-card .bad-d{color:var(--gray);font-size:13px;line-height:1.7}
+  .vs-box{
+    display:grid;grid-template-columns:1fr;gap:12px;margin-top:20px;
+    align-items:stretch;
+  }
+  @media (min-width:640px){.vs-box{grid-template-columns:1fr auto 1fr}}
+  .vs-side{padding:18px}
+  .vs-side.left{background:#fff;border:1px solid var(--line);border-radius:10px}
+  .vs-side.right{background:rgba(168,54,42,.05);border:1px solid var(--seal);border-radius:10px}
+  .vs-side .vs-lbl{font-size:12px;color:var(--gray-soft);margin-bottom:6px;letter-spacing:.1em}
+  .vs-side.right .vs-lbl{color:var(--seal)}
+  .vs-side .vs-t{font-size:16px;font-weight:600;margin-bottom:8px}
+  .vs-side .vs-d{font-size:13px;color:var(--ink-soft);line-height:1.7}
+  .vs-mid{display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;color:var(--seal);font-size:20px;font-weight:700}
+
+  /* 四件套元素 */
+  .elem-card{padding:20px 18px;text-align:center;position:relative}
+  .elem-card .en{
+    font-size:12px;color:var(--seal);letter-spacing:.2em;margin-bottom:8px;
+  }
+  .elem-card .zh{font-size:20px;font-weight:700;margin-bottom:8px}
+  .elem-card .desc{color:var(--gray);font-size:13px;line-height:1.7}
+
+  /* 详细卡：身份/用户/内容/差异化 */
+  .detail-block{margin-top:20px}
+  .detail-block .db-title{
+    font-size:20px;font-weight:600;margin-bottom:14px;
+    padding-left:12px;border-left:3px solid var(--seal);
+  }
+  .compare-2col{display:grid;gap:12px;grid-template-columns:1fr}
+  @media (min-width:640px){.compare-2col{grid-template-columns:1fr 1fr}}
+  .compare-2col .wrong,.compare-2col .right{padding:16px}
+  .compare-2col .wrong{background:#f5f2eb;border:1px dashed #b0b0b0;border-radius:8px}
+  .compare-2col .right{background:rgba(168,54,42,.05);border:1px solid var(--seal);border-radius:8px}
+  .compare-2col .lbl{font-size:12px;color:var(--gray-soft);margin-bottom:6px;letter-spacing:.1em}
+  .compare-2col .right .lbl{color:var(--seal)}
+  .compare-2col .txt{font-size:14px;line-height:1.75;color:var(--ink-soft)}
+  .example-box{
+    margin-top:14px;padding:14px 16px;background:var(--paper-2);
+    border-radius:8px;font-size:14px;color:var(--ink-soft);line-height:1.8;
+  }
+  .example-box .ex-lbl{
+    font-family:'Inter',sans-serif;font-size:11px;color:var(--seal);
+    letter-spacing:.15em;margin-bottom:6px;
+  }
+
+  /* 内容主线比例可视化 */
+  .ratio-vis{
+    display:flex;height:38px;border-radius:6px;overflow:hidden;
+    margin:16px 0 10px;font-family:'Inter',sans-serif;font-size:12px;
+    color:#fff;font-weight:600;
+  }
+  .ratio-vis .rv-main{background:var(--seal);flex:80;display:flex;align-items:center;justify-content:center}
+  .ratio-vis .rv-side{background:#9a9a9a;flex:20;display:flex;align-items:center;justify-content:center}
+  .week-table{
+    width:100%;border-collapse:collapse;margin-top:12px;font-size:14px;
+    background:#fff;border-radius:8px;overflow:hidden;
+  }
+  .week-table th,.week-table td{
+    padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);
+  }
+  .week-table th{background:var(--paper-2);font-weight:600;font-size:13px;color:var(--gray)}
+  .week-table td:first-child{color:var(--seal);font-weight:600;font-family:'Inter',sans-serif}
+
+  /* 差异化：三种切法 */
+  .diff-list{display:grid;gap:12px;grid-template-columns:1fr;margin-top:14px}
+  @media (min-width:640px){.diff-list{grid-template-columns:repeat(3,1fr)}}
+  .diff-card{padding:16px;background:#fff;border:1px solid var(--line);border-radius:10px}
+  .diff-card .df-t{font-weight:600;font-size:15px;margin-bottom:6px;color:var(--seal)}
+  .diff-card .df-d{font-size:13px;color:var(--ink-soft);line-height:1.7}
+
+  /* 三秒自检 */
+  .check-item{padding:18px;margin-bottom:12px}
+  .check-item .ci-q{font-size:16px;font-weight:600;margin-bottom:10px}
+  .check-options{display:flex;gap:10px}
+  .check-opt{
+    flex:1;padding:10px;background:#fff;border:1px solid var(--line);
+    border-radius:8px;cursor:pointer;text-align:center;font-size:14px;
+    font-family:inherit;transition:all .2s;
+  }
+  .check-opt:hover{border-color:var(--seal)}
+  .check-opt.on-yes{background:var(--seal);color:#fff;border-color:var(--seal)}
+  .check-opt.on-no{background:#8a8a8a;color:#fff;border-color:#8a8a8a}
+  #checkResult{margin-top:18px;display:none}
+  #checkResult.show{display:block;animation:fadeIn .4s ease}
+  .score-badge{
+    display:inline-block;font-family:'Inter',sans-serif;font-size:13px;
+    letter-spacing:.1em;padding:3px 12px;border-radius:20px;
+    background:var(--seal);color:#fff;margin-bottom:10px;
+  }
+
+  /* 定位卡生成器 */
+  .card-gen{margin-top:20px}
+  .form-group{margin-bottom:14px}
+  .form-group label{
+    display:block;font-size:13px;color:var(--gray);margin-bottom:6px;
+    font-weight:600;
+  }
+  .form-group input, .form-group textarea{
+    width:100%;padding:10px 12px;border:1px solid var(--line);
+    border-radius:8px;font-family:inherit;font-size:14px;
+    background:#fff;color:var(--ink);resize:vertical;
+  }
+  .form-group input:focus, .form-group textarea:focus{
+    outline:none;border-color:var(--seal);
+  }
+  .form-group .hint{font-size:12px;color:var(--gray-soft);margin-top:4px}
+  .gen-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+  .btn{
+    padding:10px 18px;border-radius:8px;cursor:pointer;font-size:14px;
+    font-family:inherit;font-weight:600;border:1px solid transparent;
+    transition:all .2s;
+  }
+  .btn.primary{background:var(--seal);color:#fff}
+  .btn.primary:hover{background:var(--seal-light)}
+  .btn.ghost{background:transparent;border-color:var(--line);color:var(--ink-soft)}
+  .btn.ghost:hover{border-color:var(--seal);color:var(--seal)}
+  #cardPreview{
+    margin-top:20px;text-align:center;
+  }
+  #cardPreview canvas{
+    max-width:100%;height:auto;border:1px solid var(--line);
+    border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.08);
+  }
+
+  /* 微信弹窗 */
+  .modal-mask{
+    position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:200;
+    display:none;align-items:center;justify-content:center;padding:20px;
+  }
+  .modal-mask.show{display:flex}
+  .modal-box{
+    background:var(--paper);border-radius:14px;padding:28px 24px;
+    max-width:340px;text-align:center;position:relative;
+  }
+  .modal-box .close{
+    position:absolute;top:10px;right:14px;font-size:24px;color:var(--gray-soft);
+    cursor:pointer;background:none;border:none;
+  }
+  .modal-box img{width:180px;height:180px;object-fit:cover;margin:14px auto;border-radius:8px}
+  .modal-box .m-t{font-size:18px;font-weight:600;margin-bottom:8px}
+  .modal-box .m-d{color:var(--gray);font-size:14px;line-height:1.7;margin-bottom:10px}
+  .modal-box .m-wx{
+    font-family:'Inter',sans-serif;font-size:15px;color:var(--seal);
+    font-weight:600;background:var(--paper-2);padding:8px 14px;
+    border-radius:6px;display:inline-block;margin-bottom:8px;
+  }
+  .modal-box .m-note{color:var(--gray-soft);font-size:12px;line-height:1.6}
+
+  /* 作业 & 预告 */
+  .hw-list{display:grid;gap:12px;grid-template-columns:1fr;margin-top:14px}
+  @media (min-width:640px){.hw-list{grid-template-columns:repeat(3,1fr)}}
+  .hw-card{padding:16px 18px;background:#fff;border:1px solid var(--line);border-radius:10px}
+  .hw-card .hw-no{font-family:'Inter',sans-serif;font-size:12px;color:var(--seal);letter-spacing:.2em;margin-bottom:6px}
+  .hw-card .hw-t{font-weight:600;margin-bottom:6px}
+  .hw-card .hw-d{font-size:13px;color:var(--gray);line-height:1.7}
+  .next-box{
+    margin-top:20px;padding:22px;background:linear-gradient(135deg,rgba(168,54,42,.06),rgba(168,54,42,.02));
+    border:1px solid var(--seal);border-radius:12px;
+  }
+  .next-box .nb-lbl{font-size:12px;color:var(--seal);letter-spacing:.2em;margin-bottom:6px;font-family:'Inter',sans-serif}
+  .next-box .nb-t{font-size:20px;font-weight:700;margin-bottom:8px}
+  .next-box .nb-d{color:var(--gray);font-size:14px;line-height:1.8}
+
+  /* 联系方式 */
+  .contact-final{
+    text-align:center;padding:36px 20px;background:var(--paper-2);
+    border-radius:14px;margin-top:20px;
+  }
+  .contact-final img{width:160px;height:160px;object-fit:cover;margin:14px auto;border-radius:8px}
+  .contact-final .c-wx{
+    font-family:'Inter',sans-serif;font-size:18px;color:var(--seal);
+    font-weight:600;margin-bottom:6px;
+  }
+  .contact-final .c-note{color:var(--gray);font-size:13px;line-height:1.7}
+
+  /* Footer */
+  footer.site-footer{
+    padding:32px 20px;text-align:center;color:var(--gray-soft);
+    font-size:13px;border-top:1px solid var(--line);
+  }
+  footer.site-footer a{color:var(--seal)}
+
+  /* utility */
+  .mt-l{margin-top:20px}
+  .mb-l{margin-bottom:20px}
+  .txt-center{text-align:center}
+
+  /* ====== Lesson 03 · 平台深度对比大卡 ====== */
+  .platform-card{
+    background:#fdfbf5;border:1px solid var(--line);border-radius:8px;
+    padding:28px 26px;margin:0 0 24px 0;
+    box-shadow:0 2px 10px rgba(90,70,40,.04);
+    transition:transform .18s ease,box-shadow .18s ease;
+  }
+  .platform-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(90,70,40,.08)}
+  .platform-card.rec{border-left:3px solid var(--seal);background:linear-gradient(180deg,#fdfbf5 0%,#f8f3e6 100%)}
+  .pc-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+  .pc-eyebrow{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.2em;color:var(--seal);font-weight:700}
+  .pc-title{font-size:22px;font-weight:700;color:var(--ink);letter-spacing:.03em}
+  .pc-tag{font-size:11px;background:var(--seal);color:#fff;padding:2px 10px;border-radius:12px;letter-spacing:.05em}
+  .pc-tag.new{background:#8a6b3a}
+  .pc-sub{font-size:14px;color:var(--gray-soft);margin:4px 0 20px 0;line-height:1.7}
+  .pc-rows{display:grid;grid-template-columns:1fr;gap:0}
+  .pc-row{
+    display:grid;grid-template-columns:110px 1fr;gap:16px;
+    padding:14px 0;border-bottom:1px dashed var(--line);
+  }
+  .pc-row:last-child{border-bottom:none}
+  .pc-lbl{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.15em;color:var(--seal);font-weight:600;padding-top:2px}
+  .pc-val{font-size:14px;color:var(--ink-soft);line-height:1.85}
+  .pc-val .signal{
+    display:inline-block;font-size:11px;background:#f5edd8;color:#8a6b3a;
+    padding:2px 8px;border-radius:3px;margin:0 6px 0 0;letter-spacing:.05em;
+  }
+  .pc-val .signal.new{background:#a8362a;color:#fff}
+  @media (max-width:640px){
+    .pc-row{grid-template-columns:1fr;gap:4px}
+    .pc-lbl{font-size:10px}
+  }
+
+  /* ====== Lesson 03 · 对比表 ====== */
+  .compare-table{
+    width:100%;border-collapse:collapse;
+    background:#fdfbf5;border:1px solid var(--line);border-radius:6px;overflow:hidden;
+    font-size:14px;
+  }
+  .compare-table thead{background:#f2ede2}
+  .compare-table th{
+    padding:12px 10px;text-align:left;font-weight:600;color:var(--ink);
+    border-bottom:1px solid var(--line);letter-spacing:.03em;
+  }
+  .compare-table td{
+    padding:12px 10px;border-bottom:1px dashed var(--line);color:var(--ink-soft);line-height:1.7;
+  }
+  .compare-table tbody tr:last-child td{border-bottom:none}
+  .compare-table tbody tr:hover{background:rgba(168,54,42,.02)}
+  .compare-table .col-dim{font-weight:600;color:var(--seal);letter-spacing:.02em}
+  .compare-table .hot{color:var(--seal);font-weight:600}
+  .compare-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  @media (max-width:640px){.compare-table{min-width:640px}}
+
+  /* ====== Lesson 03 · 组合策略卡 ====== */
+  .combo-card{
+    background:#fdfbf5;border:1px solid var(--line);border-radius:6px;
+    padding:22px 22px;margin:0 0 16px 0;
+  }
+  .combo-head{display:flex;align-items:baseline;gap:12px;margin-bottom:10px;flex-wrap:wrap}
+  .combo-role{font-size:17px;font-weight:700;color:var(--ink);letter-spacing:.02em}
+  .combo-tag{font-size:11px;background:#f2ede2;color:#8a6b3a;padding:2px 8px;border-radius:3px;letter-spacing:.05em}
+  .combo-arrow{
+    display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:12px 0;
+    font-size:14px;
+  }
+  .combo-node{
+    padding:6px 14px;background:#f8f3e6;border:1px solid #d6c39a;border-radius:20px;
+    color:var(--ink);letter-spacing:.03em;
+  }
+  .combo-node.main{background:var(--seal);color:#fff;border-color:var(--seal);font-weight:600}
+  .combo-node.sub{background:#fdfbf5}
+  .combo-sep{color:var(--gray-soft);font-family:'Inter',sans-serif}
+  .combo-desc{font-size:13px;color:var(--gray-soft);line-height:1.8;margin-top:6px}
+
+  /* ====== Lesson 03 · 定位测试互动 ====== */
+  .quiz-btns{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-bottom:18px}
+  .quiz-btn{
+    background:#fdfbf5;border:1px solid var(--line);border-radius:6px;
+    padding:14px 16px;cursor:pointer;text-align:left;
+    font-family:inherit;font-size:14px;color:var(--ink-soft);line-height:1.6;
+    transition:all .18s ease;
+  }
+  .quiz-btn:hover{border-color:var(--seal);background:#f8f3e6}
+  .quiz-btn.selected{background:var(--seal);color:#fff;border-color:var(--seal)}
+  .quiz-btn strong{display:block;font-size:15px;margin-bottom:4px;color:inherit}
+  .quiz-btn .qb-sub{font-size:12px;opacity:.85}
+  .quiz-btn.selected .qb-sub{opacity:.95}
+  .quiz-result{
+    margin-top:14px;padding:20px 22px;background:#f8f3e6;
+    border:1px solid #d6c39a;border-radius:6px;display:none;
+  }
+  .quiz-result.show{display:block}
+  .qr-tag{
+    display:inline-block;font-size:11px;background:var(--seal);color:#fff;
+    padding:2px 10px;border-radius:12px;letter-spacing:.1em;margin-bottom:10px;
+  }
+  .qr-title{font-size:16px;font-weight:700;color:var(--ink);margin-bottom:8px}
+  .qr-combo{margin:10px 0}
+  .qr-desc{font-size:13.5px;color:var(--ink-soft);line-height:1.85}
+  .qr-desc b{color:var(--seal)}
+
+  /* ====== Lesson 03 · 七件套 accordion ====== */
+  .setup-item{
+    background:#fdfbf5;border:1px solid var(--line);border-radius:6px;
+    margin:0 0 10px 0;overflow:hidden;
+  }
+  .setup-head{
+    display:flex;align-items:center;gap:14px;padding:16px 20px;
+    cursor:pointer;user-select:none;transition:background .15s ease;
+  }
+  .setup-head:hover{background:#f8f3e6}
+  .setup-item.open .setup-head{background:#f2ede2;border-bottom:1px solid var(--line)}
+  .setup-no{
+    flex-shrink:0;width:32px;height:32px;border-radius:50%;
+    background:var(--seal);color:#fff;font-family:'Inter',sans-serif;font-size:14px;
+    font-weight:700;display:flex;align-items:center;justify-content:center;letter-spacing:.02em;
+  }
+  .setup-title{flex:1;font-size:16px;font-weight:600;color:var(--ink);letter-spacing:.02em}
+  .setup-title small{color:var(--gray-soft);font-weight:400;font-size:13px;margin-left:8px;letter-spacing:0}
+  .setup-icon{
+    color:var(--gray-soft);font-family:'Inter',sans-serif;font-size:14px;
+    transition:transform .2s ease;
+  }
+  .setup-item.open .setup-icon{transform:rotate(180deg);color:var(--seal)}
+  .setup-body{
+    display:none;padding:0 20px 22px 20px;font-size:14px;color:var(--ink-soft);line-height:1.85;
+  }
+  .setup-item.open .setup-body{display:block}
+  .setup-body h4{font-size:14px;color:var(--seal);margin:16px 0 8px 0;letter-spacing:.02em}
+  .setup-body .setup-formula{
+    background:#f8f3e6;border-left:3px solid var(--seal);padding:12px 16px;
+    margin:12px 0;font-size:14px;color:var(--ink);border-radius:0 4px 4px 0;
+  }
+  .setup-body .setup-formula .f-t{font-weight:600;margin-bottom:4px}
+  .setup-body .example-good,.setup-body .example-bad{
+    padding:8px 12px;border-radius:4px;margin:6px 0;font-size:13.5px;
+  }
+  .setup-body .example-good{background:#eef5ec;border-left:3px solid #4a8a3a;color:#2a5a20}
+  .setup-body .example-bad{background:#fbeceb;border-left:3px solid #a8362a;color:#7a2a20}
+  .setup-body ul{padding-left:20px;margin:8px 0}
+  .setup-body ul li{margin:4px 0}
+  .setup-body .kouju{
+    background:#f5edd8;border:1px dashed #d6c39a;padding:10px 14px;
+    border-radius:4px;font-weight:600;color:#8a6b3a;font-size:13.5px;margin:10px 0;
+  }
+
+  /* ====== Lesson 03 · 七件套自查 checklist ====== */
+  .checklist{background:#fdfbf5;border:1px solid var(--line);border-radius:6px;padding:22px 24px}
+  .check-row{
+    display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px dashed var(--line);
+    cursor:pointer;user-select:none;
+  }
+  .check-row:last-child{border-bottom:none}
+  .check-box{
+    flex-shrink:0;width:22px;height:22px;border:2px solid var(--line);border-radius:4px;
+    display:flex;align-items:center;justify-content:center;
+    transition:all .15s ease;background:#fff;
+  }
+  .check-row.checked .check-box{background:var(--seal);border-color:var(--seal);color:#fff}
+  .check-row.checked .check-box::after{content:'✓';font-size:14px;font-weight:700;color:#fff}
+  .check-row.checked .check-txt{color:var(--gray-soft);text-decoration:line-through}
+  .check-txt{font-size:14.5px;color:var(--ink-soft);flex:1}
+  .check-summary{
+    margin-top:18px;padding:16px 20px;background:#f8f3e6;border-radius:6px;
+    display:flex;align-items:center;gap:14px;
+  }
+  .check-progress{
+    flex:1;height:8px;background:#e6dcc4;border-radius:4px;overflow:hidden;
+  }
+  .check-progress-fill{
+    height:100%;width:0%;background:linear-gradient(90deg,var(--seal),var(--seal-light));
+    border-radius:4px;transition:width .3s ease;
+  }
+  .check-stat{font-family:'Inter',sans-serif;font-size:14px;color:var(--seal);font-weight:600;letter-spacing:.03em}
+
+  /* ====== Lesson 03 · 红线卡 ====== */
+  .redline-grid{display:grid;grid-template-columns:1fr;gap:10px}
+  .redline-item{
+    display:flex;gap:14px;padding:16px 18px;background:#fdfbf5;
+    border:1px solid var(--line);border-radius:6px;border-left:3px solid #a8362a;
+  }
+  .redline-item.new{border-left-color:#8a6b3a;background:linear-gradient(90deg,#faf5eb 0%,#fdfbf5 20%)}
+  .redline-no{
+    flex-shrink:0;font-family:'Inter',sans-serif;font-size:16px;font-weight:700;
+    color:#a8362a;letter-spacing:.03em;padding-top:1px;min-width:28px;
+  }
+  .redline-item.new .redline-no{color:#8a6b3a}
+  .redline-content{flex:1}
+  .redline-head{
+    display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:6px;
+  }
+  .redline-t{font-size:15px;font-weight:700;color:var(--ink);letter-spacing:.02em}
+  .redline-badge{
+    font-size:10px;background:#8a6b3a;color:#fff;padding:1px 7px;border-radius:3px;
+    letter-spacing:.1em;
+  }
+  .redline-d{font-size:13.5px;color:var(--ink-soft);line-height:1.75}
+  .redline-src{font-size:11.5px;color:var(--gray-soft);margin-top:4px;letter-spacing:.02em}
+  .redline-src a{color:var(--seal);border-bottom:1px dashed}
+
+  /* ====== Lesson 03 · 内容风口信号卡 ====== */
+  .trend-signal{
+    background:linear-gradient(180deg,#fdfbf5 0%,#f8f3e6 100%);
+    border:1px solid #d6c39a;border-radius:8px;padding:22px 24px;margin:0 0 14px 0;
+    position:relative;
+  }
+  .trend-num{
+    position:absolute;top:-14px;left:22px;
+    background:var(--seal);color:#fff;font-family:'Inter',sans-serif;font-size:12px;
+    padding:4px 12px;border-radius:12px;letter-spacing:.15em;font-weight:700;
+  }
+  .trend-t{font-size:17px;font-weight:700;color:var(--ink);margin-bottom:10px;letter-spacing:.02em;margin-top:4px}
+  .trend-data{
+    padding:10px 14px;background:#faf5eb;border-left:3px solid var(--seal);
+    font-size:13.5px;color:var(--ink-soft);border-radius:0 4px 4px 0;margin-bottom:12px;line-height:1.8;
+  }
+  .trend-mean{font-size:14px;color:var(--ink);line-height:1.85}
+  .trend-mean b{color:var(--seal)}
+  .trend-src{font-size:11.5px;color:var(--gray-soft);margin-top:10px;letter-spacing:.02em}
+  .trend-src a{color:var(--seal);border-bottom:1px dashed}
+
+  /* ====== Lesson 03 · 当堂演练 ====== */
+  .workshop-tt{
+    background:#fdfbf5;border:1px solid var(--line);border-radius:6px;
+    padding:22px 24px;margin:0 0 20px 0;
+  }
+  .workshop-tt .ws-t{font-size:17px;font-weight:700;color:var(--ink);margin-bottom:14px}
+  .workshop-tt table{width:100%;border-collapse:collapse;margin:12px 0}
+  .workshop-tt th{
+    padding:8px 10px;background:#f2ede2;font-size:13px;font-weight:600;
+    color:var(--seal);border-bottom:1px solid var(--line);text-align:left;letter-spacing:.03em;
+  }
+  .workshop-tt td{
+    padding:9px 10px;font-size:13.5px;border-bottom:1px dashed var(--line);color:var(--ink-soft);
+  }
+  .workshop-tips{
+    background:#f8f3e6;border-left:3px solid var(--seal);padding:12px 16px;border-radius:0 4px 4px 0;
+    font-size:13.5px;color:var(--ink);margin-top:14px;line-height:1.9;
+  }
+
+</style>
+</head>
+<body>
+<div id="progress-bar"></div>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../" class="brand">
+      <img src="../assets/logo.jpg" alt="萝卜干">
+      <span>萝卜干</span>
+      <small>· 学习园地</small>
+    </a>
+    <nav class="top-nav">
+      <a href="./" class="hide-sm">课程列表</a>
+      <a href="../" class="hide-sm">返回主站</a>
+      <a href="#contact" class="cta">加微信</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- Hero -->
+  <section class="hero fade-up">
+    <div class="num">LESSON 03 · 2026.07.11</div>
+    <h1>账号搭建 + 平台选择</h1>
+    <p class="sub">拍什么之后，就是「拍在哪」。<br>抖音 / 视频号 / 小红书 / B 站 —— 一次讲清四大平台的算法脾气、家长画像、招生路径，还有 2026 新的合规红线。</p>
+    <div class="divider"></div>
+    <div class="meta">围棋老师的自媒体招生 · 十次课系列 · 第 3 / 10 课</div>
+  </section>
+
+  <!-- 十次课地图 -->
+  <section class="fade-up">
+    <div class="section-eyebrow">10-WEEK FULL MAP</div>
+    <h2 class="section-title">十次课全景地图 · 你今晚在哪一站</h2>
+    <p class="section-subtitle">每节 60 分钟 · 每周 1 节 · 2 个半月走完从零到闭环</p>
+    <div class="map-wrap">
+      <div class="map-grid" id="mapGrid"></div>
+    </div>
+  </section>
+
+  <!-- 四目标 -->
+  <section class="fade-up">
+    <div class="section-eyebrow">FOUR GOALS TONIGHT</div>
+    <h2 class="section-title">今晚 60 分钟要让你做到的四件事</h2>
+    <p class="section-subtitle">今晚不讲拍摄、不讲运营，只讲「在哪拍、怎么开号、不能碰什么」</p>
+    <div class="grid g2">
+      <div class="card goal-card">
+        <div class="goal-no">GOAL 01</div>
+        <div class="goal-t">看懂四大平台差异</div>
+        <div class="goal-d">抖音 / 视频号 / B 站 / 小红书 —— 用户画像、算法脾气、招生路径、政策红线，每一项都能说清楚。</div>
+      </div>
+      <div class="card goal-card">
+        <div class="goal-no">GOAL 02</div>
+        <div class="goal-t">选对第一个主战场</div>
+        <div class="goal-d">根据自己的定位和内容能力，选定 1 个主战场 + 1-2 个分发平台，不再"四平台大水漫灌"。</div>
+      </div>
+      <div class="card goal-card">
+        <div class="goal-no">GOAL 03</div>
+        <div class="goal-t">账号七件套配齐</div>
+        <div class="goal-d">昵称 / 头像 / 简介 / 主页图 / 资料 / 置顶 / 合集 —— 每一项都有清晰模板，今晚下课就能改。</div>
+      </div>
+      <div class="card goal-card">
+        <div class="goal-no">GOAL 04</div>
+        <div class="goal-t">避开 2026 新红线</div>
+        <div class="goal-d">K12 学科禁令重申、AI 内容强制标注、未成年人镜头收紧 —— 三条 2026 新雷区一条都不踩。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 开篇钩子 · 三个坑 -->
+  <section class="fade-up">
+    <div class="section-eyebrow">THE THREE TRAPS</div>
+    <h2 class="section-title">开号最容易掉的三个坑</h2>
+    <blockquote class="pull">
+      我看过太多围棋老师开号，选平台永远在<span class="hl">三个坑</span>里打转：铺全平台、追涨粉快、机构号大水漫灌。<br>
+      拍了几个月，粉丝没起来，反倒被限流警告。<br>
+      问题不在勤奋，而是<span class="hl">开号的第一天，就没想清楚"你要谁看到、他在哪、他习惯看什么"</span>。
+    </blockquote>
+    <div class="grid g2 path-compare">
+      <div class="card path-card bad">
+        <div class="path-lbl">坑 A · 铺全平台</div>
+        <div class="path-t">每个都做，每个都做不深</div>
+        <div class="path-steps">
+          <span class="step">四号同开</span>
+          <span class="arrow">→</span>
+          <span class="step">同稿分发</span>
+          <span class="arrow">→</span>
+          <span class="step">全线扑街</span>
+        </div>
+        <div class="path-note">同一条视频抖音丢完播、B 站丢深度、小红书没有图文、视频号缺朋友分发。工作量翻四倍，起号周期反而翻四倍。<br><b>正解：</b>先选主战场 + 1-2 个分发，跑 30-50 条验证再谈扩展。</div>
+      </div>
+      <div class="card path-card bad">
+        <div class="path-lbl">坑 B · 追涨粉快</div>
+        <div class="path-t">忘了你的目标是招生，不是流量</div>
+        <div class="path-steps">
+          <span class="step">看别人抖音涨粉快</span>
+          <span class="arrow">→</span>
+          <span class="step">跟风做抖音</span>
+          <span class="arrow">→</span>
+          <span class="step">粉多但不转化</span>
+        </div>
+        <div class="path-note">三个月后账号看起来漂亮，一个咨询单都没进来。粉丝画像不是决策家长，你在错的池子里游泳。<br><b>正解：</b>招生型账号必须问"决策家长在哪" —— 2026 年这个答案是<b>视频号</b>。</div>
+      </div>
+    </div>
+    <div class="card path-card bad" style="margin-top:14px">
+      <div class="path-lbl">坑 C · 机构号大水漫灌</div>
+      <div class="path-t">一开号就撒硬广，起号首周就被打上"营销号"标签</div>
+      <div class="path-steps">
+        <span class="step">昵称叫「XX 围棋学苑」</span>
+        <span class="arrow">→</span>
+        <span class="step">简介挂微信 · 电话</span>
+        <span class="arrow">→</span>
+        <span class="step">每条结尾报价格</span>
+        <span class="arrow">→</span>
+        <span class="step">权重跌到负</span>
+      </div>
+      <div class="path-note">账号一旦被判营销号，几乎无法翻身，只能弃号重开。<br><b>正解：</b>起号阶段先做"人"不做"机构"，个人 IP 稳定后再补机构号。</div>
+    </div>
+  </section>
+
+  <!-- 四大平台深度对比 -->
+  <section class="fade-up">
+    <div class="section-eyebrow">PLATFORM DEEP-DIVE · 4 IN 1</div>
+    <h2 class="section-title">四大平台深度对比 · 围棋教育垂类视角</h2>
+    <p class="section-subtitle">按 2026 年最新的算法、流量政策、家长迁移趋势更新过一遍。招生转化优先级从高到低排列。</p>
+
+    <!-- 视频号 · 主推 -->
+    <div class="platform-card rec">
+      <div class="pc-head">
+        <span class="pc-eyebrow">PLATFORM 01</span>
+        <span class="pc-title">视频号</span>
+        <span class="pc-tag">招生转化 · 首选</span>
+      </div>
+      <div class="pc-sub">机构老师和校长的第一战场 —— 决策家长最集中，转化最短，2026 还在红利期。</div>
+      <div class="pc-rows">
+        <div class="pc-row"><div class="pc-lbl">用户画像</div><div class="pc-val">30-55 岁中老年家长居多，<b>付费决策者集中地</b>。相比其他平台，"能拍板给孩子报班"的家长比例最高。</div></div>
+        <div class="pc-row"><div class="pc-lbl">算法脾气</div><div class="pc-val"><span class="signal">社交推荐</span><span class="signal">算法推荐</span><b>双轨制</b> —— 朋友点赞会出现在你的信息流里，被"身边家长看到"的概率最高。前 5 秒留人即可，节奏可以慢。</div></div>
+        <div class="pc-row"><div class="pc-lbl">内容形式</div><div class="pc-val">1-3 分钟横竖屏都行，慢节奏、深内容更受欢迎。老师本人出镜比纯棋盘讲解更容易起量。</div></div>
+        <div class="pc-row"><div class="pc-lbl">招生路径</div><div class="pc-val"><b>可直接放公众号入口、企业微信、小程序</b> —— 是当前四大平台里转化最顺的。很多家长在视频号刷到老师后，直接私信咨询。</div></div>
+        <div class="pc-row"><div class="pc-lbl">政策红线</div><div class="pc-val">相对宽松，但忌"夸张承诺""收益保证""XX 保过"。教育类账号要清晰定位在"素质教育 / 兴趣课"。</div></div>
+        <div class="pc-row"><div class="pc-lbl">2026 新信号</div><div class="pc-val"><span class="signal new">迁移目的地</span>大量教育垂类知识博主 2026 年从抖音迁到视频号，红利期正在收窄 —— <b>越早入局越好</b>。</div></div>
+        <div class="pc-row"><div class="pc-lbl">适合谁</div><div class="pc-val"><b>机构老师、校长强烈推荐</b>。视频号是 2026 年围棋赛道转化效率最高的平台，起号成本也最低。</div></div>
+      </div>
+    </div>
+
+    <!-- 抖音 -->
+    <div class="platform-card">
+      <div class="pc-head">
+        <span class="pc-eyebrow">PLATFORM 02</span>
+        <span class="pc-title">抖音</span>
+        <span class="pc-tag">流量放大 · 主战场</span>
+      </div>
+      <div class="pc-sub">规模最大、涨粉最快，但红线最多、转化路径最曲折 —— 适合有内容生产力的老师。</div>
+      <div class="pc-rows">
+        <div class="pc-row"><div class="pc-lbl">用户画像</div><div class="pc-val">6 亿日活，18-45 岁泛家长群体，南北方一二三四线全覆盖。用户量大，但决策家长比例低于视频号。</div></div>
+        <div class="pc-row"><div class="pc-lbl">算法脾气</div><div class="pc-val"><span class="signal">去中心化</span>新号也有冷启动机会。<b>2026 年算法升级</b>：从"完播率至上"→<span class="signal new">加入深度信号</span>（评论质量、收藏率、二次播放权重上升）。3 秒钩子仍然重要，但"钩子 + 深度内容"才能长期起量。</div></div>
+        <div class="pc-row"><div class="pc-lbl">内容形式</div><div class="pc-val">15-60 秒竖屏为主，9:16 节奏快。前 3 秒决定生死。</div></div>
+        <div class="pc-row"><div class="pc-lbl">招生路径</div><div class="pc-val">私信限制严，需要绕道企业号或引导到微信（话术要绕，<b>第 9 课详细讲</b>）。转化路径最长，但流量池最大。</div></div>
+        <div class="pc-row"><div class="pc-lbl">政策红线</div><div class="pc-val">教育垂类敏感词最多。"招生""报名""价格""学费"会直接触发限流。K12 相关话术要严格避开。</div></div>
+        <div class="pc-row"><div class="pc-lbl">围棋赛道现状</div><div class="pc-val">账号多但腰部为主，10 万粉以上账号不到 30 个 —— <b>头部还没形成壁垒，机会仍在</b>。</div></div>
+        <div class="pc-row"><div class="pc-lbl">适合谁</div><div class="pc-val">希望快速涨粉、内容生产力强、能日更或周 3-4 更的老师。IP 沉淀型讲师优先选它。</div></div>
+      </div>
+    </div>
+
+    <!-- 小红书 -->
+    <div class="platform-card">
+      <div class="pc-head">
+        <span class="pc-eyebrow">PLATFORM 03</span>
+        <span class="pc-title">小红书</span>
+        <span class="pc-tag">妈妈拦截 · 分发</span>
+        <span class="pc-tag new">2026 · 500 亿流量扶持</span>
+      </div>
+      <div class="pc-sub">一二线妈妈聚集地，2026 官方 500 亿流量扶持视频，图文老玩法要升级为视频笔记。</div>
+      <div class="pc-rows">
+        <div class="pc-row"><div class="pc-lbl">用户画像</div><div class="pc-val">22-40 岁女性家长居多，<b>一二线城市妈妈</b>。启蒙阶段家长最集中的平台，付费能力高。</div></div>
+        <div class="pc-row"><div class="pc-lbl">算法脾气</div><div class="pc-val"><span class="signal">搜索属性最强</span>"孩子学围棋""围棋 4 岁"这类关键词长期有人搜 —— <b>老笔记也能持续吃流量</b>。</div></div>
+        <div class="pc-row"><div class="pc-lbl">内容形式</div><div class="pc-val">图文笔记 + 视频笔记并重，<b>封面 + 标题决定 80% 流量</b>。视频笔记 30 秒-3 分钟为佳。</div></div>
+        <div class="pc-row"><div class="pc-lbl">2026 新信号</div><div class="pc-val"><span class="signal new">500 亿流量扶持</span><span class="signal new">视频权重反超图文</span>2026 上半年小红书官方明确重押中长视频，视频笔记流量优先级已高于图文 —— 围棋赛道从"图文避坑帖为主"进入"视频讲棋 + 图文避坑组合"的窗口期。</div></div>
+        <div class="pc-row"><div class="pc-lbl">招生路径</div><div class="pc-val">私信引导慢，但<b>"图文避坑帖 + 评论区导流 + 主页微信引导"</b>是公认有效路径。加入了视频后，转化路径缩短。</div></div>
+        <div class="pc-row"><div class="pc-lbl">政策红线</div><div class="pc-val">教育类账号需要"专业人士"实名认证，否则容易被判营销号。图文笔记禁止在正文放微信号。</div></div>
+        <div class="pc-row"><div class="pc-lbl">适合谁</div><div class="pc-val">愿意做"经验帖、避坑帖、对比帖"的老师，特别是启蒙阶段面向妈妈群体的讲师。<b>2026 年更要补上视频笔记</b>。</div></div>
+      </div>
+    </div>
+
+    <!-- B 站 -->
+    <div class="platform-card">
+      <div class="pc-head">
+        <span class="pc-eyebrow">PLATFORM 04</span>
+        <span class="pc-title">B 站</span>
+        <span class="pc-tag">深度沉淀 · IP</span>
+      </div>
+      <div class="pc-sub">长尾最猛、忠诚度最高的平台。不擅长直接招生，但擅长把陌生人变成"愿意付费信任你"的家长。</div>
+      <div class="pc-rows">
+        <div class="pc-row"><div class="pc-lbl">用户画像</div><div class="pc-val">18-35 岁，年轻家长 + 围棋爱好者 + 学棋成人。用户"耐心度"最高，愿意看完长视频。</div></div>
+        <div class="pc-row"><div class="pc-lbl">算法脾气</div><div class="pc-val"><span class="signal">长尾效应</span>一条视频可能发出去半年后还在涨播放。<b>"内容资产化"效果最强</b>。</div></div>
+        <div class="pc-row"><div class="pc-lbl">内容形式</div><div class="pc-val">3-15 分钟中长视频，横屏为主，<b>深度内容占优</b>。棋盘讲解、复盘、思路分享是天然优质选题。</div></div>
+        <div class="pc-row"><div class="pc-lbl">招生路径</div><div class="pc-val">直接转化弱，但<b>专业人设 + 深度信任积累最好</b>。B 站沉淀，微信收单 —— 是很多讲师 IP 的经典路径。</div></div>
+        <div class="pc-row"><div class="pc-lbl">政策红线</div><div class="pc-val">友好，教育垂类几乎无限流红线。但不能纯搬运，需要原创解说。</div></div>
+        <div class="pc-row"><div class="pc-lbl">真实案例</div><div class="pc-val">讲师本人 B 站 <b>2.4 万粉、241 万播放</b> —— 证明"长视频深度讲解围棋教育"在 B 站有稳定受众。这种沉淀反过来给微信咨询带来的<b>是高质量线索</b>。</div></div>
+        <div class="pc-row"><div class="pc-lbl">适合谁</div><div class="pc-val">愿意做长内容、讲解逻辑清晰、面向"懂围棋的家长"或"成人学棋"群体的老师。<b>不追求短期涨粉的讲师首选</b>。</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 一图对比表 -->
+  <section class="fade-up">
+    <div class="section-eyebrow">ONE-GLANCE MATRIX</div>
+    <h2 class="section-title">一图看懂 · 四大平台对比表</h2>
+    <p class="section-subtitle">拿不定主意时看这张表，横向比对每个维度。</p>
+    <div class="compare-scroll">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>维度</th>
+            <th>视频号</th>
+            <th>抖音</th>
+            <th>小红书</th>
+            <th>B 站</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="col-dim">主用户</td><td>30-55 决策家长</td><td>18-45 泛家长</td><td>22-40 一二线妈妈</td><td>18-35 年轻家长/学棋党</td></tr>
+          <tr><td class="col-dim">内容长度</td><td>1-3 分钟</td><td>15-60 秒</td><td>图文+30秒-3分钟</td><td>3-15 分钟</td></tr>
+          <tr><td class="col-dim">起号难度</td><td class="hot">低</td><td>中</td><td>中</td><td>中高</td></tr>
+          <tr><td class="col-dim">转化效率</td><td class="hot">高</td><td>中</td><td>中高</td><td>低（但精准）</td></tr>
+          <tr><td class="col-dim">红线敏感度</td><td>中</td><td class="hot">高</td><td>中</td><td>低</td></tr>
+          <tr><td class="col-dim">2026 扶持</td><td class="hot">红利期</td><td>教育垂类紧</td><td class="hot">500 亿视频扶持</td><td>友好</td></tr>
+          <tr><td class="col-dim">长尾效应</td><td>中</td><td>弱</td><td>中</td><td class="hot">最强</td></tr>
+          <tr><td class="col-dim">招生优先级</td><td class="hot">★★★★★</td><td>★★★★</td><td>★★★★</td><td>★★★</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+
+  <!-- 平台组合策略 -->
+  <section class="fade-up">
+    <div class="section-eyebrow">COMBO STRATEGY · 2026</div>
+    <h2 class="section-title">平台组合策略 · 讲师主观推荐</h2>
+    <p class="section-subtitle">先选主战场，再做分发。不要一上来就铺四个平台。</p>
+
+    <div class="combo-card">
+      <div class="combo-head">
+        <span class="combo-role">机构老师 / 校长（招生导向）</span>
+        <span class="combo-tag">首选</span>
+      </div>
+      <div class="combo-arrow">
+        <span class="combo-node main">视频号（主）</span>
+        <span class="combo-sep">+</span>
+        <span class="combo-node sub">抖音（分发）</span>
+        <span class="combo-sep">+</span>
+        <span class="combo-node sub">小红书（拦截）</span>
+      </div>
+      <div class="combo-desc"><b>逻辑：</b>视频号做转化 —— 决策家长在这里，转化最快；抖音做放大 —— 内容可以横切成 30 秒竖版分发；小红书做搜索拦截 —— 家长搜"孩子学围棋"时能被找到。<br><b>2026 升级：</b>小红书部分从"只发图文"→"视频笔记 + 图文并重"，因为 500 亿流量已经明确压向视频了。</div>
+    </div>
+
+    <div class="combo-card">
+      <div class="combo-head">
+        <span class="combo-role">专业讲解老师（IP 沉淀导向）</span>
+        <span class="combo-tag">次选</span>
+      </div>
+      <div class="combo-arrow">
+        <span class="combo-node main">抖音 + B 站（主）</span>
+        <span class="combo-sep">→</span>
+        <span class="combo-node sub">视频号（扫尾）</span>
+      </div>
+      <div class="combo-desc"><b>逻辑：</b>抖音负责涨粉 —— 曝光量最大；B 站负责沉淀 —— 长视频做深度信任；视频号收网 —— 沉淀好的人设直接在视频号收咨询。<br><b>2026 升级：</b>抖音那一头的选题要重视"深度信号"（收藏率、评论质量、二次播放），不能只追完播率，因为 2026 算法已经加权深度。</div>
+    </div>
+
+    <div class="combo-card">
+      <div class="combo-head">
+        <span class="combo-role">新人零基础</span>
+        <span class="combo-tag">起步期</span>
+      </div>
+      <div class="combo-arrow">
+        <span class="combo-node main">先做 1 个（视频号或抖音）</span>
+        <span class="combo-sep">→</span>
+        <span class="combo-node sub">跑 30-50 条视频</span>
+        <span class="combo-sep">→</span>
+        <span class="combo-node sub">再扩展第 2 个</span>
+      </div>
+      <div class="combo-desc"><b>铁律：</b>新人不要一上来就铺四平台。<b>先跑通一个，再扩展第二个</b>。<br><b>选谁：</b>目标是尽快招到第一个学生 → 视频号；目标是打个人 IP + 长期沉淀 → 抖音。这两个二选一，剩下的暂缓。</div>
+    </div>
+
+    <div style="margin-top:18px;padding:14px 18px;background:#fbeceb;border-left:3px solid #a8362a;border-radius:0 4px 4px 0;font-size:13.5px;color:#7a2a20;line-height:1.85">
+      <b>反例提醒：</b><br>
+      ❌ "我先全平台同步发吧" —— 90% 概率三个月后只有一个号有数据，其他三个等于荒废。<br>
+      ❌ "我看到抖音号涨粉快我就做抖音" —— 你的目的是招生不是涨粉，要看转化不是看播放。
+    </div>
+  </section>
+
+  <!-- 互动 1 · 定位测试 -->
+  <section class="fade-up">
+    <div class="section-eyebrow">INTERACTION · 01</div>
+    <h2 class="section-title">先测一下 · 你的账号目标偏哪边？</h2>
+    <p class="section-subtitle">4 选 1 · 秒出你的平台组合建议</p>
+    <div class="quiz-btns">
+      <button class="quiz-btn position-btn" data-key="mechanism"><strong>A · 机构老师 / 校长</strong><span class="qb-sub">目标：3-6 个月内招到稳定生源</span></button>
+      <button class="quiz-btn position-btn" data-key="pro"><strong>B · 专业讲解老师</strong><span class="qb-sub">目标：先做个人 IP，再谈变现</span></button>
+      <button class="quiz-btn position-btn" data-key="mom"><strong>C · 妈妈型老师</strong><span class="qb-sub">目标：面向妈妈群体做启蒙输出</span></button>
+      <button class="quiz-btn position-btn" data-key="newbie"><strong>D · 完全新人</strong><span class="qb-sub">目标：先跑通一个平台再说</span></button>
+    </div>
+    <div class="quiz-result" id="positionResult"></div>
+  </section>
+
+  <!-- 账号搭建七件套 · accordion -->
+  <section class="fade-up">
+    <div class="section-eyebrow">ACCOUNT SETUP · 7 IN 1</div>
+    <h2 class="section-title">账号搭建七件套 · 一项都不能少</h2>
+    <p class="section-subtitle">新号上线必须配齐的七项内容。点开每一项看展开的公式、例子和反例。</p>
+
+    <div class="setup-item">
+      <div class="setup-head" data-toggle="setup">
+        <div class="setup-no">1</div>
+        <div class="setup-title">昵称 <small>· 账号最重要的招牌</small></div>
+        <div class="setup-icon">▼</div>
+      </div>
+      <div class="setup-body">
+        <div class="setup-formula"><div class="f-t">公式</div>身份关键词 + 个人代号</div>
+        <div class="example-good">✓ 好昵称：「张老师聊围棋」「围棋阿明老师」「萝卜干聊围棋教育」</div>
+        <div class="example-bad">✗ 差昵称：「快乐每一天」「人生如棋」「随心而行」</div>
+        <div class="kouju">口诀：让人 0.5 秒内知道"你是谁、你讲什么"</div>
+        <h4>反例提醒</h4>
+        <ul>
+          <li>不要用纯数字、纯英文、表情符号 —— 平台不友好，搜索找不到</li>
+          <li>不要用"XX 围棋培训"这种像机构号的名字 —— 影响个人 IP 信任度</li>
+          <li>不要 3 天换一次昵称 —— 平台会降权，1 个月内改 3 次以上会被识别为不稳定账号</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="setup-item">
+      <div class="setup-head" data-toggle="setup">
+        <div class="setup-no">2</div>
+        <div class="setup-title">头像 <small>· 跨平台一致的认知锚点</small></div>
+        <div class="setup-icon">▼</div>
+      </div>
+      <div class="setup-body">
+        <ul>
+          <li><b>首选：</b>本人真实清晰照片（半身或正脸，背景干净，棋盘当背景加分）</li>
+          <li><b>次选：</b>本人卡通化头像（捏脸或漫画风）</li>
+          <li><b>不推荐：</b>风景、Logo、网图、明星照片</li>
+        </ul>
+        <div class="kouju">关键：四大平台头像保持一致 —— 这是后期跨平台引流的认知锚点</div>
+      </div>
+    </div>
+
+    <div class="setup-item">
+      <div class="setup-head" data-toggle="setup">
+        <div class="setup-no">3</div>
+        <div class="setup-title">简介 <small>· 三行字决定关注转化</small></div>
+        <div class="setup-icon">▼</div>
+      </div>
+      <div class="setup-body">
+        <div class="setup-formula">
+          <div class="f-t">三句话公式</div>
+          第一句：<b>身份 + 背书</b>（你是谁，凭什么讲）<br>
+          第二句：<b>用户 + 价值</b>（讲给谁，能得到什么）<br>
+          第三句：<b>钩子</b>（引导关注 / 私信 / 看主页）
+        </div>
+        <div class="example-good">
+          ✓ 十来年围棋老师 ｜ 带过 800+ 孩子启蒙<br>
+          ✓ 4-8 岁孩子家长，关注我每周 3 条启蒙干货<br>
+          ✓ 私信「启蒙」领免费学棋路线图
+        </div>
+        <div class="example-bad">
+          ✗ "热爱围棋，分享围棋日常" —— 信息密度为零<br>
+          ✗ 简介里塞微信号 / 电话 —— 100% 限流，部分平台直接封号
+        </div>
+      </div>
+    </div>
+
+    <div class="setup-item">
+      <div class="setup-head" data-toggle="setup">
+        <div class="setup-no">4</div>
+        <div class="setup-title">主页背景图 <small>· 你的第二次自我介绍</small></div>
+        <div class="setup-icon">▼</div>
+      </div>
+      <div class="setup-body">
+        <ul>
+          <li>抖音、小红书有主页大图位，视频号有主页封面背景</li>
+          <li><b>作用：</b>用户点进主页看到的第一眼，是你身份的第二次自我介绍</li>
+          <li><b>建议内容：</b>身份 slogan（如"专注 4-8 岁围棋启蒙 ｜ 杭州 ｜ 十来年教龄"）+ 一张干净的棋盘或本人照片</li>
+        </ul>
+        <div class="kouju">工具：稿定设计 / Canva 模板，5 分钟就能出图</div>
+      </div>
+    </div>
+
+    <div class="setup-item">
+      <div class="setup-head" data-toggle="setup">
+        <div class="setup-no">5</div>
+        <div class="setup-title">性别 / 地区 / 标签 <small>· 别让算法把你推错人</small></div>
+        <div class="setup-icon">▼</div>
+      </div>
+      <div class="setup-body">
+        <ul>
+          <li><b>性别：</b>如实填 —— 影响算法对你受众的判断</li>
+          <li><b>地区：</b>填到城市 —— 同城流量会优先推</li>
+          <li><b>标签：</b>选"教育""亲子""少儿教育"，不要选"娱乐""游戏"</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="setup-item">
+      <div class="setup-head" data-toggle="setup">
+        <div class="setup-no">6</div>
+        <div class="setup-title">置顶视频 <small>· 陌生用户转关注的临门一脚</small></div>
+        <div class="setup-icon">▼</div>
+      </div>
+      <div class="setup-body">
+        <ul>
+          <li>新号在第 5-10 条视频时，要有一条<b>"自我介绍 + 内容预告"</b>视频置顶</li>
+          <li><b>结构：</b>30-60 秒，"我是谁 / 我讲什么 / 你来这里能得到什么"</li>
+          <li>置顶视频是陌生用户判断要不要关注的临门一脚</li>
+        </ul>
+        <div class="kouju">口诀：置顶视频不是流量视频，是转化视频 —— 它的任务是把刷到的人转成关注</div>
+      </div>
+    </div>
+
+    <div class="setup-item">
+      <div class="setup-head" data-toggle="setup">
+        <div class="setup-no">7</div>
+        <div class="setup-title">合集 / 系列 <small>· 关注转化率 +30-50%</small></div>
+        <div class="setup-icon">▼</div>
+      </div>
+      <div class="setup-body">
+        <ul>
+          <li>抖音、视频号、B 站都支持合集功能</li>
+          <li>把内容按主线打包成 2-3 个合集，如《4-8 岁启蒙系列》《家长答疑系列》《死活题精讲》</li>
+          <li><b>作用：</b>用户进主页一眼看出"这老师有体系"，关注转化率提升 30-50%</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 互动 2 · 七件套自查 -->
+  <section class="fade-up">
+    <div class="section-eyebrow">INTERACTION · 02</div>
+    <h2 class="section-title">七件套自查 · 你的账号还差几项？</h2>
+    <p class="section-subtitle">逐项打勾 · 实时看你的完成度</p>
+    <div class="checklist" id="setupChecklist">
+      <div class="check-row" data-key="s1"><div class="check-box"></div><div class="check-txt"><b>1 · 昵称</b>包含身份关键词，能 0.5 秒看懂"你是谁、你讲什么"</div></div>
+      <div class="check-row" data-key="s2"><div class="check-box"></div><div class="check-txt"><b>2 · 头像</b>是本人清晰照片或卡通化头像，四大平台一致</div></div>
+      <div class="check-row" data-key="s3"><div class="check-box"></div><div class="check-txt"><b>3 · 简介</b>按三句话公式写完，无微信号、无电话、无敏感词</div></div>
+      <div class="check-row" data-key="s4"><div class="check-box"></div><div class="check-txt"><b>4 · 主页背景图</b>含身份 slogan，视觉干净不花哨</div></div>
+      <div class="check-row" data-key="s5"><div class="check-box"></div><div class="check-txt"><b>5 · 性别/地区/标签</b>已如实填写，标签是"教育/亲子/少儿"</div></div>
+      <div class="check-row" data-key="s6"><div class="check-box"></div><div class="check-txt"><b>6 · 置顶视频</b>已录制"我是谁 / 讲什么 / 你能得到什么"的 30-60 秒</div></div>
+      <div class="check-row" data-key="s7"><div class="check-box"></div><div class="check-txt"><b>7 · 合集/系列</b>规划了至少 2 个合集，名字能体现内容主线</div></div>
+      <div class="check-summary">
+        <div class="check-progress"><div class="check-progress-fill" id="checkProgressFill"></div></div>
+        <div class="check-stat" id="checkStat">0 / 7</div>
+      </div>
+    </div>
+    <p style="margin-top:14px;font-size:13.5px;color:var(--gray-soft);line-height:1.85">
+      <b>验收标准：</b>七件套全部配齐（缺一项不算合格）。<br>
+      <b>特别提醒：</b>简介按"三句话公式"写，<b>严禁</b>放微信号 / 电话；合集名不能是"日常""分享""随便聊聊"这种通用名。
+    </p>
+  </section>
+
+  <!-- 2026 合规红线 -->
+  <section class="fade-up">
+    <div class="section-eyebrow">2026 RED LINES</div>
+    <h2 class="section-title">2026 合规红线 · 9 条不能碰</h2>
+    <p class="section-subtitle">前 6 条是老规矩 · 后 3 条是 2026 年新增的重点雷区。做了就限流甚至封号。</p>
+
+    <div class="redline-grid">
+      <div class="redline-item">
+        <div class="redline-no">01</div>
+        <div class="redline-content">
+          <div class="redline-head"><span class="redline-t">简介、评论区、私信里放微信号 / 手机号</span></div>
+          <div class="redline-d">这是平台最敏感的引流触发词。发一次就可能被限流，发多次直接封禁引流。</div>
+        </div>
+      </div>
+      <div class="redline-item">
+        <div class="redline-no">02</div>
+        <div class="redline-content">
+          <div class="redline-head"><span class="redline-t">视频里口播"加我微信""V 信咨询"等直接引流</span></div>
+          <div class="redline-d">口播词也会被识别。话术要绕（<b>第 9 课详细讲</b>），或用视频号/企业号合规入口。</div>
+        </div>
+      </div>
+      <div class="redline-item">
+        <div class="redline-no">03</div>
+        <div class="redline-content">
+          <div class="redline-head"><span class="redline-t">第一周内连发 5 条以上同类视频</span></div>
+          <div class="redline-d">容易被判搬运或营销号。起号第一周节奏放缓，每天 1 条即可。</div>
+        </div>
+      </div>
+      <div class="redline-item">
+        <div class="redline-no">04</div>
+        <div class="redline-content">
+          <div class="redline-head"><span class="redline-t">起昵称带"招生""学费""低价""免费课"</span></div>
+          <div class="redline-d">教育垂类敏感词，昵称一旦命中会被系统直接标记营销号，权重从零跌到负。</div>
+        </div>
+      </div>
+      <div class="redline-item">
+        <div class="redline-no">05</div>
+        <div class="redline-content">
+          <div class="redline-head"><span class="redline-t">用别人账号的视频片段不加授权</span></div>
+          <div class="redline-d">侵权下架，账号权重连带降。哪怕是同事、朋友的素材，也要有明确授权和标注来源。</div>
+        </div>
+      </div>
+      <div class="redline-item">
+        <div class="redline-no">06</div>
+        <div class="redline-content">
+          <div class="redline-head"><span class="redline-t">多个手机号登一个账号（异地登录风控）</span></div>
+          <div class="redline-d">异地登录会触发平台风控，账号可能被临时冻结。老师最好一号一机，出差前先关闭异地登录敏感期。</div>
+        </div>
+      </div>
+
+      <!-- 新增 3 条 -->
+      <div class="redline-item new">
+        <div class="redline-no">07</div>
+        <div class="redline-content">
+          <div class="redline-head"><span class="redline-t">K12 学科话术 —— 提分 / 升学 / 考试</span><span class="redline-badge">2026 新</span></div>
+          <div class="redline-d">2026-01 抖音电商等平台重申 K12 学科禁令。围棋<b>不是学科类</b>，但话术要清晰定位在"素质教育 / 兴趣课"，禁止宣传"提分""升学""考试加分"。<b>安全表述</b>：兴趣启蒙、思维训练、专注力、心性、素质教育。</div>
+          <div class="redline-src">📎 参考：<a href="https://school.jinritemai.com/doudian/web/article/aJdVu3zQ6BZG" target="_blank" rel="noopener">抖音电商 · 学科培训类内容管理 · 2026-01</a></div>
+        </div>
+      </div>
+      <div class="redline-item new">
+        <div class="redline-no">08</div>
+        <div class="redline-content">
+          <div class="redline-head"><span class="redline-t">AI 生成 / 辅助内容未标注</span><span class="redline-badge">2026 新</span></div>
+          <div class="redline-d">2026-07 起短视频新规执行加严：AI 剪辑、AI 讲棋、AI 生成封面、AI 换脸配音等，都需要在<b>视频显眼位置或文案标注"AI 生成 / AI 辅助"</b>。不标注会限流甚至下架。围棋老师用 AI 讲局面、AI 出题图，都要如实标注。</div>
+          <div class="redline-src">📎 参考：<a href="http://m.toutiao.com/group/7658746485034500654/" target="_blank" rel="noopener">短视频新规 2026-07 · 头条报道</a></div>
+        </div>
+      </div>
+      <div class="redline-item new">
+        <div class="redline-no">09</div>
+        <div class="redline-content">
+          <div class="redline-head"><span class="redline-t">未成年人镜头未做处理</span><span class="redline-badge">2026 新</span></div>
+          <div class="redline-d">2026 平台对未成年人涉及内容审核变严。视频里出现学员孩子（尤其正脸、姓名、学校信息）<b>必须有家长书面授权，或做打码/背影/侧脸处理</b>。围棋赛道的"孩子对局""上课花絮"最容易踩这条 —— 学员上课的画面尽量拍手、拍棋盘，别拍脸。</div>
+          <div class="redline-src">📎 参考：同上短视频新规执行细则</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2026 内容风口 -->
+  <section class="fade-up">
+    <div class="section-eyebrow">2026 TREND SIGNALS</div>
+    <h2 class="section-title">2026 内容风口感知 · 四大信号</h2>
+    <p class="section-subtitle">选平台不是一次性决定 —— 平台生态每半年就变一次。这四个信号，2026 年围棋赛道必须知道。</p>
+
+    <div class="trend-signal">
+      <div class="trend-num">SIGNAL 01</div>
+      <div class="trend-t">小红书 500 亿流量扶持 + 视频权重反超图文</div>
+      <div class="trend-data">
+        2026 上半年，小红书官方明确投入 500 亿流量扶持中长视频，视频笔记的算法权重已经<b>反超</b>图文笔记 —— 这在 2024 年之前是反过来的。
+      </div>
+      <div class="trend-mean">
+        <b>对围棋老师意味着什么：</b>过去"小红书=图文避坑帖"的老玩法要升级。图文帖继续保留（做搜索拦截），但要<b>补上视频笔记</b>：30 秒-3 分钟讲一个启蒙痛点、一个死活题、一次家长答疑，都能起量。<br>
+        <b>动作：</b>图文帖投入从 100% → 30%，视频笔记投入 → 50%，剩下 20% 做数据观察。
+      </div>
+      <div class="trend-src">
+        📎 <a href="https://www.smfnmo.com/xmtnews/21942.html" target="_blank" rel="noopener">沙漠风 · 小红书 2026 视频权重白皮书</a> ｜
+        <a href="http://m.toutiao.com/group/7645233587263898175/" target="_blank" rel="noopener">虎嗅 · 500 亿流量扶持 · 2026-05-29</a>
+      </div>
+    </div>
+
+    <div class="trend-signal">
+      <div class="trend-num">SIGNAL 02</div>
+      <div class="trend-t">视频号成知识博主迁移目的地</div>
+      <div class="trend-data">
+        2026 上半年大量教育、亲子、知识垂类博主从抖音迁到视频号 —— 一方面抖音教育垂类限流加严，另一方面视频号"社交推荐+朋友圈分发"的红利还在。
+      </div>
+      <div class="trend-mean">
+        <b>对围棋老师意味着什么：</b>视频号是 2026 年围棋赛道的<b>最后一波起号红利期</b>。头部围棋号在视频号还没完全建立起来，你现在起号，只要坚持 3-6 个月，能吃到最好的社交推荐初始流量。<br>
+        <b>动作：</b>如果你还没有视频号，现在开号。哪怕原来在抖音有号，也要把视频号补上做主战场。
+      </div>
+      <div class="trend-src">📎 <a href="https://m.sohu.com/a/1040963452_120462305/" target="_blank" rel="noopener">搜狐 · 知识博主迁移视频号 · 2026-06-24</a></div>
+    </div>
+
+    <div class="trend-signal">
+      <div class="trend-num">SIGNAL 03</div>
+      <div class="trend-t">抖音算法加入"深度信号"</div>
+      <div class="trend-data">
+        2026-06 起，抖音算法明显在完播率之外，把<b>评论质量、收藏率、二次播放</b>的权重提升。纯钩子党（3 秒诱骗完播）的账号数据开始掉。
+      </div>
+      <div class="trend-mean">
+        <b>对围棋老师意味着什么：</b>过去"前 3 秒决定生死"的规则依然成立，但现在<b>"钩子 + 深度内容"的组合</b>才能长期起量。纯搬运、纯口水段子、纯猎奇标题党都会开始拉垮。<br>
+        <b>动作：</b>选题保持"钩子前置"，但正文必须有干货（一个方法、一条金句、一次复盘）—— 让家长愿意收藏、愿意评论、愿意二刷。这也是围棋讲师的<b>天然优势领域</b>：我们不缺深度。
+      </div>
+      <div class="trend-src">📎 <a href="https://36kr.com/p/3838169166563589" target="_blank" rel="noopener">36 氪 · 四大平台算法差异深度对比 · 2026-06-04</a></div>
+    </div>
+
+    <div class="trend-signal">
+      <div class="trend-num">SIGNAL 04</div>
+      <div class="trend-t">围棋"新型暑托班"论述在 2026 暑期爆火</div>
+      <div class="trend-data">
+        2026-07 主流媒体开始讨论"双减后的新型暑托班"，围棋作为"素质教育 + 长时段专注 + 抗焦虑"的三合一切入点，被家长和媒体反复提及。搜索量与话题热度同步上涨。
+      </div>
+      <div class="trend-mean">
+        <b>对围棋老师意味着什么：</b>2026 暑假到 2027 春季，"围棋 = 假期托管刚需 + 素质教育刚需"的内容切入点，会一直有热度。<br>
+        <b>动作：</b>近 3-6 个月选题里主动加入"暑托版围棋""围棋替代 XX 兴趣班""为什么围棋是家长最不后悔的假期选择"这类切入，容易吃到搜索长尾。
+      </div>
+      <div class="trend-src">📎 <a href="https://m.sohu.com/a/1046187832_121954802/" target="_blank" rel="noopener">搜狐 · 围棋新型暑托班论述 · 2026-07-05</a></div>
+    </div>
+  </section>
+
+  <!-- 当堂演练 -->
+  <section class="fade-up">
+    <div class="section-eyebrow">PART 5 · LIVE WORKSHOP</div>
+    <h2 class="section-title">当堂演练 · 现场账号体检</h2>
+    <p class="section-subtitle">10 分钟 · 找 1-3 个学员账号 · 全班共审 · 现场就改</p>
+
+    <div class="workshop-tt">
+      <div class="ws-t">演练流程</div>
+      <table>
+        <thead>
+          <tr><th>阶段</th><th>时长</th><th>动作</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>现场展示</td><td>2 min</td><td>自愿（或老师指定）学员投屏自己已有的账号主页</td></tr>
+          <tr><td>七件套对照</td><td>5 min</td><td>全班按"七件套清单"逐项对照，找问题 + 给改写建议</td></tr>
+          <tr><td>老师总结</td><td>3 min</td><td>老师做总结点评，给出修改优先级</td></tr>
+        </tbody>
+      </table>
+      <div class="workshop-tips">
+        <b>老师巡场要点：</b><br>
+        · 重点检查<b>昵称和置顶视频</b> —— 这两项是新人最容易做错的<br>
+        · 简介有微信号、电话的，<b>当场要求删除</b>，不要等课后<br>
+        · 只评内容不评人，多用"如果换成我会怎么改"的句式<br>
+        · 鼓励学员把自己账号大胆拿出来 —— "被公开点评"才记得住
+      </div>
+    </div>
+  </section>
+
+  <!-- 作业 -->
+  <section class="fade-up">
+    <div class="section-eyebrow">HOMEWORK</div>
+    <h2 class="section-title">今晚课后作业</h2>
+    <div class="grid g2">
+      <div class="card goal-card">
+        <div class="goal-no">TASK 01</div>
+        <div class="goal-t">选定主战场 + 分发平台</div>
+        <div class="goal-d">从四大平台选 1 个主战场 + 1 个分发平台，写出选择理由（3 行内）。</div>
+      </div>
+      <div class="card goal-card">
+        <div class="goal-no">TASK 02</div>
+        <div class="goal-t">七件套完整搭建</div>
+        <div class="goal-d">按"七件套清单"完整搭建主战场账号。缺一项不算合格。</div>
+      </div>
+      <div class="card goal-card">
+        <div class="goal-no">TASK 03</div>
+        <div class="goal-t">拍主页截图 + 置顶脚本</div>
+        <div class="goal-d">账号主页截图 1 张 + 置顶视频脚本草稿 1 条（30-60 秒）。</div>
+      </div>
+      <div class="card goal-card">
+        <div class="goal-no">TASK 04</div>
+        <div class="goal-t">合集结构规划</div>
+        <div class="goal-d">规划至少 2 个合集，写出名字 + 每个合集计划装的视频类型。</div>
+      </div>
+    </div>
+    <div style="margin-top:20px;padding:16px 20px;background:#f8f3e6;border-left:3px solid var(--seal);border-radius:0 4px 4px 0;font-size:14px;color:var(--ink-soft);line-height:1.85">
+      <b>验收标准：</b>七件套全部配齐（缺一项不算合格）· 简介按三句话公式写、无微信号 / 电话 · 合集名能体现内容主线，不能起"日常""分享""随便聊聊"这种通用名。<br>
+      <b>提交方式：</b>作业次日 22:00 前发到课程群，老师挑 5 份在第 4 课开头点评。
+    </div>
+  </section>
+
+  <!-- 下节课预告 -->
+  <section class="fade-up">
+    <div class="section-eyebrow">NEXT LESSON</div>
+    <h2 class="section-title">下节课预告</h2>
+    <div class="next-box">
+      <div class="nb-lbl">LESSON 04 · 2026.07.18</div>
+      <div class="nb-t">拍摄与剪辑 · 最小可行方案</div>
+      <div class="nb-d">账号搭好了，接下来解决<span class="hl">"怎么拍、怎么剪"</span>。<br>下节课我们把设备、光线、机位、口播、剪辑软件、字幕、封面 —— 一整套<b>零基础也能马上上手的最小方案</b>拆给你。不追求专业感，只求"能连续输出 30 条不崩溃"。</div>
+    </div>
+  </section>
+
+  <!-- 联系方式 -->
+  <section class="fade-up" id="contact">
+    <div class="section-eyebrow">CONTACT</div>
+    <h2 class="section-title">加微信 · 把你的七件套自查表发我点评一次</h2>
+    <p class="section-subtitle">这是第 3 课的专属福利：把你的账号主页截图 + 七件套自查发给我，我会亲自点评一次，帮你找出关注转化的短板。</p>
+    <div class="contact-final">
+      <img src="../assets/wechat-qr.jpg" alt="萝卜干微信二维码">
+      <div class="c-wx">yxwq0909</div>
+      <div class="c-note">
+        添加时备注：<span class="hl">「第 3 课七件套点评」</span><br>
+        我会看到备注后优先通过。
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div>© 萝卜干聊围棋教育 · <a href="../">weiqiluobogan.com</a></div>
+  <div style="margin-top:6px">学习园地 · Lesson 03 · Updated 2026.07.11</div>
+</footer>
+
+<!-- 微信弹窗 -->
+<div class="modal-mask" id="wechatModal">
+  <div class="modal-box">
+    <button class="close" id="modalClose">×</button>
+    <div class="m-t">把七件套自查表发我，免费点评一次</div>
+    <div class="m-d">这是第 3 课的作业礼物 —— 帮你把账号七件套的短板找出来，调整关注转化的关键动作。</div>
+    <img src="../assets/wechat-qr.jpg" alt="萝卜干微信">
+    <div class="m-wx">yxwq0909</div>
+    <div class="m-note">添加时备注「第 3 课七件套点评」</div>
+  </div>
+</div>
+
+<script>
+/* ============ 数据 · Lesson 03 ============ */
+const LESSON_MAP = [
+  {no:'01', tt:'账号定位<br>+ 赛道现状'},
+  {no:'02', tt:'谜底藏在<br>谜面里 · 选题'},
+  {no:'03', tt:'账号搭建<br>+ 平台选择', active:true, now:true},
+  {no:'04', tt:'拍摄与剪辑<br>最小可行方案'},
+  {no:'05', tt:'标题封面与<br>流量入口'},
+  {no:'06', tt:'评论区运营<br>与私域引流'},
+  {no:'07', tt:'家长画像与<br>信任路径'},
+  {no:'08', tt:'转化链条：<br>从关注到成交'},
+  {no:'09', tt:'数据复盘与<br>迭代节奏'},
+  {no:'10', tt:'长期主义：<br>账号资产化'}
+];
+
+/* 互动 1 · 定位测试 */
+const POSITION_DATA = {
+  mechanism:{
+    tag:'招生导向', name:'A · 机构老师 / 校长',
+    combo:[
+      {node:'视频号', role:'main', label:'主战场'},
+      {node:'抖音', role:'sub', label:'分发'},
+      {node:'小红书', role:'sub', label:'搜索拦截'}
+    ],
+    desc:'<b>视频号做转化</b> —— 决策家长在这里，付费最快。<br><b>抖音做放大</b> —— 用竖版切片扩大曝光。<br><b>小红书做搜索拦截</b> —— 家长搜"孩子学围棋"时被找到。<br><br><b>2026 升级：</b>小红书部分补上视频笔记 —— 官方 500 亿流量已经明确压向视频。'
+  },
+  pro:{
+    tag:'IP 沉淀', name:'B · 专业讲解老师',
+    combo:[
+      {node:'抖音 + B 站', role:'main', label:'主战场'},
+      {node:'视频号', role:'sub', label:'收网'}
+    ],
+    desc:'<b>抖音负责涨粉</b> —— 曝光量最大，个人 IP 起势最快。<br><b>B 站负责沉淀</b> —— 长视频做深度信任，一条能吃半年长尾。<br><b>视频号负责收网</b> —— 沉淀好的信任在视频号收咨询。<br><br><b>2026 升级：</b>抖音选题重视"深度信号"（收藏率、评论质量、二次播放）—— 完播率已经不是唯一指标。'
+  },
+  mom:{
+    tag:'启蒙输出', name:'C · 妈妈型老师',
+    combo:[
+      {node:'小红书', role:'main', label:'主战场'},
+      {node:'视频号', role:'sub', label:'转化'}
+    ],
+    desc:'<b>小红书主战场</b> —— 一二线妈妈聚集地，"启蒙 / 避坑 / 家庭围棋"话题天然契合。<br><b>视频号做转化</b> —— 妈妈决策后通过视频号私信直接咨询。<br><br><b>2026 升级：</b>小红书从"图文避坑帖"→"视频笔记 + 图文组合" —— 500 亿流量已经压向视频。'
+  },
+  newbie:{
+    tag:'起步期', name:'D · 完全新人',
+    combo:[
+      {node:'先做 1 个', role:'main', label:'跑 30-50 条'},
+      {node:'再扩展第 2 个', role:'sub', label:'第 2 站'}
+    ],
+    desc:'<b>铁律：</b>新人不要一上来就铺四平台。<b>先跑通一个，再扩展第二个</b>。<br><br><b>怎么选第一个：</b><br>· 目标是尽快招到第一个学生 → <b>视频号</b>（起号成本低、转化快）<br>· 目标是打个人 IP + 长期沉淀 → <b>抖音</b>（曝光大、IP 建设快）<br><br>剩下的暂缓 —— 等第一个平台跑到 30-50 条视频、有稳定数据后再谈第二站。'
+  }
+};
+
+/* ============ 十次课地图渲染 ============ */
+(function renderMap(){
+  const box = document.getElementById('mapGrid');
+  if(!box) return;
+  box.innerHTML = LESSON_MAP.map(l => `
+    <div class="map-item ${l.active?'active':''}">
+      ${l.now?'<span class="badge-now">今晚</span>':''}
+      <div class="no">${l.no}</div>
+      <div class="tt">${l.tt}</div>
+    </div>
+  `).join('');
+})();
+
+/* ============ 进度条 ============ */
+(function progressBar(){
+  const bar = document.getElementById('progress-bar');
+  if(!bar) return;
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement;
+    const scrolled = h.scrollTop;
+    const total = h.scrollHeight - h.clientHeight;
+    const pct = total>0 ? (scrolled/total)*100 : 0;
+    bar.style.width = pct + '%';
+  }, {passive:true});
+})();
+
+/* ============ fade-up 观察 ============ */
+(function fadeIO(){
+  const items = document.querySelectorAll('.fade-up');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, {threshold:0.08});
+  items.forEach(el => io.observe(el));
+})();
+
+/* ============ 互动 1 · 定位测试 ============ */
+(function positionQuiz(){
+  const btns = document.querySelectorAll('.position-btn');
+  const box = document.getElementById('positionResult');
+  if(!box) return;
+  btns.forEach(btn => btn.addEventListener('click', () => {
+    btns.forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    const key = btn.dataset.key;
+    const d = POSITION_DATA[key];
+    const comboHtml = d.combo.map((c,i) => {
+      const cls = c.role === 'main' ? 'combo-node main' : 'combo-node sub';
+      const sep = i < d.combo.length - 1 ? '<span class="combo-sep">+</span>' : '';
+      return `<span class="${cls}">${c.node}<small style="opacity:.85;margin-left:6px;font-size:11px">${c.label}</small></span>${sep}`;
+    }).join('');
+    box.innerHTML = `
+      <span class="qr-tag">${d.tag}</span>
+      <div class="qr-title">${d.name} · 推荐组合</div>
+      <div class="qr-combo combo-arrow">${comboHtml}</div>
+      <div class="qr-desc">${d.desc}</div>
+    `;
+    box.classList.add('show');
+    box.scrollIntoView({behavior:'smooth', block:'center'});
+  }));
+})();
+
+/* ============ 七件套 accordion ============ */
+(function setupAccordion(){
+  const heads = document.querySelectorAll('.setup-head[data-toggle="setup"]');
+  heads.forEach(head => {
+    head.addEventListener('click', () => {
+      const item = head.parentElement;
+      const wasOpen = item.classList.contains('open');
+      // 关闭其他打开项（手风琴）
+      document.querySelectorAll('.setup-item.open').forEach(el => {
+        if(el !== item) el.classList.remove('open');
+      });
+      // 切换当前
+      item.classList.toggle('open', !wasOpen);
+    });
+  });
+})();
+
+/* ============ 互动 2 · 七件套自查 ============ */
+(function setupChecklist(){
+  const rows = document.querySelectorAll('#setupChecklist .check-row');
+  const fill = document.getElementById('checkProgressFill');
+  const stat = document.getElementById('checkStat');
+  if(!rows.length) return;
+  const total = rows.length;
+  const update = () => {
+    const done = document.querySelectorAll('#setupChecklist .check-row.checked').length;
+    fill.style.width = (done/total*100) + '%';
+    stat.textContent = `${done} / ${total}`;
+    if(done === total){
+      stat.textContent = '✓ 七件套全配齐';
+    }
+  };
+  rows.forEach(row => row.addEventListener('click', () => {
+    row.classList.toggle('checked');
+    update();
+  }));
+})();
+</script>
+</body>
+</html>
