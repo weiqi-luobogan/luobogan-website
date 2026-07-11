@@ -1157,7 +1157,7 @@
   html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; }
 
 
-  /* ===== Role Router · Round 171 ===== */
+  /* ===== Role Router · Round 171 (mobile-polish r171-mobile-polish-2026-07-11) ===== */
 /* ===== Role Router · 角色分流卡 · Round 171 ===== */
 .role-grid{
   display:grid;
@@ -1262,6 +1262,27 @@
 .role-card:hover .role-cta{
   padding-left:6px;
 }
+
+/* Round 171.1 · 手机端小修 */
+@media (max-width:640px){
+  #role-router > div > p{margin-bottom:22px !important;font-size:13.5px !important}
+  .role-card{padding:22px 18px 18px}
+  .role-title{font-size:18px}
+  .role-desc{font-size:13px;padding-bottom:14px;margin-bottom:14px}
+  .role-path li{font-size:12.5px;padding:5px 0}
+  .role-cta{font-size:13px}
+}
+
+/* xxyd-entry NEW 角标 · 窄屏改为静态位置，避免压小字 */
+@media (max-width:640px){
+  #xxyd-entry > div > div > div:first-child[style*="position:absolute"]{
+    position:static !important;
+    display:inline-block;
+    margin-bottom:14px;
+    top:auto !important;right:auto !important;
+  }
+}
+
 
   /* ===== side-nav 增强 ===== */
   .side-nav-title { font-size: 16px; font-weight: 700; color: var(--seal); letter-spacing: 0.4em; margin-bottom: 14px; padding-left: 4px; opacity: 1; text-align: center; }
