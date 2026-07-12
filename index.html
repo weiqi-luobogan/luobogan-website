@@ -3144,6 +3144,29 @@ header nav .nav-luobo-ext{white-space:nowrap;}
         const total = CULTURE_DATA[state.cat].articles.length;
         if (state.idx < total - 1) showDetail(state.cat, state.idx + 1);
       });
+
+      // ===== LUOBO-JUMP-HOOK v1.0 START =====
+      // 大师星图 jumpTo(name) 跳转钩子：
+      //   在 CULTURE_DATA 全量文章中按 title.indexOf(name) 命中，
+      //   命中则 showDetail(cat, idx) + scrollToCulture()。
+      window.__luoboJumpToMaster = function(name){
+        if(!name) return false;
+        try {
+          for(var cat in CULTURE_DATA){
+            var arts = CULTURE_DATA[cat] && CULTURE_DATA[cat].articles;
+            if(!arts) continue;
+            for(var i=0;i<arts.length;i++){
+              if(arts[i] && arts[i].title && arts[i].title.indexOf(name) !== -1){
+                showDetail(cat, i);
+                scrollToCulture();
+                return true;
+              }
+            }
+          }
+        } catch(e){ console.error('[luoboJumpToMaster]', e); }
+        return false;
+      };
+      // ===== LUOBO-JUMP-HOOK v1.0 END =====
     })();
 
 
@@ -4248,19 +4271,6 @@ function hideParentGuide(){
   <a href="#culture" class="nav-toggle" data-target="culture">围棋文化</a>
   <a href="#edulab" class="nav-toggle" data-target="edulab">启蒙教研</a>
   <a href="#interact" class="nav-toggle" data-target="interact">留言板</a>
-<!-- ===== LUOBO-SIDENAV-EXT v1.0 START ===== -->
-<div class="side-nav-luobo-sep" aria-hidden="true"></div>
-<a href="javascript:void(0)" class="side-nav-luobo" onclick="if(window.__luoboOpenDailyRitual){window.__luoboOpenDailyRitual();var s=document.querySelector('.side-nav');if(s)s.classList.remove('mobile-open');document.body.classList.remove('side-open');}return false;">📮 每日棋事簿</a>
-<a href="javascript:void(0)" class="side-nav-luobo" onclick="if(window.__luoboOpenQuiz){window.__luoboOpenQuiz();var s=document.querySelector('.side-nav');if(s)s.classList.remove('mobile-open');document.body.classList.remove('side-open');}return false;">你是哪位棋手</a>
-<a href="javascript:void(0)" class="side-nav-luobo" onclick="if(window.__luoboOpenMasterMap){window.__luoboOpenMasterMap();var s=document.querySelector('.side-nav');if(s)s.classList.remove('mobile-open');document.body.classList.remove('side-open');}return false;">大师星图</a>
-<style>
-/* side-nav 三入口样式 */
-.side-nav-luobo-sep{height:1px;background:var(--line,#d9c9a0);opacity:.5;margin:6px 4px;}
-.side-nav a.side-nav-luobo{color:var(--seal,#a94b3d)!important;font-weight:600;letter-spacing:.05em;}
-.side-nav a.side-nav-luobo:hover{background:var(--seal,#a94b3d);color:#fff!important;border-color:var(--seal,#a94b3d);}
-</style>
-<!-- ===== LUOBO-SIDENAV-EXT v1.0 END ===== -->
-
 </aside>
 
 
@@ -5230,6 +5240,14 @@ function hideParentGuide(){
     }
   }
   function jumpTo(name){
+    // v3.11 fix6：优先调用主页暴露的 CULTURE_DATA 跳转钩子
+    if(typeof window.__luoboJumpToMaster==='function'){
+      try{
+        var ok=window.__luoboJumpToMaster(name);
+        if(ok){close();return;}
+      }catch(e){}
+    }
+    // fallback：旧版 DOM 精确匹配（保留兼容）
     var candidates=document.querySelectorAll('[data-person],[data-person-name],.person-card,.person,.people-card');
     var found=null;
     for(var i=0;i<candidates.length;i++){
@@ -5392,10 +5410,8 @@ function hideParentGuide(){
   box-shadow: 0 2px 12px rgba(139,26,26,.05);
 }
 .luobo-style-badge {
-  display: inline-block;
-  padding: 2px 10px; border-radius: 999px;
-  font-size: 11px; background: var(--dr-red); color: #fff;
-  margin-bottom: 10px;
+  /* v3.11 fix6：风格标签内置为分类维度，不外露给用户；保留 class 供内部选片逻辑 */
+  display: none !important;
 }
 .luobo-quote-text {
   font-size: 16px; line-height: 1.75;
@@ -5615,6 +5631,90 @@ function hideParentGuide(){
   .dr-tab-btn { font-size: 12px; padding: 8px 4px; }
   .luck-name { font-size: 24px; letter-spacing: 4px; }
 }
+
+/* ============ v3.11 fix6 · 抽奖盲盒双态 ============ */
+
+/* 视图切换：cover=抽奖态 / result=结果态 */
+.dr-view { display: none; }
+.dr-view.active { display: block; }
+
+/* 抽奖态封面：大按钮 + 提示语 */
+.dr-cover {
+  padding: 32px 16px 20px;
+  text-align: center;
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.dr-cover-hint {
+  font-size: 13px; color: #8a7550; letter-spacing: 3px;
+  margin-bottom: 14px;
+  font-family: "Songti SC","STSong",serif;
+}
+.dr-cover-icon {
+  width: 120px; height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #fdfbf5 0%, #f5efe0 55%, #eaddc4 100%);
+  border: 2px dashed rgba(139,26,26,.35);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 56px;
+  margin-bottom: 22px;
+  transition: transform .3s ease;
+  box-shadow: 0 6px 22px rgba(139,26,26,.15), inset 0 0 20px rgba(160,139,92,.12);
+}
+.dr-cover-icon.spinning { animation: dr-shake .55s ease-in-out; }
+.dr-cover-icon.flipping { animation: dr-flip .6s ease-in-out; }
+.dr-cover-btn {
+  padding: 14px 40px;
+  background: var(--dr-red); color: #fff; border: none;
+  border-radius: 999px;
+  font-size: 15px; letter-spacing: 4px; cursor: pointer;
+  font-family: "Songti SC","STSong",serif;
+  box-shadow: 0 6px 18px rgba(139,26,26,.25);
+  transition: transform .18s ease, background .2s;
+}
+.dr-cover-btn:hover { background: #711515; transform: translateY(-1px); }
+.dr-cover-btn:active { transform: translateY(1px); }
+.dr-cover-btn:disabled {
+  background: #b09090; cursor: wait;
+  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+}
+.dr-cover-tip {
+  font-size: 11px; color: #999; letter-spacing: 1px;
+  margin-top: 14px;
+}
+
+/* 结果态：淡入 */
+.dr-result-fade { animation: dr-fade-in .6s ease both; }
+
+/* 保存图片按钮 */
+.dr-save-row {
+  margin-top: 10px;
+  display: flex; gap: 8px;
+}
+.dr-save-row .dr-action-btn { margin-top: 0; }
+
+/* ============ 动画 keyframes ============ */
+@keyframes dr-shake {
+  0%   { transform: rotate(0deg); }
+  15%  { transform: rotate(-12deg); }
+  30%  { transform: rotate(10deg); }
+  45%  { transform: rotate(-8deg); }
+  60%  { transform: rotate(6deg); }
+  75%  { transform: rotate(-4deg); }
+  100% { transform: rotate(0deg); }
+}
+@keyframes dr-flip {
+  0%   { transform: rotateY(0deg) scale(1); }
+  50%  { transform: rotateY(180deg) scale(1.1); }
+  100% { transform: rotateY(360deg) scale(1); }
+}
+@keyframes dr-fade-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 </style>
 
 <!-- 每日棋事簿 · 遮罩 -->
@@ -5635,39 +5735,80 @@ function hideParentGuide(){
 
   <div class="dr-body">
 
-    <!-- Tab 1 · 萝卜精语录 -->
+    <!-- Tab 1 · 萝卜精语录（v3.11 fix6 · 双态盲盒） -->
     <div id="dr-tab-luobo" class="dr-panel active">
-      <div class="luobo-quote-card" id="luobo-quote-card">
-        <div class="luobo-style-badge" id="luobo-style-badge">温柔治愈</div>
-        <p class="luobo-quote-text" id="luobo-quote-text">加载中……</p>
-        <div class="luobo-quote-tag" id="luobo-quote-tag">— 萝卜精</div>
+
+      <!-- 视图 A · 抽奖态 -->
+      <div class="dr-view active" id="dr-luobo-cover">
+        <div class="dr-cover">
+          <div class="dr-cover-hint">今 · 日 · 打 · 卡</div>
+          <div class="dr-cover-icon" id="dr-luobo-icon">🥕</div>
+          <button class="dr-cover-btn" id="dr-luobo-cover-btn" onclick="window.__luoboCheckin()">
+            今日打卡
+          </button>
+          <div class="dr-cover-tip">点击拆开今日惊喜</div>
+        </div>
       </div>
-      <div class="luobo-sign-card" id="luobo-sign-card">
-        <div class="luobo-sign-label">每 日 一 签</div>
-        <div class="luobo-sign-text" id="luobo-sign-text">…</div>
-        <div class="luobo-sign-source" id="luobo-sign-source">— …</div>
+
+      <!-- 视图 B · 结果态 -->
+      <div class="dr-view" id="dr-luobo-result">
+        <div class="luobo-quote-card" id="luobo-quote-card">
+          <!-- 风格标签内置，CSS 隐藏，用于内部逻辑记录 -->
+          <div class="luobo-style-badge" id="luobo-style-badge">温柔治愈</div>
+          <p class="luobo-quote-text" id="luobo-quote-text">加载中……</p>
+          <div class="luobo-quote-tag" id="luobo-quote-tag">— 萝卜精</div>
+        </div>
+        <div class="luobo-sign-card" id="luobo-sign-card">
+          <div class="luobo-sign-label">每 日 一 签</div>
+          <div class="luobo-sign-text" id="luobo-sign-text">…</div>
+          <div class="luobo-sign-source" id="luobo-sign-source">— …</div>
+        </div>
+        <div class="dr-save-row">
+          <button class="dr-action-btn" onclick="window.__luoboSaveImage()">🖼 保存为图片</button>
+        </div>
+        <div class="dr-cover-tip" style="text-align:center;margin-top:10px">
+          今日已打卡 · 明日再来
+        </div>
       </div>
-      <button class="dr-action-btn" id="luobo-checkin-btn" onclick="window.__luoboCheckin()">
-        今日打卡 · 换一句
-      </button>
+
     </div>
 
-    <!-- Tab 2 · 今日棋运 -->
+    <!-- Tab 2 · 今日棋运（v3.11 fix6 · 摇签盲盒） -->
     <div id="dr-tab-luck" class="dr-panel">
-      <div class="luck-sign">
-        <div class="luck-level-badge" id="luck-level-badge">上上签</div>
-        <div class="luck-name" id="luck-name">飞龙在天</div>
-        <div class="luck-verse" id="luck-verse">
-          <div class="luck-verse-line">…</div>
-          <div class="luck-verse-line">…</div>
-          <div class="luck-verse-line">…</div>
-          <div class="luck-verse-line">…</div>
+
+      <!-- 视图 A · 摇签态 -->
+      <div class="dr-view active" id="dr-luck-cover">
+        <div class="dr-cover">
+          <div class="dr-cover-hint">今 · 日 · 一 · 签</div>
+          <div class="dr-cover-icon" id="dr-luck-icon">🎋</div>
+          <button class="dr-cover-btn" id="dr-luck-cover-btn" onclick="window.__luckDraw()">
+            摇一签
+          </button>
+          <div class="dr-cover-tip">静心一摇 · 每日一签</div>
         </div>
-        <div class="luck-advice" id="luck-advice">…</div>
       </div>
-      <button class="dr-action-btn" onclick="window.__luckDraw()">
-        🎋 再摇一签
-      </button>
+
+      <!-- 视图 B · 结果态 -->
+      <div class="dr-view" id="dr-luck-result">
+        <div class="luck-sign">
+          <div class="luck-level-badge" id="luck-level-badge">上上签</div>
+          <div class="luck-name" id="luck-name">飞龙在天</div>
+          <div class="luck-verse" id="luck-verse">
+            <div class="luck-verse-line">…</div>
+            <div class="luck-verse-line">…</div>
+            <div class="luck-verse-line">…</div>
+            <div class="luck-verse-line">…</div>
+          </div>
+          <div class="luck-advice" id="luck-advice">…</div>
+        </div>
+        <div class="dr-save-row">
+          <button class="dr-action-btn" onclick="window.__luckSaveImage()">🖼 保存为图片</button>
+        </div>
+        <div class="dr-cover-tip" style="text-align:center;margin-top:10px">
+          今日已摇 · 明日再来
+        </div>
+      </div>
+
     </div>
 
     <!-- Tab 3 · 教师文案卡 -->
@@ -5770,6 +5911,7 @@ function hideParentGuide(){
   var STORAGE_LUCK_TODAY = 'luobo_luck_today';
   var STORAGE_LAST_STYLE = 'luobo_last_style';
   var STORAGE_LAST_TEACHER = 'luobo_last_teacher_ids';
+  var STORAGE_LUOBO_TODAY = 'luobo_checkin_today';  // v3.11 fix6：今日语录快照（每日一次）
 
   // ============ 工具函数 ============
   function $(id) { return document.getElementById(id); }
@@ -5837,8 +5979,9 @@ function hideParentGuide(){
       var p = $('dr-tab-' + panels[j]);
       if (p) p.classList.toggle('active', panels[j] === name);
     }
-    // 首次切到某 tab 时初始化
-    if (name === 'luck' && !$('luck-name').__inited) { drawLuck(); $('luck-name').__inited = true; }
+    // v3.11 fix6：首次切到 luobo/luck 时按 localStorage 决定视图态；不再自动 renderLuoboQuote / drawLuck
+    if (name === 'luobo') { syncLuoboView(); }
+    if (name === 'luck')  { syncLuckView(); }
     if (name === 'teacher') {
       var cfg = readJSON(STORAGE_TEACHER, null);
       if (!cfg) { openTeacherConfig(); }
@@ -5854,11 +5997,8 @@ function hideParentGuide(){
     panel.classList.add('show');
     document.body.style.overflow = 'hidden';
     renderCalendar();
-    // 首次进入萝卜精 tab 时渲染
-    if (!$('luobo-quote-text').__inited) {
-      renderLuoboQuote();
-      $('luobo-quote-text').__inited = true;
-    }
+    // v3.11 fix6：不再自动 renderLuoboQuote；按 localStorage 决定视图态
+    syncLuoboView();
     if (tab) switchTab(tab);
   }
   function closePanel() {
@@ -5871,29 +6011,105 @@ function hideParentGuide(){
     if (cm) cm.classList.remove('show');
   }
 
-  // ============ 萝卜精 tab ============
-  function renderLuoboQuote() {
-    // 每次点击换风格换语录
+  // ============ 萝卜精 tab（v3.11 fix6 · 双态盲盒） ============
+
+  // 切换到指定视图（cover / result）
+  function setLuoboView(view) {
+    var cover = $('dr-luobo-cover'), result = $('dr-luobo-result');
+    if (!cover || !result) return;
+    cover.classList.toggle('active', view === 'cover');
+    result.classList.toggle('active', view === 'result');
+    if (view === 'result') {
+      result.classList.remove('dr-result-fade');
+      // 强制 reflow，重启动画
+      void result.offsetWidth;
+      result.classList.add('dr-result-fade');
+    }
+  }
+
+  // 按 localStorage 决定应显示哪个视图
+  function syncLuoboView() {
+    var stored = readJSON(STORAGE_LUOBO_TODAY, null);
+    if (stored && stored.date === todayKey() && stored.style && stored.text) {
+      // 今日已打卡：直接进入结果态，渲染当天的语录快照
+      renderLuoboQuoteFromSnapshot(stored);
+      setLuoboView('result');
+    } else {
+      // 未打卡：抽奖态
+      setLuoboView('cover');
+    }
+  }
+
+  // 生成新语录并写入今日快照
+  function pickAndSaveLuoboQuote() {
     var lastStyle = localStorage.getItem(STORAGE_LAST_STYLE) || '';
     var pool = STYLE_KEYS.filter(function(k) { return k !== lastStyle; });
     var style = pick(pool);
     localStorage.setItem(STORAGE_LAST_STYLE, style);
     var q = pick(QUOTES[style].quotes);
-    $('luobo-style-badge').textContent = QUOTES[style].label || STYLE_LABELS[style];
-    $('luobo-quote-text').textContent = (typeof q === 'string') ? q : (q.text || '');
-    $('luobo-quote-tag').textContent = '— 萝卜精' + (QUOTES[style].icon ? ' ' + QUOTES[style].icon : '');
-
+    var text = (typeof q === 'string') ? q : (q.text || '');
     var s = pick(DAILY_SIGN);
-    $('luobo-sign-text').textContent = s.text;
-    $('luobo-sign-source').textContent = '— ' + s.source;
-  }
-  function luoboCheckin() {
-    markToday();
-    renderLuoboQuote();
-    showToast('打卡成功 · 已换一句');
+    var snapshot = {
+      date: todayKey(),
+      style: style,
+      label: QUOTES[style].label || STYLE_LABELS[style],
+      icon: QUOTES[style].icon || '',
+      text: text,
+      signText: s.text,
+      signSource: s.source
+    };
+    writeJSON(STORAGE_LUOBO_TODAY, snapshot);
+    return snapshot;
   }
 
-  // ============ 每日棋运 tab ============
+  // 从快照渲染 DOM
+  function renderLuoboQuoteFromSnapshot(snap) {
+    if (!snap) return;
+    // badge 内置隐藏，仅用于内部记录风格类别
+    var badge = $('luobo-style-badge');
+    if (badge) badge.textContent = snap.label || '';
+    $('luobo-quote-text').textContent = snap.text;
+    $('luobo-quote-tag').textContent = '— 萝卜精' + (snap.icon ? ' ' + snap.icon : '');
+    $('luobo-sign-text').textContent = snap.signText;
+    $('luobo-sign-source').textContent = '— ' + snap.signSource;
+  }
+
+  // 兼容旧钩子：保留 renderLuoboQuote，内部调新逻辑
+  function renderLuoboQuote() {
+    var snap = pickAndSaveLuoboQuote();
+    renderLuoboQuoteFromSnapshot(snap);
+  }
+
+  // 今日打卡：盲盒动画 + 抽签 + 切视图
+  function luoboCheckin() {
+    // 若今日已打卡，直接切到结果态（防重放）
+    var stored = readJSON(STORAGE_LUOBO_TODAY, null);
+    if (stored && stored.date === todayKey() && stored.text) {
+      renderLuoboQuoteFromSnapshot(stored);
+      setLuoboView('result');
+      showToast('今日已打卡');
+      return;
+    }
+    var btn = $('dr-luobo-cover-btn');
+    var icon = $('dr-luobo-icon');
+    if (btn) btn.disabled = true;
+    if (icon) {
+      icon.classList.remove('flipping');
+      void icon.offsetWidth;
+      icon.classList.add('flipping');
+    }
+    // 动画期间抽签，动画结束后切视图
+    setTimeout(function() {
+      var snap = pickAndSaveLuoboQuote();
+      renderLuoboQuoteFromSnapshot(snap);
+      markToday();
+      setLuoboView('result');
+      if (btn) btn.disabled = false;
+      showToast('打卡成功');
+    }, 620);
+  }
+
+  // ============ 每日棋运 tab（v3.11 fix6 · 摇签盲盒） ============
   function weightedPickLuck() {
     // 计算总权重
     var total = 0;
@@ -5908,22 +6124,72 @@ function hideParentGuide(){
     }
     return LUCK_SIGNS[0];
   }
-  function drawLuck(force) {
-    // 当日已抽过就沿用；除非 force
+
+  // 切换到指定视图（cover / result）
+  function setLuckView(view) {
+    var cover = $('dr-luck-cover'), result = $('dr-luck-result');
+    if (!cover || !result) return;
+    cover.classList.toggle('active', view === 'cover');
+    result.classList.toggle('active', view === 'result');
+    if (view === 'result') {
+      result.classList.remove('dr-result-fade');
+      void result.offsetWidth;
+      result.classList.add('dr-result-fade');
+    }
+  }
+
+  // 按 localStorage 决定应显示哪个视图
+  function syncLuckView() {
     var stored = readJSON(STORAGE_LUCK_TODAY, null);
-    var sign;
-    if (!force && stored && stored.date === todayKey() && stored.id) {
+    if (stored && stored.date === todayKey() && stored.id) {
+      var sign = null;
       for (var i=0;i<LUCK_SIGNS.length;i++) {
         if (LUCK_SIGNS[i].id === stored.id) { sign = LUCK_SIGNS[i]; break; }
       }
+      if (sign) {
+        renderLuck(sign);
+        setLuckView('result');
+        return;
+      }
     }
-    if (!sign) {
-      sign = weightedPickLuck();
-      writeJSON(STORAGE_LUCK_TODAY, { date: todayKey(), id: sign.id });
-    }
-    renderLuck(sign);
-    markToday();
+    setLuckView('cover');
   }
+
+  // 摇签：动画 + 抽签 + 切视图（每日一次）
+  function drawLuck() {
+    // 已抽过：直接进入结果态
+    var stored = readJSON(STORAGE_LUCK_TODAY, null);
+    if (stored && stored.date === todayKey() && stored.id) {
+      var existing = null;
+      for (var i=0;i<LUCK_SIGNS.length;i++) {
+        if (LUCK_SIGNS[i].id === stored.id) { existing = LUCK_SIGNS[i]; break; }
+      }
+      if (existing) {
+        renderLuck(existing);
+        setLuckView('result');
+        showToast('今日已摇签');
+        return;
+      }
+    }
+    var btn = $('dr-luck-cover-btn');
+    var icon = $('dr-luck-icon');
+    if (btn) btn.disabled = true;
+    if (icon) {
+      icon.classList.remove('spinning');
+      void icon.offsetWidth;
+      icon.classList.add('spinning');
+    }
+    setTimeout(function() {
+      var sign = weightedPickLuck();
+      writeJSON(STORAGE_LUCK_TODAY, { date: todayKey(), id: sign.id });
+      renderLuck(sign);
+      markToday();
+      setLuckView('result');
+      if (btn) btn.disabled = false;
+      showToast('已摇 · ' + sign.level);
+    }, 580);
+  }
+
   function renderLuck(sign) {
     $('luck-name').textContent = sign.name;
     $('luck-level-badge').textContent = sign.level;
@@ -5939,13 +6205,6 @@ function hideParentGuide(){
       verse.appendChild(line);
     }
     $('luck-advice').textContent = sign.advice;
-  }
-  function luckDrawAgain() {
-    // 允许重抽今日签
-    var sign = weightedPickLuck();
-    writeJSON(STORAGE_LUCK_TODAY, { date: todayKey(), id: sign.id });
-    renderLuck(sign);
-    showToast('已重摇 · ' + sign.level);
   }
 
   // ============ 教师文案卡 tab ============
@@ -6183,6 +6442,194 @@ function hideParentGuide(){
       }
     }
     if (line) ctx.fillText(line, x, y + offsetY);
+    return offsetY;
+  }
+
+  // ============ v3.11 fix6 · 通用竖版卡片 canvas 底 ============
+  function _drawCardBase(ctx, W, H) {
+    var grad = ctx.createLinearGradient(0,0,0,H);
+    grad.addColorStop(0, '#fdfbf5');
+    grad.addColorStop(1, '#f5efe0');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0,0,W,H);
+    ctx.strokeStyle = 'rgba(139,26,26,.18)';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(30, 30, W-60, H-60);
+    ctx.strokeStyle = 'rgba(139,26,26,.08)';
+    ctx.lineWidth = 1;
+    ctx.strokeRect(42, 42, W-84, H-84);
+  }
+  function _drawCardBrand(ctx, W, H) {
+    ctx.strokeStyle = 'rgba(0,0,0,.1)';
+    ctx.beginPath();
+    ctx.moveTo(80, H-140); ctx.lineTo(W-80, H-140);
+    ctx.stroke();
+    ctx.fillStyle = '#a08b5c';
+    ctx.font = '14px "PingFang SC",sans-serif';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText('萝卜干聊围棋教育 · 每日棋事簿', W/2, H-90);
+    ctx.fillStyle = '#8a7550';
+    ctx.font = '12px "PingFang SC",sans-serif';
+    ctx.fillText(_todayLabel(), W/2, H-68);
+  }
+  function _todayLabel() {
+    var d = new Date();
+    var pad = function(n) { return n < 10 ? '0'+n : ''+n; };
+    return d.getFullYear() + '.' + pad(d.getMonth()+1) + '.' + pad(d.getDate());
+  }
+  function _saveCanvas(canvas, filename) {
+    canvas.toBlob(function(blob) {
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a); a.click();
+      document.body.removeChild(a);
+      setTimeout(function() { URL.revokeObjectURL(url); }, 500);
+      showToast('图片已生成');
+      markToday();
+    }, 'image/png');
+  }
+
+  // 萝卜精语录卡 · 保存为图片
+  function luoboSaveImage() {
+    var snap = readJSON(STORAGE_LUOBO_TODAY, null);
+    if (!snap || snap.date !== todayKey() || !snap.text) {
+      showToast('请先今日打卡');
+      return;
+    }
+    var W = 750, H = 1000;
+    var canvas = document.createElement('canvas');
+    canvas.width = W; canvas.height = H;
+    var ctx = canvas.getContext('2d');
+    _drawCardBase(ctx, W, H);
+
+    // 顶部主题
+    ctx.fillStyle = '#8b1a1a';
+    ctx.font = 'bold 30px "Songti SC","STSong",serif';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+    ctx.fillText('今 日 一 句', W/2, 96);
+    ctx.strokeStyle = 'rgba(139,26,26,.2)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(240, 148); ctx.lineTo(510, 148);
+    ctx.stroke();
+
+    // 主语录
+    ctx.fillStyle = '#2a2a2a';
+    ctx.font = '28px "Songti SC","STSong",serif';
+    ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+    var offsetY = wrapText(ctx, snap.text, 90, 200, W-180, 46, 'left');
+    var quoteEnd = 200 + offsetY + 46;
+
+    // 落款
+    ctx.fillStyle = '#8a7550';
+    ctx.font = '18px "Songti SC","STSong",serif';
+    ctx.textAlign = 'right'; ctx.textBaseline = 'top';
+    ctx.fillText('— 萝卜精' + (snap.icon ? ' ' + snap.icon : ''), W-90, quoteEnd + 8);
+
+    // 每日一签盒
+    var signY = Math.max(quoteEnd + 80, 620);
+    ctx.fillStyle = 'rgba(160,139,92,.10)';
+    roundRect(ctx, 80, signY, W-160, 180, 12);
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(160,139,92,.28)';
+    ctx.lineWidth = 1;
+    roundRect(ctx, 80, signY, W-160, 180, 12);
+    ctx.stroke();
+
+    ctx.fillStyle = '#a08b5c';
+    ctx.font = '13px "PingFang SC",sans-serif';
+    ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+    ctx.fillText('每 日 一 签', 104, signY + 18);
+
+    ctx.fillStyle = '#3a2a1a';
+    ctx.font = '20px "Songti SC","STSong",serif';
+    var signOff = wrapText(ctx, snap.signText, 104, signY + 46, W-208, 30, 'left');
+    ctx.fillStyle = '#8a7550';
+    ctx.font = '13px "PingFang SC",sans-serif';
+    ctx.textAlign = 'right'; ctx.textBaseline = 'top';
+    ctx.fillText('— ' + snap.signSource, W-104, signY + 46 + signOff + 30);
+
+    _drawCardBrand(ctx, W, H);
+    _saveCanvas(canvas, '萝卜精语录_' + _todayLabel() + '.png');
+  }
+
+  // 卦签 · 保存为图片
+  function luckSaveImage() {
+    var stored = readJSON(STORAGE_LUCK_TODAY, null);
+    if (!stored || stored.date !== todayKey() || !stored.id) {
+      showToast('请先摇一签');
+      return;
+    }
+    var sign = null;
+    for (var i=0;i<LUCK_SIGNS.length;i++) {
+      if (LUCK_SIGNS[i].id === stored.id) { sign = LUCK_SIGNS[i]; break; }
+    }
+    if (!sign) { showToast('签数据缺失'); return; }
+
+    var W = 750, H = 1000;
+    var canvas = document.createElement('canvas');
+    canvas.width = W; canvas.height = H;
+    var ctx = canvas.getContext('2d');
+    _drawCardBase(ctx, W, H);
+
+    var color = LEVEL_COLORS[sign.level] || '#8b1a1a';
+
+    // 顶部等级 badge
+    ctx.fillStyle = color;
+    var badgeW = 180, badgeH = 46;
+    var badgeX = (W - badgeW) / 2, badgeY = 100;
+    roundRect(ctx, badgeX, badgeY, badgeW, badgeH, 23);
+    ctx.fill();
+    ctx.fillStyle = '#fff';
+    ctx.font = 'bold 22px "Songti SC","STSong",serif';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(sign.level, W/2, badgeY + badgeH/2);
+
+    // 签名
+    ctx.fillStyle = color;
+    ctx.font = 'bold 60px "Songti SC","STSong",serif';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+    ctx.fillText(sign.name, W/2, 190);
+
+    // 分割线（虚线两条）
+    ctx.strokeStyle = 'rgba(139,26,26,.28)';
+    ctx.lineWidth = 1;
+    ctx.setLineDash([6, 4]);
+    ctx.beginPath();
+    ctx.moveTo(120, 290); ctx.lineTo(W-120, 290);
+    ctx.stroke();
+
+    // 四句签诗
+    ctx.setLineDash([]);
+    ctx.fillStyle = '#3a2a1a';
+    ctx.font = '26px "Songti SC","STSong",serif';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+    var lineY = 320;
+    for (var k=0;k<sign.verse.length;k++) {
+      ctx.fillText(sign.verse[k], W/2, lineY);
+      lineY += 46;
+    }
+
+    ctx.strokeStyle = 'rgba(139,26,26,.28)';
+    ctx.setLineDash([6, 4]);
+    ctx.beginPath();
+    ctx.moveTo(120, lineY + 8); ctx.lineTo(W-120, lineY + 8);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // 解签（advice）
+    ctx.fillStyle = color;
+    ctx.font = 'bold 18px "Songti SC","STSong",serif';
+    ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+    ctx.fillText('解 · ', 90, lineY + 40);
+    ctx.fillStyle = '#555';
+    ctx.font = '18px "PingFang SC",sans-serif';
+    wrapText(ctx, sign.advice, 130, lineY + 40, W-220, 30, 'left');
+
+    _drawCardBrand(ctx, W, H);
+    _saveCanvas(canvas, '今日棋运_' + sign.name + '_' + _todayLabel() + '.png');
   }
 
   // ============ 事件绑定 ============
@@ -6217,7 +6664,9 @@ function hideParentGuide(){
   window.__luoboOpenDailyRitual = function(tab) { openPanel(tab); };
   window.__closeDailyRitual = closePanel;
   window.__luoboCheckin = luoboCheckin;
-  window.__luckDraw = luckDrawAgain;
+  window.__luckDraw = drawLuck;                  // v3.11 fix6：盲盒版，每日一次
+  window.__luoboSaveImage = luoboSaveImage;      // v3.11 fix6：语录卡保存
+  window.__luckSaveImage = luckSaveImage;        // v3.11 fix6：卦签保存
   window.__teacherCopyText = teacherCopyText;
   window.__teacherDownloadPNG = teacherDownloadPNG;
   window.__teacherNext = teacherNext;
