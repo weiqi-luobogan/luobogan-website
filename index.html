@@ -1213,11 +1213,11 @@
       <a href="#ability-test" class="nav-link nav-toggle" data-target="ability-test" data-role="parent">教育认知度测试 · 家长版</a>
 <!-- ===== LUOBO-NAV-EXT v1.0 START ===== -->
 <span class="nav-sep" aria-hidden="true" style="display:inline-block;width:1px;height:14px;background:var(--line,#d9c9a0);opacity:.6;margin:0 4px"></span>
-<a href="javascript:void(0)" class="nav-link nav-luobo-ext" onclick="if(window.__luoboOpenLuoboSpirit)window.__luoboOpenLuoboSpirit();return false;" style="color:var(--seal,#a94b3d);font-weight:600">🥕 萝卜精</a>
+<a href="javascript:void(0)" class="nav-link nav-luobo-ext" onclick="if(window.__luoboOpenDailyRitual)window.__luoboOpenDailyRitual();return false;" style="color:var(--seal,#a94b3d);font-weight:600">📮 每日棋事簿</a>
 <a href="javascript:void(0)" class="nav-link nav-luobo-ext" onclick="if(window.__luoboOpenQuiz)window.__luoboOpenQuiz();return false;">你是哪位棋手</a>
 <a href="javascript:void(0)" class="nav-link nav-luobo-ext" onclick="if(window.__luoboOpenMasterMap)window.__luoboOpenMasterMap();return false;">大师星图</a>
 <style>
-/* v3.10 header 加宽 + 收窄默认间距，避免 7 个 nav-link 拥挤 */
+/* v3.11 header 加宽 + 收窄默认间距，避免 7 个 nav-link 拥挤 */
 header .max-w-5xl{max-width:88rem!important;}
 header nav.hidden.md\:flex{gap:14px!important;flex-wrap:wrap;justify-content:flex-end;}
 header nav .nav-luobo-ext{white-space:nowrap;}
@@ -5255,784 +5255,972 @@ function hideParentGuide(){
 </script>
 <!-- ===== MASTER-MAP v1.0 END ===== -->
 
-<!-- ===== LUOBO-SPIRIT v2.0 START ===== -->
+<!-- ===== DAILY-RITUAL v1.0 START ===== -->
 <style>
-/* ============ 萝卜精 v1.0 样式 ============ */
+/* ============ 每日棋事簿 v1.0 样式 ============ */
 :root {
-  --luobo-ink: #1a1a1a;
-  --luobo-paper: #faf7f0;
-  --luobo-paper-deep: #f0ebe0;
-  --luobo-line: #a89880;
-  --luobo-accent: #b8391f;
-  --luobo-jade: #4a7c59;
-  --luobo-gold: #c9a961;
-  --luobo-shadow: rgba(30, 20, 10, 0.15);
+  --dr-ink: #1a1a1a;
+  --dr-paper: #faf7f0;
+  --dr-red: #8b1a1a;
+  --dr-gold: #a08b5c;
+  --dr-line: rgba(26,26,26,.14);
 }
 
-/* 悬浮按钮 - v2 隐藏 (改由 header 触发) */
-#luobo-fab {
-  display: none !important;
-}
-
-/* 抽屉遮罩 */
-#luobo-drawer-mask {
-  position: fixed;
-  inset: 0;
-  background: rgba(20, 15, 5, 0.35);
-  z-index: 9997;
+/* 遮罩 */
+#daily-ritual-mask {
+  position: fixed; top:0; left:0; right:0; bottom:0;
+  background: rgba(0,0,0,.42);
+  z-index: 9998;
+  display: none;
   opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.28s ease;
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
+  transition: opacity .28s ease;
 }
-#luobo-drawer-mask.show {
-  opacity: 1;
-  pointer-events: auto;
-}
+#daily-ritual-mask.show { display:block; opacity:1; }
 
-/* 主面板 · 右侧抽屉 */
-#luobo-panel {
-  position: fixed;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  width: 380px;
-  max-width: 100vw;
-  height: 100vh;
-  overflow-y: auto;
-  background: var(--luobo-paper);
-  border-left: 1px solid var(--luobo-line);
-  box-shadow: -14px 0 42px rgba(30, 20, 10, 0.22);
+/* 抽屉主面板 */
+#daily-ritual-panel {
+  position: fixed; top:0; right:0; bottom:0;
+  width: min(460px, 92vw);
+  background: linear-gradient(180deg, #fdfbf5 0%, #faf5e8 100%);
+  box-shadow: -8px 0 32px rgba(0,0,0,.18);
   z-index: 9999;
-  padding: 0;
-  font-family: "STKaiti", "KaiTi", "Songti SC", serif;
-  color: var(--luobo-ink);
-  transform: translateX(0);
-  transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
-}
-#luobo-panel.hidden {
   transform: translateX(105%);
-  pointer-events: none;
+  transition: transform .34s cubic-bezier(.22,.61,.36,1);
+  display: flex; flex-direction: column;
+  font-family: "PingFang SC","Songti SC","STSong",serif;
+  color: var(--dr-ink);
 }
-#luobo-panel::before {
-  content: "";
-  display: block;
-  height: 6px;
-  background: linear-gradient(90deg, var(--luobo-accent) 0%, var(--luobo-gold) 50%, var(--luobo-jade) 100%);
-}
+#daily-ritual-panel.show { transform: translateX(0); }
 
-/* 头部 */
-.luobo-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 16px 8px;
-  border-bottom: 1px dashed var(--luobo-line);
+/* 抽屉头部 */
+.dr-header {
+  padding: 16px 20px 10px;
+  border-bottom: 1px solid var(--dr-line);
+  background: rgba(255,255,255,.35);
+  position: relative;
+  flex-shrink: 0;
 }
-.luobo-title {
-  font-size: 18px;
-  font-weight: bold;
-  color: var(--luobo-accent);
+.dr-header h3 {
+  margin: 0 0 12px; font-size: 18px; font-weight: 700; color: var(--dr-red);
   letter-spacing: 1px;
 }
-.luobo-title .luobo-tag {
-  display: inline-block;
-  margin-left: 6px;
-  font-size: 11px;
-  padding: 2px 6px;
-  background: var(--luobo-jade);
-  color: white;
-  border-radius: 8px;
-  font-family: sans-serif;
-  vertical-align: middle;
+.dr-close {
+  position: absolute; top: 14px; right: 14px;
+  width: 30px; height: 30px; border: none; background: transparent;
+  cursor: pointer; font-size: 22px; color: #666; line-height: 1;
+  border-radius: 50%; transition: background .2s;
 }
-.luobo-close {
-  border: none;
-  background: transparent;
-  font-size: 22px;
-  color: var(--luobo-line);
-  cursor: pointer;
-  padding: 0 4px;
-  line-height: 1;
-}
-.luobo-close:hover { color: var(--luobo-ink); }
+.dr-close:hover { background: rgba(0,0,0,.06); }
 
-/* 打卡状态条 */
-.luobo-streak-bar {
-  padding: 8px 16px;
-  background: var(--luobo-paper-deep);
-  font-size: 13px;
-  color: var(--luobo-ink);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid var(--luobo-line);
+/* Tab pills */
+.dr-tabs {
+  display: flex; gap: 6px; padding: 0;
 }
-.luobo-streak-bar .flame {
-  color: var(--luobo-accent);
-  font-weight: bold;
+.dr-tab-btn {
+  flex: 1; padding: 8px 6px; border: 1px solid var(--dr-line);
+  background: rgba(255,255,255,.5); border-radius: 999px;
+  font-size: 13px; cursor: pointer; color: #555;
+  font-family: inherit; transition: all .2s;
+  white-space: nowrap;
 }
-.luobo-streak-bar .total {
-  color: var(--luobo-jade);
-  font-size: 12px;
+.dr-tab-btn:hover { background: rgba(255,255,255,.85); }
+.dr-tab-btn.active {
+  background: var(--dr-red); color: #fff; border-color: var(--dr-red);
+  font-weight: 600;
 }
 
-/* 引言主体 */
-.luobo-quote-box {
-  padding: 20px 20px 14px;
-  min-height: 120px;
-  position: relative;
+/* 内容区 */
+.dr-body {
+  flex: 1; overflow-y: auto;
+  padding: 18px 20px 20px;
 }
-.luobo-quote {
-  font-size: 17px;
-  line-height: 1.9;
-  color: var(--luobo-ink);
-  letter-spacing: 0.5px;
-  text-align: justify;
-}
-.luobo-quote::before {
-  content: "「";
-  color: var(--luobo-accent);
-  font-size: 22px;
-  vertical-align: -2px;
-  margin-right: 2px;
-}
-.luobo-quote::after {
-  content: "」";
-  color: var(--luobo-accent);
-  font-size: 22px;
-  vertical-align: -2px;
-  margin-left: 2px;
-}
-.luobo-style-tag {
-  margin-top: 10px;
-  display: inline-block;
-  font-size: 12px;
-  padding: 3px 10px;
-  background: var(--luobo-paper-deep);
-  border: 1px solid var(--luobo-line);
-  border-radius: 12px;
-  color: var(--luobo-ink);
-}
-.luobo-daily-sign {
-  margin-top: 14px;
-  padding: 10px 12px;
-  border-left: 3px solid var(--luobo-gold);
-  background: rgba(201, 169, 97, 0.08);
-  font-size: 13px;
-  color: var(--luobo-ink);
-  line-height: 1.7;
-}
-.luobo-daily-sign .sign-title {
-  font-size: 11px;
-  color: var(--luobo-gold);
-  letter-spacing: 2px;
-  margin-bottom: 4px;
-}
-.luobo-daily-sign .sign-source {
-  font-size: 11px;
-  color: var(--luobo-line);
-  margin-top: 4px;
-  text-align: right;
-}
+.dr-panel { display: none; }
+.dr-panel.active { display: block; }
 
-/* 风格切换 - v2 隐藏 (惊喜感优先，8 风格不外露) */
-.luobo-styles {
-  display: none !important;
+/* ============ 打卡日历（复用） ============ */
+.dr-calendar {
+  margin-top: 14px; padding: 12px 14px;
+  background: rgba(255,255,255,.5); border: 1px solid var(--dr-line);
+  border-radius: 10px;
 }
-
-/* 操作按钮 */
-.luobo-actions {
-  display: flex;
-  gap: 8px;
-  padding: 12px 16px;
+.dr-cal-title {
+  font-size: 12px; color: #777; margin-bottom: 8px;
+  display: flex; justify-content: space-between; align-items: center;
 }
-.luobo-actions button {
-  flex: 1;
-  padding: 10px 4px;
-  border-radius: 8px;
-  font-size: 13px;
-  font-family: inherit;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  border: 1px solid var(--luobo-line);
-  background: var(--luobo-paper);
-  color: var(--luobo-ink);
-}
-.luobo-btn-check {
-  background: var(--luobo-accent) !important;
-  color: white !important;
-  border-color: var(--luobo-accent) !important;
-  font-weight: bold;
-}
-.luobo-btn-check.done {
-  background: var(--luobo-jade) !important;
-  color: white !important;
-  border-color: var(--luobo-jade) !important;
-  cursor: pointer;
-}
-.luobo-btn-check.rolling {
-  animation: luobo-roll 0.35s ease-out;
-}
-@keyframes luobo-roll {
-  0% { transform: scale(1); }
-  40% { transform: scale(0.94) rotate(-3deg); }
-  100% { transform: scale(1); }
-}
-.luobo-actions button:hover:not(.done) {
-  opacity: 0.85;
-  transform: translateY(-1px);
-}
-
-/* 日历 */
-.luobo-cal-box {
-  padding: 12px 16px 16px;
-  border-top: 1px dashed var(--luobo-line);
-}
-.luobo-cal-title {
-  font-size: 12px;
-  color: var(--luobo-line);
-  margin-bottom: 8px;
-  display: flex;
-  justify-content: space-between;
-}
-.luobo-cal-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
+.dr-cal-title strong { color: var(--dr-red); font-size: 15px; }
+.dr-cal-grid {
+  display: grid; grid-template-columns: repeat(7, 1fr);
   gap: 4px;
 }
-.luobo-cal-cell {
-  aspect-ratio: 1;
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 10px;
-  color: var(--luobo-line);
-  background: var(--luobo-paper-deep);
-  font-family: sans-serif;
+.dr-cal-day {
+  aspect-ratio: 1; border-radius: 4px;
+  background: rgba(160,139,92,.12);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; color: #999;
 }
-.luobo-cal-cell.checked {
-  background: var(--luobo-jade);
-  color: white;
-  font-weight: bold;
+.dr-cal-day.checked {
+  background: var(--dr-red); color: #fff; font-weight: 600;
 }
-.luobo-cal-cell.today {
-  outline: 2px solid var(--luobo-accent);
-  outline-offset: -2px;
+.dr-cal-day.today {
+  outline: 2px solid var(--dr-gold); outline-offset: -2px;
 }
-.luobo-cal-cell.future { opacity: 0.3; }
 
-/* 底部签名 */
-.luobo-foot {
-  padding: 8px 16px 12px;
-  font-size: 11px;
-  color: var(--luobo-line);
-  text-align: center;
-  border-top: 1px dashed var(--luobo-line);
-  font-family: sans-serif;
-}
-.luobo-foot .heart { color: var(--luobo-accent); }
-
-/* 分享图弹层 */
-#luobo-share-modal {
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.75);
-  z-index: 10000;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  padding: 20px;
-}
-#luobo-share-modal.show { display: flex; }
-#luobo-share-canvas {
-  max-width: 100%;
-  max-height: 70vh;
+/* ============ 萝卜精 tab ============ */
+.luobo-quote-card {
+  background: #fdfbf5;
+  border: 1px solid rgba(139,26,26,.15);
   border-radius: 12px;
-  box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+  padding: 20px 18px;
+  margin-bottom: 14px;
+  position: relative;
+  box-shadow: 0 2px 12px rgba(139,26,26,.05);
 }
-#luobo-share-modal .tips {
-  color: white;
-  font-size: 14px;
-  margin: 16px 0 8px;
+.luobo-style-badge {
+  display: inline-block;
+  padding: 2px 10px; border-radius: 999px;
+  font-size: 11px; background: var(--dr-red); color: #fff;
+  margin-bottom: 10px;
+}
+.luobo-quote-text {
+  font-size: 16px; line-height: 1.75;
+  color: #2a2a2a; margin: 0 0 12px;
+  font-family: "Songti SC","STSong",serif;
+}
+.luobo-quote-tag {
+  font-size: 12px; color: #999; letter-spacing: 1px;
+}
+.luobo-sign-card {
+  background: linear-gradient(135deg, #f5efe0 0%, #eaddc4 100%);
+  border-radius: 10px; padding: 14px 16px;
+  margin-bottom: 12px;
+  border: 1px solid rgba(160,139,92,.25);
+}
+.luobo-sign-label {
+  font-size: 11px; color: var(--dr-gold); letter-spacing: 2px;
+  margin-bottom: 6px;
+}
+.luobo-sign-text {
+  font-size: 15px; line-height: 1.7;
+  font-family: "Songti SC","STSong",serif;
+  color: #3a2a1a;
+}
+.luobo-sign-source {
+  font-size: 11px; color: #8a7550; margin-top: 6px; text-align: right;
+}
+.dr-action-btn {
+  width: 100%; padding: 12px;
+  background: var(--dr-red); color: #fff; border: none;
+  border-radius: 8px; font-size: 14px; cursor: pointer;
+  font-family: inherit; letter-spacing: 1px;
+  transition: background .2s;
+  margin-top: 4px;
+}
+.dr-action-btn:hover { background: #711515; }
+.dr-action-btn.ghost {
+  background: transparent; color: var(--dr-red);
+  border: 1px solid var(--dr-red);
+}
+.dr-action-btn.ghost:hover { background: rgba(139,26,26,.06); }
+
+/* ============ 每日棋运 tab ============ */
+.luck-sign {
+  background: #fdfbf5;
+  border: 2px solid var(--dr-red);
+  border-radius: 12px;
+  padding: 22px 18px 20px;
+  margin-bottom: 14px;
+  position: relative;
   text-align: center;
-  font-family: "STKaiti", "KaiTi", serif;
+  box-shadow: 0 4px 16px rgba(139,26,26,.08);
 }
-#luobo-share-modal .close-btn {
-  padding: 8px 24px;
-  border: 1px solid rgba(255,255,255,0.5);
-  background: transparent;
-  color: white;
-  border-radius: 20px;
-  cursor: pointer;
+.luck-level-badge {
+  position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+  padding: 4px 16px; border-radius: 999px;
+  font-size: 12px; font-weight: 700; letter-spacing: 2px;
+  background: var(--dr-red); color: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,.15);
+}
+.luck-name {
+  font-size: 28px; font-weight: 700; letter-spacing: 6px;
+  color: var(--dr-red); margin: 10px 0 14px;
+  font-family: "Songti SC","STSong",serif;
+}
+.luck-verse {
+  padding: 10px 0; border-top: 1px dashed rgba(139,26,26,.2);
+  border-bottom: 1px dashed rgba(139,26,26,.2);
+  margin: 10px auto;
+}
+.luck-verse-line {
+  font-size: 15px; line-height: 1.9; color: #3a2a1a;
+  font-family: "Songti SC","STSong",serif;
+  letter-spacing: 2px;
+}
+.luck-advice {
+  font-size: 13px; line-height: 1.7; color: #555;
+  margin: 10px 6px 0; text-align: left;
+}
+.luck-advice::before {
+  content: "解 "; color: var(--dr-gold); font-weight: 700;
+  letter-spacing: 2px;
+}
+
+/* ============ 教师文案 tab ============ */
+.teacher-card {
+  background: #fdfbf5;
+  border: 1px solid rgba(139,26,26,.15);
+  border-radius: 12px;
+  padding: 18px 18px 16px;
+  margin-bottom: 14px;
+  box-shadow: 0 2px 10px rgba(0,0,0,.04);
+}
+.teacher-theme-tag {
+  display: inline-block;
+  padding: 3px 10px; border-radius: 4px;
+  font-size: 11px; letter-spacing: 1px;
+  background: rgba(139,26,26,.08); color: var(--dr-red);
+  margin-bottom: 10px;
+}
+.teacher-title {
+  font-size: 17px; font-weight: 700;
+  color: var(--dr-red); margin: 0 0 10px;
+  line-height: 1.4;
+  font-family: "Songti SC","STSong",serif;
+}
+.teacher-body {
+  font-size: 14px; line-height: 1.85;
+  color: #2a2a2a; white-space: pre-line;
+  font-family: "PingFang SC",sans-serif;
+}
+.teacher-footer {
+  margin-top: 14px; padding-top: 10px;
+  border-top: 1px dashed rgba(0,0,0,.1);
+  font-size: 12px; color: #888;
+  display: flex; justify-content: space-between;
+}
+.teacher-footer .signature {
+  color: #666; font-style: italic;
+}
+.dr-btn-row {
+  display: flex; gap: 8px; margin-top: 4px;
+}
+.dr-btn-row .dr-action-btn { margin-top: 0; }
+.teacher-reconfig {
+  display: block; text-align: center;
+  font-size: 12px; color: #999; text-decoration: underline;
+  margin-top: 12px; cursor: pointer;
+}
+.teacher-reconfig:hover { color: var(--dr-red); }
+
+/* ============ 定制向导 overlay ============ */
+.dr-config-mask {
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,.35);
+  display: none;
+  z-index: 20;
+  align-items: center; justify-content: center;
+}
+.dr-config-mask.show { display: flex; }
+.dr-config-modal {
+  background: #fdfbf5;
+  width: 88%; max-width: 380px;
+  border-radius: 14px;
+  padding: 22px 20px 18px;
+  box-shadow: 0 12px 32px rgba(0,0,0,.25);
+}
+.dr-config-title {
+  font-size: 17px; font-weight: 700; color: var(--dr-red);
+  margin: 0 0 4px; text-align: center;
+}
+.dr-config-sub {
+  font-size: 12px; color: #888; text-align: center; margin-bottom: 16px;
+}
+.dr-config-step {
+  margin-bottom: 14px;
+}
+.dr-config-step-label {
+  font-size: 12px; color: #666; margin-bottom: 6px;
+  letter-spacing: 1px;
+}
+.dr-config-options {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px;
+}
+.dr-config-opt {
+  padding: 8px 6px; border: 1px solid var(--dr-line);
+  background: #fff; border-radius: 6px;
+  font-size: 13px; cursor: pointer; text-align: center;
+  color: #444; transition: all .15s;
   font-family: inherit;
 }
+.dr-config-opt:hover { border-color: var(--dr-red); }
+.dr-config-opt.selected {
+  background: var(--dr-red); color: #fff; border-color: var(--dr-red);
+  font-weight: 600;
+}
+.dr-config-input {
+  width: 100%; padding: 8px 10px; box-sizing: border-box;
+  border: 1px solid var(--dr-line); border-radius: 6px;
+  font-size: 13px; font-family: inherit;
+  background: #fff;
+}
+.dr-config-input:focus { outline: none; border-color: var(--dr-red); }
+.dr-config-tip {
+  font-size: 11px; color: #999; margin-top: 4px;
+}
+.dr-config-btnrow {
+  display: flex; gap: 8px; margin-top: 10px;
+}
+.dr-config-btn {
+  flex: 1; padding: 10px; border: none;
+  background: var(--dr-red); color: #fff;
+  border-radius: 6px; font-size: 14px; cursor: pointer;
+  font-family: inherit; letter-spacing: 1px;
+}
+.dr-config-btn:disabled {
+  background: #ccc; cursor: not-allowed;
+}
+.dr-config-btn.ghost {
+  background: transparent; color: #666; border: 1px solid var(--dr-line);
+}
 
-/* 移动端 · 抽屉 */
+/* ============ Toast ============ */
+.dr-toast {
+  position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%);
+  background: rgba(0,0,0,.82); color: #fff;
+  padding: 10px 18px; border-radius: 999px;
+  font-size: 13px; z-index: 10001;
+  opacity: 0; pointer-events: none;
+  transition: opacity .25s;
+}
+.dr-toast.show { opacity: 1; }
+
+/* 响应式 */
 @media (max-width: 480px) {
-  #luobo-panel {
-    width: 92vw;
-    max-width: 92vw;
-  }
+  #daily-ritual-panel { width: 100vw; }
+  .dr-tab-btn { font-size: 12px; padding: 8px 4px; }
+  .luck-name { font-size: 24px; letter-spacing: 4px; }
 }
 </style>
 
-<!-- 萝卜精 v2 · 抽屉遮罩 -->
-<div id="luobo-drawer-mask" onclick="window.toggleLuoboSpirit()"></div>
+<!-- 每日棋事簿 · 遮罩 -->
+<div id="daily-ritual-mask" onclick="window.__closeDailyRitual()"></div>
 
-<!-- 萝卜精 · 抽屉面板 -->
-<div id="luobo-panel" class="hidden">
-  <div class="luobo-head">
-    <span class="luobo-title">🥕 萝卜精 <span class="luobo-tag">打卡搭子</span></span>
-    <button class="luobo-close" onclick="window.toggleLuoboSpirit()" title="关闭">×</button>
-  </div>
-  <div class="luobo-streak-bar">
-    <span class="flame">🔥 连续打卡 <span id="luobo-streak-days">0</span> 天</span>
-    <span class="total">累计 <span id="luobo-total-days">0</span> 天</span>
-  </div>
-  <div class="luobo-quote-box">
-    <div class="luobo-quote" id="luobo-quote">加载中……</div>
-    <div class="luobo-style-tag" id="luobo-style-tag">🎲 惊喜</div>
-    <div class="luobo-daily-sign">
-      <div class="sign-title">◆ 每日一签 ◆</div>
-      <div id="luobo-daily-text">——</div>
-      <div class="sign-source" id="luobo-daily-source">——</div>
+<!-- 每日棋事簿 · 抽屉主面板 -->
+<div id="daily-ritual-panel" role="dialog" aria-label="每日棋事簿">
+
+  <div class="dr-header">
+    <h3>📮 每日棋事簿</h3>
+    <button class="dr-close" onclick="window.__closeDailyRitual()" aria-label="关闭">×</button>
+    <div class="dr-tabs" id="daily-ritual-tabs">
+      <button class="dr-tab-btn active" data-tab="luobo">🥕 萝卜精</button>
+      <button class="dr-tab-btn" data-tab="luck">🎋 今日棋运</button>
+      <button class="dr-tab-btn" data-tab="teacher">📝 文案卡</button>
     </div>
   </div>
-  <div class="luobo-actions">
-    <button class="luobo-btn-check" id="luobo-btn-check" onclick="window.luoboCheckIn()">🎲 今日打卡</button>
-    <button onclick="window.luoboShare()">分享图</button>
-  </div>
-  <div class="luobo-cal-box">
-    <div class="luobo-cal-title">
-      <span id="luobo-cal-month">本月打卡</span>
-      <span id="luobo-cal-count">0/30</span>
+
+  <div class="dr-body">
+
+    <!-- Tab 1 · 萝卜精语录 -->
+    <div id="dr-tab-luobo" class="dr-panel active">
+      <div class="luobo-quote-card" id="luobo-quote-card">
+        <div class="luobo-style-badge" id="luobo-style-badge">温柔治愈</div>
+        <p class="luobo-quote-text" id="luobo-quote-text">加载中……</p>
+        <div class="luobo-quote-tag" id="luobo-quote-tag">— 萝卜精</div>
+      </div>
+      <div class="luobo-sign-card" id="luobo-sign-card">
+        <div class="luobo-sign-label">每 日 一 签</div>
+        <div class="luobo-sign-text" id="luobo-sign-text">…</div>
+        <div class="luobo-sign-source" id="luobo-sign-source">— …</div>
+      </div>
+      <button class="dr-action-btn" id="luobo-checkin-btn" onclick="window.__luoboCheckin()">
+        今日打卡 · 换一句
+      </button>
     </div>
-    <div class="luobo-cal-grid" id="luobo-cal-grid"></div>
+
+    <!-- Tab 2 · 今日棋运 -->
+    <div id="dr-tab-luck" class="dr-panel">
+      <div class="luck-sign">
+        <div class="luck-level-badge" id="luck-level-badge">上上签</div>
+        <div class="luck-name" id="luck-name">飞龙在天</div>
+        <div class="luck-verse" id="luck-verse">
+          <div class="luck-verse-line">…</div>
+          <div class="luck-verse-line">…</div>
+          <div class="luck-verse-line">…</div>
+          <div class="luck-verse-line">…</div>
+        </div>
+        <div class="luck-advice" id="luck-advice">…</div>
+      </div>
+      <button class="dr-action-btn" onclick="window.__luckDraw()">
+        🎋 再摇一签
+      </button>
+    </div>
+
+    <!-- Tab 3 · 教师文案卡 -->
+    <div id="dr-tab-teacher" class="dr-panel">
+      <div class="teacher-card" id="teacher-card">
+        <div class="teacher-theme-tag" id="teacher-theme-tag">教学理念</div>
+        <h4 class="teacher-title" id="teacher-title">…</h4>
+        <div class="teacher-body" id="teacher-body">…</div>
+        <div class="teacher-footer">
+          <span id="teacher-position-hint">启蒙老师 · 温和引导</span>
+          <span class="signature" id="teacher-signature">— 老师自填</span>
+        </div>
+      </div>
+      <div class="dr-btn-row">
+        <button class="dr-action-btn" onclick="window.__teacherCopyText()">📋 复制文字</button>
+        <button class="dr-action-btn ghost" onclick="window.__teacherDownloadPNG()">🖼 下载图片</button>
+      </div>
+      <button class="dr-action-btn" style="margin-top:10px" onclick="window.__teacherNext()">
+        📝 换一张文案卡
+      </button>
+      <a class="teacher-reconfig" onclick="window.__teacherReconfig()">重新定制风格</a>
+
+      <!-- 教师定制向导 -->
+      <div class="dr-config-mask" id="dr-teacher-config-modal">
+        <div class="dr-config-modal">
+          <div class="dr-config-title">📝 首次定制文案风格</div>
+          <div class="dr-config-sub">定制一次，之后每天生成专属你的文案卡</div>
+
+          <div class="dr-config-step">
+            <div class="dr-config-step-label">1. 你的定位</div>
+            <div class="dr-config-options" id="cfg-position-options">
+              <button class="dr-config-opt" data-value="启蒙老师">启蒙老师</button>
+              <button class="dr-config-opt" data-value="进阶老师">进阶老师</button>
+              <button class="dr-config-opt" data-value="校长">校长 / 机构负责人</button>
+              <button class="dr-config-opt" data-value="家庭顾问">家庭教育顾问</button>
+            </div>
+          </div>
+
+          <div class="dr-config-step">
+            <div class="dr-config-step-label">2. 你的调性</div>
+            <div class="dr-config-options" id="cfg-tone-options">
+              <button class="dr-config-opt" data-value="温和引导">温和引导</button>
+              <button class="dr-config-opt" data-value="理性专业">理性专业</button>
+              <button class="dr-config-opt" data-value="感性走心">感性走心</button>
+              <button class="dr-config-opt" data-value="家常口吻">家常口吻</button>
+            </div>
+          </div>
+
+          <div class="dr-config-step">
+            <div class="dr-config-step-label">3. 落款（可后续在文案里手改）</div>
+            <input class="dr-config-input" id="cfg-signature-input"
+                   placeholder="留空或写：某某老师 · 某某围棋" maxlength="30" />
+            <div class="dr-config-tip">留空则每次生成时占位，方便你手动改</div>
+          </div>
+
+          <div class="dr-config-btnrow">
+            <button class="dr-config-btn ghost" onclick="window.__teacherConfigCancel()">先看看</button>
+            <button class="dr-config-btn" id="cfg-confirm-btn" onclick="window.__teacherConfigConfirm()">开始使用</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 共享打卡日历 -->
+    <div class="dr-calendar">
+      <div class="dr-cal-title">
+        <span>本月打卡</span>
+        <strong id="dr-cal-count">0 天</strong>
+      </div>
+      <div class="dr-cal-grid" id="dr-cal-grid"></div>
+    </div>
+
   </div>
-  <div class="luobo-foot">
-    以棋会友 <span class="heart">·</span> 一日一手 <span class="heart">·</span> 与君共修
-  </div>
+
 </div>
 
-<!-- 分享图弹层 -->
-<div id="luobo-share-modal">
-  <canvas id="luobo-share-canvas" width="720" height="1080"></canvas>
-  <div class="tips">长按图片保存到相册 · 转发到朋友圈</div>
-  <button class="close-btn" onclick="window.closeLuoboShare()">关闭</button>
-</div>
+<!-- Toast -->
+<div class="dr-toast" id="dr-toast">已复制</div>
 
 <script>
 (function() {
   'use strict';
 
-  // ==== 数据 ====
-  const QUOTES = {"gentle": {"label": "温柔治愈", "icon": "🌸", "desc": "累了想被抱抱", "quotes": ["今天下一手也好，不下也没关系，你已经是我心里的定式。", "累了就搁棋盒里歇歇，明天棋盘还是原来那张。", "别急，慢慢来。李昌镐当年也只是先摆一手小飞挂。", "你今天愿意点开我，就是最好的复盘。", "棋盘不会走的，你什么时候回来它都在。", "输一盘不算什么，你还没输过明天。", "一手没下好，抱抱自己，再摸一颗子。", "深呼吸，然后就着这口气下一颗棋，就一颗，不多要。", "手上有点凉？先把棋子握热了再落。", "今天不想复盘也可以，就看看昨天赢下的那颗子。", "你已经很棒了，能坚持到今天点开我。", "不用做完整盘，摆两个死活题也很好。", "我给你打个招呼，你回我一手，就当我们对话过了。", "困的话就睡吧，梦里也可以下棋。", "别跟自己较劲，围棋这一辈子学不完，也不用今天学完。", "你想停就停，想开始就开始，我一直在角落。", "有你在，棋盘就有温度。", "今天下得不好也是今天的样子，我喜欢的。", "把手洗干净，摸一颗子，就是最好的开始。", "累了就跟棋子说话，它会听的。", "不用赢，只要今天你摸过棋子，我就替你高兴。", "你不需要证明什么，你已经在坚持了。", "下不好也别删复盘记录，那是你走过的路。", "今晚就下三手好不好？三手就够。", "允许自己有一手臭棋，允许自己今天不想赢。", "你在棋盘边坐着的样子，最温柔了。", "泡杯茶，等它凉，再落第一颗子。", "记得吃饭。棋可以慢慢下，胃不能。", "今天想被夸就点我，我夸你：你真棒。", "谢谢你，今天也没有把我关起来。"]}, "spicy": {"label": "辛辣嘲讽", "icon": "🌶️", "desc": "犯懒需要人骂", "quotes": ["都三天没碰棋盘了，你手筋是断了吗？", "你的棋盒是不是被封条贴住了？", "上次输棋以后就再没打开过棋谱，是被打怕了吧。", "你这种坚持速度，聂卫平的孙子都能拿冠军了。", "点开我又不下棋，你是在跟我谈恋爱吗？", "你的复盘本比灰姑娘的水晶鞋还干净。", "李昌镐半夜起来摆棋，你半夜起来刷手机。", "别人下棋是打劫，你下棋是打卡，还打得不勤。", "你要再这么下下去，段位表都要把你除名了。", "上一次你完整下完一盘棋是什么朝代的事？", "棋盘想问你：你多久不理我了，心里没数？", "别摆姿势了，摆点子。", "点一次我，下一手不亏，你亏的是良心。", "你说要冲三段，我以为你要认真，结果你连三天都没冲过去。", "你的棋力最近唯一的进步，是理直气壮不下棋。", "藤泽秀行 60 岁还在拼冠军，你 30 岁就想退休？", "别怪自己没时间，你打游戏的时候可从没喊过没时间。", "你这样下棋，对得起你屋里那副贵棋盘吗？", "上次你说要每天做题，题在哭。", "棋书买了一书架，看过的比封面还少。", "别急着骂我毒舌，你摸一手棋我就闭嘴。", "「明天再下」——这话你说了 90 天了。", "你的坚持力，比对方长考的时间还短。", "输了怪 AI 强，赢了夸自己天才，你这心态挺稳。", "别人打卡是打卡，你打卡是打卡机自己在响。", "你今天要是再不摆一题，我就把你收藏的名局给你删了。", "复盘本翻开的次数，比你朋友圈还稀有。", "你以为你在缓一缓，其实你在退一退。", "别怪 AI 让不动你，是你压根没上桌。", "承认吧，你今天不是没时间，你是没脸下。"]}, "backup": {"label": "坚强后盾", "icon": "💪", "desc": "低谷需要托底", "quotes": ["李昌镐输了世界大赛第二天照样复盘。你今天下几手，我陪着。", "输一盘算什么，藤泽秀行输过多少你数得过来吗？他后来赢的更多。", "手抖没关系，落下去就是子。", "别看别人段位，你的对手只有昨天的自己。", "你不是不行，你是还没找到自己的那一手。", "跌到谷底也就多一颗黑子的重量，你扛得住。", "有我在，你今天摆一题，我陪你复一题。", "怕输就先输一盘，输完就不怕了。", "你走过的每一手臭棋，都是你后来那一手妙手的地基。", "别怕慢。徐奉洙 17 岁才入段，40 多岁还能一杆清台。", "你今天下的这一颗子，比昨天所有想法都值钱。", "输了咱不哭，我给你打张分手图，明天再来。", "困难的局面才配得上你，你不是普通选手。", "有人比你聪明，但没人比你更懂你自己的棋风。", "你不是坚持不下来，你只是没找到跟自己和解的方式。", "累的时候看一眼吴清源的棋谱，他 60 岁还在悟大局观。", "别怕臭棋，臭棋才让你记住教训。", "你已经比昨天的你多摆了一颗子，够了。", "被 AI 让 9 子还输？没事，让 10 子再来。", "你手里的那颗黑子，装着你所有走过来的路。", "刘昌赫经历那么多都没放下棋盘，你的坎跟他比是小坎。", "输给学生也没什么，说明你教得好。", "你不是没天赋，你是没给自己那么多时间。", "回来了就好，棋盘一直在等你。", "怕挨骂就先下给我看，我不骂你。", "你要是塌了，我先把你的棋盘擦干净等你。", "陈祖德带病写完《超越自我》，你今天下三手，也是超越自我。", "别人夸你不用当真，你自己夸自己那才是真的。", "这一手落下去，就没有「如果」了，好过盯着「如果」一辈子。", "你只要还在点开我，我们就没输。"]}, "classic": {"label": "古风诗意", "icon": "🎋", "desc": "想文艺一下", "quotes": ["山僧对棋坐，局上竹阴清——今日一手，何妨？", "偶来松树下，高枕石头眠。棋声一响，梦亦清。", "闲敲棋子落灯花，落一颗，便算你今日的花。", "野桥经雨断，涧水向田分。落子无声，心自安。", "手谈之乐，非在胜负，在于一子一心。", "一子落，风未动；再一子，霜华生。", "松下问童子，言师采药去——你且落一手，我等师归。", "十九路间藏山河，你一手一手，走出一片乾坤。", "对坐清风里，无言胜有言。今日之棋，不必多言。", "君子矜而不争，群而不党——棋盘之上，亦复如是。", "空山不见人，但闻子声响。你落一手，我便应你。", "一枰春色，两袖清风。手谈半晌，胜过烟花万丈。", "秋风落叶时节，摆一局残谱，如故人重逢。", "落子须知白鹤翩翩之意，非为杀，为舞。", "白云回望合，青霭入看无——好棋，也是这般。", "行到水穷处，坐看云起时——棋到胶着时，落子勿急。", "一子无声，天地澄清。今日一手，值得。", "对着棋盘，恍见太古之风。", "落雪时节，一子如梅，一子如霜。", "半窗明月，一枰残棋，人生不过如此。", "对局如对镜，一手照见半生。", "「胜固欣然，败亦可喜」——苏子早已替你说尽。", "闲庭独坐棋盘边，风过处，落一子。", "洞庭西望楚江分，落子一声，江水又深一寸。", "青衫落魄不必愁，一子当空胜万筹。", "手谈无言，谈的是彼此一生的心事。", "今日一手，是给三千年前那位弈者的一句回音。", "一叶落知天下秋，一子落知你今日心境。", "云淡风轻近午天，落一子，便是圆满。", "对坐无言，落子有声——此乃棋之至乐。"]}, "burning": {"label": "热血燃系", "icon": "🔥", "desc": "想被点燃", "quotes": ["藤泽秀行 60 岁还在拼冠军！你这个年纪凭什么不摆棋！", "徐奉洙 44 岁真露杯 9 连胜一杆清台！你今天连一手都不落？", "李昌镐每天研究棋 8 小时，你连 8 分钟都拿不出来？", "陈祖德带着癌症写完《超越自我》。你今天有什么理由不下？", "本因坊丈和血泪拼杀爬到名人棋所！你的棋盘也在等你冲！", "刘昌赫失去妻子后拿出五连冠气魄！你手里那点低谷不算什么！", "赵治勋一年下 100 盘正式赛！你一年下几盘？", "吴清源为一个新手研究 30 年！你连坚持 30 天都做不到？", "聂卫平中日擂台十一连胜！你手里就没这股劲吗？", "马晓春连续 40 个月国内第一！你连续 4 天都撑不住？", "曹薰铉带着李昌镐横扫世界！你带着自己走完今天！", "秀策十九手中国流至今无人破解！你哪来的资格说自己没天赋？", "范西屏施定庵下当湖十局手不发抖！你握颗棋子发什么抖？", "王积薪听老妇下棋一夜通神！你听我一句话，落一手！", "黄龙士 20 出头封棋圣！你 20 出头都没握过棋盒？", "道策发明手割理论重新定义围棋！你也可以重新定义你自己！", "常昊七次世界大赛决赛四次亚军最后拿冠军！你怕过什么！", "古力柯洁哪一个不是拼命练出来的！你手里有的是时间！", "石佛李昌镐一步没错走完官子！你连开局都不敢开？", "藤泽朋斋 90 岁还在摆棋！你 30 岁就摆烂？", "曹薰铉三届富士通冠军！你三天都撑不住？", "过惕生弱冠拜师终成新中国教父！你也是从零开始，为什么不能？", "顾水如民国孤军抗日棋界的骨头！你现在下棋，是幸福的！", "王子晏文人下棋两袖清风一枰春秋！你也可以，落一颗！", "坂田荣男剃刀般精准！你也曾锋利过，别忘了！", "高川格「流水不争先」拿七连霸！你的从容还在！", "武宫正树宇宙流开天辟地！你也有你的宇宙！", "小林光一严谨到令人窒息！你的自律值得再来一次！", "所有大师都是从一手臭棋开始的。你现在，就是他们的起点。", "你不落这一手，你就永远不知道自己能走到哪。落！"]}, "zen": {"label": "佛系躺平", "icon": "🧘", "desc": "想放过自己", "quotes": ["下也好，不下也好，一切随缘…但你已经三天没下了哦。", "赢了是运气好，输了是运气差，人生嘛。", "AI 说你这手不好？AI 又不用交房租，随它说去。", "段位不重要，重要的是今天有没有笑过。", "错手也是手，反正棋盘不会告你。", "你不下，棋盘也不会怪你，我可能会哦。", "复盘就复盘吧，不复盘就不复盘吧，天亮了再说。", "输了？没事，反正世界不会因此改变半分。", "「胜固欣然，败亦可喜」——你看古人多想得开。", "今天没时间就明天，明天没时间就下周，慢慢来。", "棋盘上放两颗子摆个心形也可以，谁规定必须要下正经棋？", "累了就走，累了就停，累了就当自己是一颗被拈起来又放回去的棋子。", "「空亦是色，色亦是空」——一颗子的得失，何足挂齿。", "别想了，先睡觉，睡醒棋子还是黑白两色。", "赢的时候不飞，输的时候不哭，佛系棋手就是这样。", "水到渠成，棋到手熟。别硬掰。", "今天下不下都行，我就是想你了。", "下棋是修行，不下棋也是修行。", "对手强？强就强呗，你有你的活法。", "少一手棋，多一次呼吸，也是收获。", "别人 30 岁得世界冠军，你 30 岁得心平气和，一样值钱。", "AI 让你 9 子？让就让呗，反正它也不发工资。", "有些棋走不好，是因为还没到时候。", "今日棋不悟，明日再悟。棋不生锈，你也是。", "「落子无悔」是对高手说的，你落错了改改也没关系。", "「不争，天下莫能与之争」——不下棋的人反而下得最好？", "今天你不点我我不怪你，你点我我陪你聊两句。", "输给学生了？说明你会教书了，恭喜。", "「棋道一百，我只知七」——你今天连一都不用知。", "算了，别摆了，就当你已经赢了。（其实我盼你摆一颗。）"]}, "joke": {"label": "段子搞笑", "icon": "😂", "desc": "想乐一乐", "quotes": ["医生说我血压高，我说我一天不下棋才血压高。", "「落子无悔」是骗小孩的，我每次落完都想悔到唐朝。", "你的棋盘再不用，就要长蘑菇了。（真的。）", "AI 让我 9 子，我谢它 9 遍。", "问我为什么下棋？因为麻将三缺一。", "你的棋，臭得像我上周忘在冰箱里的鱼。", "「金角银边草肚皮」——我下的每一手都在肚皮。", "别人复盘是学，我复盘是回顾人生失败史。", "我下棋不看段位看运气，运气不好我就说昨晚没睡好。", "上次赢学生一盘，学生 3 岁。这算成就吗算吗？", "打劫？我劫我自己的时间下不下棋，天天打。", "「棋盘如战场」——那我就是那个总迷路的士兵。", "别问我为啥输，问就是天时地利人和都不在我这。", "棋圣是别人的，我是棋剩，剩下来的剩。", "「一子定乾坤」——我一子定坟头。", "输了别难过，赢的人可能是作弊。（别真信，转发这段可赢十年好棋。）", "我以为我在下围棋，AI 以为我在给它送分。", "医生：你需要放松。我：好的，我去下棋。医生：换一个。", "「胜负乃兵家常事」——但主要是我在负。", "别人下棋越下越聪明，我下棋越下越沉默。", "AI 说这手是妙手，我以为夸我，其实夸的是它自己。", "「落子无声」是骗人的，我每次都「啪」一声，主要是气。", "我棋盘上放了张辣椒图片，希望能辣一辣我的棋力。", "「一将功成万骨枯」——我这盘棋，是万骨我全占了。", "下棋前抽卡：抽到大师就赢，抽到菜鸡就是我今天。", "有人吸猫，有人吸猫粮，我吸棋谱。", "「棋逢对手」的下句应该是「把把落荒」。（我改的。）", "我不是不会下，我是给对手让分，我心善。", "从此以后每次下棋前拜三下棋盘，气运会不会好点？", "「黑白分明」不适用于我的棋盘，我的棋盘是灰的。"]}, "master": {"label": "师父型", "icon": "🎓", "desc": "想被指点", "quotes": ["小友，一手棋看三年功夫。今日一手，胜过明日十手空想。", "棋道之精，不在多，在于专。今日一子，即是一课。", "初学者贪多，中手贪快，高手贪静。你今日在哪一层？", "手筋易学，大局难修。你先摆一子，我们再谈大局。", "记住：先看全局，再看一手。眼里有天地，手中才有分寸。", "败棋不弃，胜棋不骄。这是你今日该守的两条。", "「不失先手」不是不让，而是知道何时该让。", "手谈无言，谈的是心境。你今日心境如何？", "棋盘上藏着三重关：手筋、气势、心法。你在哪一关？", "「弃子争先」的道理，很多人一辈子学不会。你今日试着弃一颗。", "为师告诉你：别人的棋是别人的路，你的棋只能你自己走。", "复盘之要，不在找错，而在找懂。", "落子如种树，今日一子，十年才见其枝繁。", "求快求胜，是初学者的心。求稳求悟，是老者的心。", "一盘棋能改变一天，一年棋能改变一生。莫小看今日一手。", "「不争而胜」是境界，但先要学会争。", "眼中有子，心中有势——先练前者，再修后者。", "为师看过太多天才夭折，只因忘了每日一手。你今日别忘。", "输不可怕，可怕的是不知为何输。今日复一盘，明日胜一分。", "手谈之趣，在于「手」字。你的手，就是你的心。", "记住这句：「棋高一着，缚手缚脚」——你今日别被「高」字困住。", "小友，急躁是棋手的第一大敌。落一子前，先呼吸三次。", "「当局者迷，旁观者清」——你有时也做做自己的旁观者。", "为师年轻时也懒过。补回来的路很长，不如今日一手。", "别问何时能成高手，先问今日有没有一手。", "「棋无第一手」——每一手都可能是妙手，每一手都可能是败手。", "记住：好棋是练出来的，不是等出来的。", "有些棋要下十年才懂，有些棋只需一秒就懂。你今日该下哪种？", "手中一颗子，胜过书架一整排棋谱。", "为师一句话赠你：「棋在纸上，路在脚下。」今日一手，走一步。"]}};
-  const DAILY_SIGN = [{"text": "山僧对棋坐，局上竹阴清。", "source": "白居易《池上二绝》"}, {"text": "闲敲棋子落灯花。", "source": "赵师秀《约客》"}, {"text": "偶来松树下，高枕石头眠。", "source": "太上隐者《答人》"}, {"text": "行到水穷处，坐看云起时。", "source": "王维《终南别业》"}, {"text": "白云回望合，青霭入看无。", "source": "王维《终南山》"}, {"text": "松下问童子，言师采药去。", "source": "贾岛《寻隐者不遇》"}, {"text": "野桥经雨断，涧水向田分。", "source": "唐 佚名"}, {"text": "对局如对镜，一手照见半生。", "source": "手谈古语"}, {"text": "半窗明月，一枰残棋。", "source": "宋人棋话"}, {"text": "一叶落知天下秋，一子落知今日心。", "source": "手谈古语"}, {"text": "金角银边草肚皮。", "source": "围棋谚语"}, {"text": "宁失一子，不失一先。", "source": "围棋谚语"}, {"text": "两番收官胜过一步妙手。", "source": "围棋谚语"}, {"text": "势孤取和，实空取胜。", "source": "围棋谚语"}, {"text": "逢危须弃。", "source": "《棋经十三篇》"}, {"text": "彼强自保，势孤取和。", "source": "《棋经十三篇》"}, {"text": "有先手就下先手。", "source": "围棋谚语"}, {"text": "落子无悔，君子之约。", "source": "手谈古训"}, {"text": "棋从断处生。", "source": "围棋谚语"}, {"text": "宁数一目，勿弃一线。", "source": "围棋谚语"}, {"text": "棋道一百，我只知七。", "source": "藤泽秀行"}, {"text": "围棋的目的是把好棋下出来，不是把对手打败。", "source": "吴清源"}, {"text": "六合之棋，超越胜负。", "source": "吴清源"}, {"text": "流水不争先。", "source": "高川格"}, {"text": "宇宙流，看的不是一角，是整盘天地。", "source": "武宫正树"}, {"text": "先看全局，再看一手。", "source": "陈祖德《超越自我》"}, {"text": "棋逢知己，胜负不重要。", "source": "聂卫平"}, {"text": "一手棋，看三年功夫。", "source": "古老棋训"}, {"text": "手筋易学，大局难修。", "source": "围棋谚语"}, {"text": "败者，无一言。", "source": "本因坊道策"}, {"text": "胜固欣然，败亦可喜。", "source": "苏轼《观棋》"}, {"text": "一枰春色，两袖清风。", "source": "文人棋话"}, {"text": "对坐清风里，无言胜有言。", "source": "文人棋话"}, {"text": "青衫落魄不必愁，一子当空胜万筹。", "source": "宋人棋诗"}, {"text": "闲敲棋子夜灯花，一子入盘天地大。", "source": "文人棋话"}, {"text": "落雪时节，一子如梅，一子如霜。", "source": "文人棋话"}, {"text": "对着棋盘，恍见太古之风。", "source": "文人棋话"}, {"text": "十九路间藏山河，一手一手走乾坤。", "source": "文人棋话"}, {"text": "洞庭西望楚江分，落子一声江水深。", "source": "化用李白"}, {"text": "君子矜而不争，群而不党。", "source": "《论语》·适用于棋道"}];
-  const STYLE_KEYS = Object.keys(QUOTES);
-  const STORAGE_KEY = 'luobo_spirit_v1';
-  const MILESTONES = [
-    { days: 1,   emoji: '🌱', title: '初次相遇',   desc: '你迈出了第一手。' },
-    { days: 3,   emoji: '🌿', title: '初见连贯',   desc: '连续三日，手已成习。' },
-    { days: 7,   emoji: '🎋', title: '一周初成',   desc: '一周不辍，气象已开。' },
-    { days: 30,  emoji: '🏆', title: '月度大师',   desc: '连续一月，此心已定。' },
-    { days: 100, emoji: '💎', title: '百日心印',   desc: '百日成禅，功不唐捐。' },
-    { days: 365, emoji: '👑', title: '一年一梦',   desc: '一年之约，与棋同行。' },
-  ];
+  // ============ 数据注入点 ============
+  var QUOTES = {"gentle": {"label": "温柔治愈", "icon": "🌸", "desc": "累了想被抱抱", "quotes": ["今天下一手也好，不下也没关系，你已经是我心里的定式。", "累了就搁棋盒里歇歇，明天棋盘还是原来那张。", "别急，慢慢来。李昌镐当年也只是先摆一手小飞挂。", "你今天愿意点开我，就是最好的复盘。", "棋盘不会走的，你什么时候回来它都在。", "输一盘不算什么，你还没输过明天。", "一手没下好，抱抱自己，再摸一颗子。", "深呼吸，然后就着这口气下一颗棋，就一颗，不多要。", "手上有点凉？先把棋子握热了再落。", "今天不想复盘也可以，就看看昨天赢下的那颗子。", "你已经很棒了，能坚持到今天点开我。", "不用做完整盘，摆两个死活题也很好。", "我给你打个招呼，你回我一手，就当我们对话过了。", "困的话就睡吧，梦里也可以下棋。", "别跟自己较劲，围棋这一辈子学不完，也不用今天学完。", "你想停就停，想开始就开始，我一直在角落。", "有你在，棋盘就有温度。", "今天下得不好也是今天的样子，我喜欢的。", "把手洗干净，摸一颗子，就是最好的开始。", "累了就跟棋子说话，它会听的。", "不用赢，只要今天你摸过棋子，我就替你高兴。", "你不需要证明什么，你已经在坚持了。", "下不好也别删复盘记录，那是你走过的路。", "今晚就下三手好不好？三手就够。", "允许自己有一手臭棋，允许自己今天不想赢。", "你在棋盘边坐着的样子，最温柔了。", "泡杯茶，等它凉，再落第一颗子。", "记得吃饭。棋可以慢慢下，胃不能。", "今天想被夸就点我，我夸你：你真棒。", "谢谢你，今天也没有把我关起来。"]}, "spicy": {"label": "辛辣嘲讽", "icon": "🌶️", "desc": "犯懒需要人骂", "quotes": ["都三天没碰棋盘了，你手筋是断了吗？", "你的棋盒是不是被封条贴住了？", "上次输棋以后就再没打开过棋谱，是被打怕了吧。", "你这种坚持速度，聂卫平的孙子都能拿冠军了。", "点开我又不下棋，你是在跟我谈恋爱吗？", "你的复盘本比灰姑娘的水晶鞋还干净。", "李昌镐半夜起来摆棋，你半夜起来刷手机。", "别人下棋是打劫，你下棋是打卡，还打得不勤。", "你要再这么下下去，段位表都要把你除名了。", "上一次你完整下完一盘棋是什么朝代的事？", "棋盘想问你：你多久不理我了，心里没数？", "别摆姿势了，摆点子。", "点一次我，下一手不亏，你亏的是良心。", "你说要冲三段，我以为你要认真，结果你连三天都没冲过去。", "你的棋力最近唯一的进步，是理直气壮不下棋。", "藤泽秀行 60 岁还在拼冠军，你 30 岁就想退休？", "别怪自己没时间，你打游戏的时候可从没喊过没时间。", "你这样下棋，对得起你屋里那副贵棋盘吗？", "上次你说要每天做题，题在哭。", "棋书买了一书架，看过的比封面还少。", "别急着骂我毒舌，你摸一手棋我就闭嘴。", "「明天再下」——这话你说了 90 天了。", "你的坚持力，比对方长考的时间还短。", "输了怪 AI 强，赢了夸自己天才，你这心态挺稳。", "别人打卡是打卡，你打卡是打卡机自己在响。", "你今天要是再不摆一题，我就把你收藏的名局给你删了。", "复盘本翻开的次数，比你朋友圈还稀有。", "你以为你在缓一缓，其实你在退一退。", "别怪 AI 让不动你，是你压根没上桌。", "承认吧，你今天不是没时间，你是没脸下。"]}, "backup": {"label": "坚强后盾", "icon": "💪", "desc": "低谷需要托底", "quotes": ["李昌镐输了世界大赛第二天照样复盘。你今天下几手，我陪着。", "输一盘算什么，藤泽秀行输过多少你数得过来吗？他后来赢的更多。", "手抖没关系，落下去就是子。", "别看别人段位，你的对手只有昨天的自己。", "你不是不行，你是还没找到自己的那一手。", "跌到谷底也就多一颗黑子的重量，你扛得住。", "有我在，你今天摆一题，我陪你复一题。", "怕输就先输一盘，输完就不怕了。", "你走过的每一手臭棋，都是你后来那一手妙手的地基。", "别怕慢。徐奉洙 17 岁才入段，40 多岁还能一杆清台。", "你今天下的这一颗子，比昨天所有想法都值钱。", "输了咱不哭，我给你打张分手图，明天再来。", "困难的局面才配得上你，你不是普通选手。", "有人比你聪明，但没人比你更懂你自己的棋风。", "你不是坚持不下来，你只是没找到跟自己和解的方式。", "累的时候看一眼吴清源的棋谱，他 60 岁还在悟大局观。", "别怕臭棋，臭棋才让你记住教训。", "你已经比昨天的你多摆了一颗子，够了。", "被 AI 让 9 子还输？没事，让 10 子再来。", "你手里的那颗黑子，装着你所有走过来的路。", "刘昌赫经历那么多都没放下棋盘，你的坎跟他比是小坎。", "输给学生也没什么，说明你教得好。", "你不是没天赋，你是没给自己那么多时间。", "回来了就好，棋盘一直在等你。", "怕挨骂就先下给我看，我不骂你。", "你要是塌了，我先把你的棋盘擦干净等你。", "陈祖德带病写完《超越自我》，你今天下三手，也是超越自我。", "别人夸你不用当真，你自己夸自己那才是真的。", "这一手落下去，就没有「如果」了，好过盯着「如果」一辈子。", "你只要还在点开我，我们就没输。"]}, "classic": {"label": "古风诗意", "icon": "🎋", "desc": "想文艺一下", "quotes": ["山僧对棋坐，局上竹阴清——今日一手，何妨？", "偶来松树下，高枕石头眠。棋声一响，梦亦清。", "闲敲棋子落灯花，落一颗，便算你今日的花。", "野桥经雨断，涧水向田分。落子无声，心自安。", "手谈之乐，非在胜负，在于一子一心。", "一子落，风未动；再一子，霜华生。", "松下问童子，言师采药去——你且落一手，我等师归。", "十九路间藏山河，你一手一手，走出一片乾坤。", "对坐清风里，无言胜有言。今日之棋，不必多言。", "君子矜而不争，群而不党——棋盘之上，亦复如是。", "空山不见人，但闻子声响。你落一手，我便应你。", "一枰春色，两袖清风。手谈半晌，胜过烟花万丈。", "秋风落叶时节，摆一局残谱，如故人重逢。", "落子须知白鹤翩翩之意，非为杀，为舞。", "白云回望合，青霭入看无——好棋，也是这般。", "行到水穷处，坐看云起时——棋到胶着时，落子勿急。", "一子无声，天地澄清。今日一手，值得。", "对着棋盘，恍见太古之风。", "落雪时节，一子如梅，一子如霜。", "半窗明月，一枰残棋，人生不过如此。", "对局如对镜，一手照见半生。", "「胜固欣然，败亦可喜」——苏子早已替你说尽。", "闲庭独坐棋盘边，风过处，落一子。", "洞庭西望楚江分，落子一声，江水又深一寸。", "青衫落魄不必愁，一子当空胜万筹。", "手谈无言，谈的是彼此一生的心事。", "今日一手，是给三千年前那位弈者的一句回音。", "一叶落知天下秋，一子落知你今日心境。", "云淡风轻近午天，落一子，便是圆满。", "对坐无言，落子有声——此乃棋之至乐。"]}, "burning": {"label": "热血燃系", "icon": "🔥", "desc": "想被点燃", "quotes": ["藤泽秀行 60 岁还在拼冠军！你这个年纪凭什么不摆棋！", "徐奉洙 44 岁真露杯 9 连胜一杆清台！你今天连一手都不落？", "李昌镐每天研究棋 8 小时，你连 8 分钟都拿不出来？", "陈祖德带着癌症写完《超越自我》。你今天有什么理由不下？", "本因坊丈和血泪拼杀爬到名人棋所！你的棋盘也在等你冲！", "刘昌赫失去妻子后拿出五连冠气魄！你手里那点低谷不算什么！", "赵治勋一年下 100 盘正式赛！你一年下几盘？", "吴清源为一个新手研究 30 年！你连坚持 30 天都做不到？", "聂卫平中日擂台十一连胜！你手里就没这股劲吗？", "马晓春连续 40 个月国内第一！你连续 4 天都撑不住？", "曹薰铉带着李昌镐横扫世界！你带着自己走完今天！", "秀策十九手中国流至今无人破解！你哪来的资格说自己没天赋？", "范西屏施定庵下当湖十局手不发抖！你握颗棋子发什么抖？", "王积薪听老妇下棋一夜通神！你听我一句话，落一手！", "黄龙士 20 出头封棋圣！你 20 出头都没握过棋盒？", "道策发明手割理论重新定义围棋！你也可以重新定义你自己！", "常昊七次世界大赛决赛四次亚军最后拿冠军！你怕过什么！", "古力柯洁哪一个不是拼命练出来的！你手里有的是时间！", "石佛李昌镐一步没错走完官子！你连开局都不敢开？", "藤泽朋斋 90 岁还在摆棋！你 30 岁就摆烂？", "曹薰铉三届富士通冠军！你三天都撑不住？", "过惕生弱冠拜师终成新中国教父！你也是从零开始，为什么不能？", "顾水如民国孤军抗日棋界的骨头！你现在下棋，是幸福的！", "王子晏文人下棋两袖清风一枰春秋！你也可以，落一颗！", "坂田荣男剃刀般精准！你也曾锋利过，别忘了！", "高川格「流水不争先」拿七连霸！你的从容还在！", "武宫正树宇宙流开天辟地！你也有你的宇宙！", "小林光一严谨到令人窒息！你的自律值得再来一次！", "所有大师都是从一手臭棋开始的。你现在，就是他们的起点。", "你不落这一手，你就永远不知道自己能走到哪。落！"]}, "zen": {"label": "佛系躺平", "icon": "🧘", "desc": "想放过自己", "quotes": ["下也好，不下也好，一切随缘…但你已经三天没下了哦。", "赢了是运气好，输了是运气差，人生嘛。", "AI 说你这手不好？AI 又不用交房租，随它说去。", "段位不重要，重要的是今天有没有笑过。", "错手也是手，反正棋盘不会告你。", "你不下，棋盘也不会怪你，我可能会哦。", "复盘就复盘吧，不复盘就不复盘吧，天亮了再说。", "输了？没事，反正世界不会因此改变半分。", "「胜固欣然，败亦可喜」——你看古人多想得开。", "今天没时间就明天，明天没时间就下周，慢慢来。", "棋盘上放两颗子摆个心形也可以，谁规定必须要下正经棋？", "累了就走，累了就停，累了就当自己是一颗被拈起来又放回去的棋子。", "「空亦是色，色亦是空」——一颗子的得失，何足挂齿。", "别想了，先睡觉，睡醒棋子还是黑白两色。", "赢的时候不飞，输的时候不哭，佛系棋手就是这样。", "水到渠成，棋到手熟。别硬掰。", "今天下不下都行，我就是想你了。", "下棋是修行，不下棋也是修行。", "对手强？强就强呗，你有你的活法。", "少一手棋，多一次呼吸，也是收获。", "别人 30 岁得世界冠军，你 30 岁得心平气和，一样值钱。", "AI 让你 9 子？让就让呗，反正它也不发工资。", "有些棋走不好，是因为还没到时候。", "今日棋不悟，明日再悟。棋不生锈，你也是。", "「落子无悔」是对高手说的，你落错了改改也没关系。", "「不争，天下莫能与之争」——不下棋的人反而下得最好？", "今天你不点我我不怪你，你点我我陪你聊两句。", "输给学生了？说明你会教书了，恭喜。", "「棋道一百，我只知七」——你今天连一都不用知。", "算了，别摆了，就当你已经赢了。（其实我盼你摆一颗。）"]}, "joke": {"label": "段子搞笑", "icon": "😂", "desc": "想乐一乐", "quotes": ["医生说我血压高，我说我一天不下棋才血压高。", "「落子无悔」是骗小孩的，我每次落完都想悔到唐朝。", "你的棋盘再不用，就要长蘑菇了。（真的。）", "AI 让我 9 子，我谢它 9 遍。", "问我为什么下棋？因为麻将三缺一。", "你的棋，臭得像我上周忘在冰箱里的鱼。", "「金角银边草肚皮」——我下的每一手都在肚皮。", "别人复盘是学，我复盘是回顾人生失败史。", "我下棋不看段位看运气，运气不好我就说昨晚没睡好。", "上次赢学生一盘，学生 3 岁。这算成就吗算吗？", "打劫？我劫我自己的时间下不下棋，天天打。", "「棋盘如战场」——那我就是那个总迷路的士兵。", "别问我为啥输，问就是天时地利人和都不在我这。", "棋圣是别人的，我是棋剩，剩下来的剩。", "「一子定乾坤」——我一子定坟头。", "输了别难过，赢的人可能是作弊。（别真信，转发这段可赢十年好棋。）", "我以为我在下围棋，AI 以为我在给它送分。", "医生：你需要放松。我：好的，我去下棋。医生：换一个。", "「胜负乃兵家常事」——但主要是我在负。", "别人下棋越下越聪明，我下棋越下越沉默。", "AI 说这手是妙手，我以为夸我，其实夸的是它自己。", "「落子无声」是骗人的，我每次都「啪」一声，主要是气。", "我棋盘上放了张辣椒图片，希望能辣一辣我的棋力。", "「一将功成万骨枯」——我这盘棋，是万骨我全占了。", "下棋前抽卡：抽到大师就赢，抽到菜鸡就是我今天。", "有人吸猫，有人吸猫粮，我吸棋谱。", "「棋逢对手」的下句应该是「把把落荒」。（我改的。）", "我不是不会下，我是给对手让分，我心善。", "从此以后每次下棋前拜三下棋盘，气运会不会好点？", "「黑白分明」不适用于我的棋盘，我的棋盘是灰的。"]}, "master": {"label": "师父型", "icon": "🎓", "desc": "想被指点", "quotes": ["小友，一手棋看三年功夫。今日一手，胜过明日十手空想。", "棋道之精，不在多，在于专。今日一子，即是一课。", "初学者贪多，中手贪快，高手贪静。你今日在哪一层？", "手筋易学，大局难修。你先摆一子，我们再谈大局。", "记住：先看全局，再看一手。眼里有天地，手中才有分寸。", "败棋不弃，胜棋不骄。这是你今日该守的两条。", "「不失先手」不是不让，而是知道何时该让。", "手谈无言，谈的是心境。你今日心境如何？", "棋盘上藏着三重关：手筋、气势、心法。你在哪一关？", "「弃子争先」的道理，很多人一辈子学不会。你今日试着弃一颗。", "为师告诉你：别人的棋是别人的路，你的棋只能你自己走。", "复盘之要，不在找错，而在找懂。", "落子如种树，今日一子，十年才见其枝繁。", "求快求胜，是初学者的心。求稳求悟，是老者的心。", "一盘棋能改变一天，一年棋能改变一生。莫小看今日一手。", "「不争而胜」是境界，但先要学会争。", "眼中有子，心中有势——先练前者，再修后者。", "为师看过太多天才夭折，只因忘了每日一手。你今日别忘。", "输不可怕，可怕的是不知为何输。今日复一盘，明日胜一分。", "手谈之趣，在于「手」字。你的手，就是你的心。", "记住这句：「棋高一着，缚手缚脚」——你今日别被「高」字困住。", "小友，急躁是棋手的第一大敌。落一子前，先呼吸三次。", "「当局者迷，旁观者清」——你有时也做做自己的旁观者。", "为师年轻时也懒过。补回来的路很长，不如今日一手。", "别问何时能成高手，先问今日有没有一手。", "「棋无第一手」——每一手都可能是妙手，每一手都可能是败手。", "记住：好棋是练出来的，不是等出来的。", "有些棋要下十年才懂，有些棋只需一秒就懂。你今日该下哪种？", "手中一颗子，胜过书架一整排棋谱。", "为师一句话赠你：「棋在纸上，路在脚下。」今日一手，走一步。"]}};
+  var DAILY_SIGN = [{"text": "山僧对棋坐，局上竹阴清。", "source": "白居易《池上二绝》"}, {"text": "闲敲棋子落灯花。", "source": "赵师秀《约客》"}, {"text": "偶来松树下，高枕石头眠。", "source": "太上隐者《答人》"}, {"text": "行到水穷处，坐看云起时。", "source": "王维《终南别业》"}, {"text": "白云回望合，青霭入看无。", "source": "王维《终南山》"}, {"text": "松下问童子，言师采药去。", "source": "贾岛《寻隐者不遇》"}, {"text": "野桥经雨断，涧水向田分。", "source": "唐 佚名"}, {"text": "对局如对镜，一手照见半生。", "source": "手谈古语"}, {"text": "半窗明月，一枰残棋。", "source": "宋人棋话"}, {"text": "一叶落知天下秋，一子落知今日心。", "source": "手谈古语"}, {"text": "金角银边草肚皮。", "source": "围棋谚语"}, {"text": "宁失一子，不失一先。", "source": "围棋谚语"}, {"text": "两番收官胜过一步妙手。", "source": "围棋谚语"}, {"text": "势孤取和，实空取胜。", "source": "围棋谚语"}, {"text": "逢危须弃。", "source": "《棋经十三篇》"}, {"text": "彼强自保，势孤取和。", "source": "《棋经十三篇》"}, {"text": "有先手就下先手。", "source": "围棋谚语"}, {"text": "落子无悔，君子之约。", "source": "手谈古训"}, {"text": "棋从断处生。", "source": "围棋谚语"}, {"text": "宁数一目，勿弃一线。", "source": "围棋谚语"}, {"text": "棋道一百，我只知七。", "source": "藤泽秀行"}, {"text": "围棋的目的是把好棋下出来，不是把对手打败。", "source": "吴清源"}, {"text": "六合之棋，超越胜负。", "source": "吴清源"}, {"text": "流水不争先。", "source": "高川格"}, {"text": "宇宙流，看的不是一角，是整盘天地。", "source": "武宫正树"}, {"text": "先看全局，再看一手。", "source": "陈祖德《超越自我》"}, {"text": "棋逢知己，胜负不重要。", "source": "聂卫平"}, {"text": "一手棋，看三年功夫。", "source": "古老棋训"}, {"text": "手筋易学，大局难修。", "source": "围棋谚语"}, {"text": "败者，无一言。", "source": "本因坊道策"}, {"text": "胜固欣然，败亦可喜。", "source": "苏轼《观棋》"}, {"text": "一枰春色，两袖清风。", "source": "文人棋话"}, {"text": "对坐清风里，无言胜有言。", "source": "文人棋话"}, {"text": "青衫落魄不必愁，一子当空胜万筹。", "source": "宋人棋诗"}, {"text": "闲敲棋子夜灯花，一子入盘天地大。", "source": "文人棋话"}, {"text": "落雪时节，一子如梅，一子如霜。", "source": "文人棋话"}, {"text": "对着棋盘，恍见太古之风。", "source": "文人棋话"}, {"text": "十九路间藏山河，一手一手走乾坤。", "source": "文人棋话"}, {"text": "洞庭西望楚江分，落子一声江水深。", "source": "化用李白"}, {"text": "君子矜而不争，群而不党。", "source": "《论语》·适用于棋道"}];
+  var LUCK_SIGNS = [{"id": "L01", "name": "飞龙在天", "level": "上上签", "verse": ["长空万里，云破月来", "落子无声，破敌于形", "天时地利，应者云集", "今日之棋，龙腾九霄"], "advice": "气势正盛之日，宜主动出击。教学如是，家事亦然。"}, {"id": "L02", "name": "天元定势", "level": "上上签", "verse": ["一子当中，四海归一", "心无旁骛，势自成局", "大道至简，妙手天成", "布局既定，胜负早分"], "advice": "思路清明、格局宏大之日，凡事顺势而为便有大成。"}, {"id": "L03", "name": "紫气东来", "level": "上上签", "verse": ["东方既白，紫气盈门", "贵人相助，暗手自开", "落子如刀，一击破关", "今日之运，福至心灵"], "advice": "好运叩门之日，善抓机遇即得成事。"}, {"id": "L04", "name": "一剑封喉", "level": "上上签", "verse": ["千算万算，只在一子", "藏锋于内，杀气不显", "时机既到，霹雳而下", "一招定局，无需回眸"], "advice": "果断出手之日，机不可失，犹豫即失先手。"}, {"id": "L05", "name": "金榜题名", "level": "上上签", "verse": ["十年寒窗，一朝金榜", "落子如笔，行棋如章", "前程似锦，明月照堂", "今日之势，如愿以偿"], "advice": "成就落定之日，付出终有回响，别忘记庆祝。"}, {"id": "L06", "name": "白鹤展翅", "level": "大吉", "verse": ["云横秦岭，雪拥蓝关", "一鹤凌云，白衣飘然", "落子从容，步步为营", "大势在我，何须多言"], "advice": "机会已至，稳中求进。忌急躁，宜从容布势。"}, {"id": "L07", "name": "云开见日", "level": "大吉", "verse": ["昨夜风雨，晨起云散", "阳光破雾，山色新鲜", "昔日困局，今朝豁然", "一子既落，前路自开"], "advice": "过去几日的沉闷今日消散，抓住这份清明推进要事。"}, {"id": "L08", "name": "春风得意", "level": "大吉", "verse": ["长安花放，马蹄轻快", "落子有神，思绪如泉", "今日之棋，处处生机", "春风拂面，何等自在"], "advice": "心情舒畅带来判断准确，趁着状态好把要紧的事推一推。"}, {"id": "L09", "name": "明月出关", "level": "大吉", "verse": ["关山万里，孤月一轮", "冷光如剑，照破重雾", "落子清冷，气势内敛", "今日之势，皎洁分明"], "advice": "清醒判断之日，看得透局面本质，宜作重大决策。"}, {"id": "L10", "name": "金鸡独立", "level": "大吉", "verse": ["一足撑天，气定神闲", "独立不动，八方来朝", "定力既强，风雨不惊", "今日之棋，自成一格"], "advice": "稳如泰山之日，不受外界干扰，坚持己见即胜。"}, {"id": "L11", "name": "雪压青松", "level": "大吉", "verse": ["大雪压枝，青松不屈", "越是艰难，越见风骨", "落子如钉，一步一稳", "今日之势，愈挫愈强"], "advice": "抗压能力大爆发，困境反而激出好棋。"}, {"id": "L12", "name": "龙翔九天", "level": "大吉", "verse": ["九霄之上，云卷云舒", "一飞冲天，睥睨四方", "昔日蛰伏，今朝腾达", "落子无形，胜势无边"], "advice": "厚积薄发之日，之前的准备今日兑现。"}, {"id": "L13", "name": "虎跃深山", "level": "大吉", "verse": ["潜行深山，蓄势已久", "一跃而起，山鸣谷应", "落子如虎，威风八面", "今日之棋，霸气自生"], "advice": "胆气正盛之日，敢于挑战强手，也易得意外收获。"}, {"id": "L14", "name": "凤仪千岫", "level": "大吉", "verse": ["五彩华光，凤鸣朝阳", "落子如舞，行云流水", "今日之棋，美不胜收", "一举一动，皆是章法"], "advice": "创造力爆棚之日，容易下出漂亮的手筋。"}, {"id": "L15", "name": "松下问童", "level": "大吉", "verse": ["山中日月，静如止水", "松下问童，云深不知", "今日之势，出尘脱俗", "落子无争，自有天地"], "advice": "气度从容之日，不与人争而胜自成。"}, {"id": "L16", "name": "柳暗花明", "level": "中吉", "verse": ["山重水复，路窄天低", "忽见村舍，又是一春", "棋势将转，忍字为先", "静待其变，柳暗花明"], "advice": "局面暂显被动，转机就在半盘外。多观察，少妄动。"}, {"id": "L17", "name": "山水相逢", "level": "中吉", "verse": ["青山依旧，绿水长流", "昔日棋友，今朝相逢", "落子交心，各有所得", "今日之棋，缘分自成"], "advice": "贵人相助之日，多与人交流复盘，收获意外。"}, {"id": "L18", "name": "老树逢春", "level": "中吉", "verse": ["老干虬枝，久无生机", "春风一至，新芽萌发", "昔日困局，今得转机", "落子如春，处处生意"], "advice": "老问题突然找到解法，别忽视这份新意。"}, {"id": "L19", "name": "静水流深", "level": "中吉", "verse": ["表面平静，暗涌千寻", "藏锋于底，蓄势于沉", "落子无声，思虑无穷", "今日之势，深不可测"], "advice": "思考深度之日，看似平常的一步可能大有玄机。"}, {"id": "L20", "name": "秋收之势", "level": "中吉", "verse": ["春耕夏种，秋收在望", "稻穗低垂，气象丰盈", "昔日之功，今朝可享", "落子从容，收获自成"], "advice": "兑现之日，之前的伏笔今日结果，别错过。"}, {"id": "L21", "name": "迎风扬帆", "level": "中吉", "verse": ["江河浩荡，逆风亦扬", "借力打力，顺势而为", "落子如帆，御风而行", "今日之棋，进退自如"], "advice": "善用外力之日。别硬扛，借势更快。"}, {"id": "L22", "name": "听雨观棋", "level": "中吉", "verse": ["檐前雨落，棋盘静置", "一子未落，思虑千回", "今日之势，宜观宜思", "慢工出品，胜负不急"], "advice": "适合复盘思考之日，不必急着行动。"}, {"id": "L23", "name": "晓风残月", "level": "中吉", "verse": ["一夜风狂，晨起微寒", "残月犹在，晨光初起", "昔日局面，尚可回旋", "今日之棋，冷静应对"], "advice": "昨日阴影尚存，今日冷静处理即无大碍。"}, {"id": "L24", "name": "借东风势", "level": "中吉", "verse": ["万事俱备，只欠东风", "时机将至，蓄势而发", "落子如箭，一发中的", "今日之势，天时正合"], "advice": "等待多时的机会终于成熟，别再犹豫。"}, {"id": "L25", "name": "山雨欲来", "level": "中吉", "verse": ["云压山低，风急水寒", "变数将起，格局将换", "落子谨慎，进退有度", "今日之棋，未雨绸缪"], "advice": "局势即将变化，提前准备好应对，不要被打乱。"}, {"id": "L26", "name": "细水长流", "level": "小吉", "verse": ["溪水潺潺，石上生苔", "不争不抢，自成一派", "今日之势，蓄而不发", "待到来日，万木争春"], "advice": "不必强求突破，慢慢积累即是胜势。"}, {"id": "L27", "name": "蓄势待发", "level": "小吉", "verse": ["弓已张满，箭在弦上", "时机未到，暂且沉稳", "落子如常，眼观八方", "今日之棋，静中有备"], "advice": "不出彩但也不出错，稳住即胜。"}, {"id": "L28", "name": "稳中求胜", "level": "小吉", "verse": ["一步一稳，如履薄冰", "不求华丽，只求周全", "落子踏实，思虑周密", "今日之势，成于稳字"], "advice": "今日不需要奇招，稳定发挥最重要。"}, {"id": "L29", "name": "借力打力", "level": "小吉", "verse": ["顺势而下，四两千斤", "不与人硬，只借人势", "落子如水，无形无迹", "今日之棋，柔中带刚"], "advice": "不要硬碰硬，借对方的力反而更省。"}, {"id": "L30", "name": "一步一景", "level": "小吉", "verse": ["走走看看，处处皆景", "落子不急，心境正好", "今日之棋，随缘自在", "一子一得，何其从容"], "advice": "过程比结果重要之日，享受每一步。"}, {"id": "L31", "name": "稳如磐石", "level": "小吉", "verse": ["山不动，云不惊", "立于其中，八风不摇", "落子沉稳，一子一实", "今日之势，稳字为先"], "advice": "稳定发挥即可，别追求突破。"}, {"id": "L32", "name": "月照池塘", "level": "小吉", "verse": ["明月一轮，池水一泓", "静观其变，倒影自明", "落子从容，不惊不惧", "今日之棋，心境如水"], "advice": "心态平和之日，下棋处事都不易冲动。"}, {"id": "L33", "name": "松间落子", "level": "小吉", "verse": ["松风阵阵，棋盘寂寂", "一子既落，山鸣谷应", "今日之势，简洁明了", "落子无声，得势有形"], "advice": "思路简洁清晰之日，不必想太复杂。"}, {"id": "L34", "name": "雁字南飞", "level": "小吉", "verse": ["一雁横空，成行成序", "有条不紊，各就其位", "落子有章，行棋有法", "今日之棋，井然自成"], "advice": "按部就班之日，别打乱自己的节奏。"}, {"id": "L35", "name": "溪桥独坐", "level": "小吉", "verse": ["溪水潺潺，桥影如画", "独坐观棋，物我两忘", "落子随心，无所强求", "今日之势，闲适自得"], "advice": "轻松心态反而下出好棋。"}, {"id": "L36", "name": "闲云野鹤", "level": "小吉", "verse": ["天高云淡，鹤舞长空", "无拘无束，自由自在", "落子如风，行棋如水", "今日之棋，随心所欲"], "advice": "不功利之日，反而超常发挥。"}, {"id": "L37", "name": "半日闲棋", "level": "小吉", "verse": ["手中一子，眼前一局", "半日光阴，浮生偷得", "今日之势，得失皆宜", "落子从容，胜负不问"], "advice": "享受下棋本身，胜负是副产品。"}, {"id": "L38", "name": "静观其变", "level": "平", "verse": ["云卷云舒，花开花落", "万事有序，不必躁动", "今日之势，等字为先", "落子从缓，胜负未定"], "advice": "不知道下什么就先不下，等待更清楚的信号。"}, {"id": "L39", "name": "收敛锋芒", "level": "平", "verse": ["剑归鞘中，锋芒暂敛", "不显山露水，才是高手", "今日之棋，低调为宜", "落子如常，不惹是非"], "advice": "不出头之日，低调处事反而顺利。"}, {"id": "L40", "name": "待时而动", "level": "平", "verse": ["万事俱备，唯待东风", "沉稳蓄力，一刻不松", "今日之势，忍字当先", "落子从容，等风来时"], "advice": "机会未到，急躁只会坏事。"}, {"id": "L41", "name": "顺其自然", "level": "平", "verse": ["水到渠成，瓜熟蒂落", "不强求，不勉强", "今日之棋，随缘自在", "落子如常，得失从心"], "advice": "不强求任何结果，随缘就好。"}, {"id": "L42", "name": "观棋不语", "level": "平", "verse": ["旁观者清，当局者迷", "今日闲坐，看人下棋", "学在其中，悟在其外", "落子未定，静字为先"], "advice": "适合复盘、学习、看别人下的日子。"}, {"id": "L43", "name": "平心静气", "level": "平", "verse": ["心如止水，气若清风", "不喜不悲，不惊不惧", "今日之棋，稳字当头", "落子如常，波澜不惊"], "advice": "情绪稳定之日，下棋处事都平顺。"}, {"id": "L44", "name": "知白守黑", "level": "平", "verse": ["明处见白，暗处守黑", "有形有法，无形无迹", "今日之势，虚实相生", "落子如常，攻守自如"], "advice": "懂得进退之日，有些地方该守就守。"}, {"id": "L45", "name": "子从心出", "level": "平", "verse": ["手随心动，子从意生", "不问吉凶，只求本真", "今日之棋，一子一诚", "落子无悔，天地自宽"], "advice": "跟着直觉走的日子，想太多反而错。"}, {"id": "L46", "name": "黑云过山", "level": "小凶", "verse": ["乌云压顶，山色阴沉", "风起云涌，暂避为宜", "今日之势，守多于攻", "落子谨慎，切莫强求"], "advice": "势有不利，暂避锋芒，等风头过去再动。"}, {"id": "L47", "name": "孤舟蓑笠", "level": "小凶", "verse": ["千山鸟飞尽，万径人踪灭", "孤舟蓑笠翁，独钓寒江雪", "今日之局，独木难支", "宜守勿攻，心宽自安"], "advice": "势有不利，暂避锋芒。此时的克制，是明日的伏笔。"}, {"id": "L48", "name": "迂回退避", "level": "小凶", "verse": ["前路有阻，转而绕行", "曲径通幽，殊途同归", "今日之势，退一步海阔", "落子避锋，另辟蹊径"], "advice": "正面冲突不利，换个路径更快。"}, {"id": "L49", "name": "月落西山", "level": "小凶", "verse": ["月已西斜，晨光未起", "昼夜交替，明暗未分", "今日之势，忍字最要", "落子从缓，静待天明"], "advice": "不上不下之日，多等等，别急着行动。"}, {"id": "L50", "name": "风雨兼程", "level": "小凶", "verse": ["风紧雨密，步履维艰", "咬牙坚持，尚可前行", "今日之棋，苦中求进", "落子谨慎，进退有节"], "advice": "艰难之日，坚持一下就过去了。"}, {"id": "L51", "name": "秋叶零落", "level": "小凶", "verse": ["一叶落下，天下皆秋", "昔日繁华，今朝凋零", "今日之势，休养为先", "落子从简，不求突破"], "advice": "状态下滑之日，少做多歇。"}, {"id": "L52", "name": "独木难支", "level": "中凶", "verse": ["大厦将倾，一木难支", "力有不逮，勿强为之", "今日之势，认清即胜", "落子从简，不作困兽斗"], "advice": "形势不利就承认，硬撑只会更累。"}, {"id": "L53", "name": "满盘皆输", "level": "中凶", "verse": ["一子错定，满盘皆非", "反思过往，方能新生", "今日之势，宜复盘不宜再战", "收子认负，另作打算"], "advice": "今日的输局是明日的教材，别急着扳回。"}, {"id": "L54", "name": "风声鹤唳", "level": "中凶", "verse": ["草木皆兵，风声鹤唳", "神经紧绷，越紧越乱", "今日之势，暂避为宜", "落子从简，勿多思虑"], "advice": "越焦虑越出错，今天不适合作关键决定。"}];
+  var LEVEL_WEIGHTS = {"上上签": 5, "大吉": 12, "中吉": 20, "小吉": 25, "平": 20, "小凶": 12, "中凶": 6};
+  var LEVEL_COLORS = {"上上签": "#8b1a1a", "大吉": "#a94b3d", "中吉": "#c17c3f", "小吉": "#8b7550", "平": "#5f6b6d", "小凶": "#4a5057", "中凶": "#2a2a2a"};
+  var TEACHER_CARDS = [{"id": "T101", "theme": "教学理念", "position": "启蒙老师", "tone": "温和引导", "title": "我从不着急教孩子怎么赢", "body": "我从不着急教孩子怎么“赢”，\n先让他学会怎么“下”。\n一颗子放稳了，\n一步棋看清了，\n胜负自然就成了副产品。"}, {"id": "T102", "theme": "教学理念", "position": "启蒙老师", "tone": "家常口吻", "title": "孩子学棋这件事", "body": "孩子学棋这件事 ——\n前三个月看兴趣，\n前一年看习惯，\n三年之后才看天赋。\n你要做的不是催，是陪。"}, {"id": "T103", "theme": "教学理念", "position": "进阶老师", "tone": "理性专业", "title": "一节课的重点", "body": "一节课的重点，\n从来不是让孩子多学一个死活题，\n而是让他明白 ——\n为什么这一手是对的、那一手是错的。\n定式可以背，思路必须懂。"}, {"id": "T104", "theme": "教学理念", "position": "校长", "tone": "感性走心", "title": "教围棋这些年", "body": "教围棋这些年，\n最深的体会是 ——\n好的老师不是让孩子敬畏你，\n而是让孩子敬畏棋盘。\n因为棋盘会一直陪他，而你不会。"}, {"id": "T105", "theme": "教学理念", "position": "家庭顾问", "tone": "温和引导", "title": "关于胜负心", "body": "关于“胜负心”这件事，\n我的看法是 ——\n孩子必须要有，\n但不能只有。\n好胜心是燃料，\n求真心才是方向盘。"}, {"id": "T106", "theme": "教学理念", "position": "进阶老师", "tone": "理性专业", "title": "教一个会思考的孩子", "body": "教围棋不难，\n教一个会思考的孩子学围棋才难。\n因为你要不断问他 ——\n“你确定吗？”\n“为什么？”\n“还有别的选择吗？”\n而不是替他决定。"}, {"id": "T107", "theme": "教学理念", "position": "启蒙老师", "tone": "感性走心", "title": "一枚棋子的重量", "body": "一枚棋子拿在手里没有重量，\n但落在棋盘上就有了。\n因为它承载着你的判断、你的心念、你的选择。\n教孩子下棋，其实是教他 ——\n每一个选择都要负责任。"}, {"id": "T108", "theme": "教学理念", "position": "校长", "tone": "理性专业", "title": "我们培养的不是棋手", "body": "我们培养的不是棋手，\n是能坐得住的孩子、\n能想得深的孩子、\n能输得起的孩子。\n棋艺是副产品，\n人格才是主产品。"}, {"id": "T109", "theme": "教学理念", "position": "进阶老师", "tone": "家常口吻", "title": "下棋的三层境界", "body": "下棋这事有三层境界 ——\n第一层，会下就行；\n第二层，能赢就好；\n第三层，让每一盘棋都有意思。\n孩子在哪一层，我不催，只等。"}, {"id": "T110", "theme": "教学理念", "position": "启蒙老师", "tone": "温和引导", "title": "教孩子布局", "body": "教孩子布局，\n我从不背定式开始，\n我从“这块地方为什么这么走”开始。\n定式是别人的答案，\n判断才是自己的功夫。"}, {"id": "T111", "theme": "教学理念", "position": "家庭顾问", "tone": "感性走心", "title": "每一次输棋", "body": "每一次输棋，\n都是孩子长大的一次机会。\n你在旁边说“没事下次赢回来”，\n不如陪他复盘，\n找出那步走错的手。\n眼泪擦干净就好，招法要看清。"}, {"id": "T112", "theme": "教学理念", "position": "进阶老师", "tone": "温和引导", "title": "关于打谱", "body": "关于打谱这件事 ——\n别急着让孩子背棋谱，\n先让他看棋谱、想棋谱。\n一盘古谱看三遍，\n比一天摆十盘棋更值钱。"}, {"id": "T113", "theme": "教学理念", "position": "校长", "tone": "家常口吻", "title": "少讲一句", "body": "我常跟工作室的老师们说 ——\n“你多讲一句，孩子就少想一句。”\n好老师不是话多，\n而是问得准、听得进、等得住。"}, {"id": "T114", "theme": "教学理念", "position": "启蒙老师", "tone": "理性专业", "title": "关于礼仪", "body": "关于围棋礼仪，\n我教孩子的顺序是 ——\n先学“请指教”，\n再学“谢谢您的指点”，\n最后才教“复盘”。\n因为敬畏之心是学一切的前提。"}, {"id": "T115", "theme": "教学理念", "position": "家庭顾问", "tone": "家常口吻", "title": "别问孩子赢没赢", "body": "见到孩子放学，\n别第一句就问“今天赢了吗”，\n换个问法 ——\n“今天下得爽吗？”\n前一句让他有压力，\n后一句让他有回味。"}, {"id": "T116", "theme": "教学理念", "position": "进阶老师", "tone": "感性走心", "title": "棋盘是最好的老师", "body": "教围棋十几年，\n我越来越觉得 ——\n棋盘是最好的老师，\n而我们只是站在旁边、\n提醒孩子看得见棋盘的人。"}, {"id": "T117", "theme": "教学理念", "position": "启蒙老师", "tone": "家常口吻", "title": "别让孩子怕下棋", "body": "别让孩子怕下棋。\n怕下棋的孩子背后，\n往往站着一个太急的家长，\n或者一个太严的老师。\n兴趣灭了，天赋也就不重要了。"}, {"id": "T118", "theme": "教学理念", "position": "校长", "tone": "温和引导", "title": "教学的三个原则", "body": "我们工作室的教学，\n三个原则一直没变过 ——\n一，让孩子先爱上；\n二，再让他学会看懂；\n三，最后才是赢。\n顺序不能反。"}, {"id": "T119", "theme": "教学理念", "position": "进阶老师", "tone": "理性专业", "title": "定式与创意", "body": "定式不是让孩子跟着走，\n是让孩子知道 ——\n前人走过什么、遇到什么问题。\n学会定式之后，\n才有创意的资本。"}, {"id": "T120", "theme": "教学理念", "position": "家庭顾问", "tone": "感性走心", "title": "陪伴的意义", "body": "有位家长问我 ——\n“我要陪孩子学多久？”\n我说 ——\n“陪到他不需要你陪的那一天。\n到那时你会发现 ——\n你陪的不是围棋，\n是他的童年。”"}, {"id": "T201", "theme": "家庭教育", "position": "家庭顾问", "tone": "家常口吻", "title": "孩子输棋哭了", "body": "孩子输棋哭了，\n别马上安慰“没事”，\n也别急着说“下次加油”。\n陪他坐一会儿，\n等他自己说话。\n眼泪也是成长的一部分。"}, {"id": "T202", "theme": "家庭教育", "position": "家庭顾问", "tone": "理性专业", "title": "学棋要多久见效", "body": "家长常问孩子学棋要多久见效，\n我一般这样回答 ——\n前 3 个月看兴趣，\n前 1 年看习惯，\n3 年之后才谈天赋。\n别用短跑的期待，\n看长跑的选手。"}, {"id": "T203", "theme": "家庭教育", "position": "启蒙老师", "tone": "温和引导", "title": "家长的位置", "body": "家长在孩子学棋这件事上，\n位置很关键 ——\n站得太近，孩子紧张；\n站得太远，孩子懈怠。\n最好的位置是 ——\n他抬头能看见你，\n你低头能看见他。"}, {"id": "T204", "theme": "家庭教育", "position": "家庭顾问", "tone": "感性走心", "title": "犹豫的时间", "body": "你会发现 ——\n一颗棋子放在孩子面前，\n他犹豫的时间，\n就是他成长的空间。\n别催他，\n那正是他在跟自己较劲。"}, {"id": "T205", "theme": "家庭教育", "position": "进阶老师", "tone": "家常口吻", "title": "他怎么老是输", "body": "家长常问 ——\n“他怎么老是输，是不是不适合学棋？”\n换个视角 ——\n下棋这事，前 200 局都在铺垫。\n他现在输的每一盘，\n都在为将来的复盘、思考、破局打地基。"}, {"id": "T206", "theme": "家庭教育", "position": "家庭顾问", "tone": "温和引导", "title": "陪练的分寸", "body": "关于家长陪练这件事，\n我的建议是 ——\n陪，但不参与决策。\n你可以问 ——\n“这里你怎么想的？”\n但不要说 ——\n“应该走这里。”"}, {"id": "T207", "theme": "家庭教育", "position": "校长", "tone": "理性专业", "title": "兴趣与习惯", "body": "短期兴趣靠鼓励，\n长期习惯靠陪伴。\n家长在前三个月，\n决定了孩子会不会喜欢；\n家长在前三年，\n决定了孩子能不能坚持。"}, {"id": "T208", "theme": "家庭教育", "position": "家庭顾问", "tone": "感性走心", "title": "家长的口", "body": "别在孩子面前说 ——\n“他没天赋。”\n因为他会信。\n也别说 ——\n“他是天才。”\n因为他也会信。\n家长的口，就是孩子的耳。"}, {"id": "T209", "theme": "家庭教育", "position": "启蒙老师", "tone": "家常口吻", "title": "最有用的一句话", "body": "家长最有用的一句话是 ——\n“我看得出来，你今天进步了。”\n不用具体，\n但一定要真诚。\n孩子看得懂敷衍。"}, {"id": "T210", "theme": "家庭教育", "position": "进阶老师", "tone": "温和引导", "title": "关于比赛", "body": "关于比赛，\n家长最容易犯的错是 ——\n太在意结果。\n一次比赛，\n孩子学到的东西，\n比得到的名次值钱十倍。\n别只盯着奖状看。"}, {"id": "T211", "theme": "家庭教育", "position": "家庭顾问", "tone": "家常口吻", "title": "陪孩子看职业棋赛", "body": "陪孩子看职业棋赛，\n别一直问他“看懂了没”，\n换成 ——\n“你觉得下面这步会怎么走？”\n让他猜，\n猜对了大声表扬，\n猜错了一起找答案。"}, {"id": "T212", "theme": "家庭教育", "position": "校长", "tone": "感性走心", "title": "家长的三种角色", "body": "家长陪孩子学棋，\n有三种角色可以选 ——\n观众，鼓掌就好；\n教练，指导过多容易冲突；\n队友，一起进步最长久。\n我建议做队友。"}, {"id": "T213", "theme": "家庭教育", "position": "启蒙老师", "tone": "理性专业", "title": "关于坐不住", "body": "孩子刚学棋坐不住，\n别急，\n那是所有孩子都会经历的。\n一节课 40 分钟，\n从他能坐 15 分钟到能坐 40 分钟，\n至少要 3 个月。\n慢慢来，比较快。"}, {"id": "T214", "theme": "家庭教育", "position": "家庭顾问", "tone": "温和引导", "title": "最好的围棋家长", "body": "我见过最好的围棋家长 ——\n从不在教室外偷看，\n也不在下课后问“今天学了什么”，\n只在孩子想说的时候听、\n想问的时候答。\n这是一种很难做到的克制。"}, {"id": "T215", "theme": "家庭教育", "position": "进阶老师", "tone": "感性走心", "title": "没用的东西", "body": "关于兴趣班的选择 ——\n别拿“以后有没有用”衡量。\n围棋教给孩子的定力、专注、\n输赢观、思考习惯，\n这些“没用”的东西，\n才是一辈子都有用的东西。"}, {"id": "T216", "theme": "家庭教育", "position": "家庭顾问", "tone": "家常口吻", "title": "陪孩子下棋", "body": "陪孩子下棋，\n输给他没关系，\n但别故意输。\n孩子知道 ——\n一个诚意的对手，\n比一百次讨好都珍贵。"}, {"id": "T217", "theme": "家庭教育", "position": "校长", "tone": "理性专业", "title": "三种家长", "body": "我见过的家长大致三种 ——\n第一种：孩子不学我陪着；\n第二种：孩子想学我支持；\n第三种：孩子学不学都要报班。\n第二种孩子往往走得最远。"}, {"id": "T218", "theme": "家庭教育", "position": "启蒙老师", "tone": "温和引导", "title": "别让围棋变成负担", "body": "别让围棋变成孩子的负担。\n一周三节课都上不完，\n家里还要练两小时，\n你以为在帮他成长，\n实际上你在耗光他的热情。"}, {"id": "T219", "theme": "家庭教育", "position": "家庭顾问", "tone": "感性走心", "title": "关于放手", "body": "家长最难学的一门课，\n叫“放手”。\n孩子会输棋、会犯错、会哭。\n你越想替他挡，\n他越学不会自己面对。\n围棋教你放手，\n其实是提前学。"}, {"id": "T220", "theme": "家庭教育", "position": "进阶老师", "tone": "家常口吻", "title": "陪伴的两个层次", "body": "陪伴分两个层次 ——\n表层：坐在他旁边玩手机；\n深层：跟他一起思考同一个问题。\n你孩子想要的，\n从来不是前者。"}, {"id": "T301", "theme": "陪伴策略", "position": "家庭顾问", "tone": "家常口吻", "title": "陪孩子复盘", "body": "陪孩子复盘一盘输了的棋，\n别一上来就说“你这里错了”，\n换成 ——\n“这一步你当时怎么想的？”\n让他先说，你再补。"}, {"id": "T302", "theme": "陪伴策略", "position": "启蒙老师", "tone": "温和引导", "title": "情绪先于胜负", "body": "孩子输棋回家闷闷不乐，\n别马上安慰，\n也别马上讲道理。\n陪他做一件他喜欢的小事 ——\n一杯热茶、\n一段闲聊。\n情绪先于胜负。"}, {"id": "T303", "theme": "陪伴策略", "position": "进阶老师", "tone": "理性专业", "title": "三个问题", "body": "陪孩子下完一盘棋，\n只问三个问题 ——\n“今天下得爽不爽？”\n“有没有哪一步你自己特别得意？”\n“输的那步，事后想想能不能不那样？”\n简单三问，够用十年。"}, {"id": "T304", "theme": "陪伴策略", "position": "校长", "tone": "感性走心", "title": "不再问赢没赢", "body": "陪伴孩子学棋 3 年，\n我不再问他“赢了没”，\n只问他 ——\n“今天你觉得下得爽吗？”\n“有没有一步棋你自己特别得意？”\n“输的那步，事后想想能不能不那样？”"}, {"id": "T305", "theme": "陪伴策略", "position": "家庭顾问", "tone": "温和引导", "title": "别急着给答案", "body": "陪孩子想问题，\n别急着给答案。\n你越快说，\n他越懒得想。\n沉默也是一种教育。"}, {"id": "T306", "theme": "陪伴策略", "position": "启蒙老师", "tone": "家常口吻", "title": "好陪伴的三个信号", "body": "好陪伴有三个信号 ——\n一，孩子愿意主动跟你说棋；\n二，输棋了敢跟你哭；\n三，赢棋了会想着让你看。\n这三条都有，你就做对了。"}, {"id": "T307", "theme": "陪伴策略", "position": "进阶老师", "tone": "感性走心", "title": "陪伴的黄金 3 分钟", "body": "陪伴的黄金 3 分钟，\n是孩子下完棋回家的那 3 分钟。\n那时候他最想说话，\n也最脆弱。\n别用手机、\n别用应付，\n用眼睛看着他，就够。"}, {"id": "T308", "theme": "陪伴策略", "position": "家庭顾问", "tone": "理性专业", "title": "复盘的最高境界", "body": "陪伴复盘的最高境界，\n是让孩子自己说给你听。\n你的角色是听众，\n不是老师。\n他讲得越多，\n记得越深。"}, {"id": "T309", "theme": "陪伴策略", "position": "校长", "tone": "家常口吻", "title": "关于催", "body": "别催孩子下棋，\n也别催孩子决定。\n你催得越紧，\n他想得越浅。\n好棋是慢慢想出来的，\n不是赶出来的。"}, {"id": "T310", "theme": "陪伴策略", "position": "启蒙老师", "tone": "感性走心", "title": "陪伴不等于监督", "body": "陪伴不等于监督。\n你坐在他旁边 ——\n不看他、不催他、不问他，\n只是让他知道 ——\n你在。\n这就够了。"}, {"id": "T311", "theme": "陪伴策略", "position": "进阶老师", "tone": "温和引导", "title": "关于表扬", "body": "表扬孩子下棋，\n别只说“你真棒”。\n换成 ——\n“刚才那步棋很有想法，\n你怎么想到的？”\n让他自己讲一遍，\n记忆比任何表扬都深。"}, {"id": "T312", "theme": "陪伴策略", "position": "家庭顾问", "tone": "家常口吻", "title": "陪不动了怎么办", "body": "家长陪不动了怎么办？\n一个建议 ——\n别硬陪。\n一周留 1 到 2 次高质量的陪伴，\n胜过每天勉强坐 40 分钟。\n你自己先不烦，\n孩子才不烦。"}, {"id": "T313", "theme": "陪伴策略", "position": "校长", "tone": "理性专业", "title": "陪伴的时间投资", "body": "陪伴学棋 ——\n别以为时间越多越好。\n关键是“你在场”的时间，\n不是“你在旁边”的时间。\n有质量的 30 分钟，\n胜过心不在焉的 3 小时。"}, {"id": "T314", "theme": "陪伴策略", "position": "启蒙老师", "tone": "温和引导", "title": "陪孩子第一次比赛", "body": "陪孩子第一次比赛，\n别提“名次”两个字。\n只跟他说 ——\n“去感受一下比赛的样子，\n认识几个新朋友，\n输了咱回家吃好吃的。”\n松弛感是最好的礼物。"}, {"id": "T315", "theme": "陪伴策略", "position": "家庭顾问", "tone": "感性走心", "title": "关于送棋盘", "body": "别急着给孩子买最贵的棋盘。\n从一副 30 块的启蒙盘开始，\n陪他用得起毛了、\n用得有感情了，\n再换。\n那副旧盘子，\n就是他童年的味道。"}, {"id": "T316", "theme": "陪伴策略", "position": "进阶老师", "tone": "家常口吻", "title": "陪伴的边界", "body": "陪伴要有边界 ——\n他在下棋时你不打断，\n他在思考时你不催促，\n他在复盘时你不评判。\n让他知道 ——\n棋盘上他自己是主人。"}, {"id": "T317", "theme": "陪伴策略", "position": "校长", "tone": "感性走心", "title": "陪伴不是牺牲", "body": "陪伴不是牺牲，\n是共享。\n你陪他学棋，\n他也在陪你重新长大。\n别用“付出”的心态去陪，\n用“参与”的心态去陪。"}, {"id": "T318", "theme": "陪伴策略", "position": "家庭顾问", "tone": "温和引导", "title": "看棋不语", "body": "教孩子“看棋不语”这件事，\n从家长自己做起。\n他下棋你旁边不说话，\n他思考你不打岔。\n你怎么陪他，\n他就怎么陪别人。"}, {"id": "T319", "theme": "陪伴策略", "position": "启蒙老师", "tone": "理性专业", "title": "每周一次的仪式", "body": "建议家长做一件事 ——\n每周固定一个“棋事时间”，\n30 分钟就够 ——\n只陪孩子看一盘棋、\n讲一个棋手故事、\n复一盘他的棋。\n仪式感比时长重要。"}, {"id": "T320", "theme": "陪伴策略", "position": "进阶老师", "tone": "家常口吻", "title": "最好的教学现场", "body": "陪伴学棋最好的画面 ——\n不是家长指着棋盘讲，\n是孩子讲、家长听、\n家长偶尔“哦真的呀”、\n孩子讲得眉飞色舞。\n那就是最珍贵的教学现场。"}, {"id": "T401", "theme": "棋道感悟", "position": "校长", "tone": "感性走心", "title": "一盘输局", "body": "一盘输了的棋，\n比十盘赢了的棋更值得复盘。\n因为赢的时候你以为你都对了，\n输的时候你才知道自己错在哪。\n人生也是。"}, {"id": "T402", "theme": "棋道感悟", "position": "进阶老师", "tone": "理性专业", "title": "关于先手", "body": "棋盘上有一样东西比子力更值钱，\n叫“先手”。\n谁掌握先手，\n谁掌握节奏。\n生活也一样 ——\n主动的人，\n从来不会被时间追着跑。"}, {"id": "T403", "theme": "棋道感悟", "position": "家庭顾问", "tone": "温和引导", "title": "眼睛与心", "body": "下棋这件事 ——\n用眼睛看子力，\n用心看厚薄。\n眼睛只能看到眼前，\n心才能看到远方。\n教孩子看棋，\n其实是教他看世界。"}, {"id": "T404", "theme": "棋道感悟", "position": "校长", "tone": "家常口吻", "title": "什么叫大局观", "body": "什么叫大局观？\n就是知道 ——\n这一角的得失，\n不影响我整盘的赢面。\n别抓小放大，\n别捡了芝麻丢了西瓜。"}, {"id": "T405", "theme": "棋道感悟", "position": "进阶老师", "tone": "感性走心", "title": "一颗棋子的意义", "body": "一颗棋子放在角上是子，\n放在中央是势，\n放在关键处是命。\n别小看每一个“顺手”的选择。"}, {"id": "T406", "theme": "棋道感悟", "position": "启蒙老师", "tone": "温和引导", "title": "关于厚", "body": "围棋里有个字叫“厚”。\n不是重，也不是多，\n是稳、是能撑、是有底气。\n一个人做到厚 ——\n说话不必大声，\n别人也听。"}, {"id": "T407", "theme": "棋道感悟", "position": "家庭顾问", "tone": "理性专业", "title": "关于势", "body": "势不是子力，\n是“未来的可能性”。\n你此刻走的一步棋，\n决定了你 10 步之后能走什么。\n每一个当下，\n都在为未来铺路。"}, {"id": "T408", "theme": "棋道感悟", "position": "校长", "tone": "温和引导", "title": "关于急", "body": "围棋高手最忌“急”。\n急子、急杀、急扳，\n步步都是漏。\n慢下来的人，\n反而走得更远。"}, {"id": "T409", "theme": "棋道感悟", "position": "进阶老师", "tone": "家常口吻", "title": "关于退与让", "body": "棋盘上没有“退”这个字，\n但有“让”。\n主动让，是格局；\n被迫让，是失误。\n会让的人 ——\n从来不吃亏。"}, {"id": "T410", "theme": "棋道感悟", "position": "启蒙老师", "tone": "感性走心", "title": "一子未落之前", "body": "一子未落之前，\n一切皆有可能。\n一子既落之后，\n就必须为它负责。\n这就是围棋教孩子的第一课 ——\n选择即承担。"}, {"id": "T411", "theme": "棋道感悟", "position": "家庭顾问", "tone": "家常口吻", "title": "复盘的意义", "body": "复盘不是为了懊悔，\n是为了下次别再犯。\n输了不复盘，\n就白输了。\n赢了不复盘，\n下次未必还能赢。"}, {"id": "T412", "theme": "棋道感悟", "position": "校长", "tone": "理性专业", "title": "关于取舍", "body": "围棋里没有全对，\n也没有全错，\n只有取舍。\n你舍了角上得了中腹，\n你舍了眼前得了未来。\n会取舍的人，\n人生也稳。"}, {"id": "T413", "theme": "棋道感悟", "position": "进阶老师", "tone": "温和引导", "title": "一子解千愁", "body": "有时候局面很复杂，\n想不清楚下哪，\n反而是最简单的一步 ——\n一子既下，思绪顿明。\n生活也是 ——\n别一直在原地想，\n先动起来。"}, {"id": "T414", "theme": "棋道感悟", "position": "家庭顾问", "tone": "感性走心", "title": "关于平常心", "body": "平常心不是无欲无求，\n是“该在意的在意、\n不该在意的放下”。\n输赢在意，\n但不为输赢失眠。\n这就是围棋教给我的平常心。"}, {"id": "T415", "theme": "棋道感悟", "position": "启蒙老师", "tone": "家常口吻", "title": "看得远的人", "body": "我常问孩子 ——\n“你这步棋看到几步之后？”\n高手看 10 步之后，\n中手看 3 步之后，\n新手看眼前。\n看得远的人，\n走得也稳。"}, {"id": "T416", "theme": "棋道感悟", "position": "校长", "tone": "感性走心", "title": "一副棋盘的一生", "body": "一副棋盘，\n陪一个孩子长大 ——\n从坐不住到能对着它想 20 分钟；\n从不敢下子到敢在关键处一击；\n从输了就哭到复盘时笑着说\n“我知道错哪了”。\n这就是围棋的一生。"}, {"id": "T417", "theme": "棋道感悟", "position": "进阶老师", "tone": "理性专业", "title": "关于手筋", "body": "手筋不是巧招，\n是“看得见别人看不见的地方”。\n眼力练到位了，\n手筋自然就来了。\n眼力练不到位，\n记再多手筋也是死记硬背。"}, {"id": "T418", "theme": "棋道感悟", "position": "家庭顾问", "tone": "温和引导", "title": "关于定式", "body": "定式是前人的智慧结晶，\n但定式不是圣旨。\n会用的人 ——\n该走定式时守本分，\n该弃定式时敢创新。\n用死的人，\n永远只是定式的奴隶。"}, {"id": "T419", "theme": "棋道感悟", "position": "校长", "tone": "家常口吻", "title": "关于赢", "body": "教了这么多年棋，\n我越来越确定 ——\n会赢的人，\n不是永远赢的人，\n是输了还愿意再来一盘的人。\n韧劲，比天赋值钱。"}, {"id": "T420", "theme": "棋道感悟", "position": "启蒙老师", "tone": "感性走心", "title": "每一颗棋子", "body": "每一颗棋子拿起来都不重，\n但你要知道 ——\n每一颗子落下，\n都是一次选择。\n而选择，\n是我们此生最珍贵的东西。"}, {"id": "T501", "theme": "学习心得", "position": "启蒙老师", "tone": "家常口吻", "title": "学棋前 100 局", "body": "学棋的前 100 局，\n我不建议家长看重结果。\n那是孩子建立“棋感”的阶段，\n输赢都是养分。\n100 局之后再谈胜率。"}, {"id": "T502", "theme": "学习心得", "position": "进阶老师", "tone": "理性专业", "title": "关于打谱", "body": "打谱这件事 ——\n一天一谱比一周十谱管用。\n慢慢摆、\n反复摆、\n摆到能自己讲出来。\n这才是打谱的正确姿势。"}, {"id": "T503", "theme": "学习心得", "position": "校长", "tone": "温和引导", "title": "三年后的分水岭", "body": "学棋 3 年之后，\n会出现一个分水岭 ——\n一部分孩子把围棋当成兴趣，\n一部分孩子把围棋当成朋友。\n后者会一辈子留在棋盘边。"}, {"id": "T504", "theme": "学习心得", "position": "家庭顾问", "tone": "感性走心", "title": "每周三小时", "body": "别小看每周固定 3 小时的学棋 ——\n一年就是 150 小时，\n三年就是 450 小时。\n任何一个孩子，\n用这么多时间做一件事，\n都会变得不一样。"}, {"id": "T505", "theme": "学习心得", "position": "启蒙老师", "tone": "温和引导", "title": "关于死活题", "body": "死活题不是罚孩子做的，\n是奖励孩子的。\n一天做一道，\n做对了、讲给你听，\n你听懂了、点点头，\n这就是最好的家庭学棋时间。"}, {"id": "T506", "theme": "学习心得", "position": "进阶老师", "tone": "家常口吻", "title": "关于对局量", "body": "对局量很重要，\n但不是“越多越好”。\n好的对局节奏是 ——\n下完一盘认真复盘一次，\n找出 3 个可改进的点。\n一天一盘认真的棋，\n胜过一天十盘随手棋。"}, {"id": "T507", "theme": "学习心得", "position": "校长", "tone": "理性专业", "title": "段位与实力", "body": "段位不是实力的全部证明，\n但段位是实力的一种可视化。\n别用段位定义孩子，\n也别否认段位的作用。\n该考的时候考，\n该缓的时候缓。"}, {"id": "T508", "theme": "学习心得", "position": "家庭顾问", "tone": "温和引导", "title": "关于停课", "body": "家长最纠结的一件事 ——\n“他学得很累，要不要停一段？”\n我的建议是 ——\n可以缓，但别断。\n一周两节改一节，\n一节课改半节，\n别让棋盘从他生活里消失。"}, {"id": "T509", "theme": "学习心得", "position": "启蒙老师", "tone": "感性走心", "title": "学出来了没", "body": "有家长问我 ——\n“学到几段算学出来了？”\n我说 ——\n学到孩子看到棋盘会笑、\n输了会哭、\n复盘会讲，\n就算学出来了。\n段位是后来的事。"}, {"id": "T510", "theme": "学习心得", "position": "进阶老师", "tone": "温和引导", "title": "每天 15 分钟", "body": "每天 15 分钟围棋时间，\n一年下来抵得上暑假集训一周。\n关键不是时长，\n是频率。\n别断，别急，别赶。"}, {"id": "T511", "theme": "学习心得", "position": "校长", "tone": "家常口吻", "title": "关于比赛的选择", "body": "关于比赛的选择 ——\n该报的报，别都报。\n一年 3 到 4 个含金量高的比赛，\n就够孩子长本事了。\n报得多，\n输得也多，\n反而磨没了信心。"}, {"id": "T512", "theme": "学习心得", "position": "家庭顾问", "tone": "理性专业", "title": "关于换教练", "body": "换教练这事，\n我的建议是 ——\n别频繁换，\n也别死守。\n一位教练带 2 到 3 年是黄金期，\n之后要根据孩子水平调整。\n教练不合手，孩子学不进。"}, {"id": "T513", "theme": "学习心得", "position": "启蒙老师", "tone": "家常口吻", "title": "关于线上对弈", "body": "线上对弈这事 ——\n有节奏地用，是磨刀；\n无节制地用，是消耗。\n一天 1 到 2 盘，\n每盘认真下，\n胜过一天连点 10 盘敷衍棋。"}, {"id": "T514", "theme": "学习心得", "position": "进阶老师", "tone": "感性走心", "title": "一个孩子的三年", "body": "我带过一个孩子三年 ——\n第一年他学会了闭嘴认真下；\n第二年他学会了输了不哭；\n第三年他学会了赢了不狂。\n段位没那么重要，\n这三样才是。"}, {"id": "T515", "theme": "学习心得", "position": "家庭顾问", "tone": "温和引导", "title": "学棋的黄金年龄", "body": "关于学棋的黄金年龄，\n我一直说 ——\n5 到 8 岁是入门黄金期，\n8 到 12 岁是进步黄金期，\n12 岁之后是心境黄金期。\n每个年龄段都有它的意义。"}, {"id": "T516", "theme": "学习心得", "position": "校长", "tone": "感性走心", "title": "一段没上完的段", "body": "我见过太多孩子 ——\n学到 3 段就断了、\n学到 5 段就放弃了、\n学到业余强段就转赛道了。\n我不觉得这是失败。\n他们从围棋里学到的思考、耐心、韧劲，\n会陪他们一辈子。"}, {"id": "T517", "theme": "学习心得", "position": "进阶老师", "tone": "理性专业", "title": "复盘的三个层次", "body": "复盘有三个层次 ——\n第一层：看每一步下得对不对；\n第二层：看整盘想不想得清；\n第三层：看自己心态稳不稳。\n大部分人只做到第一层，\n高手都能做到第三层。"}, {"id": "T518", "theme": "学习心得", "position": "启蒙老师", "tone": "家常口吻", "title": "快棋和慢棋", "body": "快棋练手感，\n慢棋练思考。\n都要下，\n别偏科。\n只下快棋的人反应快但没底，\n只下慢棋的人思路深但不灵。"}, {"id": "T519", "theme": "学习心得", "position": "家庭顾问", "tone": "温和引导", "title": "赛后的复盘", "body": "比赛之后一定要复盘，\n但不是当天。\n让孩子先缓一天，\n情绪落了、\n冷静了，\n复盘才有效。\n情绪上的复盘，\n都是自我批判。"}, {"id": "T520", "theme": "学习心得", "position": "校长", "tone": "感性走心", "title": "最大的收获", "body": "教这些年最大的收获 ——\n不是我培养了多少段位，\n也不是学生拿了多少奖，\n是我看见一个又一个孩子 ——\n从坐不住，\n到能对着棋盘一坐三小时。\n这就是围棋的力量。"}];
 
-  // ==== 状态 ====
-  function load() {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) return { days: [], style: 'random', milestones: [] };
-      const s = JSON.parse(raw);
-      return {
-        days: Array.isArray(s.days) ? s.days : [],
-        style: s.style || 'random',
-        milestones: Array.isArray(s.milestones) ? s.milestones : [],
-      };
-    } catch (e) {
-      return { days: [], style: 'random', milestones: [] };
-    }
-  }
-  function save(s) {
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); } catch (e) {}
-  }
+  var STYLE_LABELS = {
+    gentle:'温柔治愈', spicy:'辛辣毒舌', backup:'铁哥后援', classic:'古风典雅',
+    burning:'热血燃系', zen:'禅意清净', joke:'搞笑吐槽', master:'大师引言'
+  };
+  var STYLE_KEYS = Object.keys(STYLE_LABELS);
 
-  // ==== 工具 ====
-  function todayStr() {
-    const d = new Date();
-    const y = d.getFullYear();
-    const m = String(d.getMonth() + 1).padStart(2, '0');
-    const day = String(d.getDate()).padStart(2, '0');
-    return y + '-' + m + '-' + day;
+  var STORAGE_DAYS = 'luobo_days';        // 共享打卡日期集
+  var STORAGE_TEACHER = 'luobo_teacher_config';
+  var STORAGE_LUCK_TODAY = 'luobo_luck_today';
+  var STORAGE_LAST_STYLE = 'luobo_last_style';
+  var STORAGE_LAST_TEACHER = 'luobo_last_teacher_ids';
+
+  // ============ 工具函数 ============
+  function $(id) { return document.getElementById(id); }
+  function todayKey() {
+    var d = new Date();
+    return d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate();
   }
-  function daysBetween(a, b) {
-    const t1 = new Date(a + 'T00:00:00').getTime();
-    const t2 = new Date(b + 'T00:00:00').getTime();
-    return Math.round((t2 - t1) / 86400000);
+  function readJSON(key, fallback) {
+    try { var v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; }
+    catch(e) { return fallback; }
   }
-  function hashStr(s) {
-    let h = 0;
-    for (let i = 0; i < s.length; i++) {
-      h = ((h << 5) - h) + s.charCodeAt(i);
-      h |= 0;
-    }
-    return Math.abs(h);
+  function writeJSON(key, val) {
+    try { localStorage.setItem(key, JSON.stringify(val)); } catch(e) {}
   }
-  function computeStreak(days) {
-    if (!days.length) return 0;
-    const sorted = days.slice().sort();
-    const today = todayStr();
-    // 从今天倒推，找最近一个 checked 的日期，然后连续统计
-    let streak = 0;
-    let cur = today;
-    // 如果今天没打卡，往前看昨天
-    if (!sorted.includes(today)) {
-      const yest = new Date(today + 'T00:00:00');
-      yest.setDate(yest.getDate() - 1);
-      cur = yest.toISOString().slice(0, 10);
-      if (!sorted.includes(cur)) return 0;
-    }
-    const set = new Set(sorted);
-    while (set.has(cur)) {
-      streak++;
-      const d = new Date(cur + 'T00:00:00');
-      d.setDate(d.getDate() - 1);
-      cur = d.toISOString().slice(0, 10);
-    }
-    return streak;
+  function showToast(msg) {
+    var t = $('dr-toast'); if (!t) return;
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(function() { t.classList.remove('show'); }, 1600);
+  }
+  function pick(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
   }
 
-  // ==== 选句 ====
-  function pickQuote(styleKey, seed) {
-    let key = styleKey;
-    if (!key || key === 'random') {
-      const rndKey = STYLE_KEYS[(seed || Math.floor(Math.random() * 1e9)) % STYLE_KEYS.length];
-      key = rndKey;
+  // ============ 打卡日历 ============
+  function markToday() {
+    var days = readJSON(STORAGE_DAYS, []);
+    var k = todayKey();
+    if (days.indexOf(k) === -1) {
+      days.push(k);
+      writeJSON(STORAGE_DAYS, days);
     }
-    const pool = QUOTES[key];
-    if (!pool) return { text: '……', style: 'gentle', styleLabel: '🌸 温柔治愈' };
-    const idx = (seed !== undefined ? seed : Math.floor(Math.random() * 1e9)) % pool.quotes.length;
-    return {
-      text: pool.quotes[idx],
-      style: key,
-      styleLabel: pool.icon + ' ' + pool.label,
-    };
-  }
-  function todayQuote(styleKey) {
-    const seed = hashStr(todayStr() + '_' + (styleKey || 'random'));
-    return pickQuote(styleKey, seed);
-  }
-  function todaySign() {
-    const seed = hashStr(todayStr() + '_sign');
-    const idx = seed % DAILY_SIGN.length;
-    return DAILY_SIGN[idx];
-  }
-
-  // ==== 渲染 ====
-  function renderQuote() {
-    // v2 · 每次都是随机风格随机句，追求惊喜感（style 已锁 random）
-    const q = pickQuote('random');
-    document.getElementById('luobo-quote').textContent = q.text;
-    document.getElementById('luobo-style-tag').textContent = '🎲 ' + q.styleLabel;
-  }
-  function renderSign() {
-    const s = todaySign();
-    document.getElementById('luobo-daily-text').textContent = s.text;
-    document.getElementById('luobo-daily-source').textContent = '—— ' + s.source;
-  }
-  function renderStreak() {
-    const state = load();
-    const streak = computeStreak(state.days);
-    document.getElementById('luobo-streak-days').textContent = streak;
-    document.getElementById('luobo-total-days').textContent = state.days.length;
-    // 今日打卡按钮状态：已打卡时提示"再摇一句"，仍可点击（惊喜再来）
-    const btn = document.getElementById('luobo-btn-check');
-    if (state.days.includes(todayStr())) {
-      btn.textContent = '🎲 再摇一句 · 今日已打卡';
-      btn.classList.add('done');
-    } else {
-      btn.textContent = '🎲 今日打卡';
-      btn.classList.remove('done');
-    }
-  }
-  function renderStyles() {
-    // v2 · 8 风格不外露 (惊喜感优先)。此函数保留占位，不做任何 DOM 输出。
+    renderCalendar();
   }
   function renderCalendar() {
-    const state = load();
-    const now = new Date();
-    const y = now.getFullYear();
-    const m = now.getMonth();
-    const first = new Date(y, m, 1);
-    const daysInMonth = new Date(y, m + 1, 0).getDate();
-    const startWeekday = first.getDay(); // 0=Sun..6=Sat
-    const today = todayStr();
-
-    document.getElementById('luobo-cal-month').textContent = (m + 1) + '月打卡';
-    let monthChecked = 0;
-    const grid = document.getElementById('luobo-cal-grid');
+    var grid = $('dr-cal-grid');
+    if (!grid) return;
+    var days = readJSON(STORAGE_DAYS, []);
+    var now = new Date();
+    var y = now.getFullYear(), m = now.getMonth();
+    var lastDay = new Date(y, m+1, 0).getDate();
+    var todayD = now.getDate();
+    var monthChecked = 0;
     grid.innerHTML = '';
-    // 空占位
-    for (let i = 0; i < startWeekday; i++) {
-      const c = document.createElement('div');
-      c.className = 'luobo-cal-cell';
-      c.style.background = 'transparent';
-      grid.appendChild(c);
+    for (var d = 1; d <= lastDay; d++) {
+      var key = y + '-' + (m+1) + '-' + d;
+      var cell = document.createElement('div');
+      cell.className = 'dr-cal-day';
+      cell.textContent = d;
+      if (days.indexOf(key) !== -1) { cell.classList.add('checked'); monthChecked++; }
+      if (d === todayD) cell.classList.add('today');
+      grid.appendChild(cell);
     }
-    // 日期格
-    for (let d = 1; d <= daysInMonth; d++) {
-      const ds = y + '-' + String(m + 1).padStart(2, '0') + '-' + String(d).padStart(2, '0');
-      const c = document.createElement('div');
-      c.className = 'luobo-cal-cell';
-      c.textContent = d;
-      if (state.days.includes(ds)) {
-        c.classList.add('checked');
-        monthChecked++;
-      }
-      if (ds === today) c.classList.add('today');
-      if (ds > today) c.classList.add('future');
-      grid.appendChild(c);
-    }
-    document.getElementById('luobo-cal-count').textContent = monthChecked + '/' + daysInMonth;
-  }
-  function renderAll() {
-    renderStreak();
-    renderQuote();
-    renderSign();
-    renderStyles();
-    renderCalendar();
+    var cnt = $('dr-cal-count'); if (cnt) cnt.textContent = monthChecked + ' 天';
   }
 
-  // ==== 交互 ====
-  function switchStyle(key) {
-    const state = load();
-    state.style = key;
-    save(state);
+  // ============ Tab 切换 ============
+  function switchTab(name) {
+    var btns = document.querySelectorAll('.dr-tab-btn');
+    for (var i=0;i<btns.length;i++) {
+      btns[i].classList.toggle('active', btns[i].getAttribute('data-tab') === name);
+    }
+    var panels = ['luobo','luck','teacher'];
+    for (var j=0;j<panels.length;j++) {
+      var p = $('dr-tab-' + panels[j]);
+      if (p) p.classList.toggle('active', panels[j] === name);
+    }
+    // 首次切到某 tab 时初始化
+    if (name === 'luck' && !$('luck-name').__inited) { drawLuck(); $('luck-name').__inited = true; }
+    if (name === 'teacher') {
+      var cfg = readJSON(STORAGE_TEACHER, null);
+      if (!cfg) { openTeacherConfig(); }
+      else if (!$('teacher-title').__inited) { renderTeacherCard(); $('teacher-title').__inited = true; }
+    }
   }
-  window.luoboRefresh = function() {
-    renderQuote();
-  };
-  window.luoboCheckIn = function() {
-    const state = load();
-    const today = todayStr();
-    const alreadyChecked = state.days.includes(today);
-    // 无论是否已打卡，每次点击都随机换一句 (惊喜感)
-    state.style = 'random';
-    save(state);
-    renderQuote();
-    // 按钮微动画
-    const btn = document.getElementById('luobo-btn-check');
-    if (btn) {
-      btn.classList.remove('rolling');
-      // 强制回流以重启动画
-      void btn.offsetWidth;
-      btn.classList.add('rolling');
+
+  // ============ 抽屉开关 ============
+  function openPanel(tab) {
+    var mask = $('daily-ritual-mask'), panel = $('daily-ritual-panel');
+    if (!mask || !panel) return;
+    mask.classList.add('show');
+    panel.classList.add('show');
+    document.body.style.overflow = 'hidden';
+    renderCalendar();
+    // 首次进入萝卜精 tab 时渲染
+    if (!$('luobo-quote-text').__inited) {
+      renderLuoboQuote();
+      $('luobo-quote-text').__inited = true;
     }
-    if (alreadyChecked) {
-      // 已打卡：只是抽新句，不重复计数、不再触发里程碑
-      return;
+    if (tab) switchTab(tab);
+  }
+  function closePanel() {
+    var mask = $('daily-ritual-mask'), panel = $('daily-ritual-panel');
+    if (mask) mask.classList.remove('show');
+    if (panel) panel.classList.remove('show');
+    document.body.style.overflow = '';
+    // 顺便关闭定制向导
+    var cm = $('dr-teacher-config-modal');
+    if (cm) cm.classList.remove('show');
+  }
+
+  // ============ 萝卜精 tab ============
+  function renderLuoboQuote() {
+    // 每次点击换风格换语录
+    var lastStyle = localStorage.getItem(STORAGE_LAST_STYLE) || '';
+    var pool = STYLE_KEYS.filter(function(k) { return k !== lastStyle; });
+    var style = pick(pool);
+    localStorage.setItem(STORAGE_LAST_STYLE, style);
+    var q = pick(QUOTES[style].quotes);
+    $('luobo-style-badge').textContent = QUOTES[style].label || STYLE_LABELS[style];
+    $('luobo-quote-text').textContent = (typeof q === 'string') ? q : (q.text || '');
+    $('luobo-quote-tag').textContent = '— 萝卜精' + (QUOTES[style].icon ? ' ' + QUOTES[style].icon : '');
+
+    var s = pick(DAILY_SIGN);
+    $('luobo-sign-text').textContent = s.text;
+    $('luobo-sign-source').textContent = '— ' + s.source;
+  }
+  function luoboCheckin() {
+    markToday();
+    renderLuoboQuote();
+    showToast('打卡成功 · 已换一句');
+  }
+
+  // ============ 每日棋运 tab ============
+  function weightedPickLuck() {
+    // 计算总权重
+    var total = 0;
+    for (var i=0;i<LUCK_SIGNS.length;i++) {
+      total += (LEVEL_WEIGHTS[LUCK_SIGNS[i].level] || 1);
     }
-    // 首次打卡：加入 days 并检查里程碑
-    state.days.push(today);
-    state.days.sort();
-    const streak = computeStreak(state.days);
-    const newMilestones = [];
-    MILESTONES.forEach(m => {
-      if (streak >= m.days && !state.milestones.includes(m.days)) {
-        state.milestones.push(m.days);
-        newMilestones.push(m);
+    var r = Math.random() * total;
+    var acc = 0;
+    for (var j=0;j<LUCK_SIGNS.length;j++) {
+      acc += (LEVEL_WEIGHTS[LUCK_SIGNS[j].level] || 1);
+      if (r <= acc) return LUCK_SIGNS[j];
+    }
+    return LUCK_SIGNS[0];
+  }
+  function drawLuck(force) {
+    // 当日已抽过就沿用；除非 force
+    var stored = readJSON(STORAGE_LUCK_TODAY, null);
+    var sign;
+    if (!force && stored && stored.date === todayKey() && stored.id) {
+      for (var i=0;i<LUCK_SIGNS.length;i++) {
+        if (LUCK_SIGNS[i].id === stored.id) { sign = LUCK_SIGNS[i]; break; }
       }
+    }
+    if (!sign) {
+      sign = weightedPickLuck();
+      writeJSON(STORAGE_LUCK_TODAY, { date: todayKey(), id: sign.id });
+    }
+    renderLuck(sign);
+    markToday();
+  }
+  function renderLuck(sign) {
+    $('luck-name').textContent = sign.name;
+    $('luck-level-badge').textContent = sign.level;
+    var color = LEVEL_COLORS[sign.level] || '#8b1a1a';
+    $('luck-level-badge').style.background = color;
+    $('luck-name').style.color = color;
+    var verse = $('luck-verse');
+    verse.innerHTML = '';
+    for (var i=0;i<sign.verse.length;i++) {
+      var line = document.createElement('div');
+      line.className = 'luck-verse-line';
+      line.textContent = sign.verse[i];
+      verse.appendChild(line);
+    }
+    $('luck-advice').textContent = sign.advice;
+  }
+  function luckDrawAgain() {
+    // 允许重抽今日签
+    var sign = weightedPickLuck();
+    writeJSON(STORAGE_LUCK_TODAY, { date: todayKey(), id: sign.id });
+    renderLuck(sign);
+    showToast('已重摇 · ' + sign.level);
+  }
+
+  // ============ 教师文案卡 tab ============
+  function openTeacherConfig() {
+    var m = $('dr-teacher-config-modal');
+    if (m) m.classList.add('show');
+    var cfg = readJSON(STORAGE_TEACHER, null) || {};
+    // 恢复已选
+    selectConfigOpt('cfg-position-options', cfg.position);
+    selectConfigOpt('cfg-tone-options', cfg.tone);
+    if (cfg.signature) $('cfg-signature-input').value = cfg.signature;
+    updateConfigConfirmBtn();
+  }
+  function selectConfigOpt(containerId, value) {
+    var opts = document.querySelectorAll('#' + containerId + ' .dr-config-opt');
+    for (var i=0;i<opts.length;i++) {
+      opts[i].classList.toggle('selected', opts[i].getAttribute('data-value') === value);
+    }
+  }
+  function updateConfigConfirmBtn() {
+    var p = document.querySelector('#cfg-position-options .dr-config-opt.selected');
+    var t = document.querySelector('#cfg-tone-options .dr-config-opt.selected');
+    var btn = $('cfg-confirm-btn');
+    if (btn) btn.disabled = !(p && t);
+  }
+  function teacherConfigConfirm() {
+    var p = document.querySelector('#cfg-position-options .dr-config-opt.selected');
+    var t = document.querySelector('#cfg-tone-options .dr-config-opt.selected');
+    if (!p || !t) { showToast('请选择定位和调性'); return; }
+    var sig = $('cfg-signature-input').value.trim();
+    var cfg = {
+      position: p.getAttribute('data-value'),
+      tone: t.getAttribute('data-value'),
+      signature: sig
+    };
+    writeJSON(STORAGE_TEACHER, cfg);
+    $('dr-teacher-config-modal').classList.remove('show');
+    renderTeacherCard();
+    showToast('定制完成');
+  }
+  function teacherConfigCancel() {
+    $('dr-teacher-config-modal').classList.remove('show');
+    // 先看看：使用默认（启蒙老师·温和引导）
+    var cfg = readJSON(STORAGE_TEACHER, null);
+    if (!cfg) {
+      writeJSON(STORAGE_TEACHER, { position:'启蒙老师', tone:'温和引导', signature:'', preview:true });
+    }
+    renderTeacherCard();
+  }
+  function scoreCard(card, cfg) {
+    var s = 0;
+    if (card.position === cfg.position) s += 3;
+    if (card.tone === cfg.tone) s += 2;
+    return s;
+  }
+  function selectTeacherCard() {
+    var cfg = readJSON(STORAGE_TEACHER, { position:'启蒙老师', tone:'温和引导', signature:'' });
+    var recent = readJSON(STORAGE_LAST_TEACHER, []);
+    // 打分池
+    var scored = TEACHER_CARDS.map(function(c) {
+      return { card: c, score: scoreCard(c, cfg) };
     });
-    save(state);
-    renderStreak();
-    renderCalendar();
-    if (newMilestones.length) {
-      const m = newMilestones[newMilestones.length - 1];
-      setTimeout(() => {
-        alert(m.emoji + ' 里程碑 · ' + m.title + '\n\n' + m.desc + '\n\n连续打卡 ' + streak + ' 天！');
-      }, 200);
+    // 按分组
+    scored.sort(function(a,b) { return b.score - a.score; });
+    var maxScore = scored[0].score;
+    // 高分池
+    var pool = scored.filter(function(x) { return x.score === maxScore; }).map(function(x) { return x.card; });
+    // 排除最近 5 张
+    var filtered = pool.filter(function(c) { return recent.indexOf(c.id) === -1; });
+    if (filtered.length === 0) filtered = pool;  // 池小则允许重复
+    // 如果高分池太小（<8），扩到次高分
+    if (filtered.length < 8 && scored.length > pool.length) {
+      var secondScore = scored[pool.length] ? scored[pool.length].score : 0;
+      var extra = scored.filter(function(x) { return x.score === secondScore; }).map(function(x) { return x.card; });
+      var extraFiltered = extra.filter(function(c) { return recent.indexOf(c.id) === -1; });
+      filtered = filtered.concat(extraFiltered.length ? extraFiltered : extra);
     }
-  };
-  window.toggleLuoboSpirit = function() {
-    const panel = document.getElementById('luobo-panel');
-    const mask = document.getElementById('luobo-drawer-mask');
-    const opening = panel.classList.contains('hidden');
-    panel.classList.toggle('hidden');
-    if (mask) {
-      if (opening) mask.classList.add('show');
-      else mask.classList.remove('show');
+    var card = pick(filtered);
+    // 更新历史
+    recent.push(card.id);
+    if (recent.length > 5) recent.shift();
+    writeJSON(STORAGE_LAST_TEACHER, recent);
+    return { card: card, cfg: cfg };
+  }
+  function renderTeacherCard() {
+    var r = selectTeacherCard();
+    var card = r.card, cfg = r.cfg;
+    $('teacher-theme-tag').textContent = card.theme;
+    $('teacher-title').textContent = card.title;
+    $('teacher-body').textContent = card.body;
+    $('teacher-position-hint').textContent = cfg.position + ' · ' + cfg.tone;
+    $('teacher-signature').textContent = cfg.signature ? ('— ' + cfg.signature) : '— 老师自填';
+  }
+  function teacherNext() {
+    renderTeacherCard();
+    markToday();
+  }
+  function teacherReconfig() {
+    openTeacherConfig();
+  }
+  function teacherCopyText() {
+    var title = $('teacher-title').textContent;
+    var body = $('teacher-body').textContent;
+    var sig = $('teacher-signature').textContent;
+    var text = title + '\n\n' + body + '\n\n' + sig;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function() {
+        showToast('已复制 · 可粘贴到朋友圈');
+      }, function() { fallbackCopy(text); });
+    } else {
+      fallbackCopy(text);
     }
-    if (opening) {
-      renderAll();
-    }
-  };
-  window.__luoboOpenLuoboSpirit = function() {
-    const panel = document.getElementById('luobo-panel');
-    if (panel && panel.classList.contains('hidden')) {
-      window.toggleLuoboSpirit();
-    }
-  };
+    markToday();
+  }
+  function fallbackCopy(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.top = '-9999px';
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); showToast('已复制'); } catch(e) { showToast('复制失败，请手动选中'); }
+    document.body.removeChild(ta);
+  }
 
-  // ==== 分享图 ====
-  function drawShare() {
-    const canvas = document.getElementById('luobo-share-canvas');
-    const ctx = canvas.getContext('2d');
-    const W = canvas.width, H = canvas.height;
-    const state = load();
-    const streak = computeStreak(state.days);
-    const q = todayQuote(state.style);
-    const sign = todaySign();
+  // ============ 教师文案卡 · PNG 下载 ============
+  function teacherDownloadPNG() {
+    var title = $('teacher-title').textContent;
+    var body = $('teacher-body').textContent;
+    var theme = $('teacher-theme-tag').textContent;
+    var sig = $('teacher-signature').textContent;
 
-    // 背景 · 米黄宣纸
-    const grad = ctx.createLinearGradient(0, 0, 0, H);
-    grad.addColorStop(0, '#faf7f0');
-    grad.addColorStop(1, '#e8dfc8');
+    var W = 750, H = 1000;
+    var canvas = document.createElement('canvas');
+    canvas.width = W; canvas.height = H;
+    var ctx = canvas.getContext('2d');
+
+    // 背景
+    var grad = ctx.createLinearGradient(0,0,0,H);
+    grad.addColorStop(0, '#fdfbf5');
+    grad.addColorStop(1, '#f5efe0');
     ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, W, H);
+    ctx.fillRect(0,0,W,H);
 
-    // 顶部装饰条
-    const topGrad = ctx.createLinearGradient(0, 0, W, 0);
-    topGrad.addColorStop(0, '#b8391f');
-    topGrad.addColorStop(0.5, '#c9a961');
-    topGrad.addColorStop(1, '#4a7c59');
-    ctx.fillStyle = topGrad;
-    ctx.fillRect(0, 0, W, 12);
+    // 边框装饰
+    ctx.strokeStyle = 'rgba(139,26,26,.18)';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(30, 30, W-60, H-60);
+    ctx.strokeStyle = 'rgba(139,26,26,.08)';
+    ctx.lineWidth = 1;
+    ctx.strokeRect(42, 42, W-84, H-84);
+
+    // 顶部主题标签
+    ctx.fillStyle = 'rgba(139,26,26,.08)';
+    var tagW = 120, tagH = 32;
+    var tagX = (W - tagW) / 2, tagY = 80;
+    roundRect(ctx, tagX, tagY, tagW, tagH, 4); ctx.fill();
+    ctx.fillStyle = '#8b1a1a';
+    ctx.font = '18px "Songti SC","STSong",serif';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(theme, W/2, tagY + tagH/2);
 
     // 标题
-    ctx.fillStyle = '#b8391f';
-    ctx.font = 'bold 44px "STKaiti","KaiTi",serif';
-    ctx.textAlign = 'center';
-    ctx.fillText('萝卜精 · 今日打卡', W / 2, 90);
+    ctx.fillStyle = '#8b1a1a';
+    ctx.font = 'bold 32px "Songti SC","STSong",serif';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+    wrapText(ctx, title, W/2, 145, W-140, 44, 'center');
 
-    // 副标题
-    ctx.fillStyle = '#a89880';
-    ctx.font = '22px "STKaiti","KaiTi",serif';
-    ctx.fillText('以棋会友 · 一日一手 · 与君共修', W / 2, 130);
-
-    // 打卡天数大数字
-    ctx.fillStyle = '#4a7c59';
-    ctx.font = 'bold 96px "STKaiti","KaiTi",serif';
-    ctx.fillText(String(streak), W / 2, 240);
-    ctx.fillStyle = '#1a1a1a';
-    ctx.font = '26px "STKaiti","KaiTi",serif';
-    ctx.fillText('连续打卡天数', W / 2, 285);
-
-    // 分隔线
-    ctx.strokeStyle = '#a89880';
-    ctx.setLineDash([8, 6]);
-    ctx.beginPath();
-    ctx.moveTo(80, 340);
-    ctx.lineTo(W - 80, 340);
-    ctx.stroke();
-    ctx.setLineDash([]);
-
-    // 今日一句 · 引号
-    ctx.fillStyle = '#b8391f';
-    ctx.font = 'bold 60px "STKaiti","KaiTi",serif';
-    ctx.textAlign = 'left';
-    ctx.fillText('「', 60, 430);
-
-    // 今日一句 · 正文（自动换行）
-    ctx.fillStyle = '#1a1a1a';
-    ctx.font = '30px "STKaiti","KaiTi",serif';
-    const quoteLines = wrapText(ctx, q.text, W - 160);
-    let ly = 480;
-    quoteLines.forEach(line => {
-      ctx.fillText(line, 100, ly);
-      ly += 46;
-    });
-
-    // 右下引号
-    ctx.fillStyle = '#b8391f';
-    ctx.font = 'bold 60px "STKaiti","KaiTi",serif';
-    ctx.textAlign = 'right';
-    ctx.fillText('」', W - 60, ly + 20);
-
-    // 风格标签
-    ctx.fillStyle = '#4a7c59';
-    ctx.font = '20px "STKaiti","KaiTi",serif';
-    ctx.textAlign = 'left';
-    ctx.fillText('— ' + q.styleLabel + ' —', 100, ly + 60);
-
-    // 每日一签框
-    const signY = Math.max(ly + 120, 780);
-    ctx.strokeStyle = '#c9a961';
-    ctx.lineWidth = 4;
-    ctx.beginPath();
-    ctx.moveTo(80, signY);
-    ctx.lineTo(80, signY + 110);
-    ctx.stroke();
+    // 分割线
+    var titleLines = Math.ceil((title.length * 32) / (W-140));
+    var bodyStart = 145 + titleLines * 44 + 24;
+    ctx.strokeStyle = 'rgba(139,26,26,.15)';
     ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(120, bodyStart - 12); ctx.lineTo(W-120, bodyStart - 12);
+    ctx.stroke();
 
-    ctx.fillStyle = '#c9a961';
-    ctx.font = 'bold 18px "STKaiti","KaiTi",serif';
-    ctx.textAlign = 'left';
-    ctx.fillText('◆ 每日一签 ◆', 110, signY + 25);
+    // 正文
+    ctx.fillStyle = '#2a2a2a';
+    ctx.font = '22px "PingFang SC","STSong",sans-serif';
+    ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+    wrapText(ctx, body, 80, bodyStart, W-160, 38, 'left');
 
-    ctx.fillStyle = '#1a1a1a';
-    ctx.font = '24px "STKaiti","KaiTi",serif';
-    ctx.fillText(sign.text, 110, signY + 65);
+    // 底部落款
+    ctx.strokeStyle = 'rgba(0,0,0,.1)';
+    ctx.beginPath();
+    ctx.moveTo(80, H-140); ctx.lineTo(W-80, H-140);
+    ctx.stroke();
 
-    ctx.fillStyle = '#a89880';
-    ctx.font = '16px "STKaiti","KaiTi",serif';
-    ctx.textAlign = 'right';
-    ctx.fillText('—— ' + sign.source, W - 100, signY + 100);
+    ctx.fillStyle = '#888';
+    ctx.font = '16px "PingFang SC",sans-serif';
+    ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+    ctx.fillText(sig, W-80, H-110);
 
-    // 底部品牌
-    ctx.fillStyle = '#a89880';
-    ctx.font = '18px "STKaiti","KaiTi",serif';
+    // 底部品牌水印
+    ctx.fillStyle = '#a08b5c';
+    ctx.font = '14px "PingFang SC",sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText('萝卜干聊围棋教育  ·  weiqiluobogan.com', W / 2, H - 60);
+    ctx.fillText('萝卜干聊围棋教育 · 每日棋事簿', W/2, H-70);
 
-    ctx.fillStyle = '#b8391f';
-    ctx.font = '16px "STKaiti","KaiTi",serif';
-    ctx.fillText('🥕 每日打卡 · 与萝卜精共修 🥕', W / 2, H - 30);
+    // 下载
+    canvas.toBlob(function(blob) {
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = '教师文案卡_' + Date.now() + '.png';
+      document.body.appendChild(a); a.click();
+      document.body.removeChild(a);
+      setTimeout(function() { URL.revokeObjectURL(url); }, 500);
+      showToast('图片已生成');
+      markToday();
+    }, 'image/png');
   }
-  function wrapText(ctx, text, maxWidth) {
-    const chars = text.split('');
-    const lines = [];
-    let cur = '';
-    for (let i = 0; i < chars.length; i++) {
-      const trial = cur + chars[i];
-      if (ctx.measureText(trial).width > maxWidth && cur !== '') {
-        lines.push(cur);
-        cur = chars[i];
+  function roundRect(ctx, x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x+r, y);
+    ctx.lineTo(x+w-r, y); ctx.quadraticCurveTo(x+w, y, x+w, y+r);
+    ctx.lineTo(x+w, y+h-r); ctx.quadraticCurveTo(x+w, y+h, x+w-r, y+h);
+    ctx.lineTo(x+r, y+h); ctx.quadraticCurveTo(x, y+h, x, y+h-r);
+    ctx.lineTo(x, y+r); ctx.quadraticCurveTo(x, y, x+r, y);
+    ctx.closePath();
+  }
+  function wrapText(ctx, text, x, y, maxWidth, lineHeight, align) {
+    var chars = text.split('');
+    var line = '';
+    var offsetY = 0;
+    for (var i=0;i<chars.length;i++) {
+      var testLine = line + chars[i];
+      var testWidth = ctx.measureText(testLine).width;
+      if (chars[i] === '\n') {
+        ctx.fillText(line, x, y + offsetY);
+        line = ''; offsetY += lineHeight;
+      } else if (testWidth > maxWidth && line.length > 0) {
+        ctx.fillText(line, x, y + offsetY);
+        line = chars[i]; offsetY += lineHeight;
       } else {
-        cur = trial;
+        line = testLine;
       }
     }
-    if (cur) lines.push(cur);
-    return lines;
+    if (line) ctx.fillText(line, x, y + offsetY);
   }
-  window.luoboShare = function() {
-    drawShare();
-    document.getElementById('luobo-share-modal').classList.add('show');
-  };
-  window.closeLuoboShare = function() {
-    document.getElementById('luobo-share-modal').classList.remove('show');
-  };
 
-  // ==== Owner Mode ====
-  function applyOwnerMode() {
-    if (localStorage.getItem('luobogan_owner') === '1') {
-      const fab = document.getElementById('luobo-fab');
-      if (fab) fab.classList.add('owner');
+  // ============ 事件绑定 ============
+  function bindEvents() {
+    var tabs = document.querySelectorAll('.dr-tab-btn');
+    for (var i=0;i<tabs.length;i++) {
+      tabs[i].addEventListener('click', function() {
+        switchTab(this.getAttribute('data-tab'));
+      });
     }
+    // 定制向导选项
+    var opts = document.querySelectorAll('#cfg-position-options .dr-config-opt, #cfg-tone-options .dr-config-opt');
+    for (var j=0;j<opts.length;j++) {
+      opts[j].addEventListener('click', function() {
+        var parent = this.parentElement;
+        var sibs = parent.querySelectorAll('.dr-config-opt');
+        for (var k=0;k<sibs.length;k++) sibs[k].classList.remove('selected');
+        this.classList.add('selected');
+        updateConfigConfirmBtn();
+      });
+    }
+    // ESC 关闭
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' || e.keyCode === 27) {
+        var panel = $('daily-ritual-panel');
+        if (panel && panel.classList.contains('show')) closePanel();
+      }
+    });
   }
 
-  // ==== 启动 ====
-  document.addEventListener('DOMContentLoaded', function() {
-    applyOwnerMode();
-    renderAll();
-  });
+  // ============ 暴露全局 ============
+  window.__luoboOpenDailyRitual = function(tab) { openPanel(tab); };
+  window.__closeDailyRitual = closePanel;
+  window.__luoboCheckin = luoboCheckin;
+  window.__luckDraw = luckDrawAgain;
+  window.__teacherCopyText = teacherCopyText;
+  window.__teacherDownloadPNG = teacherDownloadPNG;
+  window.__teacherNext = teacherNext;
+  window.__teacherReconfig = teacherReconfig;
+  window.__teacherConfigConfirm = teacherConfigConfirm;
+  window.__teacherConfigCancel = teacherConfigCancel;
+  // 兼容旧钩子（v3.10 -> v3.11 过渡）
+  window.__luoboOpenLuoboSpirit = function() { openPanel('luobo'); };
+
+  // ============ 初始化 ============
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bindEvents);
+  } else {
+    bindEvents();
+  }
+
 })();
 </script>
-<!-- ===== LUOBO-SPIRIT v2.0 END ===== -->
+<!-- ===== DAILY-RITUAL v1.0 END ===== -->
 
 </body>
 </html>
