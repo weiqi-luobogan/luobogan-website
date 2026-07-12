@@ -1211,6 +1211,19 @@
       <a href="/xxyd/" class="nav-link" style="color:var(--seal);font-weight:600">学习园地 <span style="font-size:10px;background:var(--seal);color:#fff;padding:1px 6px;border-radius:8px;margin-left:2px;letter-spacing:.05em">NEW</span></a>
       <a href="#ability-test" class="nav-link nav-toggle" data-target="ability-test" data-role="teacher">教学能力测试 · 教师版</a>
       <a href="#ability-test" class="nav-link nav-toggle" data-target="ability-test" data-role="parent">教育认知度测试 · 家长版</a>
+<!-- ===== LUOBO-NAV-EXT v1.0 START ===== -->
+<span class="nav-sep" aria-hidden="true" style="display:inline-block;width:1px;height:14px;background:var(--line,#d9c9a0);opacity:.6;margin:0 4px"></span>
+<a href="javascript:void(0)" class="nav-link nav-luobo-ext" onclick="if(window.__luoboOpenLuoboSpirit)window.__luoboOpenLuoboSpirit();return false;" style="color:var(--seal,#a94b3d);font-weight:600">🥕 萝卜精</a>
+<a href="javascript:void(0)" class="nav-link nav-luobo-ext" onclick="if(window.__luoboOpenQuiz)window.__luoboOpenQuiz();return false;">你是哪位棋手</a>
+<a href="javascript:void(0)" class="nav-link nav-luobo-ext" onclick="if(window.__luoboOpenMasterMap)window.__luoboOpenMasterMap();return false;">大师星图</a>
+<style>
+/* v3.10 header 加宽 + 收窄默认间距，避免 7 个 nav-link 拥挤 */
+header .max-w-5xl{max-width:88rem!important;}
+header nav.hidden.md\:flex{gap:14px!important;flex-wrap:wrap;justify-content:flex-end;}
+header nav .nav-luobo-ext{white-space:nowrap;}
+</style>
+<!-- ===== LUOBO-NAV-EXT v1.0 END ===== -->
+
       <a href="#contact" class="nav-link nav-toggle text-seal font-medium" data-target="contact">联系我们</a>
     </nav>
   </div>
@@ -4646,858 +4659,6 @@ function hideParentGuide(){
   })();
 </script>
 
-<!-- ===== 萝卜精 v1.0 · 围棋打卡搭子 · 开始 ===== -->
-<style>
-/* ============ 萝卜精 v1.0 样式 ============ */
-:root {
-  --luobo-ink: #1a1a1a;
-  --luobo-paper: #faf7f0;
-  --luobo-paper-deep: #f0ebe0;
-  --luobo-line: #a89880;
-  --luobo-accent: #b8391f;
-  --luobo-jade: #4a7c59;
-  --luobo-gold: #c9a961;
-  --luobo-shadow: rgba(30, 20, 10, 0.15);
-}
-
-/* 悬浮按钮 */
-#luobo-fab {
-  position: fixed;
-  right: 20px;
-  bottom: 20px;
-  width: 56px;
-  height: 56px;
-  border: none;
-  border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, #4a4a4a 0%, #1a1a1a 60%, #000 100%);
-  box-shadow: 0 6px 20px var(--luobo-shadow), inset 2px 2px 5px rgba(255,255,255,0.1), inset -2px -2px 5px rgba(0,0,0,0.5);
-  cursor: pointer;
-  z-index: 9998;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #faf7f0;
-  font-size: 22px;
-  font-weight: bold;
-  font-family: "STKaiti", "KaiTi", serif;
-}
-#luobo-fab:hover {
-  transform: scale(1.08) rotate(-5deg);
-  box-shadow: 0 8px 26px rgba(30, 20, 10, 0.25);
-}
-#luobo-fab.owner {
-  background: radial-gradient(circle at 30% 30%, #d94a2b 0%, #a02010 60%, #6b0e05 100%);
-}
-#luobo-fab .luobo-fab-badge {
-  position: absolute;
-  top: -4px;
-  right: -4px;
-  min-width: 20px;
-  height: 20px;
-  padding: 0 5px;
-  border-radius: 10px;
-  background: var(--luobo-accent);
-  color: white;
-  font-size: 11px;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid var(--luobo-paper);
-  font-family: sans-serif;
-}
-
-/* 主面板 */
-#luobo-panel {
-  position: fixed;
-  right: 20px;
-  bottom: 90px;
-  width: 340px;
-  max-width: calc(100vw - 40px);
-  max-height: calc(100vh - 120px);
-  overflow-y: auto;
-  background: var(--luobo-paper);
-  border: 1px solid var(--luobo-line);
-  border-radius: 12px;
-  box-shadow: 0 12px 40px rgba(30, 20, 10, 0.25);
-  z-index: 9999;
-  padding: 0;
-  font-family: "STKaiti", "KaiTi", "Songti SC", serif;
-  color: var(--luobo-ink);
-  transform-origin: bottom right;
-  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.28s ease;
-}
-#luobo-panel.hidden {
-  transform: scale(0.3) translate(30%, 30%);
-  opacity: 0;
-  pointer-events: none;
-}
-#luobo-panel::before {
-  content: "";
-  display: block;
-  height: 6px;
-  background: linear-gradient(90deg, var(--luobo-accent) 0%, var(--luobo-gold) 50%, var(--luobo-jade) 100%);
-  border-radius: 12px 12px 0 0;
-}
-
-/* 头部 */
-.luobo-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 16px 8px;
-  border-bottom: 1px dashed var(--luobo-line);
-}
-.luobo-title {
-  font-size: 18px;
-  font-weight: bold;
-  color: var(--luobo-accent);
-  letter-spacing: 1px;
-}
-.luobo-title .luobo-tag {
-  display: inline-block;
-  margin-left: 6px;
-  font-size: 11px;
-  padding: 2px 6px;
-  background: var(--luobo-jade);
-  color: white;
-  border-radius: 8px;
-  font-family: sans-serif;
-  vertical-align: middle;
-}
-.luobo-close {
-  border: none;
-  background: transparent;
-  font-size: 22px;
-  color: var(--luobo-line);
-  cursor: pointer;
-  padding: 0 4px;
-  line-height: 1;
-}
-.luobo-close:hover { color: var(--luobo-ink); }
-
-/* 打卡状态条 */
-.luobo-streak-bar {
-  padding: 8px 16px;
-  background: var(--luobo-paper-deep);
-  font-size: 13px;
-  color: var(--luobo-ink);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid var(--luobo-line);
-}
-.luobo-streak-bar .flame {
-  color: var(--luobo-accent);
-  font-weight: bold;
-}
-.luobo-streak-bar .total {
-  color: var(--luobo-jade);
-  font-size: 12px;
-}
-
-/* 引言主体 */
-.luobo-quote-box {
-  padding: 20px 20px 14px;
-  min-height: 120px;
-  position: relative;
-}
-.luobo-quote {
-  font-size: 17px;
-  line-height: 1.9;
-  color: var(--luobo-ink);
-  letter-spacing: 0.5px;
-  text-align: justify;
-}
-.luobo-quote::before {
-  content: "「";
-  color: var(--luobo-accent);
-  font-size: 22px;
-  vertical-align: -2px;
-  margin-right: 2px;
-}
-.luobo-quote::after {
-  content: "」";
-  color: var(--luobo-accent);
-  font-size: 22px;
-  vertical-align: -2px;
-  margin-left: 2px;
-}
-.luobo-style-tag {
-  margin-top: 10px;
-  display: inline-block;
-  font-size: 12px;
-  padding: 3px 10px;
-  background: var(--luobo-paper-deep);
-  border: 1px solid var(--luobo-line);
-  border-radius: 12px;
-  color: var(--luobo-ink);
-}
-.luobo-daily-sign {
-  margin-top: 14px;
-  padding: 10px 12px;
-  border-left: 3px solid var(--luobo-gold);
-  background: rgba(201, 169, 97, 0.08);
-  font-size: 13px;
-  color: var(--luobo-ink);
-  line-height: 1.7;
-}
-.luobo-daily-sign .sign-title {
-  font-size: 11px;
-  color: var(--luobo-gold);
-  letter-spacing: 2px;
-  margin-bottom: 4px;
-}
-.luobo-daily-sign .sign-source {
-  font-size: 11px;
-  color: var(--luobo-line);
-  margin-top: 4px;
-  text-align: right;
-}
-
-/* 风格切换 */
-.luobo-styles {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 6px;
-  padding: 10px 16px;
-  border-top: 1px dashed var(--luobo-line);
-  border-bottom: 1px dashed var(--luobo-line);
-}
-.luobo-style-btn {
-  border: 1px solid var(--luobo-line);
-  background: var(--luobo-paper);
-  color: var(--luobo-ink);
-  padding: 6px 4px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 12px;
-  font-family: inherit;
-  transition: all 0.2s ease;
-  text-align: center;
-}
-.luobo-style-btn:hover {
-  border-color: var(--luobo-accent);
-  color: var(--luobo-accent);
-}
-.luobo-style-btn.active {
-  background: var(--luobo-ink);
-  color: var(--luobo-paper);
-  border-color: var(--luobo-ink);
-}
-.luobo-style-btn.locked {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
-.luobo-style-btn.locked::after {
-  content: " 🔒";
-  font-size: 10px;
-}
-
-/* 操作按钮 */
-.luobo-actions {
-  display: flex;
-  gap: 8px;
-  padding: 12px 16px;
-}
-.luobo-actions button {
-  flex: 1;
-  padding: 10px 4px;
-  border-radius: 8px;
-  font-size: 13px;
-  font-family: inherit;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  border: 1px solid var(--luobo-line);
-  background: var(--luobo-paper);
-  color: var(--luobo-ink);
-}
-.luobo-btn-check {
-  background: var(--luobo-accent) !important;
-  color: white !important;
-  border-color: var(--luobo-accent) !important;
-  font-weight: bold;
-}
-.luobo-btn-check.done {
-  background: var(--luobo-jade) !important;
-  border-color: var(--luobo-jade) !important;
-  cursor: default;
-}
-.luobo-actions button:hover:not(.done) {
-  opacity: 0.85;
-  transform: translateY(-1px);
-}
-
-/* 日历 */
-.luobo-cal-box {
-  padding: 12px 16px 16px;
-  border-top: 1px dashed var(--luobo-line);
-}
-.luobo-cal-title {
-  font-size: 12px;
-  color: var(--luobo-line);
-  margin-bottom: 8px;
-  display: flex;
-  justify-content: space-between;
-}
-.luobo-cal-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 4px;
-}
-.luobo-cal-cell {
-  aspect-ratio: 1;
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 10px;
-  color: var(--luobo-line);
-  background: var(--luobo-paper-deep);
-  font-family: sans-serif;
-}
-.luobo-cal-cell.checked {
-  background: var(--luobo-jade);
-  color: white;
-  font-weight: bold;
-}
-.luobo-cal-cell.today {
-  outline: 2px solid var(--luobo-accent);
-  outline-offset: -2px;
-}
-.luobo-cal-cell.future { opacity: 0.3; }
-
-/* 底部签名 */
-.luobo-foot {
-  padding: 8px 16px 12px;
-  font-size: 11px;
-  color: var(--luobo-line);
-  text-align: center;
-  border-top: 1px dashed var(--luobo-line);
-  font-family: sans-serif;
-}
-.luobo-foot .heart { color: var(--luobo-accent); }
-
-/* 分享图弹层 */
-#luobo-share-modal {
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.75);
-  z-index: 10000;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  padding: 20px;
-}
-#luobo-share-modal.show { display: flex; }
-#luobo-share-canvas {
-  max-width: 100%;
-  max-height: 70vh;
-  border-radius: 12px;
-  box-shadow: 0 12px 40px rgba(0,0,0,0.5);
-}
-#luobo-share-modal .tips {
-  color: white;
-  font-size: 14px;
-  margin: 16px 0 8px;
-  text-align: center;
-  font-family: "STKaiti", "KaiTi", serif;
-}
-#luobo-share-modal .close-btn {
-  padding: 8px 24px;
-  border: 1px solid rgba(255,255,255,0.5);
-  background: transparent;
-  color: white;
-  border-radius: 20px;
-  cursor: pointer;
-  font-family: inherit;
-}
-
-/* 移动端 */
-@media (max-width: 480px) {
-  #luobo-panel {
-    right: 10px;
-    left: 10px;
-    width: auto;
-    bottom: 80px;
-  }
-  #luobo-fab {
-    right: 15px;
-    bottom: 15px;
-  }
-}
-</style>
-
-<!-- 萝卜精 · 悬浮按钮 -->
-<button id="luobo-fab" onclick="window.toggleLuoboSpirit()" title="萝卜精 · 你的围棋打卡搭子">
-  <span>🥕</span>
-  <span class="luobo-fab-badge" id="luobo-fab-badge" style="display:none;">0</span>
-</button>
-
-<!-- 萝卜精 · 主面板 -->
-<div id="luobo-panel" class="hidden">
-  <div class="luobo-head">
-    <span class="luobo-title">萝卜精 <span class="luobo-tag">打卡搭子</span></span>
-    <button class="luobo-close" onclick="window.toggleLuoboSpirit()" title="关闭">×</button>
-  </div>
-  <div class="luobo-streak-bar">
-    <span class="flame">🔥 连续打卡 <span id="luobo-streak-days">0</span> 天</span>
-    <span class="total">累计 <span id="luobo-total-days">0</span> 天</span>
-  </div>
-  <div class="luobo-quote-box">
-    <div class="luobo-quote" id="luobo-quote">加载中……</div>
-    <div class="luobo-style-tag" id="luobo-style-tag">🎲 随机</div>
-    <div class="luobo-daily-sign">
-      <div class="sign-title">◆ 每日一签 ◆</div>
-      <div id="luobo-daily-text">——</div>
-      <div class="sign-source" id="luobo-daily-source">——</div>
-    </div>
-  </div>
-  <div class="luobo-styles" id="luobo-styles"></div>
-  <div class="luobo-actions">
-    <button class="luobo-btn-check" id="luobo-btn-check" onclick="window.luoboCheckIn()">今日打卡</button>
-    <button onclick="window.luoboRefresh()">换一句</button>
-    <button onclick="window.luoboShare()">分享图</button>
-  </div>
-  <div class="luobo-cal-box">
-    <div class="luobo-cal-title">
-      <span id="luobo-cal-month">本月打卡</span>
-      <span id="luobo-cal-count">0/30</span>
-    </div>
-    <div class="luobo-cal-grid" id="luobo-cal-grid"></div>
-  </div>
-  <div class="luobo-foot">
-    以棋会友 <span class="heart">·</span> 一日一手 <span class="heart">·</span> 与君共修
-  </div>
-</div>
-
-<!-- 分享图弹层 -->
-<div id="luobo-share-modal">
-  <canvas id="luobo-share-canvas" width="720" height="1080"></canvas>
-  <div class="tips">长按图片保存到相册 · 转发到朋友圈</div>
-  <button class="close-btn" onclick="window.closeLuoboShare()">关闭</button>
-</div>
-
-<script>
-(function() {
-  'use strict';
-
-  // ==== 数据 ====
-  const QUOTES = {"gentle": {"label": "温柔治愈", "icon": "🌸", "desc": "累了想被抱抱", "quotes": ["今天下一手也好，不下也没关系，你已经是我心里的定式。", "累了就搁棋盒里歇歇，明天棋盘还是原来那张。", "别急，慢慢来。李昌镐当年也只是先摆一手小飞挂。", "你今天愿意点开我，就是最好的复盘。", "棋盘不会走的，你什么时候回来它都在。", "输一盘不算什么，你还没输过明天。", "一手没下好，抱抱自己，再摸一颗子。", "深呼吸，然后就着这口气下一颗棋，就一颗，不多要。", "手上有点凉？先把棋子握热了再落。", "今天不想复盘也可以，就看看昨天赢下的那颗子。", "你已经很棒了，能坚持到今天点开我。", "不用做完整盘，摆两个死活题也很好。", "我给你打个招呼，你回我一手，就当我们对话过了。", "困的话就睡吧，梦里也可以下棋。", "别跟自己较劲，围棋这一辈子学不完，也不用今天学完。", "你想停就停，想开始就开始，我一直在角落。", "有你在，棋盘就有温度。", "今天下得不好也是今天的样子，我喜欢的。", "把手洗干净，摸一颗子，就是最好的开始。", "累了就跟棋子说话，它会听的。", "不用赢，只要今天你摸过棋子，我就替你高兴。", "你不需要证明什么，你已经在坚持了。", "下不好也别删复盘记录，那是你走过的路。", "今晚就下三手好不好？三手就够。", "允许自己有一手臭棋，允许自己今天不想赢。", "你在棋盘边坐着的样子，最温柔了。", "泡杯茶，等它凉，再落第一颗子。", "记得吃饭。棋可以慢慢下，胃不能。", "今天想被夸就点我，我夸你：你真棒。", "谢谢你，今天也没有把我关起来。"]}, "spicy": {"label": "辛辣嘲讽", "icon": "🌶️", "desc": "犯懒需要人骂", "quotes": ["都三天没碰棋盘了，你手筋是断了吗？", "你的棋盒是不是被封条贴住了？", "上次输棋以后就再没打开过棋谱，是被打怕了吧。", "你这种坚持速度，聂卫平的孙子都能拿冠军了。", "点开我又不下棋，你是在跟我谈恋爱吗？", "你的复盘本比灰姑娘的水晶鞋还干净。", "李昌镐半夜起来摆棋，你半夜起来刷手机。", "别人下棋是打劫，你下棋是打卡，还打得不勤。", "你要再这么下下去，段位表都要把你除名了。", "上一次你完整下完一盘棋是什么朝代的事？", "棋盘想问你：你多久不理我了，心里没数？", "别摆姿势了，摆点子。", "点一次我，下一手不亏，你亏的是良心。", "你说要冲三段，我以为你要认真，结果你连三天都没冲过去。", "你的棋力最近唯一的进步，是理直气壮不下棋。", "藤泽秀行 60 岁还在拼冠军，你 30 岁就想退休？", "别怪自己没时间，你打游戏的时候可从没喊过没时间。", "你这样下棋，对得起你屋里那副贵棋盘吗？", "上次你说要每天做题，题在哭。", "棋书买了一书架，看过的比封面还少。", "别急着骂我毒舌，你摸一手棋我就闭嘴。", "「明天再下」——这话你说了 90 天了。", "你的坚持力，比对方长考的时间还短。", "输了怪 AI 强，赢了夸自己天才，你这心态挺稳。", "别人打卡是打卡，你打卡是打卡机自己在响。", "你今天要是再不摆一题，我就把你收藏的名局给你删了。", "复盘本翻开的次数，比你朋友圈还稀有。", "你以为你在缓一缓，其实你在退一退。", "别怪 AI 让不动你，是你压根没上桌。", "承认吧，你今天不是没时间，你是没脸下。"]}, "backup": {"label": "坚强后盾", "icon": "💪", "desc": "低谷需要托底", "quotes": ["李昌镐输了世界大赛第二天照样复盘。你今天下几手，我陪着。", "输一盘算什么，藤泽秀行输过多少你数得过来吗？他后来赢的更多。", "手抖没关系，落下去就是子。", "别看别人段位，你的对手只有昨天的自己。", "你不是不行，你是还没找到自己的那一手。", "跌到谷底也就多一颗黑子的重量，你扛得住。", "有我在，你今天摆一题，我陪你复一题。", "怕输就先输一盘，输完就不怕了。", "你走过的每一手臭棋，都是你后来那一手妙手的地基。", "别怕慢。徐奉洙 17 岁才入段，40 多岁还能一杆清台。", "你今天下的这一颗子，比昨天所有想法都值钱。", "输了咱不哭，我给你打张分手图，明天再来。", "困难的局面才配得上你，你不是普通选手。", "有人比你聪明，但没人比你更懂你自己的棋风。", "你不是坚持不下来，你只是没找到跟自己和解的方式。", "累的时候看一眼吴清源的棋谱，他 60 岁还在悟大局观。", "别怕臭棋，臭棋才让你记住教训。", "你已经比昨天的你多摆了一颗子，够了。", "被 AI 让 9 子还输？没事，让 10 子再来。", "你手里的那颗黑子，装着你所有走过来的路。", "刘昌赫经历那么多都没放下棋盘，你的坎跟他比是小坎。", "输给学生也没什么，说明你教得好。", "你不是没天赋，你是没给自己那么多时间。", "回来了就好，棋盘一直在等你。", "怕挨骂就先下给我看，我不骂你。", "你要是塌了，我先把你的棋盘擦干净等你。", "陈祖德带病写完《超越自我》，你今天下三手，也是超越自我。", "别人夸你不用当真，你自己夸自己那才是真的。", "这一手落下去，就没有「如果」了，好过盯着「如果」一辈子。", "你只要还在点开我，我们就没输。"]}, "classic": {"label": "古风诗意", "icon": "🎋", "desc": "想文艺一下", "quotes": ["山僧对棋坐，局上竹阴清——今日一手，何妨？", "偶来松树下，高枕石头眠。棋声一响，梦亦清。", "闲敲棋子落灯花，落一颗，便算你今日的花。", "野桥经雨断，涧水向田分。落子无声，心自安。", "手谈之乐，非在胜负，在于一子一心。", "一子落，风未动；再一子，霜华生。", "松下问童子，言师采药去——你且落一手，我等师归。", "十九路间藏山河，你一手一手，走出一片乾坤。", "对坐清风里，无言胜有言。今日之棋，不必多言。", "君子矜而不争，群而不党——棋盘之上，亦复如是。", "空山不见人，但闻子声响。你落一手，我便应你。", "一枰春色，两袖清风。手谈半晌，胜过烟花万丈。", "秋风落叶时节，摆一局残谱，如故人重逢。", "落子须知白鹤翩翩之意，非为杀，为舞。", "白云回望合，青霭入看无——好棋，也是这般。", "行到水穷处，坐看云起时——棋到胶着时，落子勿急。", "一子无声，天地澄清。今日一手，值得。", "对着棋盘，恍见太古之风。", "落雪时节，一子如梅，一子如霜。", "半窗明月，一枰残棋，人生不过如此。", "对局如对镜，一手照见半生。", "「胜固欣然，败亦可喜」——苏子早已替你说尽。", "闲庭独坐棋盘边，风过处，落一子。", "洞庭西望楚江分，落子一声，江水又深一寸。", "青衫落魄不必愁，一子当空胜万筹。", "手谈无言，谈的是彼此一生的心事。", "今日一手，是给三千年前那位弈者的一句回音。", "一叶落知天下秋，一子落知你今日心境。", "云淡风轻近午天，落一子，便是圆满。", "对坐无言，落子有声——此乃棋之至乐。"]}, "burning": {"label": "热血燃系", "icon": "🔥", "desc": "想被点燃", "quotes": ["藤泽秀行 60 岁还在拼冠军！你这个年纪凭什么不摆棋！", "徐奉洙 44 岁真露杯 9 连胜一杆清台！你今天连一手都不落？", "李昌镐每天研究棋 8 小时，你连 8 分钟都拿不出来？", "陈祖德带着癌症写完《超越自我》。你今天有什么理由不下？", "本因坊丈和血泪拼杀爬到名人棋所！你的棋盘也在等你冲！", "刘昌赫失去妻子后拿出五连冠气魄！你手里那点低谷不算什么！", "赵治勋一年下 100 盘正式赛！你一年下几盘？", "吴清源为一个新手研究 30 年！你连坚持 30 天都做不到？", "聂卫平中日擂台十一连胜！你手里就没这股劲吗？", "马晓春连续 40 个月国内第一！你连续 4 天都撑不住？", "曹薰铉带着李昌镐横扫世界！你带着自己走完今天！", "秀策十九手中国流至今无人破解！你哪来的资格说自己没天赋？", "范西屏施定庵下当湖十局手不发抖！你握颗棋子发什么抖？", "王积薪听老妇下棋一夜通神！你听我一句话，落一手！", "黄龙士 20 出头封棋圣！你 20 出头都没握过棋盒？", "道策发明手割理论重新定义围棋！你也可以重新定义你自己！", "常昊七次世界大赛决赛四次亚军最后拿冠军！你怕过什么！", "古力柯洁哪一个不是拼命练出来的！你手里有的是时间！", "石佛李昌镐一步没错走完官子！你连开局都不敢开？", "藤泽朋斋 90 岁还在摆棋！你 30 岁就摆烂？", "曹薰铉三届富士通冠军！你三天都撑不住？", "过惕生弱冠拜师终成新中国教父！你也是从零开始，为什么不能？", "顾水如民国孤军抗日棋界的骨头！你现在下棋，是幸福的！", "王子晏文人下棋两袖清风一枰春秋！你也可以，落一颗！", "坂田荣男剃刀般精准！你也曾锋利过，别忘了！", "高川格「流水不争先」拿七连霸！你的从容还在！", "武宫正树宇宙流开天辟地！你也有你的宇宙！", "小林光一严谨到令人窒息！你的自律值得再来一次！", "所有大师都是从一手臭棋开始的。你现在，就是他们的起点。", "你不落这一手，你就永远不知道自己能走到哪。落！"]}, "zen": {"label": "佛系躺平", "icon": "🧘", "desc": "想放过自己", "quotes": ["下也好，不下也好，一切随缘…但你已经三天没下了哦。", "赢了是运气好，输了是运气差，人生嘛。", "AI 说你这手不好？AI 又不用交房租，随它说去。", "段位不重要，重要的是今天有没有笑过。", "错手也是手，反正棋盘不会告你。", "你不下，棋盘也不会怪你，我可能会哦。", "复盘就复盘吧，不复盘就不复盘吧，天亮了再说。", "输了？没事，反正世界不会因此改变半分。", "「胜固欣然，败亦可喜」——你看古人多想得开。", "今天没时间就明天，明天没时间就下周，慢慢来。", "棋盘上放两颗子摆个心形也可以，谁规定必须要下正经棋？", "累了就走，累了就停，累了就当自己是一颗被拈起来又放回去的棋子。", "「空亦是色，色亦是空」——一颗子的得失，何足挂齿。", "别想了，先睡觉，睡醒棋子还是黑白两色。", "赢的时候不飞，输的时候不哭，佛系棋手就是这样。", "水到渠成，棋到手熟。别硬掰。", "今天下不下都行，我就是想你了。", "下棋是修行，不下棋也是修行。", "对手强？强就强呗，你有你的活法。", "少一手棋，多一次呼吸，也是收获。", "别人 30 岁得世界冠军，你 30 岁得心平气和，一样值钱。", "AI 让你 9 子？让就让呗，反正它也不发工资。", "有些棋走不好，是因为还没到时候。", "今日棋不悟，明日再悟。棋不生锈，你也是。", "「落子无悔」是对高手说的，你落错了改改也没关系。", "「不争，天下莫能与之争」——不下棋的人反而下得最好？", "今天你不点我我不怪你，你点我我陪你聊两句。", "输给学生了？说明你会教书了，恭喜。", "「棋道一百，我只知七」——你今天连一都不用知。", "算了，别摆了，就当你已经赢了。（其实我盼你摆一颗。）"]}, "joke": {"label": "段子搞笑", "icon": "😂", "desc": "想乐一乐", "quotes": ["医生说我血压高，我说我一天不下棋才血压高。", "「落子无悔」是骗小孩的，我每次落完都想悔到唐朝。", "你的棋盘再不用，就要长蘑菇了。（真的。）", "AI 让我 9 子，我谢它 9 遍。", "问我为什么下棋？因为麻将三缺一。", "你的棋，臭得像我上周忘在冰箱里的鱼。", "「金角银边草肚皮」——我下的每一手都在肚皮。", "别人复盘是学，我复盘是回顾人生失败史。", "我下棋不看段位看运气，运气不好我就说昨晚没睡好。", "上次赢学生一盘，学生 3 岁。这算成就吗算吗？", "打劫？我劫我自己的时间下不下棋，天天打。", "「棋盘如战场」——那我就是那个总迷路的士兵。", "别问我为啥输，问就是天时地利人和都不在我这。", "棋圣是别人的，我是棋剩，剩下来的剩。", "「一子定乾坤」——我一子定坟头。", "输了别难过，赢的人可能是作弊。（别真信，转发这段可赢十年好棋。）", "我以为我在下围棋，AI 以为我在给它送分。", "医生：你需要放松。我：好的，我去下棋。医生：换一个。", "「胜负乃兵家常事」——但主要是我在负。", "别人下棋越下越聪明，我下棋越下越沉默。", "AI 说这手是妙手，我以为夸我，其实夸的是它自己。", "「落子无声」是骗人的，我每次都「啪」一声，主要是气。", "我棋盘上放了张辣椒图片，希望能辣一辣我的棋力。", "「一将功成万骨枯」——我这盘棋，是万骨我全占了。", "下棋前抽卡：抽到大师就赢，抽到菜鸡就是我今天。", "有人吸猫，有人吸猫粮，我吸棋谱。", "「棋逢对手」的下句应该是「把把落荒」。（我改的。）", "我不是不会下，我是给对手让分，我心善。", "从此以后每次下棋前拜三下棋盘，气运会不会好点？", "「黑白分明」不适用于我的棋盘，我的棋盘是灰的。"]}, "master": {"label": "师父型", "icon": "🎓", "desc": "想被指点", "quotes": ["小友，一手棋看三年功夫。今日一手，胜过明日十手空想。", "棋道之精，不在多，在于专。今日一子，即是一课。", "初学者贪多，中手贪快，高手贪静。你今日在哪一层？", "手筋易学，大局难修。你先摆一子，我们再谈大局。", "记住：先看全局，再看一手。眼里有天地，手中才有分寸。", "败棋不弃，胜棋不骄。这是你今日该守的两条。", "「不失先手」不是不让，而是知道何时该让。", "手谈无言，谈的是心境。你今日心境如何？", "棋盘上藏着三重关：手筋、气势、心法。你在哪一关？", "「弃子争先」的道理，很多人一辈子学不会。你今日试着弃一颗。", "为师告诉你：别人的棋是别人的路，你的棋只能你自己走。", "复盘之要，不在找错，而在找懂。", "落子如种树，今日一子，十年才见其枝繁。", "求快求胜，是初学者的心。求稳求悟，是老者的心。", "一盘棋能改变一天，一年棋能改变一生。莫小看今日一手。", "「不争而胜」是境界，但先要学会争。", "眼中有子，心中有势——先练前者，再修后者。", "为师看过太多天才夭折，只因忘了每日一手。你今日别忘。", "输不可怕，可怕的是不知为何输。今日复一盘，明日胜一分。", "手谈之趣，在于「手」字。你的手，就是你的心。", "记住这句：「棋高一着，缚手缚脚」——你今日别被「高」字困住。", "小友，急躁是棋手的第一大敌。落一子前，先呼吸三次。", "「当局者迷，旁观者清」——你有时也做做自己的旁观者。", "为师年轻时也懒过。补回来的路很长，不如今日一手。", "别问何时能成高手，先问今日有没有一手。", "「棋无第一手」——每一手都可能是妙手，每一手都可能是败手。", "记住：好棋是练出来的，不是等出来的。", "有些棋要下十年才懂，有些棋只需一秒就懂。你今日该下哪种？", "手中一颗子，胜过书架一整排棋谱。", "为师一句话赠你：「棋在纸上，路在脚下。」今日一手，走一步。"]}};
-  const DAILY_SIGN = [{"text": "山僧对棋坐，局上竹阴清。", "source": "白居易《池上二绝》"}, {"text": "闲敲棋子落灯花。", "source": "赵师秀《约客》"}, {"text": "偶来松树下，高枕石头眠。", "source": "太上隐者《答人》"}, {"text": "行到水穷处，坐看云起时。", "source": "王维《终南别业》"}, {"text": "白云回望合，青霭入看无。", "source": "王维《终南山》"}, {"text": "松下问童子，言师采药去。", "source": "贾岛《寻隐者不遇》"}, {"text": "野桥经雨断，涧水向田分。", "source": "唐 佚名"}, {"text": "对局如对镜，一手照见半生。", "source": "手谈古语"}, {"text": "半窗明月，一枰残棋。", "source": "宋人棋话"}, {"text": "一叶落知天下秋，一子落知今日心。", "source": "手谈古语"}, {"text": "金角银边草肚皮。", "source": "围棋谚语"}, {"text": "宁失一子，不失一先。", "source": "围棋谚语"}, {"text": "两番收官胜过一步妙手。", "source": "围棋谚语"}, {"text": "势孤取和，实空取胜。", "source": "围棋谚语"}, {"text": "逢危须弃。", "source": "《棋经十三篇》"}, {"text": "彼强自保，势孤取和。", "source": "《棋经十三篇》"}, {"text": "有先手就下先手。", "source": "围棋谚语"}, {"text": "落子无悔，君子之约。", "source": "手谈古训"}, {"text": "棋从断处生。", "source": "围棋谚语"}, {"text": "宁数一目，勿弃一线。", "source": "围棋谚语"}, {"text": "棋道一百，我只知七。", "source": "藤泽秀行"}, {"text": "围棋的目的是把好棋下出来，不是把对手打败。", "source": "吴清源"}, {"text": "六合之棋，超越胜负。", "source": "吴清源"}, {"text": "流水不争先。", "source": "高川格"}, {"text": "宇宙流，看的不是一角，是整盘天地。", "source": "武宫正树"}, {"text": "先看全局，再看一手。", "source": "陈祖德《超越自我》"}, {"text": "棋逢知己，胜负不重要。", "source": "聂卫平"}, {"text": "一手棋，看三年功夫。", "source": "古老棋训"}, {"text": "手筋易学，大局难修。", "source": "围棋谚语"}, {"text": "败者，无一言。", "source": "本因坊道策"}, {"text": "胜固欣然，败亦可喜。", "source": "苏轼《观棋》"}, {"text": "一枰春色，两袖清风。", "source": "文人棋话"}, {"text": "对坐清风里，无言胜有言。", "source": "文人棋话"}, {"text": "青衫落魄不必愁，一子当空胜万筹。", "source": "宋人棋诗"}, {"text": "闲敲棋子夜灯花，一子入盘天地大。", "source": "文人棋话"}, {"text": "落雪时节，一子如梅，一子如霜。", "source": "文人棋话"}, {"text": "对着棋盘，恍见太古之风。", "source": "文人棋话"}, {"text": "十九路间藏山河，一手一手走乾坤。", "source": "文人棋话"}, {"text": "洞庭西望楚江分，落子一声江水深。", "source": "化用李白"}, {"text": "君子矜而不争，群而不党。", "source": "《论语》·适用于棋道"}];
-  const STYLE_KEYS = Object.keys(QUOTES);
-  const STORAGE_KEY = 'luobo_spirit_v1';
-  const MILESTONES = [
-    { days: 1,   emoji: '🌱', title: '初次相遇',   desc: '你迈出了第一手。' },
-    { days: 3,   emoji: '🌿', title: '初见连贯',   desc: '连续三日，手已成习。' },
-    { days: 7,   emoji: '🎋', title: '一周初成',   desc: '一周不辍，气象已开。' },
-    { days: 30,  emoji: '🏆', title: '月度大师',   desc: '连续一月，此心已定。' },
-    { days: 100, emoji: '💎', title: '百日心印',   desc: '百日成禅，功不唐捐。' },
-    { days: 365, emoji: '👑', title: '一年一梦',   desc: '一年之约，与棋同行。' },
-  ];
-
-  // ==== 状态 ====
-  function load() {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) return { days: [], style: 'random', milestones: [] };
-      const s = JSON.parse(raw);
-      return {
-        days: Array.isArray(s.days) ? s.days : [],
-        style: s.style || 'random',
-        milestones: Array.isArray(s.milestones) ? s.milestones : [],
-      };
-    } catch (e) {
-      return { days: [], style: 'random', milestones: [] };
-    }
-  }
-  function save(s) {
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); } catch (e) {}
-  }
-
-  // ==== 工具 ====
-  function todayStr() {
-    const d = new Date();
-    const y = d.getFullYear();
-    const m = String(d.getMonth() + 1).padStart(2, '0');
-    const day = String(d.getDate()).padStart(2, '0');
-    return y + '-' + m + '-' + day;
-  }
-  function daysBetween(a, b) {
-    const t1 = new Date(a + 'T00:00:00').getTime();
-    const t2 = new Date(b + 'T00:00:00').getTime();
-    return Math.round((t2 - t1) / 86400000);
-  }
-  function hashStr(s) {
-    let h = 0;
-    for (let i = 0; i < s.length; i++) {
-      h = ((h << 5) - h) + s.charCodeAt(i);
-      h |= 0;
-    }
-    return Math.abs(h);
-  }
-  function computeStreak(days) {
-    if (!days.length) return 0;
-    const sorted = days.slice().sort();
-    const today = todayStr();
-    // 从今天倒推，找最近一个 checked 的日期，然后连续统计
-    let streak = 0;
-    let cur = today;
-    // 如果今天没打卡，往前看昨天
-    if (!sorted.includes(today)) {
-      const yest = new Date(today + 'T00:00:00');
-      yest.setDate(yest.getDate() - 1);
-      cur = yest.toISOString().slice(0, 10);
-      if (!sorted.includes(cur)) return 0;
-    }
-    const set = new Set(sorted);
-    while (set.has(cur)) {
-      streak++;
-      const d = new Date(cur + 'T00:00:00');
-      d.setDate(d.getDate() - 1);
-      cur = d.toISOString().slice(0, 10);
-    }
-    return streak;
-  }
-
-  // ==== 选句 ====
-  function pickQuote(styleKey, seed) {
-    let key = styleKey;
-    if (!key || key === 'random') {
-      const rndKey = STYLE_KEYS[(seed || Math.floor(Math.random() * 1e9)) % STYLE_KEYS.length];
-      key = rndKey;
-    }
-    const pool = QUOTES[key];
-    if (!pool) return { text: '……', style: 'gentle', styleLabel: '🌸 温柔治愈' };
-    const idx = (seed !== undefined ? seed : Math.floor(Math.random() * 1e9)) % pool.quotes.length;
-    return {
-      text: pool.quotes[idx],
-      style: key,
-      styleLabel: pool.icon + ' ' + pool.label,
-    };
-  }
-  function todayQuote(styleKey) {
-    const seed = hashStr(todayStr() + '_' + (styleKey || 'random'));
-    return pickQuote(styleKey, seed);
-  }
-  function todaySign() {
-    const seed = hashStr(todayStr() + '_sign');
-    const idx = seed % DAILY_SIGN.length;
-    return DAILY_SIGN[idx];
-  }
-
-  // ==== 渲染 ====
-  function renderQuote(refresh) {
-    const state = load();
-    const q = refresh ? pickQuote(state.style) : todayQuote(state.style);
-    document.getElementById('luobo-quote').textContent = q.text;
-    document.getElementById('luobo-style-tag').textContent =
-      (state.style === 'random' ? '🎲 随机 · 今日：' : '') + q.styleLabel;
-  }
-  function renderSign() {
-    const s = todaySign();
-    document.getElementById('luobo-daily-text').textContent = s.text;
-    document.getElementById('luobo-daily-source').textContent = '—— ' + s.source;
-  }
-  function renderStreak() {
-    const state = load();
-    const streak = computeStreak(state.days);
-    document.getElementById('luobo-streak-days').textContent = streak;
-    document.getElementById('luobo-total-days').textContent = state.days.length;
-    // fab badge
-    const badge = document.getElementById('luobo-fab-badge');
-    if (streak > 0) {
-      badge.style.display = 'flex';
-      badge.textContent = streak > 99 ? '99+' : streak;
-    } else {
-      badge.style.display = 'none';
-    }
-    // 今日打卡按钮状态
-    const btn = document.getElementById('luobo-btn-check');
-    if (state.days.includes(todayStr())) {
-      btn.textContent = '✅ 今日已打卡';
-      btn.classList.add('done');
-    } else {
-      btn.textContent = '今日打卡';
-      btn.classList.remove('done');
-    }
-  }
-  function renderStyles() {
-    const state = load();
-    const wrap = document.getElementById('luobo-styles');
-    wrap.innerHTML = '';
-    // 随机按钮
-    const rndBtn = document.createElement('button');
-    rndBtn.className = 'luobo-style-btn' + (state.style === 'random' ? ' active' : '');
-    rndBtn.textContent = '🎲 随机';
-    rndBtn.onclick = () => switchStyle('random');
-    wrap.appendChild(rndBtn);
-    // 8 种风格
-    STYLE_KEYS.forEach(key => {
-      const s = QUOTES[key];
-      const b = document.createElement('button');
-      b.className = 'luobo-style-btn' + (state.style === key ? ' active' : '');
-      b.textContent = s.icon + ' ' + s.label;
-      b.title = s.desc;
-      b.onclick = () => switchStyle(key);
-      wrap.appendChild(b);
-    });
-  }
-  function renderCalendar() {
-    const state = load();
-    const now = new Date();
-    const y = now.getFullYear();
-    const m = now.getMonth();
-    const first = new Date(y, m, 1);
-    const daysInMonth = new Date(y, m + 1, 0).getDate();
-    const startWeekday = first.getDay(); // 0=Sun..6=Sat
-    const today = todayStr();
-
-    document.getElementById('luobo-cal-month').textContent = (m + 1) + '月打卡';
-    let monthChecked = 0;
-    const grid = document.getElementById('luobo-cal-grid');
-    grid.innerHTML = '';
-    // 空占位
-    for (let i = 0; i < startWeekday; i++) {
-      const c = document.createElement('div');
-      c.className = 'luobo-cal-cell';
-      c.style.background = 'transparent';
-      grid.appendChild(c);
-    }
-    // 日期格
-    for (let d = 1; d <= daysInMonth; d++) {
-      const ds = y + '-' + String(m + 1).padStart(2, '0') + '-' + String(d).padStart(2, '0');
-      const c = document.createElement('div');
-      c.className = 'luobo-cal-cell';
-      c.textContent = d;
-      if (state.days.includes(ds)) {
-        c.classList.add('checked');
-        monthChecked++;
-      }
-      if (ds === today) c.classList.add('today');
-      if (ds > today) c.classList.add('future');
-      grid.appendChild(c);
-    }
-    document.getElementById('luobo-cal-count').textContent = monthChecked + '/' + daysInMonth;
-  }
-  function renderAll() {
-    renderStreak();
-    renderQuote(false);
-    renderSign();
-    renderStyles();
-    renderCalendar();
-  }
-
-  // ==== 交互 ====
-  function switchStyle(key) {
-    const state = load();
-    state.style = key;
-    save(state);
-    renderStyles();
-    renderQuote(true);
-  }
-  window.luoboRefresh = function() {
-    renderQuote(true);
-  };
-  window.luoboCheckIn = function() {
-    const state = load();
-    const today = todayStr();
-    if (state.days.includes(today)) {
-      alert('🥕 今日已打卡啦，明天再见~');
-      return;
-    }
-    state.days.push(today);
-    state.days.sort();
-    // 检测新达成的里程碑
-    const streak = computeStreak(state.days);
-    const newMilestones = [];
-    MILESTONES.forEach(m => {
-      if (streak >= m.days && !state.milestones.includes(m.days)) {
-        state.milestones.push(m.days);
-        newMilestones.push(m);
-      }
-    });
-    save(state);
-    renderAll();
-    if (newMilestones.length) {
-      const m = newMilestones[newMilestones.length - 1];
-      setTimeout(() => {
-        alert(m.emoji + ' 里程碑 · ' + m.title + '\n\n' + m.desc + '\n\n连续打卡 ' + streak + ' 天！');
-      }, 200);
-    } else {
-      // 简短庆祝
-      const box = document.getElementById('luobo-btn-check');
-      const orig = box.textContent;
-      box.textContent = '🎉 打卡成功！';
-      setTimeout(() => renderStreak(), 800);
-    }
-  };
-  window.toggleLuoboSpirit = function() {
-    const panel = document.getElementById('luobo-panel');
-    panel.classList.toggle('hidden');
-    if (!panel.classList.contains('hidden')) {
-      renderAll();
-    }
-  };
-
-  // ==== 分享图 ====
-  function drawShare() {
-    const canvas = document.getElementById('luobo-share-canvas');
-    const ctx = canvas.getContext('2d');
-    const W = canvas.width, H = canvas.height;
-    const state = load();
-    const streak = computeStreak(state.days);
-    const q = todayQuote(state.style);
-    const sign = todaySign();
-
-    // 背景 · 米黄宣纸
-    const grad = ctx.createLinearGradient(0, 0, 0, H);
-    grad.addColorStop(0, '#faf7f0');
-    grad.addColorStop(1, '#e8dfc8');
-    ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, W, H);
-
-    // 顶部装饰条
-    const topGrad = ctx.createLinearGradient(0, 0, W, 0);
-    topGrad.addColorStop(0, '#b8391f');
-    topGrad.addColorStop(0.5, '#c9a961');
-    topGrad.addColorStop(1, '#4a7c59');
-    ctx.fillStyle = topGrad;
-    ctx.fillRect(0, 0, W, 12);
-
-    // 标题
-    ctx.fillStyle = '#b8391f';
-    ctx.font = 'bold 44px "STKaiti","KaiTi",serif';
-    ctx.textAlign = 'center';
-    ctx.fillText('萝卜精 · 今日打卡', W / 2, 90);
-
-    // 副标题
-    ctx.fillStyle = '#a89880';
-    ctx.font = '22px "STKaiti","KaiTi",serif';
-    ctx.fillText('以棋会友 · 一日一手 · 与君共修', W / 2, 130);
-
-    // 打卡天数大数字
-    ctx.fillStyle = '#4a7c59';
-    ctx.font = 'bold 96px "STKaiti","KaiTi",serif';
-    ctx.fillText(String(streak), W / 2, 240);
-    ctx.fillStyle = '#1a1a1a';
-    ctx.font = '26px "STKaiti","KaiTi",serif';
-    ctx.fillText('连续打卡天数', W / 2, 285);
-
-    // 分隔线
-    ctx.strokeStyle = '#a89880';
-    ctx.setLineDash([8, 6]);
-    ctx.beginPath();
-    ctx.moveTo(80, 340);
-    ctx.lineTo(W - 80, 340);
-    ctx.stroke();
-    ctx.setLineDash([]);
-
-    // 今日一句 · 引号
-    ctx.fillStyle = '#b8391f';
-    ctx.font = 'bold 60px "STKaiti","KaiTi",serif';
-    ctx.textAlign = 'left';
-    ctx.fillText('「', 60, 430);
-
-    // 今日一句 · 正文（自动换行）
-    ctx.fillStyle = '#1a1a1a';
-    ctx.font = '30px "STKaiti","KaiTi",serif';
-    const quoteLines = wrapText(ctx, q.text, W - 160);
-    let ly = 480;
-    quoteLines.forEach(line => {
-      ctx.fillText(line, 100, ly);
-      ly += 46;
-    });
-
-    // 右下引号
-    ctx.fillStyle = '#b8391f';
-    ctx.font = 'bold 60px "STKaiti","KaiTi",serif';
-    ctx.textAlign = 'right';
-    ctx.fillText('」', W - 60, ly + 20);
-
-    // 风格标签
-    ctx.fillStyle = '#4a7c59';
-    ctx.font = '20px "STKaiti","KaiTi",serif';
-    ctx.textAlign = 'left';
-    ctx.fillText('— ' + q.styleLabel + ' —', 100, ly + 60);
-
-    // 每日一签框
-    const signY = Math.max(ly + 120, 780);
-    ctx.strokeStyle = '#c9a961';
-    ctx.lineWidth = 4;
-    ctx.beginPath();
-    ctx.moveTo(80, signY);
-    ctx.lineTo(80, signY + 110);
-    ctx.stroke();
-    ctx.lineWidth = 1;
-
-    ctx.fillStyle = '#c9a961';
-    ctx.font = 'bold 18px "STKaiti","KaiTi",serif';
-    ctx.textAlign = 'left';
-    ctx.fillText('◆ 每日一签 ◆', 110, signY + 25);
-
-    ctx.fillStyle = '#1a1a1a';
-    ctx.font = '24px "STKaiti","KaiTi",serif';
-    ctx.fillText(sign.text, 110, signY + 65);
-
-    ctx.fillStyle = '#a89880';
-    ctx.font = '16px "STKaiti","KaiTi",serif';
-    ctx.textAlign = 'right';
-    ctx.fillText('—— ' + sign.source, W - 100, signY + 100);
-
-    // 底部品牌
-    ctx.fillStyle = '#a89880';
-    ctx.font = '18px "STKaiti","KaiTi",serif';
-    ctx.textAlign = 'center';
-    ctx.fillText('萝卜干聊围棋教育  ·  weiqiluobogan.com', W / 2, H - 60);
-
-    ctx.fillStyle = '#b8391f';
-    ctx.font = '16px "STKaiti","KaiTi",serif';
-    ctx.fillText('🥕 每日打卡 · 与萝卜精共修 🥕', W / 2, H - 30);
-  }
-  function wrapText(ctx, text, maxWidth) {
-    const chars = text.split('');
-    const lines = [];
-    let cur = '';
-    for (let i = 0; i < chars.length; i++) {
-      const trial = cur + chars[i];
-      if (ctx.measureText(trial).width > maxWidth && cur !== '') {
-        lines.push(cur);
-        cur = chars[i];
-      } else {
-        cur = trial;
-      }
-    }
-    if (cur) lines.push(cur);
-    return lines;
-  }
-  window.luoboShare = function() {
-    drawShare();
-    document.getElementById('luobo-share-modal').classList.add('show');
-  };
-  window.closeLuoboShare = function() {
-    document.getElementById('luobo-share-modal').classList.remove('show');
-  };
-
-  // ==== Owner Mode ====
-  function applyOwnerMode() {
-    if (localStorage.getItem('luobogan_owner') === '1') {
-      const fab = document.getElementById('luobo-fab');
-      if (fab) fab.classList.add('owner');
-    }
-  }
-
-  // ==== 启动 ====
-  document.addEventListener('DOMContentLoaded', function() {
-    applyOwnerMode();
-    renderAll();
-  });
-})();
-</script>
-<!-- ===== 萝卜精 v1.0 · 围棋打卡搭子 · 结束 ===== -->
-
 <!-- ===== INK-LANDING v1.0 START ===== -->
 <style id="ink-landing-style">
 #ink-landing-mask{position:fixed;inset:0;z-index:9998;background:radial-gradient(ellipse at center, #f7f2e8 0%, #ece2ce 55%, #d9c9a8 100%);display:flex;align-items:center;justify-content:center;flex-direction:column;transition:opacity .6s ease}
@@ -5759,12 +4920,11 @@ function hideParentGuide(){
 #quiz-panel .q-btn:hover{background:rgba(255,255,255,.9)}
 #quiz-panel .q-btn.q-primary{background:linear-gradient(135deg,#c48b3a,#8a5a20);color:#fff;border-color:#8a5a20}
 #quiz-panel .q-btn.q-primary:hover{background:linear-gradient(135deg,#d49b4a,#9a6a30);color:#fff}
-#quiz-launcher-btn{position:fixed;left:24px;bottom:24px;z-index:9995;background:linear-gradient(135deg,#c48b3a,#8a5a20);color:#fff;border:none;padding:12px 20px;border-radius:24px;font-family:"KaiTi",serif;font-size:14px;letter-spacing:3px;cursor:pointer;box-shadow:0 6px 18px rgba(80,60,30,.35);transition:all .25s}
-#quiz-launcher-btn:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(80,60,30,.45)}
-#quiz-launcher-btn .q-launcher-icon{font-size:16px;margin-right:6px;vertical-align:middle}
-@media(max-width:520px){#quiz-panel{padding:22px 18px 18px}#quiz-panel .q-title{font-size:18px}#quiz-launcher-btn{left:16px;bottom:80px;padding:10px 14px;font-size:12px}}
+#quiz-launcher-btn{display:none !important}
+#quiz-launcher-btn:hover{transform:none}
+#quiz-launcher-btn .q-launcher-icon{display:none}
+@media(max-width:520px){#quiz-panel{padding:22px 18px 18px}#quiz-panel .q-title{font-size:18px}}
 </style>
-<button id="quiz-launcher-btn" title="Go Master Quiz"><span class="q-launcher-icon">&#9741;</span><span>&#20320;&#26159;&#21738;&#20301;&#26827;&#25163;</span></button>
 <div id="quiz-mask" role="dialog" aria-label="quiz" aria-hidden="true">
   <div id="quiz-panel" style="position:relative">
     <button class="q-close" id="q-close">&times;</button>
@@ -5779,8 +4939,7 @@ function hideParentGuide(){
   var mask=document.getElementById('quiz-mask');
   var body=document.getElementById('quiz-body');
   var closeBtn=document.getElementById('q-close');
-  var launcher=document.getElementById('quiz-launcher-btn');
-  if(!mask||!body||!launcher){return;}
+  if(!mask||!body){return;}
   var idx=0;
   var scores={};
   function reset(){idx=0;scores={};for(var k in MASTERS){scores[k]=0;}}
@@ -5905,7 +5064,7 @@ function hideParentGuide(){
     if(cur){out.push(cur);}
     return out;
   }
-  launcher.addEventListener('click',open);
+  launcher_stub_removed:true;
   closeBtn.addEventListener('click',close);
   mask.addEventListener('click',function(e){if(e.target===mask){close();}});
   document.addEventListener('keydown',function(e){if(e.key==='Escape'&&mask.classList.contains('show')){close();}});
@@ -5925,7 +5084,7 @@ function hideParentGuide(){
 #mm-panel .mm-close{position:absolute;top:14px;right:20px;font-size:22px;color:#8a7042;background:transparent;border:none;cursor:pointer;line-height:1}
 #mm-panel .mm-close:hover{color:#3a2a10}
 #mm-panel .mm-svg-wrap{width:100%;overflow-x:auto;margin-top:12px;background:linear-gradient(135deg,#faf1d8,#e6d5ae);border:1px solid rgba(120,90,50,.35);border-radius:6px;padding:8px}
-#mm-panel svg{display:block;min-width:920px}
+#mm-panel svg{display:block;min-width:1080px}
 #mm-panel .mm-legend{display:flex;gap:18px;justify-content:center;margin-top:14px;flex-wrap:wrap;font-size:12px;color:#5a4a20;letter-spacing:2px}
 #mm-panel .mm-legend .mm-legend-item{display:flex;align-items:center;gap:6px}
 #mm-panel .mm-legend .mm-dot{width:14px;height:14px;border-radius:50%;display:inline-block;border:1px solid rgba(0,0,0,.3)}
@@ -5935,21 +5094,18 @@ function hideParentGuide(){
 #mm-panel .mm-tip.show{opacity:1}
 #mm-panel .mm-tip .mm-tip-name{font-weight:700;font-size:14px;margin-bottom:4px;color:#f7d68a}
 #mm-panel .mm-hint{text-align:center;font-size:11.5px;color:#8a7a5c;letter-spacing:2px;margin-top:12px;opacity:.75}
-#mm-launcher-btn{position:fixed;right:24px;bottom:78px;z-index:9993;background:linear-gradient(135deg,#5a4a20,#3a2a10);color:#f0e4c8;border:1px solid rgba(240,228,200,.35);padding:10px 16px;border-radius:22px;font-family:"KaiTi",serif;font-size:13px;letter-spacing:3px;cursor:pointer;box-shadow:0 4px 14px rgba(30,20,5,.35);transition:all .25s}
-#mm-launcher-btn:hover{transform:translateY(-2px);background:linear-gradient(135deg,#6a5a30,#4a3a20)}
-#mm-launcher-btn .mm-launcher-icon{font-size:14px;margin-right:6px;vertical-align:middle}
+#mm-launcher-btn{display:none !important}
 .mm-node{cursor:pointer;transition:all .2s}
 .mm-node:hover{filter:drop-shadow(0 0 6px rgba(196,139,58,.85))}
 .mm-node.highlight circle:first-child{stroke:#c48b3a;stroke-width:2.5}
-@media(max-width:520px){#mm-panel{padding:18px 14px}#mm-launcher-btn{right:16px;bottom:140px;padding:8px 12px;font-size:11px}}
+@media(max-width:520px){#mm-panel{padding:18px 14px}}
 </style>
-<button id="mm-launcher-btn" title="Masters Star Map"><span class="mm-launcher-icon">&#9737;</span><span>&#22823;&#24072;&#26143;&#22270;</span></button>
 <div id="mm-mask" role="dialog" aria-label="masters star map" aria-hidden="true">
   <div id="mm-panel">
     <button class="mm-close" id="mm-close">&times;</button>
     <div class="mm-head">
       <div class="mm-title">&#20013;&#26085;&#38867;&#22823;&#24072;&#26143;&#22270;</div>
-      <div class="mm-subtitle">18&#20301;&#26827;&#25163; &middot; 2500&#24180;&#26102;&#20809; &middot; hover &#26597;&#30475; &middot; &#28857;&#20987;&#36305;&#21040;&#25991;&#21270;&#26495;&#22359;</div>
+      <div class="mm-subtitle">26&#20301;&#26827;&#25163; &middot; 2500&#24180;&#26102;&#20809; &middot; hover &#26597;&#30475; &middot; &#28857;&#20987;&#36305;&#21040;&#25991;&#21270;&#26495;&#22359;</div>
     </div>
     <div class="mm-svg-wrap" id="mm-svg-wrap"></div>
     <div class="mm-legend">
@@ -5965,14 +5121,13 @@ function hideParentGuide(){
 (function(){
   var EPOCHS=[["spring", "春秋战国"], ["tang", "唐宋"], ["qingzao", "清初"], ["qingzhong", "清中"], ["minguo", "民国"], ["early20", "20世纪前半"], ["late20", "20世纪后半"], ["modern", "当代"]];
   var REGIONS=[["CN", "中"], ["JP", "日"], ["KR", "韩"]];
-  var MASTERS=[{"name": "弈秋", "ep": "spring", "region": "CN", "color": "B", "brief": "春秋时期国手，孟子笔下\"通国之善弈者\"。"}, {"name": "王积薪", "ep": "tang", "region": "CN", "color": "B", "brief": "盛唐棋待诏，著《棋诀》与\"围棋十诀\"。"}, {"name": "黄龙士", "ep": "qingzao", "region": "CN", "color": "B", "brief": "清初\"十四圣\"之一，出神入化的少年国手。"}, {"name": "范西屏", "ep": "qingzhong", "region": "CN", "color": "B", "brief": "清乾隆年间\"双子星\"之一，气势磅礴。"}, {"name": "施襄夏", "ep": "qingzhong", "region": "CN", "color": "W", "brief": "与范西屏合称\"当湖十局\"双绝，官子入圣。"}, {"name": "本因坊道策", "ep": "qingzao", "region": "JP", "color": "W", "brief": "江户中期围棋名人，\"棋圣\"称号首人。"}, {"name": "本因坊丈和", "ep": "qingzhong", "region": "JP", "color": "W", "brief": "江户后期名人棋所，\"三英杰\"之一。"}, {"name": "顾水如", "ep": "minguo", "region": "CN", "color": "B", "brief": "民国国手，中国近代围棋启蒙先驱。"}, {"name": "过惕生", "ep": "minguo", "region": "CN", "color": "W", "brief": "上海围棋界元老，聂卫平的启蒙老师。"}, {"name": "吴清源", "ep": "early20", "region": "JP", "color": "B", "brief": "昭和棋圣，与木谷实共创\"新布局\"理论。"}, {"name": "高川格", "ep": "early20", "region": "JP", "color": "W", "brief": "连续九年蝉联本因坊，\"流水不争先\"。"}, {"name": "坂田荣男", "ep": "late20", "region": "JP", "color": "B", "brief": "20 世纪日本第一人，\"剃刀\"般的攻防大师。"}, {"name": "陈祖德", "ep": "late20", "region": "CN", "color": "B", "brief": "首破日本九段的中国棋手，中国围棋事业奠基人。"}, {"name": "聂卫平", "ep": "late20", "region": "CN", "color": "W", "brief": "中日擂台赛\"棋圣\"，凝聚一个时代的民族记忆。"}, {"name": "马晓春", "ep": "late20", "region": "CN", "color": "B", "brief": "中国首位世界冠军，\"妖刀\"般的灵动棋风。"}, {"name": "徐奉洙", "ep": "late20", "region": "KR", "color": "W", "brief": "韩国\"野草派\"老将，逆境翻盘的代名词。"}, {"name": "曹薰铉", "ep": "late20", "region": "KR", "color": "B", "brief": "韩国现代围棋之父，\"燕子飞刀\"般的快棋战神。"}, {"name": "李昌镐", "ep": "modern", "region": "KR", "color": "W", "brief": "\"石佛\"李昌镐，官子精准到误差半目之内。"}];
+  var MASTERS=[{"name": "弈秋", "ep": "spring", "region": "CN", "color": "B", "brief": "春秋时期国手，孟子笔下\"通国之善弈者\"。"}, {"name": "王积薪", "ep": "tang", "region": "CN", "color": "B", "brief": "盛唐棋待诏，著《棋诀》与\"围棋十诀\"。"}, {"name": "黄龙士", "ep": "qingzao", "region": "CN", "color": "B", "brief": "清初\"十四圣\"之一，出神入化的少年国手。"}, {"name": "范西屏", "ep": "qingzhong", "region": "CN", "color": "B", "brief": "清乾隆年间\"双子星\"之一，气势磅礴。"}, {"name": "施襄夏", "ep": "qingzhong", "region": "CN", "color": "W", "brief": "与范西屏合称\"当湖十局\"双绝，官子入圣。"}, {"name": "顾水如", "ep": "minguo", "region": "CN", "color": "B", "brief": "民国国手，中国近代围棋启蒙先驱。"}, {"name": "过惕生", "ep": "minguo", "region": "CN", "color": "W", "brief": "上海围棋界元老，聂卫平的启蒙老师。"}, {"name": "陈祖德", "ep": "late20", "region": "CN", "color": "B", "brief": "首破日本九段的中国棋手，中国围棋事业奠基人。"}, {"name": "聂卫平", "ep": "late20", "region": "CN", "color": "W", "brief": "中日擂台赛\"棋圣\"，凝聚一个时代的民族记忆。"}, {"name": "马晓春", "ep": "late20", "region": "CN", "color": "B", "brief": "中国首位世界冠军，\"妖刀\"般的灵动棋风。"}, {"name": "古力", "ep": "late20", "region": "CN", "color": "W", "brief": "八冠王，21 世纪初中国围棋领军人物。"}, {"name": "柯洁", "ep": "modern", "region": "CN", "color": "B", "brief": "90 后世界冠军新王，围棋 AI 时代的坚守者。"}, {"name": "常昊", "ep": "modern", "region": "CN", "color": "W", "brief": "应氏杯、春兰杯冠军，坚韧稳健的\"农心杯八连胜\"。"}, {"name": "本因坊道策", "ep": "qingzao", "region": "JP", "color": "W", "brief": "江户中期围棋名人，\"棋圣\"称号首人。"}, {"name": "本因坊丈和", "ep": "qingzhong", "region": "JP", "color": "W", "brief": "江户后期名人棋所，\"三英杰\"之一。"}, {"name": "吴清源", "ep": "early20", "region": "JP", "color": "B", "brief": "昭和棋圣，与木谷实共创\"新布局\"理论。"}, {"name": "高川格", "ep": "early20", "region": "JP", "color": "W", "brief": "连续九年蝉联本因坊，\"流水不争先\"。"}, {"name": "坂田荣男", "ep": "late20", "region": "JP", "color": "B", "brief": "20 世纪日本第一人，\"剃刀\"般的攻防大师。"}, {"name": "小林光一", "ep": "late20", "region": "JP", "color": "W", "brief": "八连霸名人，日本\"六超\"时代的定石之王。"}, {"name": "井山裕太", "ep": "modern", "region": "JP", "color": "B", "brief": "日本首位七冠王，当代日本围棋第一人。"}, {"name": "曹薰铉", "ep": "late20", "region": "KR", "color": "B", "brief": "韩国现代围棋之父，\"燕子飞刀\"般的快棋战神。"}, {"name": "徐奉洙", "ep": "late20", "region": "KR", "color": "W", "brief": "韩国\"野草派\"老将，逆境翻盘的代名词。"}, {"name": "李昌镐", "ep": "late20", "region": "KR", "color": "B", "brief": "\"石佛\"李昌镐，官子精准到误差半目之内。"}, {"name": "朴廷桓", "ep": "modern", "region": "KR", "color": "W", "brief": "韩国 90 后领军人，多次问鼎世界大赛。"}, {"name": "申真谞", "ep": "modern", "region": "KR", "color": "B", "brief": "\"申工智能\"，与 AI 契合度极高的当代第一人。"}];
   var mask=document.getElementById('mm-mask');
-  var launcher=document.getElementById('mm-launcher-btn');
   var closeBtn=document.getElementById('mm-close');
   var wrap=document.getElementById('mm-svg-wrap');
   var tip=document.getElementById('mm-tip');
-  if(!mask||!launcher||!wrap){return;}
-  var W=960,H=460,padL=90,padR=30,padT=44,padB=40;
+  if(!mask||!wrap){return;}
+  var W=1180,H=460,padL=90,padR=30,padT=44,padB=44;
   var colW=(W-padL-padR)/EPOCHS.length;
   var rowH=(H-padT-padB)/REGIONS.length;
   function xOf(ep){for(var i=0;i<EPOCHS.length;i++){if(EPOCHS[i][0]===ep){return padL+colW*i+colW/2;}}return padL;}
@@ -6016,14 +5171,15 @@ function hideParentGuide(){
         var cx=xOf(m.ep);
         var cy=yOf(m.region);
         if(count>1){
-          var totalW2=(count-1)*22;
-          cx=cx-totalW2/2+i*22;
+          var stepDot=32;
+          var totalW2=(count-1)*stepDot;
+          cx=cx-totalW2/2+i*stepDot;
         }
         var fill=(m.color==='B')?'url(#mm-b)':'url(#mm-w)';
         var strokeC=(m.color==='B')?'#000':'#8a6a3a';
         parts.push('<g class="mm-node" data-name="'+esc(m.name)+'" data-brief="'+esc(m.brief)+'">');
         parts.push('<circle cx="'+cx+'" cy="'+cy+'" r="12" fill="'+fill+'" stroke="'+strokeC+'" stroke-width="1"/>');
-        parts.push('<text x="'+cx+'" y="'+(cy+30)+'" font-size="11" fill="#3a2a10" text-anchor="middle" font-family="KaiTi,STKaiti,serif" letter-spacing="1">'+esc(m.name)+'</text>');
+        parts.push('<text x="'+cx+'" y="'+(cy+30)+'" font-size="10.5" fill="#3a2a10" text-anchor="middle" font-family="KaiTi,STKaiti,serif" letter-spacing="0.5">'+esc(m.name)+'</text>');
         parts.push('</g>');
       }
     }
@@ -6091,7 +5247,6 @@ function hideParentGuide(){
   }
   function open(){render();mask.classList.add('show');mask.setAttribute('aria-hidden','false');}
   function close(){mask.classList.remove('show');mask.setAttribute('aria-hidden','true');}
-  launcher.addEventListener('click',open);
   closeBtn.addEventListener('click',close);
   mask.addEventListener('click',function(e){if(e.target===mask){close();}});
   document.addEventListener('keydown',function(e){if(e.key==='Escape'&&mask.classList.contains('show')){close();}});
@@ -6099,6 +5254,785 @@ function hideParentGuide(){
 })();
 </script>
 <!-- ===== MASTER-MAP v1.0 END ===== -->
+
+<!-- ===== LUOBO-SPIRIT v2.0 START ===== -->
+<style>
+/* ============ 萝卜精 v1.0 样式 ============ */
+:root {
+  --luobo-ink: #1a1a1a;
+  --luobo-paper: #faf7f0;
+  --luobo-paper-deep: #f0ebe0;
+  --luobo-line: #a89880;
+  --luobo-accent: #b8391f;
+  --luobo-jade: #4a7c59;
+  --luobo-gold: #c9a961;
+  --luobo-shadow: rgba(30, 20, 10, 0.15);
+}
+
+/* 悬浮按钮 - v2 隐藏 (改由 header 触发) */
+#luobo-fab {
+  display: none !important;
+}
+
+/* 抽屉遮罩 */
+#luobo-drawer-mask {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 15, 5, 0.35);
+  z-index: 9997;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.28s ease;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+#luobo-drawer-mask.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* 主面板 · 右侧抽屉 */
+#luobo-panel {
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 380px;
+  max-width: 100vw;
+  height: 100vh;
+  overflow-y: auto;
+  background: var(--luobo-paper);
+  border-left: 1px solid var(--luobo-line);
+  box-shadow: -14px 0 42px rgba(30, 20, 10, 0.22);
+  z-index: 9999;
+  padding: 0;
+  font-family: "STKaiti", "KaiTi", "Songti SC", serif;
+  color: var(--luobo-ink);
+  transform: translateX(0);
+  transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+}
+#luobo-panel.hidden {
+  transform: translateX(105%);
+  pointer-events: none;
+}
+#luobo-panel::before {
+  content: "";
+  display: block;
+  height: 6px;
+  background: linear-gradient(90deg, var(--luobo-accent) 0%, var(--luobo-gold) 50%, var(--luobo-jade) 100%);
+}
+
+/* 头部 */
+.luobo-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px 8px;
+  border-bottom: 1px dashed var(--luobo-line);
+}
+.luobo-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--luobo-accent);
+  letter-spacing: 1px;
+}
+.luobo-title .luobo-tag {
+  display: inline-block;
+  margin-left: 6px;
+  font-size: 11px;
+  padding: 2px 6px;
+  background: var(--luobo-jade);
+  color: white;
+  border-radius: 8px;
+  font-family: sans-serif;
+  vertical-align: middle;
+}
+.luobo-close {
+  border: none;
+  background: transparent;
+  font-size: 22px;
+  color: var(--luobo-line);
+  cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
+}
+.luobo-close:hover { color: var(--luobo-ink); }
+
+/* 打卡状态条 */
+.luobo-streak-bar {
+  padding: 8px 16px;
+  background: var(--luobo-paper-deep);
+  font-size: 13px;
+  color: var(--luobo-ink);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--luobo-line);
+}
+.luobo-streak-bar .flame {
+  color: var(--luobo-accent);
+  font-weight: bold;
+}
+.luobo-streak-bar .total {
+  color: var(--luobo-jade);
+  font-size: 12px;
+}
+
+/* 引言主体 */
+.luobo-quote-box {
+  padding: 20px 20px 14px;
+  min-height: 120px;
+  position: relative;
+}
+.luobo-quote {
+  font-size: 17px;
+  line-height: 1.9;
+  color: var(--luobo-ink);
+  letter-spacing: 0.5px;
+  text-align: justify;
+}
+.luobo-quote::before {
+  content: "「";
+  color: var(--luobo-accent);
+  font-size: 22px;
+  vertical-align: -2px;
+  margin-right: 2px;
+}
+.luobo-quote::after {
+  content: "」";
+  color: var(--luobo-accent);
+  font-size: 22px;
+  vertical-align: -2px;
+  margin-left: 2px;
+}
+.luobo-style-tag {
+  margin-top: 10px;
+  display: inline-block;
+  font-size: 12px;
+  padding: 3px 10px;
+  background: var(--luobo-paper-deep);
+  border: 1px solid var(--luobo-line);
+  border-radius: 12px;
+  color: var(--luobo-ink);
+}
+.luobo-daily-sign {
+  margin-top: 14px;
+  padding: 10px 12px;
+  border-left: 3px solid var(--luobo-gold);
+  background: rgba(201, 169, 97, 0.08);
+  font-size: 13px;
+  color: var(--luobo-ink);
+  line-height: 1.7;
+}
+.luobo-daily-sign .sign-title {
+  font-size: 11px;
+  color: var(--luobo-gold);
+  letter-spacing: 2px;
+  margin-bottom: 4px;
+}
+.luobo-daily-sign .sign-source {
+  font-size: 11px;
+  color: var(--luobo-line);
+  margin-top: 4px;
+  text-align: right;
+}
+
+/* 风格切换 - v2 隐藏 (惊喜感优先，8 风格不外露) */
+.luobo-styles {
+  display: none !important;
+}
+
+/* 操作按钮 */
+.luobo-actions {
+  display: flex;
+  gap: 8px;
+  padding: 12px 16px;
+}
+.luobo-actions button {
+  flex: 1;
+  padding: 10px 4px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid var(--luobo-line);
+  background: var(--luobo-paper);
+  color: var(--luobo-ink);
+}
+.luobo-btn-check {
+  background: var(--luobo-accent) !important;
+  color: white !important;
+  border-color: var(--luobo-accent) !important;
+  font-weight: bold;
+}
+.luobo-btn-check.done {
+  background: var(--luobo-jade) !important;
+  color: white !important;
+  border-color: var(--luobo-jade) !important;
+  cursor: pointer;
+}
+.luobo-btn-check.rolling {
+  animation: luobo-roll 0.35s ease-out;
+}
+@keyframes luobo-roll {
+  0% { transform: scale(1); }
+  40% { transform: scale(0.94) rotate(-3deg); }
+  100% { transform: scale(1); }
+}
+.luobo-actions button:hover:not(.done) {
+  opacity: 0.85;
+  transform: translateY(-1px);
+}
+
+/* 日历 */
+.luobo-cal-box {
+  padding: 12px 16px 16px;
+  border-top: 1px dashed var(--luobo-line);
+}
+.luobo-cal-title {
+  font-size: 12px;
+  color: var(--luobo-line);
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+.luobo-cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+.luobo-cal-cell {
+  aspect-ratio: 1;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  color: var(--luobo-line);
+  background: var(--luobo-paper-deep);
+  font-family: sans-serif;
+}
+.luobo-cal-cell.checked {
+  background: var(--luobo-jade);
+  color: white;
+  font-weight: bold;
+}
+.luobo-cal-cell.today {
+  outline: 2px solid var(--luobo-accent);
+  outline-offset: -2px;
+}
+.luobo-cal-cell.future { opacity: 0.3; }
+
+/* 底部签名 */
+.luobo-foot {
+  padding: 8px 16px 12px;
+  font-size: 11px;
+  color: var(--luobo-line);
+  text-align: center;
+  border-top: 1px dashed var(--luobo-line);
+  font-family: sans-serif;
+}
+.luobo-foot .heart { color: var(--luobo-accent); }
+
+/* 分享图弹层 */
+#luobo-share-modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.75);
+  z-index: 10000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 20px;
+}
+#luobo-share-modal.show { display: flex; }
+#luobo-share-canvas {
+  max-width: 100%;
+  max-height: 70vh;
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+}
+#luobo-share-modal .tips {
+  color: white;
+  font-size: 14px;
+  margin: 16px 0 8px;
+  text-align: center;
+  font-family: "STKaiti", "KaiTi", serif;
+}
+#luobo-share-modal .close-btn {
+  padding: 8px 24px;
+  border: 1px solid rgba(255,255,255,0.5);
+  background: transparent;
+  color: white;
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+/* 移动端 · 抽屉 */
+@media (max-width: 480px) {
+  #luobo-panel {
+    width: 92vw;
+    max-width: 92vw;
+  }
+}
+</style>
+
+<!-- 萝卜精 v2 · 抽屉遮罩 -->
+<div id="luobo-drawer-mask" onclick="window.toggleLuoboSpirit()"></div>
+
+<!-- 萝卜精 · 抽屉面板 -->
+<div id="luobo-panel" class="hidden">
+  <div class="luobo-head">
+    <span class="luobo-title">🥕 萝卜精 <span class="luobo-tag">打卡搭子</span></span>
+    <button class="luobo-close" onclick="window.toggleLuoboSpirit()" title="关闭">×</button>
+  </div>
+  <div class="luobo-streak-bar">
+    <span class="flame">🔥 连续打卡 <span id="luobo-streak-days">0</span> 天</span>
+    <span class="total">累计 <span id="luobo-total-days">0</span> 天</span>
+  </div>
+  <div class="luobo-quote-box">
+    <div class="luobo-quote" id="luobo-quote">加载中……</div>
+    <div class="luobo-style-tag" id="luobo-style-tag">🎲 惊喜</div>
+    <div class="luobo-daily-sign">
+      <div class="sign-title">◆ 每日一签 ◆</div>
+      <div id="luobo-daily-text">——</div>
+      <div class="sign-source" id="luobo-daily-source">——</div>
+    </div>
+  </div>
+  <div class="luobo-actions">
+    <button class="luobo-btn-check" id="luobo-btn-check" onclick="window.luoboCheckIn()">🎲 今日打卡</button>
+    <button onclick="window.luoboShare()">分享图</button>
+  </div>
+  <div class="luobo-cal-box">
+    <div class="luobo-cal-title">
+      <span id="luobo-cal-month">本月打卡</span>
+      <span id="luobo-cal-count">0/30</span>
+    </div>
+    <div class="luobo-cal-grid" id="luobo-cal-grid"></div>
+  </div>
+  <div class="luobo-foot">
+    以棋会友 <span class="heart">·</span> 一日一手 <span class="heart">·</span> 与君共修
+  </div>
+</div>
+
+<!-- 分享图弹层 -->
+<div id="luobo-share-modal">
+  <canvas id="luobo-share-canvas" width="720" height="1080"></canvas>
+  <div class="tips">长按图片保存到相册 · 转发到朋友圈</div>
+  <button class="close-btn" onclick="window.closeLuoboShare()">关闭</button>
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  // ==== 数据 ====
+  const QUOTES = {"gentle": {"label": "温柔治愈", "icon": "🌸", "desc": "累了想被抱抱", "quotes": ["今天下一手也好，不下也没关系，你已经是我心里的定式。", "累了就搁棋盒里歇歇，明天棋盘还是原来那张。", "别急，慢慢来。李昌镐当年也只是先摆一手小飞挂。", "你今天愿意点开我，就是最好的复盘。", "棋盘不会走的，你什么时候回来它都在。", "输一盘不算什么，你还没输过明天。", "一手没下好，抱抱自己，再摸一颗子。", "深呼吸，然后就着这口气下一颗棋，就一颗，不多要。", "手上有点凉？先把棋子握热了再落。", "今天不想复盘也可以，就看看昨天赢下的那颗子。", "你已经很棒了，能坚持到今天点开我。", "不用做完整盘，摆两个死活题也很好。", "我给你打个招呼，你回我一手，就当我们对话过了。", "困的话就睡吧，梦里也可以下棋。", "别跟自己较劲，围棋这一辈子学不完，也不用今天学完。", "你想停就停，想开始就开始，我一直在角落。", "有你在，棋盘就有温度。", "今天下得不好也是今天的样子，我喜欢的。", "把手洗干净，摸一颗子，就是最好的开始。", "累了就跟棋子说话，它会听的。", "不用赢，只要今天你摸过棋子，我就替你高兴。", "你不需要证明什么，你已经在坚持了。", "下不好也别删复盘记录，那是你走过的路。", "今晚就下三手好不好？三手就够。", "允许自己有一手臭棋，允许自己今天不想赢。", "你在棋盘边坐着的样子，最温柔了。", "泡杯茶，等它凉，再落第一颗子。", "记得吃饭。棋可以慢慢下，胃不能。", "今天想被夸就点我，我夸你：你真棒。", "谢谢你，今天也没有把我关起来。"]}, "spicy": {"label": "辛辣嘲讽", "icon": "🌶️", "desc": "犯懒需要人骂", "quotes": ["都三天没碰棋盘了，你手筋是断了吗？", "你的棋盒是不是被封条贴住了？", "上次输棋以后就再没打开过棋谱，是被打怕了吧。", "你这种坚持速度，聂卫平的孙子都能拿冠军了。", "点开我又不下棋，你是在跟我谈恋爱吗？", "你的复盘本比灰姑娘的水晶鞋还干净。", "李昌镐半夜起来摆棋，你半夜起来刷手机。", "别人下棋是打劫，你下棋是打卡，还打得不勤。", "你要再这么下下去，段位表都要把你除名了。", "上一次你完整下完一盘棋是什么朝代的事？", "棋盘想问你：你多久不理我了，心里没数？", "别摆姿势了，摆点子。", "点一次我，下一手不亏，你亏的是良心。", "你说要冲三段，我以为你要认真，结果你连三天都没冲过去。", "你的棋力最近唯一的进步，是理直气壮不下棋。", "藤泽秀行 60 岁还在拼冠军，你 30 岁就想退休？", "别怪自己没时间，你打游戏的时候可从没喊过没时间。", "你这样下棋，对得起你屋里那副贵棋盘吗？", "上次你说要每天做题，题在哭。", "棋书买了一书架，看过的比封面还少。", "别急着骂我毒舌，你摸一手棋我就闭嘴。", "「明天再下」——这话你说了 90 天了。", "你的坚持力，比对方长考的时间还短。", "输了怪 AI 强，赢了夸自己天才，你这心态挺稳。", "别人打卡是打卡，你打卡是打卡机自己在响。", "你今天要是再不摆一题，我就把你收藏的名局给你删了。", "复盘本翻开的次数，比你朋友圈还稀有。", "你以为你在缓一缓，其实你在退一退。", "别怪 AI 让不动你，是你压根没上桌。", "承认吧，你今天不是没时间，你是没脸下。"]}, "backup": {"label": "坚强后盾", "icon": "💪", "desc": "低谷需要托底", "quotes": ["李昌镐输了世界大赛第二天照样复盘。你今天下几手，我陪着。", "输一盘算什么，藤泽秀行输过多少你数得过来吗？他后来赢的更多。", "手抖没关系，落下去就是子。", "别看别人段位，你的对手只有昨天的自己。", "你不是不行，你是还没找到自己的那一手。", "跌到谷底也就多一颗黑子的重量，你扛得住。", "有我在，你今天摆一题，我陪你复一题。", "怕输就先输一盘，输完就不怕了。", "你走过的每一手臭棋，都是你后来那一手妙手的地基。", "别怕慢。徐奉洙 17 岁才入段，40 多岁还能一杆清台。", "你今天下的这一颗子，比昨天所有想法都值钱。", "输了咱不哭，我给你打张分手图，明天再来。", "困难的局面才配得上你，你不是普通选手。", "有人比你聪明，但没人比你更懂你自己的棋风。", "你不是坚持不下来，你只是没找到跟自己和解的方式。", "累的时候看一眼吴清源的棋谱，他 60 岁还在悟大局观。", "别怕臭棋，臭棋才让你记住教训。", "你已经比昨天的你多摆了一颗子，够了。", "被 AI 让 9 子还输？没事，让 10 子再来。", "你手里的那颗黑子，装着你所有走过来的路。", "刘昌赫经历那么多都没放下棋盘，你的坎跟他比是小坎。", "输给学生也没什么，说明你教得好。", "你不是没天赋，你是没给自己那么多时间。", "回来了就好，棋盘一直在等你。", "怕挨骂就先下给我看，我不骂你。", "你要是塌了，我先把你的棋盘擦干净等你。", "陈祖德带病写完《超越自我》，你今天下三手，也是超越自我。", "别人夸你不用当真，你自己夸自己那才是真的。", "这一手落下去，就没有「如果」了，好过盯着「如果」一辈子。", "你只要还在点开我，我们就没输。"]}, "classic": {"label": "古风诗意", "icon": "🎋", "desc": "想文艺一下", "quotes": ["山僧对棋坐，局上竹阴清——今日一手，何妨？", "偶来松树下，高枕石头眠。棋声一响，梦亦清。", "闲敲棋子落灯花，落一颗，便算你今日的花。", "野桥经雨断，涧水向田分。落子无声，心自安。", "手谈之乐，非在胜负，在于一子一心。", "一子落，风未动；再一子，霜华生。", "松下问童子，言师采药去——你且落一手，我等师归。", "十九路间藏山河，你一手一手，走出一片乾坤。", "对坐清风里，无言胜有言。今日之棋，不必多言。", "君子矜而不争，群而不党——棋盘之上，亦复如是。", "空山不见人，但闻子声响。你落一手，我便应你。", "一枰春色，两袖清风。手谈半晌，胜过烟花万丈。", "秋风落叶时节，摆一局残谱，如故人重逢。", "落子须知白鹤翩翩之意，非为杀，为舞。", "白云回望合，青霭入看无——好棋，也是这般。", "行到水穷处，坐看云起时——棋到胶着时，落子勿急。", "一子无声，天地澄清。今日一手，值得。", "对着棋盘，恍见太古之风。", "落雪时节，一子如梅，一子如霜。", "半窗明月，一枰残棋，人生不过如此。", "对局如对镜，一手照见半生。", "「胜固欣然，败亦可喜」——苏子早已替你说尽。", "闲庭独坐棋盘边，风过处，落一子。", "洞庭西望楚江分，落子一声，江水又深一寸。", "青衫落魄不必愁，一子当空胜万筹。", "手谈无言，谈的是彼此一生的心事。", "今日一手，是给三千年前那位弈者的一句回音。", "一叶落知天下秋，一子落知你今日心境。", "云淡风轻近午天，落一子，便是圆满。", "对坐无言，落子有声——此乃棋之至乐。"]}, "burning": {"label": "热血燃系", "icon": "🔥", "desc": "想被点燃", "quotes": ["藤泽秀行 60 岁还在拼冠军！你这个年纪凭什么不摆棋！", "徐奉洙 44 岁真露杯 9 连胜一杆清台！你今天连一手都不落？", "李昌镐每天研究棋 8 小时，你连 8 分钟都拿不出来？", "陈祖德带着癌症写完《超越自我》。你今天有什么理由不下？", "本因坊丈和血泪拼杀爬到名人棋所！你的棋盘也在等你冲！", "刘昌赫失去妻子后拿出五连冠气魄！你手里那点低谷不算什么！", "赵治勋一年下 100 盘正式赛！你一年下几盘？", "吴清源为一个新手研究 30 年！你连坚持 30 天都做不到？", "聂卫平中日擂台十一连胜！你手里就没这股劲吗？", "马晓春连续 40 个月国内第一！你连续 4 天都撑不住？", "曹薰铉带着李昌镐横扫世界！你带着自己走完今天！", "秀策十九手中国流至今无人破解！你哪来的资格说自己没天赋？", "范西屏施定庵下当湖十局手不发抖！你握颗棋子发什么抖？", "王积薪听老妇下棋一夜通神！你听我一句话，落一手！", "黄龙士 20 出头封棋圣！你 20 出头都没握过棋盒？", "道策发明手割理论重新定义围棋！你也可以重新定义你自己！", "常昊七次世界大赛决赛四次亚军最后拿冠军！你怕过什么！", "古力柯洁哪一个不是拼命练出来的！你手里有的是时间！", "石佛李昌镐一步没错走完官子！你连开局都不敢开？", "藤泽朋斋 90 岁还在摆棋！你 30 岁就摆烂？", "曹薰铉三届富士通冠军！你三天都撑不住？", "过惕生弱冠拜师终成新中国教父！你也是从零开始，为什么不能？", "顾水如民国孤军抗日棋界的骨头！你现在下棋，是幸福的！", "王子晏文人下棋两袖清风一枰春秋！你也可以，落一颗！", "坂田荣男剃刀般精准！你也曾锋利过，别忘了！", "高川格「流水不争先」拿七连霸！你的从容还在！", "武宫正树宇宙流开天辟地！你也有你的宇宙！", "小林光一严谨到令人窒息！你的自律值得再来一次！", "所有大师都是从一手臭棋开始的。你现在，就是他们的起点。", "你不落这一手，你就永远不知道自己能走到哪。落！"]}, "zen": {"label": "佛系躺平", "icon": "🧘", "desc": "想放过自己", "quotes": ["下也好，不下也好，一切随缘…但你已经三天没下了哦。", "赢了是运气好，输了是运气差，人生嘛。", "AI 说你这手不好？AI 又不用交房租，随它说去。", "段位不重要，重要的是今天有没有笑过。", "错手也是手，反正棋盘不会告你。", "你不下，棋盘也不会怪你，我可能会哦。", "复盘就复盘吧，不复盘就不复盘吧，天亮了再说。", "输了？没事，反正世界不会因此改变半分。", "「胜固欣然，败亦可喜」——你看古人多想得开。", "今天没时间就明天，明天没时间就下周，慢慢来。", "棋盘上放两颗子摆个心形也可以，谁规定必须要下正经棋？", "累了就走，累了就停，累了就当自己是一颗被拈起来又放回去的棋子。", "「空亦是色，色亦是空」——一颗子的得失，何足挂齿。", "别想了，先睡觉，睡醒棋子还是黑白两色。", "赢的时候不飞，输的时候不哭，佛系棋手就是这样。", "水到渠成，棋到手熟。别硬掰。", "今天下不下都行，我就是想你了。", "下棋是修行，不下棋也是修行。", "对手强？强就强呗，你有你的活法。", "少一手棋，多一次呼吸，也是收获。", "别人 30 岁得世界冠军，你 30 岁得心平气和，一样值钱。", "AI 让你 9 子？让就让呗，反正它也不发工资。", "有些棋走不好，是因为还没到时候。", "今日棋不悟，明日再悟。棋不生锈，你也是。", "「落子无悔」是对高手说的，你落错了改改也没关系。", "「不争，天下莫能与之争」——不下棋的人反而下得最好？", "今天你不点我我不怪你，你点我我陪你聊两句。", "输给学生了？说明你会教书了，恭喜。", "「棋道一百，我只知七」——你今天连一都不用知。", "算了，别摆了，就当你已经赢了。（其实我盼你摆一颗。）"]}, "joke": {"label": "段子搞笑", "icon": "😂", "desc": "想乐一乐", "quotes": ["医生说我血压高，我说我一天不下棋才血压高。", "「落子无悔」是骗小孩的，我每次落完都想悔到唐朝。", "你的棋盘再不用，就要长蘑菇了。（真的。）", "AI 让我 9 子，我谢它 9 遍。", "问我为什么下棋？因为麻将三缺一。", "你的棋，臭得像我上周忘在冰箱里的鱼。", "「金角银边草肚皮」——我下的每一手都在肚皮。", "别人复盘是学，我复盘是回顾人生失败史。", "我下棋不看段位看运气，运气不好我就说昨晚没睡好。", "上次赢学生一盘，学生 3 岁。这算成就吗算吗？", "打劫？我劫我自己的时间下不下棋，天天打。", "「棋盘如战场」——那我就是那个总迷路的士兵。", "别问我为啥输，问就是天时地利人和都不在我这。", "棋圣是别人的，我是棋剩，剩下来的剩。", "「一子定乾坤」——我一子定坟头。", "输了别难过，赢的人可能是作弊。（别真信，转发这段可赢十年好棋。）", "我以为我在下围棋，AI 以为我在给它送分。", "医生：你需要放松。我：好的，我去下棋。医生：换一个。", "「胜负乃兵家常事」——但主要是我在负。", "别人下棋越下越聪明，我下棋越下越沉默。", "AI 说这手是妙手，我以为夸我，其实夸的是它自己。", "「落子无声」是骗人的，我每次都「啪」一声，主要是气。", "我棋盘上放了张辣椒图片，希望能辣一辣我的棋力。", "「一将功成万骨枯」——我这盘棋，是万骨我全占了。", "下棋前抽卡：抽到大师就赢，抽到菜鸡就是我今天。", "有人吸猫，有人吸猫粮，我吸棋谱。", "「棋逢对手」的下句应该是「把把落荒」。（我改的。）", "我不是不会下，我是给对手让分，我心善。", "从此以后每次下棋前拜三下棋盘，气运会不会好点？", "「黑白分明」不适用于我的棋盘，我的棋盘是灰的。"]}, "master": {"label": "师父型", "icon": "🎓", "desc": "想被指点", "quotes": ["小友，一手棋看三年功夫。今日一手，胜过明日十手空想。", "棋道之精，不在多，在于专。今日一子，即是一课。", "初学者贪多，中手贪快，高手贪静。你今日在哪一层？", "手筋易学，大局难修。你先摆一子，我们再谈大局。", "记住：先看全局，再看一手。眼里有天地，手中才有分寸。", "败棋不弃，胜棋不骄。这是你今日该守的两条。", "「不失先手」不是不让，而是知道何时该让。", "手谈无言，谈的是心境。你今日心境如何？", "棋盘上藏着三重关：手筋、气势、心法。你在哪一关？", "「弃子争先」的道理，很多人一辈子学不会。你今日试着弃一颗。", "为师告诉你：别人的棋是别人的路，你的棋只能你自己走。", "复盘之要，不在找错，而在找懂。", "落子如种树，今日一子，十年才见其枝繁。", "求快求胜，是初学者的心。求稳求悟，是老者的心。", "一盘棋能改变一天，一年棋能改变一生。莫小看今日一手。", "「不争而胜」是境界，但先要学会争。", "眼中有子，心中有势——先练前者，再修后者。", "为师看过太多天才夭折，只因忘了每日一手。你今日别忘。", "输不可怕，可怕的是不知为何输。今日复一盘，明日胜一分。", "手谈之趣，在于「手」字。你的手，就是你的心。", "记住这句：「棋高一着，缚手缚脚」——你今日别被「高」字困住。", "小友，急躁是棋手的第一大敌。落一子前，先呼吸三次。", "「当局者迷，旁观者清」——你有时也做做自己的旁观者。", "为师年轻时也懒过。补回来的路很长，不如今日一手。", "别问何时能成高手，先问今日有没有一手。", "「棋无第一手」——每一手都可能是妙手，每一手都可能是败手。", "记住：好棋是练出来的，不是等出来的。", "有些棋要下十年才懂，有些棋只需一秒就懂。你今日该下哪种？", "手中一颗子，胜过书架一整排棋谱。", "为师一句话赠你：「棋在纸上，路在脚下。」今日一手，走一步。"]}};
+  const DAILY_SIGN = [{"text": "山僧对棋坐，局上竹阴清。", "source": "白居易《池上二绝》"}, {"text": "闲敲棋子落灯花。", "source": "赵师秀《约客》"}, {"text": "偶来松树下，高枕石头眠。", "source": "太上隐者《答人》"}, {"text": "行到水穷处，坐看云起时。", "source": "王维《终南别业》"}, {"text": "白云回望合，青霭入看无。", "source": "王维《终南山》"}, {"text": "松下问童子，言师采药去。", "source": "贾岛《寻隐者不遇》"}, {"text": "野桥经雨断，涧水向田分。", "source": "唐 佚名"}, {"text": "对局如对镜，一手照见半生。", "source": "手谈古语"}, {"text": "半窗明月，一枰残棋。", "source": "宋人棋话"}, {"text": "一叶落知天下秋，一子落知今日心。", "source": "手谈古语"}, {"text": "金角银边草肚皮。", "source": "围棋谚语"}, {"text": "宁失一子，不失一先。", "source": "围棋谚语"}, {"text": "两番收官胜过一步妙手。", "source": "围棋谚语"}, {"text": "势孤取和，实空取胜。", "source": "围棋谚语"}, {"text": "逢危须弃。", "source": "《棋经十三篇》"}, {"text": "彼强自保，势孤取和。", "source": "《棋经十三篇》"}, {"text": "有先手就下先手。", "source": "围棋谚语"}, {"text": "落子无悔，君子之约。", "source": "手谈古训"}, {"text": "棋从断处生。", "source": "围棋谚语"}, {"text": "宁数一目，勿弃一线。", "source": "围棋谚语"}, {"text": "棋道一百，我只知七。", "source": "藤泽秀行"}, {"text": "围棋的目的是把好棋下出来，不是把对手打败。", "source": "吴清源"}, {"text": "六合之棋，超越胜负。", "source": "吴清源"}, {"text": "流水不争先。", "source": "高川格"}, {"text": "宇宙流，看的不是一角，是整盘天地。", "source": "武宫正树"}, {"text": "先看全局，再看一手。", "source": "陈祖德《超越自我》"}, {"text": "棋逢知己，胜负不重要。", "source": "聂卫平"}, {"text": "一手棋，看三年功夫。", "source": "古老棋训"}, {"text": "手筋易学，大局难修。", "source": "围棋谚语"}, {"text": "败者，无一言。", "source": "本因坊道策"}, {"text": "胜固欣然，败亦可喜。", "source": "苏轼《观棋》"}, {"text": "一枰春色，两袖清风。", "source": "文人棋话"}, {"text": "对坐清风里，无言胜有言。", "source": "文人棋话"}, {"text": "青衫落魄不必愁，一子当空胜万筹。", "source": "宋人棋诗"}, {"text": "闲敲棋子夜灯花，一子入盘天地大。", "source": "文人棋话"}, {"text": "落雪时节，一子如梅，一子如霜。", "source": "文人棋话"}, {"text": "对着棋盘，恍见太古之风。", "source": "文人棋话"}, {"text": "十九路间藏山河，一手一手走乾坤。", "source": "文人棋话"}, {"text": "洞庭西望楚江分，落子一声江水深。", "source": "化用李白"}, {"text": "君子矜而不争，群而不党。", "source": "《论语》·适用于棋道"}];
+  const STYLE_KEYS = Object.keys(QUOTES);
+  const STORAGE_KEY = 'luobo_spirit_v1';
+  const MILESTONES = [
+    { days: 1,   emoji: '🌱', title: '初次相遇',   desc: '你迈出了第一手。' },
+    { days: 3,   emoji: '🌿', title: '初见连贯',   desc: '连续三日，手已成习。' },
+    { days: 7,   emoji: '🎋', title: '一周初成',   desc: '一周不辍，气象已开。' },
+    { days: 30,  emoji: '🏆', title: '月度大师',   desc: '连续一月，此心已定。' },
+    { days: 100, emoji: '💎', title: '百日心印',   desc: '百日成禅，功不唐捐。' },
+    { days: 365, emoji: '👑', title: '一年一梦',   desc: '一年之约，与棋同行。' },
+  ];
+
+  // ==== 状态 ====
+  function load() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return { days: [], style: 'random', milestones: [] };
+      const s = JSON.parse(raw);
+      return {
+        days: Array.isArray(s.days) ? s.days : [],
+        style: s.style || 'random',
+        milestones: Array.isArray(s.milestones) ? s.milestones : [],
+      };
+    } catch (e) {
+      return { days: [], style: 'random', milestones: [] };
+    }
+  }
+  function save(s) {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); } catch (e) {}
+  }
+
+  // ==== 工具 ====
+  function todayStr() {
+    const d = new Date();
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return y + '-' + m + '-' + day;
+  }
+  function daysBetween(a, b) {
+    const t1 = new Date(a + 'T00:00:00').getTime();
+    const t2 = new Date(b + 'T00:00:00').getTime();
+    return Math.round((t2 - t1) / 86400000);
+  }
+  function hashStr(s) {
+    let h = 0;
+    for (let i = 0; i < s.length; i++) {
+      h = ((h << 5) - h) + s.charCodeAt(i);
+      h |= 0;
+    }
+    return Math.abs(h);
+  }
+  function computeStreak(days) {
+    if (!days.length) return 0;
+    const sorted = days.slice().sort();
+    const today = todayStr();
+    // 从今天倒推，找最近一个 checked 的日期，然后连续统计
+    let streak = 0;
+    let cur = today;
+    // 如果今天没打卡，往前看昨天
+    if (!sorted.includes(today)) {
+      const yest = new Date(today + 'T00:00:00');
+      yest.setDate(yest.getDate() - 1);
+      cur = yest.toISOString().slice(0, 10);
+      if (!sorted.includes(cur)) return 0;
+    }
+    const set = new Set(sorted);
+    while (set.has(cur)) {
+      streak++;
+      const d = new Date(cur + 'T00:00:00');
+      d.setDate(d.getDate() - 1);
+      cur = d.toISOString().slice(0, 10);
+    }
+    return streak;
+  }
+
+  // ==== 选句 ====
+  function pickQuote(styleKey, seed) {
+    let key = styleKey;
+    if (!key || key === 'random') {
+      const rndKey = STYLE_KEYS[(seed || Math.floor(Math.random() * 1e9)) % STYLE_KEYS.length];
+      key = rndKey;
+    }
+    const pool = QUOTES[key];
+    if (!pool) return { text: '……', style: 'gentle', styleLabel: '🌸 温柔治愈' };
+    const idx = (seed !== undefined ? seed : Math.floor(Math.random() * 1e9)) % pool.quotes.length;
+    return {
+      text: pool.quotes[idx],
+      style: key,
+      styleLabel: pool.icon + ' ' + pool.label,
+    };
+  }
+  function todayQuote(styleKey) {
+    const seed = hashStr(todayStr() + '_' + (styleKey || 'random'));
+    return pickQuote(styleKey, seed);
+  }
+  function todaySign() {
+    const seed = hashStr(todayStr() + '_sign');
+    const idx = seed % DAILY_SIGN.length;
+    return DAILY_SIGN[idx];
+  }
+
+  // ==== 渲染 ====
+  function renderQuote() {
+    // v2 · 每次都是随机风格随机句，追求惊喜感（style 已锁 random）
+    const q = pickQuote('random');
+    document.getElementById('luobo-quote').textContent = q.text;
+    document.getElementById('luobo-style-tag').textContent = '🎲 ' + q.styleLabel;
+  }
+  function renderSign() {
+    const s = todaySign();
+    document.getElementById('luobo-daily-text').textContent = s.text;
+    document.getElementById('luobo-daily-source').textContent = '—— ' + s.source;
+  }
+  function renderStreak() {
+    const state = load();
+    const streak = computeStreak(state.days);
+    document.getElementById('luobo-streak-days').textContent = streak;
+    document.getElementById('luobo-total-days').textContent = state.days.length;
+    // 今日打卡按钮状态：已打卡时提示"再摇一句"，仍可点击（惊喜再来）
+    const btn = document.getElementById('luobo-btn-check');
+    if (state.days.includes(todayStr())) {
+      btn.textContent = '🎲 再摇一句 · 今日已打卡';
+      btn.classList.add('done');
+    } else {
+      btn.textContent = '🎲 今日打卡';
+      btn.classList.remove('done');
+    }
+  }
+  function renderStyles() {
+    // v2 · 8 风格不外露 (惊喜感优先)。此函数保留占位，不做任何 DOM 输出。
+  }
+  function renderCalendar() {
+    const state = load();
+    const now = new Date();
+    const y = now.getFullYear();
+    const m = now.getMonth();
+    const first = new Date(y, m, 1);
+    const daysInMonth = new Date(y, m + 1, 0).getDate();
+    const startWeekday = first.getDay(); // 0=Sun..6=Sat
+    const today = todayStr();
+
+    document.getElementById('luobo-cal-month').textContent = (m + 1) + '月打卡';
+    let monthChecked = 0;
+    const grid = document.getElementById('luobo-cal-grid');
+    grid.innerHTML = '';
+    // 空占位
+    for (let i = 0; i < startWeekday; i++) {
+      const c = document.createElement('div');
+      c.className = 'luobo-cal-cell';
+      c.style.background = 'transparent';
+      grid.appendChild(c);
+    }
+    // 日期格
+    for (let d = 1; d <= daysInMonth; d++) {
+      const ds = y + '-' + String(m + 1).padStart(2, '0') + '-' + String(d).padStart(2, '0');
+      const c = document.createElement('div');
+      c.className = 'luobo-cal-cell';
+      c.textContent = d;
+      if (state.days.includes(ds)) {
+        c.classList.add('checked');
+        monthChecked++;
+      }
+      if (ds === today) c.classList.add('today');
+      if (ds > today) c.classList.add('future');
+      grid.appendChild(c);
+    }
+    document.getElementById('luobo-cal-count').textContent = monthChecked + '/' + daysInMonth;
+  }
+  function renderAll() {
+    renderStreak();
+    renderQuote();
+    renderSign();
+    renderStyles();
+    renderCalendar();
+  }
+
+  // ==== 交互 ====
+  function switchStyle(key) {
+    const state = load();
+    state.style = key;
+    save(state);
+  }
+  window.luoboRefresh = function() {
+    renderQuote();
+  };
+  window.luoboCheckIn = function() {
+    const state = load();
+    const today = todayStr();
+    const alreadyChecked = state.days.includes(today);
+    // 无论是否已打卡，每次点击都随机换一句 (惊喜感)
+    state.style = 'random';
+    save(state);
+    renderQuote();
+    // 按钮微动画
+    const btn = document.getElementById('luobo-btn-check');
+    if (btn) {
+      btn.classList.remove('rolling');
+      // 强制回流以重启动画
+      void btn.offsetWidth;
+      btn.classList.add('rolling');
+    }
+    if (alreadyChecked) {
+      // 已打卡：只是抽新句，不重复计数、不再触发里程碑
+      return;
+    }
+    // 首次打卡：加入 days 并检查里程碑
+    state.days.push(today);
+    state.days.sort();
+    const streak = computeStreak(state.days);
+    const newMilestones = [];
+    MILESTONES.forEach(m => {
+      if (streak >= m.days && !state.milestones.includes(m.days)) {
+        state.milestones.push(m.days);
+        newMilestones.push(m);
+      }
+    });
+    save(state);
+    renderStreak();
+    renderCalendar();
+    if (newMilestones.length) {
+      const m = newMilestones[newMilestones.length - 1];
+      setTimeout(() => {
+        alert(m.emoji + ' 里程碑 · ' + m.title + '\n\n' + m.desc + '\n\n连续打卡 ' + streak + ' 天！');
+      }, 200);
+    }
+  };
+  window.toggleLuoboSpirit = function() {
+    const panel = document.getElementById('luobo-panel');
+    const mask = document.getElementById('luobo-drawer-mask');
+    const opening = panel.classList.contains('hidden');
+    panel.classList.toggle('hidden');
+    if (mask) {
+      if (opening) mask.classList.add('show');
+      else mask.classList.remove('show');
+    }
+    if (opening) {
+      renderAll();
+    }
+  };
+  window.__luoboOpenLuoboSpirit = function() {
+    const panel = document.getElementById('luobo-panel');
+    if (panel && panel.classList.contains('hidden')) {
+      window.toggleLuoboSpirit();
+    }
+  };
+
+  // ==== 分享图 ====
+  function drawShare() {
+    const canvas = document.getElementById('luobo-share-canvas');
+    const ctx = canvas.getContext('2d');
+    const W = canvas.width, H = canvas.height;
+    const state = load();
+    const streak = computeStreak(state.days);
+    const q = todayQuote(state.style);
+    const sign = todaySign();
+
+    // 背景 · 米黄宣纸
+    const grad = ctx.createLinearGradient(0, 0, 0, H);
+    grad.addColorStop(0, '#faf7f0');
+    grad.addColorStop(1, '#e8dfc8');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, W, H);
+
+    // 顶部装饰条
+    const topGrad = ctx.createLinearGradient(0, 0, W, 0);
+    topGrad.addColorStop(0, '#b8391f');
+    topGrad.addColorStop(0.5, '#c9a961');
+    topGrad.addColorStop(1, '#4a7c59');
+    ctx.fillStyle = topGrad;
+    ctx.fillRect(0, 0, W, 12);
+
+    // 标题
+    ctx.fillStyle = '#b8391f';
+    ctx.font = 'bold 44px "STKaiti","KaiTi",serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('萝卜精 · 今日打卡', W / 2, 90);
+
+    // 副标题
+    ctx.fillStyle = '#a89880';
+    ctx.font = '22px "STKaiti","KaiTi",serif';
+    ctx.fillText('以棋会友 · 一日一手 · 与君共修', W / 2, 130);
+
+    // 打卡天数大数字
+    ctx.fillStyle = '#4a7c59';
+    ctx.font = 'bold 96px "STKaiti","KaiTi",serif';
+    ctx.fillText(String(streak), W / 2, 240);
+    ctx.fillStyle = '#1a1a1a';
+    ctx.font = '26px "STKaiti","KaiTi",serif';
+    ctx.fillText('连续打卡天数', W / 2, 285);
+
+    // 分隔线
+    ctx.strokeStyle = '#a89880';
+    ctx.setLineDash([8, 6]);
+    ctx.beginPath();
+    ctx.moveTo(80, 340);
+    ctx.lineTo(W - 80, 340);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // 今日一句 · 引号
+    ctx.fillStyle = '#b8391f';
+    ctx.font = 'bold 60px "STKaiti","KaiTi",serif';
+    ctx.textAlign = 'left';
+    ctx.fillText('「', 60, 430);
+
+    // 今日一句 · 正文（自动换行）
+    ctx.fillStyle = '#1a1a1a';
+    ctx.font = '30px "STKaiti","KaiTi",serif';
+    const quoteLines = wrapText(ctx, q.text, W - 160);
+    let ly = 480;
+    quoteLines.forEach(line => {
+      ctx.fillText(line, 100, ly);
+      ly += 46;
+    });
+
+    // 右下引号
+    ctx.fillStyle = '#b8391f';
+    ctx.font = 'bold 60px "STKaiti","KaiTi",serif';
+    ctx.textAlign = 'right';
+    ctx.fillText('」', W - 60, ly + 20);
+
+    // 风格标签
+    ctx.fillStyle = '#4a7c59';
+    ctx.font = '20px "STKaiti","KaiTi",serif';
+    ctx.textAlign = 'left';
+    ctx.fillText('— ' + q.styleLabel + ' —', 100, ly + 60);
+
+    // 每日一签框
+    const signY = Math.max(ly + 120, 780);
+    ctx.strokeStyle = '#c9a961';
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.moveTo(80, signY);
+    ctx.lineTo(80, signY + 110);
+    ctx.stroke();
+    ctx.lineWidth = 1;
+
+    ctx.fillStyle = '#c9a961';
+    ctx.font = 'bold 18px "STKaiti","KaiTi",serif';
+    ctx.textAlign = 'left';
+    ctx.fillText('◆ 每日一签 ◆', 110, signY + 25);
+
+    ctx.fillStyle = '#1a1a1a';
+    ctx.font = '24px "STKaiti","KaiTi",serif';
+    ctx.fillText(sign.text, 110, signY + 65);
+
+    ctx.fillStyle = '#a89880';
+    ctx.font = '16px "STKaiti","KaiTi",serif';
+    ctx.textAlign = 'right';
+    ctx.fillText('—— ' + sign.source, W - 100, signY + 100);
+
+    // 底部品牌
+    ctx.fillStyle = '#a89880';
+    ctx.font = '18px "STKaiti","KaiTi",serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('萝卜干聊围棋教育  ·  weiqiluobogan.com', W / 2, H - 60);
+
+    ctx.fillStyle = '#b8391f';
+    ctx.font = '16px "STKaiti","KaiTi",serif';
+    ctx.fillText('🥕 每日打卡 · 与萝卜精共修 🥕', W / 2, H - 30);
+  }
+  function wrapText(ctx, text, maxWidth) {
+    const chars = text.split('');
+    const lines = [];
+    let cur = '';
+    for (let i = 0; i < chars.length; i++) {
+      const trial = cur + chars[i];
+      if (ctx.measureText(trial).width > maxWidth && cur !== '') {
+        lines.push(cur);
+        cur = chars[i];
+      } else {
+        cur = trial;
+      }
+    }
+    if (cur) lines.push(cur);
+    return lines;
+  }
+  window.luoboShare = function() {
+    drawShare();
+    document.getElementById('luobo-share-modal').classList.add('show');
+  };
+  window.closeLuoboShare = function() {
+    document.getElementById('luobo-share-modal').classList.remove('show');
+  };
+
+  // ==== Owner Mode ====
+  function applyOwnerMode() {
+    if (localStorage.getItem('luobogan_owner') === '1') {
+      const fab = document.getElementById('luobo-fab');
+      if (fab) fab.classList.add('owner');
+    }
+  }
+
+  // ==== 启动 ====
+  document.addEventListener('DOMContentLoaded', function() {
+    applyOwnerMode();
+    renderAll();
+  });
+})();
+</script>
+<!-- ===== LUOBO-SPIRIT v2.0 END ===== -->
 
 </body>
 </html>
