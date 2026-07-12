@@ -911,7 +911,7 @@
   html, body { -ms-overflow-style: none; scrollbar-width: none; }
   html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; }
 
-    /* ===== 启蒙教学研讨（密钥板块）===== */
+    /* ===== 启蒙教学研讨（密钥板块 v2）===== */
   .edulab-gate {
     max-width: 480px;
     margin: 48px auto 24px;
@@ -937,31 +937,33 @@
     margin-bottom: 24px;
   }
   .gate-desc strong { color: var(--seal); }
-  .gate-input-row {
+  .gate-input-col {
     display: flex;
-    gap: 8px;
+    flex-direction: column;
+    gap: 10px;
     margin-bottom: 12px;
   }
   .gate-input {
-    flex: 1;
-    padding: 10px 14px;
+    padding: 11px 14px;
     border: 1px solid var(--line);
     background: #fff;
     font-size: 14px;
     color: var(--ink);
     outline: none;
     letter-spacing: 1px;
+    font-family: Consolas, "Courier New", monospace;
   }
   .gate-input:focus { border-color: var(--seal); }
   .gate-submit {
-    padding: 10px 24px;
+    padding: 11px 24px;
     background: var(--seal);
     color: #fff;
     border: 0;
     font-size: 14px;
-    letter-spacing: 4px;
+    letter-spacing: 6px;
     cursor: pointer;
     transition: background .2s;
+    font-family: inherit;
   }
   .gate-submit:hover { background: var(--seal-light); }
   .gate-msg {
@@ -979,11 +981,18 @@
     padding: 12px 0 20px;
     border-bottom: 1px solid var(--line);
     margin-bottom: 28px;
+    flex-wrap: wrap;
+    gap: 8px;
   }
   .edulab-status {
     font-size: 13px;
     color: #4a7f3f;
     letter-spacing: 1px;
+  }
+  #edulab-current-account {
+    font-family: Consolas, monospace;
+    font-weight: bold;
+    color: var(--seal);
   }
   .edulab-logout {
     background: transparent;
@@ -2268,27 +2277,28 @@
   </div>
 </section>
 
-<!-- ===== 启蒙教学研讨（密钥板块） ===== -->
+<!-- ===== 启蒙教学研讨（密钥板块 v2 · 账号密码模式） ===== -->
 <section id="edulab" class="bg-paper py-16 border-b border-line">
   <div class="max-w-6xl mx-auto px-6">
     <h2 class="section-title">启蒙教学研讨</h2>
     <p class="section-lead">
-      面向<span class="hl">已合作的老师、机构和家长</span>开放的密钥板块。这里存放的是围棋启蒙阶段最实用的教师成长资料、课堂把控经验、游戏化教法与围棋故事——需要密钥才能进入。
+      面向<span class="hl">已合作的老师、机构和家长</span>开放的会员板块。这里存放的是围棋启蒙阶段最实用的教师成长资料、课堂把控经验、游戏化教法与围棋故事——需要<strong>账号 + 密码</strong>才能进入。
     </p>
 
-    <!-- 密钥门 -->
+    <!-- 登录门 -->
     <div id="edulab-gate" class="edulab-gate">
       <div class="gate-card">
         <div class="gate-icon">🔐</div>
-        <h3 class="gate-title">请输入密钥</h3>
-        <p class="gate-desc">未获得密钥？请通过<strong>微信 yxwq0909</strong>联系萝卜干老师申请。</p>
-        <div class="gate-input-row">
-          <input type="password" id="edulab-key-input" class="gate-input" placeholder="在此输入密钥" autocomplete="off">
-          <button class="gate-submit" onclick="submitEdulabKey()">进入</button>
+        <h3 class="gate-title">会员登录</h3>
+        <p class="gate-desc">未获得账号？请通过<strong>微信 yxwq0909</strong>联系萝卜干老师申请。</p>
+        <div class="gate-input-col">
+          <input type="text" id="edulab-account-input" class="gate-input" placeholder="账号（如 TCH001）" autocomplete="off" autocapitalize="characters">
+          <input type="password" id="edulab-pass-input" class="gate-input" placeholder="密码（8 位字符）" autocomplete="off">
+          <button class="gate-submit" onclick="submitEdulabKey()">登 录</button>
         </div>
         <p id="edulab-gate-msg" class="gate-msg"></p>
         <p class="gate-hint text-xs text-gray-soft mt-4">
-          <em>输入正确后 30 天内自动免登，可在浏览器"清除站点数据"重置。</em>
+          <em>登录后 30 天内自动免登，可在"退出登录"或清除浏览器缓存后重置。</em>
         </p>
       </div>
     </div>
@@ -2296,7 +2306,7 @@
     <!-- 已解锁：4 模块卡片 -->
     <div id="edulab-content" class="edulab-content" style="display:none;">
       <div class="edulab-toolbar">
-        <span class="edulab-status">✓ 已解锁 · 有效期 30 天</span>
+        <span class="edulab-status">✓ 已登录 · <span id="edulab-current-account">--</span> · 有效期 30 天</span>
         <button class="edulab-logout" onclick="logoutEdulab()">退出登录</button>
       </div>
       <div class="edulab-grid">
@@ -2338,14 +2348,14 @@
 </section>
 
 <script>
-  // ===== 启蒙教研密钥板块数据（AES 加密）=====
+  // ===== 启蒙教研密钥板块数据（AES 加密 · 账号密码模式）=====
   window.EDULAB_DATA = {
-    keyHash: "828222d7145e3225222cec68dd9965314ac619b09415a2f33b56a52944b540a6",
+    hashList: ["73ddaec9254a03a9b12700523c354ffd0c4b0f3c8c1bc80ec3be36020068c8dd", "b60c51657f245983ec799a941d55df00c6cce4ae1156191a761bfac44c4bfaae", "0d97c35e81cd006668d5ed993aab104aecc2c4c44398542353e5e7e11fcab0a4", "83d3b3eb607b1524ee0eb163ea2f882d52b0d64c1d940c6a4e16aaeca8165d71", "e7ad8ec950b2eebf7115a1691152fc38e1dc7911a985abdc88d05ae934f40ca6", "75be1f725fb66be0035c1c4c027a53097752756a969f750526843b0e448d0313", "ceb9c9b4065136f7d9ddab339217d90f05dd7045683484d349ccef78a0883e15", "d1c13ef6470a76d34fec6f31033e7d0d5408f1c9077ac724d6903b3154e17b0d", "4bc94704f49a3b660a6a5d10697afadc3687cf6fc9934df4b49b40f9191292af", "afb7e0815247160935b5f7923783d3d71b2325b384bf09823850189b31fa5585", "82e0b3d90e9fa3c262b86817c878c60fe4d4da53168b71be30e23b2272b139e7", "0d432793a9e8b65d0485841b315eef80acbc3e2a8c4894331e7b3e3677ebfded", "ca6580cb746081033dd612c234d840e1473d42556ed9a7d2fae1d45b54422f76", "4d2d90c542ae111511c58bea02e03ffc22c68709a10855d50405ce0ad174d481", "27608f682037c28f31812854e7c00341869c36f2c58643afffa133b34f71f78a", "4089ee881492d95a082bd67b8cfafd8a0984ce9996c917da48b07837428cff17", "4773876836d663e85592c8f4805b095371ffa96042718ca3a3270312d2ff53cd", "a651b48b399d96620c32b749c1cc61a19114a9009f0c1870e8dc656fc202f15b", "fe2057be44076786fe6e6d695653ad3df1b7db3917c6bcbb44141acca8701957", "1a17088c717b84f7df8a634529c7ef698179b7f5d0065aa7961381a0067c14be", "007a60c2f94694083558839614d94b273d347efc2ee52c528729c6b96c1b95aa", "0b799d09d6e289cf2746b38b0aee6b81213b4c314b2d2b625068a4f53db4ba4d", "39d3152940538fcd71de5255b2074fd4d1ce93ac233981e47eab33bcf77310b6", "2c142d39210f8d2ccac6de04eaf6eb16d3cfabaa321dec78db3d54ebc277f7bc", "dede7252b3422561ac8ae14c72fa6bb7c06a164a9d3b1aac877e2b40cc5b2d74", "5a8c4cb3937811c66863e82f41107e09ab1abce504726c0f499e39bfd2162d9c", "3055feed8f65f8fac55abc55263ae4c187376acdb8df010884973667bb7b029c", "21092b2c198e030173e75c44d7ed653fe612b95a14811cd0ae6230b13ba7c32f", "6c87f48e724ab53a50cc83aec44ba0dc5437fb791196bae1f3081f871124c44b", "a6273026d82df0ea1f49dfe9c7016276da78b6a2e21288775986c402287b14c8", "a7c8942c8f07ead1834053fdae08e8bdf1ced00d552699156baaa5b04c70f801", "b79c494e603df6738d6ed5bb0623aeb45ed20768620936ca804166082ed64972", "31d915a4004d299b9e1b95d97a83c5eb913759d620014c4d8b152ba62f4851ad", "b4bafd94bf6c1c920968bc01555d5463ed23a796be76c403722993c9a6b28ac1", "4aed6abcb3e2d4e74deed6137dc7fb60490d861537f7f8334a20bcd613945bee", "a8dfa35d68580df67cebf6c1b47adb834c24cc48a43a877835576e07ce9f9e23", "f2606834d74ba345bc062f543d6f0647d3f490b344259975863066d36d05805b", "2d90aa5e1dfe2fab2d427145baa9f92f0314d36242b95bb57ed27edb6bff9748", "cfeab10675811a1cd57bf5ad4335b46775e148bcce3c567b899d56779bf64f0a", "6a15dd8c04a710921661cbfb3ba777cdfbc70c7b653d45d69ede357e0c549cdc", "a6fccb50b7604a2e4ce194cd7a68654ec160bc50b7f9ec2835a4399263467de9", "87349d5aec4d6ee4035bbf3dea11adc080cd1b92651ae32621c1da4fc8acd2be", "7c0022b3fc8df636be10978a0226b96606d1bce27bbfb3d1321d43a8ca305878", "27d7b160a534cc7565a4631252f0563726ae47175a513e5b32ee624fd8528eb4", "71659c2821345225b1db64fb113417c04aee35366b9425c7e2e45847a91c46d9", "7a27d4634c9fa80362ae80e0a431aa78028257c08e2497c9cfd2915eadf67416", "3cd81c797aa9016342299daff3f00b0130b7c0c7ffa2825e5a6a55cec5428485", "18c627128ad7bef4c2f9aa0040866d9edaeceeec7d8d63b0cad1af8788bc5d0b", "bfedf2b415b51d233491dfafe679f94b6b0d64515e84f335fe1f685d243d7799", "2ad9ec209cecc866045d3408463c76ed67adfb3b5e310c61e86e6ee2cc8f7206", "fd0c7a28a1c83371cde4f7e1d7873b0df8feb430e083c7e32a4638f7bb8dc397", "7021e00c98662dc66f643e3c01c21754867882d007cb0034d772c9db5db3c72d", "1de34368cfd6d8450933943d47e4bf9993c28c25f6a70415726e360436bec1aa", "c0268a60b141364a5723494a3af199e995e6217061158fad0f193fb8bfabd898", "5781fc9bca58dc68b8404c2843e71e38a36c53b29f8f22b6d4471325f9a5474c", "2726e559acf1d6d6e186e13ee4d22cc6f4b4041fe25ec9ebda7e4c67c0f5d3ec", "3890cb708942ec3090120641c868f407ab59fdf8d8d7d87734709e8f7f246760", "697201bb07fd7c40a3a048854e7bd0eb3eacf022bff6c9dca1230852cc417e14", "639893f9ee7bab9b61813d9b27fee85bf9768ec4726777c096419fbcd2537eba", "92a7af0e3621b67a65ccd6a8f11869bdd61aac4531f8e7974c790ed1d2f5154a", "553ccf1a6f09fbb698d953a6ae2b6750b058e7779112dde8bde5bbb0c58851f9", "62e888cceaf21040b0f20c03a2e4c5f070257823dc564fdcca811dc68850d63a", "288326ea9b833761bf11ba7b12eb605638f7caed1e50dcc6565c3aaa4652a039", "0dd1f73e96ed8ef999d995b72f17c66b2a68ab62020f86a6af0a420bbb419a82", "753b892b04c8878bc247dd60f82e99232369ef9d8bff2300e895ef4c61a7372b", "f77fb94e43a282acf287fbaf0de8a49aef8e2c1a523815dbba2b1b1a1f0aae17", "4f9fdf2b7d006aee972ba2224b638b3520c1a8324a68f4c0a6a59475263623fc", "197d30bc9a57a2f7cd7c6878cfeba82d0f3209a67e919a613beb8f2aefff7159", "4cb8fc426d9508f920d3f281af30a058f95e98c6ba13c166755833a75bf58705", "007a4781560f12f2db6cc9deceaa69c8b09a83de668349d36aeed2016e8084f9", "7c27fa58fb0d075ec1193fc9ddd51c4d9be4000ddcf368c8218824527caf0d50", "4c740e8623de8fe94f27a6a54762058886a82b9bc844e4706df5dacc647431cc", "c982adae5eb78a7e431aa6012c91d601f75c2c46c7d845f75c9a1a7ee4349d68", "77fc61f710a00be3056d20dd03b7aa767d4c4b0d6a8be0366e97053ee0e5652e", "7b8323f9352c2927c359405e40156ea84cc85b0859f16de7a24d224f3a62132f", "79127b53f57b24475dbd0967ba64f61c9130120e24c360604e4a2cecab277e12", "f74b0d6acb3d24d8a57e1ca4e68e4dd8770f6111f3810501ab4a2f7983613c60", "4716d5cbd725d91332df1047880af464d8e9796ec49ccb5fe06861d648db0877", "d7d26565ba65d8d06139bdb04f28137aa86747937d396d5a59d940b21a9c572d", "c183b085d7c3c913145f3c2a74edaf6d99e625d75f924aeaf30718ccdb8172a4", "1fdc3d9d75194e0f02603099d4d9658a281916ab289f9b8f5c722371aa50974a", "c1d61b0d78cd8ea75fc49df2c8eaf81da708e2ac845d7853154d12652d47ad94", "90cd6ee67eb0205015b8cbfbd9b3851199fc1e29fecc6eaccc715dedc3808cbf", "a9f37de8fd0232f14827734af97d7b4878748b058fcb196abbbc7c961c3f17dd", "e4d7390956affc6deaf24569e062e708bb1992f40c94a26aa3d434148a248c09", "6809d0a01aa7e9dd66856e1f4ac9778364bec5939de26feaa3a9952396cd9603", "35138287dd7b4d0af3f7a67c7ba7028cae2add5ececf32a5da231000e63c5056", "66aac968832d187f656c136425d4b8232b74ffb94468220ae20a55de89603c5f", "b1aae931de356bc1731be455d0b5adc562aabc27c87b0e2100865e4abfbfaebc", "423d38681bd40bb3f3da141e68b70ba4ba2aa80f95becd4f20734df062491baf", "03e06b23487dc6dbae637e10255cc87a7e9daf9a0e62abe99e6b8fc44369a153", "a7e54dedf26f6349766d0e34db0755da6a6a0ab39764aaddec9939eb94b43dfc", "f3756df1af7099ef09877582b3289cb137a47eb0b0fc1e297076d8693b7a8f63", "b0c7123d91aabaada220411a48e86298b3acdec320cef764abe326329136be9a", "9db97082e751599172b9a6758ffce5343bd88a6029ebc4a128c9f78d283d0677", "6a4c6845e4fa7a220dbfbc3a9dc2c9a71a6092609b0ce1402bc1d0adb0f342cd", "0081bbdc3debb8cb272235e0d49056b43dd7818e58d7b711f527936413c95502", "1bdebc3013956dbe51d5328ad75a99e32d3fbe2dd6cf506953fa826976127808", "afe2eb0c81203e54e6dae3f57fa0cbfddc1c920a728e7b49b4afd6561ba5377f", "29906d4650768ae160a2746b9036b933409a63d583fffa4a9644df3c136e0004"],
     cards: [
-      { id: "teacher-growth", icon: "🌱", title: "教师成长", intro: '从新手老师到能带团队的三层能力模型，围棋老师终身修炼的路径拆解。', cipher: "U2FsdGVkX1/2gZPg0hxmgohwKfxsxY1ZQo8sCe+aSvlencDwBCe1bty1RAr2xXY6bJgE4XcLST5IReY5Q4KIync3UY9d2m2c5RHx0NBzHvj1wa6C66qSbqntQwqXpb0P6FiVVrCYs6RM6mDXJJWB6OFRu0qv0ADMScCo/T/zZ9bylVb7guU/iV6TRxOOAGZP9KCTsfWu8IkjGeL3dzV+hdTktBOISJpVniHW6uiZzq2YIQFlggjhoA0XDUU6QvN2ORA+iHbPFdJw3FKJNr2ue67Cg+DryVqrWwRiws4g1ER6AQylfyw+CEola+Adoy7CX1w3+JY8uM18VVWLJyxuDKOC1sCgl6+XgUgARHSJGtIjqdXFzTHOS50B0ojaNWf9Z4Wsxr1wz2Zy3Geasf8tSAuxQOMmFxNQqcZeTCJNwMc5gRVmy2nzeX3Qy7DO8RJ4pJzcCmHEOFPROqPMNOzjXkII9no2qmQUXnhUfDOBvpWKRunXYRW37B00kLGfn7BDHmwn6QuqMTUU5uvzn46CWB/qwxP7HVEVk2ZTM2ltLvTrSDfgNkoPMk8Gk6HkkBZNw4aaZq/Dfymo969wbSoXbhPvLWBq7K1V6foKbMvfNLsuNlaxtZfFzZBBvo8J/wWkulJM1dQo68Z61TjBItr/6Mn6IdWdpnscr5OxqDx0p0ULUv/FdSa2i1cx2yWtvSPeRBgDzoKwTONIWbSbtu7/bD40IoMb46Fo4w+zDQ9H7rGLZvElIIa7EIzhVdwjIip4Lhaq9nncylaej9mWZqLpvNgZvAZA8e+tbVtIY6SfFqF8lDk27AWV0ON6kFWyf2KZpIXbMT7x32PpOwK5O3Y1/mfTRsnI0TDY/MGYOlHn/fvofhC9R5lCudajA7DpLwwQrqH1MF5dbZNuhGG1fQZgrD+F7iwpHA/fs90JChxk6htiGAFfKlevENQyFUKG2kLvUJBX2q+tmV2+YH8CDNkkOwgVW8mFhZb/v2PA3f0b6ebqPP7A39ldYQP5eiMj7Y4gcSFTqjqAwITY5EIQl35arAVARtX3F5i2Yph5kDtJi/YeVkcWfnEvRaIfARG49X917cHa+5vl3uzhtCJR9mXQH2xumTXGmSltHo4rIrib2biZh4ElMODXHAiSizYkvXRW" },
-      { id: "class-control", icon: "🎯", title: "课堂把控", intro: '8 个孩子一节课如何稳住秩序、稳住注意力、稳住教学节奏。', cipher: "U2FsdGVkX1/hpcyGxgPRyFhpdpeAURLjEZqkXi0JqUEd038VppW1LWWjhT8wWT014u3/KhTK/w5njb6O9EtppVsGODj/TlLQ6MP8RVZl5z58LFvBWHxPf9j7er1Oxnix9dtnllYm4dF0JD2dksQ84vU63bLNUQ/afICmvL7ns2nrfzDPKiwF/g675YxHGMwuoTzOP/0ZfX1NK46HSrKE5Q4B4heNA56frzs7XR/BdMXdv+jQI/sk6enn3vbCngouj5csQx7guol0cUxlM0wKO2KPa5u4ldj0lyew9gVCANfiBksbBz9SEddN4JxV44kHM9GPAbM4lHmNtezZhvNQPDjcAlAMC7RSlqqiQf+XgvPhy73pY2KjmIk/5pUftSKBgG5l+Php3vwxh/0cFwWl4UUbEhwwm/o79ad1PPW/mQTYdY44xXGsO83Z6YkZhftPBpbsX/YvzONTyh9CmKQaK6EwRr1OLqaw6xSoCSEAGrGaJiJQ8KFswcI6viqQAKibBv+J6ykNlq2E1qDqhPvlWP2pDT+7r6I2CWzTXtnvvvmFjkfou/Ji9N4zegZfd3wXRiAeo5u3ezkfw1k4jFRpzv1g1k6G7+sVGadnW1Qu1ydzHHX2O5+usDZJ3mSUu0WX6h8/UcB/Wr6qrUwWuFTdPGDieAixWt+Z4qz0kWBiUD3gdI5/AwR+9/gLBzeOzqlEN+F0vW9aQZ+bhXUXYSwIyHvbl52Y38PvbhX5YBjLxvobF0Jpef9FABsp76pu1281eQ+yDJ4spWM4da6ISEDDyb+fZfGw79mUh5sLIs8swFxnnx14MuWXu188d2t/SlT0RD0jFmQGltDHfqv2QJ7FYENpV78EXwocLa4F1Umm49ebICy238ir7m+R185jEOddKnHIOhb4q2n3pBrPCs8ElG4RLX0WpMpfkQgrJFIOi5wky/Regi5y8C5oun9zPNroUbIpn9FkZC4QB4Hy863+ZG3oUjEnorwxRf9AfTq9U5YdvD2Jt+aVepk4d0rdKEsjFXYMHlEIhEdHWb7bwy26AA==" },
-      { id: "class-games", icon: "🎮", title: "课堂游戏参考", intro: '把围棋规则拆成孩子能玩的游戏——启蒙阶段最有效的教法。', cipher: "U2FsdGVkX1/dk9v97QgOJGNYSHA8OM02vypHJIgD0Ub1x8ZCj5cPLyErG5GLzv1BqlnIUms1fbDZrNu9pAZuzet0UVhRnLzx62Uq3Qz/iIr//ausLke1YT2XgBo7leItUmWues8qPaC6kNxxGRAxrHK2YNrdF2N6dgrIdkzEaMTYamAnha0jLCgmWCvWVfOpEek9n7JlNVvGjS5YvGB3SwtcUvmijpPONFDknFV10iHPRTqIB9Oa7SJ+BDqDOQTPJtOcyhNTAk/s9My4SslrAPdgR84m95B98PcNQ+UnpY3uuwh3bgE9lrKnbYww64v3qU8x/zYj1sLNJWkTS0nnVh0FRXuje0XTqh1CH++hgoaHnA3RAgfKDi/681WB2bsGr5qIkXky8JviR4+rsU85myNKGebETxzVUM0IZtPPDwjmKJYC5nbB4itrbuY1tlWtCQ22RByC81cZRDeaBcBq7R4wQ+9jGYZ0yULQHzPre54twIp+x/PDncxb5Kle+boBj5/bKPu34LZcfN0EaSoWXAhtKYJAf2Z2W74NP4PMABY9BVKFlfYgzKnfMysDJ/0JwIho01nDaa+I7j0wxJ3zuLy5gPvG6rvIX963GtVCfkwjtWq5xrU6PUcJAY0rh4E3rfasTgjRXpVUslSe0ZxSxV4gwSHy1qq9+6dLUjsOFPtYysHN18G8oo72ggLr4/2xyyaLMqUTExUQBJPHGfPvrF8XRgjhzIeSVfKSIi8AQv97twDxMXuy0oahRCLHkoX/ULU/9y27j/Y9vnFiLvS7mgQ1bM3AtRS0vg3ZSesRNdsrKonfHKspim5ku2lvMXsklVpvQ83wVeTE1WKKqTM7QHUIe3cTeZ1wAH/gY/789Rz58eojI3Ss3Z9CIN2SfN+lJWYDtN2Jx7zh3yGhRqQ2r3pnXT2GdBZNK5VNqZd8GUP0DOK2DxUgGQfU8Zm9x4nTUrk+M91yrY9MHhKpsLMuSIIDMyTr3MSjDoRMQ3+XqLPZjd1AEjJVOT0LYwoVU2V+ueflUGw3nolwVlFE/uqMY3uWZLTj1AccyAEP8O6xY8U=" },
-      { id: "stories", icon: "📚", title: "围棋故事启蒙版", intro: '给 5-8 岁孩子听的围棋故事——让孩子先爱上围棋文化，再爱上下棋。', cipher: "U2FsdGVkX19JFioKvod5wqk7rC/EwYuRYHdFTrwgHcxuEjNNHUOSfhMNBr9qK5JpdZdTICITiRXaDj9VxmQOXkJtu5WPYXQS2bX1iP83L4VhcnhTmQGjm0+GRIey2ZlHogkLEX5H7vuoMkB+9oJmiNuPg7NDWB/7ATw2pN/xyVoINCmBtj+3Lt/r1JrDXmzrfJvcuvR2fpvbQTGOf7TLfnEyH4JYT/DIQNlDseYVpAw6fxeHZutpRRlMMbZVkJQIxELMe7XPJcHPg3UaraA6Xt4EhTXkJ5JOZyxwOM4/CqCdsuEuFNvhIf6DXlqJ9u7c2RUBYNXoVCBtjQG4SITsHEowesyYJBL1Yoric8Va/h8zQrmPnesjAt2mY3kE3zaxq7/M66bXAXSOpc6QZA3rOcT9oYkXRdz47lY1vQ24KYE4Dn2EYQeZqz9e1TMXOJf42QGVZp+6TROCP3++A9ceKkjmtuPzzojouUMa7ZRAVFbT85coHh24bErdqsTwkAIRMIXcr4VSihjZ6zTnc42175ihhYvhxBuCVLJD171Vi5Iy1YkZ2DgomPIjzZgexxPJKTP5HDsi6Aaqqr/slGT0VI5rnbOdoMlzCucHfcq6CKvODuWbldKHEdEcJJEcjnKKkxFrGalyEr4ZR09gbcGdIRAobxCDAset3oTd0NhM/sVS72Be8odUHldfmlf/syDvOP3lSvMnBmBTbIoLkWIpHp5ak3ellO529ji65+UGP6zbhStTwvimkJ9lLFMY5OAddxy+4oSaWyauIsgCS4Myq2WubvdCKrDhR+5GQpx2CSLTlyrbWOjBEyqKeDwhhjIWpSDRyeV8qLIxKNDfNkxQnbhI+M7DKHBgql/1E8SsywkzWL74UhZds7oks6pTFHZlKZCYDQf3KdGZrRnXQe21PbOMF4tZfVN+iqNB/tJh0IB7+9uBKTvi6QjAjO9CLTj+PVh+9T3GpofLeLa7gg+6p67ajbHBPqUe5+d85Xo6kjPzGv+cXRcp3A/43oxjlLdmH6e4cVlXus6tXj5mIXmDiuaIy4UmTPdc6uQKyugVkh6rJ8QXFdWaayR8j0lApOJXDTBRFhX5p5NhSbSlQ+wZPQjnWy1qpO/EeWMOZ/XW5XM=" }
+      { id: "teacher-growth", icon: "🌱", title: "教师成长", intro: '从新手老师到能带团队的三层能力模型，围棋老师终身修炼的路径拆解。', cipher: "U2FsdGVkX1+owvBsHcmxIGCcCehfwb+CKz6yCpI7GNcUOgYI6sHuVrwzkcK7xRxwOWZYQeIEuRdPccaABZmt9ehDME7aH95VI/rELaRyfy1EGd0BkXTSIjdFA75rNmr0QVQBRJOMjV4HvaRQnkUnbo4efRHHg3m36fRzUPt3kBrYsSUsYq8kQwVHFOnsPKgcqvjT8gL7Ff4tcpLHMrT1+K88b0JlnR86BGqd0RK2l95PH1fbny+YG0efwrrNeu1P6OOIi1wXPNSqFpQrnZsJpQBGfS9ibbEJdsQabazUHZ2f/ILTlzalEmCRyBt2MuL+7bLQZb5TU3qAHtuZrK2yXXV/58Dy0YIpCSyvAOekwmk/1dwvhHsyWRe8PxcwLexwJisA8pyhlU+fOJwnMts+2GLWCDgzHVkObxJwG/WgFNLVqJ6jAKzE70jZxsCBe4FeBQA8FgnBCS79HG84s8pBiy3dZ0UJF2PR96uTGaj8gWtmRsLdDadq6/JHxH9PtaC4GQe76wis/jek8Uagp2b/Dkwy1YpBANjtK7YCoBTy6um9uWxBXbkgdPvnoHU8TaeNr2v51lFXQSWq9F3KthaoJJuyRajPqfMTdoBMTrjcwfuTMEfVItUQY57opb1qRbkEk2Kt91/Y3Md3aPq5iYRsIFmaIvV6XGC+22KQbaE3vmlSGmtiR7qjVN5cGReCBsJp2aZOVLPhCyoQyjXC/n+4ARe+tndSy8PBw+HKDZNPRswJD28FyFD63zQ+8zJh0IHULAV2svle01mUdM0C9IArMwujfSY4yNsGD4PmWLsY8FIseoWEM/HKtLLN2cBQe/tpHexhJti3XP04U/6rhLXcZr4HXbW7mQgSU3Dls/aJ8ko2cXg9YADoDfhEk5wsQLLJZVqbVDKnFQCAbweZ73yyyWFAvsE4JDWsTrHbrWW7tkitCImJj8J3OR4S29E9v2K+cHA/33f08T6aya5Ih60WmVkz7Mc/MOPBce4JcXGBp/vfNYK2TzRqLpqU70F4t3ql8sEcEdOobWPMwogD4wkK0La1xbFTBjq8FXsFZ9bNxCuAhPMZ84aVYz2RA0jRb3+7G+6roXL2gKQ2Bv09zhq5D86byMIyWUUxrpWKb8tEEjO7qSOHUpy6w8/Ujhgm+Ww2" },
+      { id: "class-control", icon: "🎯", title: "课堂把控", intro: '8 个孩子一节课如何稳住秩序、稳住注意力、稳住教学节奏。', cipher: "U2FsdGVkX1917cDPTNVu5M8gTaGq0Yv7U57u+Mg4AIsCdb0TPedZmWeOTUuPGToV3XfBQk8itQm4kPE+yz7Th55O4+s0FBZ6Dpom+jgQ1enRYtV43mZskEy5HaAe++ogPi8oRkYjtYHfeGcnabmMv7X/eHnVKa5Jh7PJFafx6HVZuz/w9Yib74H17agtbpRsKHHMDJjS50XqJCzxTP4qq2P8GKU/Xaqr2A82LQMvN36RHe6TeJIsbHVeQ7mXBMosvh/+rHh4XP68X8yF4KD2GXrRbwnrwd3X46hf0YKrDBrqnnaB/qDGAG0VSZOi1bdpFO6Z/hvtgDc2DrdgFzAKZUHXtyP308La6YUqR+iSq2W82kZ2BCFKaGw0fO+UTDNgO0QHEuTS/0eIV/ZfvP0VGifEL0VoE37GecAlJ4o2APbYVM9w/poR478oVOZRHNv26ex6ubbX0lZ7f6Ex8gvHmHRfWnwLAMcjQsiNrsMMFZklIlJssRsFZ+TIbfGIESCjF10rgYInxJlBsUFLT751LogSMa/rH08wvTGN9C7R1MP5CKzlLqM9OozzpKAIgWhG8Fin99c79n9PPAzXqzE/89gOefa9XrqjtJhqVzuJHvRxwDbBARWaQXJAopTFVs5TpljSagVLlrsgMg+pECiCx3i1bX5FJwfWf6jis3Iv+Og2SRs/GekO1kg/jjS4HzH3JBKfIgecyVZ79/aeB4wv/n+1lbuRZLJ6z5zOQRfsTK91dfcDEVPe9st98tfaqUE/0d32NmlWzCxzJvpb6Rr8BUstZpkArmuO2lUY7YbU21r+Okw2Kgolv2TKnXwm4loldE+kgmKSjk3BPxN2o6B+SESZi3GEj9GUnt4fsOCfoto9wm2JjK2adQixGQg5yi+i7HKZ7Y67yMseLxLuaaRhohumxTgyv7xiKnfUUbo/dmAkYXTiD+ol1tHnqm9Ju1Zz6bXKI5PK4XaxNHAz8OsazDeuv+ZCvJ7Jich3nJ2TL0jDQEoEjf125YMP3+XSzDufX6rTAiANO2shwN8bND5qoQ==" },
+      { id: "class-games", icon: "🎮", title: "课堂游戏参考", intro: '把围棋规则拆成孩子能玩的游戏——启蒙阶段最有效的教法。', cipher: "U2FsdGVkX199EDwqXlJBRABrm2nORtvCM7yQekC0mjwB+FOdx624xF015XyhSE8MjNJLSa+qZ5VsaPOzMxCaeyL6UJAU/t5maaqeZjlcTnTTcgMpfdK/IW/COuKD5j0xnoAMuBxdlJekBD/z/1XDq4jkIicLk+3yM+OthNBdX43mZTFFMIGP2AoCIDLb9PiFrroGwsdepruOO+wxOlDmLHqPABFGr01UMgmFhIVyYqWkMA4viHj2BFBG95kiHMNPpjnuoBhf3g4j2gNAdxD+OeHmt7BKh7Fh2UcU+cwyVO4dT3nraWlH9LZyD9T17HXprhKRQOiS13LbCd78gjwwE6HWWfYTH9cXQKjwFKVJbTUN3LQP46q4WLJlHYfNKGZQCw6oNXZeqZIL0RUafB5S1yCuGg8axt9tiqWwfLZDZPxAgewNjUt1enwJ+zJJnWz9EYQQTR3jbIV97NS1puc2Ped6cJ/HmTVQn7j+hnYvtqvxjyQXUPZZaeXuVRAKH5DVkQyBGQJglxj2goXeWFWbu5nRBZpw2bHH67+LdFQ9cN3dYHQ1Hb3RmZHoWeh4XwLDjoDvUGD+0WiQsD6urz105WjOl93tf09JGUVaAlICseUKgh6aTvC6B2GWYpWT94hqgN4ayCr0UrxrYeWdlmvMwsNgxBQQzyXOxTSOhl2L5ZjhcDDuCqBj3Vv+C3bijFN0KoePg//k/yofjCP4CdlNNPL9UKLoTyPD4IDOjgoFVGLKXTXKwrgvwsCvjZSafRtunaETmnQFZQohjl+wkqctcuL1zE/4AKFp72iDY3czNaBr41TjMcVChanMuBw3OuKam6DwJGyu91zy20r9YyWdxc6ckfrx2ydjX77jvaF0JqLWp9kwXubSQM622/csgL/SMTLwf3J3KrziIv/jz1HNnDS1hidUyKRTCxG7EhyXJc8Jno40/ezFXE5B4XBeod+5UJJzCeZcjNVSmXgk9qJPAcj4TXkBFgKRxrbAYM+UlgqFh3VKeK/kyBDgHne2W02+bSXu7WPMH2l2YOiLvA7jQ/Xs7n/0bIEjTnY674ZhQRc=" },
+      { id: "stories", icon: "📚", title: "围棋故事启蒙版", intro: '给 5-8 岁孩子听的围棋故事——让孩子先爱上围棋文化，再爱上下棋。', cipher: "U2FsdGVkX18ck3EaQQW1TPasBh71fKpRQi18kMcUcP9pYy+vMZOEKJV3HQZk0pzkAGuavwwhFOGEVBwwpLwVGbkCLMVXyf7zoojvuimHAjiWzXAMoouDHPPsBh5PAWzF52ihL+ZNglcFHEFvNbVKNQ3t2s2skoDMHLA32BpLrp+K3r0mJm0/TcttQXg0J76RKF4G3V5wIUo2y6fs4i2Oe6U71kmkrdgn/urIjGmw2x5634hAiZBBaxkkfW3WM6473V1tmlqFJz1HlmjCZm6yqT5+OzVKzuciPhLn+l9dHsj6/1W1WW3p3fNrQuQgzJwta5l+F+ruRWl8nlJufa2THyn8xtjg8SzdCD9vaGwhCAocQ0xrHlKM2ktTxc7FD5k04QH1HXx1lt55BGxZrBYGaccJkEL/RqR69o+prhWJcdkzn+/+IqQFNX4yrdhvLK8L/Xt1M4NnrtMK14HVCvYLbWxaryZtxsjaf2I72Q+zDwf4w2jgKY1m5Rue4CJP08k8d79BXtSinFdBLWnHjB1xYX9qNYNZyDPOIEj44siS4Q5IDVP+qVel9iMZsxZ/TNIdDk6wG6gE4rH0A9Meuc+xoxKneW6aziBwKJN4mpljx9waOlOENqqz9IF4penrBrHa1aKTYPTTWczmPGSgjFs34wYM218X83xXja7MwdQ8x80Ali8R8JCJTOnXtuNBjw9xwTINbQHcZ14BX3ZW+CyK++sh24E5Mkzj1mUKmTDoYMs5RMAOYYLs1X0EkL8wFQNGznf2OlvyT079ov+EUZIdByXCPvGE+5dtLeGTYViOwbHHTbnrk6jma2I3A5kSaFjMBvwuQtAv+Sm8pJmvuUJY2pw+b8E+/4JiKDYQB5CPoT6J6TkhF5ubWU82xifcJUa1OvmHFKyHSNyIPQ+CIc/c969pSHKcEh9jU03sUO9+ViQxzPS1iqCIQc8vZ4XsAhds7k0gGhENlt42tJCOl7zT9Zcwh7z00/idliORk2x7SH0G4iTyem6nb7bb9JOq/fPME5IaxMMY+Dwis4ZDhOvnwoW3saDBxGHmH8ppevqnGmmQQ5gmfe9TtbG52hNc23v1/ulLpZGfmMCEOzuMMOgr9W3OxxDuiJYc/+/+GnBN+tc=" }
     ]
   };
 </script>
@@ -4448,17 +4458,19 @@ function hideParentGuide(){
   <div class="slide-dot" data-idx="2" title="使命"></div>
 </div>
 <script>
-  // ===== 启蒙教学研讨 - 密钥板块脚本 =====
+  // ===== 启蒙教学研讨 - 密钥板块脚本 v2（账号+密码）=====
   (function() {
-    const STORAGE_KEY = "edulab_unlock_v1";
+    const STORAGE_KEY = "edulab_unlock_v2";
     const EXPIRE_DAYS = 30;
 
-    // SHA256 (使用 CryptoJS)
+    // 内容加密 key 混淆存储（前端反编译仍可拿到，静态站固有限制）
+    const _mkArr = ["luobogan", "edulab", "master", "2026"];
+    function _mk() { return _mkArr.join("-"); }
+
     function sha256(text) {
       return CryptoJS.SHA256(text).toString(CryptoJS.enc.Hex);
     }
 
-    // AES 解密（兼容 openssl enc -aes-256-cbc -a -salt -md md5）
     function aesDecrypt(cipherB64, password) {
       try {
         const decrypted = CryptoJS.AES.decrypt(cipherB64, password);
@@ -4468,8 +4480,8 @@ function hideParentGuide(){
       }
     }
 
-    function saveUnlock(key) {
-      const payload = { key: key, expire: Date.now() + EXPIRE_DAYS * 86400000 };
+    function saveUnlock(account) {
+      const payload = { account: account, expire: Date.now() + EXPIRE_DAYS * 86400000 };
       localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
     }
 
@@ -4478,36 +4490,45 @@ function hideParentGuide(){
         const raw = localStorage.getItem(STORAGE_KEY);
         if (!raw) return null;
         const data = JSON.parse(raw);
-        if (data.expire && data.expire > Date.now()) return data.key;
+        if (data.expire && data.expire > Date.now() && data.account) return data.account;
         localStorage.removeItem(STORAGE_KEY);
         return null;
       } catch(e) { return null; }
     }
 
     window.submitEdulabKey = function() {
-      const input = document.getElementById("edulab-key-input");
+      const accInput = document.getElementById("edulab-account-input");
+      const pwdInput = document.getElementById("edulab-pass-input");
       const msg = document.getElementById("edulab-gate-msg");
-      const key = (input.value || "").trim();
-      if (!key) { msg.textContent = "请输入密钥"; msg.className = "gate-msg"; return; }
+      const account = (accInput.value || "").trim().toUpperCase();
+      const password = (pwdInput.value || "").trim();
 
-      const hash = sha256(key);
-      if (hash === window.EDULAB_DATA.keyHash) {
-        saveUnlock(key);
-        msg.textContent = "✓ 密钥正确，正在进入…";
+      if (!account || !password) {
+        msg.textContent = "请输入账号和密码";
+        msg.className = "gate-msg";
+        return;
+      }
+
+      const hash = sha256(account + ":" + password);
+      if (window.EDULAB_DATA.hashList.indexOf(hash) >= 0) {
+        saveUnlock(account);
+        msg.textContent = "✓ 登录成功，正在进入…";
         msg.className = "gate-msg ok";
-        setTimeout(() => unlockEdulab(key), 400);
+        setTimeout(() => unlockEdulab(account), 400);
       } else {
-        msg.textContent = "密钥不正确，请检查后重试";
+        msg.textContent = "账号或密码不正确，请检查后重试";
         msg.className = "gate-msg";
       }
     };
 
-    function unlockEdulab(key) {
+    function unlockEdulab(account) {
       document.getElementById("edulab-gate").style.display = "none";
       document.getElementById("edulab-content").style.display = "block";
-      // 预解密所有卡片内容
+      document.getElementById("edulab-current-account").textContent = account;
+      // 用 master key 解密所有卡片内容
+      const mk = _mk();
       window.EDULAB_DATA.cards.forEach(c => {
-        c._plain = aesDecrypt(c.cipher, key);
+        c._plain = aesDecrypt(c.cipher, mk);
       });
     }
 
@@ -4530,27 +4551,28 @@ function hideParentGuide(){
     };
 
     window.logoutEdulab = function() {
-      if (!confirm("确定要退出登录吗？下次进入需要重新输入密钥。")) return;
+      if (!confirm("确定要退出登录吗？下次进入需要重新输入账号密码。")) return;
       localStorage.removeItem(STORAGE_KEY);
       document.getElementById("edulab-detail").style.display = "none";
       document.getElementById("edulab-content").style.display = "none";
       document.getElementById("edulab-gate").style.display = "block";
-      document.getElementById("edulab-key-input").value = "";
+      document.getElementById("edulab-account-input").value = "";
+      document.getElementById("edulab-pass-input").value = "";
       document.getElementById("edulab-gate-msg").textContent = "";
     };
 
-    // 回车提交
     document.addEventListener("DOMContentLoaded", function() {
-      const input = document.getElementById("edulab-key-input");
-      if (input) {
-        input.addEventListener("keydown", function(e) {
+      const accInput = document.getElementById("edulab-account-input");
+      const pwdInput = document.getElementById("edulab-pass-input");
+      [accInput, pwdInput].forEach(el => {
+        if (el) el.addEventListener("keydown", function(e) {
           if (e.key === "Enter") submitEdulabKey();
         });
-      }
-      // 自动登录
-      const savedKey = readUnlock();
-      if (savedKey && sha256(savedKey) === window.EDULAB_DATA.keyHash) {
-        unlockEdulab(savedKey);
+      });
+      // 自动登录（30 天免登）
+      const savedAccount = readUnlock();
+      if (savedAccount) {
+        unlockEdulab(savedAccount);
       }
     });
   })();
