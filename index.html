@@ -5288,7 +5288,7 @@ function hideParentGuide(){
         if(m.color==='B'){
           parts.push('<text x="'+cx+'" y="'+(cy-18)+'" font-size="12" fill="#2a1a08" stroke="#faf3dc" stroke-width="2.5" paint-order="stroke" font-weight="700" text-anchor="middle" font-family="KaiTi,STKaiti,serif" letter-spacing="1">'+esc(m.name)+'</text>');
         }else{
-          parts.push('<text x="'+cx+'" y="'+(cy+32)+'" font-size="12" fill="#2a1a08" font-weight="700" text-anchor="middle" font-family="KaiTi,STKaiti,serif" letter-spacing="1">'+esc(m.name)+'</text>');
+          parts.push('<text x="'+cx+'" y="'+(cy+32)+'" font-size="12" fill="#2a1a08" stroke="#faf3dc" stroke-width="2.5" paint-order="stroke" font-weight="700" text-anchor="middle" font-family="KaiTi,STKaiti,serif" letter-spacing="1">'+esc(m.name)+'</text>');
         }
         parts.push('</g>');
       }
@@ -7044,6 +7044,40 @@ header .nav-luobo-ext.dr-entry-btn-alt:hover {
 </script>
 <!-- ===== DAILY-RITUAL v1.0 END ===== -->
 
+
+/* ===== v3.14 fix14 · 白子下方 label 深字光晕 + 每日棋事簿重置 ===== */
+<script>
+/* ===== v3.14 fix14 · 每日棋事簿一键重置（?reset_daily=1）===== */
+(function(){
+  try{
+    var qs = (location.search||'').toLowerCase();
+    if (qs.indexOf('reset_daily=1') < 0) return;
+    var KEYS = [
+      'luobo_days','luobo_teacher_config','luobo_luck_today',
+      'luobo_last_style','luobo_last_teacher_ids','luobo_checkin_today',
+      '_lbg_msg_ts','luobo_ink_shown'
+    ];
+    for (var i=0;i<KEYS.length;i++){
+      try{ localStorage.removeItem(KEYS[i]); }catch(e){}
+      try{ sessionStorage.removeItem(KEYS[i]); }catch(e){}
+    }
+    // 备用清扫：删除所有以 luobo_ 开头的历史 key
+    try{
+      var toDel = [];
+      for (var j=0;j<localStorage.length;j++){
+        var k = localStorage.key(j);
+        if (k && (k.indexOf('luobo_')===0 || k.indexOf('_lbg_')===0)) toDel.push(k);
+      }
+      toDel.forEach(function(k){ localStorage.removeItem(k); });
+    }catch(e){}
+    console.log('[fix14] 每日棋事簿已重置，将跳回首页刷新状态');
+    // 跳回不带参数的 URL（等 500ms 让日志显示）
+    setTimeout(function(){
+      location.replace(location.origin + location.pathname);
+    }, 400);
+  }catch(e){ console.warn('[fix14 reset] error:', e); }
+})();
+</script>
 </body>
 </html>
 <!-- redeploy-47eed18dv4r1_v5_v6 -->
