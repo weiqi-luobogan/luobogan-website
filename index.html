@@ -3203,6 +3203,20 @@ header nav .nav-luobo-ext{white-space:nowrap;}
         }
       })();
       // ===== LUOBO-PEOPLE-EXPAND v1.0 END =====
+
+      // ===== LUOBO-WOMEN-EXPAND v1.0 START =====
+      // v3.11 fix10 · 女子星图配套：追加 12 篇女棋手 people 主传记（幂等 push）
+      (function(){
+        if(!CULTURE_DATA || !CULTURE_DATA.people || !CULTURE_DATA.people.articles) return;
+        var arts = CULTURE_DATA.people.articles;
+        var addlist = [{"title": "芮乃伟：中国首位女子九段，跨越三国的女子第一人", "body": "芮乃伟出生于 1963 年，上海人。少年时进入上海围棋队，后进入国家队。1988 年，她在中国获得女子九段段位，成为新中国培养的首位女子九段棋手，这是中国女子围棋段位史上的一次突破。\n\n1990 年代，她赴海外深造多年，先后在日本、美国生活学习，围棋道路辗转跨越几个国家。2000 年，她在韩国棋院正式取得职业九段资格，这也是围棋史上第一位在实赛体系下拿到九段的女棋手。这段跨国经历让她在中、日、韩三地都留下过重要战绩。\n\n她的棋风力战型十足，中盘搏杀凶悍，被围棋界称为\"力战女王\"。世界女子锦标赛、宝海杯、正官庄杯等大型赛事上，她多次夺冠或闯入决赛，长期是女子围棋的世界顶尖选手。在与男子棋手的公开赛对局中，她也留下过击败顶尖男棋手的战绩，成为当时女子棋界的标志人物。\n\n2010 年代之后，她逐步将重心转回中国，继续参加各类甲级联赛与老将赛，长期活跃在职业赛场。她的棋士生涯跨越几代女子棋手，从与张璇、丰云同代的老一辈，到於之莹、王晨星等新生代女子领军，她都同场竞技过。\n\n对于女子围棋教育界而言，芮乃伟的意义远超战绩本身。她证明了女子棋手可以在职业九段的最高段位上稳定竞争，也让\"女子围棋能走多远\"这个问题有了具体答案。她是女子围棋从依附时代走向独立时代的关键坐标。"}, {"title": "张璇：新中国自主培养的女子九段，长盛的国内女子领军", "body": "张璇出生于 1969 年，江苏南京人。少年进入江苏队，后入选国家队，是新中国自主培养的女子高段棋手代表之一。\n\n她在 1980 年代末与 1990 年代长期是国内女子围棋的领军人物之一，多次获得全国女子个人赛冠军、女子名人战冠军。她与芮乃伟、丰云、杨晖等同代女棋手共同支撑起中国女子围棋在改革开放后的第一波高峰。\n\n张璇的棋风稳健、厚重，擅长控局与官子。她的对局节奏偏慢，往往在中盘之后凭借扎实的基本功和形势判断能力占据优势。这种风格与同代芮乃伟的力战型形成鲜明对比，也让国内女子棋坛的对局风格更加多元。\n\n除职业对局外，张璇长期投身围棋普及与女子棋手培养。她担任过多支甲级联赛队伍的女子主力和教练，也参与国家女队的训练与选拔工作。国内多位新生代女棋手，都在成长阶段接受过她的指导或与她共同训练。\n\n2000 年之后，张璇逐步从一线赛场转向教练与围棋文化推广工作，但她仍不定期出战女子快棋赛、老将赛等赛事。对于中国女子围棋的\"承前启后\"这一段路，张璇是不可忽略的中枢人物。她的意义不仅在个人成绩，更在于把改革开放第一代女子棋手的经验与训练方法，稳稳地交到了下一代手中。"}, {"title": "华学明：从女子领军到中国围棋队领队，桃李满门的教练之路", "body": "华学明出生于 1961 年，江苏人。少年进入江苏队，后进入国家队，是 1980 年代中国女子围棋的代表选手之一。\n\n作为职业棋手时期，华学明多次获得全国女子个人赛冠军、女子名人战冠军，是那一代女子棋手中战绩最稳定的名将之一。她与稍晚出道的芮乃伟、张璇同代，共同在改革开放初期的国内女子棋坛占据主导位置。她的棋风偏灵动、快节奏，中盘感觉锐利。\n\n真正让华学明在中国围棋史上留下更深印记的，是她后来投身女子围棋教练与管理工作。1990 年代之后，她逐步转型为教练，并出任国家围棋队女队教练、领队等职务，长期负责女队的日常训练、选拔与国际赛事组织。中国女子围棋在 2000 年代之后能够涌现多位世界女子锦标赛冠军，与她这一批教练兼管理者所打下的训练体系密不可分。\n\n2010 年代之后，华学明的角色进一步扩展为整个中国围棋队的领队之一。她既是训练组织者，也是国际赛事的沟通协调者。国内外围棋界对她的评价，除职业战绩之外，更多集中在她把职业棋手职业发展路径、女子棋手成长路径打通的这份长期贡献上。\n\n对于围棋教育从业者而言，华学明的意义在于示范了一种可能：一位女子棋手完成职业竞技阶段后，可以在教练、领队、管理者的位置上继续影响一代又一代棋手的成长。"}, {"title": "於之莹：女子建桥杯八连霸，00 后崛起前的中国女子第一人", "body": "於之莹出生于 1997 年，上海人。少年时进入职业围棋训练体系，2010 年前后升入职业，是 90 后中国女子棋手中最早崭露头角的一位。\n\n她的成名之战是女子建桥杯。自 2013 年起，她连续多年蝉联建桥杯女子公开赛冠军，达成\"八连霸\"的成就，这在女子围棋公开赛历史上极为罕见。除建桥杯之外，她还多次拿到黄龙士杯世界女子团体赛冠军、穹窿山兵圣杯世界女子锦标赛冠军，长期作为中国女队的核心主力出战国际大赛。\n\n於之莹的棋风偏厚重稳健，中盘计算扎实，对形势判断的把握非常敏锐。她在与男子顶尖棋手的公开赛对局中，多次战胜过职业九段，成为其所在时代女子对男子胜率最高的棋手之一。她与同代韩国崔精、日本藤泽里菜并称\"女子三大天王\"，是 2010 年代女子围棋世界舞台上最具代表性的选手之一。\n\n作为国家女队核心多年，於之莹除了个人赛事，还长期参加围甲联赛、女子甲级联赛，是各队争抢的女子主将。她的存在让 2010 年代中国女子棋坛保持了稳定的国际竞争力。\n\n2020 年代之后，随着周泓余、李赫、陆敏全等 00 后新一代女棋手崛起，於之莹开始逐步与年轻队友共同承担国际大赛任务。她与新一代女子棋手之间的更替与并肩，是中国女子围棋良性循环的写照。"}, {"title": "王晨星：世界女子锦标赛冠军，稳健厚重的中生代女将", "body": "王晨星出生于 1991 年，是中国女子围棋 90 后一代的代表棋手之一。少年进入国家少年队训练体系，后升入职业，长期作为国家女队的重要力量。\n\n她最具代表性的战绩来自世界女子锦标赛冠军和女子智运会冠军。在穹窿山兵圣杯等世界女子大赛上，她多次进入决赛并夺冠。她的棋风偏稳健，行棋节奏不激烈，重视厚势与全局平衡，是那种典型的\"官子扎实、后半盘不慌\"的棋风。\n\n与同代的於之莹形成搭档，王晨星长期是中国女队参加国际团体赛的稳定主力。在黄龙士杯世界女子围棋团体锦标赛、中韩女子围棋对抗赛等团体赛事中，她多次贡献关键胜局。\n\n除国际大赛外，王晨星也长期参加国内女子甲级联赛，是各队争抢的女子主将级选手。她的对局风格给围棋教育界提供了一个很好的样本：不必依赖锐利的开局奇招，也可以靠稳扎稳打的中盘与官子在世界女子最高舞台上争冠。\n\n对于中生代女子棋手来说，王晨星的意义在于示范了\"稳健派女子九段\"的可能路径——不是靠力战和奇兵，而是靠均衡厚实的基本功走到世界之巅。她与於之莹的双主将时代，为中国女子围棋 2010 年代的国际战绩打下了稳定基座。"}, {"title": "周泓余：00 后女子世界冠军，中国女子当代最活跃的执棋人", "body": "周泓余出生于 2003 年，江苏人。少年进入江苏省队，后升入国家队，是中国女子围棋 00 后一代最早崭露头角的选手之一。\n\n她自 2010 年代末开始在国内女子赛事中站稳一线位置，随后逐步在国际大赛中取得突破。她在世界女子围棋锦标赛系列赛事中多次进入决赛并夺冠，是中国女子当代最活跃的世界冠军之一。她与李赫、陆敏全等同代 00 后女棋手一同，构成了中国女队当代的中坚力量。\n\n周泓余的棋风兼具力战与稳健，年轻棋手的锐气与前辈棋风的沉稳在她身上都有体现。她中盘敢于战斗，后半盘又能收得住形势，被评论界认为具备\"能打大赛\"的心理素质。她在与韩国崔精、日本藤泽里菜等外国女子第一人的对局中，多次贡献高水平厮杀。\n\n除个人赛事外，她也是女子甲级联赛与围甲联赛的主力选手，代表中国队参加各种女子国际团体赛，是当代中国女队最年轻的核心。\n\n对围棋教育界而言，周泓余的价值在于展现了 00 后女棋手的成长节奏：她们不再需要经历上一代女子棋手\"要出海才能证明自己\"的路径，而是在国内成熟的训练体系里就完成了从少年到世界冠军的跨越。她所代表的这一代女棋手，是中国女子围棋良性循环的最新一茬果实。"}, {"title": "日 · 杉内寿子：昭和至平成的活棋圣，逾九十岁仍执子的传奇", "body": "杉内寿子出生于 1927 年，是日本围棋界最资深的女棋手之一，长期活跃于日本棋院系统。\n\n她的职业生涯从昭和时代延续到平成、令和，跨越近八十年，本身就是日本女子围棋史的一部活字典。她的丈夫杉内雅男九段同样是日本著名男棋手，两人是围棋界少见的\"高段位夫妇\"，共同见证了日本围棋从战后重建到 21 世纪的完整历程。\n\n杉内寿子的战绩包括早期女流选手权战冠军、女流本因坊等国内头衔战成绩。这些赛事在她那一代人处于起步阶段，她是奠基一代的代表。她的棋风稳健、耐心，年轻时是攻防兼备的正统本格派，年老之后转为持重厚实。\n\n她最为围棋界所敬重的一点，是逾九十岁仍在日本棋院执子出赛。在日本棋院常规对局记录中，她多次刷新\"女子最高龄职业胜局\"等纪录，成为日本围棋界公认的\"活棋圣\"象征。她的存在本身就在告诉后辈：围棋是可以下一辈子的事。\n\n对围棋教育从业者而言，杉内寿子的意义超越具体战绩。她是日本女子围棋整个链条的源头之一，从她这一代人打下的基础，才有了后来小林泉美、谢依旻、藤泽里菜、上野爱咲美这些女子头衔战冠军的舞台。她也是围棋作为终身事业最有说服力的活证据。"}, {"title": "日 · 谢依旻：台湾出身的日本女流四冠，多年蝉联女流第一", "body": "谢依旻出生于 1989 年，台北人。少年赴日学棋，后加入日本棋院，成为日本围棋界长期站在女流第一位置的代表棋手之一。\n\n她的国际影响力主要来自日本女流三大战——女流本因坊、女流名人、女流棋圣三个头衔战。她曾多次蝉联女流本因坊、女流名人等头衔，长期占据日本女流第一的位置。合并其他女流头衔战，她累计的女流头衔数在日本历代女棋手中位居前列，是名副其实的\"女流四冠王\"级人物。\n\n她的棋风偏均衡厚重，中盘扎实，官子精细。这种\"稳的一手\"是她能在日本女流赛事中长期霸榜的关键。她在与韩国崔精、中国於之莹的国际对局中也贡献过多局高水平之作，是那一代日本女子围棋在国际赛场上的门面。\n\n除个人赛外，她长期代表日本参加中韩日女子团体赛、女子围棋世界大赛。她与年轻一代的藤泽里菜、上野爱咲美既是对手也是队友，共同支撑起日本女子围棋在 2010 年代到 2020 年代的国际竞争力。\n\n谢依旻的意义对台海围棋圈也有特殊分量。她证明了一位台湾出身的少年棋手，可以完整走完日本棋院从入段到女流第一的道路。对于围棋教育界，这段跨地域的成长路径，是很好的\"路径样本\"。"}, {"title": "日 · 藤泽里菜：藤泽秀行的孙女，日本女流首位 800 胜的四冠王", "body": "藤泽里菜出生于 1998 年，是日本著名棋士藤泽秀行的孙女。她少年时便展露天赋，2010 年前后成为日本棋院最年轻的女流入段选手之一，从此长期占据日本女子围棋头部位置。\n\n她的头衔战成绩非常密集：女流本因坊、女流名人、女流棋圣、扇兴杯等日本主要女流赛事，她都拿到过多次冠军，累计女流头衔数长期位居日本女棋手前列。她被日本围棋界视为\"藤泽家第三代\"的正统传承者。\n\n藤泽里菜的棋风偏灵动、锐利，敢于在中盘发起战斗，与谢依旻的稳健形成日本女流第一集团内部的两种风格。她与谢依旻长期形成\"女流两强\"的对局关系，也让日本女流赛事的观赏性大幅提高。\n\n国际赛场上，她与中国的於之莹、周泓余，以及韩国的崔精、吴侑珍多次交手，是 2010 年代到 2020 年代日本女子围棋在国际赛场上最具代表性的选手。她也是日本女子棋手中率先达到通算胜局数里程碑的一位，多次刷新\"日本女子职业首位达到 XX 胜\"的纪录。\n\n藤泽里菜的意义除了自身战绩，也包括她作为\"棋道世家第三代\"的公共形象。祖父藤泽秀行以豪爽和\"棋盘外传奇\"闻名日本棋坛，孙女藤泽里菜则用扎扎实实的头衔战冠军延续家族的围棋招牌。这种代际传承对围棋教育界而言，本身就是一个动人的样本。"}, {"title": "韩 · 尹映善：韩国女子第一位九段，早期女子围棋的奠基者", "body": "尹映善是韩国女子围棋早期最重要的奠基者之一，是韩国棋院女子棋手中较早达到高段位的代表。她的职业生涯主要活跃于 1980 年代末至 2000 年代初，是韩国女子围棋从起步阶段走向国际化的关键人物之一。\n\n在她成长的年代，韩国女子围棋人口极少，训练资源和公开赛事也远不如男子体系完善。她在这样的条件下逐步升段，最终成为韩国女子棋手第一位跨入职业九段的选手，是韩国女子围棋段位史上的重要里程碑。\n\n尹映善的战绩集中在国内女子赛事与早期国际女子团体赛。她多次代表韩国参加中韩、韩日女子对抗赛，是韩国女队组队初期的核心主力之一。她的棋风偏均衡稳健，注重形势判断与官子处理，符合韩国当时男子第一集团的整体训练风格。\n\n她的长远意义远超个人战绩。作为韩国女子围棋的奠基一代，她与后来涌现的朴志恩、赵惠连等中生代女棋手，共同为 90 后崔精、吴侑珍这批韩国女子世界冠军铺好了体系底座。没有她这一代人的积累，也就不会有今天韩国女子在世界女子舞台上的稳定竞争力。\n\n对围棋教育从业者而言，尹映善所代表的是一段\"从零到一\"的开垦时期。她的存在提醒我们：任何一个围棋强国的女子板块，都需要先有奠基者顶着资源匮乏往前走，才能长出后来枝繁叶茂的世界冠军群。"}, {"title": "韩 · 崔精：韩国女子第一人，多次进入男子公开赛决胜的女流三大天王", "body": "崔精出生于 1996 年，韩国釜山人。少年入段，从 2010 年代起长期占据韩国女子围棋第一的位置，是当代女子围棋世界舞台上的头号人物之一。\n\n她的头衔战成绩极为密集：女流国手战、女流名人战、麦馨杯女子最强战、女流十段等韩国女子头衔战她均多次蝉联，是韩国历代女棋手中头衔累计最多的选手之一。在国际女子赛事上，她多次夺得穹窿山兵圣杯世界女子锦标赛冠军，是同代女棋手中世界大赛冠军数最多的一位。\n\n她与中国的於之莹、日本的藤泽里菜并称\"女子三大天王\"，长期支撑起 2010 年代到 2020 年代女子围棋的世界最高水平对局。她的棋风兼具力战锐利与官子精细，中盘搏杀能力被韩国棋坛评为\"接近男子顶尖水准\"。\n\n她也是当代女子棋手中，与男子顶尖棋手过招最多的选手之一。在韩国 GS 加德士杯、名人战等男女混合公开赛中，她多次进入正赛决胜阶段，与顶尖男子九段贡献过多局引起国际棋坛关注的高水平对局。这些对局证明女子棋手完全可以在最高水平的公开赛体系里稳定竞争。\n\n崔精的价值不仅在战绩本身，还在于她的存在极大提振了整个女子围棋界的信心。对围棋教育从业者而言，她是当代女子围棋最有说服力的形象代言人——女子围棋不是\"男子的辅赛\"，而是有自己完整叙事线和世界巨星的独立舞台。"}, {"title": "韩 · 吴侑珍：韩国新一代女子九段，世界女子锦标赛冠军", "body": "吴侑珍出生于 1998 年，是韩国女子围棋新生代的代表棋手之一。她少年入段，2010 年代中期开始在韩国女流赛事中崭露头角，与稍长的崔精共同构成韩国女子第一集团。\n\n她的国内战绩包括女流名人战、女流国手战、女流最强战等多次决赛与夺冠。她随后在国际赛场上完成关键突破，在穹窿山兵圣杯世界女子围棋锦标赛等大赛中夺得世界冠军，让韩国女子围棋在国际舞台上继续保持双主力的架构。\n\n吴侑珍的棋风偏力战型，中盘搏杀凶悍，行棋速度快，被韩国棋坛评价为\"敢下\"的一位女棋手。她与崔精之间的对局，形成了韩国女子头部两种风格的对撞：崔精的均衡厚实与吴侑珍的锐利强攻。这种内部竞争关系让韩国女子头部选手长期保持竞技状态。\n\n她也是新一代韩国女子九段的代表性人物。在韩国女子围棋段位史上，从尹映善这一代拿到女子第一位九段开始，到崔精、吴侑珍这一代拿到女子九段，段位史的完整链条被清晰接续起来。\n\n国际赛场上，她与中国的於之莹、周泓余、日本的藤泽里菜多次交手，是当代女子世界大赛的常客。她与崔精\"双核\"驱动的韩国女队，是 2020 年代女子围棋世界舞台上稳定的一极。对围棋教育从业者而言，吴侑珍所代表的是韩国女子围棋自成体系的传承证据——她既是崔精之后的接棒者，也是下一代年轻棋手的追赶目标。"}];
+        var existing = {};
+        for(var i=0;i<arts.length;i++){ existing[arts[i].title] = true; }
+        for(var j=0;j<addlist.length;j++){
+          if(!existing[addlist[j].title]) arts.push(addlist[j]);
+        }
+      })();
+      // ===== LUOBO-WOMEN-EXPAND v1.0 END =====
     })();
 
 
@@ -5135,17 +5149,25 @@ function hideParentGuide(){
 </script>
 <!-- ===== QUIZ v1.0 END ===== -->
 
-<!-- ===== MASTER-MAP v1.0 START ===== -->
+<!-- ===== MASTER-MAP v2.0 START ===== -->
+<!-- v2.0（v3.11 fix9）：双页 tab · 男子星图 + 围棋巾帼 + 3 秒自动轮播 -->
 <style id="mm-style">
 #mm-mask{position:fixed;inset:0;z-index:9994;background:rgba(15,10,5,.7);display:none;align-items:center;justify-content:center;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:16px}
 #mm-mask.show{display:flex}
 #mm-panel{background:linear-gradient(150deg,#f7edcf 0%,#e8d5a8 100%);border:1px solid #b09a70;border-radius:10px;padding:22px 24px;box-shadow:0 16px 50px rgba(50,35,10,.4);max-width:1100px;width:100%;max-height:94vh;overflow:auto;font-family:"KaiTi","STKaiti","Songti SC","SimSun",serif;color:#3a2a10;position:relative}
-#mm-panel .mm-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;gap:12px;flex-wrap:wrap}
+#mm-panel .mm-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;gap:12px;flex-wrap:wrap}
 #mm-panel .mm-title{font-size:22px;letter-spacing:6px;color:#3a2a10}
 #mm-panel .mm-subtitle{font-size:12px;color:#8a7042;letter-spacing:3px;opacity:.85}
-#mm-panel .mm-close{position:absolute;top:14px;right:20px;font-size:22px;color:#8a7042;background:transparent;border:none;cursor:pointer;line-height:1}
+#mm-panel .mm-close{position:absolute;top:14px;right:20px;font-size:22px;color:#8a7042;background:transparent;border:none;cursor:pointer;line-height:1;z-index:3}
 #mm-panel .mm-close:hover{color:#3a2a10}
-#mm-panel .mm-svg-wrap{width:100%;overflow-x:auto;margin-top:12px;background:linear-gradient(135deg,#faf1d8,#e6d5ae);border:1px solid rgba(120,90,50,.35);border-radius:6px;padding:8px}
+#mm-panel .mm-tabs{display:flex;gap:8px;margin:10px 0 4px;align-items:center;flex-wrap:wrap}
+#mm-panel .mm-tab{padding:6px 16px;background:rgba(255,255,255,.35);border:1px solid rgba(120,90,50,.35);border-radius:20px;cursor:pointer;font-family:inherit;color:#5a4a20;font-size:13.5px;letter-spacing:3px;transition:all .25s}
+#mm-panel .mm-tab.active{background:linear-gradient(135deg,#c48b3a,#a06720);color:#fff8e8;border-color:#8a6a3a;box-shadow:0 2px 6px rgba(160,103,32,.35)}
+#mm-panel .mm-tab:hover:not(.active){background:rgba(196,139,58,.22)}
+#mm-panel .mm-auto-tag{font-size:11px;color:#8a7042;letter-spacing:1.5px;opacity:.75;margin-left:auto;user-select:none}
+#mm-panel .mm-auto-tag.hide{opacity:0;transition:opacity .3s}
+#mm-panel .mm-svg-wrap{width:100%;overflow-x:auto;margin-top:10px;background:linear-gradient(135deg,#faf1d8,#e6d5ae);border:1px solid rgba(120,90,50,.35);border-radius:6px;padding:8px;transition:opacity .35s ease}
+#mm-panel .mm-svg-wrap.fading{opacity:0.12}
 #mm-panel svg{display:block;min-width:1080px}
 #mm-panel .mm-legend{display:flex;gap:18px;justify-content:center;margin-top:14px;flex-wrap:wrap;font-size:12px;color:#5a4a20;letter-spacing:2px}
 #mm-panel .mm-legend .mm-legend-item{display:flex;align-items:center;gap:6px}
@@ -5160,14 +5182,19 @@ function hideParentGuide(){
 .mm-node{cursor:pointer;transition:all .2s}
 .mm-node:hover{filter:drop-shadow(0 0 6px rgba(196,139,58,.85))}
 .mm-node.highlight circle:first-child{stroke:#c48b3a;stroke-width:2.5}
-@media(max-width:520px){#mm-panel{padding:18px 14px}}
+@media(max-width:520px){#mm-panel{padding:18px 14px} #mm-panel .mm-tab{padding:5px 12px;font-size:12.5px;letter-spacing:2px} #mm-panel .mm-auto-tag{width:100%;margin-left:0;margin-top:4px}}
 </style>
 <div id="mm-mask" role="dialog" aria-label="masters star map" aria-hidden="true">
   <div id="mm-panel">
     <button class="mm-close" id="mm-close">&times;</button>
     <div class="mm-head">
-      <div class="mm-title">中日韩大师星图</div>
-      <div class="mm-subtitle">26 位棋手 · 2500 年时光 · 悬停看简介 · 点击跳阅文章</div>
+      <div class="mm-title" id="mm-title">中日韩大师星图</div>
+      <div class="mm-subtitle" id="mm-subtitle">26 位棋手 · 2500 年时光 · 悬停看简介 · 点击跳阅文章</div>
+    </div>
+    <div class="mm-tabs">
+      <button class="mm-tab active" data-tab="men" id="mm-tab-men">大师星图 · 男子</button>
+      <button class="mm-tab" data-tab="women" id="mm-tab-women">围棋巾帼</button>
+      <span class="mm-auto-tag" id="mm-auto-tag">自动轮播中 · 点击 tab 切换手动</span>
     </div>
     <div class="mm-svg-wrap" id="mm-svg-wrap"></div>
     <div class="mm-legend">
@@ -5181,23 +5208,33 @@ function hideParentGuide(){
 </div>
 <script id="mm-script">
 (function(){
-  var EPOCHS=[["spring", "春秋战国"], ["tang", "唐宋"], ["qingzao", "清初"], ["qingzhong", "清中"], ["minguo", "民国"], ["early20", "20世纪前半"], ["late20", "20世纪后半"], ["modern", "当代"]];
+  var EPOCHS_MEN=[["spring", "春秋战国"], ["tang", "唐宋"], ["qingzao", "清初"], ["qingzhong", "清中"], ["minguo", "民国"], ["early20", "20世纪前半"], ["late20", "20世纪后半"], ["modern", "当代"]];
+  var EPOCHS_WOMEN=[["early20", "20世纪前半"], ["late20", "20世纪后半"], ["modern", "当代"]];
   var REGIONS=[["CN", "中"], ["JP", "日"], ["KR", "韩"]];
-  var MASTERS=[{"name": "弈秋", "ep": "spring", "region": "CN", "color": "B", "brief": "春秋时期国手，孟子笔下\"通国之善弈者\"。"}, {"name": "王积薪", "ep": "tang", "region": "CN", "color": "B", "brief": "盛唐棋待诏，\"围棋十诀\"传世千载。"}, {"name": "黄龙士", "ep": "qingzao", "region": "CN", "color": "B", "brief": "清初\"十四圣\"之一，出神入化的少年国手。"}, {"name": "范西屏", "ep": "qingzhong", "region": "CN", "color": "B", "brief": "清乾隆年间\"双子星\"之一，气势磅礴。"}, {"name": "施襄夏", "ep": "qingzhong", "region": "CN", "color": "W", "brief": "与范西屏合称\"当湖十局\"双绝，官子入圣。"}, {"name": "顾水如", "ep": "minguo", "region": "CN", "color": "B", "brief": "民国国手，中国近代围棋启蒙先驱。"}, {"name": "过惕生", "ep": "minguo", "region": "CN", "color": "W", "brief": "新中国围棋教父之一，聂卫平的启蒙恩师。"}, {"name": "陈祖德", "ep": "late20", "region": "CN", "color": "B", "brief": "首破日本九段的中国棋手，中国围棋事业奠基人。"}, {"name": "聂卫平", "ep": "late20", "region": "CN", "color": "W", "brief": "中日擂台赛\"棋圣\"，凝聚一个时代的民族记忆。"}, {"name": "马晓春", "ep": "late20", "region": "CN", "color": "B", "brief": "中国首位世界冠军，\"妖刀\"般的灵动棋风。"}, {"name": "古力", "ep": "late20", "region": "CN", "color": "W", "brief": "八冠王，21 世纪初中国围棋领军人物。"}, {"name": "柯洁", "ep": "modern", "region": "CN", "color": "B", "brief": "90 后世界冠军新王，围棋 AI 时代的坚守者。"}, {"name": "常昊", "ep": "modern", "region": "CN", "color": "W", "brief": "应氏杯、春兰杯冠军，坚韧稳健的\"农心杯八连胜\"。"}, {"name": "本因坊道策", "ep": "qingzao", "region": "JP", "color": "W", "brief": "江户前期围棋名人，\"棋圣\"称号首人。"}, {"name": "本因坊丈和", "ep": "qingzhong", "region": "JP", "color": "W", "brief": "江户后期名人棋所，\"三英杰\"之一。"}, {"name": "本因坊秀策", "ep": "qingzhong", "region": "JP", "color": "B", "brief": "江户末期\"棋圣\"，御城棋十九连胜，秀策流布局传世。"}, {"name": "吴清源", "ep": "early20", "region": "JP", "color": "B", "brief": "昭和棋圣，与木谷实共创\"新布局\"理论。"}, {"name": "高川格", "ep": "early20", "region": "JP", "color": "W", "brief": "连续九年蝉联本因坊，\"流水不争先\"。"}, {"name": "坂田荣男", "ep": "late20", "region": "JP", "color": "B", "brief": "20 世纪日本第一人，\"剃刀\"般的攻防大师。"}, {"name": "小林光一", "ep": "late20", "region": "JP", "color": "W", "brief": "八连霸名人，日本\"六超\"时代的定石之王。"}, {"name": "井山裕太", "ep": "modern", "region": "JP", "color": "B", "brief": "日本首位七冠王，当代日本围棋第一人。"}, {"name": "曹薰铉", "ep": "late20", "region": "KR", "color": "B", "brief": "韩国现代围棋之父，\"燕子飞刀\"般的快棋战神。"}, {"name": "徐奉洙", "ep": "late20", "region": "KR", "color": "W", "brief": "韩国\"野草派\"老将，逆境翻盘的代名词。"}, {"name": "李昌镐", "ep": "late20", "region": "KR", "color": "B", "brief": "\"石佛\"般冷静，官子精准到误差半目之内。"}, {"name": "朴廷桓", "ep": "modern", "region": "KR", "color": "W", "brief": "韩国 90 后领军人，多次问鼎世界大赛。"}, {"name": "申真谞", "ep": "modern", "region": "KR", "color": "B", "brief": "\"申工智能\"，与 AI 契合度极高的当代第一人。"}];
+  var MASTERS_MEN=[{"name": "弈秋", "ep": "spring", "region": "CN", "color": "B", "brief": "春秋时期国手，孟子笔下\"通国之善弈者\"。"}, {"name": "王积薪", "ep": "tang", "region": "CN", "color": "B", "brief": "盛唐棋待诏，\"围棋十诀\"传世千载。"}, {"name": "黄龙士", "ep": "qingzao", "region": "CN", "color": "B", "brief": "清初\"十四圣\"之一，出神入化的少年国手。"}, {"name": "范西屏", "ep": "qingzhong", "region": "CN", "color": "B", "brief": "清乾隆年间\"双子星\"之一，气势磅礴。"}, {"name": "施襄夏", "ep": "qingzhong", "region": "CN", "color": "W", "brief": "与范西屏合称\"当湖十局\"双绝，官子入圣。"}, {"name": "顾水如", "ep": "minguo", "region": "CN", "color": "B", "brief": "民国国手，中国近代围棋启蒙先驱。"}, {"name": "过惕生", "ep": "minguo", "region": "CN", "color": "W", "brief": "新中国围棋教父之一，聂卫平的启蒙恩师。"}, {"name": "陈祖德", "ep": "late20", "region": "CN", "color": "B", "brief": "首破日本九段的中国棋手，中国围棋事业奠基人。"}, {"name": "聂卫平", "ep": "late20", "region": "CN", "color": "W", "brief": "中日擂台赛\"棋圣\"，凝聚一个时代的民族记忆。"}, {"name": "马晓春", "ep": "late20", "region": "CN", "color": "B", "brief": "中国首位世界冠军，\"妖刀\"般的灵动棋风。"}, {"name": "古力", "ep": "late20", "region": "CN", "color": "W", "brief": "八冠王，21 世纪初中国围棋领军人物。"}, {"name": "柯洁", "ep": "modern", "region": "CN", "color": "B", "brief": "90 后世界冠军新王，围棋 AI 时代的坚守者。"}, {"name": "常昊", "ep": "modern", "region": "CN", "color": "W", "brief": "应氏杯、春兰杯冠军，坚韧稳健的\"农心杯八连胜\"。"}, {"name": "本因坊道策", "ep": "qingzao", "region": "JP", "color": "W", "brief": "江户前期围棋名人，\"棋圣\"称号首人。"}, {"name": "本因坊丈和", "ep": "qingzhong", "region": "JP", "color": "W", "brief": "江户后期名人棋所，\"三英杰\"之一。"}, {"name": "本因坊秀策", "ep": "qingzhong", "region": "JP", "color": "B", "brief": "江户末期\"棋圣\"，御城棋十九连胜，秀策流布局传世。"}, {"name": "吴清源", "ep": "early20", "region": "JP", "color": "B", "brief": "昭和棋圣，与木谷实共创\"新布局\"理论。"}, {"name": "高川格", "ep": "early20", "region": "JP", "color": "W", "brief": "连续九年蝉联本因坊，\"流水不争先\"。"}, {"name": "坂田荣男", "ep": "late20", "region": "JP", "color": "B", "brief": "20 世纪日本第一人，\"剃刀\"般的攻防大师。"}, {"name": "小林光一", "ep": "late20", "region": "JP", "color": "W", "brief": "八连霸名人，日本\"六超\"时代的定石之王。"}, {"name": "井山裕太", "ep": "modern", "region": "JP", "color": "B", "brief": "日本首位七冠王，当代日本围棋第一人。"}, {"name": "曹薰铉", "ep": "late20", "region": "KR", "color": "B", "brief": "韩国现代围棋之父，\"燕子飞刀\"般的快棋战神。"}, {"name": "徐奉洙", "ep": "late20", "region": "KR", "color": "W", "brief": "韩国\"野草派\"老将，逆境翻盘的代名词。"}, {"name": "李昌镐", "ep": "late20", "region": "KR", "color": "B", "brief": "\"石佛\"般冷静，官子精准到误差半目之内。"}, {"name": "朴廷桓", "ep": "modern", "region": "KR", "color": "W", "brief": "韩国 90 后领军人，多次问鼎世界大赛。"}, {"name": "申真谞", "ep": "modern", "region": "KR", "color": "B", "brief": "\"申工智能\"，与 AI 契合度极高的当代第一人。"}];
+  var MASTERS_WOMEN=[{"name": "芮乃伟", "ep": "late20", "region": "CN", "color": "B", "brief": "中国首位女子九段，跨越三国的女子第一人。"}, {"name": "张璇", "ep": "late20", "region": "CN", "color": "W", "brief": "新中国自主培养的女子九段，稳健厚重的国内领军。"}, {"name": "华学明", "ep": "late20", "region": "CN", "color": "B", "brief": "国家围棋队领队，桃李满门的女子教练代表。"}, {"name": "於之莹", "ep": "modern", "region": "CN", "color": "W", "brief": "女子建桥杯八连霸，中国女子第一人。"}, {"name": "王晨星", "ep": "modern", "region": "CN", "color": "B", "brief": "世界女子锦标赛冠军，稳健厚重的中生代女将。"}, {"name": "周泓余", "ep": "modern", "region": "CN", "color": "W", "brief": "00 后女子世界冠军，中国女子当代最活跃的执棋人。"}, {"name": "杉内寿子", "ep": "early20", "region": "JP", "color": "W", "brief": "昭和至令和的\"活棋圣\"，逾九十岁仍执子的传奇。"}, {"name": "谢依旻", "ep": "modern", "region": "JP", "color": "B", "brief": "台湾出身的日本女流四冠，多年蝉联女流第一。"}, {"name": "藤泽里菜", "ep": "modern", "region": "JP", "color": "W", "brief": "藤泽秀行之孙，女流首位 800 胜的四冠王。"}, {"name": "尹映善", "ep": "late20", "region": "KR", "color": "B", "brief": "韩国首位女子九段，早期女子围棋的奠基者。"}, {"name": "崔精", "ep": "modern", "region": "KR", "color": "W", "brief": "韩国女子第一人，女流三大天王级世界冠军。"}, {"name": "吴侑珍", "ep": "modern", "region": "KR", "color": "B", "brief": "韩国新生代女子九段，世界女子锦标赛冠军。"}];
+  var TAB_META={
+    men:  {title:"中日韩大师星图",   subtitle:"26 位棋手 \u00b7 2500 年时光 \u00b7 悬停看简介 \u00b7 点击跳阅文章", data:MASTERS_MEN,   epochs:EPOCHS_MEN},
+    women:{title:"围棋巾帼 \u00b7 女子星图", subtitle:"12 位女棋手 \u00b7 生平与成绩 \u00b7 悬停看简介 \u00b7 点击跳阅文章", data:MASTERS_WOMEN, epochs:EPOCHS_WOMEN}
+  };
   var mask=document.getElementById('mm-mask');
   var closeBtn=document.getElementById('mm-close');
   var wrap=document.getElementById('mm-svg-wrap');
   var tip=document.getElementById('mm-tip');
+  var titleEl=document.getElementById('mm-title');
+  var subEl=document.getElementById('mm-subtitle');
+  var autoTag=document.getElementById('mm-auto-tag');
+  var tabBtns=document.querySelectorAll('#mm-panel .mm-tab');
   if(!mask||!wrap){return;}
-  var W=1180,H=460,padL=90,padR=30,padT=44,padB=44;
-  var colW=(W-padL-padR)/EPOCHS.length;
-  var rowH=(H-padT-padB)/REGIONS.length;
-  function xOf(ep){for(var i=0;i<EPOCHS.length;i++){if(EPOCHS[i][0]===ep){return padL+colW*i+colW/2;}}return padL;}
-  function yOf(region){for(var i=0;i<REGIONS.length;i++){if(REGIONS[i][0]===region){return padT+rowH*i+rowH/2;}}return padT;}
-  function grouped(){
+  var currentTab='men';
+  var autoTimer=null;
+  var AUTO_INTERVAL=3000;
+  function xOf(ep, epochs, padL, colW){for(var i=0;i<epochs.length;i++){if(epochs[i][0]===ep){return padL+colW*i+colW/2;}}return padL;}
+  function yOf(region, padT, rowH){for(var i=0;i<REGIONS.length;i++){if(REGIONS[i][0]===region){return padT+rowH*i+rowH/2;}}return padT;}
+  function grouped(dataset){
     var g={};
-    for(var i=0;i<MASTERS.length;i++){
-      var m=MASTERS[i];
+    for(var i=0;i<dataset.length;i++){
+      var m=dataset[i];
       var key=m.ep+'_'+m.region;
       if(!g[key]){g[key]=[];}
       g[key].push(m);
@@ -5205,7 +5242,10 @@ function hideParentGuide(){
     return g;
   }
   function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
-  function buildSVG(){
+  function buildSVG(dataset, epochs){
+    var W=1180,H=460,padL=90,padR=30,padT=44,padB=44;
+    var colW=(W-padL-padR)/epochs.length;
+    var rowH=(H-padT-padB)/REGIONS.length;
     var svgHead='<svg viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">';
     var parts=[svgHead];
     parts.push('<defs>');
@@ -5217,21 +5257,21 @@ function hideParentGuide(){
       parts.push('<line x1="'+padL+'" y1="'+yLine+'" x2="'+(W-padR)+'" y2="'+yLine+'" stroke="rgba(120,90,50,.22)" stroke-width="1" stroke-dasharray="4 4"/>');
       parts.push('<text x="'+(padL-14)+'" y="'+(yLine+5)+'" font-size="16" fill="#5a4a20" text-anchor="end" font-family="KaiTi,STKaiti,serif" letter-spacing="4">'+esc(REGIONS[r][1])+'</text>');
     }
-    for(var e=0;e<EPOCHS.length;e++){
+    for(var e=0;e<epochs.length;e++){
       var xLabel=padL+colW*e+colW/2;
-      parts.push('<text x="'+xLabel+'" y="'+(padT-16)+'" font-size="11.5" fill="#7a5a20" text-anchor="middle" font-family="KaiTi,serif" letter-spacing="2">'+esc(EPOCHS[e][1])+'</text>');
+      parts.push('<text x="'+xLabel+'" y="'+(padT-16)+'" font-size="11.5" fill="#7a5a20" text-anchor="middle" font-family="KaiTi,serif" letter-spacing="2">'+esc(epochs[e][1])+'</text>');
       parts.push('<line x1="'+xLabel+'" y1="'+(padT-8)+'" x2="'+xLabel+'" y2="'+(H-padB+4)+'" stroke="rgba(120,90,50,.1)" stroke-width="1"/>');
     }
     parts.push('<line x1="'+padL+'" y1="'+(H-padB)+'" x2="'+(W-padR)+'" y2="'+(H-padB)+'" stroke="rgba(120,90,50,.5)" stroke-width="1.2"/>');
     parts.push('<text x="'+(W/2)+'" y="'+(H-padB+26)+'" font-size="12" fill="#8a7042" text-anchor="middle" font-family="KaiTi,serif" letter-spacing="4">&#8592; &#26102;&#20195; &#8594;</text>');
-    var g=grouped();
+    var g=grouped(dataset);
     for(var k in g){
       var arr=g[k];
       var count=arr.length;
       for(var i=0;i<count;i++){
         var m=arr[i];
-        var cx=xOf(m.ep);
-        var cy=yOf(m.region);
+        var cx=xOf(m.ep, epochs, padL, colW);
+        var cy=yOf(m.region, padT, rowH);
         if(count>1){
           var stepDot=32;
           var totalW2=(count-1)*stepDot;
@@ -5248,7 +5288,31 @@ function hideParentGuide(){
     parts.push('</svg>');
     return parts.join('');
   }
-  function render(){wrap.innerHTML=buildSVG();bindNodes();}
+  function renderTab(tabKey, animate){
+    var meta=TAB_META[tabKey]||TAB_META.men;
+    if(animate){
+      wrap.classList.add('fading');
+      setTimeout(function(){
+        wrap.innerHTML=buildSVG(meta.data, meta.epochs);
+        titleEl.textContent=meta.title;
+        subEl.textContent=meta.subtitle;
+        bindNodes();
+        wrap.classList.remove('fading');
+      }, 180);
+    }else{
+      wrap.innerHTML=buildSVG(meta.data, meta.epochs);
+      titleEl.textContent=meta.title;
+      subEl.textContent=meta.subtitle;
+      bindNodes();
+    }
+    // 更新 tab 按钮 active 状态
+    for(var i=0;i<tabBtns.length;i++){
+      var b=tabBtns[i];
+      if(b.getAttribute('data-tab')===tabKey){b.classList.add('active');}
+      else{b.classList.remove('active');}
+    }
+    currentTab=tabKey;
+  }
   function bindNodes(){
     var nodes=wrap.querySelectorAll('.mm-node');
     for(var i=0;i<nodes.length;i++){
@@ -5259,7 +5323,6 @@ function hideParentGuide(){
         tip.classList.add('show');
       });
       nodes[i].addEventListener('mousemove',function(e){
-        var rect=wrap.getBoundingClientRect();
         var panelRect=document.getElementById('mm-panel').getBoundingClientRect();
         var x=e.clientX-panelRect.left+14;
         var y=e.clientY-panelRect.top+14;
@@ -5276,7 +5339,7 @@ function hideParentGuide(){
     }
   }
   function jumpTo(name){
-    // v3.11 fix6：优先调用主页暴露的 CULTURE_DATA 跳转钩子
+    // v3.11 fix7：优先调用主页暴露的 CULTURE_DATA 两级匹配跳转钩子
     if(typeof window.__luoboJumpToMaster==='function'){
       try{
         var ok=window.__luoboJumpToMaster(name);
@@ -5312,18 +5375,55 @@ function hideParentGuide(){
     }
   }
   function getBriefByName(name){
-    for(var i=0;i<MASTERS.length;i++){if(MASTERS[i].name===name){return MASTERS[i].brief;}}
+    var all=MASTERS_MEN.concat(MASTERS_WOMEN);
+    for(var i=0;i<all.length;i++){if(all[i].name===name){return all[i].brief;}}
     return '';
   }
-  function open(){render();mask.classList.add('show');mask.setAttribute('aria-hidden','false');}
-  function close(){mask.classList.remove('show');mask.setAttribute('aria-hidden','true');}
+  function startAuto(){
+    stopAuto();
+    autoTag.classList.remove('hide');
+    autoTag.textContent='\u81ea\u52a8\u8f6e\u64ad\u4e2d \u00b7 \u70b9\u51fb tab \u5207\u6362\u624b\u52a8';
+    autoTimer=setInterval(function(){
+      var next=(currentTab==='men')?'women':'men';
+      renderTab(next, true);
+    }, AUTO_INTERVAL);
+  }
+  function stopAuto(){
+    if(autoTimer){clearInterval(autoTimer);autoTimer=null;}
+  }
+  function switchToManual(tabKey){
+    stopAuto();
+    autoTag.textContent='\u624b\u52a8\u6a21\u5f0f \u00b7 \u5df2\u505c\u81ea\u52a8\u8f6e\u64ad';
+    renderTab(tabKey, true);
+  }
+  // 绑定 tab 按钮点击
+  for(var t=0;t<tabBtns.length;t++){
+    (function(btn){
+      btn.addEventListener('click',function(){
+        var key=btn.getAttribute('data-tab');
+        if(key===currentTab && !autoTimer){return;}
+        switchToManual(key);
+      });
+    })(tabBtns[t]);
+  }
+  function open(){
+    renderTab('men', false);
+    mask.classList.add('show');
+    mask.setAttribute('aria-hidden','false');
+    startAuto();
+  }
+  function close(){
+    mask.classList.remove('show');
+    mask.setAttribute('aria-hidden','true');
+    stopAuto();
+  }
   closeBtn.addEventListener('click',close);
   mask.addEventListener('click',function(e){if(e.target===mask){close();}});
   document.addEventListener('keydown',function(e){if(e.key==='Escape'&&mask.classList.contains('show')){close();}});
   window.__luoboOpenMasterMap=open;
 })();
 </script>
-<!-- ===== MASTER-MAP v1.0 END ===== -->
+<!-- ===== MASTER-MAP v2.0 END ===== -->
 
 <!-- ===== DAILY-RITUAL v1.0 START ===== -->
 <style>
