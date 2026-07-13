@@ -2587,6 +2587,58 @@ header nav .nav-luobo-ext{white-space:nowrap;}
 .stroop-btn:hover{transform:scale(1.03)}
 .stroop-btn:active{transform:scale(.96)}
 
+/* 顺序记忆 */
+.seqmem-status{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:#fff;border:1px solid var(--line,#d9c9a0);border-radius:4px;font-size:14px;margin-bottom:12px}
+.seqmem-status .sm-level{font-weight:700;color:var(--seal,#a94b3d);font-size:18px}
+.seqmem-status .sm-phase{font-size:13px;color:#6b5a3a}
+.seqmem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:400px;margin:12px auto;aspect-ratio:1}
+.seqmem-cell{background:#fff;border:1px solid #c7b58f;border-radius:4px;aspect-ratio:1;cursor:pointer;transition:all .12s;user-select:none;display:flex;align-items:center;justify-content:center;font-size:20px;color:transparent}
+.seqmem-cell.lit{background:var(--seal,#a94b3d);border-color:var(--seal,#a94b3d);color:#fff;box-shadow:0 0 20px rgba(169,75,61,.5)}
+.seqmem-cell.user-click{background:#d9a441;border-color:#d9a441}
+.seqmem-cell.locked{cursor:not-allowed;opacity:.7}
+.seqmem-cell.wrong{animation:cellShake .3s;background:#c94a4a;border-color:#c94a4a}
+
+/* N-Back */
+.nback-diff-select{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:16px 0}
+.nback-diff-btn{padding:12px 28px;border:1px solid var(--line,#d9c9a0);background:#fff;color:#5a4a2a;cursor:pointer;border-radius:4px;font-size:14px;font-weight:600}
+.nback-diff-btn.active{background:var(--seal,#a94b3d);color:#fff;border-color:var(--seal,#a94b3d)}
+.nback-status{display:flex;justify-content:space-around;padding:10px;background:#fff;border:1px solid var(--line,#d9c9a0);border-radius:4px;font-size:13px;margin-bottom:12px}
+.nback-status b{color:var(--seal,#a94b3d)}
+.nback-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;max-width:360px;margin:12px auto;aspect-ratio:1;background:#fff;padding:8px;border:1px solid var(--line,#d9c9a0);border-radius:4px}
+.nback-cell{background:#f6ecd8;border-radius:3px;aspect-ratio:1;transition:background .12s}
+.nback-cell.lit{background:var(--seal,#a94b3d)}
+.nback-action-btn{display:block;width:100%;max-width:400px;margin:16px auto 0;padding:16px;font-size:16px;font-weight:700;background:var(--seal,#a94b3d);color:#fff;border:0;border-radius:4px;cursor:pointer}
+.nback-action-btn:active{transform:scale(.98)}
+.nback-action-btn.matched{background:#4a8556}
+.nback-action-btn.missed{background:#c94a4a}
+.nback-action-btn:disabled{opacity:.6;cursor:not-allowed}
+
+/* 数字华容道 */
+.huarong-controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:16px}
+.huarong-controls .size-btn{padding:6px 14px;font-size:13px;border:1px solid var(--line,#d9c9a0);background:#fff;color:#5a4a2a;cursor:pointer;border-radius:4px}
+.huarong-controls .size-btn.active{background:var(--seal,#a94b3d);color:#fff;border-color:var(--seal,#a94b3d)}
+.huarong-status{display:flex;justify-content:space-between;padding:10px 14px;background:#fff;border:1px solid var(--line,#d9c9a0);border-radius:4px;font-size:14px;margin-bottom:12px}
+.huarong-status .st-val{font-family:'Courier New',monospace;font-size:18px;font-weight:700;color:#3d2817}
+.huarong-grid{display:grid;gap:6px;max-width:400px;margin:0 auto;padding:8px;background:#c7b58f;border-radius:6px;aspect-ratio:1}
+.huarong-tile{background:#f6ecd8;border:1px solid #d9c9a0;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700;color:#3d2817;font-family:'Courier New',monospace;cursor:pointer;transition:all .18s;user-select:none}
+.huarong-tile:hover{background:#fff}
+.huarong-tile.empty{background:transparent;border:0;cursor:default}
+
+/* 上下瓶色匹配 */
+.watersort-level-select{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:16px 0}
+.watersort-level-btn{padding:10px 20px;border:1px solid var(--line,#d9c9a0);background:#fff;color:#5a4a2a;cursor:pointer;border-radius:4px;font-size:13px}
+.watersort-level-btn.active{background:var(--seal,#a94b3d);color:#fff;border-color:var(--seal,#a94b3d)}
+.watersort-status{display:flex;justify-content:space-between;padding:10px 14px;background:#fff;border:1px solid var(--line,#d9c9a0);border-radius:4px;font-size:14px;margin-bottom:12px}
+.watersort-tools{display:flex;gap:10px;justify-content:center;margin-bottom:12px;flex-wrap:wrap}
+.watersort-tool-btn{padding:6px 14px;font-size:12px;background:transparent;color:var(--seal,#a94b3d);border:1px solid var(--seal,#a94b3d);border-radius:4px;cursor:pointer}
+.watersort-tool-btn:hover{background:var(--seal,#a94b3d);color:#fff}
+.watersort-area{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;padding:20px 10px;background:#fff;border:1px solid var(--line,#d9c9a0);border-radius:4px;min-height:280px}
+.watersort-bottle{width:52px;height:200px;background:#fdf9ee;border:2px solid #8a7550;border-top:0;border-radius:0 0 24px 24px;display:flex;flex-direction:column-reverse;overflow:hidden;cursor:pointer;transition:transform .18s;position:relative}
+.watersort-bottle::before{content:'';position:absolute;top:-6px;left:-2px;right:-2px;height:6px;background:linear-gradient(#8a7550,#8a7550);border-radius:3px 3px 0 0}
+.watersort-bottle.selected{transform:translateY(-14px);box-shadow:0 6px 12px rgba(169,75,61,.3)}
+.watersort-layer{height:25%;width:100%;transition:all .2s}
+.watersort-bottle.done{border-color:#4a8556;box-shadow:0 0 0 2px rgba(74,133,86,.3)}
+
 @media(max-width:640px){
   .brain-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
   .brain-card{padding:14px 12px}
@@ -2596,6 +2648,10 @@ header nav .nav-luobo-ext{white-space:nowrap;}
   .digitspan-stage .ds-numbers{font-size:44px}
   .stroop-word{font-size:52px}
   .stroop-buttons{grid-template-columns:repeat(2,1fr)}
+  .seqmem-grid{max-width:280px;gap:6px}
+  .nback-grid{max-width:260px}
+  .huarong-tile{font-size:20px}
+  .watersort-bottle{width:38px;height:150px}
 }
 </style>
 
@@ -2642,23 +2698,23 @@ header nav .nav-luobo-ext{white-space:nowrap;}
     },
     {
       id:'seqmem', icon:'💡', name:'顺序记忆训练',
-      desc:'方块依次亮起复现顺序，工作记忆容量训练。',
-      avail:false
+      desc:'棋盘格依次亮起，请按顺序复现，工作记忆容量训练。',
+      avail:true
     },
     {
       id:'nback', icon:'🌀', name:'N-Back 记忆',
-      desc:'连续刺激与 N 步前是否相同，认知训练金标准。',
-      avail:false
+      desc:'判断当前位置与 N 步前是否相同，认知训练金标准。',
+      avail:true
     },
     {
       id:'huarong', icon:'🧩', name:'数字华容道',
-      desc:'滑块拼图恢复数字顺序，空间规划与耐心训练。',
-      avail:false
+      desc:'滑块拼图恢复顺序，空间规划与耐心训练。',
+      avail:true
     },
     {
       id:'watersort', icon:'🧪', name:'上下瓶色匹配',
-      desc:'倒水式色彩分类小游戏，逻辑推理与手眼协调。',
-      avail:false
+      desc:'倒水式色彩分类，逻辑推理与全局观训练。',
+      avail:true
     }
   ];
 
@@ -3081,6 +3137,619 @@ header nav .nav-luobo-ext{white-space:nowrap;}
         </div>
       `;
       stage.querySelector('#stroop-restart').addEventListener('click',()=>this.showReady(host));
+    }
+  };
+
+  // ==== 顺序记忆训练（3×3 棋盘格 Simon Says） ====
+  Brain.tools.seqmem = {
+    level:3, sequence:[], userIdx:0, playing:false,
+    init(host){
+      this.level = 3;
+      this.sequence = [];
+      this.userIdx = 0;
+      this.playing = false;
+      host.innerHTML = `
+        <div class="brain-intro-text">
+          <p>3×3 棋盘格会依次亮起若干位置，请<span class="hl">按同样的顺序</span>点击复现。</p>
+          <ul>
+            <li>从 3 格开始，答对本关后 +1 格，答错本轮结束。</li>
+            <li>训练点：视觉工作记忆容量——对应"记住对局关键子的落点顺序"能力。</li>
+            <li>技巧：把亮起顺序想象成棋盘上的"次序标记"，用空间想象辅助。</li>
+          </ul>
+          <p class="hl" style="margin-top:12px">数据参考（最大关卡数）</p>
+          <table class="brain-ref-table"><thead><tr><th>年龄段</th><th>优秀</th><th>良好</th><th>一般</th></tr></thead>
+          <tbody>
+            <tr><td>6-8 岁</td><td>≥7</td><td>5-6</td><td>≤4</td></tr>
+            <tr><td>9-12 岁</td><td>≥9</td><td>6-8</td><td>≤5</td></tr>
+            <tr><td>13 岁+</td><td>≥10</td><td>7-9</td><td>≤6</td></tr>
+          </tbody></table>
+        </div>
+        <div class="seqmem-status">
+          <div>关卡：<span class="sm-level" id="sm-level">3</span> 格</div>
+          <div class="sm-phase" id="sm-phase">准备开始</div>
+          <div id="sm-best" style="font-size:12px;color:#6b5a3a"></div>
+        </div>
+        <div class="seqmem-grid" id="sm-grid">
+          ${Array.from({length:9},(_,i)=>`<div class="seqmem-cell" data-i="${i}">${i+1}</div>`).join('')}
+        </div>
+        <div style="text-align:center;margin-top:16px">
+          <button class="ds-btn" id="sm-start" style="padding:10px 30px;background:var(--seal);color:#fff;border:0;border-radius:4px;font-size:14px;cursor:pointer">开始挑战 →</button>
+        </div>
+      `;
+      const best = parseInt(localStorage.getItem('luobo_brain_seqmem_best')||'0');
+      host.querySelector('#sm-best').textContent = best?`最佳 ${best} 格`:'';
+      host.querySelector('#sm-start').addEventListener('click',()=>this.nextRound(host));
+      host.querySelectorAll('.seqmem-cell').forEach(cell=>{
+        cell.addEventListener('click',()=>this.onUserClick(host,parseInt(cell.dataset.i)));
+      });
+    },
+    nextRound(host){
+      const btn = host.querySelector('#sm-start');
+      if(btn) btn.style.display='none';
+      this.sequence.push(Math.floor(Math.random()*9));
+      this.userIdx = 0;
+      host.querySelector('#sm-level').textContent = this.sequence.length;
+      host.querySelector('#sm-phase').textContent = '看清楚 ↓';
+      this.playSequence(host,0);
+    },
+    playSequence(host,idx){
+      this.playing = true;
+      const grid = host.querySelector('#sm-grid');
+      grid.classList.add('locked');
+      if(idx >= this.sequence.length){
+        this.playing = false;
+        grid.classList.remove('locked');
+        host.querySelector('#sm-phase').textContent = '你来复现 →';
+        return;
+      }
+      const cell = grid.children[this.sequence[idx]];
+      cell.classList.add('lit');
+      setTimeout(()=>{
+        cell.classList.remove('lit');
+        setTimeout(()=>this.playSequence(host,idx+1),200);
+      },500);
+    },
+    onUserClick(host,i){
+      if(this.playing || this.sequence.length===0) return;
+      const grid = host.querySelector('#sm-grid');
+      const cell = grid.children[i];
+      const expected = this.sequence[this.userIdx];
+      if(i !== expected){
+        cell.classList.add('wrong');
+        setTimeout(()=>cell.classList.remove('wrong'),300);
+        this.finish(host,false);
+        return;
+      }
+      cell.classList.add('user-click');
+      setTimeout(()=>cell.classList.remove('user-click'),250);
+      this.userIdx++;
+      if(this.userIdx >= this.sequence.length){
+        host.querySelector('#sm-phase').textContent = '✓ 通过！下一关准备…';
+        setTimeout(()=>this.nextRound(host),800);
+      }
+    },
+    finish(host,byChoice){
+      const reached = this.sequence.length - 1;
+      const bestKey = 'luobo_brain_seqmem_best';
+      const prev = parseInt(localStorage.getItem(bestKey)||'0');
+      const isBest = reached > prev;
+      if(isBest) localStorage.setItem(bestKey,reached);
+      const grade = reached>=10?'优秀 ⭐⭐⭐':reached>=7?'良好 ⭐⭐':reached>=5?'一般 ⭐':'继续加油 💪';
+      host.querySelector('#sm-phase').textContent = '本轮结束';
+      const wrap = document.createElement('div');
+      wrap.style.cssText = 'text-align:center;padding:16px;background:#fff;border:1px solid var(--line);border-radius:4px;margin-top:12px';
+      wrap.innerHTML = `
+        <div style="font-size:48px;font-weight:700;color:var(--seal);font-family:'Courier New',monospace">${reached}</div>
+        <div style="font-size:14px;color:#3d2817;margin:8px 0">完成关卡数</div>
+        <div style="font-size:13px;color:#6b5a3a;margin-bottom:8px">评级：${grade}${isBest?' · 🎉 破纪录！':(prev?' · 历史最佳 '+prev+' 格':'')}</div>
+        <button class="ds-btn" id="sm-restart" style="padding:10px 30px;background:var(--seal);color:#fff;border:0;border-radius:4px;font-size:14px;cursor:pointer">再来一次</button>
+      `;
+      host.querySelector('.seqmem-grid').after(wrap);
+      wrap.querySelector('#sm-restart').addEventListener('click',()=>this.init(host));
+    }
+  };
+
+  // ==== N-Back 记忆（位置版 3×3） ====
+  Brain.tools.nback = {
+    n:2, trials:24, stimuli:[], idx:-1, timerId:null,
+    hit:0, miss:0, falseAlarm:0, correctReject:0,
+    userMatched:false, awaitingResponse:false,
+    init(host){
+      host.innerHTML = `
+        <div class="brain-intro-text">
+          <p>3×3 网格中会依次亮起一个格子（每次 500ms），请判断<span class="hl">当前亮起的位置</span>是否与 <span class="hl">N 步之前</span>相同。</p>
+          <ul>
+            <li><b>1-Back</b>：与上一次比较，入门级；<b>2-Back</b>：与倒数第 2 次比较，日常训练标配；<b>3-Back</b>：与倒数第 3 次，硬核挑战。</li>
+            <li>觉得相同就按"匹配 ✓"按钮，觉得不同则不动。</li>
+            <li>每轮 24 个刺激，结束统计命中率。训练点：工作记忆刷新、抑制干扰。</li>
+          </ul>
+          <p class="hl" style="margin-top:12px">数据参考（2-Back 命中率）</p>
+          <table class="brain-ref-table"><thead><tr><th>水平</th><th>优秀</th><th>良好</th><th>一般</th></tr></thead>
+          <tbody>
+            <tr><td>命中率</td><td>≥80%</td><td>60-79%</td><td>&lt;60%</td></tr>
+            <tr><td>误报率</td><td>&lt;10%</td><td>10-25%</td><td>&gt;25%</td></tr>
+          </tbody></table>
+        </div>
+        <div class="nback-diff-select" id="nb-diff">
+          <button class="nback-diff-btn" data-n="1">1-Back</button>
+          <button class="nback-diff-btn active" data-n="2">2-Back</button>
+          <button class="nback-diff-btn" data-n="3">3-Back</button>
+        </div>
+        <div id="nb-content"></div>
+      `;
+      host.querySelectorAll('.nback-diff-btn').forEach(btn=>{
+        btn.addEventListener('click',()=>{
+          host.querySelectorAll('.nback-diff-btn').forEach(b=>b.classList.remove('active'));
+          btn.classList.add('active');
+          this.n = parseInt(btn.dataset.n);
+          this.showReady(host);
+        });
+      });
+      this.showReady(host);
+    },
+    showReady(host){
+      const c = host.querySelector('#nb-content');
+      const bestKey = `luobo_brain_nback_${this.n}_best`;
+      const best = localStorage.getItem(bestKey);
+      c.innerHTML = `
+        <div style="text-align:center;padding:40px 20px;background:#fff;border:1px solid var(--line);border-radius:4px">
+          <div style="font-size:48px;margin-bottom:8px">🌀</div>
+          <div style="font-size:16px;color:#3d2817;margin-bottom:16px">${this.n}-Back · ${this.trials} 次刺激 · 约 60 秒</div>
+          ${best?`<div style="font-size:13px;color:#6b5a3a;margin-bottom:16px">历史最佳命中率：<span class="hl">${best}%</span></div>`:''}
+          <button class="ds-btn" id="nb-start" style="padding:10px 30px;background:var(--seal);color:#fff;border:0;border-radius:4px;font-size:14px;cursor:pointer">开始 →</button>
+        </div>
+      `;
+      c.querySelector('#nb-start').addEventListener('click',()=>this.start(host));
+    },
+    start(host){
+      // 生成刺激序列：约 30% 强制匹配
+      this.stimuli = [];
+      const total = this.trials;
+      for(let i=0;i<total;i++){
+        if(i >= this.n && Math.random() < 0.3){
+          this.stimuli.push(this.stimuli[i-this.n]);
+        }else{
+          let v;
+          do{ v = Math.floor(Math.random()*9); }
+          while(i >= this.n && v === this.stimuli[i-this.n] && Math.random() < 0.6);
+          this.stimuli.push(v);
+        }
+      }
+      this.idx = -1;
+      this.hit = this.miss = this.falseAlarm = this.correctReject = 0;
+      this.userMatched = false;
+      const c = host.querySelector('#nb-content');
+      c.innerHTML = `
+        <div class="nback-status">
+          <div>进度：<b id="nb-progress">0</b> / ${this.trials}</div>
+          <div>命中 <b id="nb-hit">0</b></div>
+          <div>误报 <b id="nb-fa">0</b></div>
+        </div>
+        <div class="nback-grid" id="nb-grid">
+          ${Array.from({length:9},(_,i)=>`<div class="nback-cell" data-i="${i}"></div>`).join('')}
+        </div>
+        <button class="nback-action-btn" id="nb-match-btn">匹配 ✓ （空格键）</button>
+      `;
+      const matchBtn = c.querySelector('#nb-match-btn');
+      const onMatch = ()=>{
+        if(!this.awaitingResponse||this.userMatched) return;
+        this.userMatched = true;
+        matchBtn.classList.add('matched');
+        setTimeout(()=>matchBtn.classList.remove('matched'),200);
+      };
+      matchBtn.addEventListener('click',onMatch);
+      this._keyHandler = (e)=>{ if(e.code==='Space'){e.preventDefault();onMatch();} };
+      document.addEventListener('keydown',this._keyHandler);
+      this.nextTrial(host);
+    },
+    nextTrial(host){
+      this.idx++;
+      if(this.idx >= this.stimuli.length){
+        this.finish(host);
+        return;
+      }
+      // 结算上一轮响应（如果 idx >= n）
+      if(this.idx > this.n){
+        const prev = this.idx - 1;
+        const isMatch = this.stimuli[prev] === this.stimuli[prev - this.n];
+        if(isMatch && this.userMatched) this.hit++;
+        else if(isMatch && !this.userMatched) this.miss++;
+        else if(!isMatch && this.userMatched) this.falseAlarm++;
+        else this.correctReject++;
+        host.querySelector('#nb-hit').textContent = this.hit;
+        host.querySelector('#nb-fa').textContent = this.falseAlarm;
+      }
+      this.userMatched = false;
+      this.awaitingResponse = false;
+      host.querySelector('#nb-progress').textContent = this.idx + 1;
+      const grid = host.querySelector('#nb-grid');
+      grid.querySelectorAll('.nback-cell').forEach(c=>c.classList.remove('lit'));
+      const pos = this.stimuli[this.idx];
+      const cell = grid.children[pos];
+      cell.classList.add('lit');
+      this.awaitingResponse = true;
+      // 亮 500ms，间隔 2000ms
+      setTimeout(()=>cell.classList.remove('lit'),500);
+      setTimeout(()=>this.nextTrial(host),2500);
+    },
+    finish(host){
+      document.removeEventListener('keydown',this._keyHandler);
+      // 结算最后一轮
+      const lastIdx = this.stimuli.length - 1;
+      if(lastIdx >= this.n){
+        const isMatch = this.stimuli[lastIdx] === this.stimuli[lastIdx - this.n];
+        if(isMatch && this.userMatched) this.hit++;
+        else if(isMatch && !this.userMatched) this.miss++;
+        else if(!isMatch && this.userMatched) this.falseAlarm++;
+        else this.correctReject++;
+      }
+      const totalTargets = this.hit + this.miss;
+      const totalNonTargets = this.falseAlarm + this.correctReject;
+      const hitRate = totalTargets? Math.round(this.hit / totalTargets * 100) : 0;
+      const faRate = totalNonTargets? Math.round(this.falseAlarm / totalNonTargets * 100) : 0;
+      const bestKey = `luobo_brain_nback_${this.n}_best`;
+      const prev = parseInt(localStorage.getItem(bestKey)||'0');
+      const isBest = hitRate > prev;
+      if(isBest) localStorage.setItem(bestKey,hitRate);
+      const grade = (hitRate>=80&&faRate<10)?'优秀 ⭐⭐⭐':(hitRate>=60&&faRate<25)?'良好 ⭐⭐':hitRate>=40?'一般 ⭐':'继续加油 💪';
+      const c = host.querySelector('#nb-content');
+      c.innerHTML = `
+        <div style="text-align:center;padding:24px 12px;background:#fff;border:1px solid var(--line);border-radius:4px">
+          <div style="font-size:48px;font-weight:700;color:var(--seal);font-family:'Courier New',monospace">${hitRate}%</div>
+          <div style="font-size:14px;color:#3d2817;margin:8px 0">命中率</div>
+          <div style="font-size:13px;color:#6b5a3a;margin:12px 0">
+            命中 <span class="hl">${this.hit}</span>/${totalTargets} · 误报 <span class="hl">${this.falseAlarm}</span>/${totalNonTargets} (${faRate}%) · 漏报 ${this.miss}
+          </div>
+          <div style="font-size:14px;color:#3d2817;margin-bottom:8px">评级：${grade}</div>
+          <div style="font-size:12px;color:#6b5a3a;margin-bottom:20px">${isBest?'🎉 破纪录！':(prev?'历史最佳 '+prev+'%':'')}</div>
+          <button class="ds-btn" id="nb-restart" style="padding:10px 30px;background:var(--seal);color:#fff;border:0;border-radius:4px;font-size:14px;cursor:pointer">再来一次</button>
+        </div>
+      `;
+      c.querySelector('#nb-restart').addEventListener('click',()=>this.showReady(host));
+    }
+  };
+
+  // ==== 数字华容道（滑块拼图） ====
+  Brain.tools.huarong = {
+    size:3, tiles:[], emptyIdx:0, moves:0, startedAt:null, timerId:null,
+    init(host){
+      host.innerHTML = `
+        <div class="brain-intro-text">
+          <p>点击与空格<span class="hl">相邻</span>的数字方块，让它滑入空格。目标是把打乱的数字恢复成 <span class="hl">1、2、3、…、N²-1</span> 顺序，右下角为空。</p>
+          <ul>
+            <li>3×3（8-puzzle）：入门难度，5~30 步可解，适合小朋友。</li>
+            <li>4×4（15-puzzle）：经典款，需要更多规划步数，通常 50-100 步。</li>
+            <li>训练点：空间规划、逆向思维、耐心。围棋常见的"读几步棋"能力同源。</li>
+          </ul>
+          <p class="hl" style="margin-top:12px">数据参考（3×3 完成用时）</p>
+          <table class="brain-ref-table"><thead><tr><th>水平</th><th>优秀</th><th>良好</th><th>一般</th></tr></thead>
+          <tbody>
+            <tr><td>用时</td><td>&lt;40s</td><td>40-80s</td><td>&gt;80s</td></tr>
+            <tr><td>步数</td><td>≤20</td><td>20-40</td><td>&gt;40</td></tr>
+          </tbody></table>
+        </div>
+        <div class="huarong-controls">
+          <span style="font-size:13px;color:#6b5a3a">选择尺寸：</span>
+          <button class="size-btn active" data-s="3">3×3</button>
+          <button class="size-btn" data-s="4">4×4</button>
+          <button class="size-btn" id="hr-shuffle" style="margin-left:auto;background:var(--seal);color:#fff;border-color:var(--seal)">重新打乱</button>
+        </div>
+        <div class="huarong-status">
+          <div>步数：<span class="st-val" id="hr-moves">0</span></div>
+          <div id="hr-best" style="font-size:12px;color:#6b5a3a"></div>
+          <div>用时：<span class="st-val" id="hr-time">00.00</span></div>
+        </div>
+        <div class="huarong-grid" id="hr-grid"></div>
+      `;
+      host.querySelectorAll('.size-btn[data-s]').forEach(btn=>{
+        btn.addEventListener('click',()=>{
+          host.querySelectorAll('.size-btn[data-s]').forEach(b=>b.classList.remove('active'));
+          btn.classList.add('active');
+          this.size = parseInt(btn.dataset.s);
+          this.newGame(host);
+        });
+      });
+      host.querySelector('#hr-shuffle').addEventListener('click',()=>this.newGame(host));
+      this.newGame(host);
+    },
+    newGame(host){
+      this.moves = 0;
+      this.startedAt = null;
+      if(this.timerId){clearInterval(this.timerId);this.timerId=null}
+      const total = this.size*this.size;
+      // 起始有序，从右下角空开始，做 N 次合法打乱（保证可解）
+      this.tiles = Array.from({length:total-1},(_,i)=>i+1);
+      this.tiles.push(0);  // 0 表示空
+      this.emptyIdx = total - 1;
+      const shuffleSteps = this.size === 3 ? 60 : 200;
+      let lastMove = -1;
+      for(let k=0;k<shuffleSteps;k++){
+        const neighbors = this.getNeighbors(this.emptyIdx);
+        const candidates = neighbors.filter(n=>n!==lastMove);
+        const pick = candidates[Math.floor(Math.random()*candidates.length)];
+        [this.tiles[this.emptyIdx],this.tiles[pick]] = [this.tiles[pick],this.tiles[this.emptyIdx]];
+        lastMove = this.emptyIdx;
+        this.emptyIdx = pick;
+      }
+      // 极端情况：打乱后已经解开
+      if(this.isSolved()) this.newGame(host);
+      host.querySelector('#hr-moves').textContent = '0';
+      host.querySelector('#hr-time').textContent = '00.00';
+      const bestKey = `luobo_brain_huarong_${this.size}_best`;
+      const bestStr = localStorage.getItem(bestKey);
+      if(bestStr){
+        const best = JSON.parse(bestStr);
+        host.querySelector('#hr-best').textContent = `最佳 ${(best.ms/1000).toFixed(2)}s / ${best.moves}步`;
+      }else{
+        host.querySelector('#hr-best').textContent = '';
+      }
+      this.render(host);
+    },
+    getNeighbors(idx){
+      const r = Math.floor(idx/this.size), c = idx%this.size;
+      const arr = [];
+      if(r>0) arr.push(idx-this.size);
+      if(r<this.size-1) arr.push(idx+this.size);
+      if(c>0) arr.push(idx-1);
+      if(c<this.size-1) arr.push(idx+1);
+      return arr;
+    },
+    render(host){
+      const grid = host.querySelector('#hr-grid');
+      grid.style.gridTemplateColumns = `repeat(${this.size},1fr)`;
+      grid.innerHTML = this.tiles.map((n,i)=>{
+        if(n===0) return `<div class="huarong-tile empty" data-i="${i}"></div>`;
+        return `<div class="huarong-tile" data-i="${i}">${n}</div>`;
+      }).join('');
+      grid.querySelectorAll('.huarong-tile').forEach(el=>{
+        el.addEventListener('click',()=>this.onClick(host,parseInt(el.dataset.i)));
+      });
+    },
+    onClick(host,i){
+      if(this.tiles[i]===0) return;
+      const neighbors = this.getNeighbors(i);
+      if(!neighbors.includes(this.emptyIdx)) return;
+      // 交换
+      [this.tiles[i],this.tiles[this.emptyIdx]] = [this.tiles[this.emptyIdx],this.tiles[i]];
+      this.emptyIdx = i;
+      this.moves++;
+      if(this.moves===1){
+        this.startedAt = Date.now();
+        this.timerId = setInterval(()=>{
+          const t = (Date.now()-this.startedAt)/1000;
+          const el = host.querySelector('#hr-time');
+          if(el) el.textContent = t.toFixed(2).padStart(5,'0');
+        },50);
+      }
+      host.querySelector('#hr-moves').textContent = this.moves;
+      this.render(host);
+      if(this.isSolved()) this.finish(host);
+    },
+    isSolved(){
+      for(let i=0;i<this.tiles.length-1;i++){
+        if(this.tiles[i] !== i+1) return false;
+      }
+      return true;
+    },
+    finish(host){
+      clearInterval(this.timerId);
+      this.timerId = null;
+      const ms = Date.now() - this.startedAt;
+      const bestKey = `luobo_brain_huarong_${this.size}_best`;
+      const prevStr = localStorage.getItem(bestKey);
+      const prev = prevStr? JSON.parse(prevStr) : null;
+      const score = ms + this.moves*500;  // 综合得分：时间+步数惩罚
+      const prevScore = prev? prev.ms + prev.moves*500 : Infinity;
+      const isBest = score < prevScore;
+      if(isBest) localStorage.setItem(bestKey,JSON.stringify({ms,moves:this.moves}));
+      const s = ms/1000;
+      let grade;
+      if(this.size===3){
+        grade = (s<40&&this.moves<=25)?'优秀 ⭐⭐⭐':(s<80&&this.moves<=40)?'良好 ⭐⭐':s<150?'一般 ⭐':'继续加油 💪';
+      }else{
+        grade = (s<180&&this.moves<=80)?'优秀 ⭐⭐⭐':(s<300&&this.moves<=140)?'良好 ⭐⭐':s<600?'一般 ⭐':'继续加油 💪';
+      }
+      const grid = host.querySelector('#hr-grid');
+      const result = document.createElement('div');
+      result.style.cssText = 'text-align:center;padding:20px 12px;background:#fff;border:1px solid var(--line);border-radius:4px;margin-top:16px';
+      result.innerHTML = `
+        <div style="font-size:36px;font-weight:700;color:var(--seal);font-family:'Courier New',monospace">${s.toFixed(2)}s</div>
+        <div style="font-size:15px;color:#3d2817;margin:8px 0">共 <span class="hl">${this.moves}</span> 步完成</div>
+        <div style="font-size:14px;color:#3d2817;margin-bottom:6px">评级：${grade}</div>
+        <div style="font-size:12px;color:#6b5a3a;margin-bottom:16px">${isBest?'🎉 破纪录！':(prev?`历史最佳 ${(prev.ms/1000).toFixed(2)}s / ${prev.moves}步`:'')}</div>
+        <button class="ds-btn" id="hr-again" style="padding:10px 30px;background:var(--seal);color:#fff;border:0;border-radius:4px;font-size:14px;cursor:pointer">再来一局</button>
+      `;
+      grid.after(result);
+      result.querySelector('#hr-again').addEventListener('click',()=>{
+        result.remove();
+        this.newGame(host);
+      });
+    }
+  };
+
+  // ==== 上下瓶色匹配（Water Sort） ====
+  Brain.tools.watersort = {
+    LEVELS:[
+      {name:'新手 · 4瓶',colors:2,bottles:4,empty:1,capacity:4},
+      {name:'进阶 · 6瓶',colors:4,bottles:6,empty:1,capacity:4},
+      {name:'挑战 · 8瓶',colors:5,bottles:8,empty:2,capacity:4}
+    ],
+    PALETTE:['#c94a4a','#3d6ea3','#4a8556','#d9a441','#7a5aa8','#c78a4d','#4d8a8a','#a94b8a'],
+    levelIdx:0, bottles:[], selected:-1, moves:0, history:[],
+    init(host){
+      this.levelIdx = 0;
+      host.innerHTML = `
+        <div class="brain-intro-text">
+          <p>把不同颜色的液体<span class="hl">分类到同一个瓶子</span>里。每瓶最多 4 层，倒水规则：</p>
+          <ul>
+            <li>先点击"源瓶"（会向上抬起），再点击"目标瓶"完成倒水。</li>
+            <li>只能倒到<span class="hl">空瓶</span>或<span class="hl">顶层同色</span>的瓶子，且目标瓶要有足够空间。</li>
+            <li>会自动把源瓶顶层连续同色的一段一次性倒过去。</li>
+            <li>过关条件：每个非空瓶都是<span class="hl">单一颜色</span>。</li>
+          </ul>
+          <p style="margin-top:12px">训练点：分类思维、多步预测、全局规划——围棋中<span class="hl">"厚薄取舍"</span>的底层能力。</p>
+        </div>
+        <div class="watersort-level-select" id="ws-levels"></div>
+        <div id="ws-content"></div>
+      `;
+      this.renderLevels(host);
+      this.startLevel(host);
+    },
+    renderLevels(host){
+      const wrap = host.querySelector('#ws-levels');
+      wrap.innerHTML = this.LEVELS.map((lv,i)=>
+        `<button class="watersort-level-btn ${i===this.levelIdx?'active':''}" data-i="${i}">${lv.name}</button>`
+      ).join('');
+      wrap.querySelectorAll('.watersort-level-btn').forEach(btn=>{
+        btn.addEventListener('click',()=>{
+          this.levelIdx = parseInt(btn.dataset.i);
+          this.renderLevels(host);
+          this.startLevel(host);
+        });
+      });
+    },
+    startLevel(host){
+      const lv = this.LEVELS[this.levelIdx];
+      const filled = lv.bottles - lv.empty;
+      // 每种颜色需要 capacity 层
+      const layers = [];
+      for(let ci=0;ci<lv.colors;ci++){
+        for(let k=0;k<lv.capacity;k++) layers.push(ci);
+      }
+      // 打乱
+      for(let i=layers.length-1;i>0;i--){
+        const j = Math.floor(Math.random()*(i+1));
+        [layers[i],layers[j]] = [layers[j],layers[i]];
+      }
+      // 分配到 filled 个瓶子
+      this.bottles = [];
+      for(let b=0;b<filled;b++){
+        this.bottles.push(layers.slice(b*lv.capacity,(b+1)*lv.capacity));
+      }
+      for(let b=0;b<lv.empty;b++) this.bottles.push([]);
+      this.selected = -1;
+      this.moves = 0;
+      this.history = [];
+      this.render(host);
+    },
+    render(host){
+      const lv = this.LEVELS[this.levelIdx];
+      const c = host.querySelector('#ws-content');
+      c.innerHTML = `
+        <div class="watersort-status">
+          <div>步数：<b>${this.moves}</b></div>
+          <div>${lv.bottles} 瓶 · ${lv.colors} 色</div>
+        </div>
+        <div class="watersort-tools">
+          <button class="watersort-tool-btn" id="ws-undo">↩ 撤销</button>
+          <button class="watersort-tool-btn" id="ws-restart">🔄 重开本关</button>
+        </div>
+        <div class="watersort-area" id="ws-area"></div>
+      `;
+      c.querySelector('#ws-undo').addEventListener('click',()=>this.undo(host));
+      c.querySelector('#ws-restart').addEventListener('click',()=>this.startLevel(host));
+      const area = c.querySelector('#ws-area');
+      this.bottles.forEach((b,bi)=>{
+        const el = document.createElement('div');
+        el.className = 'watersort-bottle';
+        if(bi === this.selected) el.classList.add('selected');
+        if(this.isBottleDone(b,lv.capacity)) el.classList.add('done');
+        el.dataset.i = bi;
+        el.innerHTML = b.map(ci=>`<div class="watersort-layer" style="background:${this.PALETTE[ci]}"></div>`).join('');
+        el.addEventListener('click',()=>this.onBottleClick(host,bi));
+        area.appendChild(el);
+      });
+    },
+    isBottleDone(b,cap){
+      if(b.length===0) return false;
+      if(b.length!==cap) return false;
+      return b.every(x=>x===b[0]);
+    },
+    onBottleClick(host,bi){
+      if(this.selected === -1){
+        if(this.bottles[bi].length === 0) return;
+        this.selected = bi;
+        this.render(host);
+        return;
+      }
+      if(this.selected === bi){
+        this.selected = -1;
+        this.render(host);
+        return;
+      }
+      const ok = this.pour(this.selected,bi);
+      this.selected = -1;
+      if(ok){
+        this.moves++;
+        if(this.checkWin()){
+          this.render(host);
+          setTimeout(()=>this.finish(host),400);
+          return;
+        }
+      }
+      this.render(host);
+    },
+    pour(from,to){
+      const lv = this.LEVELS[this.levelIdx];
+      const src = this.bottles[from], dst = this.bottles[to];
+      if(src.length === 0) return false;
+      const topColor = src[src.length-1];
+      if(dst.length > 0 && dst[dst.length-1] !== topColor) return false;
+      const space = lv.capacity - dst.length;
+      if(space === 0) return false;
+      // 计算源顶部连续同色段
+      let seg = 0;
+      for(let i=src.length-1;i>=0;i--){
+        if(src[i]===topColor) seg++;
+        else break;
+      }
+      const move = Math.min(seg,space);
+      if(move === 0) return false;
+      this.history.push(JSON.parse(JSON.stringify(this.bottles)));
+      for(let k=0;k<move;k++){
+        dst.push(src.pop());
+      }
+      return true;
+    },
+    undo(host){
+      if(this.history.length === 0) return;
+      this.bottles = this.history.pop();
+      this.moves = Math.max(0,this.moves-1);
+      this.selected = -1;
+      this.render(host);
+    },
+    checkWin(){
+      const lv = this.LEVELS[this.levelIdx];
+      return this.bottles.every(b => b.length === 0 || this.isBottleDone(b,lv.capacity));
+    },
+    finish(host){
+      const lv = this.LEVELS[this.levelIdx];
+      const bestKey = `luobo_brain_watersort_${this.levelIdx}_best`;
+      const prev = parseInt(localStorage.getItem(bestKey)||'0');
+      const isBest = prev===0 || this.moves < prev;
+      if(isBest) localStorage.setItem(bestKey,this.moves);
+      const c = host.querySelector('#ws-content');
+      const result = document.createElement('div');
+      result.style.cssText = 'text-align:center;padding:20px 12px;background:#fff;border:1px solid var(--line);border-radius:4px;margin-top:16px';
+      result.innerHTML = `
+        <div style="font-size:36px;font-weight:700;color:var(--seal);font-family:'Courier New',monospace">${this.moves}</div>
+        <div style="font-size:15px;color:#3d2817;margin:8px 0">${lv.name} 通关步数</div>
+        <div style="font-size:12px;color:#6b5a3a;margin-bottom:16px">${isBest?'🎉 破纪录！':(prev?`历史最少步数 ${prev}`:'')}</div>
+        <button class="ds-btn" id="ws-again" style="padding:8px 20px;background:var(--seal);color:#fff;border:0;border-radius:4px;font-size:13px;cursor:pointer;margin:0 4px">再来一局</button>
+        ${this.levelIdx < this.LEVELS.length-1?`<button class="ds-btn" id="ws-nextlv" style="padding:8px 20px;background:transparent;color:var(--seal);border:1px solid var(--seal);border-radius:4px;font-size:13px;cursor:pointer;margin:0 4px">下一关 →</button>`:''}
+      `;
+      c.appendChild(result);
+      result.querySelector('#ws-again').addEventListener('click',()=>{
+        result.remove();
+        this.startLevel(host);
+      });
+      const nextBtn = result.querySelector('#ws-nextlv');
+      if(nextBtn) nextBtn.addEventListener('click',()=>{
+        result.remove();
+        this.levelIdx++;
+        this.renderLevels(host);
+        this.startLevel(host);
+      });
     }
   };
 
