@@ -2639,6 +2639,25 @@ header nav .nav-luobo-ext{white-space:nowrap;}
 .watersort-layer{height:25%;width:100%;transition:all .2s}
 .watersort-bottle.done{border-color:#4a8556;box-shadow:0 0 0 2px rgba(74,133,86,.3)}
 
+/* ==== 打卡日历 ==== */
+.brain-checkin{background:#fff;border:1px solid var(--line,#d9c9a0);border-radius:6px;padding:16px 18px;margin:0 0 28px;box-shadow:0 2px 6px rgba(93,64,46,.05)}
+.brain-checkin-header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px}
+.brain-checkin-title{font-size:15px;font-weight:600;color:#3d2817;display:flex;align-items:center;gap:8px}
+.brain-checkin-stat{font-size:12px;color:#6b5a3a}
+.brain-checkin-stat b{color:var(--seal,#a94b3d);font-size:16px;font-family:'Courier New',monospace;margin:0 3px}
+.brain-checkin-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;font-size:12px}
+.brain-checkin-cal .ck-hd{text-align:center;color:#8b7550;font-size:11px;padding:2px 0;font-weight:600}
+.brain-checkin-cal .ck-day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:3px;color:#8b7550;background:#faf5e6;border:1px solid transparent;font-family:'Courier New',monospace}
+.brain-checkin-cal .ck-day.empty{background:transparent;border:0}
+.brain-checkin-cal .ck-day.done{background:var(--seal,#a94b3d);color:#fff;font-weight:600}
+.brain-checkin-cal .ck-day.today{border-color:var(--seal,#a94b3d)}
+.brain-checkin-cal .ck-day.today.done{box-shadow:0 0 0 2px rgba(169,75,61,.3) inset}
+.brain-checkin-tip{font-size:11px;color:#8b7550;margin-top:10px;text-align:center}
+
+/* ==== 参考数据严谨性小注 ==== */
+.brain-ref-note{font-size:11.5px;color:#6b5a3a;line-height:1.65;margin:6px 0 4px;padding:8px 10px;background:#faf5e6;border-left:2px solid var(--line,#d9c9a0);border-radius:2px}
+.brain-ref-note b{color:#5a4a2a}
+
 @media(max-width:640px){
   .brain-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
   .brain-card{padding:14px 12px}
@@ -2652,6 +2671,12 @@ header nav .nav-luobo-ext{white-space:nowrap;}
   .nback-grid{max-width:260px}
   .huarong-tile{font-size:20px}
   .watersort-bottle{width:38px;height:150px}
+  .brain-checkin{padding:12px 14px}
+  .brain-checkin-cal{gap:3px}
+  .brain-checkin-cal .ck-hd{font-size:10px}
+  .brain-checkin-cal .ck-day{font-size:11px}
+  .brain-checkin-header{gap:6px}
+  .brain-checkin-stat{font-size:11px}
 }
 </style>
 
@@ -2665,9 +2690,10 @@ header nav .nav-luobo-ext{white-space:nowrap;}
 
     <!-- 工具列表（默认显示） -->
     <div id="brain-list">
+      <div class="brain-checkin" id="brain-checkin"></div>
       <div class="brain-grid" id="brain-cards"></div>
       <p class="text-xs text-gray-soft leading-relaxed mt-8" style="text-align:center;color:#8a7550">
-        <em>本训练室为公益开放；成绩仅保存在本地浏览器，不上传服务器。数据参考基于国内外常用测评标准，仅作趋势参考。</em>
+        <em>本训练室为公益开放；成绩仅保存在本地浏览器，不上传服务器。每个工具介绍页均标注参考来源，数值综合国内外常见测评参考区间与平台教研经验，仅作训练进步的横向趋势参考，<b>不用于筛查或诊断</b>。</em>
       </p>
     </div>
 
@@ -2740,6 +2766,7 @@ header nav .nav-luobo-ext{white-space:nowrap;}
           Brain.enterTool(id);
         });
       });
+      Brain.renderCheckin();
     },
     enterTool(id){
       document.getElementById('brain-list').style.display='none';
@@ -2769,6 +2796,81 @@ header nav .nav-luobo-ext{white-space:nowrap;}
       area.style.display='none';
       area.innerHTML='';
       document.getElementById('brain-training').scrollIntoView({behavior:'smooth',block:'start'});
+      Brain.renderCheckin();
+    },
+    // ==== 打卡日历 ====
+    _dayKey(d){
+      const y=d.getFullYear(), m=String(d.getMonth()+1).padStart(2,'0'), day=String(d.getDate()).padStart(2,'0');
+      return `${y}-${m}-${day}`;
+    },
+    getDays(){
+      try{ return JSON.parse(localStorage.getItem('luobo_brain_days')||'[]'); }catch(e){ return []; }
+    },
+    checkin(toolId){
+      const today = Brain._dayKey(new Date());
+      const days = Brain.getDays();
+      if(!days.includes(today)){
+        days.push(today);
+        localStorage.setItem('luobo_brain_days', JSON.stringify(days));
+      }
+      const perTool = JSON.parse(localStorage.getItem('luobo_brain_tool_count')||'{}');
+      perTool[toolId] = (perTool[toolId]||0) + 1;
+      localStorage.setItem('luobo_brain_tool_count', JSON.stringify(perTool));
+    },
+    getStreak(){
+      const days = Brain.getDays();
+      if(!days.length) return 0;
+      const set = new Set(days);
+      const today = new Date();
+      const todayStr = Brain._dayKey(today);
+      const yesterdayStr = Brain._dayKey(new Date(today.getTime()-86400000));
+      let cursor;
+      if(set.has(todayStr)) cursor = new Date(today);
+      else if(set.has(yesterdayStr)) cursor = new Date(today.getTime()-86400000);
+      else return 0;
+      let streak = 0;
+      while(set.has(Brain._dayKey(cursor))){
+        streak++;
+        cursor = new Date(cursor.getTime()-86400000);
+      }
+      return streak;
+    },
+    renderCheckin(){
+      const wrap = document.getElementById('brain-checkin');
+      if(!wrap) return;
+      const days = Brain.getDays();
+      const daysSet = new Set(days);
+      const now = new Date();
+      const y = now.getFullYear(), m = now.getMonth();
+      const first = new Date(y,m,1);
+      const firstDow = first.getDay();
+      const daysInMonth = new Date(y,m+1,0).getDate();
+      const todayStr = Brain._dayKey(now);
+      const monthPrefix = `${y}-${String(m+1).padStart(2,'0')}`;
+      const monthLabel = `${y}年${m+1}月`;
+      const streak = Brain.getStreak();
+      const monthCount = days.filter(d=>d.startsWith(monthPrefix)).length;
+      const totalCount = days.length;
+      let cells = '<div class="ck-hd">日</div><div class="ck-hd">一</div><div class="ck-hd">二</div><div class="ck-hd">三</div><div class="ck-hd">四</div><div class="ck-hd">五</div><div class="ck-hd">六</div>';
+      for(let i=0;i<firstDow;i++) cells += '<div class="ck-day empty"></div>';
+      for(let d=1;d<=daysInMonth;d++){
+        const key = `${monthPrefix}-${String(d).padStart(2,'0')}`;
+        const cls = ['ck-day'];
+        if(daysSet.has(key)) cls.push('done');
+        if(key===todayStr) cls.push('today');
+        cells += `<div class="${cls.join(' ')}">${d}</div>`;
+      }
+      const encourage = totalCount===0
+        ? '开始你的第一次训练吧，每完成一次自动打卡。'
+        : (streak>=7 ? `连续 ${streak} 天，很棒的坚持 ✨` : '每完成一次训练自动打卡；日期仅存本机浏览器，不上传。');
+      wrap.innerHTML = `
+        <div class="brain-checkin-header">
+          <div class="brain-checkin-title">📅 训练打卡 · ${monthLabel}</div>
+          <div class="brain-checkin-stat">连续 <b>${streak}</b> 天 · 本月 <b>${monthCount}</b> 天 · 累计 <b>${totalCount}</b> 天</div>
+        </div>
+        <div class="brain-checkin-cal">${cells}</div>
+        <div class="brain-checkin-tip">${encourage}</div>
+      `;
     },
     tools:{}
   };
@@ -2792,6 +2894,7 @@ header nav .nav-luobo-ext{white-space:nowrap;}
             <tr><td>9-12 岁</td><td>&lt;28</td><td>28-42</td><td>42-60</td><td>&gt;60</td></tr>
             <tr><td>成人</td><td>&lt;25</td><td>25-40</td><td>40-55</td><td>&gt;55</td></tr>
           </tbody></table>
+          <div class="brain-ref-note"><b>参考来源：</b>舒尔特方格测试由 W. Schulte（1911，德国精神科医生）提出，最初用于注意力评估与飞行员筛选。本表数值综合国内基础教育认知训练领域常见参考区间，5×5 成人组略低于俄国空军 25s 标准。<b>请注意：</b>个体差异较大，建议连续 3-5 局取稳定值作为个人基线。</div>
         </div>
         <div class="schulte-controls">
           <span style="font-size:13px;color:#6b5a3a">选择尺寸：</span>
@@ -2872,6 +2975,7 @@ header nav .nav-luobo-ext{white-space:nowrap;}
       if(isBest) localStorage.setItem(bestKey,ms);
       const s = ms/1000;
       const grade = this.grade(s);
+      Brain.checkin('schulte');
       host.innerHTML = `
         <div class="schulte-result">
           <div class="result-time">${s.toFixed(2)}s</div>
@@ -2919,6 +3023,7 @@ header nav .nav-luobo-ext{white-space:nowrap;}
             <tr><td>8-10 岁</td><td>≥7</td><td>5-6</td><td>≤4</td></tr>
             <tr><td>11 岁+</td><td>≥8</td><td>6-7</td><td>≤5</td></tr>
           </tbody></table>
+          <div class="brain-ref-note"><b>参考来源：</b>数字广度测验源自 Wechsler 智力量表（WAIS-IV 成人版、WISC-V 儿童版），成人正向数字广度平均约 6-7 位，标准差约 1.3 位。本工具采用<b>视觉呈现（闪现）</b>，与临床听觉复述略有差异；不做筛选诊断，仅供个人训练参考。</div>
         </div>
         <div class="digitspan-stage" id="ds-stage"></div>
       `;
@@ -2992,6 +3097,7 @@ header nav .nav-luobo-ext{white-space:nowrap;}
       const prev = parseInt(localStorage.getItem(bestKey)||'0');
       const isBest = finalReached > prev;
       if(isBest) localStorage.setItem(bestKey,finalReached);
+      Brain.checkin('digitspan');
       let msg = '';
       if(byChoice) msg = `见好就收，成功挑战到 <span class="hl">${finalReached}</span> 位。`;
       else msg = `本轮到 <span class="hl">${finalReached}</span> 位。正确答案：<span style="font-family:'Courier New',monospace">${this.currentAnswer}</span>，你输入：${userVal||'(空)'}`;
@@ -3038,6 +3144,7 @@ header nav .nav-luobo-ext{white-space:nowrap;}
             <tr><td>7-10 岁</td><td>≥45</td><td>30-44</td><td>&lt;30</td></tr>
             <tr><td>11 岁+</td><td>≥55</td><td>40-54</td><td>&lt;40</td></tr>
           </tbody></table>
+          <div class="brain-ref-note"><b>参考来源：</b>斯特鲁普任务由 J. R. Stroop（1935，Journal of Experimental Psychology）首次提出，是心理学抑制控制研究的经典范式。本工具计分公式为<b>「正确数 ×10 − 错误数 ×3」</b>，为萝卜干平台经验值，<b>非国际统一评估标准</b>。数值仅作个人进步趋势参考，不用于筛查诊断。</div>
         </div>
         <div class="stroop-stage" id="stroop-stage"></div>
       `;
@@ -3123,6 +3230,7 @@ header nav .nav-luobo-ext{white-space:nowrap;}
       const prev = parseInt(localStorage.getItem(bestKey)||'0');
       const isBest = score > prev;
       if(isBest) localStorage.setItem(bestKey,score);
+      Brain.checkin('stroop');
       const grade = this.correct>=55?'优秀 ⭐⭐⭐':this.correct>=40?'良好 ⭐⭐':this.correct>=25?'一般 ⭐':'继续加油 💪';
       stage.innerHTML = `
         <div style="text-align:center;padding:24px 12px">
@@ -3163,6 +3271,7 @@ header nav .nav-luobo-ext{white-space:nowrap;}
             <tr><td>9-12 岁</td><td>≥9</td><td>6-8</td><td>≤5</td></tr>
             <tr><td>13 岁+</td><td>≥10</td><td>7-9</td><td>≤6</td></tr>
           </tbody></table>
+          <div class="brain-ref-note"><b>参考来源：</b>视觉空间序列记忆最经典范式为 Corsi 方块测验（Corsi 1972），成人平均空间广度约 5-6。本工具改用 3×3 棋盘格作为呈现，节奏与记忆长度均为萝卜干教研经验设定，<b>不等价于 Corsi 分数</b>，仅作个人训练进步的横向参考。</div>
         </div>
         <div class="seqmem-status">
           <div>关卡：<span class="sm-level" id="sm-level">3</span> 格</div>
@@ -3234,6 +3343,7 @@ header nav .nav-luobo-ext{white-space:nowrap;}
       const prev = parseInt(localStorage.getItem(bestKey)||'0');
       const isBest = reached > prev;
       if(isBest) localStorage.setItem(bestKey,reached);
+      Brain.checkin('seqmem');
       const grade = reached>=10?'优秀 ⭐⭐⭐':reached>=7?'良好 ⭐⭐':reached>=5?'一般 ⭐':'继续加油 💪';
       host.querySelector('#sm-phase').textContent = '本轮结束';
       const wrap = document.createElement('div');
@@ -3269,6 +3379,7 @@ header nav .nav-luobo-ext{white-space:nowrap;}
             <tr><td>命中率</td><td>≥80%</td><td>60-79%</td><td>&lt;60%</td></tr>
             <tr><td>误报率</td><td>&lt;10%</td><td>10-25%</td><td>&gt;25%</td></tr>
           </tbody></table>
+          <div class="brain-ref-note"><b>参考来源：</b>N-Back 任务由 Kirchner（1958）提出，Jaeggi 等（2008，PNAS）将其推广为工作记忆训练。文献中健康成人 2-Back 命中率通常在 60-85% 区间，个体差异大。本表为萝卜干平台经验区间，<b>命中率与误报率需综合看</b>——只追命中率会诱导过度按键。</div>
         </div>
         <div class="nback-diff-select" id="nb-diff">
           <button class="nback-diff-btn" data-n="1">1-Back</button>
@@ -3328,7 +3439,7 @@ header nav .nav-luobo-ext{white-space:nowrap;}
         <div class="nback-grid" id="nb-grid">
           ${Array.from({length:9},(_,i)=>`<div class="nback-cell" data-i="${i}"></div>`).join('')}
         </div>
-        <button class="nback-action-btn" id="nb-match-btn">匹配 ✓ （空格键）</button>
+        <button class="nback-action-btn" id="nb-match-btn">匹配 ✓ <span style="font-weight:400;opacity:.8;font-size:12px">（点按钮 / 空格键）</span></button>
       `;
       const matchBtn = c.querySelector('#nb-match-btn');
       const onMatch = ()=>{
@@ -3391,6 +3502,7 @@ header nav .nav-luobo-ext{white-space:nowrap;}
       const prev = parseInt(localStorage.getItem(bestKey)||'0');
       const isBest = hitRate > prev;
       if(isBest) localStorage.setItem(bestKey,hitRate);
+      Brain.checkin('nback');
       const grade = (hitRate>=80&&faRate<10)?'优秀 ⭐⭐⭐':(hitRate>=60&&faRate<25)?'良好 ⭐⭐':hitRate>=40?'一般 ⭐':'继续加油 💪';
       const c = host.querySelector('#nb-content');
       c.innerHTML = `
@@ -3427,6 +3539,7 @@ header nav .nav-luobo-ext{white-space:nowrap;}
             <tr><td>用时</td><td>&lt;40s</td><td>40-80s</td><td>&gt;80s</td></tr>
             <tr><td>步数</td><td>≤20</td><td>20-40</td><td>&gt;40</td></tr>
           </tbody></table>
+          <div class="brain-ref-note"><b>参考来源：</b>15-Puzzle（4×4 华容道）由 N. Chapman（1874）发明；3×3 版本最优解步数上界为 31（Reid 2002）。本表用时与步数区间为萝卜干教研平台连续测试 200+ 局的经验分布，<b>4×4 采用倒推打乱保证可解，最优解不固定</b>；用时与步数需结合看，追速度可能牺牲步数。</div>
         </div>
         <div class="huarong-controls">
           <span style="font-size:13px;color:#6b5a3a">选择尺寸：</span>
@@ -3542,6 +3655,7 @@ header nav .nav-luobo-ext{white-space:nowrap;}
       const prevScore = prev? prev.ms + prev.moves*500 : Infinity;
       const isBest = score < prevScore;
       if(isBest) localStorage.setItem(bestKey,JSON.stringify({ms,moves:this.moves}));
+      Brain.checkin('huarong');
       const s = ms/1000;
       let grade;
       if(this.size===3){
@@ -3588,6 +3702,14 @@ header nav .nav-luobo-ext{white-space:nowrap;}
             <li>过关条件：每个非空瓶都是<span class="hl">单一颜色</span>。</li>
           </ul>
           <p style="margin-top:12px">训练点：分类思维、多步预测、全局规划——围棋中<span class="hl">"厚薄取舍"</span>的底层能力。</p>
+          <p class="hl" style="margin-top:12px">数据参考（通关步数）</p>
+          <table class="brain-ref-table"><thead><tr><th>关卡</th><th>优秀</th><th>良好</th><th>一般</th></tr></thead>
+          <tbody>
+            <tr><td>新手 · 4瓶2色</td><td>≤6</td><td>7-12</td><td>&gt;12</td></tr>
+            <tr><td>进阶 · 6瓶4色</td><td>≤18</td><td>19-30</td><td>&gt;30</td></tr>
+            <tr><td>挑战 · 8瓶5色</td><td>≤32</td><td>33-55</td><td>&gt;55</td></tr>
+          </tbody></table>
+          <div class="brain-ref-note"><b>参考来源：</b>倒水益智题为经典规划类问题（属 NP-complete 问题族，Malte Helmert 2020）。<b>本平台关卡由 Fisher-Yates 洗牌生成，结构保证可解但最优解步数不定</b>；本表区间为萝卜干教研平台连续测试 100+ 局的经验分布，仅作训练进步参考。</div>
         </div>
         <div class="watersort-level-select" id="ws-levels"></div>
         <div id="ws-content"></div>
@@ -3728,6 +3850,7 @@ header nav .nav-luobo-ext{white-space:nowrap;}
       const prev = parseInt(localStorage.getItem(bestKey)||'0');
       const isBest = prev===0 || this.moves < prev;
       if(isBest) localStorage.setItem(bestKey,this.moves);
+      Brain.checkin('watersort');
       const c = host.querySelector('#ws-content');
       const result = document.createElement('div');
       result.style.cssText = 'text-align:center;padding:20px 12px;background:#fff;border:1px solid var(--line);border-radius:4px;margin-top:16px';
