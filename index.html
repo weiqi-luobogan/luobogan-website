@@ -5498,8 +5498,17 @@ function hideParentGuide(){
   flex-shrink: 0;
 }
 .dr-header h3 {
-  margin: 0 0 12px; font-size: 18px; font-weight: 700; color: var(--dr-red);
+  margin: 0 0 4px; font-size: 18px; font-weight: 700; color: var(--dr-red);
   letter-spacing: 1px;
+}
+/* fix16 · header 打卡数副标题（视觉焦点上提） */
+.dr-header-meta {
+  margin: 0 0 12px; font-size: 12px; color: #8a7550;
+  letter-spacing: 1.5px; font-family: "Songti SC","STSong",serif;
+}
+.dr-header-meta strong {
+  color: var(--dr-red); font-size: 14px; font-weight: 700;
+  margin: 0 3px; letter-spacing: 0;
 }
 .dr-close {
   position: absolute; top: 14px; right: 14px;
@@ -5849,8 +5858,8 @@ function hideParentGuide(){
   margin-top: 14px;
 }
 
-/* 结果态：淡入 */
-.dr-result-fade { animation: dr-fade-in .6s ease both; }
+/* 结果态：淡入 · fix16 收敛 0.6s → 0.3s（避免 flip 0.6s + fade 0.6s = 1.2s 拖沓） */
+.dr-result-fade { animation: dr-fade-in .3s ease both; }
 
 /* 保存图片按钮 */
 .dr-save-row {
@@ -5965,23 +5974,7 @@ header .nav-luobo-ext.dr-entry-btn-alt:hover {
   border-radius: 8px;
   position: relative;
 }
-.dr-cover::before,
-.dr-cover::after {
-  content: "";
-  position: absolute;
-  width: 20px; height: 20px;
-  pointer-events: none;
-}
-.dr-cover::before {
-  top: 10px; left: 10px;
-  border-top: 1.5px solid rgba(139,26,26,.32);
-  border-left: 1.5px solid rgba(139,26,26,.32);
-}
-.dr-cover::after {
-  bottom: 10px; right: 10px;
-  border-bottom: 1.5px solid rgba(139,26,26,.32);
-  border-right: 1.5px solid rgba(139,26,26,.32);
-}
+/* fix16 · 收敛：移除四角角标装饰 */
 .dr-cover-hint {
   color: #8b1a1a;
   opacity: .78;
@@ -6034,10 +6027,7 @@ header .nav-luobo-ext.dr-entry-btn-alt:hover {
   pointer-events: none;
 }
 #dr-luck-cover .dr-cover-hint { color: #8a6d2a; }
-#dr-luck-cover .dr-cover::before,
-#dr-luck-cover .dr-cover::after {
-  border-color: rgba(160,139,92,.42);
-}
+/* fix16 · 收敛：角标已移除，签筒 border-color 覆盖同步移除 */
 
 /* B.3 文案卡 · 墨青竹签书签 */
 .teacher-card {
@@ -6068,9 +6058,9 @@ header .nav-luobo-ext.dr-entry-btn-alt:hover {
   .dr-cover { min-height: 280px; padding: 24px 12px 16px; }
   .dr-cover-icon { width: 100px; height: 100px; font-size: 48px; }
   #dr-luobo-cover .dr-cover-icon::after { width: 26px; height: 26px; font-size: 13px; }
-  .dr-cover::before, .dr-cover::after { width: 16px; height: 16px; }
-  .dr-cover::before { top: 8px; left: 8px; }
-  .dr-cover::after { bottom: 8px; right: 8px; }
+  /* fix16 · 收敛：移除移动端角标规则 */
+  /* fix16 · 收敛：cover-hint 字间距移动端降到 1.5px，避免窄屏换行 */
+  .dr-cover-hint { letter-spacing: 1.5px; }
 }
 
 /* ============ /fix12 · 古朴册页视觉升级 ============ */
@@ -6093,6 +6083,7 @@ header .nav-luobo-ext.dr-entry-btn-alt:hover {
 
   <div class="dr-header">
     <h3>📮 每日棋事簿</h3>
+    <div class="dr-header-meta">已累计打卡 · <strong id="dr-header-count">0</strong>天</div>
     <button class="dr-close" onclick="window.__closeDailyRitual()" aria-label="关闭">×</button>
     <div class="dr-tabs" id="daily-ritual-tabs">
       <button class="dr-tab-btn active" data-tab="luobo">🥕 萝卜精</button>
@@ -6334,6 +6325,8 @@ header .nav-luobo-ext.dr-entry-btn-alt:hover {
       grid.appendChild(cell);
     }
     var cnt = $('dr-cal-count'); if (cnt) cnt.textContent = monthChecked + ' 天';
+    // fix16 · 同步更新 header 副标题打卡数
+    var hcnt = $('dr-header-count'); if (hcnt) hcnt.textContent = monthChecked;
   }
 
   // ============ Tab 切换 ============
