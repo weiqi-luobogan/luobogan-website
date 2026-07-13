@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>段位孩子成长指南 · 棋力学力双提升 | 萝卜干聊围棋教育</title>
+<meta name="description" content="写给段位期家长的棋力学力双提升指南：从争胜力与反思力两大核心能力，到暑假集训安排，再到围棋思维向学科学习的迁移，把棋道变成可迁移的通用学习法。">
+<meta name="keywords" content="围棋段位提升,段位班集训,棋力学力双提升,家长指南,跨学科学习迁移,反思力,争胜力,萝卜干聊围棋教育">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="../assets/logo.jpg" type="image/jpeg">
+<style>
+  :root{
+    --ink:#1a1a1a; --ink-soft:#2a2620; --ink-3:#3d3a34;
+    --paper:#faf5eb; --paper-2:#f2ede2; --paper-3:#ede2ce;
+    --seal:#a8362a; --seal-light:#c74e3f; --seal-ink:#7a2418;
+    --gold:#8a6b3a; --gold-soft:#b39550; --gold-light:#d6c39a;
+    --gray:#4a4a4a; --gray-soft:#6b6b6b; --gray-line:#e6e0d5;
+    --green:#4a7c5f; --red:#a8362a;
+    --line:#c9b892;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:'Noto Serif SC','Songti SC',serif;
+    font-size:16px;line-height:1.8;
+    -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  }
+  .en,.mono{font-family:'Inter',sans-serif;letter-spacing:.02em}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  /* 进度条 */
+  #progress-bar{
+    position:fixed;top:0;left:0;height:3px;width:0%;
+    background:linear-gradient(90deg,var(--seal),var(--seal-light));
+    z-index:100;transition:width .15s ease-out;
+  }
+  /* Header */
+  header.site-header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(250,245,235,.96);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .header-inner{
+    max-width:1080px;margin:0 auto;padding:14px 20px;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+  }
+  .brand{display:flex;align-items:center;gap:10px;font-weight:600}
+  .brand img{width:32px;height:32px;border-radius:6px;object-fit:cover}
+  .brand span{font-size:15px}
+  .brand small{color:var(--gray-soft);font-size:12px;margin-left:6px}
+  nav.top-nav{display:flex;align-items:center;gap:18px;font-size:14px}
+  nav.top-nav a{color:var(--gray)}
+  nav.top-nav a:hover{color:var(--seal)}
+  nav.top-nav a.cta{color:#fff;background:var(--seal);padding:6px 14px;border-radius:20px}
+  nav.top-nav a.cta:hover{background:var(--seal-light);color:#fff}
+  @media (max-width:640px){
+    nav.top-nav a.hide-sm{display:none}
+    .brand small{display:none}
+  }
+  main{max-width:960px;margin:0 auto;padding:0 20px}
+  section{padding:56px 0;border-bottom:1px dashed var(--line)}
+  section:last-child{border-bottom:none}
+  .section-eyebrow{
+    font-family:'Inter',sans-serif;font-size:12px;letter-spacing:.2em;
+    color:var(--seal);text-transform:uppercase;margin-bottom:12px;
+  }
+  .section-title{
+    font-size:28px;font-weight:700;line-height:1.35;margin:0 0 10px;
+    color:var(--ink);
+  }
+  .section-subtitle{color:var(--gray-soft);font-size:15px;margin-bottom:32px}
+  @media (min-width:768px){
+    .section-title{font-size:34px}
+    section{padding:72px 0}
+  }
+  .hl{color:var(--seal);font-weight:600}
+  .hl-gold{color:var(--gold);font-weight:600}
+  .card{
+    background:#fff;border:1px solid var(--line);border-radius:12px;
+    padding:20px;box-shadow:0 1px 2px rgba(0,0,0,.02);
+  }
+  .card.paper{background:var(--paper-2)}
+  .grid{display:grid;gap:14px}
+  .grid.g2{grid-template-columns:1fr}
+  .grid.g3{grid-template-columns:1fr}
+  .grid.g4{grid-template-columns:1fr}
+  @media (min-width:640px){
+    .grid.g2{grid-template-columns:1fr 1fr}
+    .grid.g3{grid-template-columns:1fr 1fr 1fr}
+    .grid.g4{grid-template-columns:1fr 1fr}
+  }
+  @media (min-width:900px){
+    .grid.g4{grid-template-columns:repeat(4,1fr)}
+  }
+  blockquote.pull{
+    border-left:3px solid var(--seal);padding:8px 18px;margin:20px 0;
+    color:var(--ink-soft);font-size:17px;line-height:1.85;background:var(--paper-2);
+    border-radius:0 6px 6px 0;
+  }
+  /* Hero */
+  section.hero{
+    padding:100px 0 72px 0;text-align:center;
+    background:
+      radial-gradient(circle at 20% 30%, rgba(168,54,42,.04), transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(138,107,58,.05), transparent 40%),
+      var(--paper);
+  }
+  .hero .eyebrow{
+    display:inline-block;font-family:'Inter',sans-serif;font-size:12px;
+    letter-spacing:.25em;color:var(--seal);text-transform:uppercase;
+    background:rgba(168,54,42,.08);padding:5px 14px;border-radius:20px;margin-bottom:24px;
+  }
+  .hero h1{
+    font-size:36px;font-weight:900;line-height:1.2;margin:0 0 16px;
+    letter-spacing:.04em;color:var(--ink);
+  }
+  .hero .sub{
+    font-size:17px;color:var(--gray-soft);max-width:680px;margin:0 auto 32px;
+  }
+  .hero .meta{
+    display:flex;justify-content:center;gap:24px;flex-wrap:wrap;
+    font-size:13px;color:var(--gray-soft);
+  }
+  .hero .meta span{display:flex;align-items:center;gap:6px}
+  .hero .meta strong{color:var(--seal);font-weight:700}
+  @media (min-width:768px){
+    .hero{padding:120px 0 88px 0}
+    .hero h1{font-size:46px}
+  }
+  /* 通用按钮 */
+  .btn{
+    display:inline-block;font-size:14px;padding:10px 22px;border-radius:24px;
+    border:1px solid var(--line);color:var(--ink-soft);cursor:pointer;
+    background:#fff;transition:all .2s ease;font-family:inherit;
+  }
+  .btn:hover{border-color:var(--seal);color:var(--seal)}
+  .btn.primary{background:var(--seal);color:#fff;border-color:var(--seal)}
+  .btn.primary:hover{background:var(--seal-light);border-color:var(--seal-light)}
+  .btn.ghost{background:transparent}
+  /* 章头 */
+  .chapter-head{display:flex;align-items:center;gap:14px;margin-bottom:32px}
+  .chapter-num{
+    font-family:'Inter',sans-serif;font-size:42px;font-weight:700;
+    color:var(--paper);-webkit-text-stroke:2px var(--seal);letter-spacing:-.02em;
+    line-height:1;
+  }
+  .chapter-meta{flex:1}
+  .chapter-meta .en{
+    font-size:11px;letter-spacing:.2em;color:var(--gray-soft);text-transform:uppercase;
+    margin-bottom:4px;
+  }
+  .chapter-meta h2{font-size:24px;font-weight:700;margin:0}
+  .chapter-meta .cn-sub{font-size:14px;color:var(--gray-soft);margin-top:6px}
+  @media (min-width:768px){
+    .chapter-num{font-size:56px}
+    .chapter-meta h2{font-size:28px}
+  }
+  /* 误区卡 */
+  .mistake-grid{display:grid;gap:16px;grid-template-columns:1fr}
+  @media (min-width:768px){.mistake-grid{grid-template-columns:repeat(3,1fr)}}
+  .mistake-card{
+    position:relative;background:#fff;border:1px solid var(--line);border-radius:8px;
+    padding:22px 20px;transition:transform .2s ease,box-shadow .2s ease;
+  }
+  .mistake-card:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(168,54,42,.08)}
+  .mistake-card .num{
+    font-family:'Inter',sans-serif;font-size:32px;font-weight:700;
+    color:var(--seal);opacity:.18;line-height:1;margin-bottom:8px;
+  }
+  .mistake-card h4{font-size:17px;margin:0 0 10px;color:var(--ink)}
+  .mistake-card p{font-size:14px;color:var(--gray-soft);margin:0;line-height:1.7}
+  /* 能力卡 */
+  .ability-block{
+    background:#fff;border:1px solid var(--line);border-radius:12px;padding:28px;
+    margin-bottom:20px;
+  }
+  .ability-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+  .ability-head .tag{
+    font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.18em;
+    color:var(--seal);background:rgba(168,54,42,.08);padding:3px 10px;
+    border-radius:3px;text-transform:uppercase;
+  }
+  .ability-head h3{font-size:22px;margin:0}
+  .ability-def{color:var(--gray);font-size:15px;margin:0 0 20px}
+  .ability-items{display:grid;gap:12px;grid-template-columns:1fr}
+  @media (min-width:768px){.ability-items{grid-template-columns:1fr 1fr}}
+  .ability-item{
+    display:flex;gap:14px;padding:14px 16px;
+    background:var(--paper-2);border-radius:6px;border-left:3px solid var(--seal);
+  }
+  .ability-item .idx{
+    flex-shrink:0;width:28px;height:28px;border-radius:50%;
+    background:var(--seal);color:#fff;font-weight:700;font-size:14px;
+    display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;
+  }
+  .ability-item .title{font-weight:700;color:var(--ink);margin-bottom:4px;font-size:15px}
+  .ability-item .desc{font-size:13.5px;color:var(--gray);line-height:1.7}
+  /* 闭环流程 */
+  .loop-flow{
+    display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;
+    background:var(--paper-2);border-radius:10px;padding:24px 20px;
+    border:1px dashed var(--gold-light);
+  }
+  .loop-step{
+    flex-shrink:0;background:#fff;border:1px solid var(--line);
+    padding:14px 18px;border-radius:8px;text-align:center;min-width:96px;
+    transition:all .2s ease;cursor:default;
+  }
+  .loop-step:hover{border-color:var(--seal);transform:translateY(-2px)}
+  .loop-step .n{
+    font-family:'Inter',sans-serif;font-size:11px;color:var(--seal);
+    letter-spacing:.1em;margin-bottom:6px;
+  }
+  .loop-step .t{font-weight:700;font-size:15px;color:var(--ink)}
+  .loop-arrow{color:var(--seal);font-size:20px;font-weight:300}
+  /* 8 步思维 */
+  .mindpath{
+    background:#fff;border:1px solid var(--line);border-radius:10px;
+    overflow:hidden;
+  }
+  .mindpath-head{
+    padding:18px 24px;border-bottom:1px solid var(--line);
+    display:flex;justify-content:space-between;align-items:center;
+  }
+  .mindpath-head h4{margin:0;font-size:18px}
+  .mindpath-head .hint{font-size:12px;color:var(--gray-soft)}
+  .mindpath-body{padding:6px 24px 18px}
+  .mp-row{
+    display:flex;gap:16px;padding:14px 0;border-bottom:1px dashed var(--line);
+    cursor:pointer;transition:background .2s ease;
+  }
+  .mp-row:last-child{border-bottom:none}
+  .mp-row:hover{background:var(--paper-2)}
+  .mp-num{
+    flex-shrink:0;width:36px;height:36px;border-radius:50%;
+    background:var(--seal);color:#fff;font-weight:700;font-size:15px;
+    display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;
+  }
+  .mp-body{flex:1}
+  .mp-body .t{font-weight:700;font-size:16px;color:var(--ink);margin-bottom:3px}
+  .mp-body .d{font-size:14px;color:var(--gray);line-height:1.7;max-height:0;overflow:hidden;transition:max-height .3s ease}
+  .mp-row.open .mp-body .d{max-height:200px}
+  .mp-body .more{
+    font-size:12px;color:var(--seal);margin-top:6px;letter-spacing:.05em;
+  }
+  /* Tabs */
+  .tabs{
+    display:flex;gap:4px;border-bottom:1px solid var(--line);margin-bottom:24px;
+    overflow-x:auto;scrollbar-width:none;
+  }
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{
+    flex-shrink:0;padding:10px 18px;cursor:pointer;font-size:14px;
+    color:var(--gray);border-bottom:2px solid transparent;
+    transition:all .2s ease;font-family:inherit;background:transparent;border:none;
+    white-space:nowrap;
+  }
+  .tab.active{color:var(--seal);border-bottom-color:var(--seal);font-weight:600}
+  .tab-content{display:none;animation:fadein .3s ease}
+  .tab-content.active{display:block}
+  @keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  /* 集训安排 */
+  .schedule-card{
+    background:#fff;border:1px solid var(--line);border-radius:12px;
+    padding:26px;margin-bottom:16px;position:relative;overflow:hidden;
+  }
+  .schedule-card::before{
+    content:attr(data-week);position:absolute;top:0;right:0;
+    font-family:'Inter',sans-serif;font-size:120px;font-weight:900;
+    color:var(--seal);opacity:.05;line-height:1;padding:10px 20px 0 0;
+    pointer-events:none;
+  }
+  .schedule-card .week-tag{
+    display:inline-block;font-family:'Inter',sans-serif;font-size:11px;
+    letter-spacing:.2em;color:var(--seal);background:rgba(168,54,42,.08);
+    padding:4px 12px;border-radius:3px;text-transform:uppercase;margin-bottom:12px;
+  }
+  .schedule-card h3{font-size:22px;margin:0 0 6px;font-weight:700}
+  .schedule-card .goal{color:var(--gray);font-size:15px;margin:0 0 20px}
+  .sched-items{display:grid;gap:10px;grid-template-columns:1fr}
+  @media (min-width:768px){.sched-items{grid-template-columns:repeat(3,1fr)}}
+  .sched-item{
+    background:var(--paper-2);border-radius:6px;padding:14px 16px;
+    border-left:3px solid var(--gold);
+  }
+  .sched-item .t{font-weight:700;font-size:14px;margin-bottom:4px;color:var(--ink)}
+  .sched-item .d{font-size:13.5px;color:var(--gray);line-height:1.7}
+  /* 迁移卡 */
+  .transfer-pair{
+    background:#fff;border:1px solid var(--line);border-radius:10px;
+    padding:20px;display:grid;grid-template-columns:1fr auto 1fr;gap:16px;
+    align-items:center;margin-bottom:12px;
+  }
+  @media (max-width:640px){
+    .transfer-pair{grid-template-columns:1fr;gap:10px}
+    .transfer-arrow{transform:rotate(90deg)}
+  }
+  .transfer-side h5{
+    font-size:13px;font-weight:700;letter-spacing:.1em;
+    margin:0 0 10px;color:var(--seal);text-transform:uppercase;
+  }
+  .transfer-side.left h5{color:var(--seal)}
+  .transfer-side.right h5{color:var(--green)}
+  .transfer-list{list-style:none;padding:0;margin:0}
+  .transfer-list li{
+    font-size:13.5px;color:var(--gray);line-height:1.7;
+    padding:6px 0 6px 20px;position:relative;
+  }
+  .transfer-list li::before{
+    content:"•";position:absolute;left:6px;color:var(--seal);font-weight:700;
+  }
+  .transfer-side.right .transfer-list li::before{color:var(--green)}
+  .transfer-arrow{
+    color:var(--gold);font-size:24px;font-weight:300;
+  }
+  /* 节奏卡 */
+  .rhythm-grid{display:grid;gap:14px;grid-template-columns:1fr}
+  @media (min-width:768px){.rhythm-grid{grid-template-columns:repeat(3,1fr)}}
+  .rhythm-card{
+    background:linear-gradient(135deg,var(--paper-2) 0%,#fff 100%);
+    border:1px solid var(--line);border-radius:10px;padding:22px;
+    position:relative;overflow:hidden;
+  }
+  .rhythm-card::before{
+    content:"";position:absolute;top:0;left:0;width:4px;height:100%;
+    background:var(--seal);
+  }
+  .rhythm-card .phase{
+    font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.18em;
+    color:var(--gold);text-transform:uppercase;margin-bottom:10px;
+  }
+  .rhythm-card h4{font-size:18px;margin:0 0 4px;color:var(--ink)}
+  .rhythm-card .map{font-size:13px;color:var(--seal);margin-bottom:12px;font-style:italic}
+  .rhythm-card ul{list-style:none;padding:0;margin:0}
+  .rhythm-card ul li{
+    font-size:14px;color:var(--gray);line-height:1.75;
+    padding:4px 0 4px 18px;position:relative;
+  }
+  .rhythm-card ul li::before{
+    content:"→";position:absolute;left:0;color:var(--seal);font-weight:600;
+  }
+  /* 纪律 / 习惯 */
+  .rule-grid{display:grid;gap:12px;grid-template-columns:1fr}
+  @media (min-width:768px){.rule-grid{grid-template-columns:1fr 1fr}}
+  .rule-card{
+    background:#fff;border:1px solid var(--line);border-radius:8px;
+    padding:18px 20px;display:flex;gap:16px;
+  }
+  .rule-card .idx{
+    flex-shrink:0;width:32px;height:32px;border-radius:50%;
+    background:var(--seal);color:#fff;font-weight:700;font-size:14px;
+    display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;
+  }
+  .rule-card .body h4{font-size:16px;margin:0 0 4px}
+  .rule-card .body p{font-size:14px;color:var(--gray);line-height:1.7;margin:0}
+  /* 自检互动 */
+  .selfcheck{
+    background:#fff;border:1px solid var(--line);border-radius:12px;
+    padding:28px;margin-top:24px;
+  }
+  .selfcheck h3{font-size:20px;margin:0 0 6px;display:flex;align-items:center;gap:8px}
+  .selfcheck .desc{font-size:14px;color:var(--gray-soft);margin:0 0 20px}
+  .sc-list{display:grid;gap:10px}
+  .sc-item{
+    display:flex;align-items:flex-start;gap:12px;padding:12px 14px;
+    border:1px solid var(--line);border-radius:6px;cursor:pointer;
+    transition:all .15s ease;
+  }
+  .sc-item:hover{background:var(--paper-2);border-color:var(--gold-light)}
+  .sc-item.checked{background:var(--paper-2);border-color:var(--seal)}
+  .sc-item .check{
+    flex-shrink:0;width:22px;height:22px;border:1.5px solid var(--line);
+    border-radius:4px;background:#fff;display:flex;align-items:center;justify-content:center;
+    color:#fff;font-size:13px;font-weight:700;transition:all .15s ease;
+  }
+  .sc-item.checked .check{background:var(--seal);border-color:var(--seal)}
+  .sc-item .txt{font-size:14.5px;line-height:1.6;color:var(--ink-3)}
+  .sc-result{
+    margin-top:16px;padding:14px 18px;background:var(--paper-2);
+    border-radius:6px;border-left:3px solid var(--seal);
+    font-size:14px;color:var(--ink-soft);line-height:1.75;
+    display:none;
+  }
+  .sc-result.show{display:block}
+  .sc-result strong{color:var(--seal)}
+  /* 家长视角 */
+  .parent-eye{
+    background:linear-gradient(135deg,var(--paper-2) 0%,#fff 100%);
+    border:1px solid var(--line);border-radius:12px;padding:24px;
+    border-left:3px solid var(--gold);
+  }
+  .parent-eye .tag{
+    font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.2em;
+    color:var(--gold);text-transform:uppercase;margin-bottom:8px;
+  }
+  .parent-eye h4{font-size:18px;margin:0 0 10px}
+  .parent-eye p{font-size:15px;color:var(--gray);line-height:1.8;margin:0}
+  /* 作业卡 */
+  .hw-card{
+    background:var(--paper-2);border:1px dashed var(--gold-light);
+    border-radius:10px;padding:22px 24px;margin:24px 0;
+  }
+  .hw-card .hw-tag{
+    font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.18em;
+    color:var(--seal);text-transform:uppercase;margin-bottom:10px;
+  }
+  .hw-card h4{font-size:18px;margin:0 0 14px}
+  .hw-list{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+  .hw-list li{
+    font-size:14.5px;color:var(--ink-3);line-height:1.7;
+    padding:8px 14px 8px 42px;background:#fff;border-radius:6px;
+    border:1px solid var(--line);position:relative;
+  }
+  .hw-list li::before{
+    content:attr(data-num);position:absolute;left:10px;top:8px;
+    font-family:'Inter',sans-serif;font-size:11px;font-weight:700;
+    color:var(--seal);letter-spacing:.05em;
+  }
+  /* Footer */
+  footer.site-footer{
+    background:var(--paper-2);border-top:1px solid var(--line);
+    padding:40px 20px;text-align:center;color:var(--gray-soft);font-size:13px;
+  }
+  footer.site-footer a{color:var(--seal)}
+  footer.site-footer .links{
+    display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:14px;
+  }
+  /* 工具 */
+  .fade-up{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+  .fade-up.visible{opacity:1;transform:none}
+  .spacer{height:24px}
+  .callout{
+    background:var(--paper-2);border-left:3px solid var(--gold);
+    padding:12px 18px;border-radius:0 6px 6px 0;margin:20px 0;
+    font-size:14.5px;color:var(--ink-3);line-height:1.8;
+  }
+  /* 印章 */
+  .seal-mark{
+    display:inline-block;padding:4px 10px;background:var(--seal);
+    color:#fff;font-size:12px;font-weight:700;letter-spacing:.15em;
+    border-radius:2px;font-family:'Noto Serif SC',serif;
+  }
+  /* 能力矩阵 切换 */
+  .ability-switch{
+    display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;
+  }
+  .ability-switch button{
+    font-family:inherit;font-size:14px;padding:8px 18px;
+    border:1px solid var(--line);background:#fff;border-radius:20px;
+    cursor:pointer;color:var(--gray);transition:all .2s ease;
+  }
+  .ability-switch button.active{
+    background:var(--seal);color:#fff;border-color:var(--seal);
+  }
+  .ability-panel{display:none}
+  .ability-panel.active{display:block;animation:fadein .3s ease}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="/" class="brand">
+      <img src="../assets/logo.jpg" alt="萝卜干聊围棋教育">
+      <span>萝卜干聊围棋教育</span>
+      <small>家长学习园地</small>
+    </a>
+    <nav class="top-nav">
+      <a href="/#tools" class="hide-sm">全部学习</a>
+      <a href="/#parents" class="hide-sm">家长专区</a>
+      <a href="/#contact" class="cta">联系老师</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ HERO ============ -->
+<section class="hero fade-up">
+  <div class="eyebrow">PARENT GUIDE · 段位期专属</div>
+  <h1>段位孩子成长指南<br><span style="color:var(--seal)">棋力 · 学力 · 双提升</span></h1>
+  <div class="sub">从围棋训练到学科学习的双向修炼 —— 写给段位期家长的开营指引，帮您看懂孩子在棋盘上练的，正是考场里用得上的那两样本事。<span class="en" style="display:inline-block;margin-left:4px;opacity:.7">(全文约 8 分钟)</span></div>
+  <div class="meta">
+    <span><strong>4</strong> 章主线</span>
+    <span><strong>2</strong> 大核心能力</span>
+    <span><strong>1</strong> 套可迁移的学习法</span>
+  </div>
+</section>
+
+<!-- ============ 章一：核心能力拆解 ============ -->
+<section class="fade-up">
+  <div class="chapter-head">
+    <div class="chapter-num en">01</div>
+    <div class="chapter-meta">
+      <div class="en">CORE ABILITY DECONSTRUCTION</div>
+      <h2>段位提升 · 核心能力拆解</h2>
+      <div class="cn-sub">为什么单纯训练效果差？因为段位靠的不是某一招，而是两大能力的同步成熟。</div>
+    </div>
+  </div>
+
+  <h3 style="font-size:20px;margin:0 0 18px">段位提升的 <span class="hl">三大常见误区</span></h3>
+  <div class="mistake-grid">
+    <div class="mistake-card">
+      <div class="num en">01</div>
+      <h4>盲目刷题，不总结</h4>
+      <p>只追求做题数量而忽视规律归纳。无法形成系统性的"棋感"与形状记忆，遇到新变化依然无从下手。</p>
+    </div>
+    <div class="mistake-card">
+      <div class="num en">02</div>
+      <h4>随意对局，不反思</h4>
+      <p>下完棋后直接开始下一局，缺乏复盘环节。同样的思维盲区与技术失误在实战中反复出现。</p>
+    </div>
+    <div class="mistake-card">
+      <div class="num en">03</div>
+      <h4>只练技巧，不练心态</h4>
+      <p>过度关注局部死活与飞刀定式，忽视全局掌控。逆风局容易急躁崩盘，缺乏高段位棋手的沉稳。</p>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+
+  <h3 style="font-size:20px;margin:0 0 14px">段位提升 · <span class="hl">两大核心能力</span></h3>
+  <p style="font-size:15px;color:var(--gray);margin:0 0 16px">突破瓶颈的关键在于告别单一训练模式，需要从思维、习惯、方法多维度同步提升，将零散的技巧转化为稳定的实战胜率。</p>
+
+  <div class="ability-switch">
+    <button class="active" data-panel="panel-zh">争胜能力 · 对局决策质量</button>
+    <button data-panel="panel-fan">反思能力 · 训练迭代效率</button>
+  </div>
+
+  <!-- 争胜能力 -->
+  <div class="ability-panel active" id="panel-zh">
+    <div class="ability-block">
+      <div class="ability-head">
+        <span class="tag en">争胜能力</span>
+        <h3>对局中每一步决策的质量</h3>
+      </div>
+      <p class="ability-def">保障对局过程中每一步决策的质量，把优势稳步转化为胜势。</p>
+      <div class="ability-items">
+        <div class="ability-item">
+          <div class="idx en">1</div>
+          <div><div class="title">求胜动机驱动的深度思考习惯</div><div class="desc">每一步都带着"我要赢"的强烈意愿去推敲，而不是被动应付。</div></div>
+        </div>
+        <div class="ability-item">
+          <div class="idx en">2</div>
+          <div><div class="title">图形计算的准确性训练</div><div class="desc">读路要准、数气要稳，减少"看起来对"其实算错的低级失误。</div></div>
+        </div>
+        <div class="ability-item">
+          <div class="idx en">3</div>
+          <div><div class="title">多方案对比后的最优选择</div><div class="desc">不止想到一种走法，能在多个候选中挑出当前局面最优的那一步。</div></div>
+        </div>
+        <div class="ability-item">
+          <div class="idx en">4</div>
+          <div><div class="title">不确定性下的决策忍耐力</div><div class="desc">算不清时耐住性子不贸然落子，用判断与全局观做次优决策。</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 反思能力 -->
+  <div class="ability-panel" id="panel-fan">
+    <div class="ability-block">
+      <div class="ability-head">
+        <span class="tag en">反思能力</span>
+        <h3>每次训练后都能迭代进步</h3>
+      </div>
+      <p class="ability-def">保障每次训练后都能实现迭代进步，避免无效重复训练。</p>
+      <div class="ability-items">
+        <div class="ability-item">
+          <div class="idx en">1</div>
+          <div><div class="title">清晰归因 · 不笼统归"马虎"</div><div class="desc">明确每局胜负的核心原因，不把赢归功于运气、输归咎于失误。</div></div>
+        </div>
+        <div class="ability-item">
+          <div class="idx en">2</div>
+          <div><div class="title">短板定位 · 精准找盲点</div><div class="desc">通过对局复盘、错题分析精准定位自身知识漏洞与思维盲区。</div></div>
+        </div>
+        <div class="ability-item">
+          <div class="idx en">3</div>
+          <div><div class="title">计划落地 · 针对性补弱</div><div class="desc">针对短板制定可执行的专项训练计划，严格执行完成训练目标。</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+  <h3 style="font-size:20px;margin:0 0 14px">段位提升的 <span class="hl">五步闭环</span></h3>
+  <p style="font-size:15px;color:var(--gray);margin:0 0 16px">两大能力必须配合，形成一个不断转动的循环，段位才能稳定爬升：</p>
+  <div class="loop-flow">
+    <div class="loop-step"><div class="n en">STEP 01</div><div class="t">实战对局</div></div>
+    <div class="loop-arrow">→</div>
+    <div class="loop-step"><div class="n en">STEP 02</div><div class="t">暴露盲点</div></div>
+    <div class="loop-arrow">→</div>
+    <div class="loop-step"><div class="n en">STEP 03</div><div class="t">深度复盘</div></div>
+    <div class="loop-arrow">→</div>
+    <div class="loop-step"><div class="n en">STEP 04</div><div class="t">针对训练</div></div>
+    <div class="loop-arrow">→</div>
+    <div class="loop-step"><div class="n en">STEP 05</div><div class="t">认知升级</div></div>
+  </div>
+
+  <div class="spacer"></div>
+  <div class="parent-eye">
+    <div class="tag en">PARENT'S VIEW · 家长视角</div>
+    <h4>孩子卡在段位上不去，您先看他"转不转得动"</h4>
+    <p>很多孩子看似每天都在下棋、做题，其实是"假努力" —— 下完不复盘、错题不复做。请您观察：孩子下完一盘棋，是立刻开下一盘，还是会停下来想一想"哪里下坏了"？前者是重复，后者才是训练。段位突破的关键不在训练时长，而在这个闭环有没有真正转起来。</p>
+  </div>
+
+</section>
+
+<!-- ============ 章二：集训安排 ============ -->
+<section class="fade-up">
+  <div class="chapter-head">
+    <div class="chapter-num en">02</div>
+    <div class="chapter-meta">
+      <div class="en">SUMMER INTENSIVE SCHEDULE</div>
+      <h2>暑假段位班 · 集训安排</h2>
+      <div class="cn-sub">分阶段专项突破，稳步提升棋力。</div>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" data-target="week1">第一周 · 定式专项</button>
+    <button class="tab" data-target="week2">第二周 · 决策能力</button>
+    <button class="tab" data-target="routine">日常规范</button>
+  </div>
+
+  <div class="tab-content active" id="week1">
+    <div class="schedule-card" data-week="01">
+      <span class="week-tag en">WEEK 01</span>
+      <h3>定式专项突破</h3>
+      <p class="goal">夯实定式基础，掌握定式后续变化应对方法 —— 角部争夺的经典演变，是构建全局优势的基石。</p>
+      <div class="sched-items">
+        <div class="sched-item">
+          <div class="t">常用定式全覆盖复习</div>
+          <div class="d">全面排查定式记忆漏洞，确保基础定式记忆准确无误。</div>
+        </div>
+        <div class="sched-item">
+          <div class="t">后续变化推演训练</div>
+          <div class="d">学习不同局面下定式的灵活选择，掌握后续复杂变化的应对方法。</div>
+        </div>
+        <div class="sched-item">
+          <div class="t">实战应用与纠错</div>
+          <div class="d">通过针对性实战对局训练，发现并纠正定式使用中的误区与盲点。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-content" id="week2">
+    <div class="schedule-card" data-week="02">
+      <span class="week-tag en">WEEK 02</span>
+      <h3>决策能力提升</h3>
+      <p class="goal">提升局面判断能力，学会不同局势下的最优决策。</p>
+      <div class="sched-items">
+        <div class="sched-item">
+          <div class="t">形式判断方法系统教学</div>
+          <div class="d">掌握快速估算盘面优劣的技巧，建立科学的目数与厚势量化标准。</div>
+        </div>
+        <div class="sched-item">
+          <div class="t">不同局势下的选择逻辑</div>
+          <div class="d">优势局面稳守胜果，劣势局面制造混乱、寻找翻盘思路。</div>
+        </div>
+        <div class="sched-item">
+          <div class="t">围棋常形效率训练</div>
+          <div class="d">快速识别棋形好坏与行棋效率，避免重复低效落子，提升行棋速度。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-content" id="routine">
+    <div class="schedule-card" data-week="每日">
+      <span class="week-tag en">DAILY ROUTINE</span>
+      <h3>日常训练规范</h3>
+      <p class="goal">通过标准化流程，将围棋思维内化为本能。</p>
+      <div class="sched-items">
+        <div class="sched-item">
+          <div class="t">每日对局规范</div>
+          <div class="d">每日完成指定对局量，严格按标准思维路径落子，坚决杜绝随手棋。</div>
+        </div>
+        <div class="sched-item">
+          <div class="t">深度复盘要求</div>
+          <div class="d">每局必须完成复盘笔记，清晰总结出 <strong>3 个优点</strong> 与 <strong>3 个待改进点</strong>。</div>
+        </div>
+        <div class="sched-item">
+          <div class="t">专项错题回顾</div>
+          <div class="d">错题整理到个人错题本，制定计划定期回顾与重做。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ============ 章三：跨学科迁移 ============ -->
+<section class="fade-up">
+  <div class="chapter-head">
+    <div class="chapter-num en">03</div>
+    <div class="chapter-meta">
+      <div class="en">CROSS-DISCIPLINARY TRANSFER</div>
+      <h2>围棋思维的 · 跨学科学习迁移</h2>
+      <div class="cn-sub">把围棋训练逻辑用到学科学习，实现能力同步提升。</div>
+    </div>
+  </div>
+
+  <blockquote class="pull">学围棋不是为了让孩子当职业棋手，而是让他掌握一套可迁移的通用学习法。棋盘上练出来的"争胜力"和"反思力"，正是考场上用得到的"解题力"和"错题复盘力"。</blockquote>
+
+  <h3 style="font-size:20px;margin:20px 0 14px">能力迁移 · <span class="hl">一一对应</span></h3>
+
+  <div class="transfer-pair">
+    <div class="transfer-side left">
+      <h5>棋盘上练 · 争胜能力</h5>
+      <ul class="transfer-list">
+        <li>求胜动机 → 落子时的深度思考</li>
+        <li>图形计算准确性 → 每步棋的精确读路</li>
+        <li>最优选择能力 → 多方案对比后挑最优</li>
+        <li>不确定性忍耐力 → 算不清时不莽撞</li>
+      </ul>
+    </div>
+    <div class="transfer-arrow">⇒</div>
+    <div class="transfer-side right">
+      <h5>考场上用 · 解题能力</h5>
+      <ul class="transfer-list">
+        <li>解题时的专注力与深度思考意愿</li>
+        <li>理科公式运算 / 文科逻辑的高准确性</li>
+        <li>多思路对比后筛选最优解法</li>
+        <li>面对难题耐心梳理已知条件</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="transfer-pair">
+    <div class="transfer-side left">
+      <h5>棋盘上练 · 反思能力</h5>
+      <ul class="transfer-list">
+        <li>胜负归因 → 清晰定位胜败根源</li>
+        <li>短板定位 → 找思维盲点与知识漏洞</li>
+        <li>训练计划 → 针对补弱专项训练</li>
+      </ul>
+    </div>
+    <div class="transfer-arrow">⇒</div>
+    <div class="transfer-side right">
+      <h5>考场上用 · 错题复盘能力</h5>
+      <ul class="transfer-list">
+        <li>错题归因 → 不把错都归"粗心"，深一层</li>
+        <li>漏洞定位 → 构建个人薄弱知识图谱</li>
+        <li>补弱计划 → 刻意练习避免重复犯错</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+
+  <h3 style="font-size:20px;margin:20px 0 14px">通用解题思维路径 · <span class="hl">八步法</span></h3>
+  <p style="font-size:15px;color:var(--gray);margin:0 0 14px">围棋落子路径可迁移为通用解题路径，适用于所有学科答题场景。</p>
+
+  <div class="mindpath" id="mindpath-transfer">
+    <div class="mindpath-head">
+      <h4>从盲目尝试到精准求解</h4>
+      <div class="hint en">CLICK EACH STEP TO EXPAND</div>
+    </div>
+    <div class="mindpath-body">
+      <div class="mp-row"><div class="mp-num">01</div><div class="mp-body"><div class="t">审题</div><div class="d">仔细审题明确题目要求，精准提取关键信息与已知条件 —— 就像观察盘面整体态势。</div><div class="more">+ 展开</div></div></div>
+      <div class="mp-row"><div class="mp-num">02</div><div class="mp-body"><div class="t">关联</div><div class="d">对比已知条件，关联对应知识点，在大脑中检索知识储备 —— 就像比较不同落子点的潜在得失。</div><div class="more">+ 展开</div></div></div>
+      <div class="mp-row"><div class="mp-num">03</div><div class="mp-body"><div class="t">判断</div><div class="d">判断题目核心考点，识别出题者的真实意图与陷阱 —— 就像判断当前盘面最急迫的需求。</div><div class="more">+ 展开</div></div></div>
+      <div class="mp-row"><div class="mp-num">04</div><div class="mp-body"><div class="t">选择</div><div class="d">选择合适的解题方法，在多种路径中找出最优解 —— 就像选择最符合全局战略的落子方向。</div><div class="more">+ 展开</div></div></div>
+      <div class="mp-row"><div class="mp-num">05</div><div class="mp-body"><div class="t">构思</div><div class="d">构思答题整体框架，在大脑中完成逻辑闭环的设计 —— 就像构思对手可能的应对手段。</div><div class="more">+ 展开</div></div></div>
+      <div class="mp-row"><div class="mp-num">06</div><div class="mp-body"><div class="t">规划</div><div class="d">规划答题步骤，细化计算与推理过程，规避逻辑漏洞 —— 就像制定局部战斗与全局呼应的计划。</div><div class="more">+ 展开</div></div></div>
+      <div class="mp-row"><div class="mp-num">07</div><div class="mp-body"><div class="t">验证</div><div class="d">验证答案是否符合要求，通过逆向推导或估算复核 —— 就像反复验证行棋计划、排查战术漏洞。</div><div class="more">+ 展开</div></div></div>
+      <div class="mp-row"><div class="mp-num">08</div><div class="mp-body"><div class="t">落笔</div><div class="d">最终落笔书写，规范书写步骤，确保卷面整洁、步骤清晰 —— 保持心态冷静、果断落子。</div><div class="more">+ 展开</div></div></div>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+
+  <h3 style="font-size:20px;margin:24px 0 14px">集训节奏 · 对应学期规划</h3>
+  <p style="font-size:15px;color:var(--gray);margin:0 0 16px">把围棋"分阶段集训"的科学训练逻辑，迁移至日常学期规划，通过精准的节奏控制与闭环反馈，实现学习效率的整体提升。</p>
+
+  <div class="rhythm-grid">
+    <div class="rhythm-card">
+      <div class="phase en">PHASE 01 · 开学季</div>
+      <h4>夯实基础</h4>
+      <div class="map">对应 · 第一周定式学习</div>
+      <ul>
+        <li>夯实基础知识点，如同围棋定式般熟记于心</li>
+        <li>构建系统化的知识框架，理清章节脉络</li>
+      </ul>
+    </div>
+    <div class="rhythm-card">
+      <div class="phase en">PHASE 02 · 期中后</div>
+      <h4>综合应用</h4>
+      <div class="map">对应 · 第二周决策训练</div>
+      <ul>
+        <li>提升知识点综合应用能力，应对复杂变化</li>
+        <li>学习不同题型的应对方法，培养解题直觉</li>
+      </ul>
+    </div>
+    <div class="rhythm-card">
+      <div class="phase en">PHASE 03 · 日常要求</div>
+      <h4>复盘迭代</h4>
+      <div class="map">对应 · 日常训练与复盘</div>
+      <ul>
+        <li>每完成一次测验就做深度复盘，查漏补缺</li>
+        <li>整理并定期回顾错题本，避免重复犯错</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+  <div class="parent-eye">
+    <div class="tag en">PARENT'S VIEW · 家长视角</div>
+    <h4>把棋道变成可迁移的通用学习法</h4>
+    <p>段位班集训不只是"下更多棋"，更是让孩子把棋盘上练出来的思维习惯，带回到学校的每一门课里。您在孩子回家时，可以试着问一句：<strong>"今天这盘棋，你最后悔的是哪一步？下次会怎么走？"</strong> 这个问题本身，就是在帮他练"清晰归因"。围棋训练的价值，远远不止棋盘上的那几目棋。</p>
+  </div>
+</section>
+
+<!-- ============ 章四：集训注意事项 ============ -->
+<section class="fade-up">
+  <div class="chapter-head">
+    <div class="chapter-num en">04</div>
+    <div class="chapter-meta">
+      <div class="en">TRAINING PRECAUTIONS</div>
+      <h2>集训 · 注意事项</h2>
+      <div class="cn-sub">遵守规则，最大化集训收益。</div>
+    </div>
+  </div>
+
+  <h3 style="font-size:20px;margin:0 0 14px">课堂与训练纪律</h3>
+  <div class="rule-grid">
+    <div class="rule-card">
+      <div class="idx en">01</div>
+      <div class="body"><h4>专注对局</h4><p>对局时保持安静，不交流思路，独立完成思考。沉浸式思考是提升棋力的关键。</p></div>
+    </div>
+    <div class="rule-card">
+      <div class="idx en">02</div>
+      <div class="body"><h4>认真听讲</h4><p>老师讲解时认真做好笔记，有疑问及时举手提问。积极互动，不放过任何一个知识盲点。</p></div>
+    </div>
+    <div class="rule-card">
+      <div class="idx en">03</div>
+      <div class="body"><h4>高效训练</h4><p>按时完成每日训练任务，不拖欠作业、不敷衍对局。持之以恒的训练才能带来质的飞跃。</p></div>
+    </div>
+    <div class="rule-card">
+      <div class="idx en" style="background:var(--gold)">★</div>
+      <div class="body"><h4>良好纪律是高效训练的基石</h4><p>让我们共同营造专注、高效的学棋氛围。</p></div>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+  <h3 style="font-size:20px;margin:0 0 14px">心态调节与习惯养成</h3>
+  <p style="font-size:15px;color:var(--gray);margin:0 0 16px">本次集训的核心目标不仅是提升棋力，更是养成可终身受益的学习习惯。</p>
+
+  <div class="tabs">
+    <button class="tab active" data-target="mental">心态调节</button>
+    <button class="tab" data-target="habit">核心习惯</button>
+  </div>
+
+  <div class="tab-content active" id="mental">
+    <div class="rule-grid">
+      <div class="rule-card">
+        <div class="idx en">01</div>
+        <div class="body"><h4>自我成长</h4><p>不要因为短期输棋就自我否定，每一次输棋都是发现短板的机会。</p></div>
+      </div>
+      <div class="rule-card">
+        <div class="idx en">02</div>
+        <div class="body"><h4>循序渐进</h4><p>遇到难题不要急于求成，按照思维路径一步步梳理，逐步突破。</p></div>
+      </div>
+      <div class="rule-card">
+        <div class="idx en">03</div>
+        <div class="body"><h4>积极反馈</h4><p>每天训练结束后简单复盘当天的进步点，给自己正向鼓励。</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-content" id="habit">
+    <div class="rule-grid">
+      <div class="rule-card">
+        <div class="idx en">01</div>
+        <div class="body"><h4>深思熟虑</h4><p>养成先思考后行动的习惯，不莽撞决策。</p></div>
+      </div>
+      <div class="rule-card">
+        <div class="idx en">02</div>
+        <div class="body"><h4>知行合一</h4><p>养成复盘反思的习惯，每次行动后都总结经验。</p></div>
+      </div>
+      <div class="rule-card">
+        <div class="idx en">03</div>
+        <div class="body"><h4>目标导向</h4><p>养成制定目标、落地执行的习惯，清晰知道自己每一步努力的方向。</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+
+  <!-- ============ 自检卡 ============ -->
+  <div class="selfcheck" id="selfcheck">
+    <h3><span class="seal-mark">家长自检卡</span> 集训前 · 您家孩子准备好了吗？</h3>
+    <div class="desc">勾选 8 项，看看孩子是否已具备段位班集训所需的"两大能力底座"。勾选完后，点击下方按钮查看您的自检结果。</div>
+    <div class="sc-list">
+      <div class="sc-item" data-key="1"><div class="check">✓</div><div class="txt">孩子下完一盘棋后，能主动停一停、想一想"哪里下坏了"</div></div>
+      <div class="sc-item" data-key="2"><div class="check">✓</div><div class="txt">面对一道不会做的题，孩子能耐心尝试多种方法而不是立刻放弃</div></div>
+      <div class="sc-item" data-key="3"><div class="check">✓</div><div class="txt">孩子有自己的错题本，并且会定期回头重做</div></div>
+      <div class="sc-item" data-key="4"><div class="check">✓</div><div class="txt">孩子在对局中能沉住气，不会为了求快而随手落子</div></div>
+      <div class="sc-item" data-key="5"><div class="check">✓</div><div class="txt">孩子能说清楚自己"哪里赢了、哪里输了"，而不是笼统说"今天手感不好"</div></div>
+      <div class="sc-item" data-key="6"><div class="check">✓</div><div class="txt">孩子有明确的阶段性目标（如这个月要掌握某个定式）</div></div>
+      <div class="sc-item" data-key="7"><div class="check">✓</div><div class="txt">孩子在学校测验后，会主动分析错题而不是只看分数</div></div>
+      <div class="sc-item" data-key="8"><div class="check">✓</div><div class="txt">您作为家长，知道孩子目前最该补强的 1~2 个薄弱点</div></div>
+    </div>
+    <div class="spacer"></div>
+    <div style="text-align:center">
+      <button class="btn primary" id="btn-sc">查看自检结果</button>
+      <button class="btn ghost" id="btn-sc-reset" style="margin-left:8px">清空</button>
+    </div>
+    <div class="sc-result" id="sc-result"></div>
+  </div>
+
+  <div class="spacer"></div>
+  <div class="hw-card">
+    <div class="hw-tag en">集训寄语 · 老师有话说</div>
+    <h4>亲爱的家长，几点小提醒</h4>
+    <ul class="hw-list">
+      <li data-num="TIP 01">开营前和孩子聊一次："这次集训你希望突破哪一个最困扰你的问题？" 帮他把目标具体化。</li>
+      <li data-num="TIP 02">集训期间不要天天问"今天赢了几盘"，可以改问"今天哪一步让你印象最深"。</li>
+      <li data-num="TIP 03">保证孩子充足的睡眠和营养，段位班的思考强度不亚于一次小考。</li>
+      <li data-num="TIP 04">允许孩子集训中"看起来下得不好" —— 暴露问题本身就是集训的价值。</li>
+    </ul>
+  </div>
+
+</section>
+
+<!-- ============ 尾卡 ============ -->
+<section class="fade-up" style="padding:48px 0 60px">
+  <div style="text-align:center">
+    <div style="font-family:'Inter',sans-serif;font-size:12px;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:12px">END · 祝所有同学本次集训都能获得满意的进步</div>
+    <h2 style="font-size:28px;margin:0 0 10px">棋力学力双丰收</h2>
+    <p style="font-size:15px;color:var(--gray);margin:0 0 24px">专注棋道 · 突破自我 · 思维迁移 · 触类旁通</p>
+    <a href="/#contact" class="btn primary">联系老师 · 加入段位班</a>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="links">
+    <a href="/#tools">全部学习</a>
+    <a href="/#parents">家长专区</a>
+    <a href="/#contact">联系老师</a>
+    <a href="/">返回首页</a>
+  </div>
+  <div>萝卜干聊围棋教育 · 专注围棋教育多年</div>
+</footer>
+
+<script>
+  // 进度条
+  window.addEventListener('scroll', function(){
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    var p = (window.scrollY / h) * 100;
+    document.getElementById('progress-bar').style.width = p + '%';
+  });
+  // 滚动淡入
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('visible'); });
+  }, {threshold:0.08});
+  document.querySelectorAll('.fade-up').forEach(function(el){ obs.observe(el); });
+  // 顶部 Hero 立即显示
+  document.querySelector('section.hero').classList.add('visible');
+  // Tabs
+  document.querySelectorAll('.tabs').forEach(function(tabs){
+    tabs.querySelectorAll('.tab').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var target = btn.dataset.target;
+        var container = tabs.parentElement;
+        tabs.querySelectorAll('.tab').forEach(function(b){ b.classList.remove('active'); });
+        btn.classList.add('active');
+        container.querySelectorAll('.tab-content').forEach(function(c){ c.classList.remove('active'); });
+        document.getElementById(target).classList.add('active');
+      });
+    });
+  });
+  // 能力切换
+  document.querySelectorAll('.ability-switch button').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var panel = btn.dataset.panel;
+      btn.parentElement.querySelectorAll('button').forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      document.querySelectorAll('.ability-panel').forEach(function(p){ p.classList.remove('active'); });
+      document.getElementById(panel).classList.add('active');
+    });
+  });
+  // 8 步展开
+  document.querySelectorAll('.mp-row').forEach(function(row){
+    row.addEventListener('click', function(){
+      row.classList.toggle('open');
+      var more = row.querySelector('.more');
+      if(more) more.textContent = row.classList.contains('open') ? '− 收起' : '+ 展开';
+    });
+  });
+  // 自检卡
+  document.querySelectorAll('#selfcheck .sc-item').forEach(function(item){
+    item.addEventListener('click', function(){ item.classList.toggle('checked'); });
+  });
+  document.getElementById('btn-sc').addEventListener('click', function(){
+    var checked = document.querySelectorAll('#selfcheck .sc-item.checked').length;
+    var total = document.querySelectorAll('#selfcheck .sc-item').length;
+    var html = '';
+    if(checked === total){
+      html = '<strong>准备充分！</strong> 孩子在争胜力与反思力两方面都有扎实的底座，本次集训可以全力冲刺，期待突破。';
+    } else if(checked >= 6){
+      html = '<strong>状态良好。</strong> 大部分习惯已具备，只需针对未勾选的 1~2 项，在开营前做针对性调整。';
+    } else if(checked >= 3){
+      html = '<strong>基础尚可，但有明显短板。</strong> 未勾选的项正是孩子最需要补强的地方。建议在开营前和孩子聊一次，帮他建立"反思 + 慢想"的意识。';
+    } else {
+      html = '<strong>需要热身。</strong> 孩子的"反思力"底座还比较薄弱，集训初期可能会觉得吃力。建议开营前先从"每盘棋复盘一个亮点 + 一个改进点"开始练起。';
+    }
+    html += '<div style="margin-top:10px;font-size:13px;color:var(--gray-soft)">已勾选 ' + checked + ' / ' + total + ' 项</div>';
+    var res = document.getElementById('sc-result');
+    res.innerHTML = html;
+    res.classList.add('show');
+  });
+  document.getElementById('btn-sc-reset').addEventListener('click', function(){
+    document.querySelectorAll('#selfcheck .sc-item').forEach(function(i){ i.classList.remove('checked'); });
+    document.getElementById('sc-result').classList.remove('show');
+  });
+</script>
+
+</body>
+</html>
