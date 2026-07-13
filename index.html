@@ -5281,10 +5281,12 @@ function hideParentGuide(){
         var fill=(m.color==='B')?'url(#mm-b)':'url(#mm-w)';
         var strokeC=(m.color==='B')?'#000':'#8a6a3a';
         parts.push('<g class="mm-node" data-name="'+esc(m.name)+'" data-brief="'+esc(m.brief)+'">');
+        // v3.13 fix13 · 透明大热区（覆盖 circle 与上下 label），避免点击死角
+        parts.push('<rect x="'+(cx-24)+'" y="'+(cy-28)+'" width="48" height="68" fill="transparent" pointer-events="all"/>');
         parts.push('<circle cx="'+cx+'" cy="'+cy+'" r="12" fill="'+fill+'" stroke="'+strokeC+'" stroke-width="1"/>');
         // fix11 · 名字上下错落：黑子名字放棋子上方（浅色配深描边·衬棋盘背景），白子名字放棋子下方（深色加粗），字号 10.5→12，加粗更显眼
         if(m.color==='B'){
-          parts.push('<text x="'+cx+'" y="'+(cy-18)+'" font-size="12" fill="#f7edcf" stroke="#2a1a08" stroke-width="0.6" paint-order="stroke" font-weight="700" text-anchor="middle" font-family="KaiTi,STKaiti,serif" letter-spacing="1">'+esc(m.name)+'</text>');
+          parts.push('<text x="'+cx+'" y="'+(cy-18)+'" font-size="12" fill="#2a1a08" stroke="#faf3dc" stroke-width="2.5" paint-order="stroke" font-weight="700" text-anchor="middle" font-family="KaiTi,STKaiti,serif" letter-spacing="1">'+esc(m.name)+'</text>');
         }else{
           parts.push('<text x="'+cx+'" y="'+(cy+32)+'" font-size="12" fill="#2a1a08" font-weight="700" text-anchor="middle" font-family="KaiTi,STKaiti,serif" letter-spacing="1">'+esc(m.name)+'</text>');
         }
@@ -5340,8 +5342,16 @@ function hideParentGuide(){
       nodes[i].addEventListener('mouseleave',function(){tip.classList.remove('show');});
       nodes[i].addEventListener('click',function(e){
         var name=e.currentTarget.getAttribute('data-name');
+        console.log('[mm-node click]', name);
         jumpTo(name);
       });
+      // v3.13 fix13 · 追加 touchend 事件，规避移动端 hover 抢占 click
+      nodes[i].addEventListener('touchend',function(e){
+        e.preventDefault();
+        var name=e.currentTarget.getAttribute('data-name');
+        console.log('[mm-node touchend]', name);
+        jumpTo(name);
+      },{passive:false});
     }
   }
   function jumpTo(name){
@@ -6053,6 +6063,14 @@ header .nav-luobo-ext.dr-entry-btn-alt:hover {
 }
 
 /* ============ /fix12 · 古朴册页视觉升级 ============ */
+
+
+/* ===== v3.13 fix13 · 大师星图 label 深字光晕 + 点击热区 ===== */
+/* fix13 · 强化 mm-node 触摸感 */
+.mm-node { cursor: pointer; touch-action: manipulation; }
+.mm-node rect { cursor: pointer; }
+.mm-node:hover circle { filter: brightness(1.15); }
+/* fix13 END */
 
 </style>
 
