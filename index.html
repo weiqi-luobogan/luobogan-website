@@ -139,13 +139,12 @@
     .card h3.text-xl { font-size: 22px; }
     .card p + p { margin-top: 0.6rem; }
     .fade-in {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      opacity: 1;
+      transform: none;
     }
     .fade-in.visible {
       opacity: 1;
-      transform: translateY(0);
+      transform: none;
     }
     .card {
       background: white;
@@ -762,7 +761,6 @@
     -webkit-overflow-scrolling: touch;
     -ms-overflow-style: none;
     scrollbar-width: none;
-    animation: panelIn 0.32s ease-out;
     padding-top: 68px !important;
     padding-bottom: 60px !important;
   }
@@ -3179,8 +3177,8 @@ header nav .nav-luobo-ext{white-space:nowrap;}
               var isDelimBefore = before === '' || before === ' ' || before === '&' || before === '\u00b7';
               var isDelimAfter = after === '\uff1a' || after === '\u300c' || after === ' ' || after === '&' || after === '(' || after === '\uff08' || after === '';
               if(isDelimBefore && isDelimAfter){
+                if(typeof window.openSection === 'function') window.openSection('culture');
                 showDetail('people', i);
-                scrollToCulture();
                 return true;
               }
             }
@@ -3192,8 +3190,8 @@ header nav .nav-luobo-ext{white-space:nowrap;}
             if(!arts) continue;
             for(var j=0;j<arts.length;j++){
               if(arts[j] && arts[j].title && arts[j].title.indexOf(name) !== -1){
+                if(typeof window.openSection === 'function') window.openSection('culture');
                 showDetail(cat, j);
-                scrollToCulture();
                 return true;
               }
             }
