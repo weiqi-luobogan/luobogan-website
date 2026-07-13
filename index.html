@@ -1217,6 +1217,10 @@
 <a href="javascript:void(0)" class="nav-link nav-luobo-ext dr-entry-btn" onclick="if(window.__luoboOpenDailyRitual)window.__luoboOpenDailyRitual();return false;" style="color:var(--seal,#a94b3d);font-weight:600">📮 每日棋事簿</a>
 <a href="javascript:void(0)" class="nav-link nav-luobo-ext" onclick="if(window.__luoboOpenQuiz)window.__luoboOpenQuiz();return false;">你是哪位棋手</a>
 <a href="javascript:void(0)" class="nav-link nav-luobo-ext dr-entry-btn-alt" onclick="if(window.__luoboOpenMasterMap)window.__luoboOpenMasterMap();return false;">大师星图</a>
+<!-- ===== LUOBO-BRAIN-NAV v1.0 START ===== -->
+<a href="#brain-training" class="nav-link nav-toggle nav-luobo-ext" data-target="brain-training">🧠 思维训练</a>
+<!-- ===== LUOBO-BRAIN-NAV v1.0 END ===== -->
+
 <style>
 /* v3.11 header 加宽 + 收窄默认间距，避免 7 个 nav-link 拥挤 */
 header .max-w-5xl{max-width:88rem!important;}
@@ -2515,6 +2519,582 @@ header nav .nav-luobo-ext{white-space:nowrap;}
     </div>
   </div>
 </section>
+
+<!-- ===== LUOBO-BRAIN v1.0 START (思维训练室) ===== -->
+<style>
+/* 思维训练室 · 样式 */
+.brain-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px;margin-top:32px}
+.brain-card{background:var(--paper,#f6ecd8);border:1px solid var(--line,#d9c9a0);border-radius:6px;padding:20px 18px;transition:all .25s;cursor:pointer;position:relative;overflow:hidden}
+.brain-card:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(122,68,55,.12);border-color:var(--seal,#a94b3d)}
+.brain-card.disabled{cursor:not-allowed;opacity:.55}
+.brain-card.disabled:hover{transform:none;box-shadow:none;border-color:var(--line,#d9c9a0)}
+.brain-card .brain-icon{font-size:36px;margin-bottom:12px;display:block}
+.brain-card h4{font-size:16px;font-weight:700;margin-bottom:6px;color:#3d2817}
+.brain-card .brain-desc{font-size:12px;line-height:1.6;color:#6b5a3a;min-height:38px;margin-bottom:12px}
+.brain-card .brain-tag{display:inline-block;font-size:11px;padding:2px 8px;border-radius:10px;letter-spacing:.05em}
+.brain-card .brain-tag.avail{background:var(--seal,#a94b3d);color:#fff}
+.brain-card .brain-tag.soon{background:#c7b58f;color:#fff}
+.brain-card .brain-recommend{position:absolute;top:8px;right:8px;font-size:10px;background:var(--seal,#a94b3d);color:#fff;padding:2px 6px;border-radius:8px}
+
+/* 工具训练区 */
+.brain-tool-panel{background:var(--paper,#f6ecd8);border:1px solid var(--line,#d9c9a0);border-radius:6px;padding:28px 24px;margin-top:20px}
+.brain-tool-panel .brain-tool-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:12px}
+.brain-tool-panel .brain-tool-title{font-size:20px;font-weight:700;color:#3d2817}
+.brain-tool-panel .brain-tool-back{font-size:13px;color:var(--seal,#a94b3d);cursor:pointer;padding:6px 12px;border:1px solid var(--seal,#a94b3d);border-radius:4px;background:transparent;transition:all .2s}
+.brain-tool-panel .brain-tool-back:hover{background:var(--seal,#a94b3d);color:#fff}
+.brain-tool-panel .brain-intro-text{font-size:14px;line-height:1.75;color:#5a4a2a;margin-bottom:16px}
+.brain-tool-panel .brain-intro-text ul{margin:8px 0 8px 20px;list-style:disc}
+.brain-tool-panel .brain-ref-table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
+.brain-tool-panel .brain-ref-table th,.brain-tool-panel .brain-ref-table td{border:1px solid var(--line,#d9c9a0);padding:6px 10px;text-align:center}
+.brain-tool-panel .brain-ref-table thead{background:#efe3c8;font-weight:600}
+
+/* 舒尔特 */
+.schulte-controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:16px}
+.schulte-controls .size-btn{padding:6px 14px;font-size:13px;border:1px solid var(--line,#d9c9a0);background:#fff;color:#5a4a2a;cursor:pointer;border-radius:4px}
+.schulte-controls .size-btn.active{background:var(--seal,#a94b3d);color:#fff;border-color:var(--seal,#a94b3d)}
+.schulte-status{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:#fff;border:1px solid var(--line,#d9c9a0);border-radius:4px;font-size:14px;margin-bottom:12px}
+.schulte-status .st-target{font-weight:700;color:var(--seal,#a94b3d);font-size:18px}
+.schulte-status .st-time{font-family:'Courier New',monospace;font-size:20px;font-weight:700;color:#3d2817}
+.schulte-grid{display:grid;gap:4px;margin:0 auto;max-width:520px}
+.schulte-cell{aspect-ratio:1;display:flex;align-items:center;justify-content:center;background:#fff;border:1px solid #c7b58f;font-size:24px;font-weight:600;color:#3d2817;cursor:pointer;transition:all .12s;user-select:none;font-family:'Courier New',monospace}
+.schulte-cell:hover{background:#f6ecd8}
+.schulte-cell.done{background:#d4c8a5;color:#8a7550;cursor:default}
+.schulte-cell.wrong{animation:cellShake .3s}
+@keyframes cellShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.schulte-result{text-align:center;padding:24px 12px}
+.schulte-result .result-time{font-size:48px;font-weight:700;color:var(--seal,#a94b3d);font-family:'Courier New',monospace;margin-bottom:8px}
+.schulte-result .result-grade{font-size:20px;color:#3d2817;margin-bottom:6px}
+.schulte-result .result-best{font-size:13px;color:#6b5a3a;margin-bottom:20px}
+.schulte-result .result-btn{padding:10px 26px;background:var(--seal,#a94b3d);color:#fff;border:0;border-radius:4px;font-size:14px;cursor:pointer;margin:0 6px}
+
+/* 数字记忆 */
+.digitspan-stage{text-align:center;padding:40px 12px;min-height:220px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#fff;border:1px solid var(--line,#d9c9a0);border-radius:4px}
+.digitspan-stage .ds-level{font-size:13px;color:#6b5a3a;margin-bottom:16px;letter-spacing:.1em}
+.digitspan-stage .ds-numbers{font-size:64px;font-weight:700;font-family:'Courier New',monospace;color:#3d2817;letter-spacing:.15em;min-height:80px}
+.digitspan-stage .ds-hint{font-size:14px;color:#6b5a3a;margin-top:16px}
+.digitspan-stage .ds-input{font-size:32px;text-align:center;padding:8px 16px;border:2px solid var(--seal,#a94b3d);border-radius:4px;width:80%;max-width:400px;font-family:'Courier New',monospace;letter-spacing:.1em;background:#fdf9ee}
+.digitspan-stage .ds-btn{padding:10px 30px;background:var(--seal,#a94b3d);color:#fff;border:0;border-radius:4px;font-size:14px;cursor:pointer;margin-top:16px}
+.digitspan-stage .ds-btn.secondary{background:transparent;color:var(--seal,#a94b3d);border:1px solid var(--seal,#a94b3d);margin-left:8px}
+
+/* 斯特鲁普 */
+.stroop-stage{text-align:center;padding:24px 12px}
+.stroop-status{display:flex;justify-content:space-around;background:#fff;border:1px solid var(--line,#d9c9a0);border-radius:4px;padding:10px;margin-bottom:20px;font-size:13px}
+.stroop-status span{font-weight:700;color:#3d2817}
+.stroop-word-area{background:#fff;border:1px solid var(--line,#d9c9a0);border-radius:4px;padding:60px 20px;margin-bottom:20px;min-height:180px;display:flex;align-items:center;justify-content:center}
+.stroop-word{font-size:72px;font-weight:700;letter-spacing:.1em}
+.stroop-buttons{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;max-width:520px;margin:0 auto}
+.stroop-btn{padding:16px 8px;font-size:15px;font-weight:600;color:#fff;border:0;border-radius:4px;cursor:pointer;transition:transform .1s}
+.stroop-btn:hover{transform:scale(1.03)}
+.stroop-btn:active{transform:scale(.96)}
+
+@media(max-width:640px){
+  .brain-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+  .brain-card{padding:14px 12px}
+  .brain-card .brain-icon{font-size:28px}
+  .brain-card h4{font-size:14px}
+  .schulte-cell{font-size:18px}
+  .digitspan-stage .ds-numbers{font-size:44px}
+  .stroop-word{font-size:52px}
+  .stroop-buttons{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+
+<!-- ===== 思维训练室 section ===== -->
+<section id="brain-training" class="bg-paper-2 py-24 border-y border-line collapsible">
+  <div class="max-w-4xl mx-auto px-6 fade-in">
+    <h2 class="section-title">思维训练室</h2>
+    <p class="section-lead">
+      围棋教学配套的<span class="hl">思维训练工具</span>——注意力、记忆力、抑制力、空间感，都是围棋对局背后的底层能力。这里精选七类经典脑力训练项目，孩子学棋之余可以顺手一试，老师也可以拿来做课前热身、课间放松。
+    </p>
+
+    <!-- 工具列表（默认显示） -->
+    <div id="brain-list">
+      <div class="brain-grid" id="brain-cards"></div>
+      <p class="text-xs text-gray-soft leading-relaxed mt-8" style="text-align:center;color:#8a7550">
+        <em>本训练室为公益开放；成绩仅保存在本地浏览器，不上传服务器。数据参考基于国内外常用测评标准，仅作趋势参考。</em>
+      </p>
+    </div>
+
+    <!-- 具体工具训练面板（默认隐藏） -->
+    <div id="brain-tool-area" style="display:none"></div>
+  </div>
+</section>
+
+<script>
+(function(){
+  'use strict';
+  // ==== 工具定义 ====
+  const TOOLS = [
+    {
+      id:'schulte', icon:'🎯', name:'舒尔特方格',
+      desc:'经典注意力训练，网格随机 1~N² 按序点击，测你的视觉搜索速度。',
+      avail:true, recommend:true
+    },
+    {
+      id:'digitspan', icon:'🔢', name:'数字顺序记忆',
+      desc:'闪现一串数字后按顺序输入，学棋孩子记棋谱的底层能力。',
+      avail:true
+    },
+    {
+      id:'stroop', icon:'🎨', name:'斯特鲁普效应',
+      desc:'颜色词与字色冲突时的判断，测抑制控制与专注力。',
+      avail:true
+    },
+    {
+      id:'seqmem', icon:'💡', name:'顺序记忆训练',
+      desc:'方块依次亮起复现顺序，工作记忆容量训练。',
+      avail:false
+    },
+    {
+      id:'nback', icon:'🌀', name:'N-Back 记忆',
+      desc:'连续刺激与 N 步前是否相同，认知训练金标准。',
+      avail:false
+    },
+    {
+      id:'huarong', icon:'🧩', name:'数字华容道',
+      desc:'滑块拼图恢复数字顺序，空间规划与耐心训练。',
+      avail:false
+    },
+    {
+      id:'watersort', icon:'🧪', name:'上下瓶色匹配',
+      desc:'倒水式色彩分类小游戏，逻辑推理与手眼协调。',
+      avail:false
+    }
+  ];
+
+  // ==== 主管理器 ====
+  const Brain = {
+    renderList(){
+      const wrap = document.getElementById('brain-cards');
+      if(!wrap) return;
+      wrap.innerHTML = TOOLS.map(t=>`
+        <div class="brain-card ${t.avail?'':'disabled'}" data-tool="${t.id}">
+          ${t.recommend?'<span class="brain-recommend">推荐</span>':''}
+          <span class="brain-icon">${t.icon}</span>
+          <h4>${t.name}</h4>
+          <p class="brain-desc">${t.desc}</p>
+          <span class="brain-tag ${t.avail?'avail':'soon'}">${t.avail?'进入训练 →':'即将开放'}</span>
+        </div>
+      `).join('');
+      wrap.querySelectorAll('.brain-card').forEach(el=>{
+        el.addEventListener('click',()=>{
+          const id = el.dataset.tool;
+          const tool = TOOLS.find(t=>t.id===id);
+          if(!tool||!tool.avail) return;
+          Brain.enterTool(id);
+        });
+      });
+    },
+    enterTool(id){
+      document.getElementById('brain-list').style.display='none';
+      const area = document.getElementById('brain-tool-area');
+      area.style.display='block';
+      area.innerHTML='';
+      const tool = TOOLS.find(t=>t.id===id);
+      const panel = document.createElement('div');
+      panel.className='brain-tool-panel';
+      panel.innerHTML = `
+        <div class="brain-tool-header">
+          <div class="brain-tool-title">${tool.icon} ${tool.name}</div>
+          <button class="brain-tool-back" id="brain-back-btn">← 返回训练室</button>
+        </div>
+        <div id="brain-tool-content"></div>
+      `;
+      area.appendChild(panel);
+      document.getElementById('brain-back-btn').addEventListener('click',Brain.exitTool);
+      area.scrollIntoView({behavior:'smooth',block:'start'});
+      // 初始化对应工具
+      const impl = Brain.tools[id];
+      if(impl) impl.init(document.getElementById('brain-tool-content'));
+    },
+    exitTool(){
+      document.getElementById('brain-list').style.display='';
+      const area = document.getElementById('brain-tool-area');
+      area.style.display='none';
+      area.innerHTML='';
+      document.getElementById('brain-training').scrollIntoView({behavior:'smooth',block:'start'});
+    },
+    tools:{}
+  };
+
+  // ==== 舒尔特方格 ====
+  Brain.tools.schulte = {
+    size:5, next:1, startedAt:null, timerId:null,
+    init(host){
+      host.innerHTML = `
+        <div class="brain-intro-text">
+          <p>把随机排列的数字按 <span class="hl">1→2→3→...→N²</span> 的顺序快速点击，全部点完计时结束。</p>
+          <ul>
+            <li>视线尽量停留在网格中央，用余光扫描——这是训练重点。</li>
+            <li>点错不会终止，但计时不停，鼓励一次做对。</li>
+            <li>训练建议：每天 3-5 局 5×5，坚持一周可见速度提升。</li>
+          </ul>
+          <p class="hl" style="margin-top:12px">数据参考（5×5，单位：秒）</p>
+          <table class="brain-ref-table"><thead><tr><th>年龄段</th><th>优秀</th><th>良好</th><th>一般</th><th>待提升</th></tr></thead>
+          <tbody>
+            <tr><td>7-8 岁</td><td>&lt;35</td><td>35-50</td><td>50-75</td><td>&gt;75</td></tr>
+            <tr><td>9-12 岁</td><td>&lt;28</td><td>28-42</td><td>42-60</td><td>&gt;60</td></tr>
+            <tr><td>成人</td><td>&lt;25</td><td>25-40</td><td>40-55</td><td>&gt;55</td></tr>
+          </tbody></table>
+        </div>
+        <div class="schulte-controls">
+          <span style="font-size:13px;color:#6b5a3a">选择尺寸：</span>
+          <button class="size-btn" data-s="3">3×3</button>
+          <button class="size-btn" data-s="4">4×4</button>
+          <button class="size-btn active" data-s="5">5×5</button>
+          <button class="size-btn" data-s="6">6×6</button>
+        </div>
+        <div class="schulte-status">
+          <div>下一个：<span class="st-target" id="st-target">1</span> / <span id="st-total">25</span></div>
+          <div id="st-best" style="font-size:12px;color:#6b5a3a"></div>
+          <div class="st-time" id="st-time">00.00</div>
+        </div>
+        <div class="schulte-grid" id="st-grid"></div>
+      `;
+      host.querySelectorAll('.size-btn').forEach(btn=>{
+        btn.addEventListener('click',()=>{
+          host.querySelectorAll('.size-btn').forEach(b=>b.classList.remove('active'));
+          btn.classList.add('active');
+          this.size = parseInt(btn.dataset.s);
+          this.render(host);
+        });
+      });
+      this.render(host);
+    },
+    render(host){
+      this.next = 1;
+      this.startedAt = null;
+      if(this.timerId){clearInterval(this.timerId);this.timerId=null}
+      const total = this.size*this.size;
+      const arr = Array.from({length:total},(_,i)=>i+1);
+      for(let i=arr.length-1;i>0;i--){
+        const j = Math.floor(Math.random()*(i+1));
+        [arr[i],arr[j]]=[arr[j],arr[i]];
+      }
+      const grid = host.querySelector('#st-grid');
+      grid.style.gridTemplateColumns = `repeat(${this.size},1fr)`;
+      grid.innerHTML = arr.map(n=>`<div class="schulte-cell" data-n="${n}">${n}</div>`).join('');
+      host.querySelector('#st-target').textContent = '1';
+      host.querySelector('#st-total').textContent = total;
+      host.querySelector('#st-time').textContent = '00.00';
+      const bestKey = `luobo_brain_schulte_${this.size}x${this.size}_best`;
+      const best = localStorage.getItem(bestKey);
+      host.querySelector('#st-best').textContent = best?`最佳 ${(parseFloat(best)/1000).toFixed(2)}s`:'';
+      grid.querySelectorAll('.schulte-cell').forEach(cell=>{
+        cell.addEventListener('click',()=>this.onClick(cell,host));
+      });
+    },
+    onClick(cell,host){
+      const n = parseInt(cell.dataset.n);
+      if(cell.classList.contains('done')) return;
+      if(n !== this.next){
+        cell.classList.add('wrong');
+        setTimeout(()=>cell.classList.remove('wrong'),300);
+        return;
+      }
+      if(this.next===1){
+        this.startedAt = Date.now();
+        this.timerId = setInterval(()=>{
+          const t = (Date.now()-this.startedAt)/1000;
+          host.querySelector('#st-time').textContent = t.toFixed(2).padStart(5,'0');
+        },50);
+      }
+      cell.classList.add('done');
+      this.next++;
+      host.querySelector('#st-target').textContent = this.next;
+      if(this.next > this.size*this.size){
+        this.finish(host);
+      }
+    },
+    finish(host){
+      clearInterval(this.timerId);
+      this.timerId = null;
+      const ms = Date.now() - this.startedAt;
+      const bestKey = `luobo_brain_schulte_${this.size}x${this.size}_best`;
+      const prev = parseFloat(localStorage.getItem(bestKey))||Infinity;
+      const isBest = ms < prev;
+      if(isBest) localStorage.setItem(bestKey,ms);
+      const s = ms/1000;
+      const grade = this.grade(s);
+      host.innerHTML = `
+        <div class="schulte-result">
+          <div class="result-time">${s.toFixed(2)}s</div>
+          <div class="result-grade">评级：<span class="hl">${grade.label}</span> ${grade.emoji}</div>
+          <div class="result-best">${isBest?'🎉 破纪录！':'历史最佳 '+(prev===Infinity?'—':(prev/1000).toFixed(2)+'s')}</div>
+          <p style="font-size:13px;color:#6b5a3a;margin-bottom:20px;max-width:520px;margin-left:auto;margin-right:auto">${grade.tip}</p>
+          <button class="result-btn" id="st-again">再来一局</button>
+          <button class="result-btn" id="st-changesize" style="background:transparent;color:var(--seal);border:1px solid var(--seal)">换个尺寸</button>
+        </div>
+      `;
+      host.querySelector('#st-again').addEventListener('click',()=>this.init(host));
+      host.querySelector('#st-changesize').addEventListener('click',()=>{
+        this.size = 5;
+        this.init(host);
+      });
+    },
+    grade(s){
+      // 按 5×5 成人标准换算，其他尺寸线性缩放
+      const base = s * (25/(this.size*this.size));
+      if(base < 25) return {label:'优秀',emoji:'⭐⭐⭐',tip:'反应敏锐，可以尝试更大尺寸挑战。'};
+      if(base < 40) return {label:'良好',emoji:'⭐⭐',tip:'状态不错，多练习可以再快 5-10 秒。'};
+      if(base < 55) return {label:'一般',emoji:'⭐',tip:'继续加练，重点是视线定住网格中央用余光扫描。'};
+      return {label:'待提升',emoji:'💪',tip:'第一次别急，找到"用余光"的感觉就快了。'};
+    }
+  };
+
+  // ==== 数字顺序记忆 ====
+  Brain.tools.digitspan = {
+    level:3, correctStreak:0,
+    init(host){
+      this.level = 3;
+      this.correctStreak = 0;
+      host.innerHTML = `
+        <div class="brain-intro-text">
+          <p>屏幕会闪现一串数字，短暂消失后请按<span class="hl">原顺序</span>输入。</p>
+          <ul>
+            <li>从 3 位开始，答对后 +1 位，答错则本轮结束。</li>
+            <li>正常人一般能记到 <span class="hl">7±2</span> 位，围棋高段位学员常达 9-11 位。</li>
+            <li>训练技巧：默念、分组（如 "234-567"）、想象空间图像。</li>
+          </ul>
+          <p class="hl" style="margin-top:12px">数据参考（最大位数）</p>
+          <table class="brain-ref-table"><thead><tr><th>年龄段</th><th>优秀</th><th>良好</th><th>一般</th></tr></thead>
+          <tbody>
+            <tr><td>6-7 岁</td><td>≥6</td><td>4-5</td><td>≤3</td></tr>
+            <tr><td>8-10 岁</td><td>≥7</td><td>5-6</td><td>≤4</td></tr>
+            <tr><td>11 岁+</td><td>≥8</td><td>6-7</td><td>≤5</td></tr>
+          </tbody></table>
+        </div>
+        <div class="digitspan-stage" id="ds-stage"></div>
+      `;
+      this.showReady(host);
+    },
+    showReady(host){
+      const stage = host.querySelector('#ds-stage');
+      const best = parseInt(localStorage.getItem('luobo_brain_digitspan_best')||'0');
+      stage.innerHTML = `
+        <div class="ds-level">当前难度：${this.level} 位数字</div>
+        <div class="ds-hint">${best?`历史最佳 <span class="hl">${best}</span> 位`:''}</div>
+        <button class="ds-btn" id="ds-start">开始 →</button>
+      `;
+      stage.querySelector('#ds-start').addEventListener('click',()=>this.showNumbers(host));
+    },
+    showNumbers(host){
+      const digits = [];
+      for(let i=0;i<this.level;i++) digits.push(Math.floor(Math.random()*10));
+      this.currentAnswer = digits.join('');
+      const duration = 1500 + Math.max(0,(this.level-3))*250;
+      const stage = host.querySelector('#ds-stage');
+      stage.innerHTML = `
+        <div class="ds-level">第 ${this.level} 位挑战 · 请记住</div>
+        <div class="ds-numbers" id="ds-numbers">${digits.join(' ')}</div>
+      `;
+      setTimeout(()=>this.askInput(host),duration);
+    },
+    askInput(host){
+      const stage = host.querySelector('#ds-stage');
+      stage.innerHTML = `
+        <div class="ds-level">请按顺序输入你刚才看到的数字</div>
+        <div style="margin:16px 0"><input type="tel" inputmode="numeric" maxlength="15" class="ds-input" id="ds-input" autocomplete="off"></div>
+        <div><button class="ds-btn" id="ds-submit">提交</button></div>
+      `;
+      const input = stage.querySelector('#ds-input');
+      input.focus();
+      const submit = ()=>{
+        const val = input.value.replace(/\D/g,'');
+        this.checkAnswer(host,val);
+      };
+      stage.querySelector('#ds-submit').addEventListener('click',submit);
+      input.addEventListener('keydown',e=>{if(e.key==='Enter')submit()});
+    },
+    checkAnswer(host,val){
+      const stage = host.querySelector('#ds-stage');
+      const correct = val === this.currentAnswer;
+      if(correct){
+        this.correctStreak++;
+        const nextLevel = this.level + 1;
+        stage.innerHTML = `
+          <div class="ds-level">✓ 正确！</div>
+          <div class="ds-numbers" style="font-size:36px">${this.currentAnswer}</div>
+          <div class="ds-hint">下一关：<span class="hl">${nextLevel}</span> 位</div>
+          <button class="ds-btn" id="ds-next">继续挑战 →</button>
+          <button class="ds-btn secondary" id="ds-stop">见好就收</button>
+        `;
+        stage.querySelector('#ds-next').addEventListener('click',()=>{
+          this.level = nextLevel;
+          this.showNumbers(host);
+        });
+        stage.querySelector('#ds-stop').addEventListener('click',()=>this.finish(host,true));
+      }else{
+        this.finish(host,false,val);
+      }
+    },
+    finish(host,byChoice,userVal){
+      const stage = host.querySelector('#ds-stage');
+      const reached = this.level - (byChoice?0:1);
+      const finalReached = Math.max(reached,0);
+      const bestKey = 'luobo_brain_digitspan_best';
+      const prev = parseInt(localStorage.getItem(bestKey)||'0');
+      const isBest = finalReached > prev;
+      if(isBest) localStorage.setItem(bestKey,finalReached);
+      let msg = '';
+      if(byChoice) msg = `见好就收，成功挑战到 <span class="hl">${finalReached}</span> 位。`;
+      else msg = `本轮到 <span class="hl">${finalReached}</span> 位。正确答案：<span style="font-family:'Courier New',monospace">${this.currentAnswer}</span>，你输入：${userVal||'(空)'}`;
+      const grade = finalReached>=8?'优秀 ⭐⭐⭐':finalReached>=6?'良好 ⭐⭐':finalReached>=4?'一般 ⭐':'继续加油 💪';
+      stage.innerHTML = `
+        <div class="ds-level">本轮结束</div>
+        <div class="ds-numbers" style="font-size:56px">${finalReached}</div>
+        <div class="ds-hint">${msg}</div>
+        <div class="ds-hint" style="margin-top:8px">评级：${grade}${isBest?' · 🎉 破纪录！':(prev?' · 历史最佳 '+prev+' 位':'')}</div>
+        <div style="margin-top:16px">
+          <button class="ds-btn" id="ds-restart">再来一次</button>
+        </div>
+      `;
+      stage.querySelector('#ds-restart').addEventListener('click',()=>{
+        this.level = 3;
+        this.showReady(host);
+      });
+    }
+  };
+
+  // ==== 斯特鲁普效应 ====
+  Brain.tools.stroop = {
+    COLORS:[
+      {key:'red',name:'红色',hex:'#c94a4a'},
+      {key:'yellow',name:'黄色',hex:'#d9a441'},
+      {key:'blue',name:'蓝色',hex:'#3d6ea3'},
+      {key:'green',name:'绿色',hex:'#4a8556'},
+      {key:'purple',name:'紫色',hex:'#7a5aa8'}
+    ],
+    DURATION:60000,
+    correct:0, wrong:0, times:[], startedAt:null, timerId:null, currentWord:null,
+    init(host){
+      host.innerHTML = `
+        <div class="brain-intro-text">
+          <p>屏幕中央会显示一个颜色词（如"<span style="color:#3d6ea3;font-weight:700">红色</span>"），但字色可能不一致。请点击底部按钮，选择<span class="hl">字的颜色</span>（不是词义）。</p>
+          <ul>
+            <li>60 秒内答对越多越好，答错扣 3 分，答对得 10 分。</li>
+            <li>训练点：抑制"读字"的自动化反应，专注视觉信号。</li>
+            <li>围棋教学中对应"看清楚棋型再落子，不被本能定式带跑"。</li>
+          </ul>
+          <p class="hl" style="margin-top:12px">数据参考（60秒内答对数）</p>
+          <table class="brain-ref-table"><thead><tr><th>水平</th><th>优秀</th><th>良好</th><th>一般</th></tr></thead>
+          <tbody>
+            <tr><td>7-10 岁</td><td>≥45</td><td>30-44</td><td>&lt;30</td></tr>
+            <tr><td>11 岁+</td><td>≥55</td><td>40-54</td><td>&lt;40</td></tr>
+          </tbody></table>
+        </div>
+        <div class="stroop-stage" id="stroop-stage"></div>
+      `;
+      this.showReady(host);
+    },
+    showReady(host){
+      const stage = host.querySelector('#stroop-stage');
+      const best = parseInt(localStorage.getItem('luobo_brain_stroop_best')||'0');
+      stage.innerHTML = `
+        <div style="padding:60px 20px;text-align:center">
+          <div style="font-size:48px;margin-bottom:16px">🎨</div>
+          <div style="font-size:15px;color:#5a4a2a;margin-bottom:20px">准备好后点击开始，60 秒计时挑战</div>
+          ${best?`<div style="font-size:13px;color:#6b5a3a;margin-bottom:20px">历史最佳分数：<span class="hl">${best}</span></div>`:''}
+          <button class="ds-btn" id="stroop-start" style="padding:10px 30px;background:var(--seal);color:#fff;border:0;border-radius:4px;font-size:14px;cursor:pointer">开始挑战 →</button>
+        </div>
+      `;
+      stage.querySelector('#stroop-start').addEventListener('click',()=>this.start(host));
+    },
+    start(host){
+      this.correct = 0; this.wrong = 0; this.times = [];
+      this.startedAt = Date.now();
+      const stage = host.querySelector('#stroop-stage');
+      stage.innerHTML = `
+        <div class="stroop-status">
+          <div>剩余：<span id="stroop-time">60.0</span>s</div>
+          <div>正确：<span id="stroop-correct">0</span></div>
+          <div>错误：<span id="stroop-wrong">0</span></div>
+        </div>
+        <div class="stroop-word-area"><div class="stroop-word" id="stroop-word">-</div></div>
+        <div class="stroop-buttons" id="stroop-buttons"></div>
+      `;
+      const btnWrap = stage.querySelector('#stroop-buttons');
+      btnWrap.innerHTML = this.COLORS.map(c=>`
+        <button class="stroop-btn" style="background:${c.hex}" data-key="${c.key}">${c.name}</button>
+      `).join('');
+      btnWrap.querySelectorAll('.stroop-btn').forEach(btn=>{
+        btn.addEventListener('click',()=>this.onAnswer(host,btn.dataset.key));
+      });
+      this.timerId = setInterval(()=>this.tick(host),100);
+      this.nextWord(host);
+    },
+    tick(host){
+      const remain = this.DURATION - (Date.now()-this.startedAt);
+      if(remain<=0){
+        this.finish(host);
+        return;
+      }
+      const el = host.querySelector('#stroop-time');
+      if(el) el.textContent = (remain/1000).toFixed(1);
+    },
+    nextWord(host){
+      const wordC = this.COLORS[Math.floor(Math.random()*this.COLORS.length)];
+      let colorC = this.COLORS[Math.floor(Math.random()*this.COLORS.length)];
+      // 60% 概率冲突
+      if(Math.random()<0.6){
+        while(colorC.key===wordC.key) colorC = this.COLORS[Math.floor(Math.random()*this.COLORS.length)];
+      }
+      this.currentWord = {word:wordC.name, colorKey:colorC.key};
+      const el = host.querySelector('#stroop-word');
+      el.textContent = wordC.name;
+      el.style.color = colorC.hex;
+      this.answerStart = Date.now();
+    },
+    onAnswer(host,key){
+      if(!this.currentWord) return;
+      const dt = Date.now()-this.answerStart;
+      this.times.push(dt);
+      if(key === this.currentWord.colorKey){
+        this.correct++;
+        host.querySelector('#stroop-correct').textContent = this.correct;
+      }else{
+        this.wrong++;
+        host.querySelector('#stroop-wrong').textContent = this.wrong;
+      }
+      this.nextWord(host);
+    },
+    finish(host){
+      clearInterval(this.timerId);
+      const stage = host.querySelector('#stroop-stage');
+      const score = this.correct*10 - this.wrong*3;
+      const avgRT = this.times.length? Math.round(this.times.reduce((a,b)=>a+b,0)/this.times.length):0;
+      const bestKey = 'luobo_brain_stroop_best';
+      const prev = parseInt(localStorage.getItem(bestKey)||'0');
+      const isBest = score > prev;
+      if(isBest) localStorage.setItem(bestKey,score);
+      const grade = this.correct>=55?'优秀 ⭐⭐⭐':this.correct>=40?'良好 ⭐⭐':this.correct>=25?'一般 ⭐':'继续加油 💪';
+      stage.innerHTML = `
+        <div style="text-align:center;padding:24px 12px">
+          <div style="font-size:48px;font-weight:700;color:var(--seal);font-family:'Courier New',monospace">${score}</div>
+          <div style="font-size:16px;color:#3d2817;margin:8px 0">得分</div>
+          <div style="font-size:13px;color:#6b5a3a;margin:12px 0">
+            答对 <span class="hl">${this.correct}</span> · 答错 <span class="hl">${this.wrong}</span> · 平均反应 <span class="hl">${avgRT}</span>ms
+          </div>
+          <div style="font-size:14px;color:#3d2817;margin-bottom:8px">评级：${grade}</div>
+          <div style="font-size:12px;color:#6b5a3a;margin-bottom:20px">${isBest?'🎉 破纪录！':(prev?'历史最佳 '+prev+' 分':'')}</div>
+          <button class="ds-btn" id="stroop-restart" style="padding:10px 30px;background:var(--seal);color:#fff;border:0;border-radius:4px;font-size:14px;cursor:pointer">再来一次</button>
+        </div>
+      `;
+      stage.querySelector('#stroop-restart').addEventListener('click',()=>this.showReady(host));
+    }
+  };
+
+  // ==== 启动 ====
+  function boot(){
+    Brain.renderList();
+    window.__luoboBrain = Brain;
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot);
+  else boot();
+})();
+</script>
+<!-- ===== LUOBO-BRAIN v1.0 END ===== -->
+
 
 <!-- ===== Interact ===== -->
 <section id="interact" class="bg-paper-2 py-24 border-y border-line collapsible">
