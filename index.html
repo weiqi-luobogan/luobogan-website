@@ -5670,6 +5670,7 @@ AI 是训练工具，不是老师替身<br>
   // ==== 结果 & 分级 ====
   function evalLevel(timeSec, age){
     var n = NORM[age] || NORM['26-35'];
+    if (timeSec <= 12) return { level:'极快', tone:'你的用时进入 12 秒极值区间，明显快过同龄段与教师群体基准。' };
     if (timeSec <= n.min) return { level:'较快', tone:'你的用时优于本年龄段常模区间，注意力集中度不错。' };
     if (timeSec <= n.max) return { level:'常模内', tone:'你的用时落在本年龄段常模区间内，属于正常水平。' };
     if (timeSec <= n.max * 1.3) return { level:'略慢', tone:'你的用时比本年龄段常模略慢，多做规律训练会有稳定改善。' };
