@@ -1,26 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://weiqiluobogan.com/</loc>
-    <lastmod>2026-07-09</lastmod>
+    <loc>https://www.weiqiluobogan.com/</loc>
+    <lastmod>2026-07-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://weiqiluobogan.com/xxyd/</loc>
-    <lastmod>2026-07-09</lastmod>
+    <loc>https://www.weiqiluobogan.com/#culture</loc>
+    <lastmod>2026-07-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.weiqiluobogan.com/#tools</loc>
+    <lastmod>2026-07-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.weiqiluobogan.com/#brain</loc>
+    <lastmod>2026-07-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.weiqiluobogan.com/#parents</loc>
+    <lastmod>2026-07-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.weiqiluobogan.com/#teacher</loc>
+    <lastmod>2026-07-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.weiqiluobogan.com/#showcase</loc>
+    <lastmod>2026-07-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.weiqiluobogan.com/#teaching</loc>
+    <lastmod>2026-07-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://weiqiluobogan.com/xxyd/lesson-01.html</loc>
-    <lastmod>2026-06-25</lastmod>
+    <loc>https://www.weiqiluobogan.com/#daily</loc>
+    <lastmod>2026-07-14</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.weiqiluobogan.com/#master</loc>
+    <lastmod>2026-07-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.weiqiluobogan.com/#quiz</loc>
+    <lastmod>2026-07-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://weiqiluobogan.com/xxyd/lesson-02.html</loc>
-    <lastmod>2026-06-25</lastmod>
+    <loc>https://www.weiqiluobogan.com/#contact</loc>
+    <lastmod>2026-07-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
