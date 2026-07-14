@@ -5235,10 +5235,12 @@ AI 是训练工具，不是老师替身<br>
         <!-- 分享海报 -->
         <div class="ct-poster-wrap">
           <div class="ct-poster-title">分享海报</div>
-          <canvas id="ct-poster-canvas" width="750" height="1334"></canvas>
+          <canvas id="ct-poster-canvas" width="750" height="1334" style="display:none"></canvas>
+          <img id="ct-poster-img" alt="专注力测试海报" style="display:none">
+          <div class="ct-poster-mobile-tip">👆 长按上方图片保存到相册，再打开微信分享到朋友圈</div>
           <div class="ct-poster-actions">
-            <button type="button" id="ct-btn-download" class="ct-btn-secondary">下载海报</button>
-            <span class="ct-poster-tip">手机端可长按海报保存到相册</span>
+            <button type="button" id="ct-btn-download" class="ct-btn-secondary">下载海报到本地</button>
+            <span class="ct-poster-tip">已生成，可右键或长按图片保存</span>
           </div>
         </div>
 
@@ -5433,6 +5435,16 @@ AI 是训练工具，不是老师替身<br>
   border-radius:6px; box-shadow:0 4px 16px rgba(0,0,0,0.1);
   display:block; margin:0 auto;
 }
+#concentration-test #ct-poster-img {
+  max-width:min(320px, 80%); height:auto; border:1px solid #c8b48a;
+  border-radius:6px; box-shadow:0 4px 16px rgba(0,0,0,0.1);
+  display:block; margin:0 auto; -webkit-touch-callout:default;
+}
+#concentration-test .ct-poster-mobile-tip {
+  display:none; text-align:center; font-size:.85rem; color:#8b3a3a;
+  margin-top:.75rem; padding:.5rem .75rem; background:#faf0dd;
+  border:1px dashed #c8b48a; border-radius:4px; line-height:1.6;
+}
 #concentration-test .ct-poster-actions {
   margin-top:.75rem; display:flex; flex-wrap:wrap; gap:.75rem;
   justify-content:center; align-items:center;
@@ -5458,14 +5470,18 @@ AI 是训练工具，不是老师替身<br>
 
 /* 移动端 */
 @media (max-width: 640px) {
+  #concentration-test .section-lead { padding-right: 3.2rem; }
   #concentration-test .ct-card { padding:1.2rem 1rem; }
-  #concentration-test .ct-grid { gap:4px; padding:4px; }
-  #concentration-test .ct-cell { min-height:52px; font-size:1.3rem; }
+  #concentration-test .ct-grid { gap:4px; padding:4px; grid-template-columns:repeat(5, minmax(0, 1fr)); }
+  #concentration-test .ct-cell { min-height:0; min-width:0; font-size:clamp(1rem, 4.2vw, 1.4rem); }
   #concentration-test .ct-result-time { font-size:3rem; }
   #concentration-test .ct-timer-value { font-size:1.6rem; min-width:4.5em; }
   #concentration-test .ct-radio { padding:.45rem .7rem; font-size:.85rem; }
   #concentration-test .ct-form-grid { grid-template-columns:1fr; }
   #concentration-test .ct-game-header { flex-direction:column; align-items:flex-start; }
+  #concentration-test .ct-poster-mobile-tip { display:block; }
+  #concentration-test #ct-btn-download { display:none; }
+  #concentration-test .ct-poster-tip { display:none; }
 }
 </style>
 
@@ -5845,6 +5861,15 @@ AI 是训练工具，不是老师替身<br>
     ctx.fillStyle = '#8b3a3a';
     ctx.font = '24px "Courier New",monospace';
     ctx.fillText('www.weiqiluobogan.com', W/2, H - 65);
+
+    // 同步塞给 <img> 元素，供手机端长按保存到相册（微信 X5 内核对 canvas 不支持长按）
+    try {
+      var posterImg = document.getElementById('ct-poster-img');
+      if (posterImg) {
+        posterImg.src = canvas.toDataURL('image/png');
+        posterImg.style.display = 'block';
+      }
+    } catch(e) { /* 极端情况：canvas 被污染，静默失败 */ }
   }
 
   function wrapText(ctx, text, x, y, maxWidth, lineHeight){
