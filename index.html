@@ -5763,6 +5763,10 @@ function hideParentGuide(){
     document.body.classList.remove('body-lock');
     document.querySelectorAll('.side-nav a').forEach(a => a.classList.remove('active'));
   }
+  // ===== LUOBO-OPENSECTION-EXPOSE v1.0 START =====
+  // v3.14 fix18 · 大师星图点击跳转彻底修复：openSection 暴露到 window，供 __luoboJumpToMaster 调用
+  window.openSection = openSection;
+  // ===== LUOBO-OPENSECTION-EXPOSE v1.0 END =====
   window.closeAllPanels = closeAllPanels;
 
   // ===== v3.3: 智能层级关闭 —— 板块有子视图时先分层返回，最外层才关整个板块 =====
