@@ -5503,8 +5503,8 @@ AI 是训练工具，不是老师替身<br>
     '46-55':   {min:50, max:65, label:'46-55 岁'},
     '55+':     {min:55, max:70, label:'55 岁以上'}
   };
-  // 围棋教师群体基准（种子数据）
-  var TEACHER_BASELINE = { n:15, avg:38.5, label:'围棋教师内测样本' };
+  // 围棋教师群体基准（真实测试样本，2026-07-14 更新自内测种子）
+  var TEACHER_BASELINE = { n:15, avg:17.8, label:'围棋教师真实样本' };
   var STORAGE_KEY = 'luobo_ct_history_v1';
   var LAST_INFO_KEY = 'luobo_ct_lastinfo_v1';
 
@@ -10880,4 +10880,12 @@ header .nav-luobo-ext.dr-entry-btn-alt:hover {
   if(document.readyState === 'loading'){
     document.addEventListener('DOMContentLoaded', boot);
   } else { boot(); }
-  // 延迟兜底（等其他 IIFE 都定义完 window 钩
+  // 延迟兜底（等其他 IIFE 都定义完 window 钩子）
+  setTimeout(boot, 500);
+  setTimeout(boot, 1500);
+})();
+</script>
+<!-- ===== LUOBO-HASH-ROUTE-V1 END ===== -->
+</body>
+</html>
+<!-- redeploy-47eed18dv4r1_v5_v6 -->
