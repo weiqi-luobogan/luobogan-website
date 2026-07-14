@@ -13,7 +13,19 @@
   <meta property="og:image" content="assets/books/main.jpg">
   <meta property="og:type" content="website">
     <link rel="canonical" href="https://www.weiqiluobogan.com/">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A5%95%3C/text%3E%3C/svg%3E">
+    <!-- Favicon 全套（PNG/ICO 多尺寸，兼容 Bing/百度/Google 搜索快照抓取） -->
+    <link rel="icon" href="/assets/favicon/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon/favicon-48.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon/favicon-96.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon/android-chrome-192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
+    <link rel="manifest" href="/assets/favicon/site.webmanifest">
+    <meta name="msapplication-TileColor" content="#F5F0E6">
+    <meta name="msapplication-TileImage" content="/assets/favicon/mstile-150.png">
+    <meta name="theme-color" content="#F5F0E6">
+    <meta property="og:image" content="https://www.weiqiluobogan.com/assets/favicon/og-image.png">
     <meta name="keywords" content="围棋教育, 少儿围棋, 围棋教师培训, 家庭围棋教育, 萝卜干, 教师训练营, 围棋家长咨询">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -3604,6 +3616,12 @@ AI 是训练工具，不是老师替身<br>
         <div class="edulab-card-icon">📚</div>
         <h3 class="edulab-card-title">围棋故事启蒙版</h3>
         <p class="edulab-card-intro">给 5-8 岁孩子听的围棋故事——让孩子先爱上围棋文化，再爱上下棋。</p>
+        <div class="edulab-card-more">进入 →</div>
+      </button>
+      <button class="edulab-card" data-card-id="focus-games" onclick="openClassroomGames()">
+        <div class="edulab-card-icon">🕹️</div>
+        <h3 class="edulab-card-title">课堂小游戏</h3>
+        <p class="edulab-card-intro">专注力·记忆·视觉搜索·反应力……多类型脑力小游戏，支持学生建档、通关记录保存与导出，协助老师做智力水平数据监控。</p>
         <div class="edulab-card-more">进入 →</div>
       </button>
       </div>
@@ -10886,6 +10904,1071 @@ header .nav-luobo-ext.dr-entry-btn-alt:hover {
 })();
 </script>
 <!-- ===== LUOBO-HASH-ROUTE-V1 END ===== -->
+
+<!-- ============ LUOBO-CG-MODULE START v1 · 启蒙教研·课堂小游戏 ============ -->
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<style>
+/* ============ CG · 课堂小游戏 全屏覆盖层样式 ============ */
+#cg-overlay{position:fixed;inset:0;z-index:9998;background:#f8f5ef;display:none;overflow-y:auto;font-family:'Noto Serif SC','Songti SC','STSong',serif;color:#1a1a1a;}
+#cg-overlay.cg-open{display:block;}
+.cg-shell{max-width:1180px;margin:0 auto;padding:24px 24px 64px;}
+.cg-topbar{position:sticky;top:0;background:#f8f5ef;border-bottom:1px solid #e6e0d5;padding:16px 24px;margin:-24px -24px 20px;z-index:5;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.cg-topbar h1{font-size:20px;font-weight:900;margin:0;color:#1a1a1a;letter-spacing:.04em;}
+.cg-topbar .cg-teacher{font-size:13px;color:#8a7550;margin-left:8px;}
+.cg-topbar .cg-btn-close{margin-left:auto;background:#a8362a;color:#fff;border:none;padding:8px 18px;border-radius:6px;font-size:13px;cursor:pointer;font-family:inherit;}
+.cg-topbar .cg-btn-close:hover{opacity:.9;}
+.cg-topbar .cg-btn-nav{background:transparent;border:1px solid #c8b48a;color:#6b5b3d;padding:6px 14px;border-radius:6px;font-size:13px;cursor:pointer;font-family:inherit;}
+.cg-topbar .cg-btn-nav.active{background:#8b3a3a;color:#fff;border-color:#8b3a3a;}
+.cg-page{display:none;animation:cgFade .25s ease;}
+.cg-page.active{display:block;}
+@keyframes cgFade{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:none;}}
+
+/* setup 页 */
+.cg-setup-card{max-width:520px;margin:60px auto;background:#fff;border:1px solid #e6e0d5;border-radius:10px;padding:36px 32px;box-shadow:0 2px 16px rgba(139,58,58,.06);text-align:center;}
+.cg-setup-card h2{font-size:24px;margin:0 0 12px;font-weight:900;}
+.cg-setup-card p{font-size:14px;color:#6b5b3d;line-height:1.75;margin:0 0 24px;}
+.cg-input{width:100%;padding:12px 14px;font-size:15px;border:1px solid #c8b48a;border-radius:6px;font-family:inherit;background:#fff;color:#1a1a1a;box-sizing:border-box;}
+.cg-input:focus{outline:none;border-color:#8b3a3a;}
+.cg-btn-primary{background:#8b3a3a;color:#fff;border:none;padding:12px 28px;font-size:14px;border-radius:6px;cursor:pointer;font-family:inherit;letter-spacing:.08em;}
+.cg-btn-primary:hover{opacity:.9;}
+.cg-btn-secondary{background:#fff;border:1px solid #c8b48a;color:#6b5b3d;padding:8px 16px;font-size:13px;border-radius:6px;cursor:pointer;font-family:inherit;margin-right:8px;}
+.cg-btn-secondary:hover{background:#f5ecd7;}
+.cg-btn-danger{background:transparent;border:1px solid #a8362a;color:#a8362a;padding:6px 12px;font-size:12px;border-radius:5px;cursor:pointer;font-family:inherit;}
+.cg-btn-danger:hover{background:#a8362a;color:#fff;}
+
+/* home 页 · 两栏 */
+.cg-home-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:8px;}
+@media (max-width:820px){.cg-home-grid{grid-template-columns:1fr;}}
+.cg-panel{background:#fff;border:1px solid #e6e0d5;border-radius:10px;padding:20px 22px;}
+.cg-panel h3{font-size:16px;font-weight:700;margin:0 0 14px;color:#1a1a1a;letter-spacing:.03em;padding-bottom:8px;border-bottom:1px dashed #e6e0d5;}
+.cg-panel .cg-panel-tip{font-size:12px;color:#8a7550;margin:0 0 12px;line-height:1.7;}
+
+/* 学生列表 */
+.cg-student-list{list-style:none;padding:0;margin:0 0 12px;max-height:280px;overflow-y:auto;}
+.cg-student-item{display:flex;align-items:center;gap:10px;padding:10px 12px;margin-bottom:6px;background:#f8f5ef;border-radius:6px;border:1px solid #eee5cf;font-size:13px;}
+.cg-student-item .cg-sname{font-weight:700;color:#1a1a1a;min-width:70px;}
+.cg-student-item .cg-smeta{color:#8a7550;font-size:12px;flex:1;}
+.cg-student-item .cg-sactions{display:flex;gap:6px;}
+.cg-student-empty{padding:16px 12px;text-align:center;color:#8a7550;font-size:13px;font-style:italic;}
+.cg-add-form{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;}
+.cg-add-form input,.cg-add-form select{padding:8px 10px;font-size:13px;border:1px solid #c8b48a;border-radius:5px;font-family:inherit;background:#fff;}
+.cg-add-form .cg-add-submit{grid-column:1 / -1;background:#8b3a3a;color:#fff;border:none;padding:10px;font-size:13px;border-radius:5px;cursor:pointer;font-family:inherit;letter-spacing:.06em;}
+.cg-add-form .cg-add-submit:hover{opacity:.9;}
+
+/* 游戏 grid */
+.cg-game-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;}
+.cg-game-card{background:#f8f5ef;border:1px solid #eee5cf;border-radius:8px;padding:16px 14px;cursor:pointer;transition:all .2s;text-align:left;font-family:inherit;color:inherit;}
+.cg-game-card:hover{border-color:#c8b48a;background:#f5ecd7;transform:translateY(-1px);}
+.cg-game-card.disabled{cursor:not-allowed;opacity:.55;}
+.cg-game-card.disabled:hover{transform:none;background:#f8f5ef;border-color:#eee5cf;}
+.cg-game-icon{font-size:26px;margin-bottom:6px;}
+.cg-game-title{font-size:14px;font-weight:700;margin:0 0 4px;color:#1a1a1a;}
+.cg-game-desc{font-size:11.5px;color:#8a7550;line-height:1.6;margin:0 0 8px;min-height:36px;}
+.cg-game-tag{display:inline-block;font-size:10.5px;padding:2px 8px;border-radius:10px;font-weight:600;letter-spacing:.05em;}
+.cg-game-tag.ready{background:#8b3a3a;color:#fff;}
+.cg-game-tag.soon{background:#e0d3a8;color:#6b5b3d;}
+.cg-game-tag.best{background:#efe2c2;color:#8b3a3a;margin-left:6px;}
+
+/* 当前学生选择 */
+.cg-current-student{display:flex;align-items:center;gap:10px;background:#f5ecd7;padding:10px 14px;border-radius:6px;border:1px solid #c8b48a;font-size:13px;margin-bottom:14px;flex-wrap:wrap;}
+.cg-current-student label{color:#8a7550;font-weight:600;}
+.cg-current-student select{padding:6px 10px;border:1px solid #c8b48a;border-radius:5px;font-family:inherit;font-size:13px;background:#fff;flex:1;min-width:180px;}
+.cg-current-student .cg-hint{font-size:11px;color:#a8362a;flex-basis:100%;}
+
+/* 记录页 */
+.cg-records-toolbar{display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;}
+.cg-records-toolbar select{padding:8px 12px;border:1px solid #c8b48a;border-radius:5px;font-size:13px;font-family:inherit;background:#fff;}
+.cg-records-toolbar .cg-btn-secondary{margin-right:0;}
+.cg-table-wrap{background:#fff;border:1px solid #e6e0d5;border-radius:8px;overflow-x:auto;}
+.cg-table{width:100%;border-collapse:collapse;font-size:13px;}
+.cg-table th,.cg-table td{padding:10px 12px;text-align:left;border-bottom:1px solid #f0e8d2;}
+.cg-table th{background:#f5ecd7;color:#6b5b3d;font-weight:700;font-size:12px;letter-spacing:.05em;}
+.cg-table tr:hover td{background:#fbf6e9;}
+.cg-table .cg-badge{display:inline-block;padding:2px 8px;background:#efe2c2;color:#8b3a3a;border-radius:10px;font-size:11px;font-weight:600;}
+.cg-empty-tip{padding:32px 16px;text-align:center;color:#8a7550;font-style:italic;font-size:13px;}
+.cg-export-row{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;}
+.cg-export-row button{background:#fff;border:1px solid #8b3a3a;color:#8b3a3a;padding:10px 20px;font-size:13px;border-radius:6px;cursor:pointer;font-family:inherit;letter-spacing:.05em;}
+.cg-export-row button:hover{background:#8b3a3a;color:#fff;}
+.cg-import-input{display:none;}
+
+/* 游戏运行界面 */
+.cg-runner{background:#fff;border:1px solid #e6e0d5;border-radius:12px;padding:28px 24px;min-height:520px;position:relative;}
+.cg-runner-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid #eee5cf;flex-wrap:wrap;gap:8px;}
+.cg-runner-header h2{margin:0;font-size:20px;font-weight:900;color:#1a1a1a;}
+.cg-runner-header .cg-runner-meta{font-size:13px;color:#8a7550;}
+.cg-runner-body{padding:8px 0;}
+.cg-runner-footer{margin-top:18px;padding-top:16px;border-top:1px dashed #eee5cf;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#8a7550;flex-wrap:wrap;gap:8px;}
+
+/* 舒尔特方格精致版 */
+.cg-schulte-info{display:flex;gap:24px;font-size:14px;margin-bottom:14px;justify-content:center;flex-wrap:wrap;}
+.cg-schulte-info span{background:#f5ecd7;padding:6px 14px;border-radius:6px;font-weight:600;color:#6b5b3d;}
+.cg-schulte-info b{color:#8b3a3a;font-size:16px;margin-left:4px;font-family:'Inter',monospace;}
+.cg-schulte-board{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;max-width:380px;margin:0 auto;aspect-ratio:1;background:#f5ecd7;padding:6px;border-radius:8px;border:2px solid #c8b48a;}
+.cg-schulte-cell{background:#fff;border:1px solid #e6e0d5;border-radius:6px;font-size:26px;font-weight:700;font-family:'Inter','Songti SC',serif;color:#1a1a1a;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s;user-select:none;}
+.cg-schulte-cell:hover{background:#f5ecd7;border-color:#c8b48a;}
+.cg-schulte-cell.done{background:#8b3a3a;color:#fff;border-color:#8b3a3a;cursor:default;}
+.cg-schulte-cell.wrong{animation:cgShake .3s;background:#f5c9c9;}
+@keyframes cgShake{0%,100%{transform:none;}20%,60%{transform:translateX(-4px);}40%,80%{transform:translateX(4px);}}
+.cg-schulte-target{text-align:center;font-size:14px;margin:8px 0 14px;color:#6b5b3d;}
+.cg-schulte-target b{color:#8b3a3a;font-size:22px;font-family:'Inter',monospace;margin:0 4px;}
+
+/* 数字广度 */
+.cg-digit-stage{text-align:center;padding:40px 20px;}
+.cg-digit-display{font-size:72px;font-weight:700;color:#8b3a3a;font-family:'Inter',monospace;letter-spacing:.08em;margin:20px 0;min-height:100px;line-height:100px;}
+.cg-digit-level{font-size:14px;color:#6b5b3d;margin-bottom:16px;}
+.cg-digit-level b{color:#8b3a3a;font-size:20px;font-family:'Inter',monospace;}
+.cg-digit-input-row{display:flex;gap:8px;justify-content:center;align-items:center;margin-top:20px;flex-wrap:wrap;}
+.cg-digit-input-row input{width:220px;padding:12px;font-size:24px;text-align:center;border:2px solid #c8b48a;border-radius:6px;font-family:'Inter',monospace;letter-spacing:.15em;}
+.cg-digit-input-row input:focus{outline:none;border-color:#8b3a3a;}
+.cg-digit-feedback{font-size:14px;margin:16px 0;min-height:24px;color:#6b5b3d;}
+.cg-digit-feedback.ok{color:#3d7c3d;font-weight:600;}
+.cg-digit-feedback.err{color:#a8362a;font-weight:600;}
+
+/* Stroop */
+.cg-stroop-stage{text-align:center;padding:30px 20px;}
+.cg-stroop-word{font-size:78px;font-weight:900;letter-spacing:.05em;margin:24px 0;min-height:100px;line-height:100px;font-family:'Noto Serif SC',serif;}
+.cg-stroop-tip{font-size:13px;color:#6b5b3d;margin-bottom:10px;}
+.cg-stroop-choices{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:20px;}
+.cg-stroop-btn{padding:14px 26px;font-size:16px;border:2px solid #c8b48a;background:#fff;color:#1a1a1a;border-radius:8px;cursor:pointer;font-family:inherit;font-weight:600;letter-spacing:.15em;min-width:80px;transition:all .15s;}
+.cg-stroop-btn:hover{border-color:#8b3a3a;background:#f5ecd7;}
+.cg-stroop-progress{font-size:13px;color:#8a7550;margin-bottom:16px;}
+.cg-stroop-progress b{color:#8b3a3a;font-family:'Inter',monospace;}
+
+/* 结果卡 */
+.cg-result-card{max-width:520px;margin:20px auto;background:#f5ecd7;border:2px solid #c8b48a;border-radius:12px;padding:28px 26px;text-align:center;}
+.cg-result-card h3{margin:0 0 8px;font-size:22px;color:#8b3a3a;}
+.cg-result-score{font-size:48px;font-weight:900;color:#1a1a1a;font-family:'Inter',monospace;margin:12px 0;letter-spacing:.03em;}
+.cg-result-score small{font-size:16px;color:#8a7550;font-weight:400;margin-left:6px;font-family:inherit;}
+.cg-result-detail{font-size:14px;color:#6b5b3d;line-height:1.85;margin:14px 0;}
+.cg-result-detail b{color:#8b3a3a;}
+.cg-result-actions{display:flex;gap:10px;justify-content:center;margin-top:18px;flex-wrap:wrap;}
+
+/* modal (确认弹窗) */
+.cg-modal-mask{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:10000;display:none;align-items:center;justify-content:center;padding:20px;}
+.cg-modal-mask.show{display:flex;}
+.cg-modal-box{background:#fff;border-radius:10px;padding:24px 26px;max-width:400px;width:100%;}
+.cg-modal-box h4{margin:0 0 12px;font-size:16px;font-weight:700;}
+.cg-modal-box p{margin:0 0 20px;font-size:14px;color:#6b5b3d;line-height:1.7;}
+.cg-modal-actions{display:flex;gap:10px;justify-content:flex-end;}
+
+/* toast */
+.cg-toast{position:fixed;top:24px;right:24px;background:#8b3a3a;color:#fff;padding:12px 20px;border-radius:6px;font-size:13px;z-index:10001;box-shadow:0 4px 16px rgba(0,0,0,.15);display:none;animation:cgToastIn .25s;}
+.cg-toast.show{display:block;}
+@keyframes cgToastIn{from{opacity:0;transform:translateY(-8px);}to{opacity:1;transform:none;}}
+
+/* 收费引流预留位（暂不启用，DOM 占位注释） */
+.cg-charge-slot{display:none;} /* [ v1 挂起 · 决策1 待启用后再上线 ] */
+
+/* 底部信息 */
+.cg-footer-note{margin-top:28px;padding:14px 18px;background:#fbf6e9;border-left:3px solid #c8b48a;font-size:12px;color:#8a7550;line-height:1.75;border-radius:0 6px 6px 0;}
+</style>
+
+<div id="cg-overlay" role="dialog" aria-modal="true" aria-label="课堂小游戏">
+  <div class="cg-topbar">
+    <h1>🕹️ 课堂小游戏</h1>
+    <span class="cg-teacher" id="cg-teacher-label">--</span>
+    <button type="button" class="cg-btn-nav" data-nav="home" onclick="CG.nav('home')">主页</button>
+    <button type="button" class="cg-btn-nav" data-nav="students" onclick="CG.nav('students')">学生档案</button>
+    <button type="button" class="cg-btn-nav" data-nav="records" onclick="CG.nav('records')">通关记录</button>
+    <button type="button" class="cg-btn-nav" data-nav="settings" onclick="CG.nav('settings')">设置</button>
+    <button type="button" class="cg-btn-close" onclick="closeClassroomGames()">关闭 ✕</button>
+  </div>
+  <div class="cg-shell">
+
+    <!-- setup 页 -->
+    <div class="cg-page" id="cg-page-setup">
+      <div class="cg-setup-card">
+        <h2>欢迎使用 · 课堂小游戏</h2>
+        <p>先记录一下您的姓名或昵称，之后可以在这台电脑上多位老师之间切换，独立管理各自的学生档案与通关记录。<br><em style="color:#a8362a">数据保存在浏览器本地，请及时导出备份。</em></p>
+        <input type="text" class="cg-input" id="cg-setup-name" placeholder="老师姓名或昵称" maxlength="20">
+        <div style="margin-top:16px">
+          <button class="cg-btn-primary" onclick="CG.setupTeacher()">进入训练室</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- home 页 -->
+    <div class="cg-page" id="cg-page-home">
+      <div class="cg-current-student">
+        <label>当前学生：</label>
+        <select id="cg-current-student-select" onchange="CG.setCurrentStudent(this.value)"></select>
+        <span class="cg-hint">未选学生也可以试玩，但成绩不会保存到档案。</span>
+      </div>
+      <div class="cg-home-grid">
+        <div class="cg-panel">
+          <h3>🎮 训练项目</h3>
+          <p class="cg-panel-tip">点击卡片开始训练；每次完成后自动存入当前学生的通关记录。</p>
+          <div class="cg-game-grid" id="cg-game-grid"></div>
+        </div>
+        <div class="cg-panel">
+          <h3>👥 学生 · 快速视图</h3>
+          <p class="cg-panel-tip">在此快速查看学生名单，管理请到"学生档案"。</p>
+          <ul class="cg-student-list" id="cg-home-student-list"></ul>
+          <div class="cg-footer-note">
+            <b>数据监控用法：</b>让每位学生每周固定项目训练 2-3 次，用"通关记录"页导出 Excel 或 JSON，孩子的注意力、记忆、抑制力趋势就会自然浮现。<br>
+            <em>提示：结果为训练进步趋势参考，不用于筛查或诊断。</em>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- students 页 -->
+    <div class="cg-page" id="cg-page-students">
+      <div class="cg-panel">
+        <h3>👥 学生档案</h3>
+        <p class="cg-panel-tip">添加、修改、删除本老师名下的学生。学生档案与其他老师完全隔离。</p>
+        <ul class="cg-student-list" id="cg-full-student-list"></ul>
+        <div class="cg-add-form">
+          <input type="text" id="cg-add-name" placeholder="学生姓名（必填）" maxlength="20">
+          <input type="text" id="cg-add-class" placeholder="班级 / 机构（选填）" maxlength="20">
+          <input type="text" id="cg-add-grade" placeholder="年级 / 年龄（选填）" maxlength="10">
+          <input type="text" id="cg-add-note" placeholder="备注（选填）" maxlength="40">
+          <button class="cg-add-submit" onclick="CG.addStudent()">＋ 添加学生</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- records 页 -->
+    <div class="cg-page" id="cg-page-records">
+      <div class="cg-panel">
+        <h3>📊 通关记录</h3>
+        <p class="cg-panel-tip">支持按学生或项目筛选查看；一键导出为 Excel（.xlsx）或 JSON 文件，方便备份与家长反馈。</p>
+        <div class="cg-records-toolbar">
+          <label>学生：</label>
+          <select id="cg-rec-filter-student"></select>
+          <label>项目：</label>
+          <select id="cg-rec-filter-game"></select>
+          <button class="cg-btn-secondary" onclick="CG.renderRecords()">刷新</button>
+        </div>
+        <div class="cg-table-wrap">
+          <table class="cg-table" id="cg-rec-table">
+            <thead>
+              <tr><th>时间</th><th>学生</th><th>项目</th><th>成绩</th><th>用时</th><th>备注</th><th>操作</th></tr>
+            </thead>
+            <tbody id="cg-rec-tbody"></tbody>
+          </table>
+        </div>
+        <div class="cg-export-row">
+          <button onclick="CG.exportExcel()">导出 Excel（.xlsx）</button>
+          <button onclick="CG.exportJSON()">导出 JSON 备份</button>
+          <button onclick="document.getElementById('cg-import-input').click()">导入 JSON</button>
+          <input type="file" id="cg-import-input" class="cg-import-input" accept=".json" onchange="CG.importJSON(event)">
+        </div>
+      </div>
+    </div>
+
+    <!-- settings 页 -->
+    <div class="cg-page" id="cg-page-settings">
+      <div class="cg-panel">
+        <h3>⚙️ 设置</h3>
+        <p class="cg-panel-tip">切换老师身份、修改姓名、清空本地数据。</p>
+        <div style="margin-bottom:20px;">
+          <label style="display:block;font-size:13px;color:#6b5b3d;margin-bottom:6px;">当前老师：</label>
+          <select id="cg-teacher-switch" style="padding:8px 12px;border:1px solid #c8b48a;border-radius:5px;font-family:inherit;font-size:14px;background:#fff;margin-right:8px;"></select>
+          <button class="cg-btn-secondary" onclick="CG.switchTeacher()">切换</button>
+          <button class="cg-btn-secondary" onclick="CG.addTeacher()">＋ 新增老师</button>
+        </div>
+        <div style="margin-bottom:20px;">
+          <label style="display:block;font-size:13px;color:#6b5b3d;margin-bottom:6px;">修改当前老师姓名：</label>
+          <input type="text" id="cg-teacher-rename" class="cg-input" style="max-width:280px;display:inline-block;margin-right:8px;">
+          <button class="cg-btn-secondary" onclick="CG.renameTeacher()">保存</button>
+        </div>
+        <div style="margin-top:24px;padding-top:16px;border-top:1px dashed #e6e0d5;">
+          <label style="display:block;font-size:13px;color:#a8362a;margin-bottom:6px;">危险操作：</label>
+          <button class="cg-btn-danger" onclick="CG.clearCurrent()">清空当前老师全部数据</button>
+        </div>
+        <div class="cg-footer-note">
+          <b>数据说明：</b>所有学生档案、通关记录仅保存在当前浏览器的 localStorage。清除浏览器缓存或换设备将丢失，请定期导出 JSON 备份。<br>
+          <b>后续升级预告：</b>后续接入云端多端同步（飞书多维表），届时可一键把本地 JSON 同步到云端。
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Modal -->
+  <div class="cg-modal-mask" id="cg-modal">
+    <div class="cg-modal-box">
+      <h4 id="cg-modal-title">提示</h4>
+      <p id="cg-modal-msg"></p>
+      <div class="cg-modal-actions">
+        <button class="cg-btn-secondary" onclick="CG.modalClose()">取消</button>
+        <button class="cg-btn-primary" id="cg-modal-ok">确定</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="cg-toast" id="cg-toast"></div>
+</div>
+
+<script>
+/* ================= CG 命名空间（课堂小游戏 v1）================= */
+(function(){
+  'use strict';
+  var CG = window.CG = window.CG || {};
+  var LS = window.localStorage;
+
+  // ------- 常量 -------
+  var K_TEACHERS = 'luobogan_cg_teachers';
+  var K_CURRENT  = 'luobogan_cg_current_teacher';
+  var K_CURRENT_STU = 'luobogan_cg_current_student';
+  function K_STU(tid){ return 'luobogan_cg_teacher_'+tid+'_students'; }
+  function K_REC(tid){ return 'luobogan_cg_teacher_'+tid+'_records'; }
+
+  // ------- 游戏定义 -------
+  CG.GAMES = [
+    {id:'schulte',   icon:'🎯',  name:'舒尔特方格',  desc:'5×5 数字按顺序点击，测视觉搜索速度。经典专注力工具。', ready:true},
+    {id:'digitspan', icon:'🔢',  name:'数字广度',    desc:'依次闪现数字后按顺序输入，工作记忆的经典指标。',       ready:true},
+    {id:'stroop',    icon:'🎨',  name:'Stroop 色词', desc:'字面色 vs 字义冲突下的快速判断，抑制控制训练。',       ready:true},
+    {id:'seqmem',    icon:'💡',  name:'顺序记忆',    desc:'棋盘格依次亮起后请复现顺序，即将上线。',                ready:false},
+    {id:'nback',     icon:'🌀',  name:'N-Back',      desc:'判断当前刺激与 N 步前是否相同，即将上线。',              ready:false},
+    {id:'huarong',   icon:'🧩',  name:'数字华容道',  desc:'滑块拼图恢复顺序，空间规划训练，即将上线。',            ready:false},
+    {id:'reaction',  icon:'⚡',  name:'颜色反应力',   desc:'看到指定颜色立即点击，反应速度训练，即将上线。',        ready:false},
+    {id:'watersort', icon:'🧪',  name:'上下瓶色匹配', desc:'倒水式色彩分类，逻辑推理与全局观，即将上线。',          ready:false}
+  ];
+
+  // ------- 工具函数 -------
+  function uid(prefix){ return (prefix||'')+Date.now().toString(36)+Math.random().toString(36).slice(2,7); }
+  function safe(json, def){ try{ return JSON.parse(json); }catch(e){ return def; } }
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  function ts2str(t){
+    var d = new Date(t);
+    function p(n){ return String(n).padStart(2,'0'); }
+    return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())+' '+p(d.getHours())+':'+p(d.getMinutes());
+  }
+  function toast(msg){
+    var t = document.getElementById('cg-toast');
+    if(!t) return;
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(t._to);
+    t._to = setTimeout(function(){ t.classList.remove('show'); }, 2000);
+  }
+  CG._toast = toast;
+  CG._uid = uid;
+
+  // Modal
+  CG.modalConfirm = function(title, msg, onOk){
+    var m = document.getElementById('cg-modal');
+    document.getElementById('cg-modal-title').textContent = title || '确认';
+    document.getElementById('cg-modal-msg').textContent = msg || '';
+    var okBtn = document.getElementById('cg-modal-ok');
+    var newBtn = okBtn.cloneNode(true);
+    okBtn.parentNode.replaceChild(newBtn, okBtn);
+    newBtn.addEventListener('click', function(){ CG.modalClose(); if(typeof onOk==='function') onOk(); });
+    m.classList.add('show');
+  };
+  CG.modalClose = function(){ document.getElementById('cg-modal').classList.remove('show'); };
+
+  // ------- 状态 -------
+  CG.state = { teacherId:null, studentId:null };
+
+  // ------- 教师层 -------
+  CG.getTeachers = function(){ return safe(LS.getItem(K_TEACHERS), []); };
+  CG.saveTeachers = function(list){ LS.setItem(K_TEACHERS, JSON.stringify(list)); };
+  CG.getCurrentTeacherId = function(){ return LS.getItem(K_CURRENT) || null; };
+  CG.getCurrentTeacher = function(){
+    var tid = CG.getCurrentTeacherId(); if(!tid) return null;
+    return CG.getTeachers().find(function(t){ return t.id===tid; }) || null;
+  };
+  CG.setupTeacher = function(){
+    var name = document.getElementById('cg-setup-name').value.trim();
+    if(!name){ toast('请填写老师姓名'); return; }
+    var list = CG.getTeachers();
+    var exists = list.find(function(t){ return t.name===name; });
+    var t;
+    if(exists){ t = exists; }
+    else { t = {id: uid('T'), name: name, createdAt: Date.now()}; list.push(t); CG.saveTeachers(list); }
+    LS.setItem(K_CURRENT, t.id);
+    CG.state.teacherId = t.id;
+    toast('欢迎，'+name+' 老师');
+    CG.enterHome();
+  };
+  CG.addTeacher = function(){
+    var name = prompt('输入新老师姓名或昵称：');
+    if(!name) return;
+    name = name.trim(); if(!name){ toast('姓名不能为空'); return; }
+    var list = CG.getTeachers();
+    if(list.find(function(t){ return t.name===name; })){ toast('该姓名已存在，可直接切换'); return; }
+    var t = {id: uid('T'), name: name, createdAt: Date.now()};
+    list.push(t); CG.saveTeachers(list);
+    CG.renderSettings();
+    toast('已新增：'+name);
+  };
+  CG.switchTeacher = function(){
+    var tid = document.getElementById('cg-teacher-switch').value;
+    if(!tid) return;
+    LS.setItem(K_CURRENT, tid);
+    LS.removeItem(K_CURRENT_STU);
+    CG.state.teacherId = tid;
+    CG.state.studentId = null;
+    CG._syncLabel();
+    CG.nav('home');
+    toast('已切换');
+  };
+  CG.renameTeacher = function(){
+    var name = document.getElementById('cg-teacher-rename').value.trim();
+    if(!name) return;
+    var tid = CG.getCurrentTeacherId(); if(!tid) return;
+    var list = CG.getTeachers();
+    var t = list.find(function(x){ return x.id===tid; });
+    if(!t) return;
+    t.name = name;
+    CG.saveTeachers(list);
+    CG._syncLabel();
+    CG.renderSettings();
+    toast('已保存');
+  };
+  CG.clearCurrent = function(){
+    var t = CG.getCurrentTeacher(); if(!t) return;
+    CG.modalConfirm('危险操作 · 请确认', '将永久删除 "'+t.name+'" 老师名下的全部学生档案与通关记录，此操作不可撤销，请先导出 JSON 备份。确定要清空吗？', function(){
+      LS.removeItem(K_STU(t.id));
+      LS.removeItem(K_REC(t.id));
+      LS.removeItem(K_CURRENT_STU);
+      CG.state.studentId = null;
+      CG.renderAll();
+      toast('已清空');
+    });
+  };
+
+  // ------- 学生层 -------
+  CG.getStudents = function(){
+    var tid = CG.getCurrentTeacherId(); if(!tid) return [];
+    return safe(LS.getItem(K_STU(tid)), []);
+  };
+  CG.saveStudents = function(list){
+    var tid = CG.getCurrentTeacherId(); if(!tid) return;
+    LS.setItem(K_STU(tid), JSON.stringify(list));
+  };
+  CG.setCurrentStudent = function(sid){
+    if(sid){ LS.setItem(K_CURRENT_STU, sid); CG.state.studentId = sid; }
+    else   { LS.removeItem(K_CURRENT_STU);    CG.state.studentId = null; }
+  };
+  CG.getCurrentStudentId = function(){ return LS.getItem(K_CURRENT_STU) || null; };
+  CG.addStudent = function(){
+    var name = document.getElementById('cg-add-name').value.trim();
+    if(!name){ toast('姓名必填'); return; }
+    var cls  = document.getElementById('cg-add-class').value.trim();
+    var grade= document.getElementById('cg-add-grade').value.trim();
+    var note = document.getElementById('cg-add-note').value.trim();
+    var list = CG.getStudents();
+    list.push({id:uid('S'), name:name, className:cls, gradeOrAge:grade, note:note, createdAt:Date.now()});
+    CG.saveStudents(list);
+    ['cg-add-name','cg-add-class','cg-add-grade','cg-add-note'].forEach(function(id){ document.getElementById(id).value=''; });
+    CG.renderStudents();
+    CG.renderHome();
+    toast('已添加：'+name);
+  };
+  CG.editStudent = function(sid){
+    var list = CG.getStudents();
+    var s = list.find(function(x){ return x.id===sid; }); if(!s) return;
+    var name = prompt('修改姓名：', s.name); if(name===null) return;
+    name = name.trim(); if(!name){ toast('姓名不能为空'); return; }
+    var cls = prompt('班级 / 机构（可留空）：', s.className||''); if(cls===null) return;
+    var grade = prompt('年级 / 年龄（可留空）：', s.gradeOrAge||''); if(grade===null) return;
+    var note = prompt('备注（可留空）：', s.note||''); if(note===null) return;
+    s.name=name.trim(); s.className=cls.trim(); s.gradeOrAge=grade.trim(); s.note=note.trim();
+    CG.saveStudents(list);
+    CG.renderStudents(); CG.renderHome();
+    toast('已保存');
+  };
+  CG.deleteStudent = function(sid){
+    var s = CG.getStudents().find(function(x){ return x.id===sid; }); if(!s) return;
+    CG.modalConfirm('删除学生', '将删除学生 "'+s.name+'" 及其全部通关记录，确定吗？', function(){
+      CG.saveStudents(CG.getStudents().filter(function(x){ return x.id!==sid; }));
+      CG.saveRecords(CG.getRecords().filter(function(r){ return r.studentId!==sid; }));
+      if(CG.getCurrentStudentId()===sid){ CG.setCurrentStudent(null); }
+      CG.renderAll();
+      toast('已删除');
+    });
+  };
+
+  // ------- 记录层 -------
+  CG.getRecords = function(){
+    var tid = CG.getCurrentTeacherId(); if(!tid) return [];
+    return safe(LS.getItem(K_REC(tid)), []);
+  };
+  CG.saveRecords = function(list){
+    var tid = CG.getCurrentTeacherId(); if(!tid) return;
+    LS.setItem(K_REC(tid), JSON.stringify(list));
+  };
+  CG.saveRecord = function(rec){
+    if(!rec.studentId){ return null; } // 未选学生不落盘
+    rec.id = uid('R');
+    rec.playedAt = rec.playedAt || Date.now();
+    var list = CG.getRecords();
+    list.push(rec);
+    CG.saveRecords(list);
+    return rec;
+  };
+  CG.deleteRecord = function(rid){
+    CG.modalConfirm('删除记录', '确定删除这条记录吗？', function(){
+      CG.saveRecords(CG.getRecords().filter(function(r){ return r.id!==rid; }));
+      CG.renderRecords();
+      toast('已删除');
+    });
+  };
+  CG.bestScore = function(studentId, gameId){
+    var list = CG.getRecords().filter(function(r){ return r.studentId===studentId && r.gameId===gameId; });
+    if(!list.length) return null;
+    // 舒尔特/反应/N-Back 用时越小越好，其它按 score 大越好
+    var lowerBetter = {schulte:1, reaction:1, stroop:0};
+    if(lowerBetter[gameId] && list.some(function(r){ return typeof r.durationSec==='number'; })){
+      return list.reduce(function(a,b){ return (a.durationSec||9999) <= (b.durationSec||9999) ? a : b; });
+    }
+    return list.reduce(function(a,b){ return (a.score||0) >= (b.score||0) ? a : b; });
+  };
+
+  // ------- 导入 / 导出 -------
+  CG.exportExcel = function(){
+    var t = CG.getCurrentTeacher(); if(!t){ toast('请先设置老师'); return; }
+    if(typeof XLSX==='undefined'){ toast('Excel 组件加载中，请稍后重试'); return; }
+    var students = CG.getStudents();
+    var records = CG.getRecords();
+    var stuMap = {}; students.forEach(function(s){ stuMap[s.id]=s; });
+    var gameMap = {}; CG.GAMES.forEach(function(g){ gameMap[g.id]=g.name; });
+    var wb = XLSX.utils.book_new();
+    var sheet1 = students.map(function(s){
+      return {
+        '学生ID':s.id, '姓名':s.name, '班级/机构':s.className||'', '年级/年龄':s.gradeOrAge||'',
+        '备注':s.note||'', '建档时间':ts2str(s.createdAt)
+      };
+    });
+    XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(sheet1.length?sheet1:[{提示:'暂无学生'}]), '学生档案');
+    var sheet2 = records.map(function(r){
+      var s = stuMap[r.studentId];
+      return {
+        '时间':ts2str(r.playedAt),
+        '学生':s?s.name:'（已删除）',
+        '班级':s?(s.className||''):'',
+        '项目':gameMap[r.gameId]||r.gameId,
+        '成绩(得分)':r.score||'',
+        '用时(秒)':r.durationSec||'',
+        '备注':r.meta?JSON.stringify(r.meta):''
+      };
+    });
+    XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(sheet2.length?sheet2:[{提示:'暂无记录'}]), '通关记录');
+    var d = new Date();
+    var fname = '课堂小游戏_'+t.name+'_'+d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0')+'.xlsx';
+    XLSX.writeFile(wb, fname);
+    toast('已导出：'+fname);
+  };
+  CG.exportJSON = function(){
+    var t = CG.getCurrentTeacher(); if(!t){ toast('请先设置老师'); return; }
+    var data = {
+      version: 1,
+      exportedAt: Date.now(),
+      teacher: t,
+      students: CG.getStudents(),
+      records: CG.getRecords()
+    };
+    var blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    var d = new Date();
+    a.href = url;
+    a.download = '课堂小游戏_'+t.name+'_'+d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0')+'.json';
+    a.click();
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 100);
+    toast('已导出 JSON');
+  };
+  CG.importJSON = function(ev){
+    var f = ev.target.files[0]; if(!f) return;
+    var reader = new FileReader();
+    reader.onload = function(e){
+      try{
+        var d = JSON.parse(e.target.result);
+        if(!d.students || !d.records){ toast('文件格式不对'); return; }
+        CG.modalConfirm('导入 JSON', '将合并到当前老师 "'+(CG.getCurrentTeacher()||{}).name+'" 名下（重名学生不新建）。确定继续吗？', function(){
+          var stu = CG.getStudents();
+          var rec = CG.getRecords();
+          var stuIdMap = {};
+          d.students.forEach(function(s){
+            var same = stu.find(function(x){ return x.name===s.name && x.className===(s.className||''); });
+            if(same){ stuIdMap[s.id] = same.id; }
+            else{
+              var ns = {id:uid('S'), name:s.name, className:s.className||'', gradeOrAge:s.gradeOrAge||'', note:s.note||'', createdAt:s.createdAt||Date.now()};
+              stu.push(ns); stuIdMap[s.id] = ns.id;
+            }
+          });
+          d.records.forEach(function(r){
+            rec.push({id:uid('R'), studentId:stuIdMap[r.studentId], gameId:r.gameId, score:r.score, durationSec:r.durationSec, playedAt:r.playedAt||Date.now(), meta:r.meta||null});
+          });
+          CG.saveStudents(stu); CG.saveRecords(rec);
+          CG.renderAll();
+          toast('已导入');
+        });
+      }catch(err){ toast('文件解析失败'); }
+    };
+    reader.readAsText(f);
+    ev.target.value = '';
+  };
+
+  // ------- 导航 & 渲染 -------
+  CG.nav = function(page){
+    document.querySelectorAll('#cg-overlay .cg-page').forEach(function(el){ el.classList.remove('active'); });
+    document.querySelectorAll('#cg-overlay .cg-btn-nav').forEach(function(el){ el.classList.remove('active'); });
+    var target = document.getElementById('cg-page-'+page);
+    if(target) target.classList.add('active');
+    var navBtn = document.querySelector('#cg-overlay .cg-btn-nav[data-nav="'+page+'"]');
+    if(navBtn) navBtn.classList.add('active');
+    if(page==='home')     CG.renderHome();
+    if(page==='students') CG.renderStudents();
+    if(page==='records')  CG.renderRecords();
+    if(page==='settings') CG.renderSettings();
+  };
+  CG.enterHome = function(){
+    // 显示 topbar 导航
+    document.querySelectorAll('#cg-overlay .cg-btn-nav').forEach(function(el){ el.style.display=''; });
+    CG._syncLabel();
+    CG.nav('home');
+  };
+  CG._syncLabel = function(){
+    var t = CG.getCurrentTeacher();
+    var el = document.getElementById('cg-teacher-label');
+    if(el) el.textContent = t ? ('· '+t.name+' 老师') : '';
+  };
+
+  CG.renderHome = function(){
+    // 当前学生下拉
+    var sel = document.getElementById('cg-current-student-select');
+    var stu = CG.getStudents();
+    var curSid = CG.getCurrentStudentId();
+    sel.innerHTML = '<option value="">（未选 · 仅试玩不存记录）</option>' + stu.map(function(s){
+      return '<option value="'+s.id+'" '+(s.id===curSid?'selected':'')+'>'+esc(s.name)+(s.className?' · '+esc(s.className):'')+'</option>';
+    }).join('');
+    CG.state.studentId = curSid;
+
+    // 游戏卡片
+    var grid = document.getElementById('cg-game-grid');
+    grid.innerHTML = CG.GAMES.map(function(g){
+      var best = curSid && g.ready ? CG.bestScore(curSid, g.id) : null;
+      var bestLabel = '';
+      if(best){
+        if(g.id==='schulte' || g.id==='reaction') bestLabel = '最佳 '+ (best.durationSec||'--') +'s';
+        else if(g.id==='stroop') bestLabel = '最佳 ' + (best.score||0) + '% / ' + (best.durationSec? best.durationSec+'s':'') ;
+        else bestLabel = '最佳 '+(best.score||0);
+      }
+      return '<button type="button" class="cg-game-card '+(g.ready?'':'disabled')+'" onclick="'+(g.ready?"CG.startGame('"+g.id+"')":"CG._toast('即将上线，敬请期待')")+'">'
+        + '<div class="cg-game-icon">'+g.icon+'</div>'
+        + '<div class="cg-game-title">'+g.name+'</div>'
+        + '<div class="cg-game-desc">'+g.desc+'</div>'
+        + '<span class="cg-game-tag '+(g.ready?'ready':'soon')+'">'+(g.ready?'进入训练':'即将开放')+'</span>'
+        + (bestLabel? '<span class="cg-game-tag best">'+bestLabel+'</span>' : '')
+        + '</button>';
+    }).join('');
+
+    // 学生快速视图
+    var qlist = document.getElementById('cg-home-student-list');
+    if(!stu.length){
+      qlist.innerHTML = '<li class="cg-student-empty">还没有学生 · 到"学生档案"添加</li>';
+    }else{
+      qlist.innerHTML = stu.slice(0,8).map(function(s){
+        var recCnt = CG.getRecords().filter(function(r){ return r.studentId===s.id; }).length;
+        return '<li class="cg-student-item">'
+          + '<span class="cg-sname">'+esc(s.name)+'</span>'
+          + '<span class="cg-smeta">'+(s.className?esc(s.className)+' · ':'')+(s.gradeOrAge?esc(s.gradeOrAge)+' · ':'')+' 记录 '+recCnt+' 条</span>'
+          + '</li>';
+      }).join('') + (stu.length>8 ? '<li class="cg-student-empty">…共 '+stu.length+' 名学生，到"学生档案"查看全部</li>' : '');
+    }
+  };
+
+  CG.renderStudents = function(){
+    var list = CG.getStudents();
+    var ul = document.getElementById('cg-full-student-list');
+    if(!list.length){
+      ul.innerHTML = '<li class="cg-student-empty">还没有学生 · 填写下方表单添加</li>';
+      return;
+    }
+    ul.innerHTML = list.map(function(s){
+      var recCnt = CG.getRecords().filter(function(r){ return r.studentId===s.id; }).length;
+      return '<li class="cg-student-item">'
+        + '<span class="cg-sname">'+esc(s.name)+'</span>'
+        + '<span class="cg-smeta">'+(s.className?esc(s.className)+' · ':'')+(s.gradeOrAge?esc(s.gradeOrAge)+' · ':'')+(s.note?'『'+esc(s.note)+'』· ':'')+'记录 '+recCnt+' 条 · 建档 '+ts2str(s.createdAt)+'</span>'
+        + '<span class="cg-sactions">'
+        +   '<button class="cg-btn-secondary" onclick="CG.editStudent(\''+s.id+'\')">编辑</button>'
+        +   '<button class="cg-btn-danger" onclick="CG.deleteStudent(\''+s.id+'\')">删除</button>'
+        + '</span>'
+        + '</li>';
+    }).join('');
+  };
+
+  CG.renderRecords = function(){
+    var students = CG.getStudents();
+    var stuMap = {}; students.forEach(function(s){ stuMap[s.id]=s; });
+    var gameMap = {}; CG.GAMES.forEach(function(g){ gameMap[g.id]=g.name; });
+    var records = CG.getRecords().slice().sort(function(a,b){ return b.playedAt - a.playedAt; });
+
+    // 下拉
+    var fs = document.getElementById('cg-rec-filter-student');
+    var fg = document.getElementById('cg-rec-filter-game');
+    var prevS = fs.value, prevG = fg.value;
+    fs.innerHTML = '<option value="">全部学生</option>' + students.map(function(s){ return '<option value="'+s.id+'">'+esc(s.name)+'</option>'; }).join('');
+    fg.innerHTML = '<option value="">全部项目</option>' + CG.GAMES.filter(function(g){ return g.ready; }).map(function(g){ return '<option value="'+g.id+'">'+g.name+'</option>'; }).join('');
+    fs.value = prevS; fg.value = prevG;
+
+    var filtered = records.filter(function(r){
+      if(fs.value && r.studentId!==fs.value) return false;
+      if(fg.value && r.gameId!==fg.value) return false;
+      return true;
+    });
+    var tb = document.getElementById('cg-rec-tbody');
+    if(!filtered.length){
+      tb.innerHTML = '<tr><td colspan="7" class="cg-empty-tip">暂无记录 · 完成一次游戏即可自动保存到当前学生名下</td></tr>';
+      return;
+    }
+    tb.innerHTML = filtered.map(function(r){
+      var s = stuMap[r.studentId];
+      var scoreText = '';
+      if(r.gameId==='schulte'){ scoreText = (r.score||0)+' / 25'; }
+      else if(r.gameId==='digitspan'){ scoreText = '最大 '+(r.score||0)+' 位'; }
+      else if(r.gameId==='stroop'){ scoreText = (r.score||0)+'% ('+(r.meta?r.meta.right+'/'+r.meta.total:'')+')'; }
+      else{ scoreText = r.score||0; }
+      return '<tr>'
+        + '<td>'+ts2str(r.playedAt)+'</td>'
+        + '<td>'+(s?esc(s.name):'<em>已删除</em>')+'</td>'
+        + '<td>'+(gameMap[r.gameId]||r.gameId)+'</td>'
+        + '<td>'+scoreText+'</td>'
+        + '<td>'+(r.durationSec?r.durationSec+' 秒':'—')+'</td>'
+        + '<td>'+(r.meta&&r.meta.note?esc(r.meta.note):'')+'</td>'
+        + '<td><button class="cg-btn-danger" onclick="CG.deleteRecord(\''+r.id+'\')">删</button></td>'
+        + '</tr>';
+    }).join('');
+  };
+
+  CG.renderSettings = function(){
+    var teachers = CG.getTeachers();
+    var cur = CG.getCurrentTeacherId();
+    var sw = document.getElementById('cg-teacher-switch');
+    sw.innerHTML = teachers.map(function(t){ return '<option value="'+t.id+'" '+(t.id===cur?'selected':'')+'>'+esc(t.name)+'</option>'; }).join('');
+    var t = CG.getCurrentTeacher();
+    document.getElementById('cg-teacher-rename').value = t? t.name : '';
+  };
+
+  CG.renderAll = function(){
+    CG._syncLabel();
+    CG.renderHome();
+    CG.renderStudents();
+    CG.renderRecords();
+    CG.renderSettings();
+  };
+
+  // ------- 游戏引擎 · runner 界面 -------
+  function pageHome(){ CG.nav('home'); }
+  function renderRunner(title, meta, bodyHTML, footerHTML){
+    var host = document.getElementById('cg-page-home');
+    host.innerHTML = ''
+      + '<div class="cg-runner">'
+      +   '<div class="cg-runner-header">'
+      +     '<h2>'+esc(title)+'</h2>'
+      +     '<div class="cg-runner-meta">'+meta+'</div>'
+      +   '</div>'
+      +   '<div class="cg-runner-body" id="cg-runner-body">'+bodyHTML+'</div>'
+      +   '<div class="cg-runner-footer">'+(footerHTML||'<span>试玩模式下成绩不保存 · 从主页当前学生选择器切换学生</span>')+'<button class="cg-btn-secondary" onclick="CG.exitGame()">← 返回主页</button></div>'
+      + '</div>';
+  }
+  CG.exitGame = function(){
+    // 恢复 home 页 DOM 结构（重新构建）
+    _rebuildHome();
+    CG.nav('home');
+  };
+
+  function _rebuildHome(){
+    var host = document.getElementById('cg-page-home');
+    host.innerHTML = ''
+      + '<div class="cg-current-student">'
+      +   '<label>当前学生：</label>'
+      +   '<select id="cg-current-student-select" onchange="CG.setCurrentStudent(this.value); CG.renderHome();"></select>'
+      +   '<span class="cg-hint">未选学生也可以试玩，但成绩不会保存到档案。</span>'
+      + '</div>'
+      + '<div class="cg-home-grid">'
+      +   '<div class="cg-panel"><h3>🎮 训练项目</h3><p class="cg-panel-tip">点击卡片开始训练；每次完成后自动存入当前学生的通关记录。</p><div class="cg-game-grid" id="cg-game-grid"></div></div>'
+      +   '<div class="cg-panel"><h3>👥 学生 · 快速视图</h3><p class="cg-panel-tip">在此快速查看学生名单，管理请到"学生档案"。</p><ul class="cg-student-list" id="cg-home-student-list"></ul>'
+      +   '<div class="cg-footer-note"><b>数据监控用法：</b>让每位学生每周固定项目训练 2-3 次，用"通关记录"页导出 Excel 或 JSON，孩子的注意力、记忆、抑制力趋势就会自然浮现。<br><em>提示：结果为训练进步趋势参考，不用于筛查或诊断。</em></div>'
+      +   '</div>'
+      + '</div>';
+  }
+  CG._rebuildHome = _rebuildHome;
+
+  CG.startGame = function(gid){
+    // 保存学生选择在 startGame 前需要读取（重建 home 会清 select）
+    var sid = CG.getCurrentStudentId();
+    if(gid==='schulte')  return startSchulte(sid);
+    if(gid==='digitspan')return startDigitspan(sid);
+    if(gid==='stroop')   return startStroop(sid);
+    toast('该项目即将上线');
+  };
+
+  // ============ 游戏 1：舒尔特方格精致版 ============
+  function startSchulte(sid){
+    var N = 5;
+    var nums = []; for(var i=1;i<=N*N;i++) nums.push(i);
+    // Fisher-Yates
+    for(var i=nums.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=nums[i]; nums[i]=nums[j]; nums[j]=t; }
+    var next = 1;
+    var startTs = null, errors = 0;
+    var timerId = null;
+    var stu = sid ? CG.getStudents().find(function(x){return x.id===sid;}) : null;
+
+    var bodyHTML =
+        '<div class="cg-schulte-info">'
+      +   '<span>目标 <b id="cg-sch-target">1</b> / '+N*N+'</span>'
+      +   '<span>用时 <b id="cg-sch-time">0.0</b> 秒</span>'
+      +   '<span>失误 <b id="cg-sch-err">0</b></span>'
+      + '</div>'
+      + '<div class="cg-schulte-target">请依次点击 <b>1 → '+(N*N)+'</b></div>'
+      + '<div class="cg-schulte-board" id="cg-sch-board"></div>'
+      + '<div style="text-align:center;margin-top:16px;"><button class="cg-btn-secondary" onclick="CG.startGame(\'schulte\')">重开一局</button></div>';
+    renderRunner('🎯 舒尔特方格 · 5×5', stu?('学生 · '+esc(stu.name)):'试玩模式（不保存）', bodyHTML);
+    var board = document.getElementById('cg-sch-board');
+    board.innerHTML = nums.map(function(n){ return '<div class="cg-schulte-cell" data-n="'+n+'">'+n+'</div>'; }).join('');
+    board.querySelectorAll('.cg-schulte-cell').forEach(function(cell){
+      cell.addEventListener('click', function(){
+        if(!startTs){ startTs = Date.now(); tick(); }
+        var v = parseInt(cell.dataset.n,10);
+        if(v===next){
+          cell.classList.add('done');
+          next++;
+          document.getElementById('cg-sch-target').textContent = Math.min(next, N*N);
+          if(next > N*N){ finish(); }
+        }else{
+          errors++;
+          document.getElementById('cg-sch-err').textContent = errors;
+          cell.classList.add('wrong');
+          setTimeout(function(){ cell.classList.remove('wrong'); }, 300);
+        }
+      });
+    });
+    function tick(){
+      var el = document.getElementById('cg-sch-time');
+      if(!el) return;
+      el.textContent = ((Date.now()-startTs)/1000).toFixed(1);
+      timerId = requestAnimationFrame(tick);
+    }
+    function finish(){
+      cancelAnimationFrame(timerId);
+      var sec = ((Date.now()-startTs)/1000);
+      var body = document.getElementById('cg-runner-body');
+      var rating = sec<=20 ? '优秀（同龄前列）' : sec<=30 ? '良好' : sec<=45 ? '一般' : '继续加油';
+      var saved = null;
+      if(sid){
+        saved = CG.saveRecord({studentId:sid, gameId:'schulte', score:N*N, durationSec:Math.round(sec*10)/10, meta:{errors:errors, N:N}});
+      }
+      var best = sid ? CG.bestScore(sid, 'schulte') : null;
+      body.innerHTML = ''
+        + '<div class="cg-result-card">'
+        +   '<h3>完成 🎉</h3>'
+        +   '<div class="cg-result-score">'+sec.toFixed(1)+'<small>秒</small></div>'
+        +   '<div class="cg-result-detail">'
+        +     '失误 <b>'+errors+'</b> 次 · 评级 <b>'+rating+'</b><br>'
+        +     (sid ? ('本次已保存至 '+esc(stu?stu.name:'')+' 的记录 · 最佳 <b>'+(best?best.durationSec:sec.toFixed(1))+'</b> 秒') : '未选学生 · 本次不保存')
+        +   '</div>'
+        +   '<div class="cg-result-actions">'
+        +     '<button class="cg-btn-primary" onclick="CG.startGame(\'schulte\')">再来一局</button>'
+        +     '<button class="cg-btn-secondary" onclick="CG.exitGame()">返回主页</button>'
+        +   '</div>'
+        + '</div>';
+    }
+  }
+
+  // ============ 游戏 2：数字广度 ============
+  function startDigitspan(sid){
+    var stu = sid ? CG.getStudents().find(function(x){return x.id===sid;}) : null;
+    var level = 3;
+    var maxLevel = 3;
+    var currentDigits = null;
+    var mode = 'ready'; // ready | show | input | done
+
+    function bodyForReady(){
+      return '<div class="cg-digit-stage">'
+        + '<div class="cg-digit-level">当前长度 <b>'+level+'</b> 位</div>'
+        + '<p style="color:#6b5b3d;font-size:14px;max-width:420px;margin:8px auto 20px;line-height:1.8;">规则：屏幕上会依次显示 <b>'+level+'</b> 个数字，每个显示 1 秒。数字消失后请按<b>相同顺序</b>输入，答对进阶，答错结束。</p>'
+        + '<button class="cg-btn-primary" onclick="window.__cgDigitStart()">开始 →</button>'
+        + '</div>';
+    }
+    renderRunner('🔢 数字广度', stu?('学生 · '+esc(stu.name)):'试玩模式（不保存）', bodyForReady());
+
+    window.__cgDigitStart = function(){
+      // 生成 level 位数字（首位不为 0）
+      currentDigits = String(1+Math.floor(Math.random()*9));
+      for(var i=1;i<level;i++){ currentDigits += String(Math.floor(Math.random()*10)); }
+      var body = document.getElementById('cg-runner-body');
+      body.innerHTML = '<div class="cg-digit-stage"><div class="cg-digit-level">观察下面的数字 · 请按顺序记住</div><div class="cg-digit-display" id="cg-digit-show"></div></div>';
+      var showEl = document.getElementById('cg-digit-show');
+      var i = 0;
+      function next(){
+        if(i>=currentDigits.length){
+          showEl.textContent = '';
+          setTimeout(showInput, 300);
+          return;
+        }
+        showEl.textContent = currentDigits[i];
+        i++;
+        setTimeout(function(){ showEl.textContent=''; setTimeout(next, 220); }, 780);
+      }
+      next();
+    };
+    function showInput(){
+      var body = document.getElementById('cg-runner-body');
+      body.innerHTML = '<div class="cg-digit-stage">'
+        + '<div class="cg-digit-level">请按顺序输入刚才的 <b>'+level+'</b> 位数字</div>'
+        + '<div class="cg-digit-input-row">'
+        +   '<input type="text" id="cg-digit-input" maxlength="'+level+'" inputmode="numeric" autocomplete="off">'
+        +   '<button class="cg-btn-primary" onclick="window.__cgDigitCheck()">提交</button>'
+        + '</div>'
+        + '<div class="cg-digit-feedback" id="cg-digit-fb"></div>'
+        + '</div>';
+      var inp = document.getElementById('cg-digit-input');
+      inp.focus();
+      inp.addEventListener('keydown', function(e){ if(e.key==='Enter') window.__cgDigitCheck(); });
+    }
+    window.__cgDigitCheck = function(){
+      var v = (document.getElementById('cg-digit-input').value||'').trim();
+      var fb = document.getElementById('cg-digit-fb');
+      if(v===currentDigits){
+        maxLevel = level;
+        fb.className = 'cg-digit-feedback ok'; fb.textContent = '答对！进入 '+(level+1)+' 位';
+        level++;
+        if(level>12){ finish(true); return; }
+        setTimeout(function(){
+          var body = document.getElementById('cg-runner-body');
+          body.innerHTML = bodyForReady();
+        }, 800);
+      }else{
+        fb.className = 'cg-digit-feedback err'; fb.textContent = '答错 · 正确答案：'+currentDigits;
+        setTimeout(function(){ finish(false); }, 1500);
+      }
+    };
+    function finish(perfect){
+      var rating = maxLevel>=9 ? '优秀（成人前列）' : maxLevel>=7 ? '良好' : maxLevel>=5 ? '一般（学龄期常见）' : '继续加油';
+      var saved = null;
+      if(sid){ saved = CG.saveRecord({studentId:sid, gameId:'digitspan', score:maxLevel, meta:{perfect:!!perfect}}); }
+      var best = sid ? CG.bestScore(sid, 'digitspan') : null;
+      var stuName = stu?stu.name:'';
+      var body = document.getElementById('cg-runner-body');
+      body.innerHTML = '<div class="cg-result-card">'
+        + '<h3>本轮结束</h3>'
+        + '<div class="cg-result-score">'+maxLevel+'<small>位最大记忆长度</small></div>'
+        + '<div class="cg-result-detail">评级 <b>'+rating+'</b><br>'
+        + (sid ? ('本次已保存至 '+esc(stuName)+' 的记录 · 最佳 <b>'+(best?best.score:maxLevel)+'</b> 位') : '未选学生 · 本次不保存')
+        + '</div>'
+        + '<div class="cg-result-actions">'
+        +   '<button class="cg-btn-primary" onclick="CG.startGame(\'digitspan\')">再来一次</button>'
+        +   '<button class="cg-btn-secondary" onclick="CG.exitGame()">返回主页</button>'
+        + '</div>'
+        + '</div>';
+    }
+  }
+
+  // ============ 游戏 3：Stroop 色词 ============
+  function startStroop(sid){
+    var stu = sid ? CG.getStudents().find(function(x){return x.id===sid;}) : null;
+    var COLORS = [
+      {k:'red',   label:'红', hex:'#c53030'},
+      {k:'blue',  label:'蓝', hex:'#2b6cb0'},
+      {k:'green', label:'绿', hex:'#2f855a'},
+      {k:'yellow',label:'黄', hex:'#b7791f'}
+    ];
+    var total = 20;
+    var idx = 0, right = 0;
+    var rtList = [];
+    var currentAns = null;
+    var qStartTs = null;
+
+    function nextQ(){
+      idx++;
+      if(idx>total){ finish(); return; }
+      var wordColor = COLORS[Math.floor(Math.random()*COLORS.length)];
+      var textColor;
+      // 约 70% 冲突
+      if(Math.random()<0.7){
+        do{ textColor = COLORS[Math.floor(Math.random()*COLORS.length)]; }while(textColor.k===wordColor.k);
+      }else{
+        textColor = wordColor;
+      }
+      currentAns = textColor.k;
+      var body = document.getElementById('cg-runner-body');
+      body.innerHTML = '<div class="cg-stroop-stage">'
+        + '<div class="cg-stroop-progress">第 <b>'+idx+'</b> / '+total+' 题 · 已答对 <b>'+right+'</b></div>'
+        + '<div class="cg-stroop-tip">请点击"字面颜色"，不是字的意思！</div>'
+        + '<div class="cg-stroop-word" style="color:'+textColor.hex+'">'+wordColor.label+'</div>'
+        + '<div class="cg-stroop-choices">' + COLORS.map(function(c){
+            return '<button class="cg-stroop-btn" onclick="window.__cgStroopPick(\''+c.k+'\')" style="border-color:'+c.hex+';color:'+c.hex+';">'+c.label+'</button>';
+          }).join('') + '</div>'
+        + '</div>';
+      qStartTs = Date.now();
+    }
+    window.__cgStroopPick = function(k){
+      var rt = Date.now() - qStartTs;
+      rtList.push(rt);
+      if(k===currentAns) right++;
+      setTimeout(nextQ, 120);
+    };
+
+    function finish(){
+      var accuracy = Math.round(right/total*100);
+      var avgRt = Math.round(rtList.reduce(function(a,b){return a+b;},0)/rtList.length);
+      var rating = (accuracy>=95 && avgRt<=900) ? '优秀' : (accuracy>=85 && avgRt<=1200) ? '良好' : '继续加油';
+      var saved = null;
+      var durSec = Math.round(rtList.reduce(function(a,b){return a+b;},0)/1000);
+      if(sid){
+        saved = CG.saveRecord({studentId:sid, gameId:'stroop', score:accuracy, durationSec:durSec, meta:{right:right, total:total, avgRtMs:avgRt}});
+      }
+      var stuName = stu?stu.name:'';
+      var body = document.getElementById('cg-runner-body');
+      body.innerHTML = '<div class="cg-result-card">'
+        + '<h3>完成 🎨</h3>'
+        + '<div class="cg-result-score">'+accuracy+'<small>%</small></div>'
+        + '<div class="cg-result-detail">'
+        +   '答对 <b>'+right+'</b> / '+total+' · 平均反应 <b>'+avgRt+'</b> ms · 评级 <b>'+rating+'</b><br>'
+        +   (sid ? ('本次已保存至 '+esc(stuName)+' 的记录') : '未选学生 · 本次不保存')
+        + '</div>'
+        + '<div class="cg-result-actions">'
+        +   '<button class="cg-btn-primary" onclick="CG.startGame(\'stroop\')">再来一次</button>'
+        +   '<button class="cg-btn-secondary" onclick="CG.exitGame()">返回主页</button>'
+        + '</div>'
+        + '</div>';
+    }
+
+    renderRunner('🎨 Stroop 色词 · 抑制控制', stu?('学生 · '+esc(stu.name)):'试玩模式（不保存）', '<div class="cg-stroop-stage"><div class="cg-stroop-tip" style="font-size:14px;line-height:1.9;max-width:460px;margin:16px auto;color:#6b5b3d;">共 '+total+' 题，屏幕上会出现一个用某种颜色显示的<b>颜色词</b>。<br>请点击<b>字面颜色</b>，忽略字的含义。<br><em style="color:#a8362a">例如：红色的"蓝"字，应点"红"。</em></div><div style="text-align:center;margin-top:20px;"><button class="cg-btn-primary" onclick="window.__cgStroopStart()">开始 →</button></div></div>');
+    window.__cgStroopStart = function(){ nextQ(); };
+  }
+
+  // ------- 入口 & 出口 -------
+  window.openClassroomGames = function(){
+    var overlay = document.getElementById('cg-overlay');
+    overlay.classList.add('cg-open');
+    document.body.style.overflow = 'hidden';
+    // 判断是否已 setup
+    var tid = CG.getCurrentTeacherId();
+    if(!tid){
+      document.querySelectorAll('#cg-overlay .cg-btn-nav').forEach(function(el){ el.style.display='none'; });
+      CG.nav('setup');
+    }else{
+      CG.state.teacherId = tid;
+      CG.state.studentId = CG.getCurrentStudentId();
+      CG.enterHome();
+    }
+  };
+  window.closeClassroomGames = function(){
+    var overlay = document.getElementById('cg-overlay');
+    overlay.classList.remove('cg-open');
+    document.body.style.overflow = '';
+  };
+
+  // ESC 关闭
+  document.addEventListener('keydown', function(e){
+    if(e.key==='Escape'){
+      var overlay = document.getElementById('cg-overlay');
+      if(overlay && overlay.classList.contains('cg-open')){ closeClassroomGames(); }
+    }
+  });
+
+})();
+</script>
+<!-- ============ LUOBO-CG-MODULE END v1 ============ -->
+
 </body>
 </html>
 <!-- redeploy-47eed18dv4r1_v5_v6 -->
