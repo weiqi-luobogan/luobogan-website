@@ -1196,6 +1196,69 @@
     header .max-w-5xl { padding-left: 16px !important; padding-right: 60px !important; }
   }
 
+
+/* ===== LUOBO-TOOLS-V2 CSS START ===== */
+#tools .tools-intro { max-width: 720px; margin: 0 auto 32px; text-align:center; color:#5a5348; line-height:1.85; font-size:15px; }
+#tools .tab-bar { display:flex; justify-content:center; gap:0; border-bottom:1px solid #d9d3c4; margin-bottom:28px; flex-wrap:wrap; }
+#tools .tab-btn { background:transparent; border:none; padding:12px 24px; font-size:15px; color:#7a7160; cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-1px; transition: color .2s, border-color .2s; font-family:inherit; }
+#tools .tab-btn.active { color:#8b3a3a; border-bottom-color:#8b3a3a; font-weight:600; }
+#tools .tab-btn:hover { color:#8b3a3a; }
+#tools .tab-btn .tab-count { color:#a89f8a; font-size:12px; margin-left:4px; }
+#tools .toolgroup { display:none; }
+#tools .toolgroup.active { display:block; animation: fadeIn .3s ease; }
+@keyframes fadeIn { from { opacity:0; transform: translateY(4px);} to { opacity:1; transform: translateY(0);} }
+#tools .tool-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:16px; max-width: 1100px; margin: 0 auto; }
+#tools .tool-card { background:#fbf8f0; border:1px solid #d9d3c4; padding:20px 22px; cursor:pointer; transition: all .2s; position:relative; }
+#tools .tool-card:hover { border-color:#8b3a3a; background:#f7f0e0; transform: translateY(-2px); }
+#tools .tool-card .tool-num { position:absolute; top:12px; right:14px; font-size:11px; color:#a89f8a; font-family: 'Courier New', monospace; letter-spacing:1px; }
+#tools .tool-card .tool-title { font-size:16px; font-weight:600; color:#3d3d3d; margin-bottom:10px; }
+#tools .tool-card .tool-intro { font-size:13px; color:#6a6355; line-height:1.7; }
+#tools .tool-card .tool-cta { margin-top:12px; color:#8b3a3a; font-size:13px; }
+#tools .tool-panel { display:none; background:#fbf8f0; border:1px solid #d9d3c4; padding:28px 32px; margin-top:20px; max-width: 1100px; margin-left:auto; margin-right:auto; }
+#tools .tool-panel.active { display:block; }
+#tools .tool-panel-head { display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #d9d3c4; padding-bottom:14px; margin-bottom:22px; }
+#tools .tool-panel-title { font-size:19px; font-weight:600; color:#3d3d3d; }
+#tools .tool-panel-close { background:transparent; border:1px solid #a89f8a; padding:6px 14px; color:#7a7160; cursor:pointer; font-size:13px; font-family:inherit; }
+#tools .tool-panel-close:hover { border-color:#8b3a3a; color:#8b3a3a; }
+#tools .tool-panel-body { color:#3d3d3d; line-height:1.85; font-size:14px; }
+#tools .tool-panel-body h4 { font-size:15px; margin: 20px 0 10px; color:#8b3a3a; }
+#tools .tool-panel-body h5 { font-size:14px; margin: 14px 0 6px; color:#3d3d3d; font-weight:600; }
+#tools .tool-panel-body ul { padding-left: 22px; }
+#tools .tool-panel-body ol { padding-left: 22px; }
+#tools .tool-panel-body li { margin-bottom:6px; }
+#tools .tool-panel-body table { border-collapse:collapse; width:100%; margin:12px 0; font-size:13px; }
+#tools .tool-panel-body th, #tools .tool-panel-body td { border:1px solid #d9d3c4; padding:8px 10px; text-align:left; vertical-align:top; }
+#tools .tool-panel-body th { background:#f0e9d8; font-weight:600; }
+#tools .tool-panel-body blockquote { border-left:3px solid #8b3a3a; margin: 12px 0; padding: 4px 16px; color:#5a5348; background:#f7f0e0; font-size:13.5px; }
+#tools .tool-panel-body .qa-item { border-bottom:1px dashed #d9d3c4; padding:14px 0; }
+#tools .tool-panel-body .qa-item:last-child { border-bottom:none; }
+#tools .tool-panel-body .qa-q { font-weight:600; color:#3d3d3d; margin-bottom:8px; }
+#tools .tool-panel-body .qa-q::before { content:"Q · "; color:#8b3a3a; font-weight:600; }
+#tools .tool-panel-body .qa-a { color:#5a5348; padding-left:22px; }
+#tools .tool-panel-body .qa-a::before { content:"A · "; color:#5a8a5a; font-weight:600; margin-left:-22px; margin-right:6px; }
+#tools .tool-panel-body .step-block { margin:16px 0; padding:14px 18px; background:#fff; border-left:3px solid #8b3a3a; }
+#tools .tool-panel-body .step-block .step-num { font-weight:600; color:#8b3a3a; margin-bottom:6px; }
+#tools .tool-panel-body .step-block .step-title { font-weight:600; margin-bottom:6px; }
+#tools .tool-panel-body .tag-chip { display:inline-block; background:#f0e9d8; padding:3px 10px; border-radius:2px; margin:2px 4px 2px 0; font-size:12px; color:#5a5348; }
+#tools .print-hint { text-align:center; color:#a89f8a; font-size:12px; margin-top:24px; }
+#tools .search-bar { max-width:400px; margin: 0 auto 20px; }
+#tools .search-bar input { width:100%; padding:9px 14px; border:1px solid #d9d3c4; background:#fbf8f0; font-family:inherit; font-size:14px; color:#3d3d3d; }
+#tools .search-bar input:focus { outline:none; border-color:#8b3a3a; }
+@media (max-width: 640px) {
+  #tools .tab-btn { padding:10px 14px; font-size:13px; }
+  #tools .tool-grid { grid-template-columns: 1fr; gap:12px; }
+  #tools .tool-card { padding:16px 18px; }
+  #tools .tool-panel { padding:20px 18px; }
+  #tools .tool-panel-body { font-size:13px; }
+  #tools .tool-panel-body table { font-size:12px; }
+  #tools .tool-panel-body th, #tools .tool-panel-body td { padding:6px 8px; }
+}
+@media print {
+  #tools .tab-bar, #tools .tool-card, #tools .tool-panel-close, #tools .search-bar, #tools .print-hint { display:none !important; }
+  #tools .toolgroup, #tools .tool-panel { display:block !important; page-break-inside: avoid; }
+}
+/* ===== LUOBO-TOOLS-V2 CSS END ===== */
+
 </style>
   <script src="https://cdn.jsdelivr.net/npm/crypto-js@4.2.0/crypto-js.min.js"></script>
 </head>
@@ -2309,6 +2372,952 @@ header nav .nav-luobo-ext{white-space:nowrap;}
 </section>
 
 <!-- ===== 启蒙教学研讨（密钥板块 v2 · 账号密码模式） ===== -->
+
+<!-- ===== LUOBO-TOOLS-V2 START ===== -->
+<section id="tools" class="bg-paper py-24 border-y border-line collapsible">
+  <div class="container mx-auto px-4">
+    <h2 class="text-center text-3xl md:text-4xl mb-4">教学工具箱</h2>
+    <p class="tools-intro">
+      三档九工具，把这些年一线沉淀的招生 SOP、家长沟通话术、学棋常识、六商教育——
+      全部落到可复制、可打印、可直接用的形态。老师、校长、家长各取所需。
+    </p>
+    
+    <div class="tab-bar">
+      <button class="tab-btn active" data-tab="teacher">🎯 老师日常<span class="tab-count">4</span></button>
+      <button class="tab-btn" data-tab="principal">📊 校长运营<span class="tab-count">3</span></button>
+      <button class="tab-btn" data-tab="parent">👨‍👩‍👧 家长参考<span class="tab-count">2</span></button>
+    </div>
+    
+    
+    <div class="toolgroup active" data-group="teacher">
+      <div class="tool-grid">
+      <div class="tool-card" onclick="openTool('tool-a1')">
+        <div class="tool-num">A1</div>
+        <div class="tool-title">家长沟通话术速查</div>
+        <div class="tool-intro">20 条家长最常问的问题，每条给出承接情绪 · 换视角 · 给行动三层话术。</div>
+        <div class="tool-cta">点击查看 →</div>
+      </div>
+      <div class="tool-card" onclick="openTool('tool-a2')">
+        <div class="tool-num">A2</div>
+        <div class="tool-title">学情反馈单</div>
+        <div class="tool-intro">六边形雷达 + 八项软性素养 + 老师观察，一键生成家长友好的季度报告。</div>
+        <div class="tool-cta">点击查看 →</div>
+      </div>
+      <div class="tool-card" onclick="openTool('tool-a3')">
+        <div class="tool-num">A3</div>
+        <div class="tool-title">段位换算表</div>
+        <div class="tool-intro">中国 · 日本 · 韩国业余段级位 + 职业段位 + AI 等级分对照，给家长讲水平层次一目了然。</div>
+        <div class="tool-cta">点击查看 →</div>
+      </div>
+      <div class="tool-card" onclick="openTool('tool-a4')">
+        <div class="tool-num">A4</div>
+        <div class="tool-title">朋友圈脚本</div>
+        <div class="tool-intro">10 类朋友圈模板 + 每周节奏 + 内容比例配比，让家长看到你就想报名。</div>
+        <div class="tool-cta">点击查看 →</div>
+      </div>
+      </div>
+    </div>
+    
+    <div class="toolgroup" data-group="principal">
+      <div class="tool-grid">
+      <div class="tool-card" onclick="openTool('tool-b1')">
+        <div class="tool-num">B1</div>
+        <div class="tool-title">试听/公开课流程 SOP</div>
+        <div class="tool-intro">8 步试听 SOP + 转化率指标 + 三条硬红线，把试听课从教学课变成信任课。</div>
+        <div class="tool-cta">点击查看 →</div>
+      </div>
+      <div class="tool-card" onclick="openTool('tool-b2')">
+        <div class="tool-num">B2</div>
+        <div class="tool-title">家长抗拒点应对</div>
+        <div class="tool-intro">15 种典型抗拒话术 · 5 大类心态解读 · 每条都有话术 + 动作双层。</div>
+        <div class="tool-cta">点击查看 →</div>
+      </div>
+      <div class="tool-card" onclick="openTool('tool-b3')">
+        <div class="tool-num">B3</div>
+        <div class="tool-title">招生话术库</div>
+        <div class="tool-intro">10 段完整招生话术 · 从陌拜到老带新 · 三条硬红线的招生原则。</div>
+        <div class="tool-cta">点击查看 →</div>
+      </div>
+      </div>
+    </div>
+    
+    <div class="toolgroup" data-group="parent">
+      <div class="tool-grid">
+      <div class="tool-card" onclick="openTool('tool-c1')">
+        <div class="tool-num">C1</div>
+        <div class="tool-title">学棋常见问题手册</div>
+        <div class="tool-intro">20 个家长最常问的问题 · 5 大类 · 每条实在回答 + 家长可以做的具体动作。</div>
+        <div class="tool-cta">点击查看 →</div>
+      </div>
+      <div class="tool-card" onclick="openTool('tool-c2')">
+        <div class="tool-num">C2</div>
+        <div class="tool-title">六商教育库</div>
+        <div class="tool-intro">智情逆德志健六商 × 4 场景 · 24 张场景卡 · 孩子表现 / 常见误区 / 建议怎么做。</div>
+        <div class="tool-cta">点击查看 →</div>
+      </div>
+      </div>
+    </div>
+
+    
+    <div class="tool-panel" id="tool-a1">
+      <div class="tool-panel-head">
+        <div class="tool-panel-title">A1 · 家长沟通话术速查</div>
+        <button class="tool-panel-close" onclick="closeTool()">收起 ×</button>
+      </div>
+      <div class="tool-panel-body">
+<p>把家长最常问、最容易让老师踩坑的 20 个高频问题，拆成"承接情绪 → 换视角 → 给行动"三层话术。适用于试听后、日常交流、季度复盘等场景。</p>
+<h4>一、进步与天赋</h4>
+<div class="qa-item">
+  <div class="qa-q">"我们家孩子学了半年好像没进步，是不是没天赋？"</div>
+  <div class="qa-a"><strong>承接：</strong>"半年没看到明显变化确实会让人怀疑，我能理解。"<br><strong>换视角：</strong>"围棋不像英语背单词能立刻测出来，前半年是打底盘，孩子对棋子的手感、专注时间、面对局面时的沉稳度，都在悄悄长。"<br><strong>行动：</strong>"下周我把他这半年的对局单发您，咱们一起看具体几个维度——不是看结果，是看过程。"</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">"他班里有个同学下得比他好，我们要不要加课？"</div>
+  <div class="qa-a"><strong>承接：</strong>"看到孩子被比下去，家长心里肯定难受。"<br><strong>换视角：</strong>"围棋这件事，比进度快慢没意义，比稳不稳。有些孩子前半年冲得快，一年后停下来；有些孩子前半年慢，两年后一路走远。"<br><strong>行动：</strong>"加不加课我建议先不动，我们下周对他做一次专项测评，看他真实短板在哪，缺什么补什么。"</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">"围棋是不是主要看智力？我们家不是特别聪明。"</div>
+  <div class="qa-a"><strong>承接：</strong>"这个问题很多家长都会问。"<br><strong>换视角：</strong>"我教这么多年，最后能走远的孩子，绝大多数不是最聪明的，是能坐得住、输了不慌、赢了不炫的那种。围棋考的是长期功夫，聪明是加分项，不是必需项。"<br><strong>行动：</strong>"您就把这件事当作培养孩子做事习惯的一门手艺来看。"</div>
+</div>
+
+<h4>二、比赛与考级</h4>
+<div class="qa-item">
+  <div class="qa-q">"孩子什么时候可以去参加比赛？"</div>
+  <div class="qa-a"><strong>承接：</strong>"我知道您想看看他学的东西能不能拿出去用。"<br><strong>换视角：</strong>"比赛的关键不是几段几级，是孩子有没有做好'承受输赢'的心理准备。学一年不到就上赛场，赢了不知怎么赢，输了当场哭崩，反而伤棋。"<br><strong>行动：</strong>"我建议他先在馆内多打几场热身赛，观察他的反应，等我们觉得稳了，再报正式比赛。"</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">"考级考多快合适？别的机构说半年就能拿到 1 段。"</div>
+  <div class="qa-a"><strong>承接：</strong>"我理解您希望孩子早点看到成绩。"<br><strong>换视角：</strong>"半年拿到的段位，通常有水分——考试题目做过、比赛安排照顾过。等孩子拿到证书回来下棋，别人一段的孩子他下不过，那才是真的伤。稳到 1 段，一般得 1 年半到 2 年。"<br><strong>行动：</strong>"咱们不跟别的机构比进度，跟孩子自己比：这半年他有没有比上半年更懂棋。"</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">"比赛输了他哭得很凶，还要不要继续让他打？"</div>
+  <div class="qa-a"><strong>承接：</strong>"看着孩子哭，家长心疼是正常的。"<br><strong>换视角：</strong>"输了会哭说明他在乎，不是坏事。真正伤他的不是那场输棋，是您在旁边说'输了没关系'或者'早知道不带你来'——这两句都堵他情绪。"<br><strong>行动：</strong>"下场比赛输了，您就静静陪着他，不评价、不安慰、不复盘。回来路上让他自己开口。"</div>
+</div>
+
+<h4>三、上课与作业</h4>
+<div class="qa-item">
+  <div class="qa-q">"孩子在家不肯练棋，老师能不能管一下？"</div>
+  <div class="qa-a"><strong>承接：</strong>"回家推不动，这是绝大多数家长都会遇到的坎。"<br><strong>换视角：</strong>"在家练棋是让孩子对着围棋自己长出感情。您强推，他反而会把围棋和'被管'绑在一起。"<br><strong>行动：</strong>"我这周会跟他单独聊 10 分钟，不谈作业，只问他觉得围棋最有意思的地方是啥。让他自己找到不想练的原因。"</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">"他上课总走神，能不能坐前排一点？"</div>
+  <div class="qa-a"><strong>承接：</strong>"走神这件事我在课上确实观察到了。"<br><strong>换视角：</strong>"位置换了不解决根本问题。孩子这个年龄段，专注 15 分钟就到极限，走神是生理现象。关键是让他走神完能回来。"<br><strong>行动：</strong>"我下周会给他多设两次'轮到你了'的点名，把他从走神里拉回来，然后跟您反馈情况。"</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">"孩子说不喜欢老师，怎么办？"</div>
+  <div class="qa-a"><strong>承接：</strong>"孩子这么说，家长肯定第一时间很紧张。"<br><strong>换视角：</strong>"孩子说'不喜欢'的原因通常很具体——可能是上周被点名批评了、可能是坐在旁边的小朋友抢他的棋子。'不喜欢老师'常常是转述别的情绪。"<br><strong>行动：</strong>"能不能麻烦您跟孩子聊聊，具体哪件事让他不舒服？我们对症处理，不是简单换老师。"</div>
+</div>
+
+<h4>四、时间与节奏</h4>
+<div class="qa-item">
+  <div class="qa-q">"暑假要不要给他多加几节课？"</div>
+  <div class="qa-a"><strong>承接：</strong>"暑假时间宽松想给孩子多学一点，思路很对。"<br><strong>换视角：</strong>"围棋和别的兴趣班不一样，讲课的时间只是一半，剩下一半得靠他自己下棋、复盘。您一天两节课塞满，他没时间消化，反而学得虚。"<br><strong>行动：</strong>"我建议一周加 1-2 节课，配 3-4 局网棋对弈，然后带一次复盘。这样孩子学得进去，也不会腻。"</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">"我们家孩子最近作业多，能不能停一段时间？"</div>
+  <div class="qa-a"><strong>承接：</strong>"孩子学业压力大，家长首先要保护好他。"<br><strong>换视角：</strong>"停一学期再回来，前面学的手筋、定式基本就凉了，再回来要花两三个月找感觉。真的要停，我不拦；能不能改成每周降到 1 节，保住手感？"<br><strong>行动：</strong>"具体怎么改，您跟孩子商量下，我这边随时配合调整。"</div>
+</div>
+
+<h4>五、家庭陪伴</h4>
+<div class="qa-item">
+  <div class="qa-q">"我不会围棋，怎么陪孩子练？"</div>
+  <div class="qa-a"><strong>承接：</strong>"不会下棋的家长其实反而更容易陪好。"<br><strong>换视角：</strong>"会下棋的家长常常忍不住指手画脚，孩子被打断了思考反而学不下去。您不会，反而能安静地在他旁边陪着，那种'我在'的存在感，是老师和 AI 都替代不了的。"<br><strong>行动：</strong>"您就做两件事：一是陪他下棋时不评价，二是他讲棋给您听时认真听。这两点就够了。"</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">"我该不该给他买围棋书？买哪本？"</div>
+  <div class="qa-a"><strong>承接：</strong>"愿意给孩子买书，态度很难得。"<br><strong>换视角：</strong>"孩子这个阶段，看再多书都不如做题和下棋。市面上的少儿围棋书良莠不齐，买错了反而误导。"<br><strong>行动：</strong>"下节课我把他现阶段该配的 1 本主教材 + 1 本习题册发给您，其他等他上一个段位再说。"</div>
+</div>
+
+<h4>六、经济与投入</h4>
+<div class="qa-item">
+  <div class="qa-q">"这个学费能不能便宜点？"</div>
+  <div class="qa-a"><strong>承接：</strong>"学费确实是家庭一笔投入，您有这个考虑很正常。"<br><strong>换视角：</strong>"我们这一年的课时费拆到每一节，比一节钢琴课还便宜。我给孩子的时间、复盘、赛前指导，都是打包在里面的。您如果为了几百块换到更便宜的地方，孩子花掉的时间才是最贵的。"<br><strong>行动：</strong>"如果预算紧，咱们可以商量降频（一周一节改为两周一节），或者少报点半期，别在教学质量上省。"</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">"如果孩子学不下去，能退费吗？"</div>
+  <div class="qa-a"><strong>承接：</strong>"这个顾虑我完全理解，家长得对钱负责。"<br><strong>换视角：</strong>"'学不下去'这件事一般不是突然发生的，都是慢慢来的。我们承诺：孩子只要三节课内不适应，全额退。三节课之后如果状态不对，我第一个通知您，我们一起决定往下怎么走。"<br><strong>行动：</strong>"您先安心让孩子来上几节，遇到问题咱们随时聊。"</div>
+</div>
+
+<h4>七、未来与出路</h4>
+<div class="qa-item">
+  <div class="qa-q">"围棋学到什么水平就够了？"</div>
+  <div class="qa-a"><strong>承接：</strong>"这个问题问得非常好，很多家长都在心里想，但不敢问。"<br><strong>换视角：</strong>"业余 1 段是一个自然的坎，这之前孩子还在学'围棋是什么'，这之后他开始有自己的下棋风格。到了 3 段之后，就要问孩子自己想不想继续。"<br><strong>行动：</strong>"我建议先不设死目标，走一步看一步，到了每个坎我提前跟您沟通。"</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">"孩子将来能靠围棋吃饭吗？"</div>
+  <div class="qa-a"><strong>承接：</strong>"能有这个念头说明孩子在您心里已经不一般了。"<br><strong>换视角：</strong>"真正靠围棋吃饭有三条路：职业棋手、围棋老师、围棋自媒体。第一条最难，需要 8-10 岁进定段班，天赋 + 时间投入巨大。后两条门槛低，但要走职业教育或商业化路线。这些以后再看。"<br><strong>行动：</strong>"现阶段，别把'吃饭'这件事跟孩子提，让他自己爱上这件事就够了。"</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">"如果哪天孩子说不学了，我该怎么办？"</div>
+  <div class="qa-a"><strong>承接：</strong>"这句话可能是家长最怕听到的一句话。"<br><strong>换视角：</strong>"孩子说'不想学了'，通常不是真的不喜欢围棋，是遇到了瓶颈或者某件不愉快。真放弃是慢慢淡出，不是嘴上说。"<br><strong>行动：</strong>"他真说了，您别答应也别否定，先跟我聊一下最近课堂表现，我们一起判断到底是想休息还是真想停。"</div>
+</div>
+
+<h4>八、家长自我</h4>
+<div class="qa-item">
+  <div class="qa-q">"我看他下棋我着急，怎么办？"</div>
+  <div class="qa-a"><strong>承接：</strong>"看孩子长考不动，家长着急是正常的。"<br><strong>换视角：</strong>"您急也没用，反而会让孩子分心。他在长考不是磨叽，是脑子在跑。您坐在旁边一叹气，他的思路就断了。"<br><strong>行动：</strong>"下次他下棋，您就走开去做别的，或者背对棋盘看手机。等他叫您再过来。"</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">"孩子学围棋，我作为家长最不该做的是什么？"</div>
+  <div class="qa-a"><strong>承接：</strong>"能主动问这个问题，家长的心态已经赢了大半。"<br><strong>换视角：</strong>"最不该做三件事：一是替他复盘（'这步该走那里'），二是在他输棋后教育（'早跟你说了'），三是拿他跟别人比（'那谁比你厉害'）。这三件事只要一件常做，孩子就废掉一半。"<br><strong>行动：</strong>"您就当自己是他的观众，不是教练——他需要的是您在场，不是您在指点。"</div>
+</div>
+
+      </div>
+    </div>
+    <div class="tool-panel" id="tool-a2">
+      <div class="tool-panel-head">
+        <div class="tool-panel-title">A2 · 学情反馈单</div>
+        <button class="tool-panel-close" onclick="closeTool()">收起 ×</button>
+      </div>
+      <div class="tool-panel-body">
+<p><strong>学情反馈单</strong>是把孩子的六边形能力雷达、八项软性素养、老师观察和下阶段计划做成一张可导出、可发家长的图表。</p>
+<p>本工具已作为教师模块常驻在<strong>教学理念</strong>板块的<strong>模块 F</strong>。点击下方按钮打开教学理念，然后拉到"学情反馈单"章节即可使用。</p>
+<div style="text-align:center; margin-top:20px;">
+  <button onclick="if(typeof window.openSection==='function'){window.openSection('teaching');setTimeout(function(){var el=document.getElementById('feedback-module');if(el){el.scrollIntoView({behavior:'smooth',block:'start'});}},400);}" style="background:#8b3a3a;color:#fff;border:none;padding:10px 28px;cursor:pointer;font-family:inherit;font-size:14px;">前往学情反馈单 →</button>
+</div>
+<h4>它能帮你做什么</h4>
+<ul>
+  <li><strong>雷达图对比：</strong>孩子上次评估和本次评估的六项技术能力叠图对比，家长一眼看到进步维度</li>
+  <li><strong>软性素养：</strong>学习兴趣、课堂专注、抗挫能力、复盘反思、家庭配合五项 1-5 分打分</li>
+  <li><strong>老师观察：</strong>手写"孩子本季度进步"和"下阶段重点"两段话，让家长看到你在动脑</li>
+  <li><strong>一键导出：</strong>生成 PNG 图片可以直接发家长群，或者 CSV 备份到本地</li>
+</ul>
+
+      </div>
+    </div>
+    <div class="tool-panel" id="tool-a3">
+      <div class="tool-panel-head">
+        <div class="tool-panel-title">A3 · 段位换算表</div>
+        <button class="tool-panel-close" onclick="closeTool()">收起 ×</button>
+      </div>
+      <div class="tool-panel-body">
+<p>孩子学到什么水平了？家长最常问的问题之一。这里给出<strong>中国业余段级位、日本院生、韩国研究生、AlphaGo Zero 等级分</strong>的对照关系，方便老师跟家长解释。</p>
+
+<h4>一、中国业余段级位标准（新手到业余顶级）</h4>
+<table>
+  <thead>
+    <tr><th style="width:14%">阶段</th><th style="width:16%">中国段级位</th><th>典型能力表现</th><th style="width:14%">常见学时</th></tr>
+  </thead>
+  <tbody>
+    <tr><td rowspan="3">启蒙</td><td>25 级 - 20 级</td><td>认识棋盘、气和目、简单吃子</td><td>1-3 个月</td></tr>
+    <tr><td>19 级 - 15 级</td><td>了解基本手筋、能围小空</td><td>3-6 个月</td></tr>
+    <tr><td>14 级 - 10 级</td><td>会做眼、能下完整一盘 13 路棋</td><td>6-10 个月</td></tr>
+    <tr><td rowspan="2">入门</td><td>9 级 - 5 级</td><td>能下完整 19 路棋、简单死活</td><td>10-16 个月</td></tr>
+    <tr><td>4 级 - 1 级</td><td>掌握基本定式和布局、能复盘</td><td>16-24 个月</td></tr>
+    <tr><td rowspan="4">业余段位</td><td>业余 1 段</td><td>系统性理解棋理，能读几手</td><td>2-3 年</td></tr>
+    <tr><td>业余 2-3 段</td><td>基本功扎实，参加地区级比赛</td><td>3-5 年</td></tr>
+    <tr><td>业余 4-5 段</td><td>省市顶尖水平，冲段班孩子的目标</td><td>5-8 年</td></tr>
+    <tr><td>业余 6-7 段</td><td>全国业余顶尖，可挑战职业初段</td><td>8 年以上</td></tr>
+  </tbody>
+</table>
+
+<h4>二、中日韩三国大致对照</h4>
+<table>
+  <thead>
+    <tr><th>中国业余</th><th>日本业余</th><th>韩国业余</th><th>AlphaGo Zero 等级分</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>业余 1 段</td><td>业余 2 段</td><td>业余 2 段</td><td>1500-1700</td></tr>
+    <tr><td>业余 3 段</td><td>业余 4 段</td><td>业余 4 段</td><td>1800-2000</td></tr>
+    <tr><td>业余 5 段</td><td>业余 6 段</td><td>业余 6 段</td><td>2100-2300</td></tr>
+    <tr><td>业余 7 段</td><td>业余 8 段</td><td>业余 8 段（韩国最高）</td><td>2400-2600</td></tr>
+  </tbody>
+</table>
+<blockquote>日韩业余段位起始点比中国低约 1-2 段，但顶级业余水平三国大致一致。</blockquote>
+
+<h4>三、职业段位（供家长了解上限）</h4>
+<table>
+  <thead>
+    <tr><th>职业段位</th><th>获得方式</th><th>典型年龄</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>职业初段</td><td>参加定段赛，全国每年约 20-25 人入段</td><td>10-16 岁</td></tr>
+    <tr><td>职业 2-5 段</td><td>参加职业比赛按积分升段</td><td>入段后 2-5 年</td></tr>
+    <tr><td>职业 6-8 段</td><td>获得高水平职业比赛冠军或积分累积</td><td>顶尖棋手</td></tr>
+    <tr><td>职业 9 段</td><td>获得世界大赛冠军或最高级别比赛冠军</td><td>棋手最高荣誉</td></tr>
+  </tbody>
+</table>
+
+<h4>四、跟家长解释段级位的两个建议</h4>
+<ol>
+  <li><strong>别拿段级位当唯一标尺。</strong>段位是过程中的路牌，不是终点。孩子在 15 级时的思维习惯，比他两年后拿到 1 段更能决定他能走多远。</li>
+  <li><strong>给家长一个"参照系"而不是"目标"。</strong>如果家长问"我们孩子什么时候到 1 段"，比起给具体时间，不如说"到 1 段一般 2 年左右，我们看他掌握了什么，不看什么时候到。"</li>
+</ol>
+
+      </div>
+    </div>
+    <div class="tool-panel" id="tool-a4">
+      <div class="tool-panel-head">
+        <div class="tool-panel-title">A4 · 朋友圈脚本</div>
+        <button class="tool-panel-close" onclick="closeTool()">收起 ×</button>
+      </div>
+      <div class="tool-panel-body">
+<p>每周一到两条朋友圈，是家长看到你、判断你、信任你的关键窗口。这里给出 <strong>10 类朋友圈模板</strong>，每类一个例子，直接改数字和名字就能发。</p>
+
+<h4>一、上课日常类（每周 1-2 条）</h4>
+<blockquote>
+📖 今天带孩子们做的死活题<br>
+黑先，标准做眼手筋 · 二线夹是关键<br>
+你能三分钟内看出答案吗？<br><br>
+——你的孩子已经能一分钟做完这道题<br>
+[配图：手写棋谱 + 孩子做题的手（打码）]
+</blockquote>
+
+<h4>二、孩子进步类（每 2-3 周 1 条）</h4>
+<blockquote>
+🌱 三个月前，他连棋盘都看不清<br>
+今天，他自己下完了完整一盘 19 路<br>
+黑棋 · 11 岁 · 第一次执黑独立下完全盘<br><br>
+下一个目标：布局稳到能读三手<br>
+[配图：孩子背影 + 棋盘复盘图]
+</blockquote>
+
+<h4>三、比赛/考级类（有比赛就发）</h4>
+<blockquote>
+🏆 恭喜 X 同学正式获得业余 1 段<br>
+距他第一次摸棋 · 22 个月<br>
+比预期慢半年，但每一步都稳<br><br>
+段位是路牌不是终点，下一段路我们继续走<br>
+[配图：证书正面 + 孩子和证书合影（打码）]
+</blockquote>
+
+<h4>四、教研/思考类（每 2 周 1 条 · 建立专业感）</h4>
+<blockquote>
+💭 备课时的一点想法：<br>
+"孩子学不下去"这件事，90% 不是他的问题<br>
+是他家里/学校/机构，有一个环节出了错<br><br>
+围棋从来不是天赋游戏，是环境游戏<br>
+[配图：手写笔记 · 教研本]
+</blockquote>
+
+<h4>五、试听转化类（招生季重点）</h4>
+<blockquote>
+🎯 本周试听排期还剩 3 个名额<br>
+适合：5-10 岁 · 从未接触过围棋<br>
+不适合：家长希望半年拿 1 段的<br><br>
+试听费用 XX，报名后抵扣<br>
+私信"试听 + 孩子年龄"预约<br>
+[配图：教室环境 · 干净整洁角落]
+</blockquote>
+
+<h4>六、家长反馈类（每月 1 条 · 建立口碑）</h4>
+<blockquote>
+👥 一位学了 8 个月的孩子家长给我发了这段话：<br><br>
+"孩子最近做作业能坐住一小时了<br>
+以前十分钟就坐不住<br>
+我觉得围棋比补习班值多了"<br><br>
+——这是我做这一行最想听到的话<br>
+[配图：微信截图打码 · 只留文字]
+</blockquote>
+
+<h4>七、行业观点类（每月 1 条 · 建立差异化）</h4>
+<blockquote>
+⚡ 最近很多机构在打"AI 陪练包学包会"<br>
+我一直没跟风，也不打算跟<br><br>
+围棋是人和人的博弈<br>
+AI 是训练工具，不是老师替身<br>
+让孩子对着屏幕下棋一年<br>
+不如让他跟活人下三个月<br><br>
+——这是我的坚持，不打折<br>
+[配图：纯文字白底]
+</blockquote>
+
+<h4>八、教材/资源类（每 2 周 1 条）</h4>
+<blockquote>
+📚 本周推荐 · 家长入门可以翻的一本书<br>
+《一手交给孩子 · 家长学围棋的最少必要知识》<br>
+（我自己整理的家长版启蒙手册）<br><br>
+不用学下棋，只需要看懂两个词：<br>1. 什么是"气"<br>2. 什么是"目"<br><br>
+私信"家长入门"送电子版<br>
+[配图：书封面]
+</blockquote>
+
+<h4>九、生活片段类（每月 1-2 条 · 展现真实感）</h4>
+<blockquote>
+☕ 下午 4 点<br>
+上一节课刚结束，下一节课还有 20 分钟<br>
+翻翻《棋魂》放松一下<br><br>
+——教了十几年围棋，还是最爱这种时刻<br>
+[配图：桌面 + 咖啡 + 书 · 温暖光线]
+</blockquote>
+
+<h4>十、节日/纪念日类（有节日就发）</h4>
+<blockquote>
+🎋 端午安康<br>
+今天我们不上课<br>
+所有孩子的作业：陪家里人吃一顿饭<br><br>
+围棋能教的东西很多<br>
+最重要的一件是：知道什么时候该收手<br>
+[配图：粽子 + 棋盘 · 静物]
+</blockquote>
+
+<h4>发朋友圈的三个原则</h4>
+<ol>
+  <li><strong>频率：</strong>每周 2-3 条，最多不超过 4 条。多了刷屏，少了没存在感。</li>
+  <li><strong>比例：</strong>4:3:2:1 = 教学日常 4 : 家长反馈/思考 3 : 招生/资源 2 : 生活 1。别全是招生广告。</li>
+  <li><strong>配图：</strong>宁可用手机随手拍的真实照片，也别用网上找的素材图。真实感 &gt; 好看。</li>
+</ol>
+
+      </div>
+    </div>
+    <div class="tool-panel" id="tool-b1">
+      <div class="tool-panel-head">
+        <div class="tool-panel-title">B1 · 试听/公开课流程 SOP</div>
+        <button class="tool-panel-close" onclick="closeTool()">收起 ×</button>
+      </div>
+      <div class="tool-panel-body">
+<p>试听课的本质不是讲课，是<strong>让家长在 45 分钟里把"陌生"换成"信任"</strong>。这套 SOP 把试听拆成 8 个环节，每一步都问自己：<em>这一步是在讲围棋，还是在搭信任？</em></p>
+
+<blockquote>试听课不是教学课，是信任课。家长记不住老师讲了什么棋形，他记得住老师蹲下来跟孩子说话的样子。</blockquote>
+
+<div class="step-block">
+  <div class="step-num">STEP 1 · 家长到店前 30 分钟</div>
+  <div class="step-title">环境预检 · 三净</div>
+  <ul>
+    <li><strong>静：</strong>教室、走廊、洗手间做一遍降噪。空调调到 22-24 度，噪音 &lt;50 分贝</li>
+    <li><strong>稳：</strong>桌椅摆位复检，棋盘摆放整齐一致，无空杯、无杂物</li>
+    <li><strong>净：</strong>地面头发、桌面灰尘、玻璃指纹检查一遍。<strong>洗手间是关键判官</strong>——洗手间干净的机构，家长天然信任</li>
+  </ul>
+  <p><strong>硬指标：</strong>家长进门前 5 分钟前台应保持"随时接待"姿态，不做私事。</p>
+</div>
+
+<div class="step-block">
+  <div class="step-num">STEP 2 · 家长到店 · 前 3 分钟</div>
+  <div class="step-title">接待印象 · 第一眼</div>
+  <ul>
+    <li>前台起身迎接，主动询问："您是给孩子来试听的吧？请这边坐。"</li>
+    <li>倒水（温水，不烫不凉），给孩子准备一颗小糖或小玩具</li>
+    <li>递一张<strong>试听登记表</strong>：孩子姓名、年龄、有无围棋基础、家长核心期待。不问家庭收入等敏感项</li>
+    <li>老师此时应从教室出来，主动过来打招呼，蹲下和孩子平视自我介绍</li>
+  </ul>
+  <blockquote>老师蹲下来的瞬间，胜过前台十句宣传语。</blockquote>
+</div>
+
+<div class="step-block">
+  <div class="step-num">STEP 3 · 家长咨询 · 5 分钟</div>
+  <div class="step-title">初步沟通 · 听多说少</div>
+  <ul>
+    <li>咨询师引导家长回答三个问题：
+      <ol>
+        <li>孩子有没有过围棋接触？（判断起点）</li>
+        <li>为什么想学围棋？（判断动机 · 期待）</li>
+        <li>孩子每周能拿出多少时间？（判断投入意愿）</li>
+      </ol>
+    </li>
+    <li>不打断家长，不忙推销课程</li>
+    <li><strong>关键动作：</strong>咨询师在纸上记录家长关键词，让家长看得到你在认真听</li>
+  </ul>
+</div>
+
+<div class="step-block">
+  <div class="step-num">STEP 4 · 孩子入课 · 30 分钟</div>
+  <div class="step-title">试听课核心 · "让家长看到孩子亮起来"</div>
+  <p>试听课的目标不是教会孩子什么，是让家长看到<strong>孩子对围棋有反应</strong>。老师全程要做到：</p>
+  <ul>
+    <li><strong>开场 3 分钟：</strong>叫出孩子小名，问孩子最喜欢的动画片，用动画片人物做比喻切入棋子</li>
+    <li><strong>前 10 分钟：</strong>让孩子动手摆棋子 · 数气 · 简单吃子，任务简单，一定要让他成功至少 2 次</li>
+    <li><strong>中间 10 分钟：</strong>老师和孩子对弈 5 手 · 老师"故意输"1-2 手让孩子体验"我赢了"的成就感</li>
+    <li><strong>最后 10 分钟：</strong>老师带孩子做 2-3 道超简单的死活题，每答对夸具体动作："你刚才想了 5 秒钟才动，这就是围棋要的稳"</li>
+  </ul>
+  <blockquote>试听课不要展示老师有多牛，要展示孩子有多亮。家长看到的是孩子的表情，不是老师的功力。</blockquote>
+</div>
+
+<div class="step-block">
+  <div class="step-num">STEP 5 · 家长旁听 · 全程</div>
+  <div class="step-title">家长陪看区 · 舒适 &gt; 一切</div>
+  <ul>
+    <li>家长在<strong>专门陪看区</strong>（不是教室后排）观察，距离教室 3-5 米，视线可见但不干扰</li>
+    <li>陪看区提供舒适座椅、冷热饮、Wi-Fi、充电口</li>
+    <li>咨询师<strong>不主动搭话</strong>，等家长自己发问</li>
+    <li>家长若掏出手机也不阻止——他愿意在这待着就够了</li>
+  </ul>
+</div>
+
+<div class="step-block">
+  <div class="step-num">STEP 6 · 下课 · 后 5 分钟</div>
+  <div class="step-title">老师主动出场 · "临门一脚"</div>
+  <p>课程结束后，老师<strong>必须</strong>做这件事：主动到家长面前，先蹲下拍拍孩子肩膀，然后跟家长说三句话（顺序不能反）：</p>
+  <ol>
+    <li><strong>第一句 · 事实：</strong>"孩子今天做的[某个具体动作]我印象特别深"（比如"他刚才想了 5 秒才落子"）</li>
+    <li><strong>第二句 · 判断：</strong>"这孩子有股[某种品质]，是能走得远的那种"（说品质，不夸智商）</li>
+    <li><strong>第三句 · 邀请：</strong>"孩子想不想下周继续来一次？让我看看他这一周会长什么样"</li>
+  </ol>
+  <blockquote>不要在这时候提优惠。让家长觉得你在托付，不是在卖货。</blockquote>
+</div>
+
+<div class="step-block">
+  <div class="step-num">STEP 7 · 咨询师收尾 · 5 分钟</div>
+  <div class="step-title">话术收关 · 三选一</div>
+  <p>老师离开后，咨询师和家长对话，不提"报名"两个字。分三种情况处理：</p>
+  <ul>
+    <li><strong>家长主动问价：</strong>直接介绍课程、报价，不打折不促销。给<strong>体验期方案</strong>（如报满 10 节课不满意全额退）</li>
+    <li><strong>家长犹豫："</strong>回去和家里商量下"：不追问、不硬留，给一张"孩子今日学习摘要"，末尾附二维码，回家扫码可看老师本课录屏 3 分钟精华</li>
+    <li><strong>家长明确不合适：</strong>不勉强、不冷场。留孩子的联系方式，说"孩子如果哪天想来玩玩，随时欢迎"</li>
+  </ul>
+</div>
+
+<div class="step-block">
+  <div class="step-num">STEP 8 · 家长离店后 · 24 小时内</div>
+  <div class="step-title">跟进 · 一次到位</div>
+  <ul>
+    <li><strong>当天晚上：</strong>老师亲自发一条微信，附本课孩子的 <strong>1 张照片 + 1 句评价</strong>，不提报名</li>
+    <li><strong>次日：</strong>咨询师电话回访，不问"考虑得怎么样了"，问"孩子回去后有没有说起围棋"</li>
+    <li><strong>三天内：</strong>如果家长犹豫，可以发一条<strong>下周试听排期图</strong>："这周我们还有 2 个名额，孩子要不要再来一次"</li>
+  </ul>
+</div>
+
+<h4>关键指标 · 试听转化率</h4>
+<table>
+  <thead>
+    <tr><th>试听转化率</th><th>问题定位</th><th>优化方向</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>&lt; 30%</td><td>SOP 没跑通 or 环境有严重瑕疵</td><td>逐环节复盘 · 优先修 STEP 1 和 6</td></tr>
+    <tr><td>30% - 50%</td><td>SOP 跑通但老师"临门一脚"没做到</td><td>老师课后三句话专项训练</td></tr>
+    <tr><td>50% - 70%</td><td>正常范围 · 稳定运营水平</td><td>持续打磨咨询师收尾话术</td></tr>
+    <tr><td>&gt; 70%</td><td>优秀 · 但注意口碑积累和长期续费</td><td>转向续费率优化</td></tr>
+  </tbody>
+</table>
+
+<h4>硬约束 · 试听课绝不做的三件事</h4>
+<ol>
+  <li>❌ <strong>不打折</strong>——报了就是报，报不了别硬留。打折招进来的家长最难留</li>
+  <li>❌ <strong>不承诺段位时间</strong>——所有"多久到几段"的承诺都是坑</li>
+  <li>❌ <strong>不当面推销</strong>——课后 5 分钟只谈孩子，不谈钱</li>
+</ol>
+
+      </div>
+    </div>
+    <div class="tool-panel" id="tool-b2">
+      <div class="tool-panel-head">
+        <div class="tool-panel-title">B2 · 家长抗拒点应对</div>
+        <button class="tool-panel-close" onclick="closeTool()">收起 ×</button>
+      </div>
+      <div class="tool-panel-body">
+<p>试听后、咨询中、报名前、报名后、退费时，家长会用<strong>15 种典型说法</strong>来表达犹豫。这里给出每种情况的<strong>心态解读</strong>和<strong>应对话术</strong>。</p>
+
+<h4>一、决策拖延型（3 条）</h4>
+<div class="qa-item">
+  <div class="qa-q">"我们回去商量一下"</div>
+  <div class="qa-a"><strong>解读：</strong>家长本能挡箭牌，通常代表 60% 有意但没下决心。<br><strong>应对：</strong>"当然要跟家里商量，围棋是三年起步的事，不是一节课的决定。您商量的时候，主要担心什么？我先给您准备好回复。"<br><strong>动作：</strong>不追问结果，主动帮他梳理"待商量"的问题清单，让他带回去。</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">"我先看看别家怎么样"</div>
+  <div class="qa-a"><strong>解读：</strong>健康的对比意愿，说明他重视，不能挡。<br><strong>应对：</strong>"看别家是应该的，围棋不是买菜。您对比的时候有几个维度可以参考：老师带过的孩子里最高段位是多少，续费率大概多少，退费政策是啥。这三条我们都可以书面给您。"<br><strong>动作：</strong>主动给对比清单，展示自信 &amp; 透明度。</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">"再等等，孩子有点小、下学期再说"</div>
+  <div class="qa-a"><strong>解读：</strong>典型的拖延战术，可能是想推到下学期后就自然放弃。<br><strong>应对：</strong>"等下学期完全没问题。不过我想说一句——围棋不像英语，早半年晚半年差别不大。真正差别在'一开始跟对老师'。您现在预约位置也行，先来一次体验课不报名。"<br><strong>动作：</strong>把"再等等"转化成"先体验"，把决策点前移。</div>
+</div>
+
+<h4>二、价格质疑型（3 条）</h4>
+<div class="qa-item">
+  <div class="qa-q">"太贵了，能不能便宜点"</div>
+  <div class="qa-a"><strong>解读：</strong>可能是真觉得贵，也可能只是砍价习惯。<br><strong>应对：</strong>"我们价格是定死的，不能因人打折。原因很简单：如果我为您打折，隔壁桌那位家长知道了怎么想？打折能招进来的家长，最后走得也最快。您觉得贵，我们可以谈'降频'——同样的课时费拆到 6 个月上，一节课变一点点，但内容质量不变。"<br><strong>动作：</strong>坚决不打折，但提供"降频"折中方案。</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">"XX 家便宜一半，一样有老师"</div>
+  <div class="qa-a"><strong>解读：</strong>标准的价格锚定。家长在观察你是否会自贬。<br><strong>应对：</strong>"XX 家我知道，他们的老师和我们不是一个体系。我不评价别人，但我可以告诉您我们老师的三个标准：入职前带过 X 年学员，最高送出 X 段学生，续费率 X%。您要是能查到 XX 家有这三条，我不拦您。"<br><strong>动作：</strong>不否定对手，用自身硬指标做对比。</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">"我们家最近手头紧"</div>
+  <div class="qa-a"><strong>解读：</strong>真的紧或者只是话术，不必深究。<br><strong>应对：</strong>"能理解，家里开销确实多。我们不建议为了咬牙上围棋，让家里其他方面难受。我给您两个方案：一是我们有分期付款，二是先只报体验期 10 节，看看孩子适合再说，都可以。"<br><strong>动作：</strong>给出分期或短期方案，不搞硬留。</div>
+</div>
+
+<h4>三、效果质疑型（3 条）</h4>
+<div class="qa-item">
+  <div class="qa-q">"围棋学了到底有什么用？"</div>
+  <div class="qa-a"><strong>解读：</strong>家长在打消最后一层顾虑，需要一个能记得住的答案。<br><strong>应对：</strong>"我不跟您讲开发智力，那些每家都说。我就讲一件事：围棋是唯一一门孩子每 20 分钟就要做一次决定、然后为这个决定负责的东西。将来他做作业时敢挑难题、考试时敢用非常规解法，都是从这里开始的。"<br><strong>动作：</strong>给一个具体到"作业/考试"场景的类比。</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">"我们孩子性格急，坐不住，怕学不好"</div>
+  <div class="qa-a"><strong>解读：</strong>家长焦虑，希望被鼓励，但也怕被忽悠。<br><strong>应对：</strong>"坐不住的孩子学围棋反而进步大。我这几年带过好几个'急孩子'，他们不是天生急，是没找到能让他专注的事。围棋恰恰能治急躁，因为它逼你等对手落子。当然，前 3 个月会拉锯——他抗拒、您别硬推。"<br><strong>动作：</strong>把"缺点"转成"匹配度"，同时给出前 3 个月的过渡期承诺。</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">"AI 都能碾压职业棋手了，学围棋还有意义吗？"</div>
+  <div class="qa-a"><strong>解读：</strong>高知家长的经典问题，希望听到有深度的回答。<br><strong>应对：</strong>"AI 碾压职业棋手了，可 100 万个孩子没一个能碾压 AI。您让孩子学围棋不是为了赢过 AI，是让他学会跟活人博弈。人跟 AI 的最大不同是：AI 不会紧张、不会情绪化、不会撒谎。孩子从人和人的对弈里，学的是人性——这才是这个时代最稀缺的东西。"<br><strong>动作：</strong>肯定家长的思考深度，然后升级到"人性教育"层。</div>
+</div>
+
+<h4>四、时间冲突型（3 条）</h4>
+<div class="qa-item">
+  <div class="qa-q">"课太多了，围棋加上根本挤不进来"</div>
+  <div class="qa-a"><strong>解读：</strong>典型时间焦虑。家长在等你自动放弃。<br><strong>应对：</strong>"课多是真的多。我不建议您为了围棋牺牲其他课。您现在告诉我他现有几个班，我们看看能不能砍掉他最不喜欢的那个换围棋。真的挤不进就先不报，等他自己主动要求。"<br><strong>动作：</strong>不勉强，反过来劝家长做减法。</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">"我们周末已经排满了"</div>
+  <div class="qa-a"><strong>解读：</strong>可能是真满，也可能是不想周末再多一件事。<br><strong>应对：</strong>"周末排满我完全理解。我们有平日晚上的班（18:30-20:00），不占用您周末。您回去问问孩子，如果他愿意，我们再定。"<br><strong>动作：</strong>给"非周末"方案，让家长回避"周末已满"的挡箭牌。</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">"以后再说吧，等孩子放暑假"</div>
+  <div class="qa-a"><strong>解读：</strong>推迟型拒绝，80% 概率暑假也不会真报。<br><strong>应对：</strong>"暑假当然可以。不过我建议您暑假前 1 个月再决定——那时候孩子已经在暑假状态，您也不用现在预判。到时候我提前给您排位置。"<br><strong>动作：</strong>不催、不留档，把决策推到"临近点"。这时家长要么忘、要么真报。</div>
+</div>
+
+<h4>五、退费/终止型（3 条）</h4>
+<div class="qa-item">
+  <div class="qa-q">"孩子最近说不想学了，我们想退费"</div>
+  <div class="qa-a"><strong>解读：</strong>可能是孩子一时情绪，也可能是家长早想停。<br><strong>应对：</strong>"孩子说不想学，一般都是某件具体的事让他不舒服。您能告诉我最近他有没有跟您抱怨过什么？我们先弄清楚原因再决定退费。真的要退，我这边严格按合同来办，不会为难您。"<br><strong>动作：</strong>不硬留，先弄清原因，再判断是否有挽回空间。</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">"我们要转到 XX 家去，退剩下的课时"</div>
+  <div class="qa-a"><strong>解读：</strong>家长已经决定，只是走流程。<br><strong>应对：</strong>"我尊重您的选择，孩子的教育您做主。退费按合同办，一周内到账。走之前我最后跟您说一句：我们这边孩子的<strong>完整档案（对局记录、复盘笔记、老师观察）</strong>可以打包发给您，让新老师参考。这份档案对孩子接续学习有帮助。"<br><strong>动作：</strong>不阻拦、不冷脸，把"退费"变成"送客"，留一份专业档案，为口碑保底。</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">"孩子进步慢，我们对老师不满意"</div>
+  <div class="qa-a"><strong>解读：</strong>直接投诉，最容易演变成公开负评的场景。<br><strong>应对：</strong>"能这么直接告诉我，我很感谢。老师方面我们负责，我这周会亲自旁听他一节课，然后给您一份'具体哪里做得好、哪里没做到位、下阶段怎么调整'的书面反馈。给我 7 天时间，7 天后您决定继续还是退费，我都接受。"<br><strong>动作：</strong>态度诚恳、给具体行动 &amp; 时间承诺，避免情绪对抗。</div>
+</div>
+
+      </div>
+    </div>
+    <div class="tool-panel" id="tool-b3">
+      <div class="tool-panel-head">
+        <div class="tool-panel-title">B3 · 招生话术库</div>
+        <button class="tool-panel-close" onclick="closeTool()">收起 ×</button>
+      </div>
+      <div class="tool-panel-body">
+<p>10 个招生高频场景的完整话术，从<strong>首次陌拜</strong>到<strong>老带新</strong>，每段包含开场、推进、收尾三层。可直接口播，也可改成文字发朋友圈或群消息。</p>
+
+<h4>场景 1 · 陌拜家长（第一次见面）</h4>
+<blockquote>
+"您好，我是这里的围棋老师 XX。今天是我们试听开放日，孩子如果不忙可以来体验 30 分钟，没有任何压力。<br>
+（家长犹豫）您先看看环境，如果觉得合适再说。我们试听费 XX 元，报名可抵扣；不合适全额退，孩子多来玩一次也开心。<br>
+（家长同意）您先坐着喝杯水，我叫老师过来跟孩子打个招呼。"
+</blockquote>
+
+<h4>场景 2 · 试听结束推报名</h4>
+<blockquote>
+"今天孩子表现比我预期还好——特别是他[某个具体动作]，一般孩子第一次做这个都要犹豫，他直接就落子了。<br>
+如果您觉得孩子跟老师投缘，可以先报一个体验期（10 节课），我们承诺 10 节课内您觉得不适应，全额退。<br>
+（家长犹豫）不用现在决定，您回去和孩子聊聊，看他想不想继续来。下周还有排期，您微信告诉我就行。"
+</blockquote>
+
+<h4>场景 3 · 老带新推荐</h4>
+<blockquote>
+"XX 家长，您在这已经一年多了，孩子进步大家都看在眼里。最近有几位新家长在打听老师，如果您身边有合适的朋友，愿意介绍的话可以推给他们。<br>
+不用您帮我推销，就说一句'我孩子在这里学得挺踏实'就够了。他们真来了，我给您和他都各<strong>加送 2 节课</strong>作为感谢。<br>
+（家长答应）也不用勉强，随缘就行。您孩子学得好，本身就是我最好的招牌。"
+</blockquote>
+
+<h4>场景 4 · 群内公告（微信群 / 朋友圈）</h4>
+<blockquote>
+"📢 本周试听排期通知<br>
+时间：X 月 X 日 - X 日 · 下午 14:30 / 16:00 · 两个时段<br>
+适合：5-10 岁 · 从未接触围棋的孩子<br>
+本周还剩 X 个名额<br>
+体验流程：45 分钟试听 + 20 分钟老师反馈<br>
+预约：私信'试听 + 孩子年龄'即可"
+</blockquote>
+
+<h4>场景 5 · 家长群众口日常刷存在感</h4>
+<blockquote>
+"@全体成员 今天带孩子们做了一道死活题，很多人卡在'夹'这个手筋上——这个手筋是启蒙到入门的一个关键坎，家长可以在家陪孩子多摆几遍。<br>
+明天我把详细讲解发到群里。有问题的家长直接私信我。"
+</blockquote>
+
+<h4>场景 6 · 大型社区活动 / 公益公开课</h4>
+<blockquote>
+"（开场 · 站在展台前）家长您好，我是围棋老师 XX，今天在这里做公益围棋启蒙。孩子只要 5 岁以上，都可以来试试。<br>
+不需要报名不需要留电话，就来玩 20 分钟。孩子玩得开心，您觉得合适再考虑要不要来我们那试听。<br>
+（孩子来到棋盘前）你好呀，你叫什么名字？来，我教你怎么让棋子活起来——你看这颗小黑子，它现在被围住了，怎么救它？"
+</blockquote>
+
+<h4>场景 7 · 幼儿园 / 学校招生（谨慎使用）</h4>
+<blockquote>
+"（对幼儿园园长）X 老师，我不是来卖课的，我是想问下——您园里有没有对围棋感兴趣的孩子？我们可以来做一次<strong>公益围棋文化课</strong>，40 分钟，讲讲围棋是什么，不推销任何东西。<br>
+如果园里有需要，我们也可以做长期的兴趣班。这个不着急，您先看看孩子们反馈怎么样。"
+</blockquote>
+
+<h4>场景 8 · 学员续费</h4>
+<blockquote>
+"XX 家长，孩子这半年的学习报告我整理好了，回头发您。总结几句：他布局稳了很多，中盘还在拉；软性方面他抗挫能力明显进步，输棋不掉眼泪了。<br>
+下一阶段我们打算重点补中盘计算力，配合冲 X 级的目标。费用和之前一样，不涨价。<br>
+（家长犹豫）您先看报告，看完有想调整的地方跟我说。"
+</blockquote>
+
+<h4>场景 9 · 老家长回炉（曾经报过、断过的）</h4>
+<blockquote>
+"XX 家长好久没聊了！孩子最近怎么样？我一直记得他那盘让二子的对局——那是我印象最深的一盘。<br>
+最近有想过让他回来练练手吗？没打算也没关系，我就是想问声好。孩子哪天想下棋，随时来我这坐坐，不用报名。"
+</blockquote>
+
+<h4>场景 10 · 学员流失后的口碑保底</h4>
+<blockquote>
+"XX 家长，孩子最后一节课昨天上了，我这边帮您整理了他这段时间的完整档案：对局记录 XX 局、复盘笔记 XX 页、老师观察小结一份。<br>
+这份档案打包发您，新老师可以直接用。孩子后面路上有什么进展，您愿意的话跟我分享一下，我特别想知道他能走到哪。"
+</blockquote>
+
+<h4>10 段话术共通的三条原则</h4>
+<ol>
+  <li><strong>不推销、少承诺、多留白。</strong>让家长感觉是"托付"，不是"买卖"</li>
+  <li><strong>不打折、不比价、不承诺段位时间。</strong>三条硬红线永远不破</li>
+  <li><strong>把"报名"藏在"孩子体验"背后。</strong>每一段话术都以孩子为核心，不以业绩为核心</li>
+</ol>
+
+      </div>
+    </div>
+    <div class="tool-panel" id="tool-c1">
+      <div class="tool-panel-head">
+        <div class="tool-panel-title">C1 · 学棋常见问题手册</div>
+        <button class="tool-panel-close" onclick="closeTool()">收起 ×</button>
+      </div>
+      <div class="tool-panel-body">
+<p>孩子学棋路上，家长最常问的 <strong>20 个问题</strong>——每个问题都给一段"实在回答 + 家长可以做的"。这是家长版工具，也可以打印给新家长做入门参考。</p>
+
+<h4>一、学棋起步（4 条）</h4>
+<div class="qa-item">
+  <div class="qa-q">"什么年龄适合开始学围棋？"</div>
+  <div class="qa-a"><strong>实在回答：</strong>4-8 岁是启蒙黄金窗口。太小（&lt;4 岁）坐不住、认知不到位；太大（&gt;10 岁）也能学，但耐心会差一些。<br><strong>家长可以做的：</strong>不用抢跑。6 岁前只需要让孩子接触棋子、认识"围"这个字就够了。真正的启蒙从 6 岁开始也来得及。</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">"我不会围棋，怎么给孩子启蒙？"</div>
+  <div class="qa-a"><strong>实在回答：</strong>家长不会反而更好——你不会指手画脚。找一个靠谱的老师，是启蒙阶段最重要的事，比家长的水平重要 100 倍。<br><strong>家长可以做的：</strong>可以先看两本入门书（如《一天一课学围棋》第一册），了解"气""目""吃子"三个基本概念，能听懂孩子说棋就够了。</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">"是先学吃子还是先学围地？"</div>
+  <div class="qa-a"><strong>实在回答：</strong>吃子容易上手，孩子有成就感；围地抽象，需要几个月后才能理解。所以启蒙阶段先教吃子。<br><strong>家长可以做的：</strong>如果孩子学吃子学到能自己吃 10 颗以上的棋子还不腻，可以让老师开始引入"围空"的概念。这个节奏由老师把控，家长不用担心。</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">"围棋需要多久能上手？"</div>
+  <div class="qa-a"><strong>实在回答：</strong>3 个月能理解基本规则并下完 9 路棋；6 个月能下完 13 路棋；12 个月能下完 19 路完整对局。<br><strong>家长可以做的：</strong>如果孩子学了半年还下不完 13 路棋，不是他有问题，先看老师是不是节奏太慢。找老师谈一下。</div>
+</div>
+
+<h4>二、进度与瓶颈（4 条）</h4>
+<div class="qa-item">
+  <div class="qa-q">"孩子学了一段时间进步慢，正常吗？"</div>
+  <div class="qa-a"><strong>实在回答：</strong>正常。围棋进步不是直线，是台阶——两三个月一台阶。中间可能几周没进步，然后突然跳一级。<br><strong>家长可以做的：</strong>看他的对局单，不看段级位。对局单里"手数变长、失误减少、复盘时说得清"就是进步。</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">"孩子输棋后一直哭，怎么办？"</div>
+  <div class="qa-a"><strong>实在回答：</strong>输棋哭说明他在乎，是好事。差的是他哭完之后没人告诉他"输了没关系，我们看看哪里可以下更好"。<br><strong>家长可以做的：</strong>他哭时不安慰、不评价、不复盘，等他平静下来（可能是几分钟，也可能是第二天），再一起回顾。</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">"卡在某个段位上不去，怎么办？"</div>
+  <div class="qa-a"><strong>实在回答：</strong>大部分孩子会在 3 级、1 级、1 段、3 段这几个坎卡 3-6 个月。这不是水平问题，是需要突破一次的"跨阶段"。<br><strong>家长可以做的：</strong>不要加课时、不要转机构。跟老师确认<strong>短板到底在哪里</strong>——是死活、是布局、还是心态——针对性补 1-2 个月就能突破。</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">"孩子突然说不想学了，怎么办？"</div>
+  <div class="qa-a"><strong>实在回答：</strong>"不想学了"90% 的原因是最近发生了具体的事——可能是跟同学不合、可能是某次输惨、可能是老师说了让他不舒服的话。<br><strong>家长可以做的：</strong>不马上答应也不否定。先跟他单聊："最近发生了啥你不太开心？"具体事情处理完，"不想学"的话通常就自然消失。</div>
+</div>
+
+<h4>三、比赛与考级（4 条）</h4>
+<div class="qa-item">
+  <div class="qa-q">"要不要参加比赛？"</div>
+  <div class="qa-a"><strong>实在回答：</strong>要。但选择对的比赛：初学阶段选氛围轻松、赢者无奖的入门赛，避免让孩子把"输"和"羞辱"绑在一起。<br><strong>家长可以做的：</strong>孩子第一次参赛前，跟他约定："今天来是玩，不是赢奖杯。你回来只要说得清今天下了几盘、哪盘最有意思，就是我最开心的事。"</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">"考级考不上，孩子很沮丧"</div>
+  <div class="qa-a"><strong>实在回答：</strong>考级失败对孩子很正常。段级位是选拔性考试，第一次没过是大多数。<br><strong>家长可以做的：</strong>先安抚，不要在他情绪没消之前分析"哪里失误"。等他自己想聊，再帮他从这次失败里找一个具体的收获（比如"你今天在心态上比上次好多了"）。</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">"要不要上冲段班？"</div>
+  <div class="qa-a"><strong>实在回答：</strong>冲段班只适合已经稳定在业余 2-3 段以上的孩子，且孩子自己想冲。级位阶段进冲段班是揠苗助长。<br><strong>家长可以做的：</strong>如果考虑冲段，先带孩子去参观 1-2 次，让他看看冲段班的强度和氛围，让他自己判断能不能坚持。</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">"孩子适不适合走职业？"</div>
+  <div class="qa-a"><strong>实在回答：</strong>职业围棋 = 8-10 岁进定段班 + 每天 8-10 小时 + 全国竞争。评估标准有三个：天赋（3 年内到业余 5 段以上）、意志（能坐 8 小时不叫累）、家庭（父母有一位能陪读）。<br><strong>家长可以做的：</strong>孩子到业余 3 段之前不用考虑这件事，也别跟他提。到了 3 段再和老师深聊。</div>
+</div>
+
+<h4>四、家庭陪伴（4 条）</h4>
+<div class="qa-item">
+  <div class="qa-q">"家里要不要放个围棋盘？"</div>
+  <div class="qa-a"><strong>实在回答：</strong>要。家里要有一副像样的实体棋盘（不要塑料折叠盘），放在客厅或书房显眼位置。<br><strong>家长可以做的：</strong>你不用会下，但看到孩子摆棋时，走过去说一句"我看看你在下什么"就够了。围棋是家庭仪式感的一部分。</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">"家里能陪他下棋吗？"</div>
+  <div class="qa-a"><strong>实在回答：</strong>如果家长不会下，可以让孩子给你"讲棋"——他讲得清楚，说明他真懂。如果家长会下，请让他<strong>下 5 手</strong>就好，别下完整局。<br><strong>家长可以做的：</strong>让孩子当"老师"，你当"学生"。角色反过来时孩子学得最扎实。</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">"孩子下网棋，家长怎么办？"</div>
+  <div class="qa-a"><strong>实在回答：</strong>网棋是他自己的战场，家长在旁围观反而破坏专注。<br><strong>家长可以做的：</strong>设定"每天最多 3 盘网棋"的规则（约 60-90 分钟），然后不干涉具体过程。让孩子学会为自己的棋负责。</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">"围棋会影响学习吗？"</div>
+  <div class="qa-a"><strong>实在回答：</strong>不会——真正学好围棋的孩子，往往学习也不差。因为围棋训练的专注、复盘、抗挫，是学习最需要的三种能力。<br><strong>家长可以做的：</strong>如果孩子考试前压力大，可以主动跟他说"这周我们围棋暂停 1 次"。围棋是长线，不用每周都上。</div>
+</div>
+
+<h4>五、长远与出路（4 条）</h4>
+<div class="qa-item">
+  <div class="qa-q">"围棋学到什么水平就够了？"</div>
+  <div class="qa-a"><strong>实在回答：</strong>业余 1 段是一个自然的坎——之前是学"围棋是什么"，之后开始有自己的下棋风格。1 段之后走不走由孩子自己决定。<br><strong>家长可以做的：</strong>不给孩子设"必须几段"的死目标。让他到每一级自然生长。</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">"围棋对孩子性格有什么影响？"</div>
+  <div class="qa-a"><strong>实在回答：</strong>如果坚持 3 年以上，通常会看到四个变化：抗挫力更强、能长时间专注、遇事更沉、说话有条理。<br><strong>家长可以做的：</strong>别拿围棋当性格改造工具。这些变化是"副产品"，不是学围棋的目的。别让孩子觉得学围棋是为了变得听话。</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">"围棋能升学加分吗？"</div>
+  <div class="qa-a"><strong>实在回答：</strong>目前大部分地区没有直接加分。但业余 3 段以上在一些学校的自主招生里会被列为特长参考项。<br><strong>家长可以做的：</strong>把加分当"意外收获"，不当"目的"。为加分学的孩子拿到分就不下了，为爱好学的孩子会陪伴一生。</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">"孩子长大不下围棋了，还有意义吗？"</div>
+  <div class="qa-a"><strong>实在回答：</strong>90% 的孩子长大后都不会以围棋为职业，也不会经常下。但围棋教给他的<strong>面对不确定、面对失败、面对博弈</strong>的能力，会跟他一辈子。<br><strong>家长可以做的：</strong>接受"围棋是童年的一段陪伴"，不强求他一直下。有一天他愿意重新拿起，那就是这段童年最好的礼物。</div>
+</div>
+
+      </div>
+    </div>
+    <div class="tool-panel" id="tool-c2">
+      <div class="tool-panel-head">
+        <div class="tool-panel-title">C2 · 六商教育库</div>
+        <button class="tool-panel-close" onclick="closeTool()">收起 ×</button>
+      </div>
+      <div class="tool-panel-body">
+<p>把"教育"拆成 <strong>六种商</strong>——智商、情商、逆商、德商、志商、健商。每种商配 4 个真实生活场景，写清"孩子表现 / 家长常见误区 / 建议怎么做"。让家长看到"教育"不是抽象的词。</p>
+
+<h4>一、智商 IQ · 思考与学习</h4>
+<div class="qa-item">
+  <div class="qa-q">场景 1 · 孩子做题很快但错很多</div>
+  <div class="qa-a"><strong>常见误区：</strong>批评"你怎么这么粗心"。<br><strong>建议怎么做：</strong>让他做完一道题后用一分钟检查，然后再交给你。培养"停下来检查"的习惯。</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">场景 2 · 孩子学了新知识不会用</div>
+  <div class="qa-a"><strong>常见误区：</strong>说"我明明教过你了"。<br><strong>建议怎么做：</strong>让他把学到的东西"讲给你听"——能讲清才是真会。别指望孩子"听一遍就会"。</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">场景 3 · 孩子只喜欢做简单的题</div>
+  <div class="qa-a"><strong>常见误区：</strong>直接推难题给他做。<br><strong>建议怎么做：</strong>先陪他做一道稍难的题，让他体验"想了很久终于做出来"的成就感。这种成就感能推着他自己找难题。</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">场景 4 · 孩子背单词/公式记不住</div>
+  <div class="qa-a"><strong>常见误区：</strong>让他"多背几遍"。<br><strong>建议怎么做：</strong>让他把知识和自己已知的东西<strong>建立联系</strong>——比如用围棋的"围"字类比英文单词"circle"。孤立的记忆最容易忘。</div>
+</div>
+
+<h4>二、情商 EQ · 情绪与关系</h4>
+<div class="qa-item">
+  <div class="qa-q">场景 1 · 孩子跟同学吵架回来生气</div>
+  <div class="qa-a"><strong>常见误区：</strong>立刻问"你怎么惹他了"或"他先动手你就还手啊"。<br><strong>建议怎么做：</strong>先蹲下来说"哦，你现在很生气"，等他自己开口。情绪先落地，理性才能上来。</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">场景 2 · 孩子被人拒绝后不敢再开口</div>
+  <div class="qa-a"><strong>常见误区：</strong>说"你怎么这么胆小"或"你必须再去问一次"。<br><strong>建议怎么做：</strong>告诉他"被拒绝是最正常的事，妈妈/爸爸每天都会被拒绝一次"。让他知道拒绝不是他的问题。</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">场景 3 · 孩子看到别的孩子有玩具眼馋</div>
+  <div class="qa-a"><strong>常见误区：</strong>立刻买或强硬"不许要"。<br><strong>建议怎么做：</strong>问他"你想要哪一点？"——是玩具本身、还是别的孩子被围观的感觉？让他学会看到自己真正的需求。</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">场景 4 · 孩子哭闹要求不合理</div>
+  <div class="qa-a"><strong>常见误区：</strong>妥协或者硬压。<br><strong>建议怎么做：</strong>不评价情绪、不评价要求。等他哭完后说"你刚才想要 X，妈妈知道，但今天不能有。明天我们再看。"给一个"未来窗口"。</div>
+</div>
+
+<h4>三、逆商 AQ · 抗挫与坚韧</h4>
+<div class="qa-item">
+  <div class="qa-q">场景 1 · 孩子做数学题做半小时做不出来大哭</div>
+  <div class="qa-a"><strong>常见误区：</strong>说"这么简单都不会"。<br><strong>建议怎么做：</strong>说"这道题确实很难，妈妈第一次做也不一定会。我们先停 5 分钟，喝口水再来。"给他一个"暂停键"。</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">场景 2 · 孩子体育比赛输了不想再练</div>
+  <div class="qa-a"><strong>常见误区：</strong>说"你必须坚持"或"输了没关系"。<br><strong>建议怎么做：</strong>不劝他继续，也不同意他放弃。给他 3 天不谈这件事。3 天后问他："你自己怎么想？"让他做决定。</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">场景 3 · 孩子考试考砸了不敢跟家长说</div>
+  <div class="qa-a"><strong>常见误区：</strong>看到成绩就发火。<br><strong>建议怎么做：</strong>先说"你自己看这次成绩，觉得怎么样？"让他自己判断。他要是难过，就先陪他难过，不评价。</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">场景 4 · 孩子被朋友孤立</div>
+  <div class="qa-a"><strong>常见误区：</strong>立刻联系对方家长或老师解决。<br><strong>建议怎么做：</strong>告诉他"这种事一辈子会经历很多次，妈妈也经历过。你可以生气、可以难过，但不用觉得是自己有问题。"给他"这不是你的错"的定心丸。</div>
+</div>
+
+<h4>四、德商 MQ · 品德与是非</h4>
+<div class="qa-item">
+  <div class="qa-q">场景 1 · 孩子看到别的小朋友作弊没被抓</div>
+  <div class="qa-a"><strong>常见误区：</strong>让孩子去举报，或说"这不关你事"。<br><strong>建议怎么做：</strong>问他"你觉得他应该被抓吗？"引导他自己思考。不给标准答案，让他学会自己判断是非。</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">场景 2 · 孩子拿了同学的橡皮回来</div>
+  <div class="qa-a"><strong>常见误区：</strong>说"你怎么小偷小摸"。<br><strong>建议怎么做：</strong>不定性"偷"这个字。让他明天亲自还回去，跟同学说"这是我拿了你的，还给你"。让他自己承担后果。</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">场景 3 · 孩子答应了同学又反悔</div>
+  <div class="qa-a"><strong>常见误区：</strong>说"你怎么这么没信用"。<br><strong>建议怎么做：</strong>问他"你想想被反悔的人是什么感觉？"让他站在对方角度想。然后帮他打电话解释道歉。</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">场景 4 · 孩子说了不该说的话（比如嘲笑残疾人）</div>
+  <div class="qa-a"><strong>常见误区：</strong>当众训斥。<br><strong>建议怎么做：</strong>回家后单独跟他讲："今天有些事你不知道后果——你说的话可能让别人一整天都难过。以后有话回家再说。"</div>
+</div>
+
+<h4>五、志商 WQ · 意志与目标</h4>
+<div class="qa-item">
+  <div class="qa-q">场景 1 · 孩子说想学一样新东西但三分钟热度</div>
+  <div class="qa-a"><strong>常见误区：</strong>立刻答应报班或直接拒绝。<br><strong>建议怎么做：</strong>约定"你先坚持一个月，一个月后你如果还想继续，我们再报班"。让他学会先"证明自己"。</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">场景 2 · 孩子说以后想当宇航员/科学家</div>
+  <div class="qa-a"><strong>常见误区：</strong>说"你先把作业做好"。<br><strong>建议怎么做：</strong>认真回应："这个梦想很大，需要好几年的努力。你现在能做的一件事是什么？"引导他从大目标拆到小行动。</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">场景 3 · 孩子做作业总要拖到最后一天</div>
+  <div class="qa-a"><strong>常见误区：</strong>每天催他。<br><strong>建议怎么做：</strong>让他自己承担一次后果——比如让他拖到最后一天做不完，被老师批评一次。经历过一次的教训，比一百次唠叨管用。</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">场景 4 · 孩子完成一个目标后就松懈</div>
+  <div class="qa-a"><strong>常见误区：</strong>立刻推下一个更大目标。<br><strong>建议怎么做：</strong>让他<strong>庆祝一周</strong>——每天做一件他喜欢的事奖励自己。庆祝完之后，让他自己提下一个目标，不由你替他定。</div>
+</div>
+
+<h4>六、健商 HQ · 身心与习惯</h4>
+<div class="qa-item">
+  <div class="qa-q">场景 1 · 孩子晚上不肯睡觉玩手机</div>
+  <div class="qa-a"><strong>常见误区：</strong>硬抢手机、发火。<br><strong>建议怎么做：</strong>约定"22:00 全家都不玩手机"——包括你自己。孩子会跟着家长的节奏，不跟着规定的节奏。</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">场景 2 · 孩子吃饭挑食</div>
+  <div class="qa-a"><strong>常见误区：</strong>强迫他吃。<br><strong>建议怎么做：</strong>每次只让他吃一小口，说"这是尝味道，不是吃完"。10 次里孩子对不喜欢的食物慢慢会接受几次。别急，别硬来。</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">场景 3 · 孩子长时间坐着不运动</div>
+  <div class="qa-a"><strong>常见误区：</strong>报各种体育班。<br><strong>建议怎么做：</strong>每天带他出门散步 20 分钟，你陪着他走。体育班能帮忙但替代不了家长陪伴运动。</div>
+</div>
+<div class="qa-item">
+  <div class="qa-q">场景 4 · 孩子情绪波动大突然哭闹</div>
+  <div class="qa-a"><strong>常见误区：</strong>问他"你怎么了"或者"至于吗"。<br><strong>建议怎么做：</strong>先给他一杯温水或者一个抱抱。<strong>身体先冷静，情绪才冷静</strong>。等他自然平静后再谈。</div>
+</div>
+
+<h4>六商教育的三个共通原则</h4>
+<ol>
+  <li><strong>先接情绪，再谈道理。</strong>孩子在情绪里的时候，你说的所有道理他都听不进去。</li>
+  <li><strong>让他自己承担一次小的后果。</strong>比家长说一百句"你要负责"都管用。</li>
+  <li><strong>家长自己的行为，比你说的任何话都重要。</strong>孩子学的是你怎么活，不是你怎么讲。</li>
+</ol>
+
+      </div>
+    </div>
+
+    <div class="print-hint">所有工具支持 Ctrl+P 打印。全部内容也可截图分享。</div>
+  </div>
+</section>
+
+<script>
+(function(){
+  function openTool(id){
+    document.querySelectorAll('#tools .tool-panel').forEach(function(p){p.classList.remove('active');});
+    var panel = document.getElementById(id);
+    if(panel){
+      panel.classList.add('active');
+      setTimeout(function(){panel.scrollIntoView({behavior:'smooth', block:'start'});}, 100);
+    }
+  }
+  function closeTool(){
+    document.querySelectorAll('#tools .tool-panel').forEach(function(p){p.classList.remove('active');});
+    var section = document.getElementById('tools');
+    if(section){section.scrollIntoView({behavior:'smooth', block:'start'});}
+  }
+  window.openTool = openTool;
+  window.closeTool = closeTool;
+
+  // tab 切换
+  document.addEventListener('click', function(e){
+    var btn = e.target.closest('#tools .tab-btn');
+    if(!btn) return;
+    var tab = btn.getAttribute('data-tab');
+    document.querySelectorAll('#tools .tab-btn').forEach(function(b){b.classList.remove('active');});
+    btn.classList.add('active');
+    document.querySelectorAll('#tools .toolgroup').forEach(function(g){
+      g.classList.toggle('active', g.getAttribute('data-group') === tab);
+    });
+    document.querySelectorAll('#tools .tool-panel').forEach(function(p){p.classList.remove('active');});
+  });
+})();
+</script>
+<!-- ===== LUOBO-TOOLS-V2 END ===== -->
+
 <section id="edulab" class="collapsible bg-paper py-16 border-b border-line">
   <div class="max-w-6xl mx-auto px-6">
     <h2 class="section-title">启蒙教学研讨</h2>
@@ -5701,6 +6710,10 @@ function hideParentGuide(){
   <a href="#works" class="nav-toggle" data-target="works">图书与导图</a>
   <a href="#projects" class="nav-toggle" data-target="projects">围棋课程</a>
   <a href="#teaching" class="nav-toggle" data-target="teaching">教学理念</a>
+  <!-- ===== LUOBO-TOOLS-NAV-V2 START ===== -->
+  <a href="#tools" class="nav-toggle" data-target="tools">教学工具箱</a>
+  <!-- ===== LUOBO-TOOLS-NAV-V2 END ===== -->
+
   <a href="#culture" class="nav-toggle" data-target="culture">围棋文化</a>
   <a href="#edulab" class="nav-toggle" data-target="edulab">启蒙教研</a>
   <a href="#interact" class="nav-toggle" data-target="interact">留言板</a>
