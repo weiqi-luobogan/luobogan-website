@@ -9471,6 +9471,48 @@ header .nav-luobo-ext.dr-entry-btn-alt:hover {
   }catch(e){ console.warn('[fix14 reset] error:', e); }
 })();
 </script>
+<!-- ===== LUOBO-MM-RETURN v1.0 START ===== -->
+<script>
+/* v3.14 fix19 · 大师星图关闭详情后自动复原星图 */
+(function(){
+  function setup(){
+    var _origJump = window.__luoboJumpToMaster;
+    if(typeof _origJump === 'function' && !_origJump.__luoboWrapped){
+      var wrapped = function(name){
+        var ok = _origJump.call(this, name);
+        if(ok){ window.__luoboFromMasterMap = true; }
+        return ok;
+      };
+      wrapped.__luoboWrapped = true;
+      window.__luoboJumpToMaster = wrapped;
+    }
+    function bindReturnHook(id){
+      var el = document.getElementById(id);
+      if(!el || el.__luoboMMReturnBound) return;
+      el.__luoboMMReturnBound = true;
+      el.addEventListener('click', function(){
+        if(window.__luoboFromMasterMap){
+          window.__luoboFromMasterMap = false;
+          setTimeout(function(){
+            if(typeof window.__luoboOpenMasterMap === 'function'){
+              window.__luoboOpenMasterMap();
+            }
+          }, 60);
+        }
+      });
+    }
+    ['cul-back-home','cul-back-list','cul-back-list-2'].forEach(bindReturnHook);
+  }
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', setup);
+  } else {
+    setup();
+  }
+  setTimeout(setup, 500);
+  setTimeout(setup, 1500);
+})();
+</script>
+<!-- ===== LUOBO-MM-RETURN v1.0 END ===== -->
 </body>
 </html>
 <!-- redeploy-47eed18dv4r1_v5_v6 -->
