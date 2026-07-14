@@ -3937,6 +3937,19 @@ AI 是训练工具，不是老师替身<br>
 
     <!-- 具体工具训练面板（默认隐藏） -->
     <div id="brain-tool-area" style="display:none"></div>
+
+    <!-- ===== 交叉引流：专注力体验测试 ===== -->
+    <div id="brain-crossref-concentration" style="margin-top:2.5rem;padding:1.25rem 1.5rem;background:linear-gradient(135deg,#f5ecd7 0%,#efe2c2 100%);border:1px solid #c8b48a;border-radius:6px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;box-shadow:0 2px 6px rgba(139,58,58,0.08)">
+      <div style="flex:1 1 260px;min-width:0">
+        <div style="font-family:'KaiTi','STKaiti',serif;font-size:1.15rem;color:#8b3a3a;letter-spacing:.05em;margin-bottom:.35rem">
+          <span style="border:1px solid #8b3a3a;padding:1px 6px;font-size:.75rem;margin-right:.5em;vertical-align:1px">测试</span>专注力体验测试
+        </div>
+        <div style="font-size:.9rem;color:#6b5b3d;line-height:1.7">
+          5×5 舒尔特方格国际经典专注力测量工具，一分钟测出你的视觉搜索速度，并与同年龄段常模对比。
+        </div>
+      </div>
+      <button type="button" onclick="if(typeof window.openSection==='function'){window.openSection('concentration-test');}" style="background:#8b3a3a;color:#fff;border:none;padding:12px 28px;cursor:pointer;font-family:inherit;font-size:.95rem;letter-spacing:.1em;border-radius:4px;min-height:44px;white-space:nowrap">去体验 →</button>
+    </div>
   </div>
 </section>
 
@@ -5124,6 +5137,856 @@ AI 是训练工具，不是老师替身<br>
 })();
 </script>
 <!-- ===== LUOBO-BRAIN v1.0 END ===== -->
+
+
+<!-- ===== LUOBO-CONCENTRATION-TEST v1.0 START ===== -->
+<section id="concentration-test" class="bg-paper py-24 border-y border-line collapsible">
+  <div class="max-w-4xl mx-auto px-6 fade-in">
+    <h2 class="section-title">专注力体验测试</h2>
+    <p class="section-lead">
+      5×5 舒尔特方格是国际公认的<span class="hl">注意力与视觉搜索能力测量工具</span>。玩法很简单：按 1 到 25 的顺序依次点击方格，越快越好。测完可以看到用时、与同龄段常模的对比，也可以生成一张分享海报。
+    </p>
+
+    <!-- ===== 阶段一：信息 & 开始 ===== -->
+    <div id="ct-stage-intro" class="ct-stage" style="display:block">
+      <div class="ct-card">
+        <div class="ct-form-title">开始前，先留下几个信息（用于生成对比与海报）</div>
+        <div class="ct-form-grid">
+          <label class="ct-field">
+            <span class="ct-field-label">昵称 <em>选填</em></span>
+            <input type="text" id="ct-nick" maxlength="16" placeholder="默认「匿名棋友」" autocomplete="off">
+          </label>
+          <label class="ct-field">
+            <span class="ct-field-label">微信号 <em>选填 · 用于领取报告</em></span>
+            <input type="text" id="ct-wx" maxlength="30" placeholder="仅本地保存，不上传" autocomplete="off">
+          </label>
+        </div>
+        <div class="ct-radio-group">
+          <div class="ct-field-label">你的身份</div>
+          <div class="ct-radio-row">
+            <label class="ct-radio"><input type="radio" name="ct-role" value="围棋教师"><span>围棋教师</span></label>
+            <label class="ct-radio"><input type="radio" name="ct-role" value="围棋学员"><span>围棋学员</span></label>
+            <label class="ct-radio"><input type="radio" name="ct-role" value="家长"><span>家长</span></label>
+            <label class="ct-radio"><input type="radio" name="ct-role" value="围观群众" checked><span>围观群众</span></label>
+          </div>
+        </div>
+        <div class="ct-radio-group">
+          <div class="ct-field-label">年龄段</div>
+          <div class="ct-radio-row">
+            <label class="ct-radio"><input type="radio" name="ct-age" value="under18"><span>18 以下</span></label>
+            <label class="ct-radio"><input type="radio" name="ct-age" value="18-25"><span>18-25</span></label>
+            <label class="ct-radio"><input type="radio" name="ct-age" value="26-35" checked><span>26-35</span></label>
+            <label class="ct-radio"><input type="radio" name="ct-age" value="36-45"><span>36-45</span></label>
+            <label class="ct-radio"><input type="radio" name="ct-age" value="46-55"><span>46-55</span></label>
+            <label class="ct-radio"><input type="radio" name="ct-age" value="55+"><span>55+</span></label>
+          </div>
+        </div>
+        <div class="ct-actions">
+          <button type="button" id="ct-btn-start" class="ct-btn-primary">开始测试 →</button>
+        </div>
+      </div>
+
+      <!-- 历史记录 -->
+      <div id="ct-history" class="ct-history" style="display:none">
+        <div class="ct-history-title">你最近的成绩</div>
+        <div id="ct-history-list"></div>
+      </div>
+    </div>
+
+    <!-- ===== 阶段二：测试 ===== -->
+    <div id="ct-stage-game" class="ct-stage" style="display:none">
+      <div class="ct-game-header">
+        <div class="ct-timer">
+          <span class="ct-timer-label">用时</span>
+          <span class="ct-timer-value" id="ct-timer">0.00</span>
+          <span class="ct-timer-unit">秒</span>
+        </div>
+        <div class="ct-game-hint">
+          下一个：<span id="ct-next">1</span>
+          <button type="button" id="ct-btn-restart" class="ct-btn-mini">重新开始</button>
+        </div>
+      </div>
+      <div class="ct-grid" id="ct-grid"></div>
+      <div class="ct-err-hint" id="ct-err-hint">请按 1 → 25 顺序点击</div>
+    </div>
+
+    <!-- ===== 阶段三：结果 ===== -->
+    <div id="ct-stage-result" class="ct-stage" style="display:none">
+      <div class="ct-result-card">
+        <div class="ct-result-title">你的用时</div>
+        <div class="ct-result-time"><span id="ct-result-sec">0.00</span><span class="ct-result-unit">秒</span></div>
+        <div class="ct-result-tags" id="ct-result-tags"></div>
+
+        <div class="ct-compare">
+          <div class="ct-compare-block">
+            <div class="ct-compare-title">同年龄段参考区间</div>
+            <div class="ct-compare-value" id="ct-norm-range">—</div>
+            <div class="ct-compare-note">数据来源：公开常模，仅供参考</div>
+          </div>
+          <div class="ct-compare-block">
+            <div class="ct-compare-title">围棋教师群体基准</div>
+            <div class="ct-compare-value" id="ct-teacher-baseline">—</div>
+            <div class="ct-compare-note">数据持续收集中，样本越大越准确</div>
+          </div>
+        </div>
+
+        <div class="ct-encourage" id="ct-encourage"></div>
+
+        <!-- 分享海报 -->
+        <div class="ct-poster-wrap">
+          <div class="ct-poster-title">分享海报</div>
+          <canvas id="ct-poster-canvas" width="750" height="1334"></canvas>
+          <div class="ct-poster-actions">
+            <button type="button" id="ct-btn-download" class="ct-btn-secondary">下载海报</button>
+            <span class="ct-poster-tip">手机端可长按海报保存到相册</span>
+          </div>
+        </div>
+
+        <!-- 招生 CTA -->
+        <div class="ct-cta-box">
+          <div class="ct-cta-headline">想让专注力更进一步？</div>
+          <div class="ct-cta-body">围棋训练是提升长时段专注的有效路径之一。加微信领《提升专注力的三种围棋日常训练》。</div>
+          <button type="button" id="ct-btn-cta" class="ct-btn-cta">加微信 yxwq0909 领取福利</button>
+        </div>
+
+        <!-- 提交样本 -->
+        <div class="ct-submit-row">
+          <button type="button" id="ct-btn-submit" class="ct-btn-secondary">提交数据帮助完善样本</button>
+          <button type="button" id="ct-btn-again" class="ct-btn-secondary">再测一局</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+/* ===== 专注力体验测试样式 ===== */
+#concentration-test .ct-stage { margin-top: 2rem; }
+#concentration-test .ct-card {
+  background:#faf5e8; border:1px solid #d9c9a3; border-radius:6px;
+  padding:1.5rem 1.75rem; box-shadow:0 2px 8px rgba(139,58,58,0.05);
+}
+#concentration-test .ct-form-title {
+  font-family:'KaiTi','STKaiti',serif; font-size:1.05rem; color:#8b3a3a;
+  margin-bottom:1.2rem; letter-spacing:.05em;
+}
+#concentration-test .ct-form-grid {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:1rem 1.5rem; margin-bottom:1.2rem;
+}
+#concentration-test .ct-field { display:block; }
+#concentration-test .ct-field-label {
+  display:block; font-size:.85rem; color:#6b5b3d; margin-bottom:.4rem;
+  letter-spacing:.05em;
+}
+#concentration-test .ct-field-label em { font-style:normal; color:#a89572; font-size:.75rem; margin-left:.5em; }
+#concentration-test .ct-field input[type=text] {
+  width:100%; padding:.6rem .75rem; font-size:.95rem; font-family:inherit;
+  background:#fff; border:1px solid #c8b48a; border-radius:4px;
+  color:#3d2f1e; box-sizing:border-box; min-height:44px;
+}
+#concentration-test .ct-field input[type=text]:focus { outline:none; border-color:#8b3a3a; }
+#concentration-test .ct-radio-group { margin-bottom:1.2rem; }
+#concentration-test .ct-radio-row { display:flex; flex-wrap:wrap; gap:.5rem .75rem; }
+#concentration-test .ct-radio {
+  display:inline-flex; align-items:center; gap:.4em; padding:.55rem .9rem;
+  background:#fff; border:1px solid #c8b48a; border-radius:4px; cursor:pointer;
+  font-size:.9rem; color:#5b4a30; user-select:none; min-height:44px;
+  box-sizing:border-box; transition:all .18s ease;
+}
+#concentration-test .ct-radio:hover { border-color:#8b3a3a; }
+#concentration-test .ct-radio input { accent-color:#8b3a3a; margin:0; }
+#concentration-test .ct-radio input:checked + span { color:#8b3a3a; font-weight:600; }
+#concentration-test .ct-actions { text-align:center; margin-top:1.5rem; }
+#concentration-test .ct-btn-primary {
+  background:#8b3a3a; color:#fff; border:none; padding:14px 44px;
+  font-family:inherit; font-size:1.05rem; letter-spacing:.15em; cursor:pointer;
+  border-radius:4px; min-height:48px; transition:background .2s;
+}
+#concentration-test .ct-btn-primary:hover { background:#6f2d2d; }
+#concentration-test .ct-btn-secondary {
+  background:#fff; color:#8b3a3a; border:1px solid #8b3a3a; padding:10px 22px;
+  font-family:inherit; font-size:.9rem; cursor:pointer; border-radius:4px;
+  min-height:44px; transition:all .2s;
+}
+#concentration-test .ct-btn-secondary:hover { background:#8b3a3a; color:#fff; }
+#concentration-test .ct-btn-cta {
+  background:linear-gradient(135deg,#c4373a 0%,#8b3a3a 100%); color:#fff; border:none;
+  padding:14px 32px; font-family:inherit; font-size:1rem; letter-spacing:.1em; cursor:pointer;
+  border-radius:4px; min-height:48px; width:100%; max-width:420px;
+  box-shadow:0 3px 12px rgba(139,58,58,0.25);
+}
+#concentration-test .ct-btn-cta:hover { filter:brightness(1.05); }
+#concentration-test .ct-btn-mini {
+  background:transparent; color:#8b3a3a; border:1px solid #c8b48a;
+  padding:6px 14px; margin-left:1rem; font-family:inherit; font-size:.8rem;
+  cursor:pointer; border-radius:4px; min-height:32px;
+}
+
+/* 历史记录 */
+#concentration-test .ct-history {
+  margin-top:1.5rem; padding:1rem 1.25rem; background:#f5ecd7;
+  border:1px dashed #c8b48a; border-radius:6px;
+}
+#concentration-test .ct-history-title {
+  font-size:.85rem; color:#8b3a3a; letter-spacing:.1em; margin-bottom:.5rem;
+}
+#concentration-test .ct-history-item {
+  display:flex; justify-content:space-between; padding:.35rem 0;
+  font-size:.85rem; color:#6b5b3d; border-bottom:1px dashed #d9c9a3;
+}
+#concentration-test .ct-history-item:last-child { border-bottom:none; }
+
+/* 测试主区域 */
+#concentration-test .ct-game-header {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:1rem 1.25rem; background:#faf5e8; border:1px solid #d9c9a3;
+  border-radius:6px; margin-bottom:1rem; flex-wrap:wrap; gap:.75rem;
+}
+#concentration-test .ct-timer { display:flex; align-items:baseline; gap:.5rem; }
+#concentration-test .ct-timer-label { font-size:.85rem; color:#8b3a3a; letter-spacing:.1em; }
+#concentration-test .ct-timer-value {
+  font-family:'Courier New',monospace; font-size:2rem; font-weight:700;
+  color:#8b3a3a; min-width:5em; text-align:right; letter-spacing:.02em;
+}
+#concentration-test .ct-timer-unit { font-size:.9rem; color:#6b5b3d; }
+#concentration-test .ct-game-hint { font-size:.9rem; color:#6b5b3d; }
+#concentration-test .ct-game-hint #ct-next {
+  color:#8b3a3a; font-weight:700; font-size:1.1rem; margin-left:.35em;
+}
+
+#concentration-test .ct-grid {
+  display:grid; grid-template-columns:repeat(5,1fr); gap:6px;
+  max-width:520px; margin:0 auto; padding:6px; background:#c8b48a;
+  border-radius:6px;
+}
+#concentration-test .ct-cell {
+  aspect-ratio:1/1; min-height:56px; background:#faf5e8;
+  border:1px solid #d9c9a3; border-radius:4px; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'KaiTi','STKaiti',serif; font-size:clamp(1.4rem,5vw,2rem);
+  color:#3d2f1e; user-select:none; transition:all .12s ease;
+}
+#concentration-test .ct-cell:hover { background:#f5ecd7; }
+#concentration-test .ct-cell.ct-done {
+  background:#8b3a3a; color:#faf5e8; cursor:default; opacity:.85;
+}
+#concentration-test .ct-cell.ct-err {
+  background:#c4373a !important; color:#fff !important;
+  animation: ct-shake .3s;
+}
+@keyframes ct-shake {
+  0%,100% { transform:translateX(0); }
+  25% { transform:translateX(-4px); }
+  75% { transform:translateX(4px); }
+}
+#concentration-test .ct-err-hint {
+  text-align:center; margin-top:.75rem; font-size:.85rem;
+  color:#a89572; letter-spacing:.05em;
+}
+
+/* 结果卡片 */
+#concentration-test .ct-result-card {
+  background:#faf5e8; border:1px solid #d9c9a3; border-radius:6px;
+  padding:1.75rem 1.5rem; text-align:center;
+}
+#concentration-test .ct-result-title {
+  font-family:'KaiTi','STKaiti',serif; font-size:1rem; color:#8b3a3a;
+  letter-spacing:.15em; margin-bottom:.5rem;
+}
+#concentration-test .ct-result-time {
+  font-family:'Courier New',monospace; font-size:4rem; font-weight:700;
+  color:#8b3a3a; line-height:1; margin:.5rem 0;
+}
+#concentration-test .ct-result-unit { font-size:1.5rem; margin-left:.15em; color:#6b5b3d; font-family:'KaiTi','STKaiti',serif; }
+#concentration-test .ct-result-tags {
+  display:flex; flex-wrap:wrap; gap:.5rem; justify-content:center; margin:.75rem 0 1.5rem;
+}
+#concentration-test .ct-tag {
+  padding:.3rem .8rem; background:#f5ecd7; border:1px solid #c8b48a;
+  border-radius:3px; font-size:.8rem; color:#6b5b3d; letter-spacing:.05em;
+}
+#concentration-test .ct-compare {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:1rem; margin:1.5rem 0;
+}
+#concentration-test .ct-compare-block {
+  padding:1rem 1.2rem; background:#fff; border:1px solid #d9c9a3;
+  border-radius:4px; text-align:left;
+}
+#concentration-test .ct-compare-title { font-size:.85rem; color:#8b3a3a; letter-spacing:.05em; margin-bottom:.4rem; }
+#concentration-test .ct-compare-value { font-size:1.2rem; font-weight:600; color:#3d2f1e; margin-bottom:.3rem; }
+#concentration-test .ct-compare-note { font-size:.72rem; color:#a89572; }
+#concentration-test .ct-encourage {
+  padding:1rem 1.2rem; background:#f5ecd7; border-left:3px solid #8b3a3a;
+  color:#5b4a30; font-size:.95rem; line-height:1.75; margin:1.5rem 0;
+  text-align:left;
+}
+
+/* 海报区 */
+#concentration-test .ct-poster-wrap {
+  margin:1.75rem 0 1rem; padding-top:1.5rem; border-top:1px dashed #c8b48a;
+}
+#concentration-test .ct-poster-title { font-size:.9rem; color:#8b3a3a; letter-spacing:.1em; margin-bottom:.75rem; }
+#concentration-test #ct-poster-canvas {
+  max-width:min(320px, 80%); height:auto; border:1px solid #c8b48a;
+  border-radius:6px; box-shadow:0 4px 16px rgba(0,0,0,0.1);
+  display:block; margin:0 auto;
+}
+#concentration-test .ct-poster-actions {
+  margin-top:.75rem; display:flex; flex-wrap:wrap; gap:.75rem;
+  justify-content:center; align-items:center;
+}
+#concentration-test .ct-poster-tip { font-size:.75rem; color:#a89572; }
+
+/* CTA */
+#concentration-test .ct-cta-box {
+  margin-top:1.5rem; padding:1.5rem 1.25rem;
+  background:linear-gradient(135deg,#f5ecd7 0%,#e8d5a8 100%);
+  border:1px solid #c8b48a; border-radius:6px;
+}
+#concentration-test .ct-cta-headline {
+  font-family:'KaiTi','STKaiti',serif; font-size:1.15rem; color:#8b3a3a;
+  letter-spacing:.1em; margin-bottom:.5rem;
+}
+#concentration-test .ct-cta-body { font-size:.9rem; color:#5b4a30; margin-bottom:1rem; line-height:1.7; }
+
+#concentration-test .ct-submit-row {
+  display:flex; flex-wrap:wrap; gap:.75rem; justify-content:center;
+  margin-top:1.5rem; padding-top:1.5rem; border-top:1px dashed #c8b48a;
+}
+
+/* 移动端 */
+@media (max-width: 640px) {
+  #concentration-test .ct-card { padding:1.2rem 1rem; }
+  #concentration-test .ct-grid { gap:4px; padding:4px; }
+  #concentration-test .ct-cell { min-height:52px; font-size:1.3rem; }
+  #concentration-test .ct-result-time { font-size:3rem; }
+  #concentration-test .ct-timer-value { font-size:1.6rem; min-width:4.5em; }
+  #concentration-test .ct-radio { padding:.45rem .7rem; font-size:.85rem; }
+  #concentration-test .ct-form-grid { grid-template-columns:1fr; }
+  #concentration-test .ct-game-header { flex-direction:column; align-items:flex-start; }
+}
+</style>
+
+<script>
+(function(){
+  'use strict';
+  if (window.__luoboCTInit) return;
+  window.__luoboCTInit = true;
+
+  // ==== 常量：常模参考区间（秒） ====
+  var NORM = {
+    'under18': {min:28, max:38, label:'18 岁以下'},
+    '18-25':   {min:30, max:40, label:'18-25 岁'},
+    '26-35':   {min:35, max:45, label:'26-35 岁'},
+    '36-45':   {min:40, max:55, label:'36-45 岁'},
+    '46-55':   {min:50, max:65, label:'46-55 岁'},
+    '55+':     {min:55, max:70, label:'55 岁以上'}
+  };
+  // 围棋教师群体基准（种子数据）
+  var TEACHER_BASELINE = { n:15, avg:38.5, label:'围棋教师内测样本' };
+  var STORAGE_KEY = 'luobo_ct_history_v1';
+  var LAST_INFO_KEY = 'luobo_ct_lastinfo_v1';
+
+  // ==== 状态 ====
+  var state = {
+    order: [],       // 打乱后的 25 个数字（下标 -> 数字）
+    next: 1,         // 下一个要点的数字
+    startTs: 0,      // performance.now() 起点
+    rafId: 0,
+    elapsed: 0,      // 毫秒
+    info: null       // 最近提交的用户信息
+  };
+
+  function fmtTime(ms){
+    var s = ms / 1000;
+    return s.toFixed(2);
+  }
+
+  // Fisher-Yates 洗牌
+  function shuffle(arr){
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+
+  function getRadio(name){
+    var els = document.querySelectorAll('#concentration-test input[type=radio][name="'+name+'"]:checked');
+    return els.length ? els[0].value : '';
+  }
+  function setRadio(name, value){
+    var els = document.querySelectorAll('#concentration-test input[type=radio][name="'+name+'"]');
+    els.forEach(function(el){ el.checked = (el.value === value); });
+  }
+
+  function collectInfo(){
+    var nick = (document.getElementById('ct-nick').value || '').trim() || '匿名棋友';
+    var wx = (document.getElementById('ct-wx').value || '').trim();
+    var role = getRadio('ct-role') || '围观群众';
+    var age = getRadio('ct-age') || '26-35';
+    return { nick:nick, wx:wx, role:role, age:age };
+  }
+
+  function saveLastInfo(info){
+    try { localStorage.setItem(LAST_INFO_KEY, JSON.stringify(info)); } catch(e){}
+  }
+  function loadLastInfo(){
+    try {
+      var s = localStorage.getItem(LAST_INFO_KEY);
+      return s ? JSON.parse(s) : null;
+    } catch(e){ return null; }
+  }
+  function loadHistory(){
+    try {
+      var s = localStorage.getItem(STORAGE_KEY);
+      return s ? JSON.parse(s) : [];
+    } catch(e){ return []; }
+  }
+  function pushHistory(rec){
+    var list = loadHistory();
+    list.unshift(rec);
+    list = list.slice(0, 5);
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(list)); } catch(e){}
+  }
+
+  function renderHistory(){
+    var list = loadHistory();
+    var box = document.getElementById('ct-history');
+    var ul = document.getElementById('ct-history-list');
+    if (!list.length) { box.style.display = 'none'; return; }
+    box.style.display = 'block';
+    var html = '';
+    list.forEach(function(r){
+      var d = new Date(r.ts);
+      var dt = (d.getMonth()+1) + '/' + d.getDate() + ' ' + String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
+      html += '<div class="ct-history-item"><span>'+dt+' · '+(r.role||'')+' · '+(NORM[r.age]?NORM[r.age].label:r.age)+'</span><span><b>'+r.timeSec.toFixed(2)+'</b> 秒</span></div>';
+    });
+    ul.innerHTML = html;
+  }
+
+  // ==== 阶段切换 ====
+  function showStage(name){
+    ['intro','game','result'].forEach(function(s){
+      var el = document.getElementById('ct-stage-'+s);
+      if (el) el.style.display = (s === name) ? 'block' : 'none';
+    });
+  }
+
+  // ==== 初始化棋盘 ====
+  function initGrid(){
+    var nums = [];
+    for (var i = 1; i <= 25; i++) nums.push(i);
+    state.order = shuffle(nums);
+    state.next = 1;
+    var grid = document.getElementById('ct-grid');
+    grid.innerHTML = '';
+    state.order.forEach(function(n){
+      var cell = document.createElement('button');
+      cell.type = 'button';
+      cell.className = 'ct-cell';
+      cell.textContent = n;
+      cell.dataset.n = n;
+      cell.addEventListener('click', onCellClick);
+      grid.appendChild(cell);
+    });
+    document.getElementById('ct-next').textContent = '1';
+  }
+
+  function onCellClick(e){
+    var n = parseInt(e.currentTarget.dataset.n, 10);
+    if (e.currentTarget.classList.contains('ct-done')) return;
+    if (n === state.next) {
+      e.currentTarget.classList.add('ct-done');
+      state.next += 1;
+      document.getElementById('ct-next').textContent = state.next > 25 ? '完成' : state.next;
+      if (state.next > 25) { finishGame(); }
+    } else {
+      // 错误：闪红提示
+      var cell = e.currentTarget;
+      cell.classList.add('ct-err');
+      setTimeout(function(){ cell.classList.remove('ct-err'); }, 320);
+    }
+  }
+
+  function startTimer(){
+    state.startTs = performance.now();
+    state.elapsed = 0;
+    tick();
+  }
+  function tick(){
+    state.elapsed = performance.now() - state.startTs;
+    document.getElementById('ct-timer').textContent = fmtTime(state.elapsed);
+    state.rafId = requestAnimationFrame(tick);
+  }
+  function stopTimer(){
+    if (state.rafId) cancelAnimationFrame(state.rafId);
+    state.rafId = 0;
+  }
+
+  function beginGame(){
+    state.info = collectInfo();
+    saveLastInfo(state.info);
+    initGrid();
+    showStage('game');
+    // 稍微延迟一点让用户看到方格
+    setTimeout(startTimer, 300);
+  }
+
+  function finishGame(){
+    stopTimer();
+    var timeSec = state.elapsed / 1000;
+    var rec = {
+      ts: Date.now(),
+      timeSec: timeSec,
+      nick: state.info.nick,
+      role: state.info.role,
+      age: state.info.age,
+      wx: state.info.wx
+    };
+    pushHistory(rec);
+    showResult(rec);
+  }
+
+  // ==== 结果 & 分级 ====
+  function evalLevel(timeSec, age){
+    var n = NORM[age] || NORM['26-35'];
+    if (timeSec <= n.min) return { level:'较快', tone:'你的用时优于本年龄段常模区间，注意力集中度不错。' };
+    if (timeSec <= n.max) return { level:'常模内', tone:'你的用时落在本年龄段常模区间内，属于正常水平。' };
+    if (timeSec <= n.max * 1.3) return { level:'略慢', tone:'你的用时比本年龄段常模略慢，多做规律训练会有稳定改善。' };
+    return { level:'可训练空间较大', tone:'你的用时高于本年龄段常模区间，日常规律训练往往能看到明显提升。' };
+  }
+
+  function showResult(rec){
+    var timeSec = rec.timeSec;
+    var age = rec.age;
+    var n = NORM[age] || NORM['26-35'];
+    var ev = evalLevel(timeSec, age);
+
+    document.getElementById('ct-result-sec').textContent = timeSec.toFixed(2);
+    document.getElementById('ct-result-tags').innerHTML =
+      '<span class="ct-tag">'+rec.nick+'</span>'+
+      '<span class="ct-tag">'+rec.role+'</span>'+
+      '<span class="ct-tag">'+n.label+'</span>'+
+      '<span class="ct-tag">'+ev.level+'</span>';
+    document.getElementById('ct-norm-range').textContent = n.min + ' - ' + n.max + ' 秒';
+    document.getElementById('ct-teacher-baseline').textContent = TEACHER_BASELINE.avg + ' 秒（N=' + TEACHER_BASELINE.n + '）';
+
+    var extra = '';
+    if (rec.role === '围棋教师') {
+      extra = '作为围棋教师，稳定的注意力也是长时段带课与复盘的重要底层能力。';
+    } else if (rec.role === '围棋学员' || rec.role === '家长') {
+      extra = '规律的围棋训练可以帮助进一步提升专注力，让日常学习更专注。';
+    } else {
+      extra = '专注力可以通过规律训练稳步提升，围棋是一种可长期陪伴的方式。';
+    }
+    document.getElementById('ct-encourage').innerHTML =
+      '<b>' + ev.tone + '</b><br>' + extra;
+
+    drawPoster(rec, ev);
+    showStage('result');
+  }
+
+  // ==== Canvas 海报 ====
+  function drawPoster(rec, ev){
+    var canvas = document.getElementById('ct-poster-canvas');
+    if (!canvas || !canvas.getContext) return;
+    var ctx = canvas.getContext('2d');
+    var W = canvas.width, H = canvas.height;
+    var n = NORM[rec.age] || NORM['26-35'];
+
+    // 背景：宣纸底色
+    var bg = ctx.createLinearGradient(0, 0, 0, H);
+    bg.addColorStop(0, '#faf5e8');
+    bg.addColorStop(1, '#e8d5a8');
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, W, H);
+
+    // 水墨风底纹：随机圆点
+    ctx.save();
+    ctx.globalAlpha = 0.06;
+    ctx.fillStyle = '#8b3a3a';
+    for (var i = 0; i < 60; i++) {
+      var x = Math.random() * W;
+      var y = Math.random() * H;
+      var r = Math.random() * 40 + 10;
+      ctx.beginPath();
+      ctx.arc(x, y, r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+
+    // 边框
+    ctx.strokeStyle = '#8b3a3a';
+    ctx.lineWidth = 4;
+    ctx.strokeRect(30, 30, W - 60, H - 60);
+    ctx.strokeStyle = '#c8b48a';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(48, 48, W - 96, H - 96);
+
+    // 顶部印章
+    ctx.save();
+    ctx.fillStyle = '#8b3a3a';
+    ctx.fillRect(W/2 - 60, 90, 120, 120);
+    ctx.fillStyle = '#faf5e8';
+    ctx.font = 'bold 44px "KaiTi","STKaiti",serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('专注', W/2, 130);
+    ctx.fillText('测试', W/2, 175);
+    ctx.restore();
+
+    // 标题
+    ctx.fillStyle = '#3d2f1e';
+    ctx.font = 'bold 44px "KaiTi","STKaiti",serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('舒尔特方格 · 专注力体验', W/2, 270);
+
+    // 副标题
+    ctx.fillStyle = '#8b3a3a';
+    ctx.font = '22px "KaiTi","STKaiti",serif';
+    ctx.fillText('—— 萝卜干围棋教育 ——', W/2, 310);
+
+    // 昵称 + tag 行
+    ctx.fillStyle = '#6b5b3d';
+    ctx.font = '26px "KaiTi","STKaiti",serif';
+    ctx.fillText(rec.nick + '  ·  ' + rec.role + '  ·  ' + n.label, W/2, 380);
+
+    // 大字用时
+    ctx.fillStyle = '#8b3a3a';
+    ctx.font = 'bold 140px "Courier New",monospace';
+    ctx.textBaseline = 'alphabetic';
+    var timeStr = rec.timeSec.toFixed(2);
+    var timeW = ctx.measureText(timeStr).width;
+    ctx.fillText(timeStr, W/2 - 40, 570);
+    ctx.font = 'bold 42px "KaiTi","STKaiti",serif';
+    ctx.fillText('秒', W/2 + timeW/2 + 20, 570);
+
+    // 水平「用时」标签
+    ctx.fillStyle = '#a89572';
+    ctx.font = '20px "KaiTi","STKaiti",serif';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('· 用时 ·', W/2, 610);
+
+    // 分割线
+    ctx.strokeStyle = '#c8b48a';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(120, 660);
+    ctx.lineTo(W - 120, 660);
+    ctx.stroke();
+
+    // 对比信息卡片
+    ctx.fillStyle = '#6b5b3d';
+    ctx.font = '22px "KaiTi","STKaiti",serif';
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'top';
+    var y = 690;
+    ctx.fillText('同龄段参考区间', 110, y);
+    ctx.fillStyle = '#3d2f1e';
+    ctx.font = 'bold 28px "KaiTi","STKaiti",serif';
+    ctx.textAlign = 'right';
+    ctx.fillText(n.min + '-' + n.max + ' 秒', W - 110, y - 2);
+
+    y += 50;
+    ctx.fillStyle = '#6b5b3d';
+    ctx.font = '22px "KaiTi","STKaiti",serif';
+    ctx.textAlign = 'left';
+    ctx.fillText('围棋教师群体基准', 110, y);
+    ctx.fillStyle = '#3d2f1e';
+    ctx.font = 'bold 28px "KaiTi","STKaiti",serif';
+    ctx.textAlign = 'right';
+    ctx.fillText(TEACHER_BASELINE.avg + ' 秒 · N=' + TEACHER_BASELINE.n, W - 110, y - 2);
+
+    y += 50;
+    ctx.fillStyle = '#6b5b3d';
+    ctx.font = '22px "KaiTi","STKaiti",serif';
+    ctx.textAlign = 'left';
+    ctx.fillText('你的评级', 110, y);
+    ctx.fillStyle = '#8b3a3a';
+    ctx.font = 'bold 28px "KaiTi","STKaiti",serif';
+    ctx.textAlign = 'right';
+    ctx.fillText(ev.level, W - 110, y - 2);
+
+    // 鼓励语（可换行）
+    y += 80;
+    ctx.fillStyle = '#5b4a30';
+    ctx.font = '26px "KaiTi","STKaiti",serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'top';
+    var msg = ev.tone;
+    wrapText(ctx, msg, W/2, y, W - 180, 40);
+
+    // 品牌固定标语（位于底部微信号 & 域名上方一行，深灰印章章尾风格）
+    ctx.fillStyle = '#3d2f1e';
+    ctx.font = '20px "KaiTi","STKaiti",serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'alphabetic';
+    ctx.fillText('围棋 · 让专注成为一种日常', W/2, H - 230);
+
+    // 底部：微信 & 域名
+    ctx.fillStyle = '#8b3a3a';
+    ctx.font = 'bold 32px "KaiTi","STKaiti",serif';
+    ctx.fillText('加微信  yxwq0909', W/2, H - 180);
+    ctx.fillStyle = '#6b5b3d';
+    ctx.font = '22px "KaiTi","STKaiti",serif';
+    ctx.fillText('领《提升专注力的三种围棋日常训练》', W/2, H - 140);
+
+    ctx.strokeStyle = '#c8b48a';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(180, H - 100);
+    ctx.lineTo(W - 180, H - 100);
+    ctx.stroke();
+
+    ctx.fillStyle = '#8b3a3a';
+    ctx.font = '24px "Courier New",monospace';
+    ctx.fillText('www.weiqiluobogan.com', W/2, H - 65);
+  }
+
+  function wrapText(ctx, text, x, y, maxWidth, lineHeight){
+    // 简单按中英字符逐字塞入
+    var chars = text.split('');
+    var line = '';
+    var lines = [];
+    for (var i = 0; i < chars.length; i++) {
+      var test = line + chars[i];
+      if (ctx.measureText(test).width > maxWidth && line.length > 0) {
+        lines.push(line);
+        line = chars[i];
+      } else {
+        line = test;
+      }
+    }
+    if (line) lines.push(line);
+    lines.forEach(function(ln, idx){
+      ctx.fillText(ln, x, y + idx * lineHeight);
+    });
+  }
+
+  function downloadPoster(){
+    var canvas = document.getElementById('ct-poster-canvas');
+    try {
+      var url = canvas.toDataURL('image/png');
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = '专注力测试-' + (state.info && state.info.nick || '匿名') + '-' + Date.now() + '.png';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    } catch(e) {
+      alert('下载失败，请长按海报保存到相册');
+    }
+  }
+
+  // ==== 复制微信号 ====
+  function copyWx(){
+    var wx = 'yxwq0909';
+    var done = function(){
+      if (window.showToast) window.showToast('微信号已复制，请去微信搜索添加');
+      else alert('微信号已复制：' + wx + '\n请去微信搜索添加');
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(wx).then(done, function(){ fallbackCopyText(wx, done); });
+    } else {
+      fallbackCopyText(wx, done);
+    }
+  }
+  function fallbackCopyText(txt, cb){
+    try {
+      var i = document.createElement('textarea');
+      i.value = txt; i.style.position='fixed'; i.style.left='-9999px';
+      document.body.appendChild(i); i.select();
+      document.execCommand('copy');
+      document.body.removeChild(i);
+      cb && cb();
+    } catch(e){
+      alert('请手动复制微信号：' + txt);
+    }
+  }
+
+  // ==== 提交样本 ====
+  function submitSample(){
+    var list = loadHistory();
+    if (!list.length) {
+      alert('请先完成一次测试');
+      return;
+    }
+    var rec = list[0];
+    var n = NORM[rec.age] || NORM['26-35'];
+    var subject = encodeURIComponent('专注力测试样本提交');
+    var body = encodeURIComponent(
+      '昵称：' + rec.nick + '\n' +
+      '身份：' + rec.role + '\n' +
+      '年龄段：' + n.label + '\n' +
+      '用时：' + rec.timeSec.toFixed(2) + ' 秒\n' +
+      '微信：' + (rec.wx || '（未填写）') + '\n' +
+      '提交时间：' + new Date(rec.ts).toLocaleString() + '\n' +
+      '\n（本条来自 www.weiqiluobogan.com 专注力体验测试）'
+    );
+    var mailto = 'mailto:kzfeedback@coze.email?subject=' + subject + '&body=' + body;
+    try {
+      window.location.href = mailto;
+      setTimeout(function(){
+        if (window.showToast) window.showToast('已尝试打开邮件客户端，本次数据也已保存在本地');
+        else alert('已尝试打开邮件客户端，本次数据也已保存在本地');
+      }, 500);
+    } catch(e){
+      alert('感谢参与，样本已记录到本地');
+    }
+  }
+
+  // ==== 事件绑定 ====
+  function bindEvents(){
+    var btnStart = document.getElementById('ct-btn-start');
+    if (btnStart) btnStart.addEventListener('click', beginGame);
+    var btnRestart = document.getElementById('ct-btn-restart');
+    if (btnRestart) btnRestart.addEventListener('click', function(){
+      stopTimer();
+      initGrid();
+      document.getElementById('ct-timer').textContent = '0.00';
+      setTimeout(startTimer, 200);
+    });
+    var btnCta = document.getElementById('ct-btn-cta');
+    if (btnCta) btnCta.addEventListener('click', copyWx);
+    var btnDown = document.getElementById('ct-btn-download');
+    if (btnDown) btnDown.addEventListener('click', downloadPoster);
+    var btnSub = document.getElementById('ct-btn-submit');
+    if (btnSub) btnSub.addEventListener('click', submitSample);
+    var btnAgain = document.getElementById('ct-btn-again');
+    if (btnAgain) btnAgain.addEventListener('click', function(){
+      showStage('intro');
+      renderHistory();
+    });
+  }
+
+  // ==== 初始化 ====
+  function init(){
+    var last = loadLastInfo();
+    if (last) {
+      var nick = document.getElementById('ct-nick');
+      var wx = document.getElementById('ct-wx');
+      if (nick && last.nick && last.nick !== '匿名棋友') nick.value = last.nick;
+      if (wx && last.wx) wx.value = last.wx;
+      if (last.role) setRadio('ct-role', last.role);
+      if (last.age) setRadio('ct-age', last.age);
+    }
+    bindEvents();
+    renderHistory();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+<!-- ===== LUOBO-CONCENTRATION-TEST v1.0 END ===== -->
+
 
 
 <!-- ===== Interact ===== -->
@@ -9791,6 +10654,7 @@ header .nav-luobo-ext.dr-entry-btn-alt:hover {
     'parents':   {t:'家长成长 · 萝卜干围棋教育', d:'孩子学围棋的家长该怎么陪伴——分级家长成长指南。'},
     'teacher':   {t:'教师成长 · 萝卜干围棋教育', d:'围棋教师从入行到独立成师的完整路径。'},
     'teaching':  {t:'教研沙龙 · 萝卜干围棋教育', d:'教学教研、学情反馈、备课资源、专题课程。'},
+    'concentration-test': {t:'专注力体验测试 · 萝卜干围棋教育', d:'基于经典 5×5 舒尔特方格的专注力体验测试，与同年龄段常模对比，看看你的视觉搜索速度。'},
     'contact':   {t:'联系我们 · 萝卜干围棋教育', d:'预约咨询、加入我们的家长群和教师训练营。'}
   };
 
