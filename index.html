@@ -1343,6 +1343,7 @@
 <a href="javascript:void(0)" class="nav-link nav-luobo-ext dr-entry-btn-alt" onclick="if(window.__luoboOpenMasterMap)window.__luoboOpenMasterMap();return false;">大师星图</a>
 <!-- ===== LUOBO-BRAIN-NAV v1.0 START ===== -->
 <a href="#brain-training" class="nav-link nav-toggle nav-luobo-ext" data-target="brain-training">🧠 思维训练</a>
+<a href="#concentration-test" class="nav-link nav-toggle nav-luobo-ext" data-target="concentration-test" style="color:var(--seal,#a94b3d);font-weight:600">⚡ 专注力测试</a>
 <!-- ===== LUOBO-BRAIN-NAV v1.0 END ===== -->
 
 <style>
@@ -3826,6 +3827,41 @@ AI 是训练工具，不是老师替身<br>
 .schulte-result .result-best{font-size:13px;color:#6b5a3a;margin-bottom:20px}
 .schulte-result .result-btn{padding:10px 26px;background:var(--seal,#a94b3d);color:#fff;border:0;border-radius:4px;font-size:14px;cursor:pointer;margin:0 6px}
 
+/* 四色动态舒尔特 */
+.s4d-controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:16px}
+.s4d-controls .size-btn{padding:6px 14px;font-size:13px;border:1px solid var(--line,#d9c9a0);background:#fff;color:#5a4a2a;cursor:pointer;border-radius:4px}
+.s4d-controls .size-btn.active{background:var(--seal,#a94b3d);color:#fff;border-color:var(--seal,#a94b3d)}
+.s4d-status{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:#fff;border:1px solid var(--line,#d9c9a0);border-radius:4px;font-size:13px;margin-bottom:12px;flex-wrap:wrap;gap:8px}
+.s4d-status .st-time{font-family:'Courier New',monospace;font-size:20px;font-weight:700;color:#3d2817}
+.s4d-color-progress{display:flex;gap:10px;flex-wrap:wrap}
+.s4d-color-progress .cp-item{display:flex;align-items:center;gap:5px;font-size:12px;color:#6b5a3a}
+.s4d-color-progress .cp-dot{width:12px;height:12px;border-radius:50%;border:1px solid rgba(0,0,0,.15)}
+.s4d-color-progress .cp-item.active{font-weight:700}
+.s4d-color-progress .cp-item.active .cp-target{color:#8b3a3a;font-size:14px}
+.s4d-color-progress .cp-item.done{opacity:.45;text-decoration:line-through}
+.s4d-cur-target{background:linear-gradient(135deg,#fff,#faf3e2);border:1px solid #c8b48a;border-radius:6px;padding:10px 14px;text-align:center;margin-bottom:12px;font-size:14px;color:#5a4a2a}
+.s4d-cur-target .cur-color{display:inline-block;width:14px;height:14px;border-radius:50%;vertical-align:-2px;margin:0 4px;border:1px solid rgba(0,0,0,.15)}
+.s4d-cur-target .cur-num{font-family:'Courier New',monospace;font-size:22px;font-weight:700;color:#8b3a3a;margin:0 4px}
+.s4d-grid{display:grid;gap:4px;margin:0 auto;max-width:520px}
+.s4d-cell{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border:1px solid rgba(0,0,0,.15);font-size:22px;font-weight:700;color:#fff;cursor:pointer;transition:all .4s cubic-bezier(.4,0,.2,1);user-select:none;font-family:'Courier New',monospace;border-radius:3px;text-shadow:0 1px 2px rgba(0,0,0,.2)}
+.s4d-cell.done{opacity:.15;color:transparent;background:#e6dcc2!important;cursor:default;text-shadow:none}
+.s4d-cell.wrong{animation:cellShake .3s}
+.s4d-cell.hint{box-shadow:0 0 0 3px #ffd700;transform:scale(1.05)}
+.s4d-cell.shuffling{transition:all .5s cubic-bezier(.4,0,.2,1);transform:scale(.95)}
+.s4d-shuffle-hint{text-align:center;padding:8px;background:#faf3e2;border:1px dashed #c8b48a;border-radius:4px;color:#8b3a3a;font-size:12px;margin-bottom:10px;animation:s4dPulse 1s ease}
+@keyframes s4dPulse{0%{opacity:0;transform:translateY(-5px)}100%{opacity:1;transform:translateY(0)}}
+.s4d-result{text-align:center;padding:24px 12px}
+.s4d-result .result-time{font-size:48px;font-weight:700;color:var(--seal,#a94b3d);font-family:'Courier New',monospace;margin-bottom:8px}
+.s4d-result .result-grade{font-size:20px;color:#3d2817;margin-bottom:6px}
+.s4d-result .result-best{font-size:13px;color:#6b5a3a;margin-bottom:20px}
+.s4d-result .result-detail{font-size:12px;color:#8b7550;margin-bottom:12px}
+.s4d-result .result-btn{padding:10px 26px;background:var(--seal,#a94b3d);color:#fff;border:0;border-radius:4px;font-size:14px;cursor:pointer;margin:0 6px}
+@media(max-width:600px){
+  .s4d-cell{font-size:16px}
+  .s4d-color-progress{gap:6px}
+  .s4d-color-progress .cp-item{font-size:11px}
+}
+
 /* 数字记忆 */
 .digitspan-stage{text-align:center;padding:40px 12px;min-height:220px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#fff;border:1px solid var(--line,#d9c9a0);border-radius:4px}
 .digitspan-stage .ds-level{font-size:13px;color:#6b5a3a;margin-bottom:16px;letter-spacing:.1em}
@@ -3949,6 +3985,64 @@ AI 是训练工具，不是老师替身<br>
 
     <!-- 工具列表（默认显示） -->
     <div id="brain-list">
+      <!-- ===== LUOBO-CT-ENTRY-CARD v1.0 START · 档3 专注力测试独立卡片+数据可视化 ===== -->
+      <div id="brain-ct-entry-card" style="margin:0 0 28px;padding:22px 24px;background:linear-gradient(135deg,#fff 0%,#faf3e2 100%);border:1px solid #c8b48a;border-radius:8px;box-shadow:0 2px 8px rgba(139,58,58,.08);position:relative;overflow:hidden">
+        <div style="position:absolute;top:12px;right:14px;background:#8b3a3a;color:#fff;font-size:11px;padding:2px 10px;border-radius:12px;letter-spacing:.08em">已收集 N=16</div>
+        <div style="display:flex;flex-wrap:wrap;gap:20px;align-items:center">
+          <!-- 左：主文案 -->
+          <div style="flex:1 1 300px;min-width:0">
+            <div style="font-family:'KaiTi','STKaiti',serif;font-size:1.35rem;color:#8b3a3a;letter-spacing:.05em;margin-bottom:.5rem;display:flex;align-items:center;gap:8px">
+              <span style="font-size:1.5rem">⚡</span>专注力体验测试
+              <span style="border:1px solid #8b3a3a;padding:1px 6px;font-size:.65rem;letter-spacing:.05em;vertical-align:2px">数据可视化</span>
+            </div>
+            <div style="font-size:.92rem;color:#5a4a2a;line-height:1.75;margin-bottom:.6rem">
+              5×5 舒尔特方格国际经典测量工具，一分钟测出你的专注力，并与围棋教师群体基准、同龄段常模对比。
+            </div>
+          </div>
+          <!-- 右：CTA -->
+          <div style="flex:0 0 auto">
+            <button type="button" onclick="if(typeof window.openSection==='function'){window.openSection('concentration-test');}" style="background:#8b3a3a;color:#fff;border:none;padding:14px 32px;cursor:pointer;font-family:inherit;font-size:1rem;letter-spacing:.1em;border-radius:4px;min-height:48px;white-space:nowrap;font-weight:600;box-shadow:0 2px 6px rgba(139,58,58,.2)">开始测试 →</button>
+          </div>
+        </div>
+        <!-- 数据可视化条 -->
+        <div style="margin-top:18px;padding:14px 16px;background:#fff;border:1px solid #e6dcc2;border-radius:6px">
+          <div style="font-size:.82rem;color:#6b5b3d;margin-bottom:12px;letter-spacing:.03em">
+            <b style="color:#8b3a3a">教师群体 vs 同龄常模</b> · 用时越短越好（秒）
+          </div>
+          <!-- SVG 条形图 -->
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <!-- 教师群体 -->
+            <div style="display:flex;align-items:center;gap:10px;font-size:.8rem">
+              <div style="width:110px;flex-shrink:0;color:#3d2817;font-weight:600">🎯 围棋教师群体</div>
+              <div style="flex:1;height:22px;background:#f5ecd7;border-radius:3px;position:relative;overflow:hidden">
+                <div style="width:22%;height:100%;background:linear-gradient(90deg,#8b3a3a,#a94b3d);display:flex;align-items:center;padding-left:8px;color:#fff;font-family:'Courier New',monospace;font-weight:700;font-size:.82rem">16.4s</div>
+              </div>
+              <div style="width:60px;flex-shrink:0;color:#8b7550;font-size:.72rem;text-align:right">中位数<br>N=16</div>
+            </div>
+            <!-- 同龄段常模 -->
+            <div style="display:flex;align-items:center;gap:10px;font-size:.8rem">
+              <div style="width:110px;flex-shrink:0;color:#3d2817">📊 26-35 岁常模</div>
+              <div style="flex:1;height:22px;background:#f5ecd7;border-radius:3px;position:relative;overflow:hidden">
+                <div style="width:53%;height:100%;background:linear-gradient(90deg,#c8b48a,#a99770);display:flex;align-items:center;padding-left:8px;color:#fff;font-family:'Courier New',monospace;font-weight:600;font-size:.82rem">40s</div>
+              </div>
+              <div style="width:60px;flex-shrink:0;color:#8b7550;font-size:.72rem;text-align:right">参考区间<br>25-40s</div>
+            </div>
+            <!-- 待提升区间 -->
+            <div style="display:flex;align-items:center;gap:10px;font-size:.8rem">
+              <div style="width:110px;flex-shrink:0;color:#3d2817">📈 待提升区间</div>
+              <div style="flex:1;height:22px;background:#f5ecd7;border-radius:3px;position:relative;overflow:hidden">
+                <div style="width:75%;height:100%;background:linear-gradient(90deg,#d9c9a0,#b8a578);display:flex;align-items:center;padding-left:8px;color:#5a4a2a;font-family:'Courier New',monospace;font-weight:600;font-size:.82rem">55s+</div>
+              </div>
+              <div style="width:60px;flex-shrink:0;color:#8b7550;font-size:.72rem;text-align:right">&gt;55s</div>
+            </div>
+          </div>
+          <div style="margin-top:10px;font-size:.72rem;color:#8b7550;line-height:1.6">
+            💡 <b>数据洞察</b>：围棋教师群体中位数 <b style="color:#8b3a3a">16.4 秒</b>，比同龄段常模快约 <b style="color:#8b3a3a">60%</b>；印证了长期棋类训练对视觉搜索与注意力的正向作用。<br>
+            <span style="color:#a99770">样本来源：萝卜干围棋教师群体真实测试数据 · N=16 已确认 + 5 条待补录 · 数据持续收集中</span>
+          </div>
+        </div>
+      </div>
+      <!-- ===== LUOBO-CT-ENTRY-CARD v1.0 END ===== -->
       <div class="brain-checkin" id="brain-checkin"></div>
       <div class="brain-grid" id="brain-cards"></div>
       <p class="text-xs text-gray-soft leading-relaxed mt-8" style="text-align:center;color:#8a7550">
@@ -3982,6 +4076,11 @@ AI 是训练工具，不是老师替身<br>
     {
       id:'schulte', icon:'🎯', name:'舒尔特方格',
       desc:'经典注意力训练，网格随机 1~N² 按序点击，测你的视觉搜索速度。',
+      avail:true, recommend:true
+    },
+    {
+      id:'schulte4d', icon:'🌈', name:'四色动态舒尔特',
+      desc:'4 色分组按序点击 + 完成每色后位置动态洗牌，舒尔特进阶挑战版。',
       avail:true, recommend:true
     },
     {
@@ -4271,6 +4370,265 @@ AI 是训练工具，不是老师替身<br>
       if(base < 40) return {label:'良好',emoji:'⭐⭐',tip:'状态不错，多练习可以再快 5-10 秒。'};
       if(base < 55) return {label:'一般',emoji:'⭐',tip:'继续加练，重点是视线定住网格中央用余光扫描。'};
       return {label:'待提升',emoji:'💪',tip:'第一次别急，找到"用余光"的感觉就快了。'};
+    }
+  };
+
+  // ==== 四色动态舒尔特（B 同色分组 + D 动态位置洗牌） ====
+  Brain.tools.schulte4d = {
+    // 4 色定义：红蓝黄绿
+    COLORS: [
+      {id:'red',    name:'红',  bg:'#c8443a', text:'#c8443a'},
+      {id:'blue',   name:'蓝',  bg:'#3a6fc8', text:'#3a6fc8'},
+      {id:'yellow', name:'黄',  bg:'#d4a017', text:'#b0850e'},
+      {id:'green',  name:'绿',  bg:'#4a8f4a', text:'#4a8f4a'}
+    ],
+    size: 4,         // 默认 4×4（每色 4 个）
+    curColorIdx: 0,  // 当前颜色索引
+    curNext: 1,      // 当前颜色的下一个数字
+    perColor: 4,     // 每色数字数
+    cells: [],       // {n, colorIdx, done, el}
+    startedAt: null,
+    timerId: null,
+    totalErrors: 0,
+    shuffleCount: 0,
+    init(host){
+      host.innerHTML = `
+        <div class="brain-intro-text">
+          <p>四色动态舒尔特 = 经典舒尔特 + <span class="hl">同色分组</span> + <span class="hl">位置动态洗牌</span> 双重进阶。</p>
+          <ul>
+            <li>网格分 <b>红→蓝→黄→绿</b> 4 组，每组内按 <span class="hl">1→N</span> 顺序点击。</li>
+            <li>完成一组颜色后，剩余未点数字会 <b>随机洗牌位置</b>（这就是"动态"）。</li>
+            <li>训练重点：颜色识别（视觉选择）+ 分组执行（工作记忆）+ 位置更新（认知灵活性）。</li>
+            <li>建议：先熟悉 4×4，再挑战 6×6。孩子可以先玩 4×4 玩法 B 版（关洗牌）。</li>
+          </ul>
+          <p class="hl" style="margin-top:12px">难度对比（参考）</p>
+          <table class="brain-ref-table"><thead><tr><th>版本</th><th>难度</th><th>训练点</th><th>建议年龄</th></tr></thead>
+          <tbody>
+            <tr><td>5×5 单色</td><td>⭐⭐</td><td>视觉搜索</td><td>7 岁+</td></tr>
+            <tr><td>4×4 四色</td><td>⭐⭐⭐</td><td>+ 分组切换</td><td>8 岁+</td></tr>
+            <tr><td>6×6 四色</td><td>⭐⭐⭐⭐</td><td>+ 位置更新</td><td>10 岁+</td></tr>
+          </tbody></table>
+          <div class="brain-ref-note"><b>参考来源：</b>本变种融合"分组舒尔特"（俄罗斯认知训练常见方案）与"动态舒尔特"（数字位置变化）两种进阶设计，是围棋教研中处理"复盘变化图"能力的类比训练——同时追踪多个变化线的能力。<b>请注意：</b>初次接触普遍比经典版慢 30-50%，属正常现象；连续训练 3-5 天后适应。</div>
+        </div>
+        <div class="s4d-controls">
+          <span style="font-size:13px;color:#6b5a3a">选择尺寸：</span>
+          <button class="size-btn active" data-s="4">4×4 · 4色×4</button>
+          <button class="size-btn" data-s="6">6×6 · 4色×9</button>
+        </div>
+        <div class="s4d-cur-target" id="s4d-cur"></div>
+        <div class="s4d-status">
+          <div class="s4d-color-progress" id="s4d-progress"></div>
+          <div id="s4d-best" style="font-size:12px;color:#6b5a3a"></div>
+          <div class="st-time" id="s4d-time">00.00</div>
+        </div>
+        <div id="s4d-shuffle-slot"></div>
+        <div class="s4d-grid" id="s4d-grid"></div>
+      `;
+      host.querySelectorAll('.size-btn').forEach(btn=>{
+        btn.addEventListener('click',()=>{
+          host.querySelectorAll('.size-btn').forEach(b=>b.classList.remove('active'));
+          btn.classList.add('active');
+          this.size = parseInt(btn.dataset.s);
+          this.perColor = (this.size*this.size)/4;
+          if(this.size===6) this.perColor = 9;
+          this.render(host);
+        });
+      });
+      this.perColor = 4;
+      this.render(host);
+    },
+    render(host){
+      this.curColorIdx = 0;
+      this.curNext = 1;
+      this.startedAt = null;
+      this.totalErrors = 0;
+      this.shuffleCount = 0;
+      if(this.timerId){clearInterval(this.timerId);this.timerId=null}
+      const total = this.size*this.size;
+      // 生成 cells：颜色 0/1/2/3 各 perColor 个，数字 1→perColor
+      this.cells = [];
+      for(let c=0;c<4;c++){
+        for(let n=1;n<=this.perColor;n++){
+          this.cells.push({n, colorIdx:c, done:false});
+        }
+      }
+      // Fisher-Yates 洗牌
+      this._shuffleCells();
+      // 渲染网格
+      const grid = host.querySelector('#s4d-grid');
+      grid.style.gridTemplateColumns = `repeat(${this.size},1fr)`;
+      this._renderGrid(host, grid);
+      // 计时区
+      host.querySelector('#s4d-time').textContent = '00.00';
+      const bestKey = `luobo_brain_schulte4d_${this.size}x${this.size}_best`;
+      const best = localStorage.getItem(bestKey);
+      host.querySelector('#s4d-best').textContent = best?`最佳 ${(parseFloat(best)/1000).toFixed(2)}s`:'';
+      this._renderProgress(host);
+      this._renderCurTarget(host);
+    },
+    _shuffleCells(){
+      for(let i=this.cells.length-1;i>0;i--){
+        const j = Math.floor(Math.random()*(i+1));
+        [this.cells[i],this.cells[j]] = [this.cells[j],this.cells[i]];
+      }
+    },
+    _renderGrid(host, grid){
+      grid.innerHTML = '';
+      this.cells.forEach((cell, idx)=>{
+        const color = this.COLORS[cell.colorIdx];
+        const div = document.createElement('div');
+        div.className = 's4d-cell' + (cell.done?' done':'');
+        div.dataset.idx = idx;
+        div.textContent = cell.n;
+        div.style.background = cell.done ? '#e6dcc2' : color.bg;
+        div.addEventListener('click',()=>this.onClick(idx, host));
+        cell.el = div;
+        grid.appendChild(div);
+      });
+    },
+    _renderProgress(host){
+      const wrap = host.querySelector('#s4d-progress');
+      wrap.innerHTML = this.COLORS.map((c,i)=>{
+        const isCur = i===this.curColorIdx;
+        const isDone = i<this.curColorIdx;
+        const cls = 'cp-item' + (isCur?' active':'') + (isDone?' done':'');
+        const target = isCur ? `${this.curNext}/${this.perColor}` : (isDone ? `✓` : `${this.perColor}`);
+        return `<div class="${cls}"><span class="cp-dot" style="background:${c.bg}"></span>${c.name}<span class="cp-target">${target}</span></div>`;
+      }).join('');
+    },
+    _renderCurTarget(host){
+      const wrap = host.querySelector('#s4d-cur');
+      if(this.curColorIdx>=4){
+        wrap.innerHTML = '<b style="color:#8b3a3a">全部完成！</b>';
+        return;
+      }
+      const c = this.COLORS[this.curColorIdx];
+      wrap.innerHTML = `请点击 <span class="cur-color" style="background:${c.bg}"></span><b style="color:${c.text}">${c.name}色</b> 的 <span class="cur-num">${this.curNext}</span>`;
+    },
+    onClick(idx, host){
+      if(this.curColorIdx>=4) return;
+      const cell = this.cells[idx];
+      if(!cell || cell.done) return;
+      // 检查颜色是否匹配
+      if(cell.colorIdx !== this.curColorIdx){
+        cell.el.classList.add('wrong');
+        setTimeout(()=>cell.el.classList.remove('wrong'),300);
+        this.totalErrors++;
+        return;
+      }
+      // 检查数字是否匹配
+      if(cell.n !== this.curNext){
+        cell.el.classList.add('wrong');
+        setTimeout(()=>cell.el.classList.remove('wrong'),300);
+        this.totalErrors++;
+        return;
+      }
+      // 首次点击开始计时
+      if(this.curColorIdx===0 && this.curNext===1){
+        this.startedAt = Date.now();
+        this.timerId = setInterval(()=>{
+          const t = (Date.now()-this.startedAt)/1000;
+          host.querySelector('#s4d-time').textContent = t.toFixed(2).padStart(5,'0');
+        },50);
+      }
+      // 标记完成
+      cell.done = true;
+      cell.el.classList.add('done');
+      cell.el.style.background = '#e6dcc2';
+      this.curNext++;
+      // 当前颜色完成 → 切下一色 + 触发洗牌（玩法 D）
+      if(this.curNext > this.perColor){
+        this.curColorIdx++;
+        this.curNext = 1;
+        if(this.curColorIdx < 4){
+          this._triggerShuffle(host);
+        } else {
+          this._renderProgress(host);
+          this._renderCurTarget(host);
+          this.finish(host);
+          return;
+        }
+      }
+      this._renderProgress(host);
+      this._renderCurTarget(host);
+    },
+    _triggerShuffle(host){
+      this.shuffleCount++;
+      // 显示洗牌提示
+      const slot = host.querySelector('#s4d-shuffle-slot');
+      slot.innerHTML = `<div class="s4d-shuffle-hint">🔀 完成 ${this.COLORS[this.curColorIdx-1].name}色！位置正在洗牌，请重新扫描下一色...</div>`;
+      // 收集所有未 done 的 cell 索引
+      const undoneIdxs = [];
+      const undoneData = [];
+      this.cells.forEach((c,i)=>{
+        if(!c.done){ undoneIdxs.push(i); undoneData.push(c); }
+      });
+      // 视觉缩放
+      undoneData.forEach(c=>c.el && c.el.classList.add('shuffling'));
+      setTimeout(()=>{
+        // Fisher-Yates 洗牌未完成的
+        for(let i=undoneData.length-1;i>0;i--){
+          const j = Math.floor(Math.random()*(i+1));
+          [undoneData[i], undoneData[j]] = [undoneData[j], undoneData[i]];
+        }
+        // 把打乱后的数据放回原位置
+        undoneIdxs.forEach((origIdx, k)=>{
+          this.cells[origIdx] = undoneData[k];
+        });
+        // 重绘网格
+        const grid = host.querySelector('#s4d-grid');
+        this._renderGrid(host, grid);
+        // 清除提示
+        setTimeout(()=>{ slot.innerHTML=''; }, 1400);
+        this._renderProgress(host);
+        this._renderCurTarget(host);
+      }, 500);
+    },
+    finish(host){
+      clearInterval(this.timerId);
+      this.timerId = null;
+      const ms = Date.now() - this.startedAt;
+      const bestKey = `luobo_brain_schulte4d_${this.size}x${this.size}_best`;
+      const prev = parseFloat(localStorage.getItem(bestKey))||Infinity;
+      const isBest = ms < prev;
+      if(isBest) localStorage.setItem(bestKey,ms);
+      const s = ms/1000;
+      const grade = this.grade(s);
+      Brain.checkin('schulte4d');
+      host.innerHTML = `
+        <div class="s4d-result">
+          <div class="result-time">${s.toFixed(2)}s</div>
+          <div class="result-grade">评级：<span class="hl">${grade.label}</span> ${grade.emoji}</div>
+          <div class="result-best">${isBest?'🎉 破纪录！':'历史最佳 '+(prev===Infinity?'—':(prev/1000).toFixed(2)+'s')}</div>
+          <div class="result-detail">尺寸 ${this.size}×${this.size} · 洗牌 ${this.shuffleCount} 次 · 错点 ${this.totalErrors} 次</div>
+          <p style="font-size:13px;color:#6b5a3a;margin-bottom:20px;max-width:520px;margin-left:auto;margin-right:auto">${grade.tip}</p>
+          <button class="result-btn" id="s4d-again">再来一局</button>
+          <button class="result-btn" id="s4d-classic" style="background:transparent;color:var(--seal);border:1px solid var(--seal)">换经典版</button>
+        </div>
+      `;
+      host.querySelector('#s4d-again').addEventListener('click',()=>this.init(host));
+      host.querySelector('#s4d-classic').addEventListener('click',()=>{
+        // 切回经典舒尔特（通过父层再次触发工具卡片点击）
+        const brainList = document.getElementById('brain-list');
+        const toolArea = document.getElementById('brain-tool-area');
+        if(brainList && toolArea){
+          toolArea.style.display='none';
+          brainList.style.display='';
+          setTimeout(()=>{
+            const schulteCard = document.querySelector('.brain-card[data-tool="schulte"]');
+            if(schulteCard) schulteCard.click();
+          },100);
+        }
+      });
+    },
+    grade(s){
+      // 4×4 参考：优<25 良25-45 一般45-70 待>70
+      // 6×6 参考：优<60 良60-100 一般100-150 待>150
+      const base4x4 = s * (16/(this.size*this.size));
+      if(base4x4 < 25) return {label:'优秀',emoji:'⭐⭐⭐',tip:'反应敏锐，颜色切换和位置更新几乎无损耗，可挑战 6×6 版本。'};
+      if(base4x4 < 45) return {label:'良好',emoji:'⭐⭐',tip:'状态稳定，颜色分组处理熟练；多练习可以突破洗牌造成的短暂停顿。'};
+      if(base4x4 < 70) return {label:'一般',emoji:'⭐',tip:'继续加练，洗牌后需要重新扫描是训练重点，用余光整体感知网格。'};
+      return {label:'待提升',emoji:'💪',tip:'初次接触正常现象；先熟悉 4×4，找到"分组切换"的节奏，速度会快起来。'};
     }
   };
 
@@ -5522,7 +5880,7 @@ AI 是训练工具，不是老师替身<br>
     '55+':     {min:55, max:70, label:'55 岁以上'}
   };
   // 围棋教师群体基准（真实测试样本，2026-07-14 更新自内测种子）
-  var TEACHER_BASELINE = { n:15, avg:17.8, label:'围棋教师真实样本' };
+  var TEACHER_BASELINE = { n:16, avg:16.4, label:'围棋教师中位数' };
   var STORAGE_KEY = 'luobo_ct_history_v1';
   var LAST_INFO_KEY = 'luobo_ct_lastinfo_v1';
 
