@@ -3563,7 +3563,643 @@ AI 是训练工具，不是老师替身<br>
 </script>
 <!-- ===== LUOBO-TOOLS-V2 END ===== -->
 
+<!-- ===== 家长学习路线图 · E1 · 成长中心 首块 ===== -->
+<style>
+  /* ===== 家长学习路线图 · 样式 ===== */
+  #parent-roadmap .pr-hero {
+    font-size: 15.5px;
+    line-height: 1.9;
+    letter-spacing: 0.03em;
+    color: var(--ink-soft);
+    background: linear-gradient(135deg, rgba(168,54,42,.06), rgba(168,54,42,.01));
+    border-left: 3px solid var(--seal);
+    padding: 18px 24px;
+    margin-bottom: 40px;
+    max-width: 48rem;
+  }
+  #parent-roadmap .pr-hero em {
+    color: var(--seal);
+    font-style: normal;
+    font-weight: 600;
+  }
+  #parent-roadmap .pr-hero-caveat {
+    display: block;
+    margin-top: 8px;
+    font-size: 13px;
+    color: #666;
+    font-style: italic;
+  }
+
+  /* 时间轴 */
+  #parent-roadmap .pr-timeline {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 48px;
+    position: relative;
+  }
+  #parent-roadmap .pr-timeline::before {
+    content: '';
+    position: absolute;
+    left: 39px;
+    top: 40px;
+    bottom: 40px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--seal), var(--seal) 85%, transparent);
+    opacity: 0.22;
+  }
+
+  #parent-roadmap .pr-stage {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 28px;
+    position: relative;
+    align-items: flex-start;
+  }
+  #parent-roadmap .pr-stage-marker {
+    flex-shrink: 0;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 2px solid var(--seal);
+    color: var(--seal);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Inter', 'Songti SC', serif;
+    font-weight: 700;
+    z-index: 2;
+    position: relative;
+    box-shadow: 0 2px 8px rgba(168,54,42,.08);
+  }
+  #parent-roadmap .pr-stage-marker .pr-num {
+    font-size: 22px;
+    letter-spacing: 0.05em;
+    line-height: 1;
+  }
+  #parent-roadmap .pr-stage-marker .pr-num-sub {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    margin-top: 3px;
+    color: var(--seal);
+    opacity: 0.75;
+  }
+
+  #parent-roadmap .pr-stage-body {
+    flex: 1;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--seal);
+    padding: 24px 28px 22px;
+    border-radius: 2px;
+    transition: box-shadow .25s ease, transform .25s ease;
+    min-width: 0;
+  }
+  #parent-roadmap .pr-stage-body:hover {
+    box-shadow: 0 6px 22px rgba(26,26,26,.06);
+    transform: translateY(-1px);
+  }
+
+  #parent-roadmap .pr-stage-head {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px dashed rgba(168,54,42,.18);
+    margin-bottom: 14px;
+  }
+  #parent-roadmap .pr-stage-name {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: 0.05em;
+    margin: 0;
+  }
+  #parent-roadmap .pr-stage-rank {
+    font-family: 'Inter', 'Songti SC', serif;
+    font-size: 13px;
+    color: var(--seal);
+    letter-spacing: 0.08em;
+    padding: 2px 10px;
+    border: 1px solid var(--seal);
+    border-radius: 20px;
+  }
+
+  #parent-roadmap .pr-stage-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px 28px;
+    margin-bottom: 18px;
+    font-size: 13.5px;
+    color: var(--ink-soft);
+  }
+  #parent-roadmap .pr-meta-item em {
+    display: inline-block;
+    font-style: normal;
+    color: #888;
+    letter-spacing: 0.1em;
+    font-size: 12px;
+    margin-right: 8px;
+  }
+  #parent-roadmap .pr-meta-item strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  #parent-roadmap .pr-blocks {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px 26px;
+    margin-top: 6px;
+  }
+  #parent-roadmap .pr-block h4 {
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    color: var(--seal);
+    margin: 0 0 8px;
+    padding-left: 10px;
+    border-left: 2px solid var(--seal);
+    line-height: 1.4;
+  }
+  #parent-roadmap .pr-block ul,
+  #parent-roadmap .pr-block p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.85;
+    color: var(--ink-soft);
+    letter-spacing: 0.02em;
+  }
+  #parent-roadmap .pr-block ul {
+    padding-left: 18px;
+    list-style: none;
+  }
+  #parent-roadmap .pr-block ul li {
+    position: relative;
+    padding-left: 4px;
+    margin-bottom: 4px;
+  }
+  #parent-roadmap .pr-block ul li::before {
+    content: '·';
+    position: absolute;
+    left: -12px;
+    color: var(--seal);
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.4;
+  }
+  #parent-roadmap .pr-block.pr-pit ul li::before {
+    content: '⚠';
+    font-size: 11px;
+    left: -18px;
+    top: 3px;
+    color: #b8860b;
+  }
+  #parent-roadmap .pr-block.pr-pit ul li {
+    padding-left: 6px;
+  }
+  #parent-roadmap .pr-block.pr-cost p em {
+    display: block;
+    color: #888;
+    font-size: 12px;
+    font-style: italic;
+    margin-top: 6px;
+    letter-spacing: 0.02em;
+  }
+
+  /* 分岔路（阶段 6 特殊结构）*/
+  #parent-roadmap .pr-fork {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-top: 4px;
+  }
+  #parent-roadmap .pr-fork-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    padding: 14px 18px;
+    border-radius: 2px;
+  }
+  #parent-roadmap .pr-fork-card h5 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--seal);
+    margin: 0 0 6px;
+    letter-spacing: 0.05em;
+  }
+  #parent-roadmap .pr-fork-card p {
+    font-size: 13px;
+    line-height: 1.8;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+
+  /* 结尾话 */
+  #parent-roadmap .pr-outro {
+    background: var(--paper-2);
+    padding: 32px 36px;
+    border-left: 3px solid var(--seal);
+    margin-top: 8px;
+    max-width: 48rem;
+  }
+  #parent-roadmap .pr-outro p {
+    font-size: 15.5px;
+    line-height: 2;
+    color: var(--ink);
+    margin: 0 0 10px;
+    letter-spacing: 0.03em;
+  }
+  #parent-roadmap .pr-outro p:last-child { margin-bottom: 0; }
+  #parent-roadmap .pr-outro .pr-quote {
+    color: var(--seal);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+
+  /* 移动端自适应 */
+  @media (max-width: 900px) {
+    #parent-roadmap .pr-blocks {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    #parent-roadmap .pr-fork { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    #parent-roadmap .pr-stage {
+      gap: 16px;
+    }
+    #parent-roadmap .pr-stage-marker {
+      width: 58px;
+      height: 58px;
+    }
+    #parent-roadmap .pr-stage-marker .pr-num { font-size: 17px; }
+    #parent-roadmap .pr-stage-marker .pr-num-sub { font-size: 9px; }
+    #parent-roadmap .pr-timeline::before {
+      left: 28px;
+      top: 30px;
+      bottom: 30px;
+    }
+    #parent-roadmap .pr-stage-body {
+      padding: 18px 18px 16px;
+    }
+    #parent-roadmap .pr-stage-name { font-size: 19px; }
+    #parent-roadmap .pr-stage-rank { font-size: 12px; }
+    #parent-roadmap .pr-stage-head { gap: 8px; }
+    #parent-roadmap .pr-outro { padding: 22px 20px; }
+  }
+</style>
+
+<section id="parent-roadmap" class="collapsible bg-paper py-16 border-b border-line">
+  <div class="max-w-6xl mx-auto px-6">
+    <h2 class="section-title">家长学习路线图</h2>
+    <p class="section-lead">
+      写给<span class="hl">刚给孩子选围棋的家长</span>——不懂棋没关系，先看清整条路。从 30 级到业余段位，一般要走 <strong>4-8 年</strong>。每个阶段孩子在学什么、您可以做什么、可能踩到哪些坑，一次讲清楚。
+    </p>
+
+    <div class="pr-hero">
+      围棋是一颗<em>需要慢慢发芽的种子</em>。有的孩子像春笋一样蹿得快，有的像梅花一样静静等待，最终都会开出属于自己的样子。
+      <span class="pr-hero-caveat">下面的年龄、周期、费用都是常见参考，不是标准答案。每个孩子的节奏都不一样，路线图只是地图，不是时刻表。</span>
+    </div>
+
+    <ol class="pr-timeline">
+
+      <!-- ===== 阶段 1：启蒙期 ===== -->
+      <li class="pr-stage">
+        <div class="pr-stage-marker">
+          <span class="pr-num">01</span>
+          <span class="pr-num-sub">START</span>
+        </div>
+        <div class="pr-stage-body">
+          <div class="pr-stage-head">
+            <h3 class="pr-stage-name">启蒙期</h3>
+            <span class="pr-stage-rank">30 级 - 15 级</span>
+          </div>
+          <div class="pr-stage-meta">
+            <span class="pr-meta-item"><em>年龄参考</em><strong>5-7 岁</strong>（4 岁半也有提前入门的，看孩子专注力）</span>
+            <span class="pr-meta-item"><em>典型周期</em><strong>0-6 个月</strong></span>
+          </div>
+          <div class="pr-blocks">
+            <div class="pr-block pr-goals">
+              <h4>关键学习目标</h4>
+              <ul>
+                <li>认识棋盘、"气"和"吃子"的概念</li>
+                <li>会在 9 路小棋盘上下完整对局</li>
+                <li>能做出简单的"一步吃"、单官死活题</li>
+                <li>学会认输、把棋子放回棋盒（棋礼萌芽）</li>
+                <li>始终留住那句"下棋是好玩的"</li>
+              </ul>
+            </div>
+            <div class="pr-block pr-cost">
+              <h4>费用参考</h4>
+              <p>
+                一线城市线下班：150-300 元/课时；<br>
+                二三线城市：60-150 元/课时；<br>
+                网校启蒙班：30-80 元/课时。<br>
+                <em>建议先买 12-20 课时的启蒙包课试试，别一开始就压年卡。</em>
+              </p>
+            </div>
+            <div class="pr-block pr-parent-do">
+              <h4>家长该做的</h4>
+              <ul>
+                <li>陪孩子玩"吃子游戏"，故意露破绽让他找到</li>
+                <li>别急着纠错，先护住"我喜欢下棋"这份感觉</li>
+                <li>每周固定一次亲子对弈，比逼练习管用</li>
+              </ul>
+            </div>
+            <div class="pr-block pr-pit">
+              <h4>常见坑</h4>
+              <ul>
+                <li>把 9 路当"低级不重要"，急着跳到 13 路 / 19 路——基础不牢后面要返工</li>
+                <li>才三个月就追问"怎么还没升级"——启蒙期最忌拿升级压孩子</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <!-- ===== 阶段 2：入门期 ===== -->
+      <li class="pr-stage">
+        <div class="pr-stage-marker">
+          <span class="pr-num">02</span>
+          <span class="pr-num-sub">BASIC</span>
+        </div>
+        <div class="pr-stage-body">
+          <div class="pr-stage-head">
+            <h3 class="pr-stage-name">入门期</h3>
+            <span class="pr-stage-rank">15 级 - 8 级</span>
+          </div>
+          <div class="pr-stage-meta">
+            <span class="pr-meta-item"><em>年龄参考</em><strong>6-9 岁</strong></span>
+            <span class="pr-meta-item"><em>典型周期</em><strong>累计学棋 1-2 年</strong>（本阶段耗时 6-18 个月）</span>
+          </div>
+          <div class="pr-blocks">
+            <div class="pr-block pr-goals">
+              <h4>关键学习目标</h4>
+              <ul>
+                <li>13 路对局熟练，开始尝试 19 路</li>
+                <li>掌握基础死活形状：直三、弯三、方四、板六</li>
+                <li>能做 5-10 手内的死活题</li>
+                <li>理解"气紧""接不归""双吃""征子""引征"</li>
+                <li>初步布局意识：占大场、抢边角</li>
+              </ul>
+            </div>
+            <div class="pr-block pr-cost">
+              <h4>费用参考</h4>
+              <p>
+                一线线下：200-400 元/课时（含线上练习课）；<br>
+                二三线：80-200 元/课时。<br>
+                建议每周 1-2 次课 + 每日 15 分钟死活题。<br>
+                <em>装备一次性投入：落地棋盘 200-600 元 + 死活题册 50-100 元。</em>
+              </p>
+            </div>
+            <div class="pr-block pr-parent-do">
+              <h4>家长该做的</h4>
+              <ul>
+                <li>每天陪孩子 15 分钟死活题，像闯关一样打卡</li>
+                <li>输棋后不追问原因，先抱抱他，等情绪过了再一起复盘</li>
+                <li>把"你这里下错了"换成"我们再想想还有没有别的选择"</li>
+              </ul>
+            </div>
+            <div class="pr-block pr-pit">
+              <h4>常见坑</h4>
+              <ul>
+                <li>只关心升级、忽视孩子情绪——输棋后被指责几次，兴趣就没了</li>
+                <li>家长自学两个月然后亲自下场"辅导"——大概率越教越糊涂，交给老师</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <!-- ===== 阶段 3：提升期 ===== -->
+      <li class="pr-stage">
+        <div class="pr-stage-marker">
+          <span class="pr-num">03</span>
+          <span class="pr-num-sub">GROW</span>
+        </div>
+        <div class="pr-stage-body">
+          <div class="pr-stage-head">
+            <h3 class="pr-stage-name">提升期</h3>
+            <span class="pr-stage-rank">8 级 - 3 级</span>
+          </div>
+          <div class="pr-stage-meta">
+            <span class="pr-meta-item"><em>年龄参考</em><strong>7-11 岁</strong></span>
+            <span class="pr-meta-item"><em>典型周期</em><strong>累计学棋 2-3 年</strong>（本阶段耗时 1-2 年）</span>
+          </div>
+          <div class="pr-blocks">
+            <div class="pr-block pr-goals">
+              <h4>关键学习目标</h4>
+              <ul>
+                <li>19 路对局稳定，开始接触定式与常型</li>
+                <li>死活深度：20-30 手内的计算</li>
+                <li>中盘攻防：靠、扳、跳、飞的选择</li>
+                <li>官子概念萌芽：先手 / 后手 / 双方先手</li>
+                <li>开始参加机构内小型比赛，适应正式对局节奏</li>
+              </ul>
+            </div>
+            <div class="pr-block pr-cost">
+              <h4>费用参考</h4>
+              <p>
+                线下集训班：300-600 元/课时；<br>
+                网校提高班：50-150 元/课时；<br>
+                首次参加正式比赛：单场报名 100-300 元 + 差旅。<br>
+                <em>这个阶段可以开始接触 AI 复盘工具，请老师推荐即可。</em>
+              </p>
+            </div>
+            <div class="pr-block pr-parent-do">
+              <h4>家长该做的</h4>
+              <ul>
+                <li>主动和老师沟通孩子的强弱项，别怕问"外行问题"</li>
+                <li>比赛前后不谈输赢，只问"哪一步你最得意"</li>
+                <li>接受一段"看似没进步"的平台期——这是几乎每个孩子都会经历的</li>
+              </ul>
+            </div>
+            <div class="pr-block pr-pit">
+              <h4>常见坑</h4>
+              <ul>
+                <li>平台期一到就换机构、换老师，反而打乱孩子的节奏</li>
+                <li>让孩子过早死记复杂定式——理解不了，只会做题不会下棋</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <!-- ===== 阶段 4：冲段期 ===== -->
+      <li class="pr-stage">
+        <div class="pr-stage-marker">
+          <span class="pr-num">04</span>
+          <span class="pr-num-sub">DAN·1</span>
+        </div>
+        <div class="pr-stage-body">
+          <div class="pr-stage-head">
+            <h3 class="pr-stage-name">冲段期</h3>
+            <span class="pr-stage-rank">3 级 - 业余 1 段</span>
+          </div>
+          <div class="pr-stage-meta">
+            <span class="pr-meta-item"><em>年龄参考</em><strong>8-12 岁</strong></span>
+            <span class="pr-meta-item"><em>典型周期</em><strong>累计学棋 3-5 年</strong>（本阶段耗时 1-2 年）</span>
+          </div>
+          <div class="pr-blocks">
+            <div class="pr-block pr-goals">
+              <h4>关键学习目标</h4>
+              <ul>
+                <li>一盘完整对局能坚持 40-60 分钟不走神</li>
+                <li>复盘时能自己指出 2-3 处关键错手</li>
+                <li>掌握基础布局思路（星、小目、三三的常型）</li>
+                <li>中盘计算稳定：能看到 10-15 手变化</li>
+                <li>打通升段比赛的心理关：连输三盘还能坚持第四盘</li>
+              </ul>
+            </div>
+            <div class="pr-block pr-cost">
+              <h4>费用参考</h4>
+              <p>
+                冲段周末班：500-1500 元/月；<br>
+                一对一陪练 / 复盘：150-500 元/小时；<br>
+                <em>全年围棋总开销，一线城市家庭常见在 1.5-4 万元之间，地区差异较大，量力而行。</em>
+              </p>
+            </div>
+            <div class="pr-block pr-parent-do">
+              <h4>家长该做的</h4>
+              <ul>
+                <li>比赛日不催、不问排名，赛后带孩子去吃他最爱吃的</li>
+                <li>帮孩子安排好作息：升段前一晚早睡比多做 10 道题重要</li>
+                <li>和老师约定"孩子今年到不了段位也没关系"——把压力接过来</li>
+              </ul>
+            </div>
+            <div class="pr-block pr-pit">
+              <h4>常见坑</h4>
+              <ul>
+                <li>全家把"升段"当年度 KPI，孩子输一场就家庭低气压——最伤兴趣</li>
+                <li>花大价钱报一对一、期待"三个月冲段"——揠苗助长常发生在这里</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <!-- ===== 阶段 5：段位期 ===== -->
+      <li class="pr-stage">
+        <div class="pr-stage-marker">
+          <span class="pr-num">05</span>
+          <span class="pr-num-sub">DAN·5</span>
+        </div>
+        <div class="pr-stage-body">
+          <div class="pr-stage-head">
+            <h3 class="pr-stage-name">段位期</h3>
+            <span class="pr-stage-rank">业余 1 段 - 5 段</span>
+          </div>
+          <div class="pr-stage-meta">
+            <span class="pr-meta-item"><em>年龄参考</em><strong>9 岁以上</strong></span>
+            <span class="pr-meta-item"><em>典型周期</em><strong>累计学棋 5-8 年</strong>（本阶段耗时 2-4 年）</span>
+          </div>
+          <div class="pr-blocks">
+            <div class="pr-block pr-goals">
+              <h4>关键学习目标</h4>
+              <ul>
+                <li>段位阶梯：1 段 → 2 段 → 3 段 → 4 段 → 5 段，每一段都要在正式段赛中获胜达标</li>
+                <li>能看职业棋谱、跟着 AI 分析工具做自我复盘</li>
+                <li>有自己的"棋风"——是喜欢厚势，还是喜欢实地</li>
+                <li>面对高手不畏惧，面对低手不轻敌</li>
+                <li>开始能给低段位孩子讲棋（教是最好的学）</li>
+              </ul>
+            </div>
+            <div class="pr-block pr-cost">
+              <h4>费用参考</h4>
+              <p>
+                高段位专项班：800-2500 元/月；<br>
+                省级 / 全国青少年赛事：单次 2000-8000 元（含差旅）。<br>
+                <em>到这个阶段，围棋支出往往和其他兴趣班拉开距离，需要家庭做长期规划。</em>
+              </p>
+            </div>
+            <div class="pr-block pr-parent-do">
+              <h4>家长该做的</h4>
+              <ul>
+                <li>从"陪伴者"退到"支持者"——孩子的棋家长已经看不懂了，就更要相信他</li>
+                <li>比赛日在包里塞一张小卡片："无论输赢，我们都为你骄傲"</li>
+                <li>尊重孩子的选择：若想暂时缓一缓，允许"围棋永远在这里等你回来"</li>
+              </ul>
+            </div>
+            <div class="pr-block pr-pit">
+              <h4>常见坑</h4>
+              <ul>
+                <li>用段位定义孩子价值——"考不上 3 段就白学了"，这句话会毁掉多年的努力</li>
+                <li>忽视学业、社交、情绪，全家为围棋失衡——围棋是礼物，不是包袱</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <!-- ===== 阶段 6：进阶期 ===== -->
+      <li class="pr-stage">
+        <div class="pr-stage-marker">
+          <span class="pr-num">06</span>
+          <span class="pr-num-sub">PATH</span>
+        </div>
+        <div class="pr-stage-body">
+          <div class="pr-stage-head">
+            <h3 class="pr-stage-name">进阶期</h3>
+            <span class="pr-stage-rank">业余 5 段以上</span>
+          </div>
+          <div class="pr-stage-meta">
+            <span class="pr-meta-item"><em>年龄参考</em><strong>10 岁以上</strong>，个体差异极大</span>
+            <span class="pr-meta-item"><em>典型周期</em><strong>长期路径</strong>，分岔在这里出现</span>
+          </div>
+          <div class="pr-blocks">
+            <div class="pr-block pr-goals" style="grid-column:1 / -1;">
+              <h4>两条路 · 需要孩子自己选</h4>
+              <div class="pr-fork">
+                <div class="pr-fork-card">
+                  <h5>A · 冲职业</h5>
+                  <p>极少数孩子会走上定段道路。需要脱产训练、进入职业道场，投入以年为单位、代价极大。到这里，一切决策都会围绕"孩子自己是否真心愿意"展开。</p>
+                </div>
+                <div class="pr-fork-card">
+                  <h5>B · 业余爱好</h5>
+                  <p>绝大多数孩子走的是这条。围棋成为一项终身兴趣：偶尔下几局、参加业余赛、给下一代传棋。这条路一样值得骄傲。</p>
+                </div>
+              </div>
+            </div>
+            <div class="pr-block pr-parent-do">
+              <h4>家长该做的</h4>
+              <ul>
+                <li>尊重孩子在"冲职业 / 走业余"之间的选择——这是他的人生课题，不是父母的</li>
+                <li>无论他选哪条，都告诉他"你能到这里，已经很了不起了"</li>
+                <li>听孩子说棋、陪孩子走过每一次瓶颈——家长几乎"帮不上棋"，但可以帮他扛住情绪</li>
+              </ul>
+            </div>
+            <div class="pr-block pr-pit">
+              <h4>常见坑</h4>
+              <ul>
+                <li>家长替孩子决定"冲职业"——牺牲学业、透支童年，风险极高</li>
+                <li>拿孩子和其他"神童"比——每颗种子的花期都不同</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </li>
+
+    </ol>
+
+    <div class="pr-outro">
+      <p>
+        最后，请记得——<span class="pr-quote">段位不是终点，看到孩子的努力过程比获得证书更重要。</span>
+      </p>
+      <p>
+        如果有一天孩子想暂时停下，不妨支持他的选择，并告诉他：<br>
+        <span class="pr-quote">"围棋永远在这里等你回来。"</span>
+      </p>
+    </div>
+
+  </div>
+</section>
+<!-- ===== 家长学习路线图 END ===== -->
+
 <section id="edulab" class="collapsible bg-paper py-16 border-b border-line">
+
   <div class="max-w-6xl mx-auto px-6">
     <h2 class="section-title">启蒙教学研讨</h2>
     <p class="section-lead">
