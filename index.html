@@ -4498,6 +4498,56 @@ AI 是训练工具，不是老师替身<br>
   .s4d-color-progress .cp-item{font-size:11px}
 }
 
+/* ===== SCHULTE-DISK v1.3 START ===== */
+/* 四色动态舒尔特圆盘 · 眼动追踪训练 */
+.sdisk-intro-note{background:#faf5e6;border-left:2px solid var(--line,#d9c9a0);padding:8px 10px;border-radius:2px;font-size:11.5px;color:#6b5a3a;line-height:1.65;margin:6px 0 4px}
+.sdisk-ctrl-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;padding:10px 12px;background:#fff;border:1px solid var(--line,#d9c9a0);border-radius:4px;margin-bottom:10px}
+.sdisk-ctrl-row .sdisk-label{font-size:12.5px;color:#6b5a3a;letter-spacing:.02em}
+.sdisk-btn-group{display:inline-flex;gap:0;border:1px solid #d9d6cc;border-radius:4px;overflow:hidden}
+.sdisk-btn-group button{background:#fff;color:#5a4a2a;border:0;border-right:1px solid #ede8db;padding:6px 12px;font-size:12.5px;cursor:pointer;font-family:inherit;transition:background .15s}
+.sdisk-btn-group button:last-child{border-right:0}
+.sdisk-btn-group button:hover{background:#f6ecd8}
+.sdisk-btn-group button.active{background:#4a4a45;color:#fff}
+.sdisk-btn-primary{padding:7px 20px;font-size:13px;font-weight:600;background:var(--seal,#a94b3d);color:#fff;border:0;border-radius:4px;cursor:pointer;font-family:inherit;letter-spacing:.03em}
+.sdisk-btn-primary:hover{filter:brightness(.94)}
+.sdisk-btn-primary:disabled{opacity:.55;cursor:not-allowed}
+.sdisk-btn-ghost{padding:6px 14px;font-size:12.5px;background:transparent;color:#6b5a3a;border:1px solid #d9d6cc;border-radius:4px;cursor:pointer;font-family:inherit}
+.sdisk-btn-ghost:hover{background:#f6ecd8;color:#3d2817}
+.sdisk-status{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;padding:10px 14px;background:#fff;border:1px solid var(--line,#d9c9a0);border-radius:4px;margin-bottom:12px;font-size:13px}
+.sdisk-status .sdisk-stat{display:flex;align-items:center;gap:6px;color:#6b5a3a}
+.sdisk-status .sdisk-stat b{color:#3d2817;font-family:'Courier New',monospace;font-weight:700;font-size:16px}
+.sdisk-status .sdisk-next{color:#6b6b6b}
+.sdisk-status .sdisk-next .sdisk-nextnum{color:#c14238;font-family:'Courier New',monospace;font-weight:700;font-size:18px;margin-left:4px}
+.sdisk-stage{background:#fff;border:1px solid var(--line,#d9c9a0);border-radius:6px;padding:12px;text-align:center;position:relative;min-height:340px}
+.sdisk-stage svg{display:block;margin:0 auto;max-width:100%;height:auto;user-select:none;-webkit-tap-highlight-color:transparent}
+.sdisk-stage .sdisk-hint{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.72);pointer-events:none;color:#6b5a3a;font-size:13px;text-align:center;line-height:1.9}
+.sdisk-stage .sdisk-hint b{color:#3d2817;font-weight:600}
+.sdisk-stage .sdisk-hint .sdisk-hint-sub{color:#a99770;font-size:12px;display:block;margin-top:4px}
+.sdisk-sector{cursor:pointer;transition:opacity .35s ease,filter .18s}
+.sdisk-sector:hover{filter:brightness(.94)}
+.sdisk-sector.done{cursor:default;pointer-events:none;opacity:.16}
+.sdisk-num{font-family:'Source Han Serif SC','Songti SC','SimSun',serif;font-weight:700;fill:#333;pointer-events:none;text-anchor:middle;dominant-baseline:central}
+.sdisk-num.hi{fill:#c14238}
+.sdisk-num.done{fill:transparent}
+.sdisk-center{fill:#faf5e6;stroke:var(--line,#d9c9a0);stroke-width:1}
+.sdisk-result{position:absolute;inset:0;background:rgba(255,255,255,.96);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;border-radius:6px;text-align:center}
+.sdisk-result .sdisk-r-label{font-size:14px;color:#8b7550;margin-bottom:6px}
+.sdisk-result .sdisk-r-time{font-family:'Courier New',monospace;font-size:52px;font-weight:700;color:var(--seal,#a94b3d);margin-bottom:8px;letter-spacing:.02em}
+.sdisk-result .sdisk-r-grade{font-size:16px;color:#3d2817;margin-bottom:6px}
+.sdisk-result .sdisk-r-detail{font-size:12.5px;color:#8b7550;margin-bottom:16px;line-height:1.7}
+.sdisk-result .sdisk-r-detail b{color:#5a4a2a;font-family:'Courier New',monospace}
+.sdisk-result .sdisk-r-tip{font-size:12.5px;color:#6b5a3a;max-width:420px;margin:0 auto 18px;line-height:1.85}
+.sdisk-result .sdisk-r-buttons{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+@media(max-width:600px){
+  .sdisk-status{font-size:12px;padding:8px 12px}
+  .sdisk-status .sdisk-stat b{font-size:14px}
+  .sdisk-status .sdisk-next .sdisk-nextnum{font-size:16px}
+  .sdisk-result .sdisk-r-time{font-size:40px}
+  .sdisk-ctrl-row{gap:6px 10px;padding:8px 10px}
+  .sdisk-btn-group button{padding:5px 9px;font-size:12px}
+}
+/* ===== SCHULTE-DISK v1.3 END ===== */
+
 /* 数字记忆 */
 .digitspan-stage{text-align:center;padding:40px 12px;min-height:220px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#fff;border:1px solid var(--line,#d9c9a0);border-radius:4px}
 .digitspan-stage .ds-level{font-size:13px;color:#6b5a3a;margin-bottom:16px;letter-spacing:.1em}
@@ -4616,7 +4666,7 @@ AI 是训练工具，不是老师替身<br>
   <div class="max-w-4xl mx-auto px-6 fade-in">
     <h2 class="section-title">思维训练室</h2>
     <p class="section-lead">
-      围棋教学配套的<span class="hl">思维训练工具</span>——注意力、记忆力、抑制力、空间感，都是围棋对局背后的底层能力。这里精选七类经典脑力训练项目，孩子学棋之余可以顺手一试，老师也可以拿来做课前热身、课间放松。
+      围棋教学配套的<span class="hl">思维训练工具</span>——注意力、记忆力、抑制力、空间感，都是围棋对局背后的底层能力。这里精选九类经典脑力训练项目，孩子学棋之余可以顺手一试，老师也可以拿来做课前热身、课间放松。
     </p>
 
     <!-- 工具列表（默认显示） -->
@@ -4689,18 +4739,6 @@ AI 是训练工具，不是老师替身<br>
     <!-- 具体工具训练面板（默认隐藏） -->
     <div id="brain-tool-area" style="display:none"></div>
 
-    <!-- ===== 交叉引流：专注力体验测试 ===== -->
-    <div id="brain-crossref-concentration" style="margin-top:2.5rem;padding:1.25rem 1.5rem;background:linear-gradient(135deg,#f5ecd7 0%,#efe2c2 100%);border:1px solid #c8b48a;border-radius:6px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;box-shadow:0 2px 6px rgba(139,58,58,0.08)">
-      <div style="flex:1 1 260px;min-width:0">
-        <div style="font-family:'KaiTi','STKaiti',serif;font-size:1.15rem;color:#8b3a3a;letter-spacing:.05em;margin-bottom:.35rem">
-          <span style="border:1px solid #8b3a3a;padding:1px 6px;font-size:.75rem;margin-right:.5em;vertical-align:1px">测试</span>专注力体验测试
-        </div>
-        <div style="font-size:.9rem;color:#6b5b3d;line-height:1.7">
-          5×5 舒尔特方格国际经典专注力测量工具，一分钟测出你的视觉搜索速度，并与同年龄段常模对比。
-        </div>
-      </div>
-      <button type="button" onclick="if(typeof window.openSection==='function'){window.openSection('concentration-test');}" style="background:#8b3a3a;color:#fff;border:none;padding:12px 28px;cursor:pointer;font-family:inherit;font-size:.95rem;letter-spacing:.1em;border-radius:4px;min-height:44px;white-space:nowrap">去体验 →</button>
-    </div>
   </div>
 </section>
 
@@ -4748,6 +4786,11 @@ AI 是训练工具，不是老师替身<br>
       id:'watersort', icon:'🧪', name:'上下瓶色匹配',
       desc:'倒水式色彩分类，逻辑推理与全局观训练。',
       avail:true
+    },
+    {
+      id:'schulteDisk', icon:'🎡', name:'四色动态舒尔特圆盘',
+      desc:'分层旋转圆盘上按序找 1→N，眼动追踪与视觉扫描训练。',
+      avail:true, recommend:true, ver:'v1.3 新增'
     }
   ];
 
@@ -5265,6 +5308,365 @@ AI 是训练工具，不是老师替身<br>
       if(base4x4 < 45) return {label:'良好',emoji:'⭐⭐',tip:'状态稳定，颜色分组处理熟练；多练习可以突破洗牌造成的短暂停顿。'};
       if(base4x4 < 70) return {label:'一般',emoji:'⭐',tip:'继续加练，洗牌后需要重新扫描是训练重点，用余光整体感知网格。'};
       return {label:'待提升',emoji:'💪',tip:'初次接触正常现象；先熟悉 4×4，找到"分组切换"的节奏，速度会快起来。'};
+    }
+  };
+
+  // ==== 四色动态舒尔特圆盘（v1.3 新增：SVG 分层旋转圆盘 · 眼动追踪训练） ====
+  Brain.tools.schulteDisk = {
+    // 4 色淡雅：奶油黄 / 淡薄荷 / 淡蓝 / 淡粉
+    COLORS: ['#FCEFC7', '#DDF0E3', '#DCE7F5', '#F5DDE3'],
+    // 各规格分层：{count, rInner, rOuter, dir(1=CW,-1=CCW)}
+    LAYOUTS: {
+      3: [{count:3, rInner:28,  rOuter:88,  dir: 1}, {count:6,  rInner:88,  rOuter:158, dir:-1}],
+      4: [{count:4, rInner:28,  rOuter:88,  dir: 1}, {count:12, rInner:88,  rOuter:158, dir:-1}],
+      5: [{count:5, rInner:24,  rOuter:70,  dir: 1}, {count:8,  rInner:70,  rOuter:114, dir:-1}, {count:12, rInner:114, rOuter:158, dir: 1}],
+      6: [{count:6, rInner:24,  rOuter:70,  dir: 1}, {count:12, rInner:70,  rOuter:114, dir:-1}, {count:18, rInner:114, rOuter:158, dir: 1}]
+    },
+    CENTER: {x:200, y:200},
+    CENTER_R: 15,
+    // 状态
+    size: 3, speedSec: 30,
+    running: false, finished: false,
+    startTime: 0, penaltyMs: 0,
+    nextNum: 1, total: 9, errors: 0,
+    layers: [], animFrame: null, timerFrame: null,
+    lastFrameTime: 0,
+    _host: null,
+
+    init(host){
+      this._host = host;
+      host.innerHTML = `
+        <div class="brain-intro-text">
+          <p>四色动态舒尔特圆盘是一种<span class="hl">分层旋转 + 视觉扫描</span>的综合训练——数字被均匀分布在同心圆环上，各层以不同方向缓慢转动，你需要在动态盘面中按 <span class="hl">1→N</span> 的顺序依次点击。</p>
+          <ul>
+            <li><b>训练目的：</b>提升视觉扫描的范围与效率，锻炼抑制外部干扰的能力，改善眼球在动态目标间的追踪灵活度。</li>
+            <li><b>使用方法：</b>下方按钮选择<b>规格</b>与<b>速度</b>，点「开始」后计时启动、圆盘按选定速度旋转，按序点击对应数字即可；点对淡出、点错闪红并加 1 秒。</li>
+            <li><b>训练建议：</b>3×3 熟悉玩法，4×4 是日常训练区间，5×5 / 6×6 用于挑战；先「慢」速稳定，再逐步上「中」/「快」。</li>
+          </ul>
+          <div class="brain-intro-text" style="margin:0;padding:0">
+            <p class="hl" style="margin-top:8px">四种规格分层</p>
+            <table class="brain-ref-table"><thead><tr><th>规格</th><th>数字总数</th><th>分层结构</th><th>旋转策略</th></tr></thead>
+            <tbody>
+              <tr><td>3×3 · 易</td><td>9</td><td>内 3 + 外 6</td><td>2 层反向</td></tr>
+              <tr><td>4×4 · 中</td><td>16</td><td>内 4 + 外 12</td><td>2 层反向</td></tr>
+              <tr><td>5×5 · 难</td><td>25</td><td>内 5 + 中 8 + 外 12</td><td>3 层交替</td></tr>
+              <tr><td>6×6 · 挑战</td><td>36</td><td>内 6 + 中 12 + 外 18</td><td>3 层交替</td></tr>
+            </tbody></table>
+          </div>
+          <div class="brain-ref-note"><b>说明：</b>本训练借鉴动态舒尔特（Dynamic Schulte）与眼动追踪训练常见方案，用于视觉搜索与注意分配的日常训练。每次开始会重新打乱数字，起点 <b style="color:#c14238">1</b> 与终点 <b style="color:#c14238">N</b> 用红色标出便于视觉锚定；成绩仅供个人纵向比较，不作医学评估或筛查用途。</div>
+        </div>
+        <div class="sdisk-ctrl-row">
+          <span class="sdisk-label">规格</span>
+          <div class="sdisk-btn-group" data-role="size">
+            <button data-size="3" class="active">3×3 · 易</button>
+            <button data-size="4">4×4 · 中</button>
+            <button data-size="5">5×5 · 难</button>
+            <button data-size="6">6×6 · 挑战</button>
+          </div>
+        </div>
+        <div class="sdisk-ctrl-row">
+          <span class="sdisk-label">旋转速度</span>
+          <div class="sdisk-btn-group" data-role="speed">
+            <button data-speed="0">静止</button>
+            <button data-speed="30" class="active">慢</button>
+            <button data-speed="20">中</button>
+            <button data-speed="12">快</button>
+          </div>
+          <span style="flex:1"></span>
+          <button class="sdisk-btn-ghost" data-role="reset">重置</button>
+          <button class="sdisk-btn-primary" data-role="start">开始</button>
+        </div>
+        <div class="sdisk-status">
+          <div class="sdisk-stat">用时 <b data-role="time">00.00</b></div>
+          <div class="sdisk-next">下一个：<span class="sdisk-nextnum" data-role="next">—</span></div>
+          <div class="sdisk-stat">进度 <b data-role="progress">0 / 9</b></div>
+        </div>
+        <div class="sdisk-stage" data-role="stage">
+          <svg data-role="svg" viewBox="0 0 400 400" width="400" height="400" aria-label="四色动态舒尔特圆盘"></svg>
+          <div class="sdisk-hint" data-role="hint">
+            <div>选好<b>规格</b>与<b>速度</b>后，点<b>开始</b>启动训练<span class="sdisk-hint-sub">数字会重新打乱，用余光扫描 1→N</span></div>
+          </div>
+          <div class="sdisk-result" data-role="result" style="display:none"></div>
+        </div>
+      `;
+      // 状态重置
+      this.size = 3; this.speedSec = 30;
+      this.running = false; this.finished = false;
+      this._bind();
+      this._build();
+    },
+
+    _q(sel){ return this._host.querySelector('[data-role="'+sel+'"]'); },
+
+    _bind(){
+      var self = this;
+      var host = this._host;
+      host.querySelector('[data-role="size"]').addEventListener('click', function(e){
+        var b = e.target.closest('button'); if(!b) return;
+        var s = parseInt(b.dataset.size, 10);
+        if(s === self.size) return;
+        this.querySelectorAll('button').forEach(function(x){ x.classList.remove('active'); });
+        b.classList.add('active');
+        self.size = s;
+        self._reset();
+      });
+      host.querySelector('[data-role="speed"]').addEventListener('click', function(e){
+        var b = e.target.closest('button'); if(!b) return;
+        var sp = parseInt(b.dataset.speed, 10);
+        this.querySelectorAll('button').forEach(function(x){ x.classList.remove('active'); });
+        b.classList.add('active');
+        self.speedSec = sp;
+      });
+      host.querySelector('[data-role="start"]').addEventListener('click', function(){ self._start(); });
+      host.querySelector('[data-role="reset"]').addEventListener('click', function(){ self._reset(); });
+    },
+
+    // 几何工具
+    _polar(cx, cy, r, angleDeg){
+      var a = (angleDeg - 90) * Math.PI / 180;
+      return {x: cx + r * Math.cos(a), y: cy + r * Math.sin(a)};
+    },
+    _sectorPath(cx, cy, rIn, rOut, startDeg, endDeg){
+      var p1 = this._polar(cx, cy, rOut, endDeg);
+      var p2 = this._polar(cx, cy, rOut, startDeg);
+      var p3 = this._polar(cx, cy, rIn,  startDeg);
+      var p4 = this._polar(cx, cy, rIn,  endDeg);
+      var largeArc = (endDeg - startDeg) > 180 ? 1 : 0;
+      return 'M '+p1.x.toFixed(2)+' '+p1.y.toFixed(2)
+           + ' A '+rOut+' '+rOut+' 0 '+largeArc+' 0 '+p2.x.toFixed(2)+' '+p2.y.toFixed(2)
+           + ' L '+p3.x.toFixed(2)+' '+p3.y.toFixed(2)
+           + ' A '+rIn+' '+rIn+' 0 '+largeArc+' 1 '+p4.x.toFixed(2)+' '+p4.y.toFixed(2)
+           + ' Z';
+    },
+    _shuffle(arr){
+      for(var i=arr.length-1;i>0;i--){
+        var j = Math.floor(Math.random()*(i+1));
+        var t = arr[i]; arr[i] = arr[j]; arr[j] = t;
+      }
+      return arr;
+    },
+    _pad2(n){ return (n<10?'0':'')+n; },
+
+    // 构建圆盘 SVG
+    _build(){
+      var self = this;
+      var svg = this._q('svg');
+      while(svg.firstChild) svg.removeChild(svg.firstChild);
+
+      var layout = this.LAYOUTS[this.size];
+      var total = 0;
+      layout.forEach(function(l){ total += l.count; });
+      this.total = total;
+
+      var nums = [];
+      for(var i=1;i<=total;i++) nums.push(i);
+      this._shuffle(nums);
+
+      this.layers = [];
+      var numsIdx = 0;
+      var fontSize = {3:26, 4:22, 5:19, 6:16}[this.size];
+
+      layout.forEach(function(cfg, layerIdx){
+        var layerG = document.createElementNS('http://www.w3.org/2000/svg','g');
+        layerG.setAttribute('class', 'sdisk-layer');
+        svg.appendChild(layerG);
+        var sectors = [];
+        var per = 360 / cfg.count;
+        for(var k=0; k<cfg.count; k++){
+          var startDeg = k * per;
+          var endDeg = (k+1) * per;
+          var midDeg = startDeg + per/2;
+          var midR = (cfg.rInner + cfg.rOuter) / 2;
+
+          var path = document.createElementNS('http://www.w3.org/2000/svg','path');
+          var colorIdx = (layerIdx*7 + k) % self.COLORS.length;
+          path.setAttribute('fill', self.COLORS[colorIdx]);
+          path.setAttribute('stroke', '#ffffff');
+          path.setAttribute('stroke-width', '1.2');
+          path.setAttribute('class', 'sdisk-sector');
+          path.setAttribute('d', self._sectorPath(self.CENTER.x, self.CENTER.y, cfg.rInner, cfg.rOuter, startDeg, endDeg));
+          layerG.appendChild(path);
+
+          var num = nums[numsIdx++];
+          var text = document.createElementNS('http://www.w3.org/2000/svg','text');
+          text.setAttribute('class', 'sdisk-num' + ((num===1||num===total)?' hi':''));
+          text.setAttribute('font-size', fontSize);
+          var pos = self._polar(self.CENTER.x, self.CENTER.y, midR, midDeg);
+          text.setAttribute('x', pos.x.toFixed(2));
+          text.setAttribute('y', pos.y.toFixed(2));
+          text.textContent = String(num);
+          layerG.appendChild(text);
+
+          var sec = {num:num, done:false, el:path, textEl:text};
+          sectors.push(sec);
+          (function(s){ path.addEventListener('click', function(){ self._onClick(s); }); })(sec);
+        }
+        self.layers.push({dir:cfg.dir, baseAngle:0, sectors:sectors, gEl:layerG});
+      });
+
+      // 中心圆
+      var c = document.createElementNS('http://www.w3.org/2000/svg','circle');
+      c.setAttribute('cx', this.CENTER.x); c.setAttribute('cy', this.CENTER.y);
+      c.setAttribute('r', this.CENTER_R); c.setAttribute('class', 'sdisk-center');
+      svg.appendChild(c);
+
+      // 状态
+      this.nextNum = 1; this.errors = 0; this.penaltyMs = 0; this.finished = false;
+      this._updateStatus();
+      this._draw();
+    },
+
+    _draw(){
+      var self = this;
+      this.layers.forEach(function(layer){
+        var angle = layer.baseAngle;
+        layer.gEl.setAttribute('transform', 'rotate('+ angle.toFixed(3) +' '+ self.CENTER.x +' '+ self.CENTER.y +')');
+        layer.sectors.forEach(function(sec){
+          var tx = parseFloat(sec.textEl.getAttribute('x'));
+          var ty = parseFloat(sec.textEl.getAttribute('y'));
+          sec.textEl.setAttribute('transform', 'rotate('+ (-angle).toFixed(3) +' '+ tx +' '+ ty +')');
+        });
+      });
+    },
+
+    _updateStatus(){
+      this._q('next').textContent = this.nextNum > this.total ? '✓' : String(this.nextNum);
+      this._q('progress').textContent = (this.nextNum - 1) + ' / ' + this.total;
+    },
+
+    _tickTimer(){
+      if(!this.running) return;
+      var el = this._q('time');
+      var elapsed = Date.now() - this.startTime + this.penaltyMs;
+      var s = Math.floor(elapsed/1000);
+      var ms = Math.floor((elapsed % 1000)/10);
+      el.textContent = this._pad2(s) + '.' + this._pad2(ms);
+      var self = this;
+      this.timerFrame = requestAnimationFrame(function(){ self._tickTimer(); });
+    },
+
+    _animLoop(){
+      var now = performance.now();
+      var dt = this.lastFrameTime ? (now - this.lastFrameTime) : 0;
+      this.lastFrameTime = now;
+      if(this.running && this.speedSec > 0 && dt > 0){
+        var speedSec = this.speedSec;
+        this.layers.forEach(function(layer){
+          var deltaDeg = (dt / (speedSec*1000)) * 360 * layer.dir;
+          layer.baseAngle = (layer.baseAngle + deltaDeg) % 360;
+          if(layer.baseAngle >= 180) layer.baseAngle -= 360;
+          if(layer.baseAngle < -180) layer.baseAngle += 360;
+        });
+      }
+      this._draw();
+      var self = this;
+      this.animFrame = requestAnimationFrame(function(){ self._animLoop(); });
+    },
+
+    _onClick(sec){
+      if(!this.running || this.finished || sec.done) return;
+      if(sec.num === this.nextNum){
+        sec.done = true;
+        sec.el.classList.add('done');
+        sec.textEl.classList.add('done');
+        this.nextNum++;
+        this._updateStatus();
+        if(this.nextNum > this.total) this._finish();
+      }else{
+        this.errors++;
+        this.penaltyMs += 1000;
+        var originalFill = sec.el.getAttribute('fill');
+        sec.el.setAttribute('fill', '#f8b4b4');
+        setTimeout(function(){
+          sec.el.setAttribute('fill', originalFill);
+        }, 300);
+      }
+    },
+
+    _start(){
+      if(this.running) return;
+      this._q('hint').style.display = 'none';
+      this._q('result').style.display = 'none';
+      this._build();
+      this.running = true;
+      this.finished = false;
+      this.startTime = Date.now();
+      this.penaltyMs = 0;
+      var btn = this._host.querySelector('[data-role="start"]');
+      btn.textContent = '进行中…';
+      btn.disabled = true;
+      if(this.animFrame) cancelAnimationFrame(this.animFrame);
+      if(this.timerFrame) cancelAnimationFrame(this.timerFrame);
+      this.lastFrameTime = 0;
+      this._animLoop();
+      this._tickTimer();
+    },
+
+    _reset(){
+      this.running = false;
+      this.finished = false;
+      if(this.animFrame) cancelAnimationFrame(this.animFrame);
+      if(this.timerFrame) cancelAnimationFrame(this.timerFrame);
+      this._q('time').textContent = '00.00';
+      this._q('result').style.display = 'none';
+      this._q('hint').style.display = 'flex';
+      var btn = this._host.querySelector('[data-role="start"]');
+      btn.textContent = '开始';
+      btn.disabled = false;
+      this._build();
+    },
+
+    _finish(){
+      this.running = false;
+      this.finished = true;
+      if(this.animFrame) cancelAnimationFrame(this.animFrame);
+      if(this.timerFrame) cancelAnimationFrame(this.timerFrame);
+      var totalMs = Date.now() - this.startTime + this.penaltyMs;
+      var s = totalMs / 1000;
+      var bestKey = 'luobo_brain_schulteDisk_' + this.size + 'x' + this.size + '_' + this.speedSec + '_best';
+      var prev = parseFloat(localStorage.getItem(bestKey)) || Infinity;
+      var isBest = totalMs < prev;
+      if(isBest) localStorage.setItem(bestKey, totalMs);
+      var grade = this._grade(s);
+      var speedName = ({0:'静止', 30:'慢', 20:'中', 12:'快'})[this.speedSec];
+      Brain.checkin('schulteDisk');
+      var box = this._q('result');
+      box.style.display = 'flex';
+      box.innerHTML = ''
+        + '<div class="sdisk-r-label">完成时间</div>'
+        + '<div class="sdisk-r-time">' + s.toFixed(2) + ' s</div>'
+        + '<div class="sdisk-r-grade">评级：<span class="hl">' + grade.label + '</span> ' + grade.emoji + '</div>'
+        + '<div class="sdisk-r-detail">规格 <b>' + this.size + '×' + this.size + '</b> · 速度 <b>' + speedName + '</b> · 错点 <b>' + this.errors + '</b> 次'
+        + (this.errors > 0 ? '（含 ' + this.errors + 's 惩罚）' : '')
+        + '<br>' + (isBest ? '🎉 破本档纪录！' : (prev === Infinity ? '本档暂无历史成绩' : '本档最佳 ' + (prev/1000).toFixed(2) + 's'))
+        + '</div>'
+        + '<div class="sdisk-r-tip">' + grade.tip + '</div>'
+        + '<div class="sdisk-r-buttons">'
+        +   '<button class="sdisk-btn-primary" data-role="again">再来一局</button>'
+        +   '<button class="sdisk-btn-ghost" data-role="close">收起结果</button>'
+        + '</div>';
+      var self = this;
+      box.querySelector('[data-role="again"]').addEventListener('click', function(){
+        box.style.display = 'none';
+        self._start();
+      });
+      box.querySelector('[data-role="close"]').addEventListener('click', function(){
+        box.style.display = 'none';
+      });
+      var btn = this._host.querySelector('[data-role="start"]');
+      btn.textContent = '再来一局';
+      btn.disabled = false;
+    },
+
+    _grade(s){
+      // 按 4×4 慢速为基线做粗略换算：折算到"4×4 慢档"的等效秒数
+      var refPerNum = {3:1.2, 4:1.5, 5:1.9, 6:2.4}[this.size];   // 每数字参考秒
+      var speedFactor = ({0:1.0, 30:1.0, 20:1.15, 12:1.3})[this.speedSec] || 1;
+      var base = s / (this.total * refPerNum) * speedFactor;    // 归一化：约 1.0 为一般水平
+      if(base < 0.55) return {label:'优秀', emoji:'⭐⭐⭐', tip:'眼动追踪很稳，可以尝试更大规格或提速一档。'};
+      if(base < 0.80) return {label:'良好', emoji:'⭐⭐',   tip:'节奏不错；试着把视线定在中心，用余光锁定下一个数字。'};
+      if(base < 1.10) return {label:'一般', emoji:'⭐',     tip:'继续加练，先熟悉旋转规律再提速；错点不要慌，稳住节奏更划算。'};
+      return {label:'待提升', emoji:'💪', tip:'第一次很正常；先试静止或慢档，找到"用余光扫描"的感觉再逐步提速。'};
     }
   };
 
