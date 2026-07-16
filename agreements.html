@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>校长合规起步包 · 协议模板 v1 · 萝卜干围棋教育</title>
+<meta name="description" content="家校共育、家校共信——从一份规范合同开始。6 份协议 + 3 份配套，家长/教师/加盟三方全覆盖，可免费下载并按本机构情况定制。">
+<link rel="canonical" href="https://weiqiluobogan.com/agreements.html">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --ink:#1a1a1a; --ink-soft:#2a2a2a; --ink-mute:#5a544a;
+    --paper:#f8f5ef; --paper-2:#f2ede2; --paper-3:#eae2d0;
+    --seal:#a8362a; --seal-light:#c74e3f; --seal-soft:#d97a6c;
+    --line:#e6e0d5; --line-dark:#c9bfa5;
+    --gold:#b8944d;
+  }
+  html,body{background:var(--paper);color:var(--ink);font-family:'Source Han Serif SC','思源宋体','Noto Serif SC','SimSun',serif;}
+  .fmono{font-family:'Cormorant Garamond','思源宋体','Noto Serif SC',serif;letter-spacing:.02em;}
+  .fsans{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;}
+  .bg-paper{background:var(--paper);}
+  .bg-paper-2{background:var(--paper-2);}
+  .text-ink{color:var(--ink);}
+  .text-ink-soft{color:var(--ink-soft);}
+  .text-mute{color:var(--ink-mute);}
+  .text-seal{color:var(--seal);}
+  .border-line{border-color:var(--line);}
+  .border-line-dark{border-color:var(--line-dark);}
+  .hl{background:linear-gradient(180deg,transparent 55%,rgba(168,54,42,.16) 55%);padding:0 2px;}
+
+  /* header */
+  .site-header{background:var(--paper);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:40;backdrop-filter:saturate(180%) blur(6px);}
+  .logo-dot{width:26px;height:26px;background:var(--seal);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:14px;border-radius:2px;letter-spacing:0;}
+
+  /* hero */
+  .hero{padding:56px 20px 32px;background:linear-gradient(180deg,var(--paper) 0%,var(--paper-2) 100%);border-bottom:1px solid var(--line);}
+  .hero h1{font-size:36px;letter-spacing:.02em;line-height:1.25;font-weight:600;}
+  .hero .subtitle{color:var(--ink-mute);font-size:15px;margin-top:14px;max-width:640px;}
+  .stamp{display:inline-block;padding:3px 12px;border:1.5px solid var(--seal);color:var(--seal);font-size:11px;letter-spacing:.15em;border-radius:2px;margin-top:16px;}
+
+  /* disclaimer box - 免责声明区（醒目 seal 红边框，例外允许）*/
+  .disclaimer{
+    border:2px solid var(--seal);
+    background:rgba(168,54,42,.04);
+    border-radius:4px;
+    padding:26px 30px;
+    margin:36px 0 8px;
+    position:relative;
+  }
+  .disclaimer .d-title{
+    font-size:18px;font-weight:700;color:var(--seal);
+    margin-bottom:14px;letter-spacing:.02em;
+  }
+  .disclaimer .d-lead{
+    font-size:14.5px;line-height:1.85;color:var(--ink-soft);
+    margin-bottom:14px;
+  }
+  .disclaimer ol{
+    counter-reset:d-item;padding-left:0;list-style:none;
+  }
+  .disclaimer ol li{
+    counter-increment:d-item;padding-left:32px;position:relative;
+    font-size:14px;line-height:1.85;color:var(--ink-soft);
+    margin-bottom:10px;
+  }
+  .disclaimer ol li::before{
+    content:counter(d-item);
+    position:absolute;left:0;top:2px;
+    width:22px;height:22px;border-radius:50%;
+    background:var(--seal);color:#fff;
+    display:inline-flex;align-items:center;justify-content:center;
+    font-family:'Cormorant Garamond',serif;font-weight:600;
+    font-size:13px;line-height:1;
+  }
+  .disclaimer ol li strong{color:var(--ink);font-weight:600;}
+
+  /* section title */
+  .sec-title{
+    font-size:22px;font-weight:600;color:var(--ink);
+    margin-top:56px;margin-bottom:6px;letter-spacing:.02em;
+    position:relative;padding-left:18px;
+  }
+  .sec-title::before{
+    content:"";position:absolute;left:0;top:8px;bottom:8px;
+    width:4px;background:var(--seal);border-radius:1px;
+  }
+  .sec-sub{
+    color:var(--ink-mute);font-size:13.5px;margin-bottom:20px;padding-left:18px;
+  }
+  .group-title{
+    font-size:15px;font-weight:600;color:var(--ink-soft);
+    margin-top:28px;margin-bottom:14px;letter-spacing:.05em;
+    display:flex;align-items:center;gap:10px;
+  }
+  .group-title::before,.group-title::after{
+    content:"";flex:0 0 24px;height:1px;background:var(--line-dark);
+  }
+  .group-title::after{flex:1;}
+
+  /* card */
+  .grid-cards{
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+    gap:18px;margin-top:6px;
+  }
+  .a-card{
+    background:#fff;border:1px solid var(--line-dark);border-radius:4px;
+    padding:22px 22px 18px;transition:all .2s;position:relative;
+    display:flex;flex-direction:column;
+  }
+  .a-card:hover{border-color:var(--seal);transform:translateY(-2px);box-shadow:0 8px 20px rgba(60,40,20,.08);}
+  .a-card .a-badge{
+    position:absolute;top:0;right:0;
+    background:var(--seal);color:#fff;
+    font-size:11px;padding:3px 10px;border-bottom-left-radius:4px;
+    letter-spacing:.05em;font-family:-apple-system,'PingFang SC',sans-serif;
+  }
+  .a-card .a-badge.check{background:var(--gold);}
+  .a-card .a-num{
+    font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:600;
+    color:var(--seal);letter-spacing:.05em;line-height:1;
+  }
+  .a-card .a-title{
+    font-size:17px;font-weight:600;margin-top:6px;color:var(--ink);line-height:1.4;
+  }
+  .a-card .a-desc{
+    font-size:13px;color:var(--ink-soft);line-height:1.7;
+    margin-top:12px;flex:1;
+  }
+  .a-card .a-meta{
+    display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;
+  }
+  .a-card .a-tag{
+    padding:2px 8px;background:var(--paper-2);color:var(--ink-mute);
+    font-size:11px;border-radius:2px;border:1px solid var(--line);
+    font-family:-apple-system,'PingFang SC',sans-serif;
+  }
+  .a-card .a-actions{
+    display:flex;gap:8px;margin-top:16px;padding-top:14px;
+    border-top:1px dashed var(--line);
+  }
+  .a-card .btn-dl{
+    flex:1;padding:8px 12px;background:var(--seal);color:#fff;
+    font-size:13px;text-align:center;border-radius:2px;
+    transition:all .15s;font-weight:500;text-decoration:none;
+    display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  }
+  .a-card .btn-dl:hover{background:var(--seal-light);}
+  .a-card .btn-dl::before{content:"↓ ";font-family:'Cormorant Garamond',serif;}
+  .a-card .btn-copy{
+    padding:8px 12px;background:var(--paper-2);color:var(--ink-soft);
+    font-size:13px;text-align:center;border-radius:2px;cursor:pointer;
+    transition:all .15s;border:1px solid var(--line);
+    font-family:-apple-system,'PingFang SC',sans-serif;
+  }
+  .a-card .btn-copy:hover{background:var(--ink);color:#fff;border-color:var(--ink);}
+  .a-card.core-card{background:linear-gradient(180deg,#fff 0%,var(--paper-2) 100%);border-color:var(--gold);}
+  .a-card.core-card:hover{border-color:var(--seal);}
+
+  /* footer */
+  .site-footer{background:var(--paper-2);border-top:1px solid var(--line);padding:36px 20px;text-align:center;color:var(--ink-mute);font-size:12.5px;line-height:1.9;}
+  .site-footer .fseal{color:var(--seal);font-weight:500;}
+  .site-footer a{color:var(--ink-soft);}
+  .site-footer a:hover{color:var(--seal);}
+
+  /* toast */
+  .toast{
+    position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(20px);
+    background:var(--ink);color:#fff;padding:10px 20px;border-radius:4px;
+    font-size:13px;opacity:0;pointer-events:none;transition:all .25s;z-index:100;
+    font-family:-apple-system,'PingFang SC',sans-serif;
+  }
+  .toast.on{opacity:1;transform:translateX(-50%) translateY(0);}
+
+  @media (max-width: 640px){
+    .hero{padding:40px 16px 24px;}
+    .hero h1{font-size:26px;}
+    .disclaimer{padding:20px 18px;margin:24px 0 4px;}
+    .disclaimer .d-title{font-size:16px;}
+    .grid-cards{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="site-header">
+  <div class="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-2">
+      <span class="logo-dot">羅</span>
+      <span class="text-sm font-semibold">萝卜干围棋教育</span>
+    </a>
+    <div class="flex items-center gap-4 text-sm">
+      <a href="/" class="text-mute hover:text-seal">← 返回首页</a>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="max-w-4xl mx-auto text-center">
+    <div class="fmono text-seal" style="font-size:14px;letter-spacing:.3em;margin-bottom:10px;">AGREEMENTS · V1</div>
+    <h1>校长合规起步包 · <span class="hl">协议模板 v1</span></h1>
+    <p class="subtitle mx-auto">
+      家校共育、家校共信——从一份规范合同开始。<br class="hidden md:block">
+      家长 / 教师 / 加盟合作三方 6 份主协议 + 3 份配套文件（占位符总表 · 签前检查 · 电子签约选型），全部可下载定制。
+    </p>
+    <div class="stamp">v1 · 2026-07-16</div>
+  </div>
+</section>
+
+<!-- Main -->
+<main class="max-w-6xl mx-auto px-6 pb-8">
+
+  <!-- 免责声明 -->
+  <section class="disclaimer" id="disclaimer">
+    <div class="d-title">⚠ 使用前请务必阅读</div>
+    <div class="d-lead">
+      本套「协议模板 v1」由萝卜干（围棋启蒙教育从业者）联合 AI 工具起草，仅作为围棋启蒙、素质教育同行的<strong>参考范本</strong>使用，不构成法律意见，亦不替代律师咨询。
+    </div>
+    <ol>
+      <li>使用前请务必结合本机构所在地的最新法律法规、教育／体育行政主管部门规范性文件，以及本机构实际经营情况调整具体条款。凡与国家关于校外培训预收费"3 个月／60 课时／5000 元"上限、监管账户、退费等强制规定冲突的约定一律无效。</li>
+      <li>家长侧协议以教育部、市场监管总局联合印发的《中小学生校外培训服务合同（示范文本）（2021 年修订版）》为底板改造。各地体育／教育主管部门若印发本地专用版本，以主管部门文件为准。</li>
+      <li>涉及大额资金、加盟合作、员工聘用等重要签约场景，强烈建议在正式签署前请专业律师审阅、把关。</li>
+      <li>使用本套模板签署合同后产生的任何法律后果，由使用者自行承担。萝卜干个人及本网站不作任何法律责任担保，亦不承担因使用本模板产生的争议责任。</li>
+      <li>本套模板版权归萝卜干所有，欢迎围棋启蒙、素质教育同行免费使用与改编；禁止直接倒卖、二次商业授权或伪装为自研产品对外销售。</li>
+      <li>使用中如发现条款瑕疵、政策更新、可优化处，欢迎通过官网"联系我们"栏目反馈，帮助 v2 版本更完善。</li>
+    </ol>
+  </section>
+
+  <!-- 核心配套区 -->
+  <div class="sec-title">核心配套 · 起步先看</div>
+  <div class="sec-sub">正式签约前先把这 3 份读通，能省下大量踩坑成本。</div>
+
+  <div class="grid-cards">
+
+    <div class="a-card core-card">
+      <span class="a-badge">⭐ 起步先看</span>
+      <div class="a-num">08</div>
+      <div class="a-title">占位符总表与使用说明</div>
+      <div class="a-desc">
+        汇总 6 份主协议中所有 <code style="background:var(--paper-2);padding:1px 4px;border-radius:2px;font-family:monospace;font-size:12px;">{占位符}</code> 的命名与含义，并列明每个字段需要哪份材料（营业执照 / 身份证 / 银行卡等）来补齐——一次填齐机构侧通用字段，全套 6 份长期复用。
+      </div>
+      <div class="a-meta">
+        <span class="a-tag">通用配套</span>
+        <span class="a-tag">一次填齐</span>
+        <span class="a-tag">全套复用</span>
+      </div>
+      <div class="a-actions">
+        <a class="btn-dl" href="assets/agreements/08_占位符总表与使用说明.md" download>下载 md</a>
+        <button class="btn-copy" data-src="assets/agreements/08_占位符总表与使用说明.md">复制</button>
+      </div>
+    </div>
+
+    <div class="a-card core-card">
+      <span class="a-badge">⭐ 起步先看</span>
+      <div class="a-num">09</div>
+      <div class="a-title">电子签约工具对比与开户指引</div>
+      <div class="a-desc">
+        法大大 / e 签宝 / DocuSign / 契约锁四家电子签约工具横向对比，附法大大主推方案的开户流程、家长端签署体验说明与《电子签名法》法律依据梳理。
+      </div>
+      <div class="a-meta">
+        <span class="a-tag">工具选型</span>
+        <span class="a-tag">开户流程</span>
+        <span class="a-tag">法律依据</span>
+      </div>
+      <div class="a-actions">
+        <a class="btn-dl" href="assets/agreements/09_电子签约工具对比与开户指引.md" download>下载 md</a>
+        <button class="btn-copy" data-src="assets/agreements/09_电子签约工具对比与开户指引.md">复制</button>
+      </div>
+    </div>
+
+    <div class="a-card core-card">
+      <span class="a-badge check">✓ 每份必查</span>
+      <div class="a-num">07</div>
+      <div class="a-title">签前检查清单</div>
+      <div class="a-desc">
+        家长版 20 条 + 教师版 + 加盟商版，逐条一句话可勾选。收单前用它自检，未打钩项先补齐再进入签署环节，避免后续争议。
+      </div>
+      <div class="a-meta">
+        <span class="a-tag">三方通用</span>
+        <span class="a-tag">可勾选</span>
+        <span class="a-tag">签前自检</span>
+      </div>
+      <div class="a-actions">
+        <a class="btn-dl" href="assets/agreements/07_签前检查清单.md" download>下载 md</a>
+        <button class="btn-copy" data-src="assets/agreements/07_签前检查清单.md">复制</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 主体协议区 -->
+  <div class="sec-title">主体协议 · 三方六份</div>
+  <div class="sec-sub">按签约对象分组，家长侧 3 份、教师侧 2 份、加盟侧 1 份。</div>
+
+  <!-- 家长侧 -->
+  <div class="group-title">家长侧 · 3 份</div>
+  <div class="grid-cards">
+
+    <div class="a-card">
+      <div class="a-num">01</div>
+      <div class="a-title">围棋启蒙培训服务合同</div>
+      <div class="a-desc">
+        以教育部、市场监管总局《中小学生校外培训服务合同（示范文本）（2021 年修订版）》为底板，改造成围棋启蒙场景的正式培训合同，面向 3–14 岁学员家长签署。
+      </div>
+      <div class="a-meta">
+        <span class="a-tag">非学科类</span>
+        <span class="a-tag">线下面授</span>
+        <span class="a-tag">主合同</span>
+      </div>
+      <div class="a-actions">
+        <a class="btn-dl" href="assets/agreements/01_围棋启蒙培训服务合同.md" download>下载 md</a>
+        <button class="btn-copy" data-src="assets/agreements/01_围棋启蒙培训服务合同.md">复制</button>
+      </div>
+    </div>
+
+    <div class="a-card">
+      <div class="a-num">02</div>
+      <div class="a-title">入学知情同意与免责声明</div>
+      <div class="a-desc">
+        01 号主合同的必备附件。让家长报名前充分知悉教学方式、日常运营安排、突发情况处置、个人信息与宣传素材使用规则，并对合理边界内的免责事项确认。
+      </div>
+      <div class="a-meta">
+        <span class="a-tag">主合同附件</span>
+        <span class="a-tag">家长知情</span>
+        <span class="a-tag">合理免责</span>
+      </div>
+      <div class="a-actions">
+        <a class="btn-dl" href="assets/agreements/02_入学知情同意与免责声明.md" download>下载 md</a>
+        <button class="btn-copy" data-src="assets/agreements/02_入学知情同意与免责声明.md">复制</button>
+      </div>
+    </div>
+
+    <div class="a-card">
+      <div class="a-num">03</div>
+      <div class="a-title">退费与转班规则协议</div>
+      <div class="a-desc">
+        01 号主合同的必备附件。对退费、转班、停课、赠课等常见场景做细化约定，遵守"3 个月／60 课时／5000 元"上限、监管账户"一课一销"、未消课时全额退还三条硬性底线。
+      </div>
+      <div class="a-meta">
+        <span class="a-tag">主合同附件</span>
+        <span class="a-tag">退费规则</span>
+        <span class="a-tag">监管账户</span>
+      </div>
+      <div class="a-actions">
+        <a class="btn-dl" href="assets/agreements/03_退费与转班规则协议.md" download>下载 md</a>
+        <button class="btn-copy" data-src="assets/agreements/03_退费与转班规则协议.md">复制</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 教师侧 -->
+  <div class="group-title">教师侧 · 2 份</div>
+  <div class="grid-cards">
+
+    <div class="a-card">
+      <div class="a-num">04</div>
+      <div class="a-title">全职教师聘用合同</div>
+      <div class="a-desc">
+        机构与全职围棋教师建立正式劳动关系，涵盖岗位、薪酬、工作时间、试用期、保密、竞业限制（可选）、离职交接等核心事项，以《劳动法》《劳动合同法》及相关司法解释为依据。
+      </div>
+      <div class="a-meta">
+        <span class="a-tag">劳动合同</span>
+        <span class="a-tag">依法参保</span>
+        <span class="a-tag">全职授课</span>
+      </div>
+      <div class="a-actions">
+        <a class="btn-dl" href="assets/agreements/04_全职教师聘用合同.md" download>下载 md</a>
+        <button class="btn-copy" data-src="assets/agreements/04_全职教师聘用合同.md">复制</button>
+      </div>
+    </div>
+
+    <div class="a-card">
+      <div class="a-num">05</div>
+      <div class="a-title">兼职教师课时费结算协议</div>
+      <div class="a-desc">
+        机构与短期、按次结算的兼职围棋教师签订的合作协议，明确课时费、结算周期、教案归属、学员归属、保密等事项。属民事合作性质，适用于赛事集训、短期营、代课、特邀讲座等场景。
+      </div>
+      <div class="a-meta">
+        <span class="a-tag">劳务合作</span>
+        <span class="a-tag">按次结算</span>
+        <span class="a-tag">教案归属</span>
+      </div>
+      <div class="a-actions">
+        <a class="btn-dl" href="assets/agreements/05_兼职教师课时费结算协议.md" download>下载 md</a>
+        <button class="btn-copy" data-src="assets/agreements/05_兼职教师课时费结算协议.md">复制</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 加盟侧 -->
+  <div class="group-title">加盟侧 · 1 份</div>
+  <div class="grid-cards">
+
+    <div class="a-card">
+      <div class="a-num">06</div>
+      <div class="a-title">加盟合作框架协议</div>
+      <div class="a-desc">
+        机构（品牌方）与加盟商（受许方）之间的加盟合作总纲，覆盖品牌授权、加盟金、教材配送、师训督导、区域独家、退出机制、违约等核心事项。可作为区域合作的通用签约框架模板。
+      </div>
+      <div class="a-meta">
+        <span class="a-tag">加盟框架</span>
+        <span class="a-tag">品牌授权</span>
+        <span class="a-tag">区域合作</span>
+      </div>
+      <div class="a-actions">
+        <a class="btn-dl" href="assets/agreements/06_加盟合作框架协议.md" download>下载 md</a>
+        <button class="btn-copy" data-src="assets/agreements/06_加盟合作框架协议.md">复制</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 使用建议 -->
+  <div class="sec-title">推荐使用节奏</div>
+  <div class="sec-sub">按顺序走一遍，机构侧字段一次填齐，后续每份签约只补相对方字段即可。</div>
+  <div style="background:#fff;border:1px solid var(--line-dark);border-radius:4px;padding:24px 28px;margin-top:8px;">
+    <div style="font-size:14.5px;line-height:2;color:var(--ink-soft);">
+      <div><span class="text-seal fmono" style="font-size:18px;font-weight:600;margin-right:8px;">01</span> 先读<strong>免责声明</strong>，理解本套模板的边界与责任分配。</div>
+      <div><span class="text-seal fmono" style="font-size:18px;font-weight:600;margin-right:8px;">02</span> 下载 <strong>08 占位符总表</strong>，把机构侧通用字段（营业执照 / 办学许可证 / 监管账户等）一次填齐。</div>
+      <div><span class="text-seal fmono" style="font-size:18px;font-weight:600;margin-right:8px;">03</span> 下载 <strong>09 电子签约工具指引</strong>，完成法大大 / e 签宝的开户与家长端流程演练。</div>
+      <div><span class="text-seal fmono" style="font-size:18px;font-weight:600;margin-right:8px;">04</span> 按签约对象下载对应主协议，替换占位符后交本地律师复核。</div>
+      <div><span class="text-seal fmono" style="font-size:18px;font-weight:600;margin-right:8px;">05</span> 每次签约前打开 <strong>07 签前检查清单</strong> 逐条打钩，未打钩项先补齐。</div>
+    </div>
+  </div>
+
+</main>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div>© 萝卜干围棋教育 · <span class="fseal">校长合规起步包 · 协议模板 v1</span> · 起草日期 2026-07-16</div>
+  <div style="margin-top:8px;">
+    v2 版本将在收到同行反馈后迭代 · 欢迎通过"联系我们"栏目提交条款瑕疵、政策更新、可优化处
+  </div>
+  <div style="margin-top:10px;">
+    <a href="/" class="text-seal hover:underline">返回首页</a>
+    &nbsp;·&nbsp;
+    <a href="/#tools" class="hover:text-seal">教学工具箱</a>
+    &nbsp;·&nbsp;
+    <a href="/#contact" class="hover:text-seal">联系我们</a>
+  </div>
+</footer>
+
+<!-- Toast -->
+<div class="toast" id="toast">已复制到剪贴板</div>
+
+<script>
+/* 复制 md 内容到剪贴板 */
+(function(){
+  var toast = document.getElementById('toast');
+  function showToast(msg){
+    toast.textContent = msg;
+    toast.classList.add('on');
+    setTimeout(function(){ toast.classList.remove('on'); }, 1800);
+  }
+  document.querySelectorAll('.btn-copy').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var src = btn.getAttribute('data-src');
+      if(!src) return;
+      btn.disabled = true;
+      var oldText = btn.textContent;
+      btn.textContent = '读取中...';
+      fetch(src).then(function(r){
+        if(!r.ok) throw new Error('HTTP ' + r.status);
+        return r.text();
+      }).then(function(txt){
+        if(navigator.clipboard && navigator.clipboard.writeText){
+          return navigator.clipboard.writeText(txt);
+        }else{
+          var ta = document.createElement('textarea');
+          ta.value = txt; document.body.appendChild(ta);
+          ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+          return Promise.resolve();
+        }
+      }).then(function(){
+        showToast('已复制到剪贴板');
+      }).catch(function(e){
+        showToast('复制失败，请直接下载 md');
+        console.warn(e);
+      }).then(function(){
+        btn.disabled = false; btn.textContent = oldText;
+      });
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
