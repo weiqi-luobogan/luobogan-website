@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 思维工具箱 · 萝卜干围棋教育</title>
+<meta name="description" content="30 个高频思维模型 · 通用/家长/教师三场景切换 · AI 辅助套用——让抽象模型变成能直接用的决策工具">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --ink:#1a1a1a; --ink-soft:#2a2a2a; --ink-mute:#5a544a;
+    --paper:#f8f5ef; --paper-2:#f2ede2; --paper-3:#eae2d0;
+    --seal:#a8362a; --seal-light:#c74e3f; --seal-soft:#d97a6c;
+    --line:#e6e0d5; --line-dark:#c9bfa5;
+    --gold:#b8944d;
+  }
+  html,body{background:var(--paper);color:var(--ink);font-family:'Source Han Serif SC','思源宋体','Noto Serif SC','SimSun',serif;}
+  .fmono{font-family:'Cormorant Garamond','思源宋体','Noto Serif SC',serif;letter-spacing:.02em;}
+  .fsans{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;}
+  .bg-paper{background:var(--paper);}
+  .bg-paper-2{background:var(--paper-2);}
+  .bg-paper-3{background:var(--paper-3);}
+  .text-ink{color:var(--ink);}
+  .text-ink-soft{color:var(--ink-soft);}
+  .text-mute{color:var(--ink-mute);}
+  .text-seal{color:var(--seal);}
+  .border-line{border-color:var(--line);}
+  .border-line-dark{border-color:var(--line-dark);}
+  .bg-seal{background:var(--seal);}
+  .hl{background:linear-gradient(180deg,transparent 55%,rgba(168,54,42,.16) 55%);padding:0 2px;}
+
+  /* header */
+  .site-header{background:var(--paper);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:40;backdrop-filter:saturate(180%) blur(6px);}
+  .logo-dot{width:26px;height:26px;background:var(--seal);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:14px;border-radius:2px;letter-spacing:0;}
+
+  /* hero */
+  .hero{padding:56px 20px 32px;background:linear-gradient(180deg,var(--paper) 0%,var(--paper-2) 100%);border-bottom:1px solid var(--line);}
+  .hero h1{font-size:36px;letter-spacing:.02em;line-height:1.25;font-weight:600;}
+  .hero .subtitle{color:var(--ink-mute);font-size:15px;margin-top:14px;max-width:640px;}
+  .stamp{display:inline-block;padding:2px 10px;border:1.5px solid var(--seal);color:var(--seal);font-size:11px;letter-spacing:.15em;border-radius:2px;}
+
+  /* scene tabs */
+  .scene-tab-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:24px 0 6px;}
+  .scene-tab{padding:9px 24px;border:1.5px solid var(--line-dark);background:#fff;color:var(--ink-soft);font-size:14px;letter-spacing:.05em;cursor:pointer;transition:all .2s;border-radius:2px;font-weight:500;}
+  .scene-tab .icon{margin-right:6px;}
+  .scene-tab:hover{border-color:var(--seal);color:var(--seal);}
+  .scene-tab.active{background:var(--seal);color:#fff;border-color:var(--seal);box-shadow:0 3px 12px rgba(168,54,42,.25);}
+  .scene-tab.active .icon{}
+  .scene-desc{text-align:center;color:var(--ink-mute);font-size:13px;margin-top:6px;min-height:20px;}
+
+  /* filters */
+  .filter-bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding:16px 0;border-bottom:1px dashed var(--line);}
+  .cat-pill{padding:6px 14px;border:1px solid var(--line-dark);background:#fff;font-size:13px;color:var(--ink-soft);cursor:pointer;transition:all .15s;border-radius:16px;}
+  .cat-pill:hover{color:var(--seal);border-color:var(--seal);}
+  .cat-pill.active{background:var(--ink);color:#fff;border-color:var(--ink);}
+  .search-box{margin-left:auto;position:relative;}
+  .search-box input{padding:7px 12px 7px 32px;border:1px solid var(--line-dark);background:#fff;font-size:13px;border-radius:16px;width:220px;outline:none;transition:all .2s;}
+  .search-box input:focus{border-color:var(--seal);box-shadow:0 0 0 3px rgba(168,54,42,.1);}
+  .search-box .sicon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--ink-mute);font-size:14px;}
+
+  /* card grid */
+  .grid-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;margin-top:24px;}
+  .m-card{background:#fff;border:1px solid var(--line-dark);border-radius:4px;padding:20px 20px 18px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;}
+  .m-card:hover{border-color:var(--seal);transform:translateY(-2px);box-shadow:0 8px 20px rgba(60,40,20,.08);}
+  .m-card .cat-tag{position:absolute;top:0;right:0;background:var(--paper-3);color:var(--ink-mute);font-size:11px;padding:3px 10px;border-bottom-left-radius:4px;letter-spacing:.05em;}
+  .m-card .m-code{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:600;color:var(--seal);letter-spacing:.05em;line-height:1;}
+  .m-card .m-name{font-size:17px;font-weight:600;margin-top:4px;color:var(--ink);}
+  .m-card .m-sub{font-size:12px;color:var(--ink-mute);margin-top:2px;}
+  .m-card .m-intro{font-size:13px;color:var(--ink-soft);line-height:1.65;margin-top:14px;min-height:44px;}
+  .m-card .m-steps{display:flex;gap:6px;margin-top:14px;flex-wrap:wrap;}
+  .m-card .m-step{padding:2px 8px;background:var(--paper-2);color:var(--ink-soft);font-size:11px;border-radius:2px;border:1px solid var(--line);}
+  .m-card .m-actions{display:flex;gap:8px;margin-top:14px;padding-top:12px;border-top:1px dashed var(--line);}
+  .m-card .btn-detail{flex:1;padding:6px 10px;background:var(--paper-2);color:var(--ink-soft);font-size:12px;text-align:center;border-radius:2px;transition:all .15s;}
+  .m-card .btn-detail:hover{background:var(--ink);color:#fff;}
+  .m-card .btn-ai{flex:1;padding:6px 10px;background:var(--seal);color:#fff;font-size:12px;text-align:center;border-radius:2px;transition:all .15s;font-weight:500;}
+  .m-card .btn-ai:hover{background:var(--seal-light);}
+  .m-card .btn-ai::before{content:"✦ ";}
+
+  /* drawer */
+  .drawer-mask{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:50;opacity:0;pointer-events:none;transition:opacity .25s;}
+  .drawer-mask.on{opacity:1;pointer-events:auto;}
+  .drawer{position:fixed;top:0;right:0;bottom:0;width:min(680px,100vw);background:var(--paper);z-index:51;transform:translateX(100%);transition:transform .3s cubic-bezier(.2,.8,.2,1);overflow-y:auto;box-shadow:-10px 0 30px rgba(0,0,0,.15);}
+  .drawer.on{transform:translateX(0);}
+  .drawer .d-head{padding:24px 32px 20px;border-bottom:1px solid var(--line);background:#fff;position:sticky;top:0;z-index:10;}
+  .drawer .d-close{position:absolute;top:20px;right:20px;font-size:20px;color:var(--ink-mute);cursor:pointer;background:none;border:none;padding:4px 8px;}
+  .drawer .d-close:hover{color:var(--seal);}
+  .drawer .d-code{font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:600;color:var(--seal);letter-spacing:.05em;line-height:1;}
+  .drawer .d-name{font-size:22px;font-weight:600;margin-top:6px;}
+  .drawer .d-sub{font-size:13px;color:var(--ink-mute);margin-top:4px;}
+  .drawer .d-body{padding:20px 32px 40px;}
+  .drawer .d-section{margin-bottom:28px;}
+  .drawer .d-section h3{font-size:15px;font-weight:600;margin-bottom:12px;color:var(--ink);position:relative;padding-left:14px;}
+  .drawer .d-section h3::before{content:"";position:absolute;left:0;top:6px;bottom:6px;width:3px;background:var(--seal);border-radius:1px;}
+  .step-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .step-item{padding:12px 14px;background:#fff;border:1px solid var(--line);border-radius:3px;}
+  .step-item .sk{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--seal);line-height:1;}
+  .step-item .sn{font-size:13px;font-weight:600;margin-top:4px;}
+  .step-item .sd{font-size:12px;color:var(--ink-mute);margin-top:4px;line-height:1.55;}
+  .case-box{padding:16px 18px;background:var(--paper-2);border-left:3px solid var(--seal);border-radius:0 3px 3px 0;}
+  .case-box .case-title{font-size:13px;color:var(--seal);font-weight:600;margin-bottom:8px;}
+  .case-box .case-content{font-size:13.5px;color:var(--ink-soft);line-height:1.75;}
+  .template-list{background:#fff;border:1px solid var(--line);border-radius:3px;padding:16px 18px;}
+  .template-list ol{list-style:none;counter-reset:tpl;padding:0;margin:0;}
+  .template-list li{counter-increment:tpl;padding:10px 0 10px 28px;position:relative;font-size:13px;color:var(--ink-soft);border-bottom:1px dashed var(--line);}
+  .template-list li:last-child{border-bottom:none;}
+  .template-list li::before{content:counter(tpl);position:absolute;left:0;top:10px;width:20px;height:20px;background:var(--seal);color:#fff;font-family:'Cormorant Garamond',serif;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;border-radius:50%;line-height:1;}
+  .tip-box{padding:12px 16px;background:#fdfaf3;border:1px dashed var(--gold);border-radius:3px;font-size:13px;color:var(--ink-soft);line-height:1.7;}
+  .tip-box::before{content:"💡 ";}
+
+  /* AI drawer */
+  .ai-drawer .d-head{background:linear-gradient(135deg,var(--seal) 0%,var(--seal-light) 100%);color:#fff;}
+  .ai-drawer .d-head .d-code,.ai-drawer .d-head .d-name{color:#fff;}
+  .ai-drawer .d-head .d-sub{color:#ffe8e2;}
+  .ai-drawer .d-close{color:#fff;}
+  .ai-drawer .ai-note{padding:14px 16px;background:#fef8f6;border:1px dashed var(--seal);color:var(--ink-soft);border-radius:3px;font-size:13px;line-height:1.7;margin-bottom:20px;}
+  .ai-drawer .ai-note strong{color:var(--seal);}
+  .ai-input{display:block;width:100%;padding:10px 12px;border:1px solid var(--line-dark);border-radius:3px;font-size:13.5px;background:#fff;transition:all .15s;color:var(--ink);}
+  .ai-input:focus{border-color:var(--seal);outline:none;box-shadow:0 0 0 3px rgba(168,54,42,.1);}
+  textarea.ai-input{min-height:80px;font-family:inherit;line-height:1.7;}
+  .ai-field-label{display:block;font-size:13px;font-weight:600;margin-bottom:6px;color:var(--ink);}
+  .ai-field-label .lk{color:var(--seal);font-family:'Cormorant Garamond',serif;font-size:15px;margin-right:6px;}
+  .ai-field{margin-bottom:16px;}
+  .ai-run-btn{width:100%;padding:14px;background:var(--seal);color:#fff;font-size:14px;font-weight:600;border:none;cursor:pointer;border-radius:3px;letter-spacing:.1em;transition:all .15s;margin-top:8px;}
+  .ai-run-btn:hover{background:var(--seal-light);}
+  .ai-result-placeholder{margin-top:24px;padding:20px;background:var(--paper-2);border:1px dashed var(--line-dark);border-radius:3px;text-align:center;color:var(--ink-mute);font-size:13px;line-height:1.7;}
+  .ai-result-placeholder .big{font-size:32px;color:var(--seal);margin-bottom:8px;display:block;line-height:1;}
+
+  /* footer */
+  .site-footer{background:var(--paper-2);border-top:1px solid var(--line);padding:32px 20px;text-align:center;color:var(--ink-mute);font-size:12px;}
+  .site-footer .fseal{color:var(--seal);}
+
+  /* empty state */
+  .empty{text-align:center;padding:60px 20px;color:var(--ink-mute);}
+  .empty .big{font-size:40px;color:var(--seal-soft);margin-bottom:12px;}
+
+  /* responsive */
+  @media (max-width:768px){
+    .hero{padding:36px 16px 24px;}
+    .hero h1{font-size:26px;}
+    .scene-tab{padding:8px 16px;font-size:13px;}
+    .drawer{width:100vw;}
+    .drawer .d-head,.drawer .d-body{padding-left:20px;padding-right:20px;}
+    .step-grid{grid-template-columns:1fr;}
+    .grid-cards{grid-template-columns:1fr;gap:14px;}
+    .search-box input{width:150px;}
+  }
+
+  /* animations */
+  @keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+  .m-card{animation:fadeUp .35s ease both;}
+  .m-card:nth-child(2){animation-delay:.05s;}
+  .m-card:nth-child(3){animation-delay:.1s;}
+  .m-card:nth-child(4){animation-delay:.15s;}
+  .m-card:nth-child(5){animation-delay:.2s;}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="site-header">
+  <div class="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-2">
+      <span class="logo-dot">羅</span>
+      <span class="text-sm font-semibold">萝卜干围棋教育</span>
+    </a>
+    <div class="flex items-center gap-4 text-sm">
+      <a href="/" class="text-mute hover:text-seal">← 返回首页</a>
+      <span class="stamp">AI 思维工具箱 · v0.1</span>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="max-w-4xl mx-auto text-center">
+    <div class="fmono text-seal" style="font-size:14px;letter-spacing:.3em;margin-bottom:10px;">THINKING · TOOLBOX</div>
+    <h1>把抽象思维模型 <br class="md:hidden">变成 <span class="hl">拿来就能用的决策工具</span></h1>
+    <p class="subtitle mx-auto">
+      30 个高频思维模型 · 通用/家长/教师三场景切换 · AI 辅助套用——你输入自己的问题，AI 用这个模型的框架帮你跑一遍分析，直接给决策建议。
+    </p>
+    <div class="scene-tab-row" id="sceneTabs">
+      <button class="scene-tab active" data-scene="general"><span class="icon">🌐</span>通用版</button>
+      <button class="scene-tab" data-scene="parent"><span class="icon">👨‍👩‍👧</span>家长版</button>
+      <button class="scene-tab" data-scene="teacher"><span class="icon">👨‍🏫</span>教师版</button>
+    </div>
+    <div class="scene-desc" id="sceneDesc">通用职场/管理/日常场景（默认视角）</div>
+  </div>
+</section>
+
+<!-- Main -->
+<main class="max-w-6xl mx-auto px-6">
+  <div class="filter-bar">
+    <button class="cat-pill active" data-cat="all">全部</button>
+    <button class="cat-pill" data-cat="exec">管理执行</button>
+    <button class="cat-pill" data-cat="plan">规划战略</button>
+    <button class="cat-pill" data-cat="decide">决策判断</button>
+    <button class="cat-pill" data-cat="think">思考深度</button>
+    <button class="cat-pill" data-cat="comm">沟通反馈</button>
+    <div class="search-box">
+      <span class="sicon">⌕</span>
+      <input type="text" id="searchInput" placeholder="搜索模型名/关键词..." />
+    </div>
+  </div>
+
+  <div class="grid-cards" id="cardGrid"></div>
+  <div class="empty" id="emptyState" style="display:none;">
+    <div class="big">⌕</div>
+    <div>没有匹配的模型，换个关键词试试</div>
+  </div>
+
+  <div style="text-align:center;margin:60px 0 40px;color:var(--ink-mute);font-size:13px;line-height:1.8;">
+    <div class="fmono" style="font-size:12px;letter-spacing:.3em;color:var(--seal);margin-bottom:8px;">MVP · v0.1</div>
+    首批放出 5 个高频模型试玩，Phase 2 扩展到 30 个模型 × 3 场景 + AI 真接入。<br>
+    使用中有反馈可以直接联系我们 → <a href="/#contact" class="text-seal underline">前往联系我们</a>
+  </div>
+</main>
+
+<!-- Detail Drawer -->
+<div class="drawer-mask" id="drawerMask"></div>
+<div class="drawer" id="drawer">
+  <div class="d-head">
+    <button class="d-close" id="drawerClose">✕</button>
+    <div class="d-code" id="dCode">--</div>
+    <div class="d-name" id="dName">--</div>
+    <div class="d-sub" id="dSub">--</div>
+  </div>
+  <div class="d-body" id="dBody"></div>
+</div>
+
+<!-- AI Drawer -->
+<div class="drawer ai-drawer" id="aiDrawer">
+  <div class="d-head">
+    <button class="d-close" id="aiClose">✕</button>
+    <div class="d-code" id="aiCode">--</div>
+    <div class="d-name">AI 帮你套用 <span id="aiName" style="font-size:15px;opacity:.85;"></span></div>
+    <div class="d-sub">输入你的实际问题 · AI 用这个模型跑一遍分析给你</div>
+  </div>
+  <div class="d-body">
+    <div class="ai-note">
+      <strong>使用说明：</strong>下方每一栏对应模型的一个维度，把你的实际情况填进去（可以填一句话，也可以填一段话）。AI 会用<span id="aiHint"></span>的框架帮你分析并输出决策建议。
+    </div>
+    <div id="aiFields"></div>
+    <button class="ai-run-btn" id="aiRun">✦ AI 生成分析</button>
+    <div class="ai-result-placeholder" id="aiResult">
+      <span class="big">✦</span>
+      <div><strong style="color:var(--seal);">AI 辅助引擎接入中</strong></div>
+      <div style="margin-top:6px;">Phase 2 上线，届时点击按钮即可获得该模型对你实际问题的完整分析。当前版本可先手动按模板梳理。</div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div>© 萝卜干围棋教育 · <span class="fseal">AI 思维工具箱</span> · 让每一次决策都有框架可循</div>
+  <div style="margin-top:6px;">
+    <a href="/" class="text-seal hover:underline">返回首页</a>
+    &nbsp;·&nbsp;
+    <a href="/#brain-training" class="hover:text-seal">思维训练室</a>
+    &nbsp;·&nbsp;
+    <a href="/#contact" class="hover:text-seal">联系我们</a>
+  </div>
+</footer>
+
+<script>
+/* ============ 模型数据 · MVP v0.1 · 5 模型 × 3 场景 ============ */
+const CAT_LABELS = {
+  exec: '管理执行',
+  plan: '规划战略',
+  decide: '决策判断',
+  think: '思考深度',
+  comm: '沟通反馈'
+};
+
+const SCENE_DESC = {
+  general: '通用职场/管理/日常场景（默认视角）',
+  parent: '家长视角 · 亲子沟通、教育决策、家庭管理',
+  teacher: '教师视角 · 课堂管理、学员成长、家校沟通'
+};
+
+const MODELS = [
+  {
+    id:'pdca', code:'PDCA', name:'戴明循环', sub:'Plan · Do · Check · Act',
+    cat:'exec',
+    intro:'任何事情都是"计划 → 执行 → 检查 → 改进"的循环，一圈圈螺旋上升',
+    steps:[
+      {k:'P',n:'Plan · 计划',d:'定目标，想方案'},
+      {k:'D',n:'Do · 执行',d:'按计划落地'},
+      {k:'C',n:'Check · 检查',d:'看结果，找差距'},
+      {k:'A',n:'Act · 改进',d:'优化后进入下一轮'}
+    ],
+    scenarios:{
+      general:{
+        caseTitle:'产品迭代循环',
+        caseContent:'公司要发一版新功能。<b>P</b>：定"1 周内上线，DAU 提升 5%"目标 → <b>D</b>：设计+开发+测试 → <b>C</b>：上线 3 天后看数据（点击率/转化率/反馈） → <b>A</b>：数据不达预期？调整交互进入下一版',
+        template:[
+          '你要做的事 / 想改的现状：',
+          'P · 目标是什么？多久内达成？',
+          'D · 具体的执行动作有哪些？谁负责？',
+          'C · 用什么指标检查？多久后回看？',
+          'A · 如果没达标，下一轮改什么？'
+        ],
+        tip:'很多人只会 P 和 D，缺 C 和 A——所以永远重复同样的错误。真正的高手是"闭环"的。'
+      },
+      parent:{
+        caseTitle:'孩子作业习惯培养',
+        caseContent:'孩子每天磨蹭到 10 点还没写完作业。<b>P</b>：定"每天 7 点开始、8 点半前完成，家长陪伴不批评"的作业约定 → <b>D</b>：连续陪伴执行 1 周 → <b>C</b>：周末和孩子一起复盘——哪几天做到了？哪几天没？卡在哪科？为什么？ → <b>A</b>：下周调整——提前 30 分钟开始？换个科目顺序？加一个小奖励？',
+        template:[
+          '想帮孩子养成什么习惯 / 改变什么行为：',
+          'P · 具体的行为约定是什么？（时间、地点、方式）',
+          'D · 谁陪、几点开始、执行多久？',
+          'C · 一周后哪几天做到了？哪几天没？为什么？',
+          'A · 下一轮怎么调？（时间、奖励、方式）'
+        ],
+        tip:'孩子习惯培养最忌"三天打鱼"——不 C 不 A，永远在重启。周末 15 分钟复盘比每天骂 15 分钟有用 10 倍。'
+      },
+      teacher:{
+        caseTitle:'一节课的教学循环',
+        caseContent:'这节课要给 8 岁小朋友讲"扭十字"。<b>P</b>：备课定"课后能独立走出扭十字必胜形"（可测目标） → <b>D</b>：讲解 15 分钟 + 3 道习题 + 一盘对局验证 → <b>C</b>：课后 3 个变形题看掌握程度（做对 2/3 及格） → <b>A</b>：达标率 &lt; 60%？下节课回炉深化；&gt; 80%？进入下一知识点',
+        template:[
+          '这节课的教学目标是什么？',
+          'P · 拆成几个可讲的知识点？重难点在哪？',
+          'D · 讲解 / 练习 / 对局各占多少时间？',
+          'C · 用什么方式检查掌握度？达成率多少算 OK？',
+          'A · 下节课如何衔接？回炉还是推进？'
+        ],
+        tip:'很多老师课上完就完了——没有 C 和 A 的教学等于"讲了但学员没会"。C 环节是老师专业度的最大分水岭。'
+      }
+    }
+  },
+  {
+    id:'swot', code:'SWOT', name:'态势分析',sub:'Strengths · Weaknesses · Opportunities · Threats',
+    cat:'plan',
+    intro:'内部看优劣势，外部看机会威胁——判断一件事该不该做、怎么做',
+    steps:[
+      {k:'S',n:'Strengths · 优势',d:'内部你比别人强的'},
+      {k:'W',n:'Weaknesses · 劣势',d:'内部你比别人弱的'},
+      {k:'O',n:'Opportunities · 机会',d:'外部有利趋势'},
+      {k:'T',n:'Threats · 威胁',d:'外部不利因素'}
+    ],
+    scenarios:{
+      general:{
+        caseTitle:'新产品上市前分析',
+        caseContent:'我们要上一款智能音箱。<b>S</b>：品牌+渠道强 → <b>W</b>：硬件供应链弱 → <b>O</b>：家庭 IoT 市场增长 → <b>T</b>：巨头挤压+价格战。结论：走差异化中高端路线，绑定内容生态而非拼硬件。',
+        template:[
+          '你要评估的选项 / 决策：',
+          'S · 内部优势（你比对手强在哪？3 条以内）：',
+          'W · 内部劣势（诚实评估短板）：',
+          'O · 外部机会（政策/市场/技术趋势）：',
+          'T · 外部威胁（竞争/风险/不确定性）：',
+          '决策：SO 策略（扬长）/ WO 策略（补短抓机会）/ ST 策略（用优势防风险）/ WT 策略（避险/撤退）',
+        ],
+        tip:'SWOT 别只填 4 个格子——真正的价值在四组"配对"策略：SO/WO/ST/WT。'
+      },
+      parent:{
+        caseTitle:'给孩子选课外班要不要报围棋',
+        caseContent:'孩子 6 岁要不要学围棋？<b>S</b>：孩子专注力好、家附近有靠谱老师 → <b>W</b>：孩子胆小怕输、周末已经有钢琴课时间紧 → <b>O</b>：小学升学素质教育政策利好、围棋对逻辑思维好 → <b>T</b>：坚持不下去投入沉没成本。结论：先试听 4 节课验证兴趣（低成本），再决定长期投入。',
+        template:[
+          '你正在纠结要不要给孩子做的选择：',
+          'S · 孩子的优势（专注/记忆/兴趣/体质）：',
+          'W · 孩子的短板 / 家庭时间/精力局限：',
+          'O · 这件事的外部利好（政策/资源/时机）：',
+          'T · 潜在风险（时间冲突/性格不合/沉没成本）：',
+          '决策建议：先小成本验证？直接投入？暂缓？'
+        ],
+        tip:'家长最容易在 O 上过热（"别人都在学"），忽视 W（"我家孩子真的合适吗"）。SWOT 强制冷静。'
+      },
+      teacher:{
+        caseTitle:'机构定位与生存分析',
+        caseContent:'我的围棋机构在城中村附近。<b>S</b>：老师有 13 年经验、课程体系完整、家长口碑好 → <b>W</b>：场地小、周末排课紧、没系统化的家长服务 → <b>O</b>：素质教育政策扶持、周边学区扩容 → <b>T</b>：连锁品牌 3 公里外新开店、学员流失到线上课。策略：SO 打"深度陪伴"差异化（连锁做不到）；WO 招 1 个助教扩产能承接新学区流量。',
+        template:[
+          '你的机构 / 教学面临的现状：',
+          'S · 机构的优势（师资/口碑/课程/位置）：',
+          'W · 机构的短板（产能/流量/服务）：',
+          'O · 外部机会（政策/学区/家长认知升级）：',
+          'T · 外部威胁（竞品/线上课/招生难）：',
+          '4 组策略：SO 扬长 / WO 补短 / ST 防御 / WT 避险'
+        ],
+        tip:'小机构别拼 S 数量，拼 S 的"不可复制性"——13 年一线经验就是连锁老师复制不来的护城河。'
+      }
+    }
+  },
+  {
+    id:'smart', code:'SMART', name:'目标法则',sub:'Specific · Measurable · Achievable · Relevant · Time-bound',
+    cat:'plan',
+    intro:'空口号"要努力"没用——目标必须具体、可测、可达、相关、有时限，才能真的推动',
+    steps:[
+      {k:'S',n:'Specific · 具体',d:'不要"要好"，要"考到多少分"'},
+      {k:'M',n:'Measurable · 可衡量',d:'有数字/证据可以判断达成'},
+      {k:'A',n:'Achievable · 可达成',d:'跳一跳够得着，不是登天'},
+      {k:'R',n:'Relevant · 相关',d:'跟你真正想要的相关联'},
+      {k:'T',n:'Time-bound · 有时限',d:'什么时候之前必须完成'}
+    ],
+    scenarios:{
+      general:{
+        caseTitle:'季度业绩目标设定',
+        caseContent:'❌ 差目标："这季度业绩要好一点"。<br>✅ SMART 版："本季度末（T）新增付费用户 500 人（S+M），来源于抖音广告投放渠道（R），对齐年度目标的 25%，历史最高一季 400 人（A 可达成挑战）"。',
+        template:[
+          '你想达成的模糊目标（先写出来）：',
+          'S · 具体化：到底要做到什么？',
+          'M · 可衡量：用什么数字或证据判断达成？',
+          'A · 可达成：这个目标"跳一跳能够到"吗？（不是躺赢也不是登天）',
+          'R · 相关：这个目标跟你更大的目标（年度/人生）咬合吗？',
+          'T · 时限：什么时间点之前必须完成？'
+        ],
+        tip:'80% 的失败目标死在 S 上——"要努力/要减肥/要多读书"这不是目标，是愿望。'
+      },
+      parent:{
+        caseTitle:'暑期孩子学习目标',
+        caseContent:'❌ 差目标："孩子暑假要多读书"。<br>✅ SMART 版："8 月 31 日前（T）读完《Charlotte\'s Web》一本英文原版（S+M），每天 19:00-19:30 读 30 分钟（M+A），配合孩子明年 3 年级要开始学英文写作的目标（R）"。',
+        template:[
+          '暑期你想让孩子达成什么（先写出模糊愿望）：',
+          'S · 具体：读什么？做什么？练什么？',
+          'M · 可衡量：完成的标志是什么？（页数/字数/时长/等级）',
+          'A · 可达成：孩子的当前水平 + 时间是够的吗？',
+          'R · 相关：这个目标跟孩子的长期成长咬合吗？',
+          'T · 时限：暑假结束前 / 具体到几月几号？'
+        ],
+        tip:'家长最爱说"多读书/多运动/多复习"——孩子听了跟没听一样。改成"每天 19:00-19:30 读 30 分钟"，执行率立刻翻倍。'
+      },
+      teacher:{
+        caseTitle:'学员学期成长目标',
+        caseContent:'❌ 差目标："小明本学期要进步"。<br>✅ SMART 版："2026 年 12 月 31 日前（T），小明从 15 级晋升到 12 级（S+M），路径是每周三次课外对局 + 每周日一次复盘课（M+A），配合他明年参加青少年段位赛的目标（R）"。',
+        template:[
+          '学员的当前状态 / 家长的期待：',
+          'S · 具体：段位 / 技能 / 习惯要达到什么水平？',
+          'M · 可衡量：用什么指标判断达成？',
+          'A · 可达成：给出 3 个月/半年的合理跳升范围',
+          'R · 相关：跟学员的长期规划（升学/比赛/兴趣）挂钩吗？',
+          'T · 时限：学期末 / 半年末 / 具体日期？'
+        ],
+        tip:'跟家长沟通学员目标一定要 SMART——"孩子会进步的"是套话，"到 12 月底从 15 级涨到 12 级"是承诺+可复盘。'
+      }
+    }
+  },
+  {
+    id:'quad', code:'2×2', name:'四象限法则',sub:'重要性 × 紧急性 · 时间管理矩阵',
+    cat:'decide',
+    intro:'不是所有事都值得马上做——重要的事，反而常常不紧急',
+    steps:[
+      {k:'Ⅰ',n:'重要且紧急',d:'立刻做，但要少（防救火）'},
+      {k:'Ⅱ',n:'重要不紧急',d:'重点投入，撬动改变的地方'},
+      {k:'Ⅲ',n:'紧急不重要',d:'能授权就授权，能拒就拒'},
+      {k:'Ⅳ',n:'不重要不紧急',d:'直接砍掉'}
+    ],
+    scenarios:{
+      general:{
+        caseTitle:'工作事项优先级',
+        caseContent:'一周的事全塞满，怎么排？<br><b>Ⅰ</b>：明天要交的方案（做完立刻转 Ⅱ 优先）<br><b>Ⅱ</b>：⭐核心业务系统重构、团队梯队建设、行业趋势学习<br><b>Ⅲ</b>：临时会议、同事求助、临时表格<br><b>Ⅳ</b>：无节制刷群、朋友圈闲逛<br><b>洞察</b>：如果你 80% 时间在 Ⅰ 和 Ⅲ，说明 Ⅱ 做得太少——救火型选手永远救不完。',
+        template:[
+          '把你本周的 10-15 件事列出来：',
+          'Ⅰ · 重要且紧急（必须立刻做的）：',
+          'Ⅱ · 重要不紧急（真正撬动未来的）：',
+          'Ⅲ · 紧急不重要（打断你的杂事）：',
+          'Ⅳ · 不重要不紧急（可以砍掉的）：',
+          '本周你打算在 Ⅱ 投入多少小时？（答案 < 10 小时的话请重排）'
+        ],
+        tip:'"重要不紧急"是唯一能改变命运的象限。周计划里如果没有 Ⅱ 的时间块，你只是在活着。'
+      },
+      parent:{
+        caseTitle:'孩子每周活动排优先级',
+        caseContent:'孩子每周 168 小时，怎么排？<br><b>Ⅰ</b>：明天数学月考、突发感冒就医<br><b>Ⅱ</b>：⭐每天读书 30 分钟、体育锻炼、思维/围棋训练、亲子沟通<br><b>Ⅲ</b>：临时的兴趣班试听、突然要参加的家长会<br><b>Ⅳ</b>：无节制刷短视频、无目的的商场闲逛<br><b>洞察</b>：家长总在 Ⅰ 焦虑（考试临时抱佛脚）+ Ⅳ 妥协（放娃刷手机），Ⅱ 的时间被挤没了——这是"越努力越差"的根源。',
+        template:[
+          '把孩子这周的所有活动列出来（学习/兴趣/娱乐/日常）：',
+          'Ⅰ · 重要且紧急（考试/作业/身体）：',
+          'Ⅱ · 重要不紧急（阅读/运动/思维训练/亲子）：',
+          'Ⅲ · 紧急不重要（临时活动/凑热闹）：',
+          'Ⅳ · 不重要不紧急（无节制娱乐）：',
+          '孩子本周有多少小时在 Ⅱ？（真心话）'
+        ],
+        tip:'孩子成长的差距不在 Ⅰ（月考谁都能突击），在 Ⅱ 的持续积累（三年读了 100 本书 vs 3 本书）。'
+      },
+      teacher:{
+        caseTitle:'教师/机构事务排优先级',
+        caseContent:'老师每周都感觉忙不过来。<br><b>Ⅰ</b>：家长突发投诉、明天要交的教学报告<br><b>Ⅱ</b>：⭐教研升级、备课体系化、学员成长记录、家长关系深耕、老师自我学习<br><b>Ⅲ</b>：临时的行政表格、无关会议、外部临时求助<br><b>Ⅳ</b>：办公室闲聊、机构群里灌水<br><b>洞察</b>：老师如果 80% 时间在应付 Ⅰ+Ⅲ，永远做不出精品课——精品是 Ⅱ 慢慢磨出来的。',
+        template:[
+          '把你本周的所有教学 / 沟通 / 行政事项列出来：',
+          'Ⅰ · 重要且紧急（突发/明日截止）：',
+          'Ⅱ · 重要不紧急（备课/教研/家长深耕）：',
+          'Ⅲ · 紧急不重要（临时表格/无关会）：',
+          'Ⅳ · 不重要不紧急（可砍/摸鱼）：',
+          '本周你在 Ⅱ 上投入 &lt; 8 小时？请重排。'
+        ],
+        tip:'教研升级、家长深耕、成长记录——这三件事永远不紧急，但决定了 3 年后你是不是"资深老师"还是"熟手老师"。'
+      }
+    }
+  },
+  {
+    id:'grow', code:'GROW', name:'教练对话法',sub:'Goal · Reality · Options · Will',
+    cat:'comm',
+    intro:'教练式对话四步——全程"问、不教"，让对方自己找到答案',
+    steps:[
+      {k:'G',n:'Goal · 目标',d:'你到底想要什么？'},
+      {k:'R',n:'Reality · 现状',d:'你现在在哪儿？差多远？'},
+      {k:'O',n:'Options · 选项',d:'有哪些可能的路径？'},
+      {k:'W',n:'Will · 意愿',d:'你愿意做什么？从什么时候开始？'}
+    ],
+    scenarios:{
+      general:{
+        caseTitle:'辅导员工业绩谈话',
+        caseContent:'员工业绩下滑，你不是训他，而是引导：<br><b>G</b>：你这个季度想拿到什么结果？<br><b>R</b>：现在完成了多少？跟目标差多少？主要卡在哪？<br><b>O</b>：有哪些办法可以补上来？（列 3-5 个）<br><b>W</b>：你打算做哪一两个？什么时候开始？我怎么支持你？',
+        template:[
+          '你要辅导的对象 / 谈话主题：',
+          'G · 你打算问的目标问题：',
+          'R · 你打算问的现状问题：',
+          'O · 你打算引导的选项方向（3-5 个候选）：',
+          'W · 你打算问的行动承诺问题：',
+          '⚠️ 全程你打算"问"多少？"教"多少？（问 &gt; 80%）'
+        ],
+        tip:'新手管理者最容易变成"教练变教官"——一开口就"你应该……"。GROW 的核心是问，不是教。'
+      },
+      parent:{
+        caseTitle:'跟孩子谈成绩 / 习惯改变',
+        caseContent:'月考数学 85 分，你想他考 95 分。别骂——用 GROW：<br><b>G</b>："这次数学 85 分，你自己心里理想的分数是多少？"<br><b>R</b>："那 95 到 85 差 10 分。你觉得这 10 分主要丢在哪些题上？"<br><b>O</b>："那怎么办呢？你觉得有哪些办法可以补回来？"（引导他自己列 3-5 个）<br><b>W</b>："这几个办法里你想先做哪个？从什么时候开始？需要爸妈怎么帮你？"',
+        template:[
+          '你要跟孩子谈的话题（成绩/习惯/关系）：',
+          'G · 引导孩子说出他自己的目标：',
+          'R · 引导他说出现状+差距+原因：',
+          'O · 引导他列出可能的解决办法（关键：不打断/不评价）：',
+          'W · 引导他自己选择+承诺行动+时间：',
+          '⚠️ 谈话中你有几次没忍住直接给答案？（家长通病）'
+        ],
+        tip:'孩子自己想出来的方案，执行力比家长塞给他的强 10 倍。GROW 是把"你要……"改成"你想……"的关键转身。'
+      },
+      teacher:{
+        caseTitle:'跟学员谈段位提升 / 学习动力',
+        caseContent:'学员卡在 15 级半年没升。别加课——用 GROW：<br><b>G</b>："你自己希望这学期能到几级？"<br><b>R</b>："那从 15 到 12 级，你觉得自己现在最需要突破的是什么？"（等他说：可能是布局/中盘/官子）<br><b>O</b>："那怎么练呢？有哪些方法？"（引导他列：做题/复盘/多下棋/看讲解）<br><b>W</b>："你愿意从哪个开始？每天多少时间？咱们一周后碰一下进度好不好？"',
+        template:[
+          '你要辅导的学员 / 谈话情境：',
+          'G · 引导学员说出他自己的目标（段位/技能/兴趣）：',
+          'R · 引导他复盘现状+瓶颈：',
+          'O · 引导他列出可能的练习/突破路径：',
+          'W · 引导他承诺具体行动 + 复盘时间：',
+          '💡 加分项：把他的承诺记下来，下周对话时对齐进度'
+        ],
+        tip:'GROW 也是家校沟通的神器——跟家长谈孩子问题时，别下判断，用 GROW 引导家长自己发现问题+主动配合。'
+      }
+    }
+  }
+];
+
+/* ============ 全局状态 ============ */
+let currentScene = 'general';
+let currentCat = 'all';
+let currentSearch = '';
+
+/* ============ 渲染 ============ */
+function renderCards(){
+  const grid = document.getElementById('cardGrid');
+  const empty = document.getElementById('emptyState');
+  const filtered = MODELS.filter(m=>{
+    if(currentCat !== 'all' && m.cat !== currentCat) return false;
+    if(currentSearch){
+      const kw = currentSearch.toLowerCase();
+      const s = m.scenarios[currentScene] || {};
+      const hay = (m.code+' '+m.name+' '+m.sub+' '+m.intro+' '+(s.caseTitle||'')+' '+(s.caseContent||'')).toLowerCase();
+      if(!hay.includes(kw)) return false;
+    }
+    return true;
+  });
+  if(filtered.length === 0){
+    grid.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+  grid.innerHTML = filtered.map(m=>{
+    const sc = m.scenarios[currentScene] || {};
+    return `
+      <div class="m-card" data-id="${m.id}">
+        <div class="cat-tag">${CAT_LABELS[m.cat]}</div>
+        <div class="m-code fmono">${m.code}</div>
+        <div class="m-name">${m.name}</div>
+        <div class="m-sub fmono">${m.sub}</div>
+        <div class="m-intro">${m.intro}</div>
+        <div class="m-steps">
+          ${m.steps.map(s=>`<span class="m-step">${s.k}·${s.n.split('·')[1]?s.n.split('·')[1].trim():s.n}</span>`).join('')}
+        </div>
+        <div class="m-actions">
+          <div class="btn-detail" data-action="detail" data-id="${m.id}">📖 场景+模板</div>
+          <div class="btn-ai" data-action="ai" data-id="${m.id}">AI 帮我套用</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+  grid.querySelectorAll('.m-card').forEach(c=>{
+    c.addEventListener('click',(e)=>{
+      const t = e.target.closest('[data-action]');
+      const id = c.dataset.id;
+      if(t && t.dataset.action === 'ai'){
+        openAIDrawer(id);
+      } else {
+        openDrawer(id);
+      }
+    });
+  });
+}
+
+/* ============ 抽屉 ============ */
+function openDrawer(id){
+  const m = MODELS.find(x=>x.id===id);
+  if(!m) return;
+  const s = m.scenarios[currentScene] || {};
+  document.getElementById('dCode').textContent = m.code;
+  document.getElementById('dName').textContent = m.name;
+  document.getElementById('dSub').textContent = m.sub;
+  const body = document.getElementById('dBody');
+  body.innerHTML = `
+    <div class="d-section">
+      <h3>模型框架</h3>
+      <div class="step-grid">
+        ${m.steps.map(st=>`
+          <div class="step-item">
+            <div class="sk fmono">${st.k}</div>
+            <div class="sn">${st.n}</div>
+            <div class="sd">${st.d}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+    <div class="d-section">
+      <h3>场景实例 · ${SCENE_DESC[currentScene].split('·')[0].trim()}</h3>
+      <div class="case-box">
+        <div class="case-title">${s.caseTitle||''}</div>
+        <div class="case-content">${s.caseContent||''}</div>
+      </div>
+    </div>
+    <div class="d-section">
+      <h3>你自己的模板 · 抄作业式填空</h3>
+      <div class="template-list">
+        <ol>
+          ${(s.template||[]).map(t=>`<li>${t}</li>`).join('')}
+        </ol>
+      </div>
+    </div>
+    ${s.tip ? `
+    <div class="d-section">
+      <h3>关键洞察</h3>
+      <div class="tip-box">${s.tip}</div>
+    </div>` : ''}
+    <div class="d-section">
+      <div style="text-align:center;padding-top:12px;">
+        <button class="ai-run-btn" style="max-width:280px;margin:0 auto;display:inline-block;" onclick="openAIDrawer('${m.id}')">✦ 换成"AI 帮我套用"模式</button>
+      </div>
+    </div>
+  `;
+  showDrawer('drawer');
+}
+
+function openAIDrawer(id){
+  const m = MODELS.find(x=>x.id===id);
+  if(!m) return;
+  document.getElementById('aiCode').textContent = m.code;
+  document.getElementById('aiName').textContent = '· '+m.name;
+  document.getElementById('aiHint').textContent = ' '+m.code+' ';
+  const s = m.scenarios[currentScene] || {};
+  const fields = document.getElementById('aiFields');
+  fields.innerHTML = `
+    <div class="ai-field">
+      <label class="ai-field-label"><span class="lk">◆</span>你的实际情境是什么？（可以写一段话）</label>
+      <textarea class="ai-input" placeholder="例如：我孩子每天写作业磨蹭到 10 点，一说他就哭..."></textarea>
+    </div>
+    ${m.steps.map(st=>`
+      <div class="ai-field">
+        <label class="ai-field-label"><span class="lk">${st.k}</span>${st.n} — ${st.d}</label>
+        <textarea class="ai-input" placeholder="你在这个维度的情况 / 想法 / 已尝试的做法..."></textarea>
+      </div>
+    `).join('')}
+  `;
+  document.getElementById('aiResult').style.display = 'block';
+  showDrawer('aiDrawer');
+}
+
+function showDrawer(which){
+  document.getElementById('drawerMask').classList.add('on');
+  document.getElementById(which).classList.add('on');
+  document.body.style.overflow = 'hidden';
+}
+function closeAllDrawers(){
+  document.getElementById('drawerMask').classList.remove('on');
+  document.getElementById('drawer').classList.remove('on');
+  document.getElementById('aiDrawer').classList.remove('on');
+  document.body.style.overflow = '';
+}
+
+/* ============ AI Run 占位 ============ */
+document.getElementById('aiRun').addEventListener('click',()=>{
+  const btn = document.getElementById('aiRun');
+  btn.textContent = '✦ 分析中...';
+  btn.disabled = true;
+  setTimeout(()=>{
+    document.getElementById('aiResult').innerHTML = `
+      <span class="big">✦</span>
+      <div><strong style="color:var(--seal);">AI 辅助引擎接入中（Phase 2 上线）</strong></div>
+      <div style="margin-top:8px;line-height:1.75;text-align:left;padding:0 20px;">
+        当前版本：模型框架 + 场景模板 + 案例已经就位，你可以按模板手动梳理自己的情况。<br><br>
+        Phase 2 会接入 Coze 智能体：点击这个按钮后，AI 会根据你填的内容，用<strong style="color:var(--seal);">该模型的完整框架</strong>输出：
+        <br>· 每个维度的深度分析
+        <br>· 你没想到的盲点提醒
+        <br>· 具体可执行的下一步建议
+        <br>· 风险与备选方案
+        <br><br>
+        <span style="color:var(--ink-mute);font-size:12px;">敬请期待 · 有反馈可 → <a href="/#contact" class="text-seal underline">联系我们</a></span>
+      </div>
+    `;
+    btn.textContent = '✦ AI 生成分析';
+    btn.disabled = false;
+  }, 900);
+});
+
+/* ============ 事件绑定 ============ */
+document.getElementById('sceneTabs').addEventListener('click',(e)=>{
+  const b = e.target.closest('.scene-tab');
+  if(!b) return;
+  document.querySelectorAll('.scene-tab').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
+  currentScene = b.dataset.scene;
+  document.getElementById('sceneDesc').textContent = SCENE_DESC[currentScene];
+  renderCards();
+});
+
+document.querySelectorAll('.cat-pill').forEach(p=>{
+  p.addEventListener('click',()=>{
+    document.querySelectorAll('.cat-pill').forEach(x=>x.classList.remove('active'));
+    p.classList.add('active');
+    currentCat = p.dataset.cat;
+    renderCards();
+  });
+});
+
+document.getElementById('searchInput').addEventListener('input',(e)=>{
+  currentSearch = e.target.value.trim();
+  renderCards();
+});
+
+document.getElementById('drawerMask').addEventListener('click',closeAllDrawers);
+document.getElementById('drawerClose').addEventListener('click',closeAllDrawers);
+document.getElementById('aiClose').addEventListener('click',closeAllDrawers);
+document.addEventListener('keydown',(e)=>{if(e.key==='Escape') closeAllDrawers();});
+
+/* ============ init ============ */
+renderCards();
+</script>
+</body>
+</html>
