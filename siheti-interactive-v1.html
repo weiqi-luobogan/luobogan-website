@@ -638,6 +638,51 @@
     }
 
     /* ==================== 模块 6 · 常形记忆墙 ==================== */
+    .shape-panel {
+      margin: 0 auto;
+      max-width: 760px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 26px 28px 22px;
+      box-shadow: 0 3px 14px rgba(20, 20, 20, 0.06);
+      text-align: center;
+    }
+    .shape-panel-img {
+      display: block;
+      width: 100%;
+      max-width: 640px;
+      height: auto;
+      margin: 0 auto 18px;
+      border-radius: 6px;
+      border: 1px solid var(--line);
+    }
+    .shape-panel-caption {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text);
+      max-width: 580px;
+      margin: 0 auto 18px;
+      letter-spacing: 0.02em;
+      text-align: left;
+    }
+    .shape-panel-caption strong { color: var(--ink); font-weight: 600; }
+    .shape-panel-legend {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 18px 24px;
+      padding-top: 16px;
+      border-top: 1px dashed var(--line);
+      font-size: 13px;
+      color: var(--text-soft, #666);
+    }
+    @media (max-width: 640px) {
+      .shape-panel { padding: 18px 16px; }
+      .shape-panel-caption { font-size: 14px; }
+      .shape-panel-legend { font-size: 12px; gap: 10px 14px; }
+    }
+
     .shape-legend {
       display: flex;
       flex-wrap: wrap;
@@ -1469,22 +1514,17 @@
       围棋启蒙里必须<span class="hl">背下来</span>的常形。点开卡片看要点，多刷几遍，形状就住进脑子里了。
     </p>
 
-    <div class="shape-legend">
-      <span class="shape-legend-item"><span class="shape-legend-dot dead"></span>死形</span>
-      <span class="shape-legend-item"><span class="shape-legend-dot alive"></span>活形</span>
-      <span class="shape-legend-item"><span class="shape-legend-dot uncertain"></span>待研究形</span>
-    </div>
-
-    <div class="shape-filter-bar">
-      <button class="shape-filter-btn active" data-filter="all">全部</button>
-      <button class="shape-filter-btn" data-filter="dead">死形</button>
-      <button class="shape-filter-btn" data-filter="alive">活形</button>
-      <button class="shape-filter-btn" data-filter="uncertain">待研究</button>
-    </div>
-
-    <div class="shape-grid" id="shape-grid">
-      <!-- 由 JS 渲染 -->
-    </div>
+    <figure class="shape-panel">
+      <img src="img/siheti-shapes/12-common-shapes.png" alt="常见的死活形状 · 12 常形教研图" class="shape-panel-img" loading="lazy">
+      <figcaption class="shape-panel-caption">
+        大家知道哪些棋形是<strong>死棋形状</strong>，哪些棋形是<strong>活棋形状</strong>，哪些棋形又是我们要研究的<strong>不确定形</strong>？
+      </figcaption>
+      <div class="shape-panel-legend">
+        <span class="shape-legend-item"><span class="shape-legend-dot dead"></span>死形（本身即死 · 或急所被点即死）</span>
+        <span class="shape-legend-item"><span class="shape-legend-dot alive"></span>活形（本身两眼 · 或占急所可活）</span>
+        <span class="shape-legend-item"><span class="shape-legend-dot uncertain"></span>不确定形（结合具体场景分析）</span>
+      </div>
+    </figure>
   </div>
 </section>
 
@@ -1643,115 +1683,6 @@ document.querySelectorAll('.tactic-head').forEach(head => {
       if (it !== item) it.classList.remove('open');
     });
     item.classList.toggle('open');
-  });
-});
-
-// ---------- 常形记忆墙数据 ----------
-const SHAPES = [
-  // 死形（对方一手即可点死 / 或本身无法做出两只眼）
-  {
-    key: 'zhisan', name: '直三', type: 'dead', tag: '死形', hint: '点中间即死',
-    body: '三个交叉点连成一直线的空间。急所就是正中间那一点——被点，两只眼归零。',
-    svg: 'zhisan'
-  },
-  {
-    key: 'dingsi', name: '丁四', type: 'dead', tag: '死形', hint: '一点即死',
-    body: '三子成直线，中间那子再向下（或旁边）伸一子，形如"丁"字。点中间转角处即死。',
-    svg: 'dingsi'
-  },
-  {
-    key: 'daowu', name: '刀五', type: 'dead', tag: '死形', hint: '典型一点死',
-    body: '五格空间形如刀把。急所是弯钩处那一点——落下即死，别无回头路。',
-    svg: 'daowu'
-  },
-  {
-    key: 'fangsi', name: '方四', type: 'dead', tag: '死形', hint: '本身死形',
-    body: '四子围成 2×2 方块的空间。无论怎么走都只能做出一只眼，本身就是死。',
-    svg: 'fangsi'
-  },
-  {
-    key: 'banliu-corner', name: '板六（角上）', type: 'dead', tag: '死形', hint: '角上特例',
-    body: '边上的板六能活，但**角上**的板六本身死——角部气紧，扩眼余地小于边上。',
-    svg: 'banliu'
-  },
-  // 活形
-  {
-    key: 'zhisi', name: '直四', type: 'alive', tag: '活形', hint: '本身活形',
-    body: '四子连成一条直线的空间。中间已有两只眼，对方无法破解，本身即活。',
-    svg: 'zhisi'
-  },
-  {
-    key: 'qusi', name: '曲四', type: 'alive', tag: '活形', hint: '本身活形',
-    body: '四格空间形如"L"或曲拐。天然带两只做眼位置，本身即活。',
-    svg: 'qusi'
-  },
-  {
-    key: 'banliu-side', name: '板六（边上）', type: 'alive', tag: '活形', hint: '边上活形',
-    body: '边上六个交叉点连成 2×3 空间。急所被自己抢先占据即可两眼做出，本身可活。',
-    svg: 'banliu'
-  },
-  {
-    key: 'wugonghua', name: '五宫花', type: 'alive', tag: '活形', hint: '五格花形',
-    body: '五格空间围成花形，中心一子分割出两眼——只要占据中心，稳稳活。',
-    svg: 'wugonghua'
-  },
-  // 待研究形
-  {
-    key: 'banba', name: '板八（角上）', type: 'uncertain', tag: '待研究', hint: '因场景而异',
-    body: '角上八目空间较大，能否做活看外围气与断点。要结合具体形势，逐题分析。',
-    svg: 'banba'
-  },
-  {
-    key: 'wanquyanxing', name: '弯曲眼形', type: 'uncertain', tag: '待研究', hint: '看急所位置',
-    body: '同样格数、弯曲方向不同，做活难度大不相同。需要具体分析：先看急所在哪。',
-    svg: 'wanqu'
-  },
-  {
-    key: 'daijiaqi', name: '带夹气眼形', type: 'uncertain', tag: '待研究', hint: '气紧问题',
-    body: '眼位形状虽好，但外围气紧或有断点，最后是活是死看能不能补漏。具体分析。',
-    svg: 'daijiaqi'
-  }
-];
-
-// ---------- 用极简 SVG 生成形状示意（棋盘背景+黑子标注空间） ----------
-function renderShapes(filter) {
-  const grid = document.getElementById('shape-grid');
-  const list = (filter === 'all') ? SHAPES : SHAPES.filter(s => s.type === filter);
-  grid.innerHTML = list.map(s => `
-    <div class="shape-card" data-shape="${s.key}" role="button" tabindex="0" aria-label="${s.name} · 点击翻转">
-      <div class="shape-card-inner">
-        <div class="shape-face front">
-          <span class="shape-tag ${s.type}">${s.tag}</span>
-          <div class="shape-name">${s.name}</div>
-          <div class="shape-hint">${s.hint}</div>
-        </div>
-        <div class="shape-face back">
-          <span class="shape-tag ${s.type}">${s.tag}</span>
-          <div class="shape-back-title">${s.name}</div>
-          <div class="shape-back-body">${s.body}</div>
-        </div>
-      </div>
-    </div>
-  `).join('');
-  // 绑定翻转
-  grid.querySelectorAll('.shape-card').forEach(card => {
-    const toggle = () => card.classList.toggle('flipped');
-    card.addEventListener('click', toggle);
-    card.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        toggle();
-      }
-    });
-  });
-}
-renderShapes('all');
-
-// ---------- 常形筛选 ----------
-document.querySelectorAll('.shape-filter-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.shape-filter-btn').forEach(b => b.classList.toggle('active', b === btn));
-    renderShapes(btn.dataset.filter);
   });
 });
 
