@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#f5efe0">
+  <title>SGF 打谱器 · 手机端围棋对局回放 & 变化练习 | 萝卜干学围棋</title>
+  <meta name="description" content="打开老师发的 SGF 对局文件，在手机 / 平板上做基础打谱操作：前进后退、点棋盘落变化、导出修改后的 SGF。零安装、纯前端、离线可用。">
+  <meta name="keywords" content="SGF打谱器, 围棋打谱, 手机围棋, SGF在线播放器, 围棋教学工具, 萝卜干学围棋">
+  <link rel="canonical" href="https://www.weiqiluobogan.com/sgf-viewer.html">
+  <link rel="icon" href="/assets/favicon/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- BesoGo 库 CSS（本地） -->
+  <link rel="stylesheet" type="text/css" href="./sgf-assets/css/besogo.min.css">
+  <link rel="stylesheet" type="text/css" href="./sgf-assets/css/board-flat.css">
+
+  <style>
+    /* ================ 水墨风变量（对齐官网） ================ */
+    :root {
+      --ink: #2d2618;
+      --ink-soft: #3a3222;
+      --paper: #f5efe0;
+      --paper-2: #efe7d3;
+      --paper-3: #e8dfc5;
+      --paper-panel: #fbf8f0;
+      --seal: #a94b3d;
+      --seal-hover: #8f3d31;
+      --seal-light: #c26658;
+      --gray: #4a4032;
+      --gray-soft: #6a6355;
+      --line: #d4c8a8;
+      --line-dark: #b8ab88;
+      --gold: #b48a3f;
+      --stone-black: #1a1a1a;
+      --stone-white: #f2f2f2;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: 'Noto Serif SC', 'Songti SC', serif;
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.7;
+      letter-spacing: 0.02em;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input, select { font-family: inherit; }
+
+    /* ================ 顶部导航 ================ */
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(245, 239, 224, 0.94);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    .top-nav-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--ink);
+    }
+    .brand-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--seal);
+      display: inline-block;
+    }
+    .brand-back {
+      color: var(--seal);
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      padding: 6px 10px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: rgba(255,255,255,0.4);
+      min-height: 36px;
+      display: inline-flex;
+      align-items: center;
+    }
+    .brand-back:hover { background: var(--seal); color: #fff; border-color: var(--seal); }
+
+    /* ================ Hero ================ */
+    .hero {
+      padding: 26px 18px 8px;
+      text-align: center;
+    }
+    .hero-eyebrow {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.35em;
+      color: var(--seal);
+      margin-bottom: 10px;
+    }
+    .hero-title {
+      font-size: clamp(22px, 5vw, 30px);
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      margin: 0 0 8px;
+      color: var(--ink);
+    }
+    .hero-sub {
+      font-size: clamp(13px, 2.4vw, 15px);
+      color: var(--gray);
+      max-width: 620px;
+      margin: 0 auto;
+      line-height: 1.85;
+    }
+    .hero-sub .hl { color: var(--seal); font-weight: 600; }
+
+    /* ================ 工具栏（自定义） ================ */
+    .toolbar {
+      max-width: 720px;
+      margin: 16px auto 0;
+      padding: 0 12px;
+    }
+    .toolbar-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      align-items: center;
+    }
+    .tb-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 0 16px;
+      min-height: 44px;
+      min-width: 44px;
+      border: 1px solid var(--line);
+      background: var(--paper-panel);
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all .15s;
+      font-family: inherit;
+    }
+    .tb-btn:hover { border-color: var(--seal); color: var(--seal); background: #fdfaf1; }
+    .tb-btn:active { transform: translateY(1px); }
+    .tb-btn.primary {
+      background: var(--seal);
+      color: #fff;
+      border-color: var(--seal);
+    }
+    .tb-btn.primary:hover { background: var(--seal-hover); color: #fff; border-color: var(--seal-hover); }
+    .tb-btn.toggle-on { background: var(--seal); color: #fff; border-color: var(--seal); }
+    .tb-btn .ico { font-size: 15px; line-height: 1; }
+    .tb-file-input { display: none; }
+
+    .jump-group {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 0 6px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--paper-panel);
+      min-height: 44px;
+    }
+    .jump-group label {
+      font-size: 12px;
+      color: var(--gray-soft);
+      padding: 0 4px;
+    }
+    .jump-group input {
+      width: 56px;
+      height: 32px;
+      border: none;
+      background: transparent;
+      text-align: center;
+      font-size: 15px;
+      color: var(--ink);
+      outline: none;
+      -moz-appearance: textfield;
+    }
+    .jump-group input::-webkit-outer-spin-button,
+    .jump-group input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    .jump-group button {
+      background: transparent;
+      border: none;
+      color: var(--seal);
+      font-size: 14px;
+      cursor: pointer;
+      padding: 0 8px;
+      height: 36px;
+      min-width: 36px;
+      font-family: inherit;
+    }
+    .jump-group button:hover { color: var(--seal-hover); }
+
+    .status-bar {
+      max-width: 720px;
+      margin: 8px auto 0;
+      padding: 8px 14px;
+      font-size: 12px;
+      color: var(--gray-soft);
+      text-align: center;
+      font-family: 'Inter', sans-serif;
+      letter-spacing: 0.06em;
+    }
+    .status-bar strong { color: var(--seal); font-weight: 600; }
+
+    /* ================ 棋盘容器 ================ */
+    .board-wrap {
+      max-width: 760px;
+      margin: 14px auto 0;
+      padding: 0 12px;
+    }
+    #board {
+      /* 由 BesoGo 自动接管尺寸；不写死 max-width，由 attr 控制 */
+      margin: 0 auto;
+      border: 1px solid var(--line);
+      background: var(--paper-panel);
+      box-shadow: 0 6px 22px rgba(60, 40, 20, 0.06);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    /* ================ BesoGo 主题覆盖 · 水墨风 ================ */
+    .besogo-container {
+      background: var(--paper-panel) !important;
+      font-family: 'Noto Serif SC', 'Songti SC', serif !important;
+    }
+    /* 棋盘木色调 */
+    .besogo-svg-board {
+      fill: #e8d4a8 !important;
+    }
+    .besogo-svg-lines {
+      stroke: #3d3327 !important;
+      stroke-width: 3;
+      fill: none;
+    }
+    .besogo-svg-hoshi {
+      stroke: #3d3327 !important;
+      stroke-width: 12;
+    }
+    .besogo-svg-blackStone {
+      fill: var(--stone-black) !important;
+      stroke: var(--stone-black) !important;
+    }
+    .besogo-svg-whiteStone {
+      fill: var(--stone-white) !important;
+      stroke: #b3a97e !important;
+      stroke-width: 3;
+    }
+    .besogo-svg-greyStone {
+      fill: #b3a685 !important;
+      stroke: #b3a685 !important;
+    }
+
+    /* BesoGo 面板背景 & 按钮 */
+    .besogo-panels {
+      background: var(--paper-panel) !important;
+      padding: 8px 8px !important;
+    }
+    .besogo-container button,
+    .besogo-container input[type='button'] {
+      background: #fbf8f0 !important;
+      border: 1px solid var(--line) !important;
+      color: var(--ink) !important;
+      border-radius: 4px !important;
+      min-height: 44px !important;
+      min-width: 44px !important;
+      padding: 4px !important;
+      cursor: pointer;
+      transition: all .15s;
+      font-family: inherit !important;
+      font-size: 13px !important;
+    }
+    .besogo-container button:hover,
+    .besogo-container input[type='button']:hover {
+      background: #fdf3ea !important;
+      border-color: var(--seal) !important;
+    }
+    .besogo-container button:active,
+    .besogo-container input[type='button']:active {
+      background: var(--seal) !important;
+      color: #fff !important;
+    }
+    .besogo-container input[type='text'] {
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: #fff;
+      padding: 4px 6px;
+      min-height: 40px;
+      font-size: 14px;
+    }
+    /* 控制面板按钮上的黑色多边形（导航箭头）—— 保留默认黑，不动 */
+
+    /* 棋手信息栏 · 水墨风 */
+    .besogo-playerInfo {
+      font-family: 'Noto Serif SC', 'Songti SC', serif !important;
+      font-size: 14px !important;
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+    }
+    .besogo-blackInfo {
+      background: var(--stone-black) !important;
+      color: #fff !important;
+    }
+    .besogo-whiteInfo {
+      background: #fbf8f0 !important;
+      color: var(--ink) !important;
+      border-left: 1px solid var(--line);
+    }
+
+    /* 注释区（Comment） · 水墨风 */
+    .besogo-comment {
+      font-family: 'Noto Serif SC', 'Songti SC', serif !important;
+      font-size: 14.5px !important;
+      color: var(--ink);
+      background: #fbf8f0;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 10px 12px;
+      line-height: 1.85;
+      max-height: 220px;
+    }
+    .besogo-comment textarea {
+      font-family: inherit;
+      border: 1px solid var(--line);
+      background: #fff;
+      padding: 6px;
+      border-radius: 4px;
+    }
+    .besogo-comment::before {
+      content: '当前节点注释';
+      display: block;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: var(--seal);
+      margin-bottom: 6px;
+      font-family: 'Inter', sans-serif;
+    }
+    .besogo-comment:empty::after {
+      content: '（此节点暂无注释）';
+      color: var(--gray-soft);
+      font-size: 13px;
+    }
+
+    /* GameInfo 表 */
+    .besogo-gameInfo {
+      background: #fbf8f0;
+      border: 1px solid var(--line);
+      color: var(--ink);
+      font-size: 13.5px;
+      border-radius: 4px;
+    }
+    .besogo-gameInfo td, .besogo-gameInfo tr {
+      border-color: var(--line) !important;
+    }
+
+    /* 控制面板 · 让按钮均匀分布 */
+    .besogo-control {
+      gap: 4px;
+      padding: 4px 0;
+    }
+    .besogo-control button {
+      flex: 0 0 auto;
+    }
+
+    /* ================ 使用提示 · 折叠区 ================ */
+    .hint-section {
+      max-width: 720px;
+      margin: 28px auto 40px;
+      padding: 0 14px;
+    }
+    .hint-card {
+      background: var(--paper-panel);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 16px 18px 14px;
+      font-size: 13.5px;
+      color: var(--gray);
+      line-height: 1.9;
+    }
+    .hint-title {
+      font-size: 13px;
+      color: var(--seal);
+      letter-spacing: 0.2em;
+      font-family: 'Inter', sans-serif;
+      margin-bottom: 10px;
+    }
+    .hint-card ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+    .hint-card li { margin-bottom: 6px; }
+    .hint-card b { color: var(--ink); font-weight: 600; }
+    .hint-card .kbd {
+      display: inline-block;
+      padding: 1px 6px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 3px;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      color: var(--seal);
+    }
+
+    /* ================ 页脚 ================ */
+    .footer {
+      padding: 30px 20px 40px;
+      text-align: center;
+      color: var(--gray-soft);
+      font-size: 12px;
+      border-top: 1px solid var(--line);
+      background: var(--paper-2);
+    }
+    .footer a { color: var(--seal); border-bottom: 1px dotted var(--seal); }
+
+    /* ================ 提示 Toast ================ */
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 30px;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--ink);
+      color: var(--paper);
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-size: 14px;
+      opacity: 0;
+      pointer-events: none;
+      transition: all .3s;
+      z-index: 100;
+      max-width: 88vw;
+      text-align: center;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* ================ 移动端适配 ================ */
+    @media (max-width: 640px) {
+      .top-nav-inner { padding: 10px 14px; }
+      .brand { font-size: 14px; }
+      .brand-back { font-size: 11px; padding: 5px 8px; }
+      .hero { padding: 20px 14px 6px; }
+      .toolbar { padding: 0 10px; }
+      .tb-btn { padding: 0 12px; font-size: 13px; }
+      .board-wrap { padding: 0 6px; margin-top: 10px; }
+      .besogo-container button,
+      .besogo-container input[type='button'] {
+        min-height: 40px !important;
+        min-width: 40px !important;
+        font-size: 12px !important;
+      }
+      .hint-section { padding: 0 12px; margin: 22px auto 30px; }
+    }
+
+    /* 手数标注 SVG 层样式 */
+    .move-number-label {
+      pointer-events: none;
+      font-family: 'Inter', 'Noto Sans SC', sans-serif;
+      font-weight: 600;
+    }
+  </style>
+
+  <!-- BesoGo 库 JS（本地） -->
+  <script src="./sgf-assets/js/besogo.all.min.js"></script>
+</head>
+<body>
+
+  <!-- 顶部导航 -->
+  <nav class="top-nav">
+    <div class="top-nav-inner">
+      <div class="brand">
+        <span class="brand-dot"></span>
+        <span>萝卜干学围棋 · SGF 打谱器</span>
+      </div>
+      <a class="brand-back" href="./index.html#tools" title="回到官网教学工具箱">← 教学工具箱</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="hero-eyebrow">SGF · VIEWER · EDITOR</div>
+    <h1 class="hero-title">打开一份对局，静静地摆一遍</h1>
+    <p class="hero-sub">
+      老师发来的 SGF 文件，<span class="hl">在手机 / 平板上直接打开</span>，看回放、点棋盘落变化、导出保存。<br>
+      纯前端离线可用，不上传任何数据。
+    </p>
+  </header>
+
+  <!-- 工具栏（自定义） -->
+  <div class="toolbar">
+    <div class="toolbar-row">
+      <label class="tb-btn primary" for="sgfFileInput">
+        <span class="ico">📂</span><span>打开 SGF 文件</span>
+      </label>
+      <input id="sgfFileInput" class="tb-file-input" type="file" accept=".sgf,.SGF,text/plain,application/x-go-sgf">
+
+      <button class="tb-btn" id="btnSaveSgf" title="导出当前棋谱为 SGF 文件下载">
+        <span class="ico">💾</span><span>保存 SGF</span>
+      </button>
+
+      <button class="tb-btn" id="btnToggleNums" title="在已下过的棋子上显示手数">
+        <span class="ico">#</span><span>手数标注</span>
+      </button>
+
+      <div class="jump-group" title="跳到指定手数">
+        <label>跳至第</label>
+        <input id="jumpInput" type="number" min="0" step="1" placeholder="0" inputmode="numeric">
+        <label>手</label>
+        <button id="btnJump" type="button">Go</button>
+      </div>
+
+      <button class="tb-btn" id="btnLoadDemo" title="加载一份 4 手的示例棋谱">
+        <span class="ico">🎯</span><span>示例棋谱</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="status-bar" id="statusBar">
+    <span id="moveStatus">尚未加载棋谱</span>
+    <span style="margin: 0 10px; color: var(--line-dark);">|</span>
+    <span id="editModeStatus">点击棋盘可落子（自动模式）</span>
+  </div>
+
+  <!-- 棋盘 -->
+  <div class="board-wrap">
+    <!--
+      BesoGo 编辑器容器
+      - panels="control+names+comment"：控制面板 + 棋手信息 + 注释
+      - coord="western"：显示西式坐标（A-T / 1-19）
+      - tool="auto"：自动模式，点击棋盘既能导航也能续着走
+      - orient="auto"：横竖屏自动切换
+      - variants="0"：变化按 child 方式展示（默认）
+      - nokeys="false"：桌面键盘导航保留（← → Home End PgUp PgDn）
+      - resize="auto"：跟随视口
+    -->
+    <div id="board"
+         class="besogo-editor"
+         panels="control+names+comment"
+         coord="western"
+         tool="auto"
+         orient="auto"
+         variants="0"
+         portratio="none"
+         landratio="none"
+         maxwidth="720"
+         data-role="besogo-editor"></div>
+  </div>
+
+  <!-- 使用提示 -->
+  <section class="hint-section">
+    <div class="hint-card">
+      <div class="hint-title">HOW · TO · USE</div>
+      <ul>
+        <li>顶部 <b>「打开 SGF 文件」</b>：选择老师微信 / 网盘发来的 .sgf 文件。</li>
+        <li>棋盘下方 <b>控制条</b>（BesoGo 原生）：<b>⇤ ⇐ ← → ⇒ ⇥</b> 依次为「跳首 · 后退 10 手 · 后退 · 前进 · 前进 10 手 · 跳尾」。</li>
+        <li>直接<b>点棋盘</b>就是落子（自动模式）——在当前位置续着走，会形成新的分支变化。</li>
+        <li><b>手数标注</b> 按钮：把已下棋子上叠加数字编号，方便讲棋 / 回顾。</li>
+        <li><b>跳至第 N 手</b>：手动输入手数，一键定位（常用于讲棋"我们看第 87 手"）。</li>
+        <li>看变化的时候，用 BesoGo 面板中的 <span class="kbd">△</span><span class="kbd">▽</span> 在<b>兄弟分支</b>间切换。</li>
+        <li>桌面端也可以用键盘 <span class="kbd">←</span> <span class="kbd">→</span> <span class="kbd">Home</span> <span class="kbd">End</span> <span class="kbd">PgUp</span> <span class="kbd">PgDn</span> 快速导航。</li>
+        <li>下完想保存：<b>「保存 SGF」</b> 会直接下载修改后的 .sgf 文件到本地，然后你可以发回给老师。</li>
+        <li>整个页面<b>不联网、不上传</b>，你的对局数据只在这台设备上。</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>
+      SGF 打谱器 · 基于开源库 <a href="https://github.com/yewang/besogo" target="_blank" rel="noopener">BesoGo</a> 定制
+      · 主题：萝卜干水墨风<br>
+      <a href="./index.html">← 返回官网</a>
+    </p>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+<script>
+(function () {
+  'use strict';
+
+  // ============================================================
+  // 一、内置示例 SGF（无网络时兜底 & 用户点"示例棋谱"时使用）
+  // ============================================================
+  var DEMO_SGF = '(;GM[1]FF[4]CA[UTF-8]SZ[19]KM[6.5]PB[黑方]PW[白方]DT[' + new Date().toISOString().slice(0,10) + ']C[示例棋谱：4 手开局。点击棋盘可以在此基础上续着走。]' +
+    ';B[pd]C[黑先，右上小目。]' +
+    ';W[dc]C[白棋左上，标准的空角开局。]' +
+    ';B[pq]C[黑棋抢右下，四角占其三。]' +
+    ';W[dp]C[白棋守左下，双方形成"错小目"开局格局。]' +
+    ')';
+
+  // ============================================================
+  // 二、拦截 besogo.makeEditor —— 拿到内部 editor 引用，便于程序化控制
+  // ============================================================
+  var currentEditor = null;
+  var origMakeEditor = besogo.makeEditor;
+  besogo.makeEditor = function () {
+    var editor = origMakeEditor.apply(this, arguments);
+    currentEditor = editor;
+    // 挂一个 listener 以便更新 status / 手数标注
+    editor.addListener(function (msg) {
+      updateStatus();
+      if (showMoveNumbers) {
+        // 需在下一个 tick 执行，等 BesoGo 的 SVG 已经 redraw 完
+        setTimeout(renderMoveNumberOverlay, 0);
+      }
+    });
+    return editor;
+  };
+
+  // ============================================================
+  // 三、DOM 就绪后初始化 BesoGo（会走上面 patch 后的 makeEditor）
+  // ============================================================
+  var boardEl = document.getElementById('board');
+  var options = {};
+  var attrs = boardEl.attributes;
+  for (var i = 0; i < attrs.length; i++) {
+    options[attrs[i].name] = attrs[i].value;
+  }
+  // 用 create 而非 autoInit，方便我们后续再 loadRoot 加载棋谱
+  besogo.create(boardEl, options);
+
+  // 默认加载一份示例棋谱（若没有 URL 参数指定 sgf）
+  setTimeout(function () {
+    if (currentEditor) {
+      loadSgfText(DEMO_SGF);
+    }
+  }, 60);
+
+  // ============================================================
+  // 四、工具函数：Toast / 文件读写 / 状态更新
+  // ============================================================
+  function showToast(text, ms) {
+    var el = document.getElementById('toast');
+    el.textContent = text;
+    el.classList.add('show');
+    clearTimeout(el._t);
+    el._t = setTimeout(function () {
+      el.classList.remove('show');
+    }, ms || 2200);
+  }
+
+  function loadSgfText(text) {
+    if (!currentEditor) { showToast('打谱器尚未就绪，稍后再试'); return; }
+    var tree;
+    try {
+      tree = besogo.parseSgf(text);
+    } catch (err) {
+      showToast('SGF 解析失败：' + (err && err.message ? err.message : err));
+      return;
+    }
+    try {
+      besogo.loadSgf(tree, currentEditor);
+    } catch (err) {
+      showToast('加载棋谱失败：' + (err && err.message ? err.message : err));
+      return;
+    }
+    // loadSgf 之后 editor 已跳到棋谱末尾 or 首手（BesoGo 默认到 root）；主动跳到首手保持一致
+    try { currentEditor.prevNode(-1); } catch (e) {}
+    updateStatus();
+    if (showMoveNumbers) setTimeout(renderMoveNumberOverlay, 0);
+  }
+
+  function saveSgfDownload() {
+    if (!currentEditor) { showToast('打谱器尚未就绪'); return; }
+    var text = besogo.composeSgf(currentEditor);
+    var now = new Date();
+    var pad = function (n) { return n < 10 ? '0' + n : '' + n; };
+    var stamp = now.getFullYear() + pad(now.getMonth() + 1) + pad(now.getDate()) + '-' +
+                pad(now.getHours()) + pad(now.getMinutes());
+    var filename = '对局_' + stamp + '.sgf';
+    var blob = new Blob([text], { type: 'application/x-go-sgf;charset=UTF-8' });
+    var link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    setTimeout(function () {
+      document.body.removeChild(link);
+      URL.revokeObjectURL(link.href);
+    }, 200);
+    showToast('已保存：' + filename);
+  }
+
+  function updateStatus() {
+    var moveStatus = document.getElementById('moveStatus');
+    var editModeStatus = document.getElementById('editModeStatus');
+    if (!currentEditor) return;
+    var cur = currentEditor.getCurrent();
+    var moveNum = cur.moveNumber || 0;
+    var hasChild = cur.children && cur.children.length > 0;
+    var hasParent = !!cur.parent;
+    var siblings = 0;
+    if (hasParent && cur.parent.children) siblings = cur.parent.children.length - 1;
+    var pathHint = hasChild ? '' : '（当前是分支末尾）';
+    moveStatus.innerHTML = '当前第 <strong>' + moveNum + '</strong> 手' + pathHint;
+    if (siblings > 0) {
+      editModeStatus.textContent = '此节点有 ' + siblings + ' 个兄弟变化，用 △▽ 切换';
+    } else {
+      editModeStatus.textContent = '点击棋盘可落子（自动模式）';
+    }
+  }
+
+  // ============================================================
+  // 五、手数标注 · 自绘 SVG 覆盖层
+  // ============================================================
+  var showMoveNumbers = false;
+
+  function collectMovePath() {
+    // 从 current 沿 parent 回到 root，收集所有 move 节点
+    var list = [];
+    if (!currentEditor) return list;
+    var node = currentEditor.getCurrent();
+    while (node) {
+      if (node.move && node.move.x && node.move.y &&
+          node.move.x > 0 && node.move.y > 0) {
+        list.push({
+          x: node.move.x,
+          y: node.move.y,
+          color: node.move.color, // -1 黑 / 1 白（与 besogo 内部一致）
+          num: node.moveNumber
+        });
+      }
+      node = node.parent;
+    }
+    return list.reverse(); // 首手 -> 当前手
+  }
+
+  function computeSvgPos(x, coordStyle, sizeX, sizeY) {
+    // 复刻 boardDisplay.js:
+    //   CELL_SIZE = 88
+    //   COORD_MARGIN = 75; EXTRA_MARGIN = 6
+    //   BOARD_MARGIN = (coord === 'none' ? 0 : 75) + 6
+    //   svgPos(x) = BOARD_MARGIN + 44 + (x-1)*88
+    var extra = (coordStyle && coordStyle !== 'none') ? 75 + 6 : 0 + 6;
+    return extra + 44 + (x - 1) * 88;
+  }
+
+  function renderMoveNumberOverlay() {
+    var svg = boardEl.querySelector('svg');
+    if (!svg) return;
+    // 清除旧覆盖层
+    var old = svg.querySelector('#move-number-layer');
+    if (old) old.parentNode.removeChild(old);
+    if (!showMoveNumbers) return;
+    if (!currentEditor) return;
+
+    var current = currentEditor.getCurrent();
+    var size = current.getSize();
+    var coordStyle = currentEditor.getCoordStyle();
+    var path = collectMovePath();
+
+    // 只显示"当前仍在盘面上"的那些棋子的手数
+    // （被提子的手数就不显示，避免误导）
+    // 用 latest-write-wins：同一格多次落子只保留最后一次
+    var byPos = {};
+    for (var k = 0; k < path.length; k++) {
+      var m = path[k];
+      var key = m.x + ',' + m.y;
+      byPos[key] = m;
+    }
+
+    var g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    g.setAttribute('id', 'move-number-layer');
+    g.setAttribute('class', 'move-number-label');
+
+    for (var key2 in byPos) {
+      if (!byPos.hasOwnProperty(key2)) continue;
+      var mv = byPos[key2];
+      var stoneNow = current.getStone(mv.x, mv.y);
+      if (!stoneNow) continue; // 被提掉了
+      if (stoneNow !== mv.color) continue; // 该点后来被另一色下过（严格来说这是不同 move），跳过
+
+      var cx = computeSvgPos(mv.x, coordStyle, size.x, size.y);
+      var cy = computeSvgPos(mv.y, coordStyle, size.x, size.y);
+
+      var text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      text.setAttribute('x', cx);
+      text.setAttribute('y', cy);
+      text.setAttribute('text-anchor', 'middle');
+      text.setAttribute('dominant-baseline', 'central');
+      // 三位数缩小字体，避免撑出棋子
+      var s = '' + mv.num;
+      var fontSize = s.length >= 3 ? 38 : 48;
+      text.setAttribute('font-size', fontSize);
+      // 黑子 color=-1 显白字；白子 color=1 显黑字
+      text.setAttribute('fill', mv.color === -1 ? '#f2f2f2' : '#1a1a1a');
+      text.textContent = s;
+      g.appendChild(text);
+    }
+
+    svg.appendChild(g);
+  }
+
+  // ============================================================
+  // 六、事件绑定
+  // ============================================================
+  // 打开 SGF
+  document.getElementById('sgfFileInput').addEventListener('change', function (evt) {
+    var file = evt.target.files && evt.target.files[0];
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      loadSgfText(e.target.result);
+      showToast('已加载：' + file.name);
+    };
+    reader.onerror = function () {
+      showToast('文件读取失败');
+    };
+    reader.readAsText(file, 'UTF-8');
+    // 重置 input 以便再次选择同一文件也能触发
+    evt.target.value = '';
+  });
+
+  // 保存 SGF
+  document.getElementById('btnSaveSgf').addEventListener('click', saveSgfDownload);
+
+  // 手数标注
+  document.getElementById('btnToggleNums').addEventListener('click', function () {
+    showMoveNumbers = !showMoveNumbers;
+    this.classList.toggle('toggle-on', showMoveNumbers);
+    renderMoveNumberOverlay();
+    showToast(showMoveNumbers ? '手数标注：已打开' : '手数标注：已关闭');
+  });
+
+  // 跳到指定手数
+  function jumpTo(n) {
+    if (!currentEditor) return;
+    n = parseInt(n, 10);
+    if (isNaN(n) || n < 0) { showToast('请输入非负整数'); return; }
+    // 先跳到 root
+    currentEditor.prevNode(-1);
+    if (n === 0) { updateStatus(); return; }
+    // 顺 main line 前进 n 步
+    for (var i = 0; i < n; i++) {
+      var cur = currentEditor.getCurrent();
+      if (!cur.children || cur.children.length === 0) {
+        showToast('已到分支末尾，共 ' + cur.moveNumber + ' 手');
+        updateStatus();
+        return;
+      }
+      currentEditor.nextNode(1);
+    }
+    updateStatus();
+    if (showMoveNumbers) setTimeout(renderMoveNumberOverlay, 0);
+  }
+  document.getElementById('btnJump').addEventListener('click', function () {
+    jumpTo(document.getElementById('jumpInput').value);
+  });
+  document.getElementById('jumpInput').addEventListener('keydown', function (evt) {
+    if (evt.key === 'Enter') {
+      evt.preventDefault();
+      jumpTo(this.value);
+    }
+  });
+
+  // 示例棋谱
+  document.getElementById('btnLoadDemo').addEventListener('click', function () {
+    loadSgfText(DEMO_SGF);
+    showToast('已加载示例棋谱（4 手）');
+  });
+
+  // 首次 status
+  setTimeout(updateStatus, 200);
+})();
+</script>
+
+</body>
+</html>
