@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>围棋启蒙指南 · 萝卜干围棋教育</title>
+<meta name="description" content="围棋启蒙全攻略：启蒙时机、核心知识点、训练方法、家长角色、常见问题——给每一位陪伴孩子学棋的家长，一份可以温和照做的参考。">
+<meta name="keywords" content="围棋启蒙,少儿围棋,围棋入门,围棋家长,启蒙阶段,萝卜干围棋">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1a1a1a; --ink-soft:#2a2a2a; --ink-mute:#5a544a;
+  --paper:#faf6ee; --paper-2:#f2ede2; --paper-3:#eae2d0;
+  --seal:#8b3a3a; --seal-light:#a84a4a; --seal-soft:#c77a6c;
+  --line:#e6e0d5; --line-dark:#c9bfa5;
+  --gold:#b8944d;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;scroll-padding-top:68px;}
+body{background:var(--paper);color:var(--ink);font-family:'Noto Serif SC','思源宋体','SimSun',serif;line-height:1.8;-webkit-font-smoothing:antialiased;}
+.fserif{font-family:'Noto Serif SC',serif;}
+.fmono{font-family:'Cormorant Garamond',serif;letter-spacing:.02em;}
+
+/* ===== Sticky Nav ===== */
+.site-header{background:var(--paper);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:100;backdrop-filter:saturate(180%) blur(8px);-webkit-backdrop-filter:saturate(180%) blur(8px);}
+.header-inner{max-width:1080px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;}
+.logo-group{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);}
+.logo-dot{width:28px;height:28px;background:var(--seal);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:14px;border-radius:2px;letter-spacing:0;}
+.logo-text{font-size:15px;font-weight:600;letter-spacing:.04em;color:var(--ink-soft);}
+.nav-links{display:flex;gap:6px;align-items:center;}
+.nav-link{padding:6px 14px;font-size:13px;color:var(--ink-mute);text-decoration:none;border-radius:3px;transition:all .2s;letter-spacing:.03em;}
+.nav-link:hover{color:var(--seal);background:rgba(139,58,58,.06);}
+.nav-link.active{color:var(--seal);font-weight:600;}
+.mobile-menu-btn{display:none;background:none;border:none;font-size:22px;color:var(--ink-mute);cursor:pointer;padding:4px 8px;}
+
+/* ===== Hero ===== */
+.hero{padding:60px 24px 36px;text-align:center;border-bottom:1px solid var(--line);background:linear-gradient(180deg,var(--paper) 0%,var(--paper-2) 100%);}
+.hero-badge{display:inline-block;padding:3px 14px;border:1.5px solid var(--seal);color:var(--seal);font-size:11px;letter-spacing:.18em;border-radius:2px;margin-bottom:16px;font-weight:500;}
+.hero h1{font-size:34px;letter-spacing:.04em;line-height:1.3;font-weight:700;color:var(--ink);}
+.hero h1 span{color:var(--seal);}
+.hero .subtitle{color:var(--ink-mute);font-size:15px;margin-top:16px;max-width:600px;margin-left:auto;margin-right:auto;line-height:1.9;}
+
+/* ===== Section ===== */
+.section{max-width:860px;margin:0 auto;padding:56px 28px;}
+.section-label{font-size:11px;letter-spacing:.16em;color:var(--seal);font-weight:600;text-transform:uppercase;margin-bottom:6px;}
+.section-title{font-size:24px;font-weight:700;color:var(--ink);letter-spacing:.04em;margin-bottom:6px;}
+.section-rule{width:40px;height:2.5px;background:var(--seal);border-radius:2px;margin:12px 0 24px;opacity:.7;}
+.section p{font-size:15px;color:var(--ink-soft);line-height:2;margin-bottom:16px;}
+.section p:last-child{margin-bottom:0;}
+.hl{background:linear-gradient(180deg,transparent 55%,rgba(139,58,58,.14) 55%);padding:0 2px;}
+
+/* ===== 开篇引言 ===== */
+.intro-card{background:#fff;border:1px solid var(--line-dark);border-radius:4px;padding:32px 36px;margin-bottom:16px;position:relative;overflow:hidden;}
+.intro-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--seal);border-radius:2px 0 0 2px;}
+.intro-card p{font-size:16px;line-height:2;color:var(--ink-soft);}
+.intro-card strong{color:var(--ink);}
+.quote-mark{font-family:'Cormorant Garamond',serif;font-size:64px;color:var(--seal);opacity:.15;line-height:1;position:absolute;top:8px;left:24px;}
+
+/* ===== 启蒙时机 ===== */
+.age-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0;}
+.age-card{background:#fff;border:1px solid var(--line);border-radius:4px;padding:20px 22px;transition:all .2s;}
+.age-card:hover{border-color:var(--seal);box-shadow:0 4px 16px rgba(90,70,40,.08);}
+.age-card .age-num{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--seal);line-height:1;margin-bottom:8px;}
+.age-card .age-label{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:6px;}
+.age-card .age-desc{font-size:13px;color:var(--ink-mute);line-height:1.8;}
+.age-note{margin-top:16px;padding:14px 20px;background:var(--paper-2);border-left:3px solid var(--gold);border-radius:0 4px 4px 0;font-size:13.5px;color:var(--ink-soft);line-height:1.9;}
+
+/* ===== 知识点 ===== */
+.kp-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:20px 0;}
+.kp-card{background:#fff;border:1px solid var(--line);border-radius:4px;padding:18px 20px;position:relative;overflow:hidden;transition:all .2s;}
+.kp-card:hover{border-color:var(--seal);transform:translateY(-1px);box-shadow:0 6px 18px rgba(90,70,40,.07);}
+.kp-card .kp-icon{font-size:22px;margin-bottom:6px;display:block;}
+.kp-card .kp-title{font-size:15px;font-weight:600;color:var(--ink);margin-bottom:4px;}
+.kp-card .kp-desc{font-size:13px;color:var(--ink-mute);line-height:1.75;}
+
+/* 训练方法 */
+.train-section{margin-top:32px;}
+.train-title{font-size:16px;font-weight:600;color:var(--ink);margin-bottom:14px;padding-left:14px;position:relative;}
+.train-title::before{content:"";position:absolute;left:0;top:5px;bottom:5px;width:3px;background:var(--seal);border-radius:1px;}
+.train-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;}
+.train-tag{padding:7px 16px;background:#fff;border:1px solid var(--line-dark);border-radius:20px;font-size:13px;color:var(--ink-soft);letter-spacing:.02em;transition:all .2s;}
+.train-tag:hover{border-color:var(--seal);color:var(--seal);}
+.principle-box{margin-top:20px;padding:16px 22px;background:linear-gradient(135deg,rgba(139,58,58,.04) 0%,rgba(139,58,58,.08) 100%);border:1px dashed var(--seal);border-radius:4px;font-size:14px;color:var(--ink-soft);line-height:1.9;text-align:center;}
+.principle-box strong{color:var(--seal);}
+
+/* ===== 家长角色 ===== */
+.parent-section{background:#fff;border:1px solid var(--line-dark);border-radius:6px;padding:36px 36px 32px;margin:20px 0;}
+.parent-stage-badge{display:inline-block;padding:3px 14px;background:var(--seal);color:#fff;font-size:11px;letter-spacing:.1em;border-radius:2px;margin-bottom:12px;font-weight:500;}
+.parent-role{font-size:15px;color:var(--ink-mute);margin-bottom:6px;line-height:1.9;}
+.parent-role span{color:var(--seal);font-weight:600;}
+.parent-portrait{background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:18px 22px;margin:16px 0;font-size:14px;color:var(--ink-soft);line-height:2;}
+.parent-portrait b{color:var(--ink);}
+
+.sub-title{font-size:16px;font-weight:600;color:var(--ink);margin:24px 0 14px;padding-left:14px;position:relative;}
+.sub-title::before{content:"";position:absolute;left:0;top:5px;bottom:5px;width:3px;background:var(--seal);border-radius:1px;}
+
+.do-list{list-style:none;padding:0;margin:0;}
+.do-list li{padding:12px 0 12px 36px;position:relative;font-size:14px;color:var(--ink-soft);line-height:1.9;border-bottom:1px dashed var(--line);}
+.do-list li:last-child{border-bottom:none;}
+.do-list li::before{content:attr(data-idx);position:absolute;left:0;top:13px;width:24px;height:24px;background:var(--seal);color:#fff;font-family:'Cormorant Garamond',serif;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;border-radius:50%;}
+.do-list li b{color:var(--ink);}
+
+.persona-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0;}
+.persona-card{background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:18px 20px;}
+.persona-tag{display:inline-block;padding:2px 10px;font-size:11px;letter-spacing:.08em;border-radius:2px;margin-bottom:10px;font-weight:600;}
+.persona-tag.inner{background:var(--paper-3);color:var(--ink-mute);}
+.persona-tag.outer{background:#a15a4a;color:#fff;}
+.persona-card p{font-size:13.5px;line-height:1.9;color:var(--ink-soft);margin:0;}
+.persona-card b{color:var(--ink);}
+
+.tips-list{list-style:none;padding:0;margin:14px 0;}
+.tips-list li{padding:10px 0 10px 24px;position:relative;font-size:13.5px;color:var(--ink-soft);line-height:1.9;border-bottom:1px dashed var(--line);}
+.tips-list li:last-child{border-bottom:none;}
+.tips-list li::before{content:"📌";position:absolute;left:0;top:10px;font-size:12px;}
+
+.teacher-quote{padding:18px 22px;background:var(--paper-2);border-left:3px solid var(--seal);border-radius:0 4px 4px 0;margin:14px 0;font-size:14px;line-height:1.9;color:var(--ink-soft);}
+.teacher-quote .from{display:block;margin-top:8px;font-size:12px;color:var(--seal);font-weight:600;letter-spacing:.04em;}
+
+/* ===== FAQ ===== */
+.faq-item{background:#fff;border:1px solid var(--line);border-radius:4px;margin-bottom:12px;overflow:hidden;transition:all .2s;}
+.faq-item:hover{border-color:var(--line-dark);}
+.faq-q{padding:16px 22px;cursor:pointer;font-size:14px;font-weight:600;color:var(--ink);display:flex;justify-content:space-between;align-items:center;gap:12px;user-select:none;transition:background .2s;}
+.faq-q:hover{background:var(--paper-2);}
+.faq-q .arrow{font-size:16px;color:var(--ink-mute);transition:transform .3s;flex-shrink:0;}
+.faq-item.open .faq-q .arrow{transform:rotate(180deg);color:var(--seal);}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease,padding .35s ease;padding:0 22px;font-size:14px;color:var(--ink-soft);line-height:1.9;}
+.faq-item.open .faq-a{max-height:400px;padding:0 22px 18px;}
+.faq-a b{color:var(--ink);}
+
+/* ===== 推荐资源 ===== */
+.resource-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:20px 0;}
+.resource-card{background:#fff;border:1px solid var(--line);border-radius:4px;padding:20px;text-align:center;transition:all .2s;}
+.resource-card:hover{border-color:var(--seal);transform:translateY(-2px);box-shadow:0 6px 18px rgba(90,70,40,.08);}
+.resource-icon{font-size:32px;margin-bottom:10px;display:block;}
+.resource-type{font-size:11px;letter-spacing:.12em;color:var(--seal);font-weight:600;margin-bottom:6px;}
+.resource-name{font-size:15px;font-weight:600;color:var(--ink);margin-bottom:6px;}
+.resource-desc{font-size:12px;color:var(--ink-mute);line-height:1.7;}
+
+/* ===== Footer ===== */
+.site-footer{background:var(--paper-2);border-top:1px solid var(--line);padding:36px 24px;text-align:center;}
+.footer-inner{max-width:860px;margin:0 auto;}
+.footer-links{display:flex;justify-content:center;gap:16px;margin-bottom:16px;flex-wrap:wrap;}
+.footer-links a{font-size:13px;color:var(--ink-mute);text-decoration:none;transition:color .2s;}
+.footer-links a:hover{color:var(--seal);}
+.footer-copy{font-size:12px;color:var(--ink-mute);line-height:1.8;}
+.footer-copy .seal-text{color:var(--seal);}
+
+/* ===== Divider ===== */
+.section-divider{max-width:860px;margin:0 auto;padding:0 28px;}
+.section-divider hr{border:none;border-top:1px dashed var(--line-dark);}
+
+/* ===== Back to top ===== */
+.back-top{position:fixed;bottom:28px;right:28px;width:40px;height:40px;background:var(--seal);color:#fff;border:none;border-radius:50%;font-size:18px;cursor:pointer;opacity:0;pointer-events:none;transition:all .3s;z-index:90;box-shadow:0 4px 12px rgba(139,58,58,.25);}
+.back-top.show{opacity:1;pointer-events:auto;}
+.back-top:hover{background:var(--seal-light);transform:translateY(-2px);}
+
+/* ===== Mobile ===== */
+@media (max-width:768px){
+  .header-inner{padding:10px 16px;}
+  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:var(--paper);border-bottom:1px solid var(--line);flex-direction:column;padding:12px 16px;gap:4px;box-shadow:0 8px 20px rgba(0,0,0,.08);}
+  .nav-links.open{display:flex;}
+  .mobile-menu-btn{display:block;}
+  .hero{padding:40px 18px 28px;}
+  .hero h1{font-size:24px;}
+  .hero .subtitle{font-size:14px;}
+  .section{padding:36px 18px;}
+  .section-title{font-size:20px;}
+  .intro-card{padding:24px 20px;}
+  .age-grid{grid-template-columns:1fr;}
+  .kp-grid{grid-template-columns:1fr;}
+  .persona-grid{grid-template-columns:1fr;}
+  .resource-grid{grid-template-columns:1fr;}
+  .parent-section{padding:24px 18px 20px;}
+  .back-top{bottom:18px;right:18px;width:36px;height:36px;font-size:16px;}
+}
+@media (max-width:480px){
+  .hero h1{font-size:22px;letter-spacing:.02em;}
+  .logo-text{font-size:13px;}
+  .age-card .age-num{font-size:24px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== Header ===== -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo-group">
+      <span class="logo-dot">萝</span>
+      <span class="logo-text">萝卜干围棋</span>
+    </a>
+    <button class="mobile-menu-btn" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="菜单">☰</button>
+    <nav class="nav-links">
+      <a href="#intro" class="nav-link">引言</a>
+      <a href="#age" class="nav-link">启蒙时机</a>
+      <a href="#knowledge" class="nav-link">核心知识</a>
+      <a href="#parent" class="nav-link">家长角色</a>
+      <a href="#faq" class="nav-link">常见问题</a>
+      <a href="#resources" class="nav-link">推荐资源</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ===== Hero ===== -->
+<section class="hero">
+  <div class="hero-badge">启蒙指南 · QIMENG GUIDE</div>
+  <h1>围棋启蒙，<span>先保兴趣</span>，再谈技术</h1>
+  <p class="subtitle">给每一位陪伴孩子学棋的家长——从什么时候开始、学什么、怎么陪、遇到困惑怎么办，这里有一份可以温和照做的参考。</p>
+</section>
+
+<!-- ===== 1. 开篇引言 ===== -->
+<section class="section" id="intro">
+  <div class="section-label">壹 · 核心理念</div>
+  <h2 class="section-title">启蒙先保兴趣，先完成再完成好</h2>
+  <div class="section-rule"></div>
+  <div class="intro-card">
+    <span class="quote-mark">"</span>
+    <p>围棋启蒙这件事，很多家长和老师的误区是<strong>一上来就教规则、教吃子、教围地</strong>——觉得孩子坐下来了，就可以开始了。</p>
+    <p>但真正有效的启蒙，<span class="hl">第一步不是技术，是关系</span>：让孩子觉得"围棋好玩"、"和爸爸妈妈一起下棋很开心"。有了这个基础，后面所有技术都能慢慢长出来；没有这个基础，教再多概念也只是提前消耗兴趣。</p>
+    <p>所以启蒙阶段的唯一原则是——<strong>启蒙先保兴趣，先完成再完成好</strong>。</p>
+  </div>
+</section>
+
+<div class="section-divider"><hr></div>
+
+<!-- ===== 2. 启蒙时机 ===== -->
+<section class="section" id="age">
+  <div class="section-label">贰 · 启蒙时机</div>
+  <h2 class="section-title">什么年龄开始合适？</h2>
+  <div class="section-rule"></div>
+  <p><strong>4–8 岁</strong>是围棋启蒙的黄金窗口。</p>
+  <div class="age-grid">
+    <div class="age-card">
+      <div class="age-num">&lt; 4</div>
+      <div class="age-label">太早了，再等等</div>
+      <div class="age-desc">坐不住、认知不到位。这个阶段的孩子连"规则"这个词都还理解不了，强行启蒙只会适得其反。</div>
+    </div>
+    <div class="age-card">
+      <div class="age-num">4–8</div>
+      <div class="age-label">黄金窗口，别错过</div>
+      <div class="age-desc">具体形象思维主导，对"棋子被吃掉"这种故事化情境理解力惊人。这是启蒙效率最高的年龄段。</div>
+    </div>
+    <div class="age-card">
+      <div class="age-num">6 岁前</div>
+      <div class="age-label">只需做两件事</div>
+      <div class="age-desc">让孩子接触棋子、认识"围"这个字就够了。不用急着教规则，让孩子和棋子建立好感是全部任务。</div>
+    </div>
+    <div class="age-card">
+      <div class="age-num">&gt; 10</div>
+      <div class="age-label">也能学，但耐心会差些</div>
+      <div class="age-desc">大孩子理解力强但耐心差一些，需要老师用不同的方式激发兴趣。真正想学的大孩子，进步反而可能更快。</div>
+    </div>
+  </div>
+  <div class="age-note">
+    <strong>💡 小结：</strong>真正的启蒙从 6 岁开始也完全来得及。不用抢跑，也不用焦虑"别人家孩子 4 岁就学了"。合适的年龄 + 合适的老师，比"越早越好"重要 100 倍。
+  </div>
+</section>
+
+<div class="section-divider"><hr></div>
+
+<!-- ===== 3. 核心知识点 ===== -->
+<section class="section" id="knowledge">
+  <div class="section-label">叁 · 核心知识</div>
+  <h2 class="section-title">启蒙阶段学什么？</h2>
+  <div class="section-rule"></div>
+  <p>启蒙阶段的核心知识点有六个——从最基本的"气"到初步的角部概念，逐步建立孩子对棋盘的感知。</p>
+  <div class="kp-grid">
+    <div class="kp-card">
+      <span class="kp-icon">🫁</span>
+      <div class="kp-title">气</div>
+      <div class="kp-desc">一颗棋、两颗棋、一块棋的气分别怎么数。"气"是围棋最基本的概念——棋子呼吸的空间，没气了就被"抬走"。</div>
+    </div>
+    <div class="kp-card">
+      <span class="kp-icon">🔒</span>
+      <div class="kp-title">封锁</div>
+      <div class="kp-desc">把对方的棋盖住，让它没气可逃。封锁是最简单的攻防意识，也是后续一切吃子技术的基础。</div>
+    </div>
+    <div class="kp-card">
+      <span class="kp-icon">⚔️</span>
+      <div class="kp-title">一步吃 / 一步逃</div>
+      <div class="kp-desc">单颗子的攻防基本功。能看见一步吃子机会、能跑掉被叫吃的棋子，启蒙就算合格了。</div>
+    </div>
+    <div class="kp-card">
+      <span class="kp-icon">🧩</span>
+      <div class="kp-title">形状</div>
+      <div class="kp-desc">好形（虎口、小尖、拆二）vs 坏形（愚形、凝形、裂形）。让孩子建立"棋形美感"的初步印象。</div>
+    </div>
+    <div class="kp-card">
+      <span class="kp-icon">📐</span>
+      <div class="kp-title">占角、守角、挂角</div>
+      <div class="kp-desc">三步一体，角部第一课。先占角、再决定守还是挂，让孩子有"从角落开始"的布局意识。</div>
+    </div>
+    <div class="kp-card">
+      <span class="kp-icon">🏃</span>
+      <div class="kp-title">行棋步伐</div>
+      <div class="kp-desc">一间跳、二间跳、小飞、大飞——棋子怎么走得快、走得远。这是后续布局和中盘的基础功。</div>
+    </div>
+  </div>
+
+  <div class="train-section">
+    <h3 class="train-title">推荐训练方法</h3>
+    <div class="train-tags">
+      <span class="train-tag">摆子游戏（老师摆一步，孩子模仿）</span>
+      <span class="train-tag">《101 一步吃子千题》</span>
+      <span class="train-tag">守角挂角基础练习</span>
+      <span class="train-tag">行棋步伐熟练题</span>
+    </div>
+    <div class="principle-box">
+      ⚡ 启蒙唯一的原则：<strong>不贪多图快，一个概念不熟不进下一个。</strong>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"><hr></div>
+
+<!-- ===== 4. 家长角色 ===== -->
+<section class="section" id="parent">
+  <div class="section-label">肆 · 家长角色</div>
+  <h2 class="section-title">启蒙期，家长应该怎么做？</h2>
+  <div class="section-rule"></div>
+  <p>孩子学围棋的这几年，棋盘上的内容在变，您要扮演的角色也得跟着变。启蒙期的核心关键词是——<span class="hl">玩伴</span>。以下内容摘自《围棋家长成长手册》第三章。</p>
+
+  <div class="parent-section">
+    <span class="parent-stage-badge">STAGE 01 · 启蒙期（0 基础 – 业余 1 级）</span>
+    <div class="parent-role">
+      家长角色：<span>玩伴</span> · 一句话姿态：他玩，您也玩
+    </div>
+
+    <h4 class="sub-title">孩子是什么样的</h4>
+    <div class="parent-portrait">
+      5~7 岁，以<b>具体形象思维</b>为主，听不懂"势"，但对"小怪兽被吃掉"这种拟人化说法理解力惊人。单次有效注意力 <b>5~10 分钟</b>，中间走神是正常的。会反复忘掉规则、赢了就乐疯输了就大哭，也会突然蹦出一句让您惊呆的话。请先放心：这不是您家孩子的问题，是这个年纪本来就这样。
+    </div>
+
+    <h4 class="sub-title">家长可以这样做</h4>
+    <ol class="do-list">
+      <li data-idx="01"><b>把"上课"换成"玩游戏"</b>——说"来玩救小棋子的游戏"，比说"来做死活题"效果好一万倍。每次 10~15 分钟就收，留一点"还没玩够"的感觉。</li>
+      <li data-idx="02"><b>有技巧地让棋</b>——故意留一个小破绽（一颗子叫吃没救、一块棋眼位不全），让孩子自己发现。他获得的成就感，远大于您送他十颗子。</li>
+      <li data-idx="03"><b>规则全部用童话语言</b>——"气"是"棋子的呼吸"，"提子"是"没气了被抬走"，"打劫"是"两颗子吵起来轮流抢"。5 岁的大脑就这么工作。</li>
+      <li data-idx="04"><b>每周固定"家庭围棋日"</b>——不一定下棋，看《棋魂》、让他当小老师、玩五子棋都行。重点是让"围棋"和"家""开心""被陪伴"绑在一起。</li>
+      <li data-idx="05"><b>准备一个"鼓励系统"</b>——贴纸册、徽章、玻璃球都行。重点是奖励"过程动作"（主动数气、复摆题、输棋没哭），不奖励"赢了几盘"。</li>
+      <li data-idx="06"><b>每两周和老师沟通一次</b>——问"我回家可以陪着练什么"，不要问"他什么时候升级"。这两个问题给老师的信号完全不同。</li>
+      <li data-idx="07"><b>把"今天赢没赢"从嘴边删掉</b>——只问三个问题之一：今天最开心的是哪一瞬间？学到了什么好玩的？老师有没有夸你？</li>
+    </ol>
+
+    <h4 class="sub-title">分气质细化 · 内向 vs 外向</h4>
+    <p style="font-size:13.5px;color:var(--ink-mute);line-height:1.85;margin:0 0 14px 0;">同样一句话、同样一道题，对内向和外向孩子要换两种用法。</p>
+    <div class="persona-grid">
+      <div class="persona-card">
+        <span class="persona-tag inner">内向孩子</span>
+        <p>课上不举手不代表没听懂，是处理速度慢半拍。回家<b>重做不重讲</b>——直接把题摆出来让他自己再摆一次。出门前 <b>20 分钟</b>预告"我们要去围棋课了"，别在棋室门口逼他和老师同学打招呼。赢棋以后在<b>车里、家里</b>夸，不要当众大声夸——他会退缩。</p>
+      </div>
+      <div class="persona-card">
+        <span class="persona-tag outer">外向孩子</span>
+        <p>课上举手最积极、讲得最热闹，但享受的是"被看见"不是"想明白"。落子前加一个<b>深呼吸小仪式</b>，每盘棋后让他<b>当小老师</b>讲一遍。家庭围棋日<b>刻意给他设计"表演环节"</b>（给爷爷奶奶演示怎么吃子），舞台需求被满足了，他在课上就不会用插嘴抢答去抢老师的注意力。</p>
+      </div>
+    </div>
+
+    <h4 class="sub-title">小提醒</h4>
+    <ul class="tips-list">
+      <li>别急着纠正错误，等这盘下完再用"我们一起看看还有没有别的下法"开头。</li>
+      <li>孩子说"不想下棋了"，请认真听——先分清是今天不想还是最近都不太想。不要用"以后再也不学"威胁他，他会当真。</li>
+      <li>绘本和动画是好朋友：《棋魂》《围棋少年》《黑子白子落星盘》《喜羊羊之奇幻围棋》，让围棋在孩子心里有"故事感"。</li>
+      <li>不要在饭桌上复盘。饭桌留给吃饭和闲聊，棋的事单独找小段时间说。</li>
+    </ul>
+
+    <div class="teacher-quote">
+      <p>启蒙期的家长其实只要做一件事——让孩子下完课走出教室的时候，是笑着的。剩下的，慢慢来都来得及。</p>
+      <span class="from">—— 李老师</span>
+    </div>
+    <div class="teacher-quote">
+      <p>启蒙期最重要的，不是孩子学会了多少规则，是他在围棋这件事上，找到了一个"我说了算"的感觉。</p>
+      <span class="from">—— 萝卜老师手记</span>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"><hr></div>
+
+<!-- ===== 5. 常见问题 ===== -->
+<section class="section" id="faq">
+  <div class="section-label">伍 · 常见问题</div>
+  <h2 class="section-title">家长最常问的几个问题</h2>
+  <div class="section-rule"></div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+      什么年龄适合开始学围棋？
+      <span class="arrow">▾</span>
+    </div>
+    <div class="faq-a">
+      <b>实在回答：</b>4–8 岁是启蒙黄金窗口。太小（&lt;4 岁）坐不住、认知不到位；太大（&gt;10 岁）也能学，但耐心会差一些。<br>
+      <b>家长可以做的：</b>不用抢跑。6 岁前只需要让孩子接触棋子、认识"围"这个字就够了。真正的启蒙从 6 岁开始也来得及。
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+      我不会围棋，怎么给孩子启蒙？
+      <span class="arrow">▾</span>
+    </div>
+    <div class="faq-a">
+      <b>实在回答：</b>家长不会反而更好——你不会指手画脚。找一个靠谱的老师，是启蒙阶段最重要的事，比家长的水平重要 100 倍。<br>
+      <b>家长可以做的：</b>可以先看两本入门书（如《一天一课学围棋》第一册），了解"气""目""吃子"三个基本概念，能听懂孩子说棋就够了。
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+      是先学吃子还是先学围地？
+      <span class="arrow">▾</span>
+    </div>
+    <div class="faq-a">
+      <b>实在回答：</b>吃子容易上手，孩子有成就感；围地抽象，需要几个月后才能理解。所以启蒙阶段先教吃子。<br>
+      <b>家长可以做的：</b>如果孩子学吃子学到能自己吃 10 颗以上的棋子还不腻，可以让老师开始引入"围空"的概念。这个节奏由老师把控，家长不用担心。
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+      围棋需要多久能上手？
+      <span class="arrow">▾</span>
+    </div>
+    <div class="faq-a">
+      <b>实在回答：</b>3 个月能理解基本规则并下完 9 路棋；6 个月能下完 13 路棋；12 个月能下完 19 路完整对局。<br>
+      <b>家长可以做的：</b>如果孩子学了半年还下不完 13 路棋，不是他有问题，先看老师是不是节奏太慢。找老师谈一下。
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"><hr></div>
+
+<!-- ===== 6. 推荐资源 ===== -->
+<section class="section" id="resources">
+  <div class="section-label">陆 · 推荐资源</div>
+  <h2 class="section-title">启蒙期可以用到的资源</h2>
+  <div class="section-rule"></div>
+
+  <div class="resource-grid">
+    <div class="resource-card">
+      <span class="resource-icon">📖</span>
+      <div class="resource-type">入门书籍</div>
+      <div class="resource-name">《一天一课学围棋》第一册</div>
+      <div class="resource-desc">最适合零基础家长和孩子的入门教材，每天一课，轻松上手。</div>
+    </div>
+    <div class="resource-card">
+      <span class="resource-icon">🎬</span>
+      <div class="resource-type">动画推荐</div>
+      <div class="resource-name">《棋魂》《围棋少年》</div>
+      <div class="resource-desc">让围棋在孩子心里有"故事感"。另有《黑子白子落星盘》《喜羊羊之奇幻围棋》适合更低龄。</div>
+    </div>
+    <div class="resource-card">
+      <span class="resource-icon">📝</span>
+      <div class="resource-type">练习工具</div>
+      <div class="resource-name">《101 一步吃子千题》</div>
+      <div class="resource-desc">启蒙阶段最核心的练习册——一步吃子的反复训练，建立攻防的基本功。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-links">
+      <a href="index.html">首页</a>
+      <a href="thinking-toolbox.html">思维工具箱</a>
+      <a href="xingshi-panduan.html">形势判断</a>
+      <a href="buju-jiaoxue.html">布局教学</a>
+      <a href="sgf-viewer.html">SGF 棋谱</a>
+    </div>
+    <div class="footer-copy">
+      <span class="seal-text">萝卜干围棋教育</span> · 专注少儿围棋教师系统化成长与围棋家庭教育<br>
+      内容由多年教学实践沉淀而成，仅供参考
+    </div>
+  </div>
+</footer>
+
+<!-- ===== Back to Top ===== -->
+<button class="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="回到顶部">↑</button>
+
+<script>
+/* ===== 滚动高亮导航 ===== */
+(function(){
+  var links = document.querySelectorAll('.nav-link');
+  var sections = [];
+  links.forEach(function(l){
+    var id = l.getAttribute('href');
+    if(id && id.startsWith('#')){
+      var el = document.getElementById(id.slice(1));
+      if(el) sections.push({el:el, link:l});
+    }
+  });
+
+  function onScroll(){
+    var st = window.scrollY + 120;
+    var cur = null;
+    for(var i=0;i<sections.length;i++){
+      if(sections[i].el.offsetTop <= st) cur = sections[i];
+    }
+    links.forEach(function(l){l.classList.remove('active');});
+    if(cur) cur.link.classList.add('active');
+
+    /* back to top */
+    var btn = document.querySelector('.back-top');
+    if(window.scrollY > 400) btn.classList.add('show');
+    else btn.classList.remove('show');
+  }
+
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  /* close mobile menu on link click */
+  links.forEach(function(l){
+    l.addEventListener('click', function(){
+      document.querySelector('.nav-links').classList.remove('open');
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
