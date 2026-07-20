@@ -575,6 +575,26 @@
       .adv-mid-cell { grid-template-columns: 48px 1fr; gap: 10px; padding: 10px 12px; }
     }
 
+    /* ===== 练棋建议 · 移动端适配 ===== */
+    @media (max-width: 640px) {
+      .stage-tab { padding: 10px 14px; font-size: 13.5px; }
+      .stage-panel ul li { font-size: 13.5px; padding: 5px 0 5px 18px; }
+      .stage-panel .kv-tag { font-size: 12px; padding: 4px 10px; }
+      .practice-entry-card { padding: 18px 16px; }
+      .practice-entry-title { font-size: 18px; }
+      .practice-entry-sub { font-size: 13px; }
+      .practice-entry-arrow { display: none; }
+      .practice-module-title { font-size: 17px; }
+      .memcycle-box, .ratio631-box { padding: 16px 14px; }
+      .memcycle-input, .ratio631-input { gap: 8px; }
+      .memcycle-input button { padding: 8px 14px; font-size: 13px; }
+      .practice-notes { grid-template-columns: 1fr; gap: 10px; }
+      .practice-note { padding: 12px 14px; }
+      .feedback-form h4 { font-size: 14px; }
+      .feedback-form label { font-size: 13px; }
+      .feedback-preview { margin-top: 16px; }
+      #fb-canvas { width: 100% !important; height: auto !important; }
+    }
     /* ===== 练棋建议 v1 END ===== */
     /* ===== 给家长的建议 v6 ===== */
     .parent-entry-card{
@@ -903,6 +923,26 @@
   }
   .panel-close:hover { transform: scale(1.08); }
   body.body-lock .panel-close { display: flex; }
+
+  /* ===== 返回顶部按钮（移动端面板内） ===== */
+  .back-to-top {
+    position: fixed; bottom: 20px; right: 20px;
+    z-index: 67;
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.95);
+    border: 1px solid var(--line);
+    color: var(--seal);
+    cursor: pointer;
+    font-size: 18px;
+    display: none;
+    align-items: center; justify-content: center;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+    transition: all 0.2s;
+  }
+  .back-to-top:hover { transform: scale(1.08); background: var(--seal); color: #fff; }
+  .back-to-top.visible { display: flex; }
+  @media (min-width: 901px) { .back-to-top { display: none !important; } }
 
   /* ===== 移动端汉堡菜单按钮 ===== */
   .mobile-menu-btn {
@@ -1334,8 +1374,7 @@
     </a>
     <nav class="hidden md:flex items-center gap-6 text-sm">
       <a href="/xxyd/" class="nav-link" style="color:var(--seal);font-weight:600">学习园地 <span style="font-size:10px;background:var(--seal);color:#fff;padding:1px 6px;border-radius:8px;margin-left:2px;letter-spacing:.05em">NEW</span></a>
-      <a href="#ability-test" class="nav-link nav-toggle" data-target="ability-test" data-role="teacher">教学能力测试 · 教师版</a>
-      <a href="#ability-test" class="nav-link nav-toggle" data-target="ability-test" data-role="parent">教育认知度测试 · 家长版</a>
+      <a href="#ability-test" class="nav-link nav-toggle" data-target="ability-test">能力测试</a>
 <!-- ===== LUOBO-NAV-EXT v1.0 START ===== -->
 <span class="nav-sep" aria-hidden="true" style="display:inline-block;width:1px;height:14px;background:var(--line,#d9c9a0);opacity:.6;margin:0 4px"></span>
 <a href="javascript:void(0)" class="nav-link nav-luobo-ext dr-entry-btn" onclick="if(window.__luoboOpenDailyRitual)window.__luoboOpenDailyRitual();return false;" style="color:var(--seal,#a94b3d);font-weight:600">📮 每日棋事簿</a>
@@ -1901,6 +1940,21 @@ header nav .nav-luobo-ext{white-space:nowrap;}
       <span class="parent-entry-arrow">→</span>
     </button>
 
+    <button class="parent-entry-card" onclick="window.location.href='xingshi-panduan.html'" style="cursor:pointer">
+      <div class="parent-entry-badge">技术专题 · INTERACTIVE COURSE</div>
+      <div class="parent-entry-title">形势判断 · 段位棋手的必修课</div>
+      <div class="parent-entry-sub">
+        从"为什么要学形势判断"讲到数空方法、厚薄评估、决策框架与思考流程，7 章完整内容，配有互动练习与翻转卡片。由 189 页教学 PPT 精炼而成，面向段位阶段学员的系统训练指南。
+      </div>
+      <div class="parent-entry-tags">
+        <span class="parent-entry-tag">三步数空法</span>
+        <span class="parent-entry-tag">厚薄评估</span>
+        <span class="parent-entry-tag">三层追问决策法</span>
+        <span class="parent-entry-tag">互动练习</span>
+      </div>
+      <span class="parent-entry-arrow">→</span>
+    </button>
+
     <button class="parent-entry-card" onclick="showParentGuide()">
       <div class="parent-entry-badge">给家长的建议 · PARENT GUIDE</div>
       <div class="parent-entry-title">三阶段家长角色 · 陪孩子学围棋的正确姿势</div>
@@ -1961,12 +2015,13 @@ header nav .nav-luobo-ext{white-space:nowrap;}
       <!-- 模块 A：阶段导航 -->
       <div class="practice-module">
         <div class="practice-module-title">模块 A · 分阶段练什么</div>
-        <div class="practice-module-desc">点击 tab 切换 5 个阶段的知识点与训练方法。</div>
+        <div class="practice-module-desc">点击 tab 切换 6 个阶段的知识点与训练方法。</div>
         <div class="stage-tabs">
           <button class="stage-tab active" data-stage="qm">启蒙</button>
           <button class="stage-tab" data-stage="rm">入门</button>
           <button class="stage-tab" data-stage="bj">布局</button>
           <button class="stage-tab" data-stage="zp">中盘</button>
+          <button class="stage-tab" data-stage="gz">官子</button>
           <button class="stage-tab" data-stage="sh">死活 · 对杀</button>
         </div>
 
@@ -1994,27 +2049,28 @@ header nav .nav-luobo-ext{white-space:nowrap;}
         <div class="stage-panel" data-stage="rm">
           <h4>吃子技巧</h4>
           <div class="kv-row">
-            <span class="kv-tag">双打吃</span><span class="kv-tag">征吃</span><span class="kv-tag">扑吃</span>
-            <span class="kv-tag">枷吃</span><span class="kv-tag">倒扑</span><span class="kv-tag">接不归</span>
+            <span class="kv-tag">双打吃</span><span class="kv-tag">征吃</span><span class="kv-tag">扑吃（含倒扑）</span>
+            <span class="kv-tag">枷吃</span><span class="kv-tag">接不归</span><span class="kv-tag">挖吃</span>
+            <span class="kv-tag">断吃</span><span class="kv-tag">滚打包收</span>
           </div>
           <h4>死活初步</h4>
           <ul>
             <li>认眼位：什么是真眼、假眼</li>
-            <li>基本眼形：直三、直四、方四、板六、盘角曲四……</li>
+            <li>基本眼形：直三、弯三、方四、丁四、直四、弯四、刀把五、梅花五、葡萄六、板六……（盘角曲四、金柜角等进阶形稍后学）</li>
             <li>做眼与破眼的基本技巧</li>
           </ul>
           <h4>十三路 / 十九路练围空</h4>
           <ul><li>从小棋盘练到全局，理解"围地"这个目标</li></ul>
           <h4>常见角部定式</h4>
           <div class="kv-row">
-            <span class="kv-tag">星位 · 双枪</span><span class="kv-tag">星位 · 尖顶拆回</span>
-            <span class="kv-tag">星位 · 夹击</span><span class="kv-tag">星位 · 点三三</span>
+            <span class="kv-tag">星位 · 尖顶定式</span><span class="kv-tag">星位 · 尖顶拆二</span>
+            <span class="kv-tag">星位 · 一间低夹</span><span class="kv-tag">星位 · 点三三</span>
             <span class="kv-tag">小目 · 托退</span><span class="kv-tag">小目 · 尖顶</span>
             <span class="kv-tag">小目 · 秀策流</span>
           </div>
           <h4>观察素养（三条铁律）</h4>
           <ul>
-            <li>先看角，再看边</li>
+            <li>空间价值判断：<strong>金角银边草肚皮</strong>——先看角部变化，再看边上，最后看中腹</li>
             <li>先看接触处（气紧、断点、劫争）</li>
             <li>先看棋的块数（数一下场上有几条大龙）</li>
           </ul>
@@ -2023,25 +2079,17 @@ header nav .nav-luobo-ext{white-space:nowrap;}
         <div class="stage-panel" data-stage="bj">
           <h4>布局核心概念</h4>
           <ul>
-            <li>分断：识别对方的断点，学会先手扳、先手挤</li>
-            <li>气紧：判断哪一块气紧、哪一块气松</li>
-            <li>棋形三忌：<strong>愚形</strong>（挤在一起没效率）/ <strong>凝形</strong>（子力重复）/ <strong>裂形</strong>（自己内部有断点）</li>
-            <li>强弱判断：谁强、谁弱、谁需要补</li>
-            <li>厚薄判断：厚势往哪里发挥、薄棋往哪里补</li>
-            <li>形势判断：数一次目、看一次全局，再决定下一手</li>
+            <li>占角选择：星位重外势，小目重实地，三三取地最快但偏低位</li>
+            <li>守角与挂角：无忧角、单关守角；小飞挂、一间高挂等常见应法</li>
+            <li>拆边与分投：拆边扩大己方势力，分投破坏对方阵势</li>
+            <li>大场与急所：<strong>先急后大</strong>——急所关生死，优先于大场（发展要点）</li>
+            <li>厚薄与形势判断：厚势用于攻击而非围空，定期数目判断全局优劣</li>
           </ul>
           <h4>布局角部手段</h4>
           <div class="kv-row">
             <span class="kv-tag">压 · 长</span><span class="kv-tag">托 · 退</span>
             <span class="kv-tag">尖顶 · 立</span><span class="kv-tag">点角 · 打入</span>
           </div>
-          <h4>布局大场与急所</h4>
-          <ul>
-            <li>急所（关生死）：<strong>先急后大</strong>——生死永远优先于大小</li>
-            <li>小天王山：局部要点，双方都想抢</li>
-            <li>大天王山：全局要点，抢到就赚一大目</li>
-            <li>劳逸：让对方跑，自己捡便宜</li>
-          </ul>
         </div>
 
         <div class="stage-panel" data-stage="zp">
@@ -2057,6 +2105,22 @@ header nav .nav-luobo-ext{white-space:nowrap;}
             <li>见空就围，见断就断——没有全局观</li>
             <li>为了吃棋不惜自己被吃——本末倒置</li>
             <li>厚势旁边围空——把厚势变成薄壳</li>
+          </ul>
+        </div>
+
+        <div class="stage-panel" data-stage="gz">
+          <h4>官子基础</h4>
+          <ul>
+            <li>理解官子阶段的目标：收官阶段争夺每一目的价值</li>
+            <li>区分先手官子与后手官子：先手官子优先走，后手官子按大小排序</li>
+            <li>掌握常见官子型：一路扳粘、二路扳粘、尖官子、跳官子</li>
+            <li>学会估算官子价值：比较不同官子的目数得失</li>
+          </ul>
+          <h4>官子阶段注意事项</h4>
+          <ul>
+            <li>不要忽视小官子——积少成多，小官子累积可决定胜负</li>
+            <li>注意先后手：先手官子必须及时走掉，否则被对方逆收</li>
+            <li>收官时仍需计算：不要因为觉得"大局已定"就随意落子</li>
           </ul>
         </div>
 
@@ -2121,6 +2185,7 @@ header nav .nav-luobo-ext{white-space:nowrap;}
         <div class="practice-module-desc">
           做题难度不是越难越好。低 2 级（60%）打基础找信心，同级（30%）测水平，高 1 级（10%）挑战成长。
           输入孩子当前棋力，直接看这周该做哪些难度的题、各多少道。
+          <br>此配比主要适用于死活、手筋等计算类题目；布局与官子练习可适当调整比例。
         </div>
         <div class="ratio631-box">
           <div class="ratio631-input">
@@ -2138,6 +2203,7 @@ header nav .nav-luobo-ext{white-space:nowrap;}
           <div class="ratio631-hint">
             示例：10 级 · 每周 100 题 → 60 道 12 级题夯基础 + 30 道 10 级题测水平 + 10 道 9 级题挑战成长。
             比例可以微调，但结构不能反——反过来先做高级题，一定崩。
+            <br>此配比主要适用于死活、手筋等计算类题目；布局与官子练习可适当调整比例。
           </div>
         </div>
       </div>
@@ -2388,10 +2454,9 @@ header nav .nav-luobo-ext{white-space:nowrap;}
     <a href="#tools" onclick="event.preventDefault();if(typeof window.openSection==='function'){window.openSection('tools');}setTimeout(function(){var btn=document.querySelector('#tools .tab-btn[data-tab=&quot;parent&quot;]');if(btn){btn.click();}setTimeout(function(){if(typeof window.openTool==='function'){window.openTool('tool-c3');}},120);},220);return false;" class="parent-entry-card">
         <div class="parent-entry-badge">段位期 · 深度专题</div>
         <div class="parent-entry-title">段位孩子成长指南 · 棋力学力双提升</div>
-        <div class="parent-entry-sub">写给段位期家长的开营指引 —— 争胜力与反思力两大核心能力如何在集训中同步提升，围棋思维如何迁移到学科学习。全文约 8 分钟。</div>
+        <div class="parent-entry-sub">写给段位期家长的开营指引 —— 争胜力与反思力两大核心能力如何同步打造，围棋思维如何迁移到学科学习。全文约 8 分钟。</div>
         <div class="parent-entry-tags">
           <span class="parent-entry-tag">核心能力拆解</span>
-          <span class="parent-entry-tag">集训安排</span>
           <span class="parent-entry-tag">跨学科迁移</span>
           <span class="parent-entry-tag">家长自检卡</span>
         </div>
@@ -2543,7 +2608,7 @@ header nav .nav-luobo-ext{white-space:nowrap;}
       <div class="tool-card" onclick="openTool('tool-c3')">
         <div class="tool-num">C3</div>
         <div class="tool-title">段位孩子成长指南 · 棋力学力双提升</div>
-        <div class="tool-intro">写给段位期家长的开营指引 · 争胜力与反思力两大核心能力如何在集训中同步提升 · 围棋思维如何原样迁移到学科学习。全文约 8 分钟。</div>
+        <div class="tool-intro">写给段位期家长的开营指引 · 争胜力与反思力两大核心能力如何同步打造 · 围棋思维如何原样迁移到学科学习。全文约 8 分钟。</div>
         <div class="tool-cta">点击查看 →</div>
       </div>
       <!-- LUOBO-C4-SGFVIEWER v1.0 CARD -->
@@ -3385,7 +3450,7 @@ AI 是训练工具，不是老师替身<br>
         <button class="tool-panel-close" onclick="closeTool()">收起 ×</button>
       </div>
       <div class="tool-panel-body">
-<p>写给段位期家长的开营指引。孩子的段位上不去、明明练了很多却不见涨，从来不是"练得不够"的问题——是<strong>训练的两个底层能力</strong>没被同步打造。这份指南把暑假段位班集训的核心逻辑拆开讲清楚，也告诉您：这套围棋思维如何原封不动搬到孩子的学科学习里去。全文约 8 分钟。</p>
+<p>写给段位期家长的开营指引。孩子的段位上不去、明明练了很多却不见涨，从来不是"练得不够"的问题——是<strong>训练的两个底层能力</strong>没被同步打造。这份指南把段位提升的核心逻辑拆开讲清楚，也告诉您：这套围棋思维如何原封不动搬到孩子的学科学习里去。全文约 8 分钟。</p>
 
 <h4>一、为什么孩子"练了很多，段位却不涨"——三个最常见的误区</h4>
 <p>段位期的孩子最容易卡在一个位置：题也做了、棋也下了、老师课也听了，段位赛就是过不去。家长焦虑，孩子沮丧。真相往往不是"练得不够"，而是练的方式在原地打转。</p>
@@ -3439,42 +3504,7 @@ AI 是训练工具，不是老师替身<br>
 </ol>
 <p>这八步不只是围棋的思维路径，<strong>它可以原样迁移到孩子做数学题、写作文、考场答题</strong>——这一点我们后面会展开讲。</p>
 
-<h4>四、暑假段位班集训安排</h4>
-
-<div class="qa-item">
-  <div class="qa-q">第一周 · 定式专项突破</div>
-  <div class="qa-a">
-    <strong>训练目标：</strong>夯实定式基础，掌握定式后续变化的应对方法。<br>
-    <strong>训练内容：</strong>
-    <ol style="margin:6px 0 0 20px">
-      <li>常用定式全覆盖复习——排查记忆漏洞，确保基础定式准确无误。</li>
-      <li>后续变化推演训练——学习不同局面下定式的灵活选择。</li>
-      <li>实战应用与纠错——通过针对性对局，发现并纠正使用中的盲点。</li>
-    </ol>
-  </div>
-</div>
-<div class="qa-item">
-  <div class="qa-q">第二周 · 决策能力提升</div>
-  <div class="qa-a">
-    <strong>训练目标：</strong>提升局面判断能力，学会不同局势下的最优决策。<br>
-    <strong>训练内容：</strong>
-    <ol style="margin:6px 0 0 20px">
-      <li>形式判断方法系统教学——快速估算盘面优劣，建立目数与厚势的量化标准。</li>
-      <li>不同局势下的选择逻辑——优势局如何稳守，劣势局如何寻找翻盘机会。</li>
-      <li>围棋常形效率训练——快速识别棋形好坏，避免低效落子。</li>
-    </ol>
-  </div>
-</div>
-<div class="qa-item">
-  <div class="qa-q">日常训练规范 · 每天必做</div>
-  <div class="qa-a">
-    <strong>①每日对局规范：</strong>严格按标准思维路径落子，坚决杜绝随手棋与无意义落子。<br>
-    <strong>②深度复盘要求：</strong>每局对局后必须完成复盘笔记，清晰总结<strong>本局的 3 个优点与 3 个待改进点</strong>——双向维度，缺一不可。<br>
-    <strong>③专项错题回顾：</strong>每日完成对应专项习题，做错的题必须整理到个人错题本，定期回顾重做。
-  </div>
-</div>
-
-<h4>五、跨学科迁移：围棋思维如何搬进学科学习</h4>
+<h4>四、跨学科迁移：围棋思维如何搬进学科学习</h4>
 <p>这是这份指南最想让您看到的一部分。孩子花两周学围棋，如果只提升了棋力，那是浪费；<strong>真正的价值是把这套思维带回学校去</strong>。</p>
 
 <div class="qa-item">
@@ -3506,22 +3536,14 @@ AI 是训练工具，不是老师替身<br>
 <div class="qa-item">
   <div class="qa-q">迁移四 · 集训节奏 → 学期学习节奏</div>
   <div class="qa-a">
-    <strong>开学季（对应第一周定式）：</strong>夯实基础知识点，构建系统化的知识框架。<br>
-    <strong>期中后（对应第二周决策）：</strong>提升知识点综合应用能力，学习复杂题型的应对方法。<br>
-    <strong>日常要求（对应日常训练与复盘）：</strong>每次测验做深度复盘，整理错题本并定期回顾。<br>
+    <strong>开学季：</strong>夯实基础知识点，构建系统化的知识框架。<br>
+    <strong>期中后：</strong>提升知识点综合应用能力，学习复杂题型的应对方法。<br>
+    <strong>日常要求：</strong>每次测验做深度复盘，整理错题本并定期回顾。<br>
     <strong>迁移价值：</strong>把围棋"分阶段集训"的科学训练逻辑，搬到日常学期规划中。
   </div>
 </div>
 
-<h4>六、集训期间需要家长配合的三件事</h4>
-<p>段位期的孩子已经会藏心事，家长最重要的能力是"读懂他不说的话"。集训这两周，最需要家长做的其实只有三件事——不多，但件件都关键。</p>
-<ol>
-  <li><strong>专注对局 · 认真听讲 · 高效训练</strong>——督促孩子严格遵守课堂纪律。对局时保持安静、不交流思路、独立完成思考；老师讲解时认真做笔记、有疑问及时举手；每日训练任务按时完成，不拖欠、不敷衍。良好的纪律是高效训练的基石。</li>
-  <li><strong>接住孩子的情绪 · 而不是评价成绩</strong>——集训期间孩子会输棋、会崩溃、会自我否定。这时候家长最忌讳的一句话是"这么简单都不会"。请换成"这盘确实难，我们停 5 分钟喝口水再复盘"。<strong>每一次输棋都是发现短板的机会——这句话要孩子从您嘴里听到，不是从道理里听到。</strong></li>
-  <li><strong>陪养三个终身习惯 · 集训只是载体</strong>——集训真正的价值不是段位涨多少，是这三个可终身受益的习惯：<strong>深思熟虑（先思考后行动） · 知行合一（每次行动后都复盘） · 目标导向（清晰知道每一步努力的方向）</strong>。这三个习惯一旦养成，孩子的下一个五年学习会轻松得多。</li>
-</ol>
-
-<h4>🌱 家长自检卡 · 集训开营前请对照一次</h4>
+<h4>🌱 家长自检卡</h4>
 <div class="qa-item">
   <div class="qa-q">开营前 · 请对照下面 7 条自检</div>
   <div class="qa-a">
@@ -4288,6 +4310,12 @@ AI 是训练工具，不是老师替身<br>
         <div class="edulab-card-icon">🕹️</div>
         <h3 class="edulab-card-title">课堂小游戏</h3>
         <p class="edulab-card-intro">专注力·记忆·视觉搜索·反应力……多类型脑力小游戏，支持学生建档、通关记录保存与导出，协助老师做智力水平数据监控。</p>
+        <div class="edulab-card-more">进入 →</div>
+      </button>
+      <button class="edulab-card" data-card-id="buju-teaching" onclick="window.location.href='buju-jiaoxue.html'" style="cursor:pointer">
+        <div class="edulab-card-icon">📐</div>
+        <h3 class="edulab-card-title">布局教学法</h3>
+        <p class="edulab-card-intro">从零到段位的全链条布局教学框架——四阶段成长路径、占角三法、急所判断、教师工具箱，114 页教研 PPT 精炼而成。</p>
         <div class="edulab-card-more">进入 →</div>
       </button>
       </div>
@@ -9282,7 +9310,21 @@ function hideParentGuide(){
   <a href="#culture" class="nav-toggle" data-target="culture">围棋文化</a>
   <a href="#edulab" class="nav-toggle" data-target="edulab">启蒙教研</a>
   <a href="#interact" class="nav-toggle" data-target="interact">留言板</a>
-  <a href="javascript:void(0)" class="dr-entry-mobile" onclick="if(window.__luoboOpenDailyRitual){var sn=document.querySelector('.side-nav');if(sn){sn.classList.remove('mobile-open');document.body.classList.remove('side-open');}window.__luoboOpenDailyRitual();}return false;">📮 每日棋事簿</a>
+
+  <!-- ===== LUOBO-SIDENAV-MOBILE-FIX v1.0 START ===== -->
+  <div class="side-nav-title" style="margin-top:18px;padding-top:14px;border-top:1px dashed var(--line);font-size:14px;letter-spacing:0.3em;">测试与工具</div>
+  <a href="/xxyd/" style="color:var(--seal);font-weight:600">学习园地 <span style="font-size:10px;background:var(--seal);color:#fff;padding:1px 6px;border-radius:8px;margin-left:2px;letter-spacing:.05em">NEW</span></a>
+  <a href="#ability-test" class="nav-toggle" data-target="ability-test">能力测试</a>
+  <a href="#brain-training" class="nav-toggle" data-target="brain-training">🧠 思维训练</a>
+  <a href="#concentration-test" class="nav-toggle" data-target="concentration-test" style="color:var(--seal);font-weight:600">⚡ 专注力测试</a>
+  <a href="/thinking-toolbox.html" style="color:var(--seal);font-weight:600">🧰 思维工具箱 <span style="font-size:10px;background:var(--seal);color:#fff;padding:1px 6px;border-radius:8px;margin-left:2px;letter-spacing:.05em">NEW</span></a>
+
+  <div class="side-nav-title" style="margin-top:18px;padding-top:14px;border-top:1px dashed var(--line);font-size:14px;letter-spacing:0.3em;">互 动</div>
+  <a href="javascript:void(0)" class="dr-entry-mobile" onclick="if(window.__luoboOpenDailyRitual){var sn=document.querySelector('.side-nav');if(sn){sn.classList.remove('mobile-open');document.body.classList.remove('side-open');}window.__luoboOpenDailyRitual();}return false;" style="color:var(--seal);font-weight:600">📮 每日棋事簿</a>
+  <a href="javascript:void(0)" onclick="if(window.__luoboOpenQuiz){var sn=document.querySelector('.side-nav');if(sn){sn.classList.remove('mobile-open');document.body.classList.remove('side-open');}window.__luoboOpenQuiz();}return false;">你是哪位棋手</a>
+  <a href="javascript:void(0)" onclick="if(window.__luoboOpenMasterMap){var sn=document.querySelector('.side-nav');if(sn){sn.classList.remove('mobile-open');document.body.classList.remove('side-open');}window.__luoboOpenMasterMap();}return false;">大师星图</a>
+  <a href="#contact" class="nav-toggle" data-target="contact">联系我们</a>
+  <!-- ===== LUOBO-SIDENAV-MOBILE-FIX v1.0 END ===== -->
 </aside>
 
 
@@ -9346,6 +9388,49 @@ function hideParentGuide(){
   window.openSection = openSection;
   // ===== LUOBO-OPENSECTION-EXPOSE v1.0 END =====
   window.closeAllPanels = closeAllPanels;
+
+  // ===== 返回顶部按钮逻辑（移动端面板内） =====
+  (function() {
+    const backToTopBtn = document.getElementById('backToTopBtn');
+    if (!backToTopBtn) return;
+
+    function checkScroll() {
+      const openPanel = document.querySelector('.collapsible.open');
+      if (!openPanel) {
+        backToTopBtn.classList.remove('visible');
+        return;
+      }
+      if (openPanel.scrollTop > 300) {
+        backToTopBtn.classList.add('visible');
+      } else {
+        backToTopBtn.classList.remove('visible');
+      }
+    }
+
+    backToTopBtn.addEventListener('click', function() {
+      const openPanel = document.querySelector('.collapsible.open');
+      if (openPanel) {
+        openPanel.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    });
+
+    // 监听所有 collapsible 面板的滚动
+    document.querySelectorAll('.collapsible').forEach(function(panel) {
+      panel.addEventListener('scroll', checkScroll, { passive: true });
+    });
+
+    // 面板关闭时隐藏按钮
+    const observer = new MutationObserver(function(mutations) {
+      mutations.forEach(function(mutation) {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+          checkScroll();
+        }
+      });
+    });
+    document.querySelectorAll('.collapsible').forEach(function(panel) {
+      observer.observe(panel, { attributes: true });
+    });
+  })();
 
   // ===== v3.3: 智能层级关闭 —— 板块有子视图时先分层返回，最外层才关整个板块 =====
   function smartClose() {
@@ -9564,6 +9649,7 @@ function hideParentGuide(){
 </script>
 
 <button class="panel-close" id="panelCloseBtn" aria-label="关闭面板">×</button>
+<button class="back-to-top" id="backToTopBtn" aria-label="返回顶部">↑</button>
 <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="板块菜单">☰</button>
 
 <!-- 桌面端上下翻页控件 -->
