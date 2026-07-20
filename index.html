@@ -786,7 +786,11 @@
       .mobile-menu-btn { display: flex; }
       body.body-lock .mobile-menu-btn { display: none; }
       body.side-open .mobile-menu-btn { display: none; }
+      .desktop-only { display: none !important; }
     }
+
+    /* 桌面端隐藏仅移动端元素 */
+    .mobile-only { display: none !important; }
 
   /* ===== 折叠板块 → 全屏面板 ===== */
   .collapsible { display: none; }
@@ -9365,20 +9369,51 @@ function hideParentGuide(){
   <a href="#edulab" class="nav-toggle" data-target="edulab">启蒙教研</a>
   <a href="#interact" class="nav-toggle" data-target="interact">留言板</a>
 
-  <!-- ===== LUOBO-SIDENAV-MOBILE-FIX v1.0 START ===== -->
-  <div class="side-nav-title" style="margin-top:18px;padding-top:14px;border-top:1px dashed var(--line);font-size:14px;letter-spacing:0.3em;">测试与工具</div>
-  <a href="/xxyd/" style="color:var(--seal);font-weight:600">学习园地 <span style="font-size:10px;background:var(--seal);color:#fff;padding:1px 6px;border-radius:8px;margin-left:2px;letter-spacing:.05em">NEW</span></a>
-  <a href="#ability-test" class="nav-toggle" data-target="ability-test">能力测试</a>
-  <a href="#brain-training" class="nav-toggle" data-target="brain-training">🧠 思维训练</a>
-  <a href="#concentration-test" class="nav-toggle" data-target="concentration-test" style="color:var(--seal);font-weight:600">⚡ 专注力测试</a>
-  <a href="/thinking-toolbox.html" style="color:var(--seal);font-weight:600">🧰 思维工具箱 <span style="font-size:10px;background:var(--seal);color:#fff;padding:1px 6px;border-radius:8px;margin-left:2px;letter-spacing:.05em">NEW</span></a>
+  <!-- ===== LUOBO-SIDENAV-MOBILE-FIX v2.0 START ===== -->
+  <!-- 手机端：可折叠分组 -->
+  <div class="sidenav-group mobile-only" style="margin-top:18px;padding-top:14px;border-top:1px dashed var(--line);">
+    <div class="sidenav-group-toggle" onclick="this.parentElement.classList.toggle('open');var c=this.nextElementSibling;c.style.display=c.style.display==='block'?'none':'block';var arrow=this.querySelector('.sidenav-arrow');if(arrow)arrow.style.transform=c.style.display==='block'?'rotate(90deg)':'rotate(0deg)';" style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:0 4px;margin-bottom:4px;">
+      <span style="font-size:14px;letter-spacing:0.3em;color:var(--seal);font-weight:600;">测试与工具</span>
+      <span class="sidenav-arrow" style="font-size:12px;color:var(--gray-soft);transition:transform .2s;">▶</span>
+    </div>
+    <div class="sidenav-group-items" style="display:none;padding-left:4px;">
+      <a href="/xxyd/" style="color:var(--seal);font-weight:600">学习园地 <span style="font-size:10px;background:var(--seal);color:#fff;padding:1px 6px;border-radius:8px;margin-left:2px;letter-spacing:.05em">NEW</span></a>
+      <a href="#ability-test" class="nav-toggle" data-target="ability-test">能力测试</a>
+      <a href="#brain-training" class="nav-toggle" data-target="brain-training">🧠 思维训练</a>
+      <a href="#concentration-test" class="nav-toggle" data-target="concentration-test" style="color:var(--seal);font-weight:600">⚡ 专注力测试</a>
+      <a href="/thinking-toolbox.html" style="color:var(--seal);font-weight:600">🧰 思维工具箱 <span style="font-size:10px;background:var(--seal);color:#fff;padding:1px 6px;border-radius:8px;margin-left:2px;letter-spacing:.05em">NEW</span></a>
+    </div>
+  </div>
 
-  <div class="side-nav-title" style="margin-top:18px;padding-top:14px;border-top:1px dashed var(--line);font-size:14px;letter-spacing:0.3em;">互 动</div>
-  <a href="javascript:void(0)" class="dr-entry-mobile" onclick="if(window.__luoboOpenDailyRitual){var sn=document.querySelector('.side-nav');if(sn){sn.classList.remove('mobile-open');document.body.classList.remove('side-open');}window.__luoboOpenDailyRitual();}return false;" style="color:var(--seal);font-weight:600">📮 每日棋事簿</a>
-  <a href="javascript:void(0)" onclick="if(window.__luoboOpenQuiz){var sn=document.querySelector('.side-nav');if(sn){sn.classList.remove('mobile-open');document.body.classList.remove('side-open');}window.__luoboOpenQuiz();}return false;">你是哪位棋手</a>
-  <a href="javascript:void(0)" onclick="if(window.__luoboOpenMasterMap){var sn=document.querySelector('.side-nav');if(sn){sn.classList.remove('mobile-open');document.body.classList.remove('side-open');}window.__luoboOpenMasterMap();}return false;">大师星图</a>
-  <a href="#contact" class="nav-toggle" data-target="contact">联系我们</a>
-  <!-- ===== LUOBO-SIDENAV-MOBILE-FIX v1.0 END ===== -->
+  <div class="sidenav-group mobile-only" style="margin-top:10px;">
+    <div class="sidenav-group-toggle" onclick="this.parentElement.classList.toggle('open');var c=this.nextElementSibling;c.style.display=c.style.display==='block'?'none':'block';var arrow=this.querySelector('.sidenav-arrow');if(arrow)arrow.style.transform=c.style.display==='block'?'rotate(90deg)':'rotate(0deg)';" style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:0 4px;margin-bottom:4px;border-top:1px dashed var(--line);padding-top:14px;">
+      <span style="font-size:14px;letter-spacing:0.3em;color:var(--seal);font-weight:600;">互 动</span>
+      <span class="sidenav-arrow" style="font-size:12px;color:var(--gray-soft);transition:transform .2s;">▶</span>
+    </div>
+    <div class="sidenav-group-items" style="display:none;padding-left:4px;">
+      <a href="javascript:void(0)" class="dr-entry-mobile" onclick="if(window.__luoboOpenDailyRitual){var sn=document.querySelector('.side-nav');if(sn){sn.classList.remove('mobile-open');document.body.classList.remove('side-open');}window.__luoboOpenDailyRitual();}return false;" style="color:var(--seal);font-weight:600">📮 每日棋事簿</a>
+      <a href="javascript:void(0)" onclick="if(window.__luoboOpenQuiz){var sn=document.querySelector('.side-nav');if(sn){sn.classList.remove('mobile-open');document.body.classList.remove('side-open');}window.__luoboOpenQuiz();}return false;">你是哪位棋手</a>
+      <a href="javascript:void(0)" onclick="if(window.__luoboOpenMasterMap){var sn=document.querySelector('.side-nav');if(sn){sn.classList.remove('mobile-open');document.body.classList.remove('side-open');}window.__luoboOpenMasterMap();}return false;">大师星图</a>
+    </div>
+  </div>
+
+  <a href="#contact" class="nav-toggle mobile-only" data-target="contact" style="margin-top:14px;padding-top:14px;border-top:1px dashed var(--line);">联系我们</a>
+
+  <!-- 桌面端：保持原有平铺结构 -->
+  <div class="desktop-only" style="margin-top:18px;padding-top:14px;border-top:1px dashed var(--line);">
+    <div class="side-nav-title" style="font-size:14px;letter-spacing:0.3em;">测试与工具</div>
+    <a href="/xxyd/" style="color:var(--seal);font-weight:600">学习园地 <span style="font-size:10px;background:var(--seal);color:#fff;padding:1px 6px;border-radius:8px;margin-left:2px;letter-spacing:.05em">NEW</span></a>
+    <a href="#ability-test" class="nav-toggle" data-target="ability-test">能力测试</a>
+    <a href="#brain-training" class="nav-toggle" data-target="brain-training">🧠 思维训练</a>
+    <a href="#concentration-test" class="nav-toggle" data-target="concentration-test" style="color:var(--seal);font-weight:600">⚡ 专注力测试</a>
+    <a href="/thinking-toolbox.html" style="color:var(--seal);font-weight:600">🧰 思维工具箱 <span style="font-size:10px;background:var(--seal);color:#fff;padding:1px 6px;border-radius:8px;margin-left:2px;letter-spacing:.05em">NEW</span></a>
+    <div class="side-nav-title" style="margin-top:18px;padding-top:14px;border-top:1px dashed var(--line);font-size:14px;letter-spacing:0.3em;">互 动</div>
+    <a href="javascript:void(0)" class="dr-entry-mobile" onclick="if(window.__luoboOpenDailyRitual){var sn=document.querySelector('.side-nav');if(sn){sn.classList.remove('mobile-open');document.body.classList.remove('side-open');}window.__luoboOpenDailyRitual();}return false;" style="color:var(--seal);font-weight:600">📮 每日棋事簿</a>
+    <a href="javascript:void(0)" onclick="if(window.__luoboOpenQuiz){var sn=document.querySelector('.side-nav');if(sn){sn.classList.remove('mobile-open');document.body.classList.remove('side-open');}window.__luoboOpenQuiz();}return false;">你是哪位棋手</a>
+    <a href="javascript:void(0)" onclick="if(window.__luoboOpenMasterMap){var sn=document.querySelector('.side-nav');if(sn){sn.classList.remove('mobile-open');document.body.classList.remove('side-open');}window.__luoboOpenMasterMap();}return false;">大师星图</a>
+    <a href="#contact" class="nav-toggle" data-target="contact">联系我们</a>
+  </div>
+  <!-- ===== LUOBO-SIDENAV-MOBILE-FIX v2.0 END ===== -->
 </aside>
 
 
