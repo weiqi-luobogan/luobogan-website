@@ -169,6 +169,16 @@ body::before {
   margin: 0 auto;
   line-height: 1.8;
 }
+.hero-download {
+  display:inline-flex; align-items:center; gap:8px;
+  padding:10px 22px; border-radius:28px;
+  background:var(--red); color:#fff;
+  font-size:.9rem; font-weight:600;
+  transition:all .25s; margin-top:16px;
+  text-decoration:none;
+}
+.hero-download:hover { background:var(--red-bright); transform:translateY(-1px); box-shadow:0 4px 14px rgba(168,54,42,.25); }
+.hero-download svg { flex-shrink:0; }
 
 /* ===== Section ===== */
 .section {
@@ -969,6 +979,10 @@ body::before {
     <div class="hero-label">教师培训课件</div>
     <h1>围棋<span>布局</span>教学法</h1>
     <p class="subtitle">四阶段教学成长链条 —— 从启蒙兴趣到战略深化，帮助孩子将抽象的布局思维转化为可感知的具象模型</p>
+    <a href="assets/ppt/buju-core-thinking.pptx" download class="hero-download" title="下载PPT课件">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      下载配套PPT课件
+    </a>
   </div>
 </header>
 
