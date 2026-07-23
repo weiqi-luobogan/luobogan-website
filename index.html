@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
 
-  <!-- cache-bust v2.2.1 -->
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <!-- cache-bust v2.3 -->
+  <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <title>萝卜干 · 围棋教育 | 教师成长与围棋家庭教育</title>
@@ -1337,6 +1337,7 @@ title" content="萝卜干 · 围棋教育 | 教师成长与围棋家庭教育">
 // Force clear old caches on load
 if('caches' in window){caches.keys().then(k=>k.forEach(n=>caches.delete(n)));}
 if(navigator.serviceWorker){navigator.serviceWorker.getRegistrations().then(r=>r.forEach(s=>s.unregister()));}
+window.addEventListener('pageshow',function(e){if(e.persisted){location.reload();}});
 </script>
 </head>
 <body>
