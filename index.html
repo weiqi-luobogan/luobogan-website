@@ -5142,7 +5142,7 @@ font-size:13px;border:1px solid var(--line,#d9c9a0);background:#fff;color:#5a4a2
     grade(s){
       // 4×4 参考：优<25 良25-45 一般45-70 待>70
       // 6×6 参考：
-优<60 良60-100 一般100-150 待>150
+      // 优<60 良60-100 一般100-150 待>150
       const base4x4 = s * (16/(this.size*this.size));
       if(base4x4 < 25) return {label:'优秀',emoji:'⭐⭐⭐',tip:'反应敏锐，颜色切换和位置更新几乎无损耗，可挑战 6×6 版本。'};
       if(base4x4 < 45) return {label:'良好',emoji:'⭐⭐',tip:'状态稳定，颜色分组处理熟练；多练习可以突破洗牌造成的短暂停顿。'};
