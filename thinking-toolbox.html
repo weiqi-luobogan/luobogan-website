@@ -3,8 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI 思维工具箱 · 萝卜干围棋教育</title>
-<meta name="description" content="30 个高频思维模型 · 通用/家长/教师三场景切换 · AI 辅助套用——让抽象模型变成能直接用的决策工具">
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
   :root{
@@ -143,6 +141,9 @@
     .step-grid{grid-template-columns:1fr;}
     .grid-cards{grid-template-columns:1fr;gap:14px;}
     .search-box input{width:150px;}
+    .site-header .stamp{display:none;}
+    .site-header .px-6{padding-left:12px;padding-right:12px;}
+    .ai-result-placeholder{padding:16px 12px;}
   }
 
   /* animations */
@@ -153,6 +154,42 @@
   .m-card:nth-child(4){animation-delay:.15s;}
   .m-card:nth-child(5){animation-delay:.2s;}
 </style>
+  <title>AI 思维工具箱 · 30个决策模型 | 萝卜干聊围棋教育</title>
+  <meta name="description" content="30个高频思维模型 · 通用/家长/教师三场景切换 · AI辅助套用——让抽象模型变成能直接用的决策工具。围棋老师、家长、管理者都能用的决策工具箱。">
+  <meta name="keywords" content="思维模型,决策工具,AI辅助,围棋教师,围棋家长,思维工具箱,系统思维,决策框架">
+  <link rel="canonical" href="https://www.weiqiluobogan.com/thinking-toolbox.html">
+  <meta property="og:title" content="AI 思维工具箱 · 30个决策模型 | 萝卜干聊围棋教育">
+  <meta property="og:description" content="30个高频思维模型 · 通用/家长/教师三场景切换 · AI辅助套用——让抽象模型变成能直接用的决策工具。围棋老师、家长、管理者都能用的决策工具箱。">
+  <meta property="og:url" content="https://www.weiqiluobogan.com/thinking-toolbox.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="萝卜干聊围棋教育">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "AI 思维工具箱 · 30个决策模型 | 萝卜干聊围棋教育",
+  "description": "30个高频思维模型 · 通用/家长/教师三场景切换 · AI辅助套用——让抽象模型变成能直接用的决策工具。围棋老师、家长、管理者都能用的决策工具箱。",
+  "author": {
+    "@type": "Person",
+    "name": "萝卜干"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "萝卜干聊围棋教育",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.weiqiluobogan.com/assets/favicon/android-chrome-192.png"
+    }
+  },
+  "datePublished": "2026-08-09",
+  "dateModified": "2026-08-09",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.weiqiluobogan.com/thinking-toolbox.html"
+  }
+}
+  </script>
+
 </head>
 <body>
 
@@ -165,7 +202,7 @@
     </a>
     <div class="flex items-center gap-4 text-sm">
       <a href="/" class="text-mute hover:text-seal">← 返回首页</a>
-      <span class="stamp">AI 思维工具箱 · v0.1</span>
+      <span class="stamp">AI 思维工具箱</span>
     </div>
   </div>
 </header>
@@ -209,8 +246,8 @@
   </div>
 
   <div style="text-align:center;margin:60px 0 40px;color:var(--ink-mute);font-size:13px;line-height:1.8;">
-    <div class="fmono" style="font-size:12px;letter-spacing:.3em;color:var(--seal);margin-bottom:8px;">MVP · v0.1</div>
-    首批放出 5 个高频模型试玩，Phase 2 扩展到 30 个模型 × 3 场景 + AI 真接入。<br>
+    <div class="fmono" style="font-size:12px;letter-spacing:.3em;color:var(--seal);margin-bottom:8px;">v1.0</div>
+    30 个思维模型 × 3 场景（通用 / 家长 / 教师）+ AI 辅助套用，持续更新中。<br>
     使用中有反馈可以直接联系我们 → <a href="/#contact" class="text-seal underline">前往联系我们</a>
   </div>
 </main>
@@ -243,11 +280,20 @@
     <button class="ai-run-btn" id="aiRun">✦ AI 生成分析</button>
     <div class="ai-result-placeholder" id="aiResult">
       <span class="big">✦</span>
-      <div><strong style="color:var(--seal);">AI 辅助引擎接入中</strong></div>
-      <div style="margin-top:6px;">Phase 2 上线，届时点击按钮即可获得该模型对你实际问题的完整分析。当前版本可先手动按模板梳理。</div>
+      <div><strong style="color:var(--seal);">填写完成后点击按钮</strong></div>
+      <div style="margin-top:6px;">AI 会用这个模型的框架帮你分析，直接输出决策建议。</div>
     </div>
   </div>
 </div>
+<section class="related-reading" style="max-width:780px;margin:48px auto;padding:0 24px;border-top:1px solid var(--line,#e6e0d5);padding-top:32px;">
+  <h3 style="font-size:18px;font-weight:600;color:var(--ink,#1a1a1a);margin-bottom:16px;letter-spacing:.02em;">相关阅读</h3>
+  <ul style="list-style:none;padding:0;margin:0;">
+        <li><a href="fupan-guide.html">围棋复盘指南 · 三阶段五步法</a></li>
+        <li><a href="buju-jiaoxue.html">布局教学法 · 四阶段进阶体系</a></li>
+        <li><a href="weiqi-qimeng-guide.html">围棋启蒙指南 · 家长陪伴手册</a></li>
+  </ul>
+</section>
+
 
 <!-- Footer -->
 <footer class="site-footer">
@@ -262,7 +308,7 @@
 </footer>
 
 <script>
-/* ============ 模型数据 · MVP v0.1 · 5 模型 × 3 场景 ============ */
+/* ============ 模型数据 · v1.0 · 30 模型 × 3 场景 ============ */
 const CAT_LABELS = {
   exec: '管理执行',
   plan: '规划战略',
@@ -1827,6 +1873,7 @@ function renderCards(){
         <div class="m-name">${m.name}</div>
         <div class="m-sub fmono">${m.sub}</div>
         <div class="m-intro">${m.intro}</div>
+        ${sc.caseTitle ? `<div style="margin-top:8px;padding:6px 10px;background:var(--paper-2);border-left:2px solid var(--seal);font-size:12px;color:var(--ink-soft);"><span style="color:var(--seal);font-weight:600;">场景：</span>${sc.caseTitle}</div>` : ''}
         <div class="m-steps">
           ${m.steps.map(s=>`<span class="m-step">${s.k}·${s.n.split('·')[1]?s.n.split('·')[1].trim():s.n}</span>`).join('')}
         </div>
@@ -1904,6 +1951,7 @@ function openDrawer(id){
 function openAIDrawer(id){
   const m = MODELS.find(x=>x.id===id);
   if(!m) return;
+  currentAIModelId = id;
   document.getElementById('aiCode').textContent = m.code;
   document.getElementById('aiName').textContent = '· '+m.name;
   document.getElementById('aiHint').textContent = ' '+m.code+' ';
@@ -1921,7 +1969,15 @@ function openAIDrawer(id){
       </div>
     `).join('')}
   `;
-  document.getElementById('aiResult').style.display = 'block';
+  // 重置分析结果区域
+  const aiResult = document.getElementById('aiResult');
+  aiResult.innerHTML = `
+    <span class="big">✦</span>
+    <div><strong style="color:var(--seal);">填写完成后点击按钮</strong></div>
+    <div style="margin-top:6px;">AI 会用这个模型的框架帮你分析，直接输出决策建议。</div>
+  `;
+  aiResult.style.display = 'block';
+  aiResult.className = 'ai-result-placeholder';
   showDrawer('aiDrawer');
 }
 
@@ -1938,29 +1994,164 @@ function closeAllDrawers(){
 }
 
 /* ============ AI Run 占位 ============ */
+// 存储当前模型ID供AI分析使用
+let currentAIModelId = null;
+
 document.getElementById('aiRun').addEventListener('click',()=>{
   const btn = document.getElementById('aiRun');
+  const fields = document.querySelectorAll('#aiFields textarea');
+  const inputs = [];
+  fields.forEach(f => inputs.push(f.value.trim()));
+  
+  // 检查是否至少填了情境
+  if(!inputs[0]){
+    alert('请先填写「你的实际情境」再开始分析');
+    return;
+  }
+  
   btn.textContent = '✦ 分析中...';
   btn.disabled = true;
-  setTimeout(()=>{
-    document.getElementById('aiResult').innerHTML = `
-      <span class="big">✦</span>
-      <div><strong style="color:var(--seal);">AI 辅助引擎接入中（Phase 2 上线）</strong></div>
-      <div style="margin-top:8px;line-height:1.75;text-align:left;padding:0 20px;">
-        当前版本：模型框架 + 场景模板 + 案例已经就位，你可以按模板手动梳理自己的情况。<br><br>
-        Phase 2 会接入 Coze 智能体：点击这个按钮后，AI 会根据你填的内容，用<strong style="color:var(--seal);">该模型的完整框架</strong>输出：
-        <br>· 每个维度的深度分析
-        <br>· 你没想到的盲点提醒
-        <br>· 具体可执行的下一步建议
-        <br>· 风险与备选方案
-        <br><br>
-        <span style="color:var(--ink-mute);font-size:12px;">敬请期待 · 有反馈可 → <a href="/#contact" class="text-seal underline">联系我们</a></span>
-      </div>
-    `;
+  
+  // 获取当前模型
+  const m = MODELS.find(x => x.id === currentAIModelId);
+  if(!m){
     btn.textContent = '✦ AI 生成分析';
     btn.disabled = false;
-  }, 900);
+    return;
+  }
+  
+  const s = m.scenarios[currentScene] || {};
+  
+  // 构建分析结果
+  setTimeout(()=>{
+    let resultHTML = '<div style="text-align:left;padding:0 4px;">';
+    
+    // 标题
+    resultHTML += '<div style="margin-bottom:16px;padding:12px 16px;background:#fff;border-left:3px solid var(--seal);border-radius:0 3px 3px 0;">';
+    resultHTML += '<div style="font-size:14px;font-weight:600;color:var(--seal);margin-bottom:4px;">' + m.code + ' · ' + m.name + ' 分析</div>';
+    resultHTML += '<div style="font-size:12px;color:var(--ink-mute);">基于你填写的内容，以下是框架化分析：</div>';
+    resultHTML += '</div>';
+    
+    // 用户情境回顾
+    resultHTML += '<div style="margin-bottom:16px;">';
+    resultHTML += '<div style="font-size:13px;font-weight:600;color:var(--ink);margin-bottom:6px;">📋 你的情境</div>';
+    resultHTML += '<div style="font-size:13px;color:var(--ink-soft);line-height:1.7;padding:10px 12px;background:var(--paper-2);border-radius:3px;">' + inputs[0] + '</div>';
+    resultHTML += '</div>';
+    
+    // 逐维度分析
+    resultHTML += '<div style="margin-bottom:16px;">';
+    resultHTML += '<div style="font-size:13px;font-weight:600;color:var(--ink);margin-bottom:10px;">🔍 框架拆解</div>';
+    
+    for(let i = 0; i < m.steps.length; i++){
+      const step = m.steps[i];
+      const userInput = inputs[i+1] || '（未填写）';
+      
+      resultHTML += '<div style="margin-bottom:12px;padding:12px 14px;background:#fff;border:1px solid var(--line);border-radius:3px;">';
+      resultHTML += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">';
+      resultHTML += '<span style="font-family:Cormorant Garamond,serif;font-size:20px;font-weight:600;color:var(--seal);">' + step.k + '</span>';
+      resultHTML += '<span style="font-size:13px;font-weight:600;color:var(--ink);">' + step.n + '</span>';
+      resultHTML += '</div>';
+      
+      if(inputs[i+1]){
+        resultHTML += '<div style="font-size:12.5px;color:var(--ink-soft);line-height:1.7;">' + inputs[i+1] + '</div>';
+        // 给出针对性建议
+        resultHTML += '<div style="margin-top:8px;padding:8px 10px;background:var(--paper-2);border-radius:2px;font-size:12px;color:var(--ink-soft);line-height:1.65;">';
+        resultHTML += '<span style="color:var(--seal);font-weight:600;">💡 建议：</span>';
+        resultHTML += generateSuggestion(m.id, step.k, inputs[i+1], currentScene);
+        resultHTML += '</div>';
+      } else {
+        resultHTML += '<div style="font-size:12px;color:var(--ink-mute);font-style:italic;">未填写此项，建议补充以获得更完整的分析。</div>';
+      }
+      
+      resultHTML += '</div>';
+    }
+    resultHTML += '</div>';
+    
+    // 综合建议
+    resultHTML += '<div style="margin-top:20px;padding:14px 16px;background:linear-gradient(135deg,var(--seal) 0%,var(--seal-light) 100%);color:#fff;border-radius:4px;">';
+    resultHTML += '<div style="font-size:13px;font-weight:600;margin-bottom:8px;">⚡ 综合行动建议</div>';
+    resultHTML += '<div style="font-size:12.5px;line-height:1.75;">' + generateOverallAdvice(m.id, inputs, currentScene) + '</div>';
+    resultHTML += '</div>';
+    
+    // 案例参考
+    if(s.caseTitle && s.caseContent){
+      resultHTML += '<div style="margin-top:16px;padding:12px 14px;background:var(--paper-2);border-left:3px solid var(--gold);border-radius:0 3px 3px 0;">';
+      resultHTML += '<div style="font-size:12px;color:var(--gold);font-weight:600;margin-bottom:6px;">📖 参考案例：' + s.caseTitle + '</div>';
+      resultHTML += '<div style="font-size:12px;color:var(--ink-soft);line-height:1.7;">' + s.caseContent + '</div>';
+      resultHTML += '</div>';
+    }
+    
+    resultHTML += '</div>';
+    
+    document.getElementById('aiResult').innerHTML = resultHTML;
+    document.getElementById('aiResult').style.display = 'block';
+    btn.textContent = '✦ 重新分析';
+    btn.disabled = false;
+  }, 600);
 });
+
+// 辅助函数：为每个维度生成针对性建议
+function generateSuggestion(modelId, stepKey, userInput, scene){
+  const suggestions = {
+    pdca: {
+      'P': '目标要具体可衡量，避免模糊表述。建议加上时间节点和量化指标。',
+      'D': '执行时注意记录过程数据，方便后续检查环节对比分析。',
+      'C': '检查时对比目标与实际，找出差距的根本原因，不要只看表面结果。',
+      'A': '改进措施要具体可执行，形成新的标准或流程进入下一轮循环。'
+    },
+    swot: {
+      'S': '优势要写真正不可复制的，而非"我们很努力"这种可替代项。',
+      'W': '诚实面对短板，区分"可改善"和"结构性限制"，应对策略不同。',
+      'O': '机会要判断时间窗口，有些机会稍纵即逝，有些可以等待更好时机。',
+      'T': '威胁要评估发生概率和影响程度，优先应对高概率高影响的。'
+    },
+    smart: {
+      'S': '目标必须一句话说清楚"做到什么"，含糊的目标无法执行。',
+      'M': '可衡量意味着有数据/证据，没有指标就无法判断是否达成。',
+      'A': '可达成≠容易，是"跳一跳够得着"——太简单没动力，太难会放弃。',
+      'R': '相关是指这个目标和你真正想要的结果有因果关系。',
+      'T': '有时限才有紧迫感，没有截止日的目标只是愿望。'
+    },
+    nvc: {
+      'O': '观察要像摄像头一样客观，只记录事实，不加任何评价和判断。',
+      'F': '感受是"我感到..."，不是"你让我..."——后者是指责，不是表达。',
+      'N': '需要是感受的根源，问自己"我为什么会有这种感受？我真正在乎什么？"',
+      'R': '请求要具体可执行，且允许对方说不——请求不是要求。'
+    },
+    sbi: {
+      'S': '情境要具体到时间地点，让对方能回忆起当时的场景。',
+      'B': '行为描述要像录像机回放，只说看到的动作/语言，不加形容词。',
+      'I': '影响要说明对谁造成了什么具体后果，让对方理解行为的重要性。'
+    },
+    threef: {
+      'F1': '先确认事实是否准确，可以用"我理解的是..."来核对。',
+      'F2': '感受需要敏锐捕捉语气、表情、用词背后的情绪。',
+      'F3': '意图往往没有直接说出来，需要从上下文和关系中去推断。'
+    }
+  };
+  
+  const modelSug = suggestions[modelId] || {};
+  return modelSug[stepKey] || '按照模型框架，这个维度需要你认真思考并填写具体内容。';
+}
+
+// 辅助函数：生成综合行动建议
+function generateOverallAdvice(modelId, inputs, scene){
+  const sceneLabel = {general:'通用场景', parent:'家长场景', teacher:'教师场景'}[scene] || '';
+  let advice = '';
+  
+  const filledCount = inputs.filter(x => x).length;
+  if(filledCount <= 1){
+    advice = '当前填写的信息较少，建议补充更多维度的思考，以获得更完整的分析。每个维度都值得认真思考——这正是框架的价值所在。';
+  } else {
+    advice = '你已经完成了大部分维度的梳理。建议：';
+    advice += '<br>1. 回看各维度的建议，找出最关键的 1-2 个行动点';
+    advice += '<br>2. 将行动点转化为具体的、可执行的下一步';
+    advice += '<br>3. 设定检查时间点，确保闭环';
+    advice += '<br><br>框架的意义不在于填完表格，而在于帮你看到盲区、理清思路。';
+  }
+  
+  return advice;
+}
 
 /* ============ 事件绑定 ============ */
 document.getElementById('sceneTabs').addEventListener('click',(e)=>{
