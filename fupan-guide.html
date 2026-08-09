@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>围棋复盘指南 · 三阶段五步法 | 萝卜干聊围棋教育</title>
+<meta name="description" content="AI驱动的系统化围棋复盘训练体系，三阶段五步法结构化复盘流程，从认知变革到实战应用，帮你实现棋力的高效提升。">
+<link rel="canonical" href="https://weiqiluobogan.com/fupan-guide.html">
+<meta property="og:title" content="围棋复盘指南 · 三阶段五步法 | 萝卜干聊围棋教育">
+<meta property="og:description" content="AI驱动的系统化围棋复盘训练体系，告别低效传统复盘。">
+<meta property="og:image" content="https://weiqiluobogan.com/img/og-image.png">
+<meta property="og:url" content="https://weiqiluobogan.com/fupan-guide.html">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Songti SC", "SimSun", "Noto Serif SC", serif;
+    color: #2c2c2c;
+    background: #faf8f5;
+    line-height: 1.8;
+    overflow-x: hidden;
+  }
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(250, 248, 245, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid #e8e4dd;
+    padding: 14px 40px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .nav-logo { font-size: 18px; font-weight: bold; color: #2c2c2c; text-decoration: none; }
+  .nav-links { display: flex; gap: 28px; font-size: 14px; }
+  .nav-links a { color: #555; text-decoration: none; transition: color 0.3s; }
+  .nav-links a:hover { color: #8b6914; }
+
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    text-align: center;
+    padding: 120px 40px 80px;
+    position: relative;
+    background: linear-gradient(180deg, #f5f0e8 0%, #faf8f5 100%);
+  }
+  .hero-tag {
+    font-size: 14px; color: #8b6914; letter-spacing: 4px;
+    margin-bottom: 24px; opacity: 0; animation: fadeUp 0.8s 0.2s forwards;
+  }
+  .hero h1 {
+    font-size: clamp(36px, 6vw, 64px);
+    font-weight: normal;
+    letter-spacing: 6px;
+    margin-bottom: 20px;
+    opacity: 0; animation: fadeUp 0.8s 0.4s forwards;
+  }
+  .hero-subtitle {
+    font-size: clamp(16px, 2vw, 22px);
+    color: #666;
+    max-width: 600px;
+    margin-bottom: 50px;
+    opacity: 0; animation: fadeUp 0.8s 0.6s forwards;
+  }
+  .hero-modules {
+    display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;
+    opacity: 0; animation: fadeUp 0.8s 0.8s forwards;
+  }
+  .hero-module {
+    padding: 16px 28px;
+    border: 1px solid #d4cfc5;
+    border-radius: 4px;
+    font-size: 15px;
+    background: rgba(255,255,255,0.6);
+  }
+  .hero-module span { color: #8b6914; font-weight: bold; margin-right: 8px; }
+  .scroll-hint {
+    position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+    font-size: 13px; color: #999;
+    animation: bounce 2s infinite;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(10px); }
+  }
+
+  .section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 100px 40px;
+  }
+  .section-header {
+    text-align: center;
+    margin-bottom: 70px;
+  }
+  .section-num {
+    font-size: 14px; color: #8b6914; letter-spacing: 3px;
+    margin-bottom: 12px;
+  }
+  .section h2 {
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: normal;
+    letter-spacing: 3px;
+    margin-bottom: 16px;
+  }
+  .section-desc {
+    color: #666; font-size: 16px; max-width: 600px; margin: 0 auto;
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* 第一章：认知变革 */
+  .pain-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-bottom: 70px;
+  }
+  .pain-card {
+    background: #fff;
+    padding: 36px 30px;
+    border-radius: 6px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    border-top: 3px solid #c9a96e;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .pain-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+  }
+  .pain-icon { font-size: 36px; margin-bottom: 16px; }
+  .pain-card h3 {
+    font-size: 20px; margin-bottom: 12px; font-weight: normal;
+    letter-spacing: 2px;
+  }
+  .pain-card p { color: #666; font-size: 14px; }
+
+  .ai-benefits {
+    background: #fff;
+    padding: 50px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+  }
+  .ai-benefits h3 {
+    text-align: center; font-size: 24px; font-weight: normal;
+    margin-bottom: 40px; letter-spacing: 2px;
+  }
+  .benefit-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+  }
+  .benefit-item {
+    display: flex; gap: 16px;
+  }
+  .benefit-num {
+    flex-shrink: 0;
+    width: 40px; height: 40px;
+    background: #8b6914;
+    color: #fff;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+  }
+  .benefit-text h4 { font-size: 17px; margin-bottom: 6px; font-weight: normal; }
+  .benefit-text p { font-size: 13px; color: #777; line-height: 1.7; }
+
+  /* 第二章：核心方法 */
+  .three-stages {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-bottom: 70px;
+  }
+  .stage-card {
+    background: #fff;
+    padding: 40px 30px;
+    border-radius: 6px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    position: relative;
+    overflow: hidden;
+  }
+  .stage-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, #8b6914, #c9a96e);
+  }
+  .stage-range {
+    font-size: 13px; color: #8b6914;
+    letter-spacing: 2px; margin-bottom: 12px;
+  }
+  .stage-card h3 {
+    font-size: 22px; font-weight: normal;
+    margin-bottom: 8px; letter-spacing: 3px;
+  }
+  .stage-core {
+    font-size: 14px; color: #999;
+    margin-bottom: 20px;
+  }
+  .stage-points {
+    text-align: left;
+    font-size: 14px;
+    color: #555;
+  }
+  .stage-points div {
+    padding: 8px 0;
+    border-bottom: 1px dashed #eee;
+  }
+  .stage-points div:last-child { border-bottom: none; }
+
+  .five-steps {
+    position: relative;
+    padding: 30px 0;
+  }
+  .step-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 30px;
+    margin-bottom: 30px;
+    position: relative;
+  }
+  .step-item::after {
+    content: '';
+    position: absolute;
+    left: 29px; top: 60px; bottom: -30px;
+    width: 2px; background: #e0d8c8;
+  }
+  .step-item:last-child::after { display: none; }
+  .step-num {
+    flex-shrink: 0;
+    width: 60px; height: 60px;
+    background: #8b6914;
+    color: #fff;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    position: relative;
+    z-index: 2;
+  }
+  .step-content {
+    flex: 1;
+    background: #fff;
+    padding: 24px 30px;
+    border-radius: 6px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  }
+  .step-content h4 {
+    font-size: 19px; font-weight: normal;
+    margin-bottom: 8px; letter-spacing: 2px;
+  }
+  .step-content p {
+    font-size: 14px; color: #666; line-height: 1.8;
+  }
+
+  /* 第三章：实战应用 */
+  .cycle-diagram {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 60px;
+  }
+  .cycle-node {
+    background: #fff;
+    padding: 30px 36px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    min-width: 180px;
+    transition: transform 0.3s;
+  }
+  .cycle-node:hover { transform: scale(1.05); }
+  .cycle-icon { font-size: 36px; margin-bottom: 12px; }
+  .cycle-node h4 { font-size: 18px; font-weight: normal; margin-bottom: 6px; letter-spacing: 2px; }
+  .cycle-node p { font-size: 13px; color: #888; }
+  .cycle-arrow { font-size: 28px; color: #c9a96e; }
+
+  .record-table-wrap {
+    overflow-x: auto;
+    margin-bottom: 40px;
+  }
+  .record-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .record-table th {
+    background: #8b6914;
+    color: #fff;
+    padding: 14px 12px;
+    font-weight: normal;
+    font-size: 13px;
+    letter-spacing: 1px;
+  }
+  .record-table td {
+    padding: 12px;
+    border-bottom: 1px solid #f0ece3;
+    text-align: center;
+    color: #555;
+  }
+  .record-table tr:hover td { background: #faf7f0; }
+
+  /* 第四章：进阶策略 */
+  .mistakes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-bottom: 70px;
+  }
+  .mistake-card {
+    background: #fff;
+    padding: 32px 28px;
+    border-radius: 6px;
+    border-left: 4px solid #c94c4c;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  }
+  .mistake-card h4 {
+    font-size: 18px; font-weight: normal;
+    margin-bottom: 10px; letter-spacing: 2px;
+  }
+  .mistake-symptom {
+    font-size: 13px; color: #888;
+    margin-bottom: 14px;
+    font-style: italic;
+  }
+  .mistake-fix {
+    font-size: 13px; color: #555;
+    padding-top: 12px;
+    border-top: 1px dashed #eee;
+  }
+  .mistake-fix strong { color: #8b6914; font-weight: normal; }
+
+  .ladder-section {
+    background: #fff;
+    padding: 50px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+  }
+  .ladder-section h3 {
+    text-align: center; font-size: 24px; font-weight: normal;
+    margin-bottom: 40px; letter-spacing: 3px;
+  }
+  .ladder-levels {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+  }
+  .ladder-level {
+    text-align: center;
+    padding: 30px 20px;
+    border: 1px solid #e8e4dd;
+    border-radius: 6px;
+    transition: all 0.3s;
+  }
+  .ladder-level:hover {
+    border-color: #8b6914;
+    background: #faf7f0;
+  }
+  .ladder-level-num {
+    font-size: 28px; color: #8b6914;
+    margin-bottom: 8px; font-weight: bold;
+  }
+  .ladder-level h4 {
+    font-size: 18px; font-weight: normal;
+    margin-bottom: 12px; letter-spacing: 2px;
+  }
+  .ladder-level ul {
+    text-align: left;
+    font-size: 13px;
+    color: #666;
+    padding-left: 18px;
+  }
+  .ladder-level li { margin-bottom: 6px; line-height: 1.7; }
+
+  /* 下载区 */
+  .download-section {
+    background: linear-gradient(135deg, #2c2c2c 0%, #444 100%);
+    color: #fff;
+    padding: 80px 40px;
+    text-align: center;
+  }
+  .download-section h2 {
+    font-size: clamp(24px, 3vw, 36px);
+    font-weight: normal;
+    letter-spacing: 3px;
+    margin-bottom: 16px;
+  }
+  .download-section p {
+    color: #bbb;
+    max-width: 500px;
+    margin: 0 auto 36px;
+    font-size: 15px;
+  }
+  .download-btn {
+    display: inline-block;
+    padding: 16px 48px;
+    background: #c9a96e;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 16px;
+    letter-spacing: 2px;
+    transition: all 0.3s;
+  }
+  .download-btn:hover {
+    background: #d8b87a;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(201, 169, 110, 0.4);
+  }
+  .download-note {
+    margin-top: 20px;
+    font-size: 12px;
+    color: #888;
+  }
+
+  /* Footer */
+  .footer {
+    background: #1a1a1a;
+    color: #888;
+    text-align: center;
+    padding: 30px;
+    font-size: 13px;
+  }
+  .footer a { color: #c9a96e; text-decoration: none; }
+
+  @media (max-width: 768px) {
+    .nav { padding: 12px 20px; }
+    .nav-links { gap: 16px; font-size: 13px; }
+    .section { padding: 60px 20px; }
+    .ai-benefits, .ladder-section { padding: 30px 20px; }
+    .cycle-diagram { flex-direction: column; }
+    .cycle-arrow { transform: rotate(90deg); }
+    .step-item { flex-direction: column; gap: 12px; }
+    .step-item::after { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo">萝卜干·围棋教育</a>
+  <div class="nav-links">
+    <a href="index.html">首页</a>
+    <a href="fupan-guide.html" style="color:#8b6914;">复盘指南</a>
+    <a href="buju-jiaoxue.html">布局教学</a>
+    <a href="index.html#tools">工具箱</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-tag">AI DRIVEN · 系统化训练体系</div>
+  <h1>围棋复盘的艺术</h1>
+  <p class="hero-subtitle">告别低效传统复盘，利用前沿AI技术突破瓶颈<br>从繁琐计算中解放，聚焦深度棋理与战略思维构建</p>
+  <div class="hero-modules">
+    <div class="hero-module"><span>壹</span>认知变革</div>
+    <div class="hero-module"><span>贰</span>核心方法</div>
+    <div class="hero-module"><span>叁</span>实战应用</div>
+    <div class="hero-module"><span>肆</span>进阶策略</div>
+  </div>
+  <div class="scroll-hint">↓ 向下滑动开始</div>
+</section>
+
+<!-- 第一章 -->
+<section class="section" id="chapter1">
+  <div class="section-header reveal">
+    <div class="section-num">第 壹 章</div>
+    <h2>认知变革</h2>
+    <p class="section-desc">复盘，围棋进步的"第二战场"<br>重新理解复盘的核心价值与地位</p>
+  </div>
+
+  <div class="pain-grid">
+    <div class="pain-card reveal">
+      <div class="pain-icon">🧠</div>
+      <h3>依赖记忆</h3>
+      <p>复盘需"复"出棋来，对记忆力考验极大，步数繁多时极易遗漏关键步骤。</p>
+    </div>
+    <div class="pain-card reveal">
+      <div class="pain-icon">⏱️</div>
+      <h3>效率低下</h3>
+      <p>仅凭经验逻辑分析，过程繁琐耗时，容易陷入细节泥潭，难以抓住主要矛盾。</p>
+    </div>
+    <div class="pain-card reveal">
+      <div class="pain-icon">💭</div>
+      <h3>主观臆断</h3>
+      <p>缺乏客观标准，分析易受情绪和思维定式影响，难以形成统一、正确的结论。</p>
+    </div>
+  </div>
+
+  <div class="ai-benefits reveal">
+    <h3>破局：AI赋能，开启复盘"上帝视角"</h3>
+    <div class="benefit-list">
+      <div class="benefit-item">
+        <div class="benefit-num">1</div>
+        <div class="benefit-text">
+          <h4>客观分析</h4>
+          <p>基于海量数据深度计算，胜率评估与选点推荐不受主观情绪干扰，提供绝对理性的复盘依据。</p>
+        </div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-num">2</div>
+        <div class="benefit-text">
+          <h4>精准定位</h4>
+          <p>利用胜率曲线工具，瞬间定位影响棋局走势的问题手，告别大海捞针，快速聚焦复盘核心。</p>
+        </div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-num">3</div>
+        <div class="benefit-text">
+          <h4>高效计算</h4>
+          <p>瞬间完成复杂变化推演，将棋手从繁琐计算中解放，聚焦于对棋理本质和战略层面的深度理解。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 第二章 -->
+<section class="section" id="chapter2" style="background: #f5f2ec;">
+  <div class="section-header reveal">
+    <div class="section-num">第 贰 章</div>
+    <h2>核心方法</h2>
+    <p class="section-desc">"三阶段五步法"结构化复盘流程<br>为AI时代量身定制的系统化方法论</p>
+  </div>
+
+  <div class="three-stages">
+    <div class="stage-card reveal">
+      <div class="stage-range">1 - 30 手</div>
+      <h3>布局阶段</h3>
+      <div class="stage-core">核心：方向与效率</div>
+      <div class="stage-points">
+        <div>◆ 大场选择是否正确</div>
+        <div>◆ 棋形构建是否合理</div>
+        <div>◆ 定式选择是否贴合全局</div>
+      </div>
+    </div>
+    <div class="stage-card reveal">
+      <div class="stage-range">31 - 150 手</div>
+      <h3>中盘阶段</h3>
+      <div class="stage-core">核心：战斗与平衡</div>
+      <div class="stage-points">
+        <div>◆ 战斗是否合理</div>
+        <div>◆ 弱棋是否及时处理</div>
+        <div>◆ 全局厚薄与实地平衡</div>
+      </div>
+    </div>
+    <div class="stage-card reveal">
+      <div class="stage-range">151 手以后</div>
+      <h3>官子阶段</h3>
+      <div class="stage-core">核心：计算与次序</div>
+      <div class="stage-points">
+        <div>◆ 目数是否精确计算</div>
+        <div>◆ 先后手关系判断</div>
+        <div>◆ 收官次序是否最优</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="reveal" style="text-align:center; margin-bottom: 40px;">
+    <h3 style="font-size:24px; font-weight:normal; letter-spacing:3px; margin-bottom:8px;">五步复盘法</h3>
+    <p style="color:#888; font-size:14px;">从目标到改进的完整闭环</p>
+  </div>
+
+  <div class="five-steps">
+    <div class="step-item reveal">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h4>回顾目标</h4>
+        <p>明确本次对局想练习的重点：是定式、战术还是官子？对局中是否实现了这些目标？整体表现如何？</p>
+      </div>
+    </div>
+    <div class="step-item reveal">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h4>标记节点</h4>
+        <p>利用AI胜率曲线，快速定位3-5个对棋局影响最大的关键手。标记胜率波动超过±5%的手，以及所有疑问手和妙手。</p>
+      </div>
+    </div>
+    <div class="step-item reveal">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h4>分析类型</h4>
+        <p>将错误归类：方向选择错误、落子位置不当、计算深度不足等具体维度。记录每类问题的具体表现和频率。</p>
+      </div>
+    </div>
+    <div class="step-item reveal">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <h4>对比AI</h4>
+        <p>深入解析AI推荐走法的逻辑与优势。理解为什么这步棋更好，胜率提升了多少，后续变化是怎样的。向最强老师学习。</p>
+      </div>
+    </div>
+    <div class="step-item reveal">
+      <div class="step-num">5</div>
+      <div class="step-content">
+        <h4>总结改进</h4>
+        <p>针对问题制定具体的训练计划，确保改进落地。将问题与特定训练内容对应起来，在下一局中验证效果。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 第三章 -->
+<section class="section" id="chapter3">
+  <div class="section-header reveal">
+    <div class="section-num">第 叁 章</div>
+    <h2>实战应用</h2>
+    <p class="section-desc">从复盘到训练的转化机制<br>复盘本身不是目的，棋力提升才是</p>
+  </div>
+
+  <div class="cycle-diagram reveal">
+    <div class="cycle-node">
+      <div class="cycle-icon">🔍</div>
+      <h4>复盘 · 输入</h4>
+      <p>AI深度分析<br>精准发现问题</p>
+    </div>
+    <div class="cycle-arrow">→</div>
+    <div class="cycle-node">
+      <div class="cycle-icon">⚡</div>
+      <h4>训练 · 消化</h4>
+      <p>专项训练<br>内化为能力</p>
+    </div>
+    <div class="cycle-arrow">→</div>
+    <div class="cycle-node">
+      <div class="cycle-icon">🏆</div>
+      <h4>实战 · 验证</h4>
+      <p>新对局中应用<br>检验训练效果</p>
+    </div>
+    <div class="cycle-arrow">↻</div>
+  </div>
+
+  <div class="reveal">
+    <h3 style="text-align:center; font-size:22px; font-weight:normal; letter-spacing:2px; margin-bottom:24px;">复盘记录表</h3>
+    <p style="text-align:center; color:#888; font-size:14px; margin-bottom:30px;">标准化复盘工具：将每一次复盘的发现转化为可追踪的数据</p>
+    <div class="record-table-wrap">
+      <table class="record-table">
+        <thead>
+          <tr>
+            <th>复盘日期</th>
+            <th>问题手坐标</th>
+            <th>AI推荐走法</th>
+            <th>胜率差</th>
+            <th>错误类型</th>
+            <th>改进计划</th>
+            <th>实战验证</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>2026-02-05</td>
+            <td>黑13</td>
+            <td>白16</td>
+            <td style="color:#c94c4c;">-10%</td>
+            <td>方向选择错误</td>
+            <td>练习"三三"方向布局</td>
+            <td>3次正确选择大场</td>
+          </tr>
+          <tr>
+            <td>2026-02-05</td>
+            <td>白24</td>
+            <td>黑25</td>
+            <td style="color:#c94c4c;">-8%</td>
+            <td>落子位置不当</td>
+            <td>避免薄味处直接接触</td>
+            <td>减少被冲断情况</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 第四章 -->
+<section class="section" id="chapter4" style="background: #f5f2ec;">
+  <div class="section-header reveal">
+    <div class="section-num">第 肆 章</div>
+    <h2>进阶策略</h2>
+    <p class="section-desc">避开常见误区，阶梯式提升<br>少走弯路，针对性成长</p>
+  </div>
+
+  <div class="mistakes-grid">
+    <div class="mistake-card reveal">
+      <h4>"复盘胜"心态</h4>
+      <p class="mistake-symptom">"如果当时那么下，我就能赢"</p>
+      <div class="mistake-fix">
+        <strong>纠正方法：</strong>引导客观看待每一步棋，承认错误并接受。强调复盘的目的是发现问题并改进，而非单纯追求胜利。
+      </div>
+    </div>
+    <div class="mistake-card reveal">
+      <h4>过度依赖AI</h4>
+      <p class="mistake-symptom">不加思考直接看AI答案</p>
+      <div class="mistake-fix">
+        <strong>纠正方法：</strong>要求先独立思考1-2分钟，再查看AI建议。引导理解AI推荐走法的原理，而非机械模仿。
+      </div>
+    </div>
+    <div class="mistake-card reveal">
+      <h4>忽视基础理论</h4>
+      <p class="mistake-symptom">只看走法，不问为什么</p>
+      <div class="mistake-fix">
+        <strong>纠正方法：</strong>将AI推荐走法与基础围棋理论（厚薄、急所、轻重）相结合，知其然更知其所以然。
+      </div>
+    </div>
+  </div>
+
+  <div class="ladder-section reveal">
+    <h3>阶梯策略：不同段位的复盘侧重点</h3>
+    <div class="ladder-levels">
+      <div class="ladder-level">
+        <div class="ladder-level-num">2段</div>
+        <h4>培养复盘意识</h4>
+        <ul>
+          <li>从胜率曲线入手</li>
+          <li>每局聚焦1-2个最明显错误</li>
+          <li>强调"占大场"基本原则</li>
+          <li>避免随手棋</li>
+        </ul>
+      </div>
+      <div class="ladder-level">
+        <div class="ladder-level-num">3段</div>
+        <h4>引入核心概念</h4>
+        <ul>
+          <li>分析3-4个关键手</li>
+          <li>引入"方向选择"概念</li>
+          <li>引入"厚薄判断"概念</li>
+          <li>学习简单的急所识别</li>
+        </ul>
+      </div>
+      <div class="ladder-level">
+        <div class="ladder-level-num">4段</div>
+        <h4>全面掌握体系</h4>
+        <ul>
+          <li>独立完成三阶段复盘</li>
+          <li>培养"计算三步"思维习惯</li>
+          <li>尝试实战中应用AI思路</li>
+          <li>深入理解棋理本质</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 下载区 -->
+<section class="download-section">
+  <h2>围棋复盘常见问题速查表</h2>
+  <p>18项常见问题分类清单，配合复盘记录表使用<br>每局复盘后快速定位问题类型，追踪改进进度</p>
+  <a href="assets/pdf/weiqi-fupan-speedcheck.pdf" class="download-btn" download>⬇ 下载速查表 PDF</a>
+  <div class="download-note">PDF格式 · A4打印友好 · 可重复使用</div>
+</section>
+
+<footer class="footer">
+  <p>萝卜干聊围棋教育 · 围棋复盘指南</p>
+  <p style="margin-top:8px;"><a href="index.html">返回首页</a></p>
+</footer>
+
+<script>
+  // 滚动动画
+  function revealOnScroll() {
+    var reveals = document.querySelectorAll('.reveal');
+    for (var i = 0; i < reveals.length; i++) {
+      var windowHeight = window.innerHeight;
+      var elementTop = reveals[i].getBoundingClientRect().top;
+      var elementVisible = 100;
+      if (elementTop < windowHeight - elementVisible) {
+        reveals[i].classList.add('active');
+      }
+    }
+  }
+  window.addEventListener('scroll', revealOnScroll);
+  revealOnScroll();
+</script>
+
+</body>
+</html>
