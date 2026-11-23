@@ -83,10 +83,11 @@
       box-shadow: 0 8px 24px rgba(168, 54, 42, 0.08);
     }
     .culture-entry-icon {
-      font-size: 34px;
-      margin-bottom: 12px;
-      opacity: 0.85;
+      margin-bottom: 14px;
+      opacity: 0.9;
     }
+    /* 批4 S1：emoji → 单色线描图标（继承批1 S1 .ico 描边系统；朱红与卡片 hover 边框/计数行同色）*/
+    .culture-entry-icon .ico { width: 34px; height: 34px; display: block; color: var(--seal); }
     .culture-entry-count {
       font-size: 12px;
       color: var(--seal);
