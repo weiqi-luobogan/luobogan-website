@@ -1067,7 +1067,7 @@ function toggleShixunDetail(btn) {
     // ===== 围棋文化专栏 =====
     
 ;
-    (function initCulture() {
+window.__luoboInitCulture = function() {
       // 填充计数
       Object.keys(CULTURE_DATA).forEach(k => {
         const el = document.querySelector('.cnt-' + k);
@@ -1219,7 +1219,7 @@ function toggleShixunDetail(btn) {
         }
       })();
       // ===== LUOBO-WOMEN-EXPAND v1.0 END =====
-    })();
+};
 
 
 // ===== Showcase 5秒轮播 =====
@@ -4185,7 +4185,7 @@ function hideParentGuide(){
 ;
 /* v3.15 fix21 · 补全 3 位缺失 people 主传记（本因坊秀策 / 曹薰铉 / 朴廷桓）
    星图节点点击后 __luoboJumpToMaster 严格匹配需要这些 title 存在 */
-(function(){
+window.__luoboCultureFix21 = function(){
   if(!window.CULTURE_DATA && typeof CULTURE_DATA === 'undefined') return;
   var CD = (typeof CULTURE_DATA !== 'undefined') ? CULTURE_DATA : window.CULTURE_DATA;
   if(!CD || !CD.people || !CD.people.articles) return;
@@ -4196,7 +4196,7 @@ function hideParentGuide(){
   for(var j=0;j<addlist.length;j++){
     if(!existing[addlist[j].title]) arts.push(addlist[j]);
   }
-})();
+};
 ;
 /* 萝卜干官网 · 分享路由 + 动态 SEO + 分享按钮 v1.0
    - hash 路由深链：#culture / #culture/master/曹薰铉 / #tools / #brain / #daily / #master / #quiz
@@ -5199,6 +5199,29 @@ function hideParentGuide(){
     if(sec.classList.contains('open')){ window.__luoboLoadScript('/assets/js/brain-games.js'); return; }
     var mo = new MutationObserver(function(){
       if(sec.classList.contains('open')){ mo.disconnect(); window.__luoboLoadScript('/assets/js/brain-games.js'); }
+    });
+    mo.observe(sec, {attributes:true, attributeFilter:['class']});
+  })();
+
+;
+  // ===== 四期：围棋文化按需加载 =====
+  // culture_data.js(406KB) 与 initCulture/fix21 不再首屏执行；#culture 加 .open 时拉数据再初始化
+  (function(){
+    var sec = document.getElementById('culture');
+    if(!sec) return;
+    var loading = false;
+    window.__luoboEnsureCulture = function(){
+      if(loading) return window.__luoboCulturePromise;
+      loading = true;
+      window.__luoboCulturePromise = window.__luoboLoadScript('/assets/data/culture_data.js').then(function(){
+        if(typeof window.__luoboInitCulture === 'function') window.__luoboInitCulture();
+        if(typeof window.__luoboCultureFix21 === 'function') window.__luoboCultureFix21();
+      });
+      return window.__luoboCulturePromise;
+    };
+    if(sec.classList.contains('open')){ window.__luoboEnsureCulture(); return; }
+    var mo = new MutationObserver(function(){
+      if(sec.classList.contains('open')){ mo.disconnect(); window.__luoboEnsureCulture(); }
     });
     mo.observe(sec, {attributes:true, attributeFilter:['class']});
   })();
