@@ -1,0 +1,4185 @@
+  // ===== 启蒙教研密钥板块数据（AES 加密 · 账号密码模式）=====
+  
+;
+(function(){
+  'use strict';
+  // ==== 工具定义 ====
+  const TOOLS = [
+    // ---- 注意力训练 ----
+    {cat:'注意力训练', id:'schulte', icon:'🎯', name:'舒尔特方格',
+     desc:'经典注意力训练，网格随机 1~N² 按序点击，测你的视觉搜索速度。',
+     avail:true, recommend:true},
+    {cat:'注意力训练', id:'schulte4d', icon:'🌈', name:'四色动态舒尔特',
+     desc:'4 色分组按序点击 + 完成每色后位置动态洗牌，舒尔特进阶挑战版。',
+     avail:true, recommend:true},
+    {cat:'注意力训练', id:'schulteDisk', icon:'🎡', name:'四色动态舒尔特圆盘',
+     desc:'分层旋转圆盘上按序找 1→N，眼动追踪与视觉扫描训练。',
+     avail:true, recommend:true, ver:'v1.3 新增'},
+    {cat:'注意力训练', id:'spotdiff', icon:'🔍', name:'找不同',
+     desc:'两张围棋棋形图对比，找出所有不同之处，训练视觉分辨与观察力。',
+     avail:true},
+    {cat:'注意力训练', id:'matchpair', icon:'🀄', name:'图形配对记忆',
+     desc:'翻开围棋术语卡片，配对相同图案，训练工作记忆与视觉分辨。',
+     avail:true},
+    {cat:'注意力训练', id:'cancellation', icon:'🎯', name:'视觉划消',
+     desc:'限时内找出并点击指定颜色的棋子，训练视觉控制与持续专注。',
+     avail:true},
+    {cat:'注意力训练', id:'antidistract', icon:'🛡️', name:'抗干扰训练',
+     desc:'在大量干扰棋子中快速找到目标，训练抗干扰与选择性注意。',
+     avail:true},
+    // ---- 记忆力训练 ----
+    {cat:'记忆力训练', id:'digitspan', icon:'🔢', name:'数字顺序记忆',
+     desc:'闪现一串数字后按顺序输入，学棋孩子记棋谱的基本功。',
+     avail:true},
+    {cat:'记忆力训练', id:'digitreverse', icon:'🔁', name:'数字倒背',
+     desc:'数字依次闪现后从后往前倒序输入，训练工作记忆逆向加工。',
+     avail:true},
+    {cat:'记忆力训练', id:'seqmem', icon:'💡', name:'顺序记忆训练',
+     desc:'棋盘格依次亮起，请按顺序复现，工作记忆容量训练。',
+     avail:true},
+    {cat:'记忆力训练', id:'nback', icon:'🌀', name:'N-Back 记忆',
+     desc:'判断当前位置与 N 步前是否相同，认知训练金标准。',
+     avail:true},
+    {cat:'记忆力训练', id:'coordmem', icon:'📍', name:'坐标记忆',
+     desc:'棋盘交叉点依次亮起，按顺序复现坐标，围棋空间记忆训练。',
+     avail:true},
+    // ---- 思维推理训练 ----
+    {cat:'思维推理训练', id:'stroop', icon:'🎨', name:'斯特鲁普效应',
+     desc:'颜色词与字色冲突时的判断，测抑制控制与专注力。',
+     avail:true},
+    {cat:'思维推理训练', id:'speedmatch', icon:'⚡', name:'快速配对',
+     desc:'左右两列围棋符号快速闪现，判断是否相同，训练加工速度。',
+     avail:true},
+    {cat:'思维推理训练', id:'patternseq', icon:'🧠', name:'规律发现',
+     desc:'图形序列缺一个，从选项中选出正确的，训练推理与归纳能力。',
+     avail:true},
+    {cat:'思维推理训练', id:'huarong', icon:'🧩', name:'数字华容道',
+     desc:'滑块拼图恢复顺序，空间规划与耐心训练。',
+     avail:true},
+    {cat:'思维推理训练', id:'watersort', icon:'🧪', name:'上下瓶色匹配',
+     desc:'倒水式色彩分类，逻辑推理与全局观训练。',
+     avail:true},
+    {cat:'思维推理训练', id:'maze', icon:'🧭', name:'迷宫训练',
+     desc:'黑子为墙白子为路，从入口走到出口，训练空间推理与视觉广度。',
+     avail:true},
+    // ---- 围棋专项训练 ----
+    {cat:'围棋专项训练', id:'qicalc', icon:'●', name:'气的计算',
+     desc:'棋盘上摆棋形，计算指定棋子的气数，围棋核心概念训练。',
+     avail:true, recommend:true},
+    {cat:'围棋专项训练', id:'lifefast', icon:'⚫', name:'死活速判',
+     desc:'限时内判断棋形死活，训练死活直觉与快速判断能力。',
+     avail:true},
+    {cat:'围棋专项训练', id:'tesuji', icon:'♟️', name:'手筋识别',
+     desc:'局面选择题，找出正确的手筋招法，训练棋感。',
+     avail:true}
+  ];
+  const TOOL_CATEGORIES = ['注意力训练','记忆力训练','思维推理训练','围棋专项训练'];
+  // ==== 主管理器 ====
+  const Brain = {
+    renderList(){
+      const wrap = document.getElementById('brain-cards');
+      if(!wrap) return;
+      const cats = window.TOOL_CATEGORIES || [...new Set(TOOLS.map(t=>t.cat||'其他'))];
+      let html = '';
+      cats.forEach(cat=>{
+        const items = TOOLS.filter(t=>(t.cat||'其他')===cat);
+        if(!items.length) return;
+        html += `<div class="brain-cat-title">${cat}</div>`;
+        html += items.map(t=>`
+          <div class="brain-card ${t.avail?'':'disabled'}" data-tool="${t.id}">
+            ${t.recommend?'<span class="brain-recommend">推荐</span>':''}
+            <span class="brain-icon">${t.icon}</span>
+            <h4>${t.name}</h4>
+            <p class="brain-desc">${t.desc}</p>
+            <span class="brain-tag ${t.avail?'avail':'soon'}">${t.avail?'进入训练 →':'即将开放'}</span>
+          </div>
+        `).join('');
+      });
+      wrap.innerHTML = html;
+      wrap.querySelectorAll('.brain-card').forEach(el=>{
+        el.addEventListener('click',()=>{
+          const id = el.dataset.tool;
+          const tool = TOOLS.find(t=>t.id===id);
+          if(!tool||!tool.avail) return;
+          Brain.enterTool(id);
+        });
+      });
+      Brain.renderCheckin();
+    },
+    enterTool(id){
+      document.getElementById('brain-list').style.display='none';
+      const area = document.getElementById('brain-tool-area');
+      area.style.display='block';
+      area.innerHTML='';
+      const tool = TOOLS.find(t=>t.id===id);
+      const panel = document.createElement('div');
+      panel.className='brain-tool-panel';
+      panel.innerHTML = `
+        <div class="brain-tool-header">
+          <div class="brain-tool-title">${tool.icon} ${tool.name}</div>
+          <button class="brain-tool-back" id="brain-back-btn">← 返回训练室</button>
+        </div>
+        <div id="brain-tool-content"></div>
+      `;
+      area.appendChild(panel);
+      document.getElementById('brain-back-btn').addEventListener('click',Brain.exitTool);
+      area.scrollIntoView({behavior:'smooth',block:'start'});
+      // 初始化对应工具
+      const impl = Brain.tools[id];
+      if(impl) impl.init(document.getElementById('brain-tool-content'));
+    },
+    exitTool(){
+      document.getElementById('brain-list').style.display='';
+      const area = document.getElementById('brain-tool-area');
+      area.style.display='none';
+      area.innerHTML='';
+      document.getElementById('brain-training').scrollIntoView({behavior:'smooth',block:'start'});
+      Brain.renderCheckin();
+    },
+    // ==== 打卡日历 ====
+    _dayKey(d){
+      const y=d.getFullYear(), m=String(d.getMonth()+1).padStart(2,'0'), day=String(d.getDate()).padStart(2,'0');
+      return `${y}-${m}-${day}`;
+    },
+    getDays(){
+      try{ return JSON.parse(localStorage.getItem('luobo_brain_days')||'[]'); }catch(e){ return []; }
+    },
+    checkin(toolId){
+      const today = Brain._dayKey(new Date());
+      const days = Brain.getDays();
+      if(!days.includes(today)){
+        days.push(today);
+        localStorage.setItem('luobo_brain_days', JSON.stringify(days));
+      }
+      const perTool = JSON.parse(localStorage.getItem('luobo_brain_tool_count')||'{}');
+      perTool[toolId] = (perTool[toolId]||0) + 1;
+      localStorage.setItem('luobo_brain_tool_count', JSON.stringify(perTool));
+    },
+    getStreak(){
+      const days = Brain.getDays();
+      if(!days.length) return 0;
+      const set = new Set(days);
+      const today = new Date();
+      const todayStr = Brain._dayKey(today);
+      const yesterdayStr = Brain._dayKey(new Date(today.getTime()-86400000));
+      let cursor;
+      if(set.has(todayStr)) cursor = new Date(today);
+      else if(set.has(yesterdayStr)) cursor = new Date(today.getTime()-86400000);
+      else return 0;
+      let streak = 0;
+      while(set.has(Brain._dayKey(cursor))){
+        streak++;
+        cursor = new Date(cursor.getTime()-86400000);
+      }
+      return streak;
+    },
+    renderCheckin(){
+      const wrap = document.getElementById('brain-checkin');
+      if(!wrap) return;
+      const days = Brain.getDays();
+      const daysSet = new Set(days);
+      const now = new Date();
+      const y = now.getFullYear(), m = now.getMonth();
+      const first = new Date(y,m,1);
+      const firstDow = first.getDay();
+      const daysInMonth = new Date(y,m+1,0).getDate();
+      const todayStr = Brain._dayKey(now);
+      const monthPrefix = `${y}-${String(m+1).padStart(2,'0')}`;
+      const monthLabel = `${y}年${m+1}月`;
+      const streak = Brain.getStreak();
+      const monthCount = days.filter(d=>d.startsWith(monthPrefix)).length;
+      const totalCount = days.length;
+      let cells = '<div class="ck-hd">日</div><div class="ck-hd">一</div><div class="ck-hd">二</div><div class="ck-hd">三</div><div class="ck-hd">四</div><div class="ck-hd">五</div><div class="ck-hd">六</div>';
+      for(let i=0;i<firstDow;i++) cells += '<div class="ck-day empty"></div>';
+      for(let d=1;d<=daysInMonth;d++){
+        const key = `${monthPrefix}-${String(d).padStart(2,'0')}`;
+        const cls = ['ck-day'];
+        if(daysSet.has(key)) cls.push('done');
+        if(key===todayStr) cls.push('today');
+        cells += `<div class="${cls.join(' ')}">${d}</div>`;
+      }
+      const encourage = totalCount===0
+        ? '开始你的第一次训练吧，每完成一次自动打卡。'
+        : (streak>=7 ? `连续 ${streak} 天，很棒的坚持 ✨` : '每完成一次训练自动打卡；日期仅存本机浏览器，不上传。');
+      wrap.innerHTML = `
+        <div class="brain-checkin-header">
+          <div class="brain-checkin-title">📅 训练打卡 · ${monthLabel}</div>
+          <div class="brain-checkin-stat">连续 <b>${streak}</b> 天 · 本月 <b>${monthCount}</b> 天 · 累计 <b>${totalCount}</b> 天</div>
+        </div>
+        <div class="brain-checkin-cal">${cells}</div>
+        <div class="brain-checkin-tip">${encourage}</div>
+      `;
+    },
+    tools:{}
+  };
+  // ==== 舒尔特方格 ====
+  Brain.tools.schulte = {
+    size:5, next:1, startedAt:null, timerId:null,
+    init(host){
+      host.innerHTML = `
+        <div class="brain-intro-text">
+          <p>把随机排列的数字按 <span class="hl">1→2→3→...→N²</span> 的顺序快速点击，全部点完计时结束。</p>
+          <ul>
+            <li>视线尽量停留在网格中央，用余光扫描——这是训练重点。</li>
+            <li>点错不会终止，但计时不停，鼓励一次做对。</li>
+            <li>训练建议：每天 3-5 局 5×5，坚持一周可见速度提升。</li>
+          </ul>
+          <p class="hl" style="margin-top:12px">数据参考（5×5，单位：秒）</p>
+          <table class="brain-ref-table"><thead><tr><th>年龄段</th><th>优秀</th><th>良好</th><th>一般</th><th>待提升</th></tr></thead>
+          <tbody>
+            <tr><td>7-8 岁</td><td>&lt;35</td><td>35-50</td><td>50-75</td><td>&gt;75</td></tr>
+            <tr><td>9-12 岁</td><td>&lt;28</td><td>28-42</td><td>42-60</td><td>&gt;60</td></tr>
+            <tr><td>成人</td><td>&lt;25</td><td>25-40</td><td>40-55</td><td>&gt;55</td></tr>
+          </tbody></table>
+          <div class="brain-ref-note"><b>参考来源：</b>舒尔特方格测试由 W. Schulte（1911，德国精神科医生）提出，最初用于注意力评估与飞行员筛选。本表数值综合国内基础教育认知训练领域常见参考区间，5×5 成人组略低于俄国空军 25s 标准。<b>请注意：</b>个体差异较大，
+
+建议连续 3-5 局取稳定值作为个人基线。</div>
+        </div>
+        <div class="schulte-controls">
+          <span style="font-size:13px;color:#6b5a3a">选择尺寸：</span>
+          <button class="size-btn" data-s="3">3×3</button>
+          <button class="size-btn" data-s="4">4×4</button>
+          <button class="size-btn active" data-s="5">5×5</button>
+          <button class="size-btn" data-s="6">6×6</button>
+        </div>
+        <div class="schulte-status">
+          <div>下一个：<span class="st-target" id="st-target">1</span> / <span id="st-total">25</span></div>
+          <div id="st-best" style="font-size:12px;color:#6b5a3a"></div>
+          <div class="st-time" id="st-time">00.00</div>
+        </div>
+        <div class="schulte-grid" id="st-grid"></div>
+      `;
+      host.querySelectorAll('.size-btn').forEach(btn=>{
+        btn.addEventListener('click',()=>{
+          host.querySelectorAll('.size-btn').forEach(b=>b.classList.remove('active'));
+          btn.classList.add('active');
+          this.size = parseInt(btn.dataset.s);
+          this.render(host);
+        });
+      });
+      this.render(host);
+    },
+    render(host){
+      this.next = 1;
+      this.startedAt = null;
+      if(this.timerId){clearInterval(this.timerId);this.timerId=null}
+      const total = this.size*this.size;
+      const arr = Array.from({length:total},(_,i)=>i+1);
+      for(let i=arr.length-1;i>0;i--){
+        const j = Math.floor(Math.random()*(i+1));
+        [arr[i],arr[j]]=[arr[j],arr[i]];
+      }
+      const grid = host.querySelector('#st-grid');
+      grid.style.gridTemplateColumns = `repeat(${this.size},1fr)`;
+      grid.innerHTML = arr.map(n=>`<div class="schulte-cell" data-n="${n}">${n}</div>`).join('');
+      host.querySelector('#st-target').textContent = '1';
+      host.querySelector('#st-total').textContent = total;
+      host.querySelector('#st-time').textContent = '00.00';
+      const bestKey = `luobo_brain_schulte_${this.size}x${this.size}_best`;
+      const best = localStorage.getItem(bestKey);
+      host.querySelector('#st-best').textContent = best?`最佳 ${(parseFloat(best)/1000).toFixed(2)}s`:'';
+      grid.querySelectorAll('.schulte-cell').forEach(cell=>{
+        cell.addEventListener('click',()=>this.onClick(cell,host));
+      });
+    },
+    onClick(cell,host){
+      const n = parseInt(cell.dataset.n);
+      if(cell.classList.contains('done')) return;
+      if(n !== this.next){
+        cell.classList.add('wrong');
+        setTimeout(()=>cell.classList.remove('wrong'),300);
+        return;
+      }
+      if(this.next===1){
+        this.startedAt = Date.now();
+        this.timerId = setInterval(()=>{
+          const t = (Date.now()-this.startedAt)/1000;
+          host.querySelector('#st-time').textContent = t.toFixed(2).padStart(5,'0');
+        },50);
+      }
+      cell.classList.add('done');
+      this.next++;
+      host.querySelector('#st-target').textContent = this.next;
+      if(this.next > this.size*this.size){
+        this.finish(host);
+      }
+    },
+    finish(host){
+      clearInterval(this.timerId);
+      this.timerId = null;
+      const ms = Date.now() - this.startedAt;
+      const bestKey = `luobo_brain_schulte_${this.size}x${this.size}_best`;
+      const prev = parseFloat(localStorage.getItem(bestKey))||Infinity;
+      const isBest = ms < prev;
+      if(isBest) localStorage.setItem(bestKey,ms);
+      const s = ms/1000;
+      const grade = this.grade(s);
+      Brain.checkin('schulte');
+      host.innerHTML = `
+        <div class="schulte-result">
+          <div class="result-time">${s.toFixed(2)}s</div>
+          <div class="result-grade">评级：<span class="hl">${grade.label}</span> ${grade.emoji}</div>
+          <div class="result-best">${isBest?'🎉 破纪录！':'历史最佳 '+(prev===Infinity?'—':(prev/1000).toFixed(2)+'s')}</div>
+          <p style="font-size:13px;color:#6b5a3a;margin-bottom:20px;max-width:520px;margin-left:auto;margin-right:auto">${grade.tip}</p>
+          <button class="result-btn" id="st-again">再来一局</button>
+          <button class="result-btn" id="st-changesize" style="background:transparent;color:var(--seal);border:1px solid var(--seal)">换个尺寸</button>
+        </div>
+      `;
+      host.querySelector('#st-again').addEventListener('click',()=>this.init(host));
+      host.querySelector('#st-changesize').addEventListener('click',()=>{
+        this.size = 5;
+        this.init(host);
+      });
+    },
+    grade(s){
+      // 按 5×5 成人标准换算，其他尺寸线性缩放
+      const base = s * (25/(this.size*this.size));
+      if(base < 25) return {label:'优秀',emoji:'⭐⭐⭐',tip:'反应敏锐，可以尝试更大尺寸挑战。'};
+      if(base < 40) return {label:'良好',emoji:'⭐⭐',tip:'状态不错，多练习可以再快 5-10 秒。'};
+      if(base < 55) return {label:'一般',emoji:'⭐',tip:'继续加练，重点是视线定住网格中央用余光扫描。'};
+      return {label:'待提升',emoji:'💪',tip:'第一次别急，找到"用余光"的感觉就快了。'};
+    }
+  };
+  // ==== 四色动态舒尔特（B 同色分组 + D 动态位置洗牌） ====
+  Brain.tools.schulte4d = {
+    // 4 色定义：红蓝黄绿
+    COLORS: [
+      {id:'red',    name:'红',  bg:'#c8443a', text:'#c8443a'},
+      {id:'blue',   name:'蓝',  bg:'#3a6fc8', text:'#3a6fc8'},
+      {id:'yellow', name:'黄',  bg:'#d4a017', text:'#b0850e'},
+      {id:'green',  name:'绿',  bg:'#4a8f4a', text:'#4a8f4a'}
+    ],
+    size: 4,         // 默认 4×4（每色 4 个）
+    curColorIdx: 0,  // 当前颜色索引
+    curNext: 1,      // 当前颜色的下一个数字
+    perColor: 4,     // 每色数字数
+    cells: [],       // {n, colorIdx, done, el}
+    startedAt: null,
+    timerId: null,
+    totalErrors: 0,
+    shuffleCount: 0,
+    init(host){
+      host.innerHTML = `
+        <div class="brain-intro-text">
+          <p>四色动态舒尔特 = 经典舒尔特 + <span class="hl">同色分组</span> + <span class="hl">位置动态洗牌</span> 双重进阶。</p>
+          <ul>
+            <li>网格分 <b>红→蓝→黄→绿</b> 4 组，每组内按 <span class="hl">1→N</span> 顺序点击。</li>
+            <li>完成一组颜色后，剩余未点数字会 <b>随机洗牌位置</b>（这就是"动态"）。</li>
+            <li>训练重点：颜色识别（视觉选择）+ 分组执行（工作记忆）+ 位置更新（认知灵活性）。</li>
+            <li>建议：先熟悉 4×4，再挑战 6×6。孩子可以先玩 4×4 玩法 B 版（关洗牌）。</li>
+          </ul>
+          <p class="hl" style="margin-top:12px">难度对比（参考）</p>
+          <table class="brain-ref-table"><thead><tr><th>版本</th><th>难度</th><th>训练点</th><th>建议年龄</th></tr></thead>
+          <tbody>
+            <tr><td>5×5 单色</td><td>⭐⭐</td><td>视觉搜索</td><td>7 岁+</td></tr>
+            <tr><td>4×4 四色</td><td>⭐⭐⭐</td><td>+ 分组切换</td><td>8 岁+</td></tr>
+            <tr><td>6×6 四色</td><td>⭐⭐⭐⭐</td><td>+ 位置更新</td><td>10 岁+</td></tr>
+          </tbody></table>
+          <div class="brain-ref-note"><b>参考来源：</b>本变种融合"分组舒尔特"（俄罗斯认知训练常见方案）与"动态舒尔特"（数字位置变化）两种进阶设计，是围棋教研中处理"复盘变化图"能力的类比训练——同时追踪多个变化线的能力。<b>请注意：</b>初次接触普遍比经典版慢 30-50%，属正常现象；连续训练 3-5 天后适应。</div>
+        </div>
+        <div class="s4d-controls">
+          <span style="font-size:13px;color:#6b5a3a">选择尺寸：</span>
+          <button class="size-btn active" data-s="4">4×4 · 4色×4</button>
+          <button class="size-btn" data-s="6">6×6 · 4色×9</button>
+        </div>
+        <div class="s4d-cur-target" id="s4d-cur"></div>
+        <div class="s4d-status">
+          <div class="s4d-color-progress" id="s4d-progress"></div>
+          <div id="s4d-best" style="font-size:12px;color:#6b5a3a"></div>
+          <div class="st-time" id="s4d-time">00.00</div>
+        </div>
+        <div id="s4d-shuffle-slot"></div>
+        <div class="s4d-grid" id="s4d-grid"></div>
+      `;
+      host.querySelectorAll('.size-btn').forEach(btn=>{
+        btn.addEventListener('click',()=>{
+          host.querySelectorAll('.size-btn').forEach(b=>b.classList.remove('active'));
+          btn.classList.add('active');
+          this.size = parseInt(btn.dataset.s);
+          this.perColor = (this.size*this.size)/4;
+          if(this.size===6) this.perColor = 9;
+          this.render(host);
+        });
+      });
+      this.perColor = 4;
+      this.render(host);
+    },
+    render(host){
+      this.curColorIdx = 0;
+      this.curNext = 1;
+      this.startedAt = null;
+      this.totalErrors = 0;
+      this.shuffleCount = 0;
+      if(this.timerId){clearInterval(this.timerId);this.timerId=null}
+      const total = this.size*this.size;
+      // 生成 cells：颜色 0/1/2/3 各 perColor 个，数字 1→perColor
+      this.cells = [];
+      for(let c=0;c<4;c++){
+        for(let n=1;n<=this.perColor;n++){
+          this.cells.push({n, colorIdx:c, done:false});
+        }
+      }
+      // Fisher-Yates 洗牌
+      this._shuffleCells();
+      // 渲染网格
+      const grid = host.querySelector('#s4d-grid');
+      grid.style.gridTemplateColumns = `repeat(${this.size},1fr)`;
+      this._renderGrid(host, grid);
+      // 计时区
+      host.querySelector('#s4d-time').textContent = '00.00';
+      const bestKey = `luobo_brain_schulte4d_${this.size}x${this.size}_best`;
+      const best = localStorage.getItem(bestKey);
+      host.querySelector('#s4d-best').textContent = best?`最佳 ${(parseFloat(best)/1000).toFixed(2)}s`:'';
+      this._renderProgress(host);
+      this._renderCurTarget(host);
+    },
+    _shuffleCells(){
+      for(let i=this.cells.length-1;i>0;i--){
+        const j = Math.floor(Math.random()*(i+1));
+        [this.cells[i],this.cells[j]] = [this.cells[j],this.cells[i]];
+      }
+    },
+    _renderGrid(host, grid){
+      grid.innerHTML = '';
+      this.cells.forEach((cell, idx)=>{
+        const color = this.COLORS[cell.colorIdx];
+        const div = document.createElement('div');
+        div.className = 's4d-cell' + (cell.done?' done':'');
+        div.dataset.idx = idx;
+        div.textContent = cell.n;
+        div.style.background = cell.done ? '#e6dcc2' : color.bg;
+        div.addEventListener('click',()=>this.onClick(idx, host));
+        cell.el = div;
+        grid.appendChild(div);
+      });
+    },
+    _renderProgress(host){
+      const wrap = host.querySelector('#s4d-progress');
+      wrap.innerHTML = this.COLORS.map((c,i)=>{
+        const isCur = i===this.curColorIdx;
+        const isDone = i<this.curColorIdx;
+        const cls = 'cp-item' + (isCur?' active':'') + (isDone?' done':'');
+        const target = isCur ? `${this.curNext}/${this.perColor}` : (isDone ? `✓` : `${this.perColor}`);
+        return `<div class="${cls}"><span class="cp-dot" style="background:${c.bg}"></span>${c.name}<span class="cp-target">${target}</span></div>`;
+      }).join('');
+    },
+    _renderCurTarget(host){
+      const wrap = host.querySelector('#s4d-cur');
+      if(this.curColorIdx>=4){
+        wrap.innerHTML = '<b style="color:#8b3a3a">全部完成！</b>';
+        return;
+      }
+      const c = this.COLORS[this.curColorIdx];
+      wrap.innerHTML = `请点击 <span class="cur-color" style="background:${c.bg}"></span><b style="color:${c.text}">${c.name}色</b> 的 <span class="cur-num">${this.curNext}</span>`;
+    },
+    onClick(idx, host){
+      if(this.curColorIdx>=4) return;
+      const cell = this.cells[idx];
+      if(!cell || cell.done) return;
+      // 检查颜色是否匹配
+      if(cell.colorIdx !== this.curColorIdx){
+        cell.el.classList.add('wrong');
+        setTimeout(()=>cell.el.classList.remove('wrong'),300);
+        this.totalErrors++;
+        return;
+      }
+      // 检查数字是否匹配
+      if(cell.n !== this.curNext){
+        cell.el.classList.add('wrong');
+        setTimeout(()=>cell.el.classList.remove('wrong'),300);
+        this.totalErrors++;
+        return;
+      }
+      // 首次点击开始计时
+      if(this.curColorIdx===0 && this.curNext===1){
+        this.startedAt = Date.now();
+        this.timerId = setInterval(()=>{
+          const t = (Date.now()-this.startedAt)/1000;
+          host.querySelector('#s4d-time').textContent = t.toFixed(2).padStart(5,'0');
+        },50);
+      }
+      // 标记完成
+      cell.done = true;
+      cell.el.classList.add('done');
+      cell.el.style.background = '#e6dcc2';
+      this.curNext++;
+      // 当前颜色完成 → 切下一色 + 触发洗牌（玩法 D）
+      if(this.curNext > this.perColor){
+        this.curColorIdx++;
+        this.curNext = 1;
+        if(this.curColorIdx < 4){
+          this._triggerShuffle(host);
+        } else {
+          this._renderProgress(host);
+          this._renderCurTarget(host);
+          this.finish(host);
+          return;
+        }
+      }
+      this._renderProgress(host);
+      this._renderCurTarget(host);
+    },
+    _triggerShuffle(host){
+      this.shuffleCount++;
+      // 显示洗牌提示
+      const slot = host.querySelector('#s4d-shuffle-slot');
+      slot.innerHTML = `<div class="s4d-shuffle-hint">🔀 完成 ${this.COLORS[this.curColorIdx-1].name}色！位置正在洗牌，请重新扫描下一色...</div>`;
+      // 收集所有未 done 的 cell 索引
+      const undoneIdxs = [];
+      const undoneData = [];
+      this.cells.forEach((c,i)=>{
+        if(!c.done){ undoneIdxs.push(i); undoneData.push(c); }
+      });
+      // 视觉缩放
+      undoneData.forEach(c=>c.el && c.el.classList.add('shuffling'));
+      setTimeout(()=>{
+        // Fisher-Yates 洗牌未完成的
+        for(let i=undoneData.length-1;i>0;i--){
+          const j = Math.floor(Math.random()*(i+1));
+          [undoneData[i], undoneData[j]] = [undoneData[j], undoneData[i]];
+        }
+        // 把打乱后的数据放回原位置
+        undoneIdxs.forEach((origIdx, k)=>{
+          this.cells[origIdx] = undoneData[k];
+        });
+        // 重绘网格
+        const grid = host.querySelector('#s4d-grid');
+        this._renderGrid(host, grid);
+        // 清除提示
+        setTimeout(()=>{ slot.innerHTML=''; }, 1400);
+        this._renderProgress(host);
+        this._renderCurTarget(host);
+      }, 500);
+    },
+    finish(host){
+      clearInterval(this.timerId);
+      this.timerId = null;
+      const ms = Date.now() - this.startedAt;
+      const bestKey = `luobo_brain_schulte4d_${this.size}x${this.size}_best`;
+      const prev = parseFloat(localStorage.getItem(bestKey))||Infinity;
+      const isBest = ms < prev;
+      if(isBest) localStorage.setItem(bestKey,ms);
+      const s = ms/1000;
+      const grade = this.grade(s);
+      Brain.checkin('schulte4d');
+      host.innerHTML = `
+        <div class="s4d-result">
+          <div class="result-time">${s.toFixed(2)}s</div>
+          <div class="result-grade">评级：<span class="hl">${grade.label}</span> ${grade.emoji}</div>
+          <div class="result-best">${isBest?'🎉 破纪录！':'历史最佳 '+(prev===Infinity?'—':(prev/1000).toFixed(2)+'s')}</div>
+          <div class="result-detail">尺寸 ${this.size}×${this.size} · 洗牌 ${this.shuffleCount} 次 · 错点 ${this.totalErrors} 次</div>
+          <p style="font-size:13px;color:#6b5a3a;margin-bottom:20px;max-width:520px;margin-left:auto;margin-right:auto">${grade.tip}</p>
+          <button class="result-btn" id="s4d-again">再来一局</button>
+          <button class="result-btn" id="s4d-classic" style="background:transparent;color:var(--seal);border:1px solid var(--seal)">换经典版</button>
+        </div>
+      `;
+      host.querySelector('#s4d-again').addEventListener('click',()=>this.init(host));
+      host.querySelector('#s4d-classic').addEventListener('click',()=>{
+        // 切回经典舒尔特（通过父层再次触发工具卡片点击）
+        const brainList = document.getElementById('brain-list');
+        const toolArea = document.getElementById('brain-tool-area');
+        if(brainList && toolArea){
+          toolArea.style.display='none';
+          brainList.style.display='';
+          setTimeout(()=>{
+            const schulteCard = document.querySelector('.brain-card[data-tool="schulte"]');
+            if(schulteCard) schulteCard.click();
+          },100);
+        }
+      });
+    },
+    grade(s){
+      // 4×4 参考：优<25 良25-45 一般45-70 待>70
+      // 6×6 参考：
+
+      // 优<60 良60-100 一般100-150 待>150
+      const base4x4 = s * (16/(this.size*this.size));
+      if(base4x4 < 25) return {label:'优秀',emoji:'⭐⭐⭐',tip:'反应敏锐，颜色切换和位置更新几乎无损耗，可挑战 6×6 版本。'};
+      if(base4x4 < 45) return {label:'良好',emoji:'⭐⭐',tip:'状态稳定，颜色分组处理熟练；多练习可以突破洗牌造成的短暂停顿。'};
+      if(base4x4 < 70) return {label:'一般',emoji:'⭐',tip:'继续加练，洗牌后需要重新扫描是训练重点，用余光整体感知网格。'};
+      return {label:'待提升',emoji:'💪',tip:'初次接触正常现象；先熟悉 4×4，找到"分组切换"的节奏，速度会快起来。'};
+    }
+  };
+  // ==== 四色动态舒尔特圆盘（v1.3 新增：SVG 分层旋转圆盘 · 眼动追踪训练） ====
+  Brain.tools.schulteDisk = {
+    // 4 色淡雅：奶油黄 / 淡薄荷 / 淡蓝 / 淡粉
+    COLORS: ['#FCEFC7', '#DDF0E3', '#DCE7F5', '#F5DDE3'],
+    // 各规格分层：{count, rInner, rOuter, dir(1=CW,-1=CCW)}
+    LAYOUTS: {
+      3: [{count:3, rInner:28,  rOuter:88,  dir: 1}, {count:6,  rInner:88,  rOuter:158, dir:-1}],
+      4: [{count:4, rInner:28,  rOuter:88,  dir: 1}, {count:12, rInner:88,  rOuter:158, dir:-1}],
+      5: [{count:5, rInner:24,  rOuter:70,  dir: 1}, {count:8,  rInner:70,  rOuter:114, dir:-1}, {count:12, rInner:114, rOuter:158, dir: 1}],
+      6: [{count:6, rInner:24,  rOuter:70,  dir: 1}, {count:12, rInner:70,  rOuter:114, dir:-1}, {count:18, rInner:114, rOuter:158, dir: 1}]
+    },
+    CENTER: {x:200, y:200},
+    CENTER_R: 15,
+    // 状态
+    size: 3, speedSec: 30,
+    running: false, finished: false,
+    startTime: 0, penaltyMs: 0,
+    nextNum: 1, total: 9, errors: 0,
+    layers: [], animFrame: null, timerFrame: null,
+    lastFrameTime: 0,
+    _host: null,
+    init(host){
+      this._host = host;
+      host.innerHTML = `
+        <div class="brain-intro-text">
+          <p>四色动态舒尔特圆盘是一种<span class="hl">分层旋转 + 视觉扫描</span>的综合训练——数字被均匀分布在同心圆环上，各层以不同方向缓慢转动，你需要在动态盘面中按 <span class="hl">1→N</span> 的顺序依次点击。</p>
+          <ul>
+            <li><b>训练目的：</b>提升视觉扫描的范围与效率，锻炼抑制外部干扰的能力，改善眼球在动态目标间的追踪灵活度。</li>
+            <li><b>使用方法：</b>下方按钮选择<b>规格</b>与<b>速度</b>，点「开始」后计时启动、圆盘按选定速度旋转，按序点击对应数字即可；点对淡出、点错闪红并加 1 秒。</li>
+            <li><b>训练建议：</b>3×3 熟悉玩法，4×4 是日常训练区间，5×5 / 6×6 用于挑战；先「慢」速稳定，再逐步上「中」/「快」。</li>
+          </ul>
+          <div class="brain-intro-text" style="margin:0;padding:0">
+            <p class="hl" style="margin-top:8px">四种规格分层</p>
+            <table class="brain-ref-table"><thead><tr><th>规格</th><th>数字总数</th><th>分层结构</th><th>旋转策略</th></tr></thead>
+            <tbody>
+              <tr><td>3×3 · 易</td><td>9</td><td>内 3 + 外 6</td><td>2 层反向</td></tr>
+              <tr><td>4×4 · 中</td><td>16</td><td>内 4 + 外 12</td><td>2 层反向</td></tr>
+              <tr><td>5×5 · 难</td><td>25</td><td>内 5 + 中 8 + 外 12</td><td>3 层交替</td></tr>
+              <tr><td>6×6 · 挑战</td><td>36</td><td>内 6 + 中 12 + 外 18</td><td>3 层交替</td></tr>
+            </tbody></table>
+          </div>
+          <div class="brain-ref-note"><b>说明：</b>本训练借鉴动态舒尔特（Dynamic Schulte）与眼动追踪训练常见方案，用于视觉搜索与注意分配的日常训练。每次开始会重新打乱数字，起点 <b style="color:#c14238">1</b> 与终点 <b style="color:#c14238">N</b> 用红色标出便于视觉锚定；成绩仅供个人纵向比较，不作医学评估或筛查用途。</div>
+        </div>
+        <div class="sdisk-ctrl-row">
+          <span class="sdisk-label">规格</span>
+          <div class="sdisk-btn-group" data-role="size">
+            <button data-size="3" class="active">3×3 · 易</button>
+            <button data-size="4">4×4 · 中</button>
+            <button data-size="5">5×5 · 难</button>
+            <button data-size="6">6×6 · 挑战</button>
+          </div>
+        </div>
+        <div class="sdisk-ctrl-row">
+          <span class="sdisk-label">旋转速度</span>
+          <div class="sdisk-btn-group" data-role="speed">
+            <button data-speed="0">静止</button>
+            <button data-speed="30" class="active">慢</button>
+            <button data-speed="20">中</button>
+            <button data-speed="12">快</button>
+          </div>
+          <span style="flex:1"></span>
+          <button class="sdisk-btn-ghost" data-role="reset">重置</button>
+          <button class="sdisk-btn-primary" data-role="start">开始</button>
+        </div>
+        <div class="sdisk-status">
+          <div class="sdisk-stat">用时 <b data-role="time">00.00</b></div>
+          <div class="sdisk-next">下一个：<span class="sdisk-nextnum" data-role="next">—</span></div>
+          <div class="sdisk-stat">进度 <b data-role="progress">0 / 9</b></div>
+        </div>
+        <div class="sdisk-stage" data-role="stage">
+          <svg data-role="svg" viewBox="0 0 400 400" width="400" height="400" aria-label="四色动态舒尔特圆盘"></svg>
+          <div class="sdisk-hint" data-role="hint">
+            <div>选好<b>规格</b>与<b>速度</b>后，点<b>开始</b>启动训练<span class="sdisk-hint-sub">数字会重新打乱，用余光扫描 1→N</span></div>
+          </div>
+          <div class="sdisk-result" data-role="result" style="display:none"></div>
+        </div>
+      `;
+      // 状态重置
+      this.size = 3; this.speedSec = 30;
+      this.running = false; this.finished = false;
+      this._bind();
+      this._build();
+    },
+    _q(sel){ return this._host.querySelector('[data-role="'+sel+'"]'); },
+    _bind(){
+      var self = this;
+      var host = this._host;
+      host.querySelector('[data-role="size"]').addEventListener('click', function(e){
+        var b = e.target.closest('button'); if(!b) return;
+        var s = parseInt(b.dataset.size, 10);
+        if(s === self.size) return;
+        this.querySelectorAll('button').forEach(function(x){ x.classList.remove('active'); });
+        b.classList.add('active');
+        self.size = s;
+        self._reset();
+      });
+      host.querySelector('[data-role="speed"]').addEventListener('click', function(e){
+        var b = e.target.closest('button'); if(!b) return;
+        var sp = parseInt(b.dataset.speed, 10);
+        this.querySelectorAll('button').forEach(function(x){ x.classList.remove('active'); });
+        b.classList.add('active');
+        self.speedSec = sp;
+      });
+      host.querySelector('[data-role="start"]').addEventListener('click', function(){ self._start(); });
+      host.querySelector('[data-role="reset"]').addEventListener('click', function(){ self._reset(); });
+    },
+    // 几何工具
+    _polar(cx, cy, r, angleDeg){
+      var a = (angleDeg - 90) * Math.PI / 180;
+      return {x: cx + r * Math.cos(a), y: cy + r * Math.sin(a)};
+    },
+    _sectorPath(cx, cy, rIn, rOut, startDeg, endDeg){
+      var p1 = this._polar(cx, cy, rOut, endDeg);
+      var p2 = this._polar(cx, cy, rOut, startDeg);
+      var p3 = this._polar(cx, cy, rIn,  startDeg);
+      var p4 = this._polar(cx, cy, rIn,  endDeg);
+      var largeArc = (endDeg - startDeg) > 180 ? 1 : 0;
+      return 'M '+p1.x.toFixed(2)+' '+p1.y.toFixed(2)
+           + ' A '+rOut+' '+rOut+' 0 '+largeArc+' 0 '+p2.x.toFixed(2)+' '+p2.y.toFixed(2)
+           + ' L '+p3.x.toFixed(2)+' '+p3.y.toFixed(2)
+           + ' A '+rIn+' '+rIn+' 0 '+largeArc+' 1 '+p4.x.toFixed(2)+' '+p4.y.toFixed(2)
+           + ' Z';
+    },
+    _shuffle(arr){
+      for(var i=arr.length-1;i>0;i--){
+        var j = Math.floor(Math.random()*(i+1));
+        var t = arr[i]; arr[i] = arr[j]; arr[j] = t;
+      }
+      return arr;
+    },
+    _pad2(n){ return (n<10?'0':'')+n; },
+    // 构建圆盘 SVG
+    _build(){
+      var self = this;
+      var svg = this._q('svg');
+      while(svg.firstChild) svg.removeChild(svg.firstChild);
+      var layout = this.LAYOUTS[this.size];
+      var total = 0;
+      layout.forEach(function(l){ total += l.count; });
+      this.total = total;
+      var nums = [];
+      for(var i=1;i<=total;i++) nums.push(i);
+      this._shuffle(nums);
+      this.layers = [];
+      var numsIdx = 0;
+      var fontSize = {3:26, 4:22, 5:19, 6:16}[this.size];
+      layout.forEach(function(cfg, layerIdx){
+        var layerG = document.createElementNS('http://www.w3.org/2000/svg','g');
+        layerG.setAttribute('class', 'sdisk-layer');
+        svg.appendChild(layerG);
+        var sectors = [];
+        var per = 360 / cfg.count;
+        for(var k=0; k<cfg.count; k++){
+          var startDeg = k * per;
+          var endDeg = (k+1) * per;
+          var midDeg = startDeg + per/2;
+          var midR = (cfg.rInner + cfg.rOuter) / 2;
+          var path = document.createElementNS('http://www.w3.org/2000/svg','path');
+          var colorIdx = (layerIdx*7 + k) % self.COLORS.length;
+          path.setAttribute('fill', self.COLORS[colorIdx]);
+          path.setAttribute('stroke', '#ffffff');
+          path.setAttribute('stroke-width', '1.2');
+          path.setAttribute('class', 'sdisk-sector');
+          path.setAttribute('d', self._sectorPath(self.CENTER.x, self.CENTER.y, cfg.rInner, cfg.rOuter, startDeg, endDeg));
+          layerG.appendChild(path);
+          var num = nums[numsIdx++];
+          var text = document.createElementNS('http://www.w3.org/2000/svg','text');
+          text.setAttribute('class', 'sdisk-num' + ((num===1||num===total)?' hi':''));
+          text.setAttribute('font-size', fontSize);
+          var pos = self._polar(self.CENTER.x, self.CENTER.y, midR, midDeg);
+          text.setAttribute('x', pos.x.toFixed(2));
+          text.setAttribute('y', pos.y.toFixed(2));
+          text.textContent = String(num);
+          layerG.appendChild(text);
+          var sec = {num:num, done:false, el:path, textEl:text};
+          sectors.push(sec);
+          (function(s){ path.addEventListener('click', function(){ self._onClick(s); }); })(sec);
+        }
+        self.layers.push({dir:cfg.dir, baseAngle:0, sectors:sectors, gEl:layerG});
+      });
+      // 中心圆
+      var c = document.createElementNS('http://www.w3.org/2000/svg','circle');
+      c.setAttribute('cx', this.CENTER.x); c.setAttribute('cy', this.CENTER.y);
+      c.setAttribute('r', this.CENTER_R); c.setAttribute('class', 'sdisk-center');
+      svg.appendChild(c);
+      // 状态
+      this.nextNum = 1; this.errors = 0; this.penaltyMs = 0; this.finished = false;
+      this._updateStatus();
+      this._draw();
+    },
+    _draw(){
+      var self = this;
+      this.layers.forEach(function(layer){
+        var angle = layer.baseAngle;
+        layer.gEl.setAttribute('transform', 'rotate('+ angle.toFixed(3) +' '+ self.CENTER.x +' '+ self.CENTER.y +')');
+        layer.sectors.forEach(function(sec){
+          var tx = parseFloat(sec.textEl.getAttribute('x'));
+          var ty = parseFloat(sec.textEl.getAttribute('y'));
+          sec.textEl.setAttribute('transform', 'rotate('+ (-angle).toFixed(3) +' '+ tx +' '+ ty +')');
+        });
+      });
+    },
+    _updateStatus(){
+      this._q('next').textContent = this.nextNum > this.total ? '✓' : String(this.nextNum);
+      this._q('progress').textContent = (this.nextNum - 1) + ' / ' + this.total;
+    },
+    _tickTimer(){
+      if(!this.running) return;
+      var el = this._q('time');
+      var elapsed = Date.now() - this.startTime + this.penaltyMs;
+      var s = Math.floor(elapsed/1000);
+      var ms = Math.floor((elapsed % 1000)/10);
+      el.textContent = this._pad2(s) + '.' + this._pad2(ms);
+      var self = this;
+      this.timerFrame = requestAnimationFrame(function(){ self._tickTimer(); });
+    },
+    _animLoop(){
+      var now = performance.now();
+      var dt = this.lastFrameTime ? (now - this.lastFrameTime) : 0;
+      this.lastFrameTime = now;
+      if(this.running && this.speedSec > 0 && dt > 0){
+        var speedSec = this.speedSec;
+        this.layers.forEach(function(layer){
+          var deltaDeg = (dt / (speedSec*1000)) * 360 * layer.dir;
+          layer.baseAngle = (layer.baseAngle + deltaDeg) % 360;
+          if(layer.baseAngle >= 180) layer.baseAngle -= 360;
+          if(layer.baseAngle < -180) layer.baseAngle += 360;
+        });
+      }
+      this._draw();
+      var self = this;
+      this.animFrame = requestAnimationFrame(function(){ self._animLoop(); });
+    },
+    _onClick(sec){
+      if(!this.running || this.finished || sec.done) return;
+      if(sec.num === this.nextNum){
+        sec.done = true;
+        sec.el.classList.add('done');
+        sec.textEl.classList.add('done');
+        this.nextNum++;
+        this._updateStatus();
+        if(this.nextNum > this.total) this._finish();
+      }else{
+        this.errors++;
+        this.penaltyMs += 1000;
+        var originalFill = sec.el.getAttribute('fill');
+        sec.el.setAttribute('fill', '#f8b4b4');
+        setTimeout(function(){
+          sec.el.setAttribute('fill', originalFill);
+        }, 300);
+      }
+    },
+    _start(){
+      if(this.running) return;
+      this._q('hint').style.display = 'none';
+      this._q('result').style.display = 'none';
+      this._build();
+      this.running = true;
+      this.finished = false;
+      this.startTime = Date.now();
+      this.penaltyMs = 0;
+      var btn = this._host.querySelector('[data-role="start"]');
+      btn.textContent = '进行中…';
+      btn.disabled = true;
+      if(this.animFrame) cancelAnimationFrame(this.animFrame);
+      if(this.timerFrame) cancelAnimationFrame(this.timerFrame);
+      this.lastFrameTime = 0;
+      this._animLoop();
+      this._tickTimer();
+    },
+    _reset(){
+      this.running = false;
+      this.finished = false;
+      if(this.animFrame) cancelAnimationFrame(this.animFrame);
+      if(this.timerFrame) cancelAnimationFrame(this.timerFrame);
+      this._q('time').textContent = '00.00';
+      this._q('result').style.display = 'none';
+      this._q('hint').style.display = 'flex';
+      var btn = this._host.querySelector('[data-role="start"]');
+      btn.textContent = '开始';
+      btn.disabled = false;
+      this._build();
+    },
+    _finish(){
+      this.running = false;
+      this.finished = true;
+      if(this.animFrame) cancelAnimationFrame(this.animFrame);
+      if(this.timerFrame) cancelAnimationFrame(this.timerFrame);
+      var totalMs = Date.now() - this.startTime + this.penaltyMs;
+      var s = totalMs / 1000;
+      var bestKey = 'luobo_brain_schulteDisk_' + this.size + 'x' + this.size + '_' + this.speedSec + '_best';
+      var prev = parseFloat(localStorage.getItem(bestKey)) || Infinity;
+      var isBest = totalMs < prev;
+      if(isBest) localStorage.setItem(bestKey, totalMs);
+      var grade = this._grade(s);
+      var speedName = ({0:'静止', 30:'慢', 20:'中', 12:'快'})[this.speedSec];
+      Brain.checkin('schulteDisk');
+      var box = this._q('result');
+      box.style.display = 'flex';
+      box.innerHTML = ''
+        + '<div class="sdisk-r-label">完成时间</div>'
+        + '<div class="sdisk-r-time">' + s.toFixed(2) + ' s</div>'
+        + '<div class="sdisk-r-grade">评级：<span class="hl">' + grade.label + '</span> ' + grade.emoji + '</div>'
+        + '<div class="sdisk-r-detail">规格 <b>' + this.size + '×' + this.size + '</b> · 速度 <b>' + speedName + '</b> · 错点 <b>' + this.errors + '</b> 次'
+        + (this.errors > 0 ? '（含 ' + this.errors + 's 惩罚）' : '')
+        + '<br>' + (isBest ? '🎉 破本档纪录！' : (prev === Infinity ? '本档暂无历史成绩' : '本档最佳 ' + (prev/1000).toFixed(2) + 's'))
+        + '</div>'
+        + '<div class="sdisk-r-tip">' + grade.tip + '</div>'
+        + '<div class="sdisk-r-buttons">'
+        +   '<button class="sdisk-btn-primary" data-role="again">再来一局</button>'
+        +   '<button class="sdisk-btn-ghost" data-role="close">收起结果</button>'
+        + '</div>';
+      var self = this;
+      box.querySelector('[data-role="again"]').addEventListener('click', function(){
+        box.style.display = 'none';
+        self._start();
+      });
+      box.querySelector('[data-role="close"]').addEventListener('click',
+ function(){
+        box.style.display = 'none';
+      });
+      var btn = this._host.querySelector('[data-role="start"]');
+      btn.textContent = '再来一局';
+      btn.disabled = false;
+    },
+    _grade(s){
+      // 按 4×4 慢速为基线做粗略换算：折算到"4×4 慢档"的等效秒数
+      var refPerNum = {3:1.2, 4:1.5, 5:1.9, 6:2.4}[this.size];   // 每数字参考秒
+      var speedFactor = ({0:1.0, 30:1.0, 20:1.15, 12:1.3})[this.speedSec] || 1;
+      var base = s / (this.total * refPerNum) * speedFactor;    // 归一化：约 1.0 为一般水平
+      if(base < 0.55) return {label:'优秀', emoji:'⭐⭐⭐', tip:'眼动追踪很稳，可以尝试更大规格或提速一档。'};
+      if(base < 0.80) return {label:'良好', emoji:'⭐⭐',   tip:'节奏不错；试着把视线定在中心，用余光锁定下一个数字。'};
+      if(base < 1.10) return {label:'一般', emoji:'⭐',     tip:'继续加练，先熟悉旋转规律再提速；错点不要慌，稳住节奏更划算。'};
+      return {label:'待提升', emoji:'💪', tip:'第一次很正常；先试静止或慢档，找到"用余光扫描"的感觉再逐步提速。'};
+    }
+  };
+  // ==== 数字顺序记忆 ====
+  Brain.tools.digitspan = {
+    level:3, correctStreak:0,
+    init(host){
+      this.level = 3;
+      this.correctStreak = 0;
+      host.innerHTML = `
+        <div class="brain-intro-text">
+          <p>屏幕会闪现一串数字，短暂消失后请按<span class="hl">原顺序</span>输入。</p>
+          <ul>
+            <li>从 3 位开始，答对后 +1 位，答错则本轮结束。</li>
+            <li>正常人一般能记到 <span class="hl">7±2</span> 位，围棋高段位学员常达 9-11 位。</li>
+            <li>训练技巧：默念、分组（如 "234-567"）、想象空间图像。</li>
+          </ul>
+          <p class="hl" style="margin-top:12px">数据参考（最大位数）</p>
+          <table class="brain-ref-table"><thead><tr><th>年龄段</th><th>优秀</th><th>良好</th><th>一般</th></tr></thead>
+          <tbody>
+            <tr><td>6-7 岁</td><td>≥6</td><td>4-5</td><td>≤3</td></tr>
+            <tr><td>8-10 岁</td><td>≥7</td><td>5-6</td><td>≤4</td></tr>
+            <tr><td>11 岁+</td><td>≥8</td><td>6-7</td><td>≤5</td></tr>
+          </tbody></table>
+          <div class="brain-ref-note"><b>参考来源：</b>数字广度测验源自 Wechsler 智力量表（WAIS-IV 成人版、WISC-V 儿童版），成人正向数字广度平均约 6-7 位，标准差约 1.3 位。本工具采用<b>视觉呈现（闪现）</b>，与临床听觉复述略有差异；不做筛选诊断，仅供个人训练参考。</div>
+        </div>
+        <div class="digitspan-stage" id="ds-stage"></div>
+      `;
+      this.showReady(host);
+    },
+    showReady(host){
+      const stage = host.querySelector('#ds-stage');
+      const best = parseInt(localStorage.getItem('luobo_brain_digitspan_best')||'0');
+      stage.innerHTML = `
+        <div class="ds-level">当前难度：${this.level} 位数字</div>
+        <div class="ds-hint">${best?`历史最佳 <span class="hl">${best}</span> 位`:''}</div>
+        <button class="ds-btn" id="ds-start">开始 →</button>
+      `;
+      stage.querySelector('#ds-start').addEventListener('click',()=>this.showNumbers(host));
+    },
+    showNumbers(host){
+      const digits = [];
+      for(let i=0;i<this.level;i++) digits.push(Math.floor(Math.random()*10));
+      this.currentAnswer = digits.join('');
+      const duration = 1500 + Math.max(0,(this.level-3))*250;
+      const stage = host.querySelector('#ds-stage');
+      stage.innerHTML = `
+        <div class="ds-level">第 ${this.level} 位挑战 · 请记住</div>
+        <div class="ds-numbers" id="ds-numbers">${digits.join(' ')}</div>
+      `;
+      setTimeout(()=>this.askInput(host),duration);
+    },
+    askInput(host){
+      const stage = host.querySelector('#ds-stage');
+      stage.innerHTML = `
+        <div class="ds-level">请按顺序输入你刚才看到的数字</div>
+        <div style="margin:16px 0"><input type="tel" inputmode="numeric" maxlength="15" class="ds-input" id="ds-input" autocomplete="off"></div>
+        <div><button class="ds-btn" id="ds-submit">提交</button></div>
+      `;
+      const input = stage.querySelector('#ds-input');
+      input.focus();
+      const submit = ()=>{
+        const val = input.value.replace(/\D/g,'');
+        this.checkAnswer(host,val);
+      };
+      stage.querySelector('#ds-submit').addEventListener('click',submit);
+      input.addEventListener('keydown',e=>{if(e.key==='Enter')submit()});
+    },
+    checkAnswer(host,val){
+      const stage = host.querySelector('#ds-stage');
+      const correct = val === this.currentAnswer;
+      if(correct){
+        this.correctStreak++;
+        const nextLevel = this.level + 1;
+        stage.innerHTML = `
+          <div class="ds-level">✓ 正确！</div>
+          <div class="ds-numbers" style="font-size:36px">${this.currentAnswer}</div>
+          <div class="ds-hint">下一关：<span class="hl">${nextLevel}</span> 位</div>
+          <button class="ds-btn" id="ds-next">继续挑战 →</button>
+          <button class="ds-btn secondary" id="ds-stop">见好就收</button>
+        `;
+        stage.querySelector('#ds-next').addEventListener('click',()=>{
+          this.level = nextLevel;
+          this.showNumbers(host);
+        });
+        stage.querySelector('#ds-stop').addEventListener('click',()=>this.finish(host,true));
+      }else{
+        this.finish(host,false,val);
+      }
+    },
+    finish(host,byChoice,userVal){
+      const stage = host.querySelector('#ds-stage');
+      const reached = this.level - (byChoice?0:1);
+      const finalReached = Math.max(reached,0);
+      const bestKey = 'luobo_brain_digitspan_best';
+      const prev = parseInt(localStorage.getItem(bestKey)||'0');
+      const isBest = finalReached > prev;
+      if(isBest) localStorage.setItem(bestKey,finalReached);
+      Brain.checkin('digitspan');
+      let msg = '';
+      if(byChoice) msg = `见好就收，成功挑战到 <span class="hl">${finalReached}</span> 位。`;
+      else msg = `本轮到 <span class="hl">${finalReached}</span> 位。正确答案：<span style="font-family:'Courier New',monospace">${this.currentAnswer}</span>，你输入：${userVal||'(空)'}`;
+      const grade = finalReached>=8?'优秀 ⭐⭐⭐':finalReached>=6?'良好 ⭐⭐':finalReached>=4?'一般 ⭐':'继续加油 💪';
+      stage.innerHTML = `
+        <div class="ds-level">本轮结束</div>
+        <div class="ds-numbers" style="font-size:56px">${finalReached}</div>
+        <div class="ds-hint">${msg}</div>
+        <div class="ds-hint" style="margin-top:8px">评级：${grade}${isBest?' · 🎉 破纪录！':(prev?' · 历史最佳 '+prev+' 位':'')}</div>
+        <div style="margin-top:16px">
+          <button class="ds-btn" id="ds-restart">再来一次</button>
+        </div>
+      `;
+      stage.querySelector('#ds-restart').addEventListener('click',()=>{
+        this.level = 3;
+        this.showReady(host);
+      });
+    }
+  };
+  // ==== 斯特鲁普效应 ====
+  Brain.tools.stroop = {
+    COLORS:[
+      {key:'red',name:'红色',hex:'#c94a4a'},
+      {key:'yellow',name:'黄色',hex:'#d9a441'},
+      {key:'blue',name:'蓝色',hex:'#3d6ea3'},
+      {key:'green',name:'绿色',hex:'#4a8556'},
+      {key:'purple',name:'紫色',hex:'#7a5aa8'}
+    ],
+    DURATION:60000,
+    correct:0, wrong:0, times:[], startedAt:null, timerId:null, currentWord:null,
+    init(host){
+      host.innerHTML = `
+        <div class="brain-intro-text">
+          <p>屏幕中央会显示一个颜色词（如"<span style="color:#3d6ea3;font-weight:700">红色</span>"），但字色可能不一致。请点击底部按钮，选择<span class="hl">字的颜色</span>（不是词义）。</p>
+          <ul>
+            <li>60 秒内答对越多越好，答错扣 3 分，答对得 10 分。</li>
+            <li>训练点：抑制"读字"的自动化反应，专注视觉信号。</li>
+            <li>围棋教学中对应"看清楚棋型再落子，不被本能定式带跑"。</li>
+          </ul>
+          <p class="hl" style="margin-top:12px">数据参考（60秒内答对数）</p>
+          <table class="brain-ref-table"><thead><tr><th>水平</th><th>优秀</th><th>良好</th><th>一般</th></tr></thead>
+          <tbody>
+            <tr><td>7-10 岁</td><td>≥45</td><td>30-44</td><td>&lt;30</td></tr>
+            <tr><td>11 岁+</td><td>≥55</td><td>40-54</td><td>&lt;40</td></tr>
+          </tbody></table>
+          <div class="brain-ref-note"><b>参考来源：</b>斯特鲁普任务由 J. R. Stroop（1935，Journal of Experimental Psychology）首次提出，是心理学抑制控制研究的经典范式。本工具计分公式为<b>「正确数 ×10 − 错误数 ×3」</b>，为萝卜干平台经验值，<b>非国际统一评估标准</b>。数值仅作个人进步趋势参考，不用于筛查诊断。</div>
+        </div>
+        <div class="stroop-stage" id="stroop-stage"></div>
+      `;
+      this.showReady(host);
+    },
+    showReady(host){
+      const stage = host.querySelector('#stroop-stage');
+      const best = parseInt(localStorage.getItem('luobo_brain_stroop_best')||'0');
+      stage.innerHTML = `
+        <div style="padding:60px 20px;text-align:center">
+          <div style="font-size:48px;margin-bottom:16px">🎨</div>
+          <div style="font-size:15px;color:#5a4a2a;margin-bottom:20px">准备好后点击开始，60 秒计时挑战</div>
+          ${best?`<div style="font-size:13px;color:#6b5a3a;margin-bottom:20px">历史最佳分数：<span class="hl">${best}</span></div>`:''}
+          <button class="ds-btn" id="stroop-start" style="padding:10px 30px;background:var(--seal);color:#fff;border:0;border-radius:4px;font-size:14px;cursor:pointer">开始挑战 →</button>
+        </div>
+      `;
+      stage.querySelector('#stroop-start').addEventListener('click',()=>this.start(host));
+    },
+    start(host){
+      this.correct = 0; this.wrong = 0; this.times = [];
+      this.startedAt = Date.now();
+      const stage = host.querySelector('#stroop-stage');
+      stage.innerHTML = `
+        <div class="stroop-status">
+          <div>剩余：<span id="stroop-time">60.0</span>s</div>
+          <div>正确：<span id="stroop-correct">0</span></div>
+          <div>错误：<span id="stroop-wrong">0</span></div>
+        </div>
+        <div class="stroop-word-area"><div class="stroop-word" id="stroop-word">-</div></div>
+        <div class="stroop-buttons" id="stroop-buttons"></div>
+      `;
+      const btnWrap = stage.querySelector('#stroop-buttons');
+      btnWrap.innerHTML = this.COLORS.map(c=>`
+        <button class="stroop-btn" style="background:${c.hex}" data-key="${c.key}">${c.name}</button>
+      `).join('');
+      btnWrap.querySelectorAll('.stroop-btn').forEach(btn=>{
+        btn.addEventListener('click',()=>this.onAnswer(host,btn.dataset.key));
+      });
+      this.timerId = setInterval(()=>this.tick(host),100);
+      this.nextWord(host);
+    },
+    tick(host){
+      const remain = this.DURATION - (Date.now()-this.startedAt);
+      if(remain<=0){
+        this.finish(host);
+        return;
+      }
+      const el = host.querySelector('#stroop-time');
+      if(el) el.textContent = (remain/1000).toFixed(1);
+    },
+    nextWord(host){
+      const wordC = this.COLORS[Math.floor(Math.random()*this.COLORS.length)];
+      let colorC = this.COLORS[Math.floor(Math.random()*this.COLORS.length)];
+      // 60% 概率冲突
+      if(Math.random()<0.6){
+        while(colorC.key===wordC.key) colorC = this.COLORS[Math.floor(Math.random()*this.COLORS.length)];
+      }
+      this.currentWord = {word:wordC.name, colorKey:colorC.key};
+      const el = host.querySelector('#stroop-word');
+      el.textContent = wordC.name;
+      el.style.color = colorC.hex;
+      this.answerStart = Date.now();
+    },
+    onAnswer(host,key){
+      if(!this.currentWord) return;
+      const dt = Date.now()-this.answerStart;
+      this.times.push(dt);
+      if(key === this.currentWord.colorKey){
+        this.correct++;
+        host.querySelector('#stroop-correct').textContent = this.correct;
+      }else{
+        this.wrong++;
+        host.querySelector('#stroop-wrong').textContent = this.wrong;
+      }
+      this.nextWord(host);
+    },
+    finish(host){
+      clearInterval(this.timerId);
+      const stage = host.querySelector('#stroop-stage');
+      const score = this.correct*10 - this.wrong*3;
+      const avgRT = this.times.length? Math.round(this.times.reduce((a,b)=>a+b,0)/this.times.length):0;
+      const bestKey = 'luobo_brain_stroop_best';
+      const prev = parseInt(localStorage.getItem(bestKey)||'0');
+      const isBest = score > prev;
+      if(isBest) localStorage.setItem(bestKey,score);
+      Brain.checkin('stroop');
+      const grade = this.correct>=55?'优秀 ⭐⭐⭐':this.correct>=40?'良好 ⭐⭐':this.correct>=25?'一般 ⭐':'继续加油 💪';
+      stage.innerHTML = `
+        <div style="text-align:center;padding:24px 12px">
+          <div style="font-size:48px;font-weight:700;color:var(--seal);font-family:'Courier New',monospace">${score}</div>
+          <div style="font-size:16px;color:#3d2817;margin:8px 0">得分</div>
+          <div style="font-size:13px;color:#6b5a3a;margin:12px 0">
+            答对 <span class="hl">${this.correct}</span> · 答错 <span class="hl">${this.wrong}</span> · 平均反应 <span class="hl">${avgRT}</span>ms
+          </div>
+          <div style="font-size:14px;color:#3d2817;margin-bottom:8px">评级：${grade}</div>
+          <div style="font-size:12px;color:#6b5a3a;margin-bottom:20px">${isBest?'🎉 破纪录！':(prev?'历史最佳 '+prev+' 分':'')}</div>
+          <button class="ds-btn" id="stroop-restart" style="padding:10px 30px;background:var(--seal);color:#fff;border:0;border-radius:4px;font-size:14px;cursor:pointer">再来一次</button>
+        </div>
+      `;
+      stage.querySelector('#stroop-restart').addEventListener('click',()=>this.showReady(host));
+    }
+  };
+  // ==== 顺序记忆训练（3×3 棋盘格 Simon Says） ====
+  Brain.tools.seqmem = {
+    level:3, sequence:[], userIdx:0, playing:false,
+    init(host){
+      this.level = 3;
+      this.sequence = [];
+      this.userIdx = 0;
+      this.playing = false;
+      host.innerHTML = `
+        <div class="brain-intro-text">
+          <p>3×3 棋盘格会依次亮起若干位置，请<span class="hl">按同样的顺序</span>点击复现。</p>
+          <ul>
+            <li>从 3 格开始，答对本关后 +1 格，答错本轮结束。</li>
+            <li>训练点：视觉工作记忆容量——对应"记住对局关键子的落点顺序"能力。</li>
+            <li>技巧：把亮起顺序想象成棋盘上的"次序标记"，用空间想象辅助。</li>
+          </ul>
+          <p class="hl" style="margin-top:12px">数据参考（最大关卡数）</p>
+          <table class="brain-ref-table"><thead><tr><th>年龄段</th><th>优秀</th><th>良好</th><th>一般</th></tr></thead>
+          <tbody>
+            <tr><td>6-8 岁</td><td>≥7</td><td>5-6</td><td>≤4</td></tr>
+            <tr><td>9-12 岁</td><td>≥9</td><td>6-8</td><td>≤5</td></tr>
+            <tr><td>13 岁+</td><td>≥10</td><td>7-9</td><td>≤6</td></tr>
+          </tbody></table>
+          <div class="brain-ref-note"><b>参考来源：</b>视觉空间序列记忆最经典范式为 Corsi 方块测验（Corsi 1972），成人平均空间广度约 5-6。本工具改用 3×3 棋盘格作为呈现，节奏与记忆长度均为萝卜干教研经验设定，<b>不等价于 Corsi 分数</b>，仅作个人训练进步的横向参考。</div>
+        </div>
+        <div class="seqmem-status">
+          <div>关卡：<span class="sm-level" id="sm-level">3</span> 格</div>
+          <div class="sm-phase" id="sm-phase">准备开始</div>
+          <div id="sm-best" style="font-size:12px;color:#6b5a3a"></div>
+        </div>
+        <div class="seqmem-grid" id="sm-grid">
+          ${Array.from({length:9},(_,i)=>`<div class="seqmem-cell" data-i="${i}">${i+1}</div>`).join('')}
+        </div>
+        <div style="text-align:center;margin-top:16px">
+          <button class="ds-btn" id="sm-start" style="padding:10px 30px;background:var(--seal);color:#fff;border:0;border-radius:4px;font-size:14px;cursor:pointer">开始挑战 →</button>
+        </div>
+      `;
+      const best = parseInt(localStorage.getItem('luobo_brain_seqmem_best')||'0');
+      host.querySelector('#sm-best').textContent = best?`最佳 ${best} 格`:'';
+      host.querySelector('#sm-start').addEventListener('click',()=>this.nextRound(host));
+      host.querySelectorAll('.seqmem-cell').forEach(cell=>{
+        cell.addEventListener('click',()=>this.onUserClick(host,parseInt(cell.dataset.i)));
+      });
+    },
+    nextRound(host){
+
+      const btn = host.querySelector('#sm-start');
+      if(btn) btn.style.display='none';
+      this.sequence.push(Math.floor(Math.random()*9));
+      this.userIdx = 0;
+      host.querySelector('#sm-level').textContent = this.sequence.length;
+      host.querySelector('#sm-phase').textContent = '看清楚 ↓';
+      this.playSequence(host,0);
+    },
+    playSequence(host,idx){
+      this.playing = true;
+      const grid = host.querySelector('#sm-grid');
+      grid.classList.add('locked');
+      if(idx >= this.sequence.length){
+        this.playing = false;
+        grid.classList.remove('locked');
+        host.querySelector('#sm-phase').textContent = '你来复现 →';
+        return;
+      }
+      const cell = grid.children[this.sequence[idx]];
+      cell.classList.add('lit');
+      setTimeout(()=>{
+        cell.classList.remove('lit');
+        setTimeout(()=>this.playSequence(host,idx+1),200);
+      },500);
+    },
+    onUserClick(host,i){
+      if(this.playing || this.sequence.length===0) return;
+      const grid = host.querySelector('#sm-grid');
+      const cell = grid.children[i];
+      const expected = this.sequence[this.userIdx];
+      if(i !== expected){
+        cell.classList.add('wrong');
+        setTimeout(()=>cell.classList.remove('wrong'),300);
+        this.finish(host,false);
+        return;
+      }
+      cell.classList.add('user-click');
+      setTimeout(()=>cell.classList.remove('user-click'),250);
+      this.userIdx++;
+      if(this.userIdx >= this.sequence.length){
+        host.querySelector('#sm-phase').textContent = '✓ 通过！下一关准备…';
+        setTimeout(()=>this.nextRound(host),800);
+      }
+    },
+    finish(host,byChoice){
+      const reached = this.sequence.length - 1;
+      const bestKey = 'luobo_brain_seqmem_best';
+      const prev = parseInt(localStorage.getItem(bestKey)||'0');
+      const isBest = reached > prev;
+      if(isBest) localStorage.setItem(bestKey,reached);
+      Brain.checkin('seqmem');
+      const grade = reached>=10?'优秀 ⭐⭐⭐':reached>=7?'良好 ⭐⭐':reached>=5?'一般 ⭐':'继续加油 💪';
+      host.querySelector('#sm-phase').textContent = '本轮结束';
+      const wrap = document.createElement('div');
+      wrap.style.cssText = 'text-align:center;padding:16px;background:#fff;border:1px solid var(--line);border-radius:4px;margin-top:12px';
+      wrap.innerHTML = `
+        <div style="font-size:48px;font-weight:700;color:var(--seal);font-family:'Courier New',monospace">${reached}</div>
+        <div style="font-size:14px;color:#3d2817;margin:8px 0">完成关卡数</div>
+        <div style="font-size:13px;color:#6b5a3a;margin-bottom:8px">评级：${grade}${isBest?' · 🎉 破纪录！':(prev?' · 历史最佳 '+prev+' 格':'')}</div>
+        <button class="ds-btn" id="sm-restart" style="padding:10px 30px;background:var(--seal);color:#fff;border:0;border-radius:4px;font-size:14px;cursor:pointer">再来一次</button>
+      `;
+      host.querySelector('.seqmem-grid').after(wrap);
+      wrap.querySelector('#sm-restart').addEventListener('click',()=>this.init(host));
+    }
+  };
+  // ==== N-Back 记忆（位置版 3×3） ====
+  Brain.tools.nback = {
+    n:2, trials:24, stimuli:[], idx:-1, timerId:null,
+    hit:0, miss:0, falseAlarm:0, correctReject:0,
+    userMatched:false, awaitingResponse:false,
+    init(host){
+      host.innerHTML = `
+        <div class="brain-intro-text">
+          <p>3×3 网格中会依次亮起一个格子（每次 500ms），请判断<span class="hl">当前亮起的位置</span>是否与 <span class="hl">N 步之前</span>相同。</p>
+          <ul>
+            <li><b>1-Back</b>：与上一次比较，入门级；<b>2-Back</b>：与倒数第 2 次比较，日常训练标配；<b>3-Back</b>：与倒数第 3 次，硬核挑战。</li>
+            <li>觉得相同就按"匹配 ✓"按钮，觉得不同则不动。</li>
+            <li>每轮 24 个刺激，结束统计命中率。训练点：工作记忆刷新、抑制干扰。</li>
+          </ul>
+          <p class="hl" style="margin-top:12px">数据参考（2-Back 命中率）</p>
+          <table class="brain-ref-table"><thead><tr><th>水平</th><th>优秀</th><th>良好</th><th>一般</th></tr></thead>
+          <tbody>
+            <tr><td>命中率</td><td>≥80%</td><td>60-79%</td><td>&lt;60%</td></tr>
+            <tr><td>误报率</td><td>&lt;10%</td><td>10-25%</td><td>&gt;25%</td></tr>
+          </tbody></table>
+          <div class="brain-ref-note"><b>参考来源：</b>N-Back 任务由 Kirchner（1958）提出，Jaeggi 等（2008，PNAS）将其推广为工作记忆训练。文献中健康成人 2-Back 命中率通常在 60-85% 区间，个体差异大。本表为萝卜干平台经验区间，<b>命中率与误报率需综合看</b>——只追命中率会诱导过度按键。</div>
+        </div>
+        <div class="nback-diff-select" id="nb-diff">
+          <button class="nback-diff-btn" data-n="1">1-Back</button>
+          <button class="nback-diff-btn active" data-n="2">2-Back</button>
+          <button class="nback-diff-btn" data-n="3">3-Back</button>
+        </div>
+        <div id="nb-content"></div>
+      `;
+      host.querySelectorAll('.nback-diff-btn').forEach(btn=>{
+        btn.addEventListener('click',()=>{
+          host.querySelectorAll('.nback-diff-btn').forEach(b=>b.classList.remove('active'));
+          btn.classList.add('active');
+          this.n = parseInt(btn.dataset.n);
+          this.showReady(host);
+        });
+      });
+      this.showReady(host);
+    },
+    showReady(host){
+      const c = host.querySelector('#nb-content');
+      const bestKey = `luobo_brain_nback_${this.n}_best`;
+      const best = localStorage.getItem(bestKey);
+      c.innerHTML = `
+        <div style="text-align:center;padding:40px 20px;background:#fff;border:1px solid var(--line);border-radius:4px">
+          <div style="font-size:48px;margin-bottom:8px">🌀</div>
+          <div style="font-size:16px;color:#3d2817;margin-bottom:16px">${this.n}-Back · ${this.trials} 次刺激 · 约 60 秒</div>
+          ${best?`<div style="font-size:13px;color:#6b5a3a;margin-bottom:16px">历史最佳命中率：<span class="hl">${best}%</span></div>`:''}
+          <button class="ds-btn" id="nb-start" style="padding:10px 30px;background:var(--seal);color:#fff;border:0;border-radius:4px;font-size:14px;cursor:pointer">开始 →</button>
+        </div>
+      `;
+      c.querySelector('#nb-start').addEventListener('click',()=>this.start(host));
+    },
+    start(host){
+      // 生成刺激序列：约 30% 强制匹配
+      this.stimuli = [];
+      const total = this.trials;
+      for(let i=0;i<total;i++){
+        if(i >= this.n && Math.random() < 0.3){
+          this.stimuli.push(this.stimuli[i-this.n]);
+        }else{
+          let v;
+          do{ v = Math.floor(Math.random()*9); }
+          while(i >= this.n && v === this.stimuli[i-this.n] && Math.random() < 0.6);
+          this.stimuli.push(v);
+        }
+      }
+      this.idx = -1;
+      this.hit = this.miss = this.falseAlarm = this.correctReject = 0;
+      this.userMatched = false;
+      const c = host.querySelector('#nb-content');
+      c.innerHTML = `
+        <div class="nback-status">
+          <div>进度：<b id="nb-progress">0</b> / ${this.trials}</div>
+          <div>命中 <b id="nb-hit">0</b></div>
+          <div>误报 <b id="nb-fa">0</b></div>
+        </div>
+        <div class="nback-grid" id="nb-grid">
+          ${Array.from({length:9},(_,i)=>`<div class="nback-cell" data-i="${i}"></div>`).join('')}
+        </div>
+        <button class="nback-action-btn" id="nb-match-btn">匹配 ✓ <span style="font-weight:400;opacity:.8;font-size:12px">（点按钮 / 空格键）</span></button>
+      `;
+      const matchBtn = c.querySelector('#nb-match-btn');
+      const onMatch = ()=>{
+        if(!this.awaitingResponse||this.userMatched) return;
+        this.userMatched = true;
+        matchBtn.classList.add('matched');
+        setTimeout(()=>matchBtn.classList.remove('matched'),200);
+      };
+      matchBtn.addEventListener('click',onMatch);
+      this._keyHandler = (e)=>{ if(e.code==='Space'){e.preventDefault();onMatch();} };
+      document.addEventListener('keydown',this._keyHandler);
+      this.nextTrial(host);
+    },
+    nextTrial(host){
+      this.idx++;
+      if(this.idx >= this.stimuli.length){
+        this.finish(host);
+        return;
+      }
+      // 结算上一轮响应（如果 idx >= n）
+      if(this.idx > this.n){
+        const prev = this.idx - 1;
+        const isMatch = this.stimuli[prev] === this.stimuli[prev - this.n];
+        if(isMatch && this.userMatched) this.hit++;
+        else if(isMatch && !this.userMatched) this.miss++;
+        else if(!isMatch && this.userMatched) this.falseAlarm++;
+        else this.correctReject++;
+        host.querySelector('#nb-hit').textContent = this.hit;
+        host.querySelector('#nb-fa').textContent = this.falseAlarm;
+      }
+      this.userMatched = false;
+      this.awaitingResponse = false;
+      host.querySelector('#nb-progress').textContent = this.idx + 1;
+      const grid = host.querySelector('#nb-grid');
+      grid.querySelectorAll('.nback-cell').forEach(c=>c.classList.remove('lit'));
+      const pos = this.stimuli[this.idx];
+      const cell = grid.children[pos];
+      cell.classList.add('lit');
+      this.awaitingResponse = true;
+      // 亮 500ms，间隔 2000ms
+      setTimeout(()=>cell.classList.remove('lit'),500);
+      setTimeout(()=>this.nextTrial(host),2500);
+    },
+    finish(host){
+      document.removeEventListener('keydown',this._keyHandler);
+      // 结算最后一轮
+      const lastIdx = this.stimuli.length - 1;
+      if(lastIdx >= this.n){
+        const isMatch = this.stimuli[lastIdx] === this.stimuli[lastIdx - this.n];
+        if(isMatch && this.userMatched) this.hit++;
+        else if(isMatch && !this.userMatched) this.miss++;
+        else if(!isMatch && this.userMatched) this.falseAlarm++;
+        else this.correctReject++;
+      }
+      const totalTargets = this.hit + this.miss;
+      const totalNonTargets = this.falseAlarm + this.correctReject;
+      const hitRate = totalTargets? Math.round(this.hit / totalTargets * 100) : 0;
+      const faRate = totalNonTargets? Math.round(this.falseAlarm / totalNonTargets * 100) : 0;
+      const bestKey = `luobo_brain_nback_${this.n}_best`;
+      const prev = parseInt(localStorage.getItem(bestKey)||'0');
+      const isBest = hitRate > prev;
+      if(isBest) localStorage.setItem(bestKey,hitRate);
+      Brain.checkin('nback');
+      const grade = (hitRate>=80&&faRate<10)?'优秀 ⭐⭐⭐':(hitRate>=60&&faRate<25)?'良好 ⭐⭐':hitRate>=40?'一般 ⭐':'继续加油 💪';
+      const c = host.querySelector('#nb-content');
+      c.innerHTML = `
+        <div style="text-align:center;padding:24px 12px;background:#fff;border:1px solid var(--line);border-radius:4px">
+          <div style="font-size:48px;font-weight:700;color:var(--seal);font-family:'Courier New',monospace">${hitRate}%</div>
+          <div style="font-size:14px;color:#3d2817;margin:8px 0">命中率</div>
+          <div style="font-size:13px;color:#6b5a3a;margin:12px 0">
+            命中 <span class="hl">${this.hit}</span>/${totalTargets} · 误报 <span class="hl">${this.falseAlarm}</span>/${totalNonTargets} (${faRate}%) · 漏报 ${this.miss}
+          </div>
+          <div style="font-size:14px;color:#3d2817;margin-bottom:8px">评级：${grade}</div>
+          <div style="font-size:12px;color:#6b5a3a;margin-bottom:20px">${isBest?'🎉 破纪录！':(prev?'历史最佳 '+prev+'%':'')}</div>
+          <button class="ds-btn" id="nb-restart" style="padding:10px 30px;background:var(--seal);color:#fff;border:0;border-radius:4px;font-size:14px;cursor:pointer">再来一次</button>
+        </div>
+      `;
+      c.querySelector('#nb-restart').addEventListener('click',()=>this.showReady(host));
+    }
+  };
+  // ==== 数字华容道（滑块拼图） ====
+  Brain.tools.huarong = {
+    size:3, tiles:[], emptyIdx:0, moves:0, startedAt:null, timerId:null,
+    init(host){
+      host.innerHTML = `
+        <div class="brain-intro-text">
+          <p>点击与空格<span class="hl">相邻</span>的数字方块，让它滑入空格。目标是把打乱的数字恢复成 <span class="hl">1、2、3、…、N²-1</span> 顺序，右下角为空。</p>
+          <ul>
+            <li>3×3（8-puzzle）：入门难度，5~30 步可解，适合小朋友。</li>
+            <li>4×4（15-puzzle）：经典款，需要更多规划步数，通常 50-100 步。</li>
+            <li>训练点：空间规划、逆向思维、耐心。围棋常见的"读几步棋"能力同源。</li>
+          </ul>
+          <p class="hl" style="margin-top:12px">数据参考（3×3 完成用时）</p>
+          <table class="brain-ref-table"><thead><tr><th>水平</th><th>优秀</th><th>良好</th><th>一般</th></tr></thead>
+          <tbody>
+            <tr><td>用时</td><td>&lt;40s</td><td>40-80s</td><td>&gt;80s</td></tr>
+            <tr><td>步数</td><td>≤20</td><td>20-40</td><td>&gt;40</td></tr>
+          </tbody></table>
+          <div class="brain-ref-note"><b>参考来源：</b>15-Puzzle（4×4 华容道）由 N. Chapman（1874）发明；3×3 版本最优解步数上界为 31（Reid 2002）。本表用时与步数区间为萝卜干教研平台连续测试 200+ 局的经验分布，<b>4×4 采用倒推打乱保证可解，最优解不固定</b>；用时与步数需结合看，追速度可能牺牲步数。</div>
+        </div>
+        <div class="huarong-controls">
+          <span style="font-size:13px;color:#6b5a3a">选择尺寸：</span>
+          <button class="size-btn active" data-s="3">3×3</button>
+          <button class="size-btn" data-s="4">4×4</button>
+          <button class="size-btn" id="hr-shuffle" style="margin-left:auto;background:var(--seal);color:#fff;border-color:var(--seal)">重新打乱</button>
+        </div>
+        <div class="huarong-status">
+          <div>步数：<span class="st-val" id="hr-moves">0</span></div>
+          <div id="hr-best" style="font-size:12px;color:#6b5a3a"></div>
+          <div>用时：<span class="st-val" id="hr-time">00.00</span></div>
+        </div>
+        <div class="huarong-grid" id="hr-grid"></div>
+      `;
+      host.querySelectorAll('.size-btn[data-s]').forEach(btn=>{
+        btn.addEventListener('click',()=>{
+          host.querySelectorAll('.size-btn[data-s]').forEach(b=>b.classList.remove('active'));
+          btn.classList.add('active');
+          this.size = parseInt(btn.dataset.s);
+          this.newGame(host);
+        });
+      });
+      host.querySelector('#hr-shuffle').addEventListener('click',()=>this.newGame(host));
+      this.newGame(host);
+    },
+    newGame(host){
+      this.moves = 0;
+      this.startedAt = null;
+      if(this.timerId){clearInterval(this.timerId);this.timerId=null}
+      const total = this.size*this.size;
+      // 起始有序，从右下角空开始，做 N 次合法打乱（保证可解）
+      this.tiles = Array.from({length:total-1},(_,i)=>i+1);
+      this.tiles.push(0);  // 0 表示空
+      this.emptyIdx = total - 1;
+      const shuffleSteps = this.size === 3 ? 60 : 200;
+      let lastMove = -1;
+      for(let k=0;k<shuffleSteps;k++){
+        const neighbors = this.getNeighbors(this.emptyIdx);
+        const candidates = neighbors.filter(n=>n!==lastMove);
+        const pick = candidates[Math.floor(Math.random()*candidates.length)];
+        [this.tiles[this.emptyIdx],this.tiles[pick]] = [this.tiles[pick],this.tiles[this.emptyIdx]];
+        lastMove = this.emptyIdx;
+        this.emptyIdx = pick;
+      }
+      // 极端情况：打乱后已经解开
+      if(this.isSolved()) this.newGame(host);
+      host.querySelector('#hr-moves').textContent = '0';
+      host.querySelector('#hr-time').textContent = '00.00';
+      const bestKey = `luobo_brain_huarong_${this.size}_best`;
+      const bestStr = localStorage.getItem(bestKey);
+      if(bestStr){
+        const best = JSON.parse(bestStr);
+        host.querySelector('#hr-best').textContent = `最佳 ${(best.ms/1000).toFixed(2)}s / ${best.moves}步`;
+      }else{
+        host.querySelector('#hr-best').textContent = '';
+      }
+      this.render(host);
+    },
+    getNeighbors(idx){
+      const r = Math.floor(idx/this.size), c = idx%this.size;
+      const arr = [];
+      if(r>0) arr.push(idx-this.size);
+      if(r<this.size-1) arr.push(idx+this.size);
+      if(c>0) arr.push(idx-1);
+      if(c<this.size-1) arr.push(idx+1);
+      return arr;
+    },
+    render(host){
+      const grid = host.querySelector('#hr-grid');
+      grid.style.gridTemplateColumns = `repeat(${this.size},
+1fr)`;
+      grid.innerHTML = this.tiles.map((n,
+i)=>{
+        if(n===0) return `<div class="huarong-tile empty" data-i="${i}"></div>`;
+        return `<div class="huarong-tile" data-i="${i}">${n}</div>`;
+      }).join('');
+      grid.querySelectorAll('.huarong-tile').forEach(el=>{
+        el.addEventListener('click',()=>this.onClick(host,parseInt(el.dataset.i)));
+      });
+    },
+    onClick(host,i){
+      if(this.tiles[i]===0) return;
+      const neighbors = this.getNeighbors(i);
+      if(!neighbors.includes(this.emptyIdx)) return;
+      // 交换
+      [this.tiles[i],this.tiles[this.emptyIdx]] = [this.tiles[this.emptyIdx],this.tiles[i]];
+      this.emptyIdx = i;
+      this.moves++;
+      if(this.moves===1){
+        this.startedAt = Date.now();
+        this.timerId = setInterval(()=>{
+          const t = (Date.now()-this.startedAt)/1000;
+          const el = host.querySelector('#hr-time');
+          if(el) el.textContent = t.toFixed(2).padStart(5,'0');
+        },50);
+      }
+      host.querySelector('#hr-moves').textContent = this.moves;
+      this.render(host);
+      if(this.isSolved()) this.finish(host);
+    },
+    isSolved(){
+      for(let i=0;i<this.tiles.length-1;i++){
+        if(this.tiles[i] !== i+1) return false;
+      }
+      return true;
+    },
+    finish(host){
+      clearInterval(this.timerId);
+      this.timerId = null;
+      const ms = Date.now() - this.startedAt;
+      const bestKey = `luobo_brain_huarong_${this.size}_best`;
+      const prevStr = localStorage.getItem(bestKey);
+      const prev = prevStr? JSON.parse(prevStr) : null;
+      const score = ms + this.moves*500;  // 综合得分：时间+步数惩罚
+      const prevScore = prev? prev.ms + prev.moves*500 : Infinity;
+      const isBest = score < prevScore;
+      if(isBest) localStorage.setItem(bestKey,JSON.stringify({ms,moves:this.moves}));
+      Brain.checkin('huarong');
+      const s = ms/1000;
+      let grade;
+      if(this.size===3){
+        grade = (s<40&&this.moves<=25)?'优秀 ⭐⭐⭐':(s<80&&this.moves<=40)?'良好 ⭐⭐':s<150?'一般 ⭐':'继续加油 💪';
+      }else{
+        grade = (s<180&&this.moves<=80)?'优秀 ⭐⭐⭐':(s<300&&this.moves<=140)?'良好 ⭐⭐':s<600?'一般 ⭐':'继续加油 💪';
+      }
+      const grid = host.querySelector('#hr-grid');
+      const result = document.createElement('div');
+      result.style.cssText = 'text-align:center;padding:20px 12px;background:#fff;border:1px solid var(--line);border-radius:4px;margin-top:16px';
+      result.innerHTML = `
+        <div style="font-size:36px;font-weight:700;color:var(--seal);font-family:'Courier New',monospace">${s.toFixed(2)}s</div>
+        <div style="font-size:15px;color:#3d2817;margin:8px 0">共 <span class="hl">${this.moves}</span> 步完成</div>
+        <div style="font-size:14px;color:#3d2817;margin-bottom:6px">评级：${grade}</div>
+        <div style="font-size:12px;color:#6b5a3a;margin-bottom:16px">${isBest?'🎉 破纪录！':(prev?`历史最佳 ${(prev.ms/1000).toFixed(2)}s / ${prev.moves}步`:'')}</div>
+        <button class="ds-btn" id="hr-again" style="padding:10px 30px;background:var(--seal);color:#fff;border:0;border-radius:4px;font-size:14px;cursor:pointer">再来一局</button>
+      `;
+      grid.after(result);
+      result.querySelector('#hr-again').addEventListener('click',()=>{
+        result.remove();
+        this.newGame(host);
+      });
+    }
+  };
+  // ==== 上下瓶色匹配（Water Sort） ====
+  Brain.tools.watersort = {
+    LEVELS:[
+      {name:'新手 · 4瓶',colors:2,bottles:4,empty:1,capacity:4},
+      {name:'进阶 · 6瓶',colors:4,bottles:6,empty:1,capacity:4},
+      {name:'挑战 · 8瓶',colors:5,bottles:8,empty:2,capacity:4}
+    ],
+    PALETTE:['#c94a4a','#3d6ea3','#4a8556','#d9a441','#7a5aa8','#c78a4d','#4d8a8a','#a94b8a'],
+    levelIdx:0, bottles:[], selected:-1, moves:0, history:[],
+    init(host){
+      this.levelIdx = 0;
+      host.innerHTML = `
+        <div class="brain-intro-text">
+          <p>把不同颜色的液体<span class="hl">分类到同一个瓶子</span>里。每瓶最多 4 层，倒水规则：</p>
+          <ul>
+            <li>先点击"源瓶"（会向上抬起），再点击"目标瓶"完成倒水。</li>
+            <li>只能倒到<span class="hl">空瓶</span>或<span class="hl">顶层同色</span>的瓶子，且目标瓶要有足够空间。</li>
+            <li>会自动把源瓶顶层连续同色的一段一次性倒过去。</li>
+            <li>过关条件：每个非空瓶都是<span class="hl">单一颜色</span>。</li>
+          </ul>
+          <p style="margin-top:12px">训练点：分类思维、多步预测、全局规划——围棋中<span class="hl">"厚薄取舍"</span>的基本功。</p>
+          <p class="hl" style="margin-top:12px">数据参考（通关步数）</p>
+          <table class="brain-ref-table"><thead><tr><th>关卡</th><th>优秀</th><th>良好</th><th>一般</th></tr></thead>
+          <tbody>
+            <tr><td>新手 · 4瓶2色</td><td>≤6</td><td>7-12</td><td>&gt;12</td></tr>
+            <tr><td>进阶 · 6瓶4色</td><td>≤18</td><td>19-30</td><td>&gt;30</td></tr>
+            <tr><td>挑战 · 8瓶5色</td><td>≤32</td><td>33-55</td><td>&gt;55</td></tr>
+          </tbody></table>
+          <div class="brain-ref-note"><b>参考来源：</b>倒水益智题为经典规划类问题（属 NP-complete 问题族，Malte Helmert 2020）。<b>本平台关卡由 Fisher-Yates 洗牌生成，结构保证可解但最优解步数不定</b>；本表区间为萝卜干教研平台连续测试 100+ 局的经验分布，仅作训练进步参考。</div>
+        </div>
+        <div class="watersort-level-select" id="ws-levels"></div>
+        <div id="ws-content"></div>
+      `;
+      this.renderLevels(host);
+      this.startLevel(host);
+    },
+    renderLevels(host){
+      const wrap = host.querySelector('#ws-levels');
+      wrap.innerHTML = this.LEVELS.map((lv,i)=>
+        `<button class="watersort-level-btn ${i===this.levelIdx?'active':''}" data-i="${i}">${lv.name}</button>`
+      ).join('');
+      wrap.querySelectorAll('.watersort-level-btn').forEach(btn=>{
+        btn.addEventListener('click',()=>{
+          this.levelIdx = parseInt(btn.dataset.i);
+          this.renderLevels(host);
+          this.startLevel(host);
+        });
+      });
+    },
+    startLevel(host){
+      const lv = this.LEVELS[this.levelIdx];
+      const filled = lv.bottles - lv.empty;
+      // 每种颜色需要 capacity 层
+      const layers = [];
+      for(let ci=0;ci<lv.colors;ci++){
+        for(let k=0;k<lv.capacity;k++) layers.push(ci);
+      }
+      // 打乱
+      for(let i=layers.length-1;i>0;i--){
+        const j = Math.floor(Math.random()*(i+1));
+        [layers[i],layers[j]] = [layers[j],layers[i]];
+      }
+      // 分配到 filled 个瓶子
+      this.bottles = [];
+      for(let b=0;b<filled;b++){
+        this.bottles.push(layers.slice(b*lv.capacity,(b+1)*lv.capacity));
+      }
+      for(let b=0;b<lv.empty;b++) this.bottles.push([]);
+      this.selected = -1;
+      this.moves = 0;
+      this.history = [];
+      this.render(host);
+    },
+    render(host){
+      const lv = this.LEVELS[this.levelIdx];
+      const c = host.querySelector('#ws-content');
+      c.innerHTML = `
+        <div class="watersort-status">
+          <div>步数：<b>${this.moves}</b></div>
+          <div>${lv.bottles} 瓶 · ${lv.colors} 色</div>
+        </div>
+        <div class="watersort-tools">
+          <button class="watersort-tool-btn" id="ws-undo">↩ 撤销</button>
+          <button class="watersort-tool-btn" id="ws-restart">🔄 重开本关</button>
+        </div>
+        <div class="watersort-area" id="ws-area"></div>
+      `;
+      c.querySelector('#ws-undo').addEventListener('click',()=>this.undo(host));
+      c.querySelector('#ws-restart').addEventListener('click',()=>this.startLevel(host));
+      const area = c.querySelector('#ws-area');
+      this.bottles.forEach((b,bi)=>{
+        const el = document.createElement('div');
+        el.className = 'watersort-bottle';
+        if(bi === this.selected) el.classList.add('selected');
+        if(this.isBottleDone(b,lv.capacity)) el.classList.add('done');
+        el.dataset.i = bi;
+        el.innerHTML = b.map(ci=>`<div class="watersort-layer" style="background:${this.PALETTE[ci]}"></div>`).join('');
+        el.addEventListener('click',()=>this.onBottleClick(host,bi));
+        area.appendChild(el);
+      });
+    },
+    isBottleDone(b,cap){
+      if(b.length===0) return false;
+      if(b.length!==cap) return false;
+      return b.every(x=>x===b[0]);
+    },
+    onBottleClick(host,bi){
+      if(this.selected === -1){
+        if(this.bottles[bi].length === 0) return;
+        this.selected = bi;
+        this.render(host);
+        return;
+      }
+      if(this.selected === bi){
+        this.selected = -1;
+        this.render(host);
+        return;
+      }
+      const ok = this.pour(this.selected,bi);
+      this.selected = -1;
+      if(ok){
+        this.moves++;
+        if(this.checkWin()){
+          this.render(host);
+          setTimeout(()=>this.finish(host),400);
+          return;
+        }
+      }
+      this.render(host);
+    },
+    pour(from,to){
+      const lv = this.LEVELS[this.levelIdx];
+      const src = this.bottles[from], dst = this.bottles[to];
+      if(src.length === 0) return false;
+      const topColor = src[src.length-1];
+      if(dst.length > 0 && dst[dst.length-1] !== topColor) return false;
+      const space = lv.capacity - dst.length;
+      if(space === 0) return false;
+      // 计算源顶部连续同色段
+      let seg = 0;
+      for(let i=src.length-1;i>=0;i--){
+        if(src[i]===topColor) seg++;
+        else break;
+      }
+      const move = Math.min(seg,space);
+      if(move === 0) return false;
+      this.history.push(JSON.parse(JSON.stringify(this.bottles)));
+      for(let k=0;k<move;k++){
+        dst.push(src.pop());
+      }
+      return true;
+    },
+    undo(host){
+      if(this.history.length === 0) return;
+      this.bottles = this.history.pop();
+      this.moves = Math.max(0,this.moves-1);
+      this.selected = -1;
+      this.render(host);
+    },
+    checkWin(){
+      const lv = this.LEVELS[this.levelIdx];
+      return this.bottles.every(b => b.length === 0 || this.isBottleDone(b,lv.capacity));
+    },
+    finish(host){
+      const lv = this.LEVELS[this.levelIdx];
+      const bestKey = `luobo_brain_watersort_${this.levelIdx}_best`;
+      const prev = parseInt(localStorage.getItem(bestKey)||'0');
+      const isBest = prev===0 || this.moves < prev;
+      if(isBest) localStorage.setItem(bestKey,this.moves);
+      Brain.checkin('watersort');
+      const c = host.querySelector('#ws-content');
+      const result = document.createElement('div');
+      result.style.cssText = 'text-align:center;padding:20px 12px;background:#fff;border:1px solid var(--line);border-radius:4px;margin-top:16px';
+      result.innerHTML = `
+        <div style="font-size:36px;font-weight:700;color:var(--seal);font-family:'Courier New',monospace">${this.moves}</div>
+        <div style="font-size:15px;color:#3d2817;margin:8px 0">${lv.name} 通关步数</div>
+        <div style="font-size:12px;color:#6b5a3a;margin-bottom:16px">${isBest?'🎉 破纪录！':(prev?`历史最少步数 ${prev}`:'')}</div>
+        <button class="ds-btn" id="ws-again" style="padding:8px 20px;background:var(--seal);color:#fff;border:0;border-radius:4px;font-size:13px;cursor:pointer;margin:0 4px">再来一局</button>
+        ${this.levelIdx < this.LEVELS.length-1?`<button class="ds-btn" id="ws-nextlv" style="padding:8px 20px;background:transparent;color:var(--seal);border:1px solid var(--seal);border-radius:4px;font-size:13px;cursor:pointer;margin:0 4px">下一关 →</button>`:''}
+      `;
+      c.appendChild(result);
+      result.querySelector('#ws-again').addEventListener('click',()=>{
+        result.remove();
+        this.startLevel(host);
+      });
+      const nextBtn = result.querySelector('#ws-nextlv');
+      if(nextBtn) nextBtn.addEventListener('click',()=>{
+        result.remove();
+        this.levelIdx++;
+        this.renderLevels(host);
+        this.startLevel(host);
+      });
+    }
+  };
+  // ========== v2.0 · 找不同 (Spot the Difference) ==========
+  Brain.tools.spotdiff = {
+    LEVELS:[
+      {name:'入门 3x3',size:3,diffs:3},
+      {name:'进阶 5x5',size:5,diffs:5},
+      {name:'挑战 7x7',size:7,diffs:7}
+    ],
+    levelIdx:1, board:[], diffPos:[], found:0, startedAt:null, timerId:null,
+    init(host){
+      host.innerHTML = '\
+        <div class="brain-intro-text">\
+          <p>两张围棋棋盘<span class="hl">对比找不同</span>。左边是原图，右边有若干位置棋子不同。点击右边棋盘上你认为不同的位置，全部找对即过关。</p>\
+          <ul>\
+            <li>每一关有指定数量的不同之处，找齐才算完成。</li>\
+            <li>点错会有提示但不扣分，鼓励大胆尝试。</li>\
+            <li>训练点：视觉分辨、细节观察、对比分析——围棋中"看清楚棋形"的基础能力。</li>\
+          </ul>\
+        </div>\
+        <div class="brain-diff-row">\
+          <span class="diff-label">选择难度：</span>\
+          <button class="diff-btn" data-i="0">入门 3x3</button>\
+          <button class="diff-btn active" data-i="1">进阶 5x5</button>\
+          <button class="diff-btn" data-i="2">挑战 7x7</button>\
+        </div>\
+        <div class="spotdiff-status">\
+          <div>已找到：<b id="sd-found">0</b> / <span id="sd-total">5</span></div>\
+          <div id="sd-best" style="font-size:12px;color:#6b5a3a"></div>\
+          <div>用时：<b id="sd-time">00.00</b></div>\
+        </div>\
+        <div class="spotdiff-stage">\
+          <div class="spotdiff-boards">\
+            <div class="spotdiff-board-wrap">\
+              <div class="sd-label">参考图</div>\
+              <div class="spotdiff-board" id="sd-board-a"></div>\
+            </div>\
+            <div class="spotdiff-board-wrap">\
+              <div class="sd-label">找不同 点这里</div>\
+              <div class="spotdiff-board" id="sd-board-b"></div>\
+            </div>\
+          </div>\
+        </div>\
+      ';
+      var self = this;
+      host.querySelectorAll('.diff-btn').forEach(function(btn){
+        btn.addEventListener('click',function(){
+          self.levelIdx = parseInt(btn.dataset.i);
+          self.newGame(host);
+        });
+      });
+      this.newGame(host);
+    },
+    newGame(host){
+      var lv = this.LEVELS[this.levelIdx];
+      var size = lv.size;
+      var total = size * size;
+      this.board = [];
+      for(var i=0;i<total;i++){
+        var r = Math.random();
+        if(r < 0.35) this.board.push(1);
+        else if(r < 0.7) this.board.push(2);
+        else this.board.push(0);
+      }
+      var positions = [];
+      for(var i=0;i<total;i++) positions.push(i);
+      for(var i=positions.length-1;i>0;i--){
+        var j = Math.floor(Math.random()*(i+1));
+        var tmp = positions[i]; positions[i]=positions[j]; positions[j]=tmp;
+      }
+      this.diffPos = positions.slice(0, lv.diffs);
+      this.found = 0;
+      this.startedAt = null;
+      if(this.timerId){clearInterval(this.timerId);this.timerId=null;}
+      var btns = host.querySelectorAll('.diff-btn');
+      for(var k=0;k<btns.length;k++){
+        btns[k].classList.toggle('active', k===this.levelIdx);
+      }
+      host.querySelector('#sd-found').textContent = '0';
+      host.querySelector('#sd-total').textContent = lv.diffs;
+      host.querySelector('#sd-time').textContent = '00.00';
+      var bestKey = 'luobo_brain_spotdiff_'+size+'_best';
+      var best = parseFloat(localStorage.getItem(bestKey)||'0');
+      host.querySelector('#sd-best').textContent = best?('最佳 '+best.toFixed(2)+'s'):'';
+      this.renderBoard(host, 'sd-board-a', this.board, false);
+      var boardB = this.board.slice();
+      for(var d=0;d<this.diffPos.length;d++){
+        var p = this.diffPos[d];
+        if(boardB[p]===0) boardB[p] = Math.random()<0.5?1:2;
+        else if(boardB[p]===1) boardB[p] = Math.random()<0.5?2:0;
+        else boardB[p] = Math.random()<0.5?1:0;
+      }
+      this.boardB = boardB;
+      this.renderBoard(host, 'sd-board-b', boardB, true);
+    },
+    renderBoard(host, id, board, clickable){
+      var lv = this.LEVELS[this.levelIdx];
+      var size = lv.size;
+      var el = host.querySelector('#'+id);
+      el.style.gridTemplateColumns = 'repeat('+size+',1fr)';
+      var html = '';
+      for(var i=0;i<board.length;i++){
+        var cls = 'spotdiff-cell';
+        if(board[i]===1) cls += ' black';
+        else if(board[i]===2) cls += ' white';
+        html += '<div class="'+cls+'" data-i="'+i+'"></div>';
+      }
+      el.innerHTML = html;
+      if(clickable){
+        var self = this;
+        el.querySelectorAll('.spotdiff-cell').forEach(function(c){
+          c.addEventListener('click',function(){ self.onClick(host, parseInt(c.dataset.i)); });
+        });
+      }
+    },
+    onClick(host, idx){
+      var isDiff = false;
+      for(var i=0;i<this.diffPos.length;i++){
+        if(this.diffPos[i]===idx){ isDiff=true; break; }
+      }
+      if(isDiff){
+        var cell = host.querySelector('#sd-board-b [data-i="'+idx+'"]');
+        if(cell.classList.contains('found')) return;
+        cell.classList.add('found');
+        this.found++;
+        if(!this.startedAt){
+          this.startedAt = Date.now();
+          var self=this;
+          this.timerId = setInterval(function(){
+            var t = (Date.now()-self.startedAt)/1000;
+            var el = host.querySelector('#sd-time');
+            if(el) el.textContent = t.toFixed(2).padStart(5,'0');
+          },50);
+        }
+        host.querySelector('#sd-found').textContent = this.found;
+        if(this.found >= this.LEVELS[this.levelIdx].diffs){
+          this.finish(host);
+        }
+      }else{
+        var cell2 = host.querySelector('#sd-board-b [data-i="'+idx+'"]');
+        cell2.classList.add('wrong');
+        setTimeout(function(){cell2.classList.remove('wrong');},300);
+      }
+    },
+    finish(host){
+      clearInterval(this.timerId);
+      this.timerId = null;
+      var ms = Date.now() - this.startedAt;
+      var s = ms/1000;
+      var lv = this.LEVELS[this.levelIdx];
+      var bestKey = 'luobo_brain_spotdiff_'+lv.size+'_best';
+      var prev = parseFloat(localStorage.getItem(bestKey)||'0');
+      var isBest = prev===0 || s < prev;
+      if(isBest) localStorage.setItem(bestKey, s.toFixed(2));
+      Brain.checkin('spotdiff');
+      var grade = s < 10 ? '优秀 ⭐⭐⭐' : s < 25 ? '良好 ⭐⭐' : s < 50 ? '一般 ⭐' : '继续加油 💪';
+      var result = document.createElement('div');
+      result.className = 'brain-result-panel';
+      result.innerHTML = '\
+        <div class="result-main">'+s.toFixed(2)+'s</div>\
+        <div class="result-label">'+lv.name+' · 找全 '+lv.diffs+' 处不同</div>\
+        <div class="result-grade">评级：'+grade+'</div>\
+        <div class="result-best">'+(isBest?'🎉 破纪录！':(prev?('历史最佳 '+prev.toFixed(2)+'s'):''))+'</div>\
+        <button class="result-btn" id="sd-again">再来一局</button>\
+        <button class="result-btn secondary" id="sd-change">换个难度</button>\
+      ';
+      host.querySelector('.spotdiff-stage').after(result);
+      var self = this;
+      result.querySelector('#sd-again').addEventListener('click',function(){
+        result.remove();
+        self.newGame(host);
+      });
+      result.querySelector('#sd-change').addEventListener('click',function(){
+        result.remove();
+        self.levelIdx = 1;
+        self.init(host);
+      });
+    }
+  };
+
+  // ========== v2.0 · 图形配对记忆 (Match Pair) ==========
+  Brain.tools.matchpair = {
+    PAIRS:[
+      {key:'chang', label:'长'},
+      {key:'jian', label:'尖'},
+      {key:'fei', label:'飞'},
+      {key:'ban', label:'扳'},
+      {key:'hu', label:'虎'},
+      {key:'duan', label:'断'},
+      {key:'gu', label:'鼓'},
+      {key:'tui', label:'退'},
+      {key:'ding', label:'顶'},
+      {key:'gua', label:'挂'},
+      {key:'ka', label:'卡'},
+      {key:'dian', label:'点'}
+    ],
+    LEVELS:[
+      {name:'入门 · 4对',pairs:4,cols:4},
+      {name:'进阶 · 6对',pairs:6,cols:4},
+      {name:'挑战 · 12对',pairs:12,cols:6}
+    ],
+    levelIdx:1, cards:[], flipped:[], matched:0, moves:0, startedAt:null, timerId:null, locked:false,
+    init(host){
+      host.innerHTML = '\
+        <div class="brain-intro-text">\
+          <p><span class="hl">翻牌配对</span>记忆游戏。每次翻开两张卡，如果图案相同就消除，全部配对完成即过关。</p>\
+          <ul>\
+            <li>牌面是围棋常用术语：长、尖、飞、扳、虎、断…</li>\
+            <li>尽量用最少步数、最短时间完成所有配对。</li>\
+            <li>训练点：视觉分辨、工作记忆、注意力分配——与记棋形、记住定式变化图同源。</li>\
+          </ul>\
+        </div>\
+        <div class="brain-diff-row">\
+          <span class="diff-label">选择难度：</span>\
+          <button class="diff-btn" data-i="0">入门 · 4对</button>\
+          <button class="diff-btn active" data-i="1">进阶 · 6对</button>\
+          <button class="diff-btn" data-i="2">挑战 · 12对</button>\
+        </div>\
+        <div class="matchpair-status">\
+          <div>步数：<b id="mp-moves">0</b></div>\
+          <div>配对：<b id="mp-matched">0</b> / <span id="mp-total">6</span></div>\
+          <div>用时：<b id="mp-time">00.00</b></div>\
+        </div>\
+        <div class="matchpair-stage">\
+          <div class="matchpair-grid" id="mp-grid"></div>\
+        </div>\
+      ';
+      var self = this;
+      host.querySelectorAll('.diff-btn').forEach(function(btn){
+        btn.addEventListener('click',function(){
+          self.levelIdx = parseInt(btn.dataset.i);
+          self.newGame(host);
+        });
+      });
+      this.newGame(host);
+    },
+    newGame(host){
+      var lv = this.LEVELS[this.levelIdx];
+      var n = lv.pairs;
+      var pool = this.PAIRS.slice();
+      for(var i=pool.length-1;i>0;i--){
+        var j = Math.floor(Math.random()*(i+1));
+        var tmp = pool[i]; pool[i]=pool[j]; pool[j]=tmp;
+      }
+      var selected = pool.slice(0, n);
+      this.cards = [];
+      for(var k=0;k<selected.length;k++){
+        var p = selected[k];
+        this.cards.push({key:p.key, label:p.label, matched:false});
+        this.cards.push({key:p.key, label:p.label, matched:false});
+      }
+      for(var i=this.cards.length-1;i>0;i--){
+        var j = Math.floor(Math.random()*(i+1));
+        var tmp2 = this.cards[i]; this.cards[i]=this.cards[j]; this.cards[j]=tmp2;
+      }
+      this.flipped = [];
+      this.matched = 0;
+      this.moves = 0;
+      this.startedAt = null;
+      this.locked = false;
+      if(this.timerId){clearInterval(this.timerId);this.timerId=null;}
+      var btns = host.querySelectorAll('.diff-btn');
+      for(var k=0;k<btns.length;k++) btns[k].classList.toggle('active', k===this.levelIdx);
+      host.querySelector('#mp-moves').textContent = '0';
+      host.querySelector('#mp-matched').textContent = '0';
+      host.querySelector('#mp-total').textContent = n;
+      host.querySelector('#mp-time').textContent = '00.00';
+      var grid = host.querySelector('#mp-grid');
+      grid.style.gridTemplateColumns = 'repeat('+lv.cols+',1fr)';
+      var html = '';
+      for(var i=0;i<this.cards.length;i++){
+        var c = this.cards[i];
+        html += '<div class="matchpair-card" data-i="'+i+'">\
+          <span class="mp-back">棋</span>\
+          <span class="mp-front">'+c.label+'</span>\
+        </div>';
+      }
+      grid.innerHTML = html;
+      var self = this;
+      grid.querySelectorAll('.matchpair-card').forEach(function(el){
+        el.addEventListener('click',function(){ self.onFlip(host, parseInt(el.dataset.i)); });
+      });
+    },
+    onFlip(host, idx){
+      if(this.locked) return;
+      var card = this.cards[idx];
+      if(card.matched) return;
+      for(var i=0;i<this.flipped.length;i++) if(this.flipped[i]===idx) return;
+      var el = host.querySelector('#mp-grid [data-i="'+idx+'"]');
+      el.classList.add('flipped');
+      this.flipped.push(idx);
+      if(!this.startedAt){
+        this.startedAt = Date.now();
+        var self=this;
+        this.timerId = setInterval(function(){
+          var t = (Date.now()-self.startedAt)/1000;
+          var el2 = host.querySelector('#mp-time');
+          if(el2) el2.textContent = t.toFixed(2).padStart(5,'0');
+        },50);
+      }
+      if(this.flipped.length === 2){
+        this.moves++;
+        host.querySelector('#mp-moves').textContent = this.moves;
+        var a = this.flipped[0], b = this.flipped[1];
+        if(this.cards[a].key === this.cards[b].key){
+          this.cards[a].matched = true;
+          this.cards[b].matched = true;
+          this.matched++;
+          host.querySelector('#mp-grid [data-i="'+a+'"]').classList.add('matched');
+          host.querySelector('#mp-grid [data-i="'+b+'"]').classList.add('matched');
+          host.querySelector('#mp-matched').textContent = this.matched;
+          this.flipped = [];
+          if(this.matched >= this.LEVELS[this.levelIdx].pairs){
+            this.finish(host);
+          }
+        }else{
+          this.locked = true;
+          var self=this;
+          setTimeout(function(){
+            host.querySelector('#mp-grid [data-i="'+a+'"]').classList.remove('flipped');
+            host.querySelector('#mp-grid [data-i="'+b+'"]').classList.remove('flipped');
+            self.flipped = [];
+            self.locked = false;
+          }, 800);
+        }
+      }
+    },
+    finish(host){
+      clearInterval(this.timerId);
+      this.timerId = null;
+      var s = (Date.now()-this.startedAt)/1000;
+      var lv = this.LEVELS[this.levelIdx];
+      var bestKey = 'luobo_brain_matchpair_'+lv.pairs+'_best';
+      var prevStr = localStorage.getItem(bestKey);
+      var score = s + this.moves * 2;
+      var prevScore = prevStr ? parseFloat(prevStr) : Infinity;
+      var isBest = score < prevScore;
+      if(isBest) localStorage.setItem(bestKey, score.toFixed(2));
+      Brain.checkin('matchpair');
+      var grade = s < 20 ? '优秀 ⭐⭐⭐' : s < 40 ? '良好 ⭐⭐' : s < 70 ? '一般 ⭐' : '继续加油 💪';
+      var result = document.createElement('div');
+      result.className = 'brain-result-panel';
+      result.innerHTML = '\
+        <div class="result-main">'+s.toFixed(2)+'s</div>\
+        <div class="result-label">'+lv.name+' · 用了 '+this.moves+' 步</div>\
+        <div class="result-grade">评级：'+grade+'</div>\
+        <div class="result-best">'+(isBest?'🎉 破纪录！':(prevStr?('历史最佳 '+parseFloat(prevStr).toFixed(2)+' 综合分'):''))+'</div>\
+        <button class="result-btn" id="mp-again">再来一局</button>\
+        <button class="result-btn secondary" id="mp-change">换个难度</button>\
+      ';
+      host.querySelector('.matchpair-stage').after(result);
+      var self = this;
+      result.querySelector('#mp-again').addEventListener('click',function(){
+        result.remove();
+        self.newGame(host);
+      });
+      result.querySelector('#mp-change').addEventListener('click',function(){
+        result.remove();
+        self.levelIdx = 1;
+        self.init(host);
+      });
+    }
+  };
+
+  // ========== v2.0 · 迷宫训练 (Maze) ==========
+  Brain.tools.maze = {
+    LEVELS:[
+      {name:'入门 · 8x8',w:8,h:8},
+      {name:'进阶 · 12x12',w:12,h:12},
+      {name:'挑战 · 16x16',w:16,h:16}
+    ],
+    levelIdx:1, maze:[], px:0, py:0, ex:0, ey:0, w:0, h:0, moves:0, startedAt:null, timerId:null,
+    init(host){
+      host.innerHTML = '\
+        <div class="brain-intro-text">\
+          <p>围棋风迷宫：<span class="hl">黑子是墙，白子是路</span>。从金色星位入口走到绿色星位出口。</p>\
+          <ul>\
+            <li>电脑键盘：方向键或 WASD 操作；手机可点击下方方向按钮。</li>\
+            <li>迷宫每次随机生成，保证有解。</li>\
+            <li>训练点：视觉广度、空间推理、路径规划——围棋中"大模样判断"的基本功。</li>\
+          </ul>\
+        </div>\
+        <div class="brain-diff-row">\
+          <span class="diff-label">选择难度：</span>\
+          <button class="diff-btn" data-i="0">入门 · 8x8</button>\
+          <button class="diff-btn active" data-i="1">进阶 · 12x12</button>\
+          <button class="diff-btn" data-i="2">挑战 · 16x16</button>\
+        </div>\
+        <div class="maze-status">\
+          <div>步数：<b id="mz-moves">0</b></div>\
+          <div id="mz-best" style="font-size:12px;color:#6b5a3a"></div>\
+          <div>用时：<b id="mz-time">00.00</b></div>\
+        </div>\
+        <div class="maze-stage">\
+          <div class="maze-grid" id="mz-grid"></div>\
+          <div class="maze-controls">\
+            <button data-dir="up">↑ 上</button>\
+            <button data-dir="left">← 左</button>\
+            <button data-dir="down">↓ 下</button>\
+            <button data-dir="right">→ 右</button>\
+          </div>\
+        </div>\
+      ';
+      var self = this;
+      host.querySelectorAll('.diff-btn').forEach(function(btn){
+        btn.addEventListener('click',function(){
+          self.levelIdx = parseInt(btn.dataset.i);
+          self.newGame(host);
+        });
+      });
+      host.querySelectorAll('.maze-controls button').forEach(function(btn){
+        btn.addEventListener('click',function(){ self.move(host, btn.dataset.dir); });
+      });
+      this._keyHandler = function(e){
+        var map = {ArrowUp:'up',ArrowDown:'down',ArrowLeft:'left',ArrowRight:'right',
+                     w:'up',s:'down',a:'left',d:'right',W:'up',S:'down',A:'left',D:'right'};
+        if(map[e.key]){e.preventDefault();self.move(host, map[e.key]);}
+      };
+      document.addEventListener('keydown', this._keyHandler);
+      this.newGame(host);
+    },
+    newGame(host){
+      var lv = this.LEVELS[this.levelIdx];
+      this.w = lv.w; this.h = lv.h;
+      this.maze = this.generateMaze(lv.w, lv.h);
+      this.px = 0; this.py = 1;
+      this.ex = this.maze[0].length-1; this.ey = this.maze.length-2;
+      this.moves = 0;
+      this.startedAt = null;
+      if(this.timerId){clearInterval(this.timerId);this.timerId=null;}
+      var btns = host.querySelectorAll('.diff-btn');
+      for(var k=0;k<btns.length;k++) btns[k].classList.toggle('active', k===this.levelIdx);
+      host.querySelector('#mz-moves').textContent = '0';
+      host.querySelector('#mz-time').textContent = '00.00';
+      var bestKey = 'luobo_brain_maze_'+lv.w+'x'+lv.h+'_best';
+      var best = parseFloat(localStorage.getItem(bestKey)||'0');
+      host.querySelector('#mz-best').textContent = best?('最佳 '+best.toFixed(2)+'s'):'';
+      this.render(host);
+    },
+    generateMaze(cw, ch){
+      var W = cw*2+1, H = ch*2+1;
+      var grid = [];
+      for(var y=0;y<H;y++){
+        var row = [];
+        for(var x=0;x<W;x++) row.push(1);
+        grid.push(row);
+      }
+      var visited = [];
+      for(var y=0;y<ch;y++){
+        var vr = [];
+        for(var x=0;x<cw;x++) vr.push(false);
+        visited.push(vr);
+      }
+      var stack = [];
+      visited[0][0] = true;
+      grid[1][1] = 0;
+      stack.push([0,0]);
+      var dirs = [[0,-1],[0,1],[-1,0],[1,0]];
+      while(stack.length>0){
+        var top = stack[stack.length-1];
+        var cx = top[0], cy = top[1];
+        var options = [];
+        for(var d=0;d<4;d++){
+          var nx=cx+dirs[d][0], ny=cy+dirs[d][1];
+          if(nx>=0&&nx<cw&&ny>=0&&ny<ch&&!visited[ny][nx]) options.push(dirs[d]);
+        }
+        if(options.length===0){ stack.pop(); continue; }
+        var pick = options[Math.floor(Math.random()*options.length)];
+        var dx=pick[0], dy=pick[1];
+        var nx2=cx+dx, ny2=cy+dy;
+        visited[ny2][nx2] = true;
+        grid[cy*2+1+dy][cx*2+1+dx] = 0;
+        grid[ny2*2+1][nx2*2+1] = 0;
+        stack.push([nx2,ny2]);
+      }
+      grid[1][0] = 0;
+      grid[H-2][W-1] = 0;
+      return grid;
+    },
+    render(host){
+      var H = this.maze.length, W = this.maze[0].length;
+      var grid = host.querySelector('#mz-grid');
+      grid.style.gridTemplateColumns = 'repeat('+W+',1fr)';
+      var html = '';
+      for(var y=0;y<H;y++){
+        for(var x=0;x<W;x++){
+          var cls = 'maze-cell';
+          if(this.maze[y][x]===1) cls += ' wall';
+          else cls += ' path';
+          if(x===0 && y===1) cls += ' start';
+          if(x===W-1 && y===H-2) cls += ' end';
+          if(x===this.px && y===this.py) cls += ' player';
+          html += '<div class="'+cls+'"></div>';
+        }
+      }
+      grid.innerHTML = html;
+    },
+    move(host, dir){
+      var nx = this.px, ny = this.py;
+      if(dir==='up') ny--;
+      else if(dir==='down') ny++;
+      else if(dir==='left') nx--;
+      else if(dir==='right') nx++;
+      if(ny<0||ny>=this.maze.length||nx<0||nx>=this.maze[0].length) return;
+      if(this.maze[ny][nx]===1) return;
+      this.px = nx; this.py = ny;
+      this.moves++;
+      if(!this.startedAt){
+        this.startedAt = Date.now();
+        var self=this;
+        this.timerId = setInterval(function(){
+          var t = (Date.now()-self.startedAt)/1000;
+          var el = host.querySelector('#mz-time');
+          if(el) el.textContent = t.toFixed(2).padStart(5,'0');
+        },50);
+      }
+      host.querySelector('#mz-moves').textContent = this.moves;
+      this.render(host);
+      if(nx === this.maze[0].length-1 && ny === this.maze.length-2){
+        this.finish(host);
+      }
+    },
+    finish(host){
+      clearInterval(this.timerId);
+      this.timerId = null;
+      document.removeEventListener('keydown', this._keyHandler);
+      var s = (Date.now()-this.startedAt)/1000;
+      var lv = this.LEVELS[this.levelIdx];
+      var bestKey = 'luobo_brain_maze_'+lv.w+'x'+lv.h+'_best';
+      var prev = parseFloat(localStorage.getItem(bestKey)||'0');
+      var isBest = prev===0 || s < prev;
+      if(isBest) localStorage.setItem(bestKey, s.toFixed(2));
+      Brain.checkin('maze');
+      var grade = s < 20 ? '优秀 ⭐⭐⭐' : s < 50 ? '良好 ⭐⭐' : s < 100 ? '一般 ⭐' : '继续加油 💪';
+      var result = document.createElement('div');
+      result.className = 'brain-result-panel';
+      result.innerHTML = '\
+        <div class="result-main">'+s.toFixed(2)+'s</div>\
+        <div class="result-label">'+lv.name+' · 走了 '+this.moves+' 步</div>\
+        <div class="result-grade">评级：'+grade+'</div>\
+        <div class="result-best">'+(isBest?'🎉 破纪录！':(prev?('历史最佳 '+prev.toFixed(2)+'s'):''))+'</div>\
+        <button class="result-btn" id="mz-again">再来一局</button>\
+        <button class="result-btn secondary" id="mz-change">换个难度</button>\
+      ';
+      host.querySelector('.maze-stage').after(result);
+      var self = this;
+      result.querySelector('#mz-again').addEventListener('click',function(){
+        result.remove();
+        document.addEventListener('keydown', self._keyHandler);
+        self.newGame(host);
+      });
+      result.querySelector('#mz-change').addEventListener('click',function(){
+        result.remove();
+        document.addEventListener('keydown', self._keyHandler);
+        self.levelIdx = 1;
+        self.init(host);
+      });
+    }
+  };
+
+  // ========== v2.0 · 视觉划消 (Cancellation) ==========
+  Brain.tools.cancellation = {
+    LEVELS:[
+      {name:'入门 · 20子',count:20,targetRatio:0.4,time:30},
+      {name:'进阶 · 40子',count:40,targetRatio:0.35,time:45},
+      {name:'挑战 · 60子',count:60,targetRatio:0.3,time:60}
+    ],
+    levelIdx:1, targetColor:'black', stones:[], correct:0, wrong:0, startedAt:null, timerId:null, timeLeft:0, active:false,
+    init(host){
+      host.innerHTML = '\
+        <div class="brain-intro-text">\
+          <p>在满盘围棋子中，<span class="hl">快速找出并点击指定颜色</span>的棋子。限时内尽可能多地点对，点错会扣分。</p>\
+          <ul>\
+            <li>目标颜色每局随机（黑或白），看清楚再下手。</li>\
+            <li>点错不扣已得分，但会记录错误率。</li>\
+            <li>训练点：视觉控制、持续专注、快速筛选——对局中"盯住关键子"的能力。</li>\
+          </ul>\
+        </div>\
+        <div class="brain-diff-row">\
+          <span class="diff-label">选择难度：</span>\
+          <button class="diff-btn" data-i="0">入门 · 20子</button>\
+          <button class="diff-btn active" data-i="1">进阶 · 40子</button>\
+          <button class="diff-btn" data-i="2">挑战 · 60子</button>\
+          <button class="primary-btn" id="cl-start">开始 →</button>\
+        </div>\
+        <div class="cancel-status">\
+          <div>正确：<b id="cl-correct">0</b></div>\
+          <div>错误：<b id="cl-wrong">0</b></div>\
+          <div>剩余：<b id="cl-time">--</b> 秒</div>\
+        </div>\
+        <div class="cancel-stage">\
+          <div class="cancel-target-info">目标：点击所有 <b id="cl-target">—</b> 子</div>\
+          <div class="cancel-field" id="cl-field"></div>\
+        </div>\
+      ';
+      var self = this;
+      host.querySelectorAll('.diff-btn').forEach(function(btn){
+        btn.addEventListener('click',function(){
+          self.levelIdx = parseInt(btn.dataset.i);
+          host.querySelectorAll('.diff-btn').forEach(function(b){b.classList.remove('active');});
+          btn.classList.add('active');
+        });
+      });
+      host.querySelector('#cl-start').addEventListener('click',function(){ self.start(host); });
+      host.querySelector('#cl-field').innerHTML = '<div style="text-align:center;color:#8b7550;padding:100px 0;font-size:14px">选择难度后点击"开始"</div>';
+    },
+    start(host){
+      var lv = this.LEVELS[this.levelIdx];
+      this.targetColor = Math.random() < 0.5 ? 'black' : 'white';
+      this.correct = 0;
+      this.wrong = 0;
+      this.active = true;
+      this.timeLeft = lv.time;
+      host.querySelector('#cl-target').textContent = this.targetColor==='black'?'● 黑':'○ 白';
+      host.querySelector('#cl-correct').textContent = '0';
+      host.querySelector('#cl-wrong').textContent = '0';
+      host.querySelector('#cl-time').textContent = lv.time;
+      this.placeStones(host);
+      this.startedAt = Date.now();
+      var self=this;
+      if(this.timerId) clearInterval(this.timerId);
+      this.timerId = setInterval(function(){
+        self.timeLeft--;
+        var el = host.querySelector('#cl-time');
+        if(el) el.textContent = self.timeLeft;
+        if(self.timeLeft <= 0){ self.finish(host); }
+      }, 1000);
+    },
+    placeStones(host){
+      var lv = this.LEVELS[this.levelIdx];
+      var field = host.querySelector('#cl-field');
+      var rect = field.getBoundingClientRect();
+      var w = rect.width, h = rect.height;
+      var size = 28;
+      this.stones = [];
+      var targetCount = Math.floor(lv.count * lv.targetRatio);
+      var distractorCount = lv.count - targetCount;
+      var positions = [];
+      var attempts = 0;
+      while(positions.length < lv.count && attempts < 2000){
+        var x = Math.random() * (w - size - 10) + 5;
+        var y = Math.random() * (h - size - 10) + 5;
+        var ok = true;
+        for(var i=0;i<positions.length;i++){
+          var dx = positions[i].x - x, dy = positions[i].y - y;
+          if(dx*dx+dy*dy < (size+4)*(size+4)){ ok = false; break; }
+        }
+        if(ok) positions.push({x:x,y:y});
+        attempts++;
+      }
+      for(var i=0;i<positions.length;i++){
+        var isTarget = i < targetCount;
+        var color = isTarget ? this.targetColor : (this.targetColor==='black'?'white':'black');
+        this.stones.push({x:positions[i].x, y:positions[i].y, color:color, isTarget:isTarget, clicked:false});
+      }
+      for(var i=this.stones.length-1;i>0;i--){
+        var j = Math.floor(Math.random()*(i+1));
+        var tmp = this.stones[i]; this.stones[i]=this.stones[j]; this.stones[j]=tmp;
+      }
+      var html = '';
+      for(var i=0;i<this.stones.length;i++){
+        var s = this.stones[i];
+        html += '<div class="cancel-stone '+s.color+'" data-i="'+i+'" style="left:'+s.x+'px;top:'+s.y+'px"></div>';
+      }
+      field.innerHTML = html;
+      var self = this;
+      field.querySelectorAll('.cancel-stone').forEach(function(el){
+        el.addEventListener('click',function(){ self.onClick(host, parseInt(el.dataset.i), el); });
+      });
+    },
+    onClick(host, idx, el){
+      if(!this.active) return;
+      var s = this.stones[idx];
+      if(s.clicked) return;
+      s.clicked = true;
+      if(s.isTarget){
+        this.correct++;
+        el.classList.add('clicked-correct');
+        host.querySelector('#cl-correct').textContent = this.correct;
+        var remaining = 0;
+        for(var i=0;i<this.stones.length;i++){
+          if(this.stones[i].isTarget && !this.stones[i].clicked) remaining++;
+        }
+        if(remaining === 0){ this.finish(host); }
+      }else{
+        this.wrong++;
+        el.classList.add('clicked-wrong');
+        var self=this;
+        setTimeout(function(){el.classList.remove('clicked-wrong');},300);
+        host.querySelector('#cl-wrong').textContent = this.wrong;
+      }
+    },
+    finish(host){
+      if(!this.active) return;
+      this.active = false;
+      clearInterval(this.timerId);
+      this.timerId = null;
+      var s = (Date.now()-this.startedAt)/1000;
+      var lv = this.LEVELS[this.levelIdx];
+      var totalTargets = 0;
+      for(var i=0;i<this.stones.length;i++) if(this.stones[i].isTarget) totalTargets++;
+      var accuracy = totalTargets ? Math.round(this.correct/totalTargets*100) : 0;
+      var bestKey = 'luobo_brain_cancel_'+lv.count+'_best';
+      var prev = parseInt(localStorage.getItem(bestKey)||'0');
+      var isBest = this.correct > prev;
+      if(isBest) localStorage.setItem(bestKey, this.correct);
+      Brain.checkin('cancellation');
+      var grade = accuracy>=90 && this.wrong<=2 ? '优秀 ⭐⭐⭐' : accuracy>=70 ? '良好 ⭐⭐' : accuracy>=50 ? '一般 ⭐' : '继续加油 💪';
+      var result = document.createElement('div');
+      result.className = 'brain-result-panel';
+      result.innerHTML = '\
+        <div class="result-main">'+accuracy+'%</div>\
+        <div class="result-label">正确率 · '+this.correct+' 对 / '+this.wrong+' 错</div>\
+        <div class="result-detail">用时 '+s.toFixed(1)+'s · 目标共 '+totalTargets+' 个 · 找到 '+this.correct+' 个</div>\
+        <div class="result-grade">评级：'+grade+'</div>\
+        <div class="result-best">'+(isBest?'🎉 破纪录！':(prev?('历史最佳 '+prev+' 正确'):''))+'</div>\
+        <button class="result-btn" id="cl-again">再来一局</button>\
+        <button class="result-btn secondary" id="cl-change">换个难度</button>\
+      ';
+      host.querySelector('.cancel-stage').after(result);
+      var self = this;
+      result.querySelector('#cl-again').addEventListener('click',function(){
+        result.remove();
+        self.start(host);
+      });
+      result.querySelector('#cl-change').addEventListener('click',function(){
+        result.remove();
+        self.levelIdx = 1;
+        self.init(host);
+      });
+    }
+  };
+
+  // ========== v2.0 · 数字倒背 (Digit Reverse) ==========
+  Brain.tools.digitreverse = {
+    phase:'ready', level:3, numbers:'', startedAt:null, maxLevel:0, failures:0,
+    init(host){
+      this.level = 3;
+      this.maxLevel = 0;
+      this.showReady(host);
+    },
+    showReady(host){
+      var bestKey = 'luobo_brain_digrev_best';
+      var best = parseInt(localStorage.getItem(bestKey)||'0');
+      host.innerHTML = '\
+        <div class="brain-intro-text">\
+          <p>数字依次闪现后，<span class="hl">从后往前倒序</span>输入。这是听觉倒背的视觉版，训练工作记忆的逆向加工能力。</p>\
+          <ul>\
+            <li>从 3 位开始，答对就加 1 位，答错则给两次机会，两次失败结束。</li>\
+            <li>每个数字闪现约 1 秒，看清了在心里倒着排。</li>\
+            <li>训练点：工作记忆逆向操作——围棋中"逆推计算"的基本功。</li>\
+          </ul>\
+        </div>\
+        <div class="digrev-stage">\
+          <div class="dr-level">起始位数：3 位</div>\
+          <div class="dr-numbers" id="dr-num">—</div>\
+          <div class="dr-hint">点击下方按钮开始，数字会逐个闪现</div>\
+          '+(best?('<div style="font-size:13px;color:#6b5a3a;margin-top:12px">历史最佳：<span class="hl">'+best+' 位</span></div>'):'')+'\
+          <button class="dr-btn" id="dr-start">开始 →</button>\
+        </div>\
+      ';
+      var self = this;
+      host.querySelector('#dr-start').addEventListener('click',function(){ self.startRound(host); });
+    },
+    startRound(host){
+      this.failures = 0;
+      this.level = 3;
+      this.maxLevel = 2;
+      this.playRound(host);
+    },
+    playRound(host){
+      var self = this;
+      var stage = host.querySelector('.digrev-stage');
+      var digits = [Math.floor(Math.random()*9)+1];
+      for(var i=1;i<this.level;i++) digits.push(Math.floor(Math.random()*10));
+      this.numbers = digits.join('');
+      this.phase = 'showing';
+      stage.innerHTML = '\
+        <div class="dr-level">第 '+this.level+' 位 · 请记住</div>\
+        <div class="dr-numbers" id="dr-num" style="color:var(--seal)">_</div>\
+        <div class="dr-hint">注意看，看完后要倒着输入</div>\
+      ';
+      var numEl = stage.querySelector('#dr-num');
+      var i = 0;
+      function showNext(){
+        if(i >= self.numbers.length){
+          numEl.textContent = '?';
+          setTimeout(function(){ self.showInput(host); }, 500);
+          return;
+        }
+        numEl.textContent = self.numbers[i];
+        i++;
+        setTimeout(showNext, 800);
+      }
+      showNext();
+    },
+    showInput(host){
+      this.phase = 'input';
+      var stage = host.querySelector('.digrev-stage');
+      stage.innerHTML = '\
+        <div class="dr-level">第 '+this.level+' 位 · 倒序输入</div>\
+        <div class="dr-hint reverse-hint">从最后一位开始往前输</div>\
+        <input type="text" class="dr-input" id="dr-input" maxlength="'+this.level+'" inputmode="numeric">\
+        <div>\
+          <button class="dr-btn" id="dr-submit">确认</button>\
+          <button class="dr-btn secondary" id="dr-giveup">放弃</button>\
+        </div>\
+      ';
+      var input = stage.querySelector('#dr-input');
+      input.focus();
+      var self = this;
+      input.addEventListener('keydown',function(e){
+        if(e.key==='Enter') self.checkAnswer(host);
+      });
+      stage.querySelector('#dr-submit').addEventListener('click',function(){ self.checkAnswer(host); });
+      stage.querySelector('#dr-giveup').addEventListener('click',function(){
+        self.failures = 2;
+        self.finish(host);
+      });
+    },
+    checkAnswer(host){
+      var stage = host.querySelector('.digrev-stage');
+      var val = stage.querySelector('#dr-input').value.trim();
+      var expected = this.numbers.split('').reverse().join('');
+      var self = this;
+      if(val === expected){
+        if(this.level > this.maxLevel) this.maxLevel = this.level;
+        this.level++;
+        this.phase = 'feedback';
+        stage.innerHTML = '\
+          <div class="dr-level">正确 ✓</div>\
+          <div class="dr-numbers" style="color:#4a8556;font-size:48px">'+expected+'</div>\
+          <div class="dr-hint">下一关：'+this.level+' 位</div>\
+        ';
+        setTimeout(function(){ self.playRound(host); }, 1200);
+      }else{
+        this.failures++;
+        this.phase = 'feedback';
+        stage.innerHTML = '\
+          <div class="dr-level">第 '+this.failures+' 次错误</div>\
+          <div class="dr-numbers" style="color:#c94a4a;font-size:36px">'+this.numbers+'</div>\
+          <div class="dr-hint">正序：'+this.numbers+' · 倒序应该是：<b>'+expected+'</b></div>\
+          <div class="dr-hint" style="margin-top:8px">你的答案：'+(val||'（空）')+'</div>\
+        ';
+        if(this.failures >= 2){
+          setTimeout(function(){ self.finish(host); }, 2000);
+        }else{
+          setTimeout(function(){ self.playRound(host); }, 2000);
+        }
+      }
+    },
+    finish(host){
+      var bestKey = 'luobo_brain_digrev_best';
+      var prev = parseInt(localStorage.getItem(bestKey)||'0');
+      var isBest = this.maxLevel > prev;
+      if(isBest) localStorage.setItem(bestKey, this.maxLevel);
+      Brain.checkin('digitreverse');
+      var grade = this.maxLevel>=8?'优秀 ⭐⭐⭐':this.maxLevel>=6?'良好 ⭐⭐':this.maxLevel>=4?'一般 ⭐':'继续加油 💪';
+      host.innerHTML = '\
+        <div class="brain-result-panel">\
+          <div class="result-main">'+this.maxLevel+' 位</div>\
+          <div class="result-label">数字倒背最高纪录</div>\
+          <div class="result-detail">成人平均约 5-7 位，经过训练可达 8-10 位。</div>\
+          <div class="result-grade">评级：'+grade+'</div>\
+          <div class="result-best">'+(isBest?'🎉 破纪录！':(prev?('历史最佳 '+prev+' 位'):''))+'</div>\
+          <button class="result-btn" id="dr-again">再来一次</button>\
+          <button class="result-btn secondary" id="dr-back">返回介绍</button>\
+        </div>\
+      ';
+      var self = this;
+      host.querySelector('#dr-again').addEventListener('click',function(){ self.startRound(host); });
+      host.querySelector('#dr-back').addEventListener('click',function(){ self.showReady(host); });
+    }
+  };
+
+  // ========== v2.0 · 快速配对 (Speed Match) ==========
+  Brain.tools.speedmatch = {
+    SYMBOLS:['长','尖','飞','扳','虎','断','鼓','退','顶','挂','卡','点','跳','压','冲','挡'],
+    LEVELS:[
+      {name:'入门 · 20题',trials:20,matchRate:0.5},
+      {name:'进阶 · 30题',trials:30,matchRate:0.45},
+      {name:'挑战 · 50题',trials:50,matchRate:0.4}
+    ],
+    levelIdx:1, trials:[], idx:0, correct:0, wrong:0, startedAt:null, awaiting:false,
+    init(host){
+      host.innerHTML = '\
+        <div class="brain-intro-text">\
+          <p>左右两个围棋术语符号<span class="hl">快速闪现</span>，判断它们是否完全相同。限时内尽可能做对更多。</p>\
+          <ul>\
+            <li>相同 → 点"相同"按钮（或按 A 键）。</li>\
+            <li>不同 → 点"不同"按钮（或按 L 键）。</li>\
+            <li>训练点：加工速度、快速视觉比较、反应控制——"一眼看清棋形"的基础训练。</li>\
+          </ul>\
+        </div>\
+        <div class="brain-diff-row">\
+          <span class="diff-label">选择题量：</span>\
+          <button class="diff-btn" data-i="0">入门 · 20题</button>\
+          <button class="diff-btn active" data-i="1">进阶 · 30题</button>\
+          <button class="diff-btn" data-i="2">挑战 · 50题</button>\
+        </div>\
+        <div class="speedmatch-status">\
+          <div>进度：<b id="sm-progress">0</b> / <span id="sm-total">30</span></div>\
+          <div>正确：<b id="sm-correct">0</b></div>\
+          <div>错误：<b id="sm-wrong">0</b></div>\
+        </div>\
+        <div class="speedmatch-stage" id="sm-stage">\
+          <div style="font-size:16px;color:#6b5a3a">选择难度后点击下方按钮开始</div>\
+          <button class="result-btn" id="sm-start" style="margin-top:20px">开始 →</button>\
+        </div>\
+      ';
+      var self = this;
+      host.querySelectorAll('.diff-btn').forEach(function(btn){
+        btn.addEventListener('click',function(){
+          self.levelIdx = parseInt(btn.dataset.i);
+          host.querySelectorAll('.diff-btn').forEach(function(b){b.classList.remove('active');});
+          btn.classList.add('active');
+        });
+      });
+      host.querySelector('#sm-start').addEventListener('click',function(){ self.start(host); });
+    },
+    start(host){
+      var lv = this.LEVELS[this.levelIdx];
+      this.trials = [];
+      for(var i=0;i<lv.trials;i++){
+        var a = this.SYMBOLS[Math.floor(Math.random()*this.SYMBOLS.length)];
+        var b;
+        if(Math.random() < lv.matchRate){
+          b = a;
+        }else{
+          do{ b = this.SYMBOLS[Math.floor(Math.random()*this.SYMBOLS.length)]; }
+          while(b===a);
+        }
+        this.trials.push({a:a,b:b,match:a===b});
+      }
+      this.idx = 0;
+      this.correct = 0;
+      this.wrong = 0;
+      this.awaiting = false;
+      host.querySelector('#sm-progress').textContent = '0';
+      host.querySelector('#sm-total').textContent = lv.trials;
+      host.querySelector('#sm-correct').textContent = '0';
+      host.querySelector('#sm-wrong').textContent = '0';
+      var self = this;
+      this._keyHandler = function(e){
+        if(e.key==='a'||e.key==='A') self.answer(host, true);
+        if(e.key==='l'||e.key==='L') self.answer(host, false);
+      };
+      document.addEventListener('keydown', this._keyHandler);
+      this.startedAt = Date.now();
+      this.nextTrial(host);
+    },
+    nextTrial(host){
+      if(this.idx >= this.trials.length){
+        this.finish(host);
+        return;
+      }
+      var t = this.trials[this.idx];
+      var stage = host.querySelector('#sm-stage');
+      stage.innerHTML = '\
+        <div class="speedmatch-pair">\
+          <div class="speedmatch-symbol" id="sm-a">'+t.a+'</div>\
+          <div class="speedmatch-vs">VS</div>\
+          <div class="speedmatch-symbol" id="sm-b">'+t.b+'</div>\
+        </div>\
+        <div class="speedmatch-buttons">\
+          <button class="speedmatch-btn same" id="sm-same">相同 (A)</button>\
+          <button class="speedmatch-btn diff" id="sm-diff">不同 (L)</button>\
+        </div>\
+      ';
+      var self = this;
+      stage.querySelector('#sm-same').addEventListener('click',function(){ self.answer(host, true); });
+      stage.querySelector('#sm-diff').addEventListener('click',function(){ self.answer(host, false); });
+      this.awaiting = true;
+      host.querySelector('#sm-progress').textContent = this.idx + 1;
+    },
+    answer(host, userSaysSame){
+      if(!this.awaiting) return;
+      this.awaiting = false;
+      var t = this.trials[this.idx];
+      var correct = userSaysSame === t.match;
+      if(correct){
+        this.correct++;
+        host.querySelector('#sm-correct').textContent = this.correct;
+      }else{
+        this.wrong++;
+        host.querySelector('#sm-wrong').textContent = this.wrong;
+      }
+      this.idx++;
+      var self = this;
+      setTimeout(function(){ self.nextTrial(host); }, 250);
+    },
+    finish(host){
+      document.removeEventListener('keydown', this._keyHandler);
+      var s = (Date.now()-this.startedAt)/1000;
+      var lv = this.LEVELS[this.levelIdx];
+      var accuracy = Math.round(this.correct/lv.trials*100);
+      var avgMs = Math.round(s/lv.trials*1000);
+      var bestKey = 'luobo_brain_speedmatch_'+lv.trials+'_best';
+      var prev = parseInt(localStorage.getItem(bestKey)||'0');
+      var score = accuracy * 100 - avgMs;
+      var isBest = score > prev;
+      if(isBest) localStorage.setItem(bestKey, Math.round(score));
+      Brain.checkin('speedmatch');
+      var grade = accuracy>=90 && avgMs<1200 ? '优秀 ⭐⭐⭐' : accuracy>=75 ? '良好 ⭐⭐' : accuracy>=60 ? '一般 ⭐' : '继续加油 💪';
+      var stage = host.querySelector('#sm-stage');
+      stage.innerHTML = '\
+        <div class="brain-result-panel" style="margin-top:0;border:0;padding:0">\
+          <div class="result-main">'+accuracy+'%</div>\
+          <div class="result-label">正确率 · 平均每题 '+avgMs+'ms</div>\
+          <div class="result-detail">'+lv.trials+' 题 · 正确 '+this.correct+' · 错误 '+this.wrong+' · 用时 '+s.toFixed(1)+'s</div>\
+          <div class="result-grade">评级：'+grade+'</div>\
+          <div class="result-best">'+(isBest?'🎉 破纪录！':(prev?('历史最佳综合分 '+prev):''))+'</div>\
+          <button class="result-btn" id="sm-again">再来一次</button>\
+          <button class="result-btn secondary" id="sm-change">换个难度</button>\
+        </div>\
+      ';
+      var self = this;
+      stage.querySelector('#sm-again').addEventListener('click',function(){ self.start(host); });
+      stage.querySelector('#sm-change').addEventListener('click',function(){
+        self.levelIdx = 1;
+        self.init(host);
+      });
+    }
+  };
+
+  // ========== v2.0 · 抗干扰训练 (Anti-Distraction) ==========
+  Brain.tools.antidistract = {
+    LEVELS:[
+      {name:'入门 · 15子',count:15,rounds:5},
+      {name:'进阶 · 30子',count:30,rounds:8},
+      {name:'挑战 · 50子',count:50,rounds:10}
+    ],
+    levelIdx:1, stones:[], targetNum:0, round:0, totalRounds:0, correct:0, wrong:0, startedAt:null, timerId:null, active:false,
+    init(host){
+      host.innerHTML = '\
+        <div class="brain-intro-text">\
+          <p>满盘带数字的棋子中，<span class="hl">快速找到并点击指定数字</span>的目标棋子。周围棋子都是干扰项，越到后面越密集。</p>\
+          <ul>\
+            <li>目标数字会显示在上方，找到它就点一下。</li>\
+            <li>每找到一个目标，立即换下一个数字。</li>\
+            <li>训练点：选择性注意、抗干扰能力、视觉搜索——对局中"在复杂局面中锁定关键子"的训练。</li>\
+          </ul>\
+        </div>\
+        <div class="brain-diff-row">\
+          <span class="diff-label">选择难度：</span>\
+          <button class="diff-btn" data-i="0">入门 · 15子</button>\
+          <button class="diff-btn active" data-i="1">进阶 · 30子</button>\
+          <button class="diff-btn" data-i="2">挑战 · 50子</button>\
+          <button class="primary-btn" id="ad-start">开始 →</button>\
+        </div>\
+        <div class="ad-status">\
+          <div>第 <b id="ad-round">0</b> / <span id="ad-total">0</span> 题</div>\
+          <div>正确：<b id="ad-correct">0</b></div>\
+          <div>用时：<b id="ad-time">00.00</b></div>\
+        </div>\
+        <div class="ad-stage">\
+          <div class="ad-target-display">找到目标数字：<b id="ad-target">—</b></div>\
+          <div class="ad-field" id="ad-field"></div>\
+        </div>\
+      ';
+      var self = this;
+      host.querySelectorAll('.diff-btn').forEach(function(btn){
+        btn.addEventListener('click',function(){
+          self.levelIdx = parseInt(btn.dataset.i);
+          host.querySelectorAll('.diff-btn').forEach(function(b){b.classList.remove('active');});
+          btn.classList.add('active');
+        });
+      });
+      host.querySelector('#ad-start').addEventListener('click',function(){ self.start(host); });
+      host.querySelector('#ad-field').innerHTML = '<div style="text-align:center;color:#8b7550;padding:140px 0;font-size:14px">选择难度后点击"开始"</div>';
+    },
+    start(host){
+      var lv = this.LEVELS[this.levelIdx];
+      this.totalRounds = lv.rounds;
+      this.round = 0;
+      this.correct = 0;
+      this.wrong = 0;
+      this.active = true;
+      this.startedAt = Date.now();
+      var self=this;
+      if(this.timerId) clearInterval(this.timerId);
+      this.timerId = setInterval(function(){
+        var t = (Date.now()-self.startedAt)/1000;
+        var el = host.querySelector('#ad-time');
+        if(el) el.textContent = t.toFixed(2).padStart(5,'0');
+      }, 50);
+      host.querySelector('#ad-total').textContent = lv.rounds;
+      host.querySelector('#ad-correct').textContent = '0';
+      host.querySelector('#ad-round').textContent = '0';
+      this.nextRound(host);
+    },
+    nextRound(host){
+      if(!this.active) return;
+      this.round++;
+      if(this.round > this.totalRounds){
+        this.finish(host);
+        return;
+      }
+      var lv = this.LEVELS[this.levelIdx];
+      this.targetNum = Math.floor(Math.random()*9) + 1;
+      host.querySelector('#ad-target').textContent = this.targetNum;
+      host.querySelector('#ad-round').textContent = this.round;
+      var field = host.querySelector('#ad-field');
+      var rect = field.getBoundingClientRect();
+      var w = rect.width, h = rect.height;
+      var size = 32;
+      var positions = [];
+      var attempts = 0;
+      while(positions.length < lv.count && attempts < 3000){
+        var x = Math.random() * (w - size - 10) + 5;
+        var y = Math.random() * (h - size - 10) + 5;
+        var ok = true;
+        for(var i=0;i<positions.length;i++){
+          var dx = positions[i].x - x, dy = positions[i].y - y;
+          if(dx*dx+dy*dy < (size+2)*(size+2)){ ok = false; break; }
+        }
+        if(ok) positions.push({x:x,y:y});
+        attempts++;
+      }
+      var hasTarget = false;
+      this.stones = [];
+      for(var i=0;i<positions.length;i++){
+        var p = positions[i];
+        var num = Math.floor(Math.random()*9)+1;
+        var color = Math.random() < 0.5 ? 'black' : 'white';
+        if(!hasTarget && i === positions.length-1){
+          num = this.targetNum;
+          hasTarget = true;
+        }
+        if(num === this.targetNum) hasTarget = true;
+        this.stones.push({x:p.x,y:p.y,num:num,color:color,isTarget:num===this.targetNum,clicked:false});
+      }
+      var html = '';
+      for(var i=0;i<this.stones.length;i++){
+        var s = this.stones[i];
+        html += '<div class="ad-stone '+s.color+'" data-i="'+i+'" style="left:'+s.x+'px;top:'+s.y+'px">'+s.num+'</div>';
+      }
+      field.innerHTML = html;
+      var self = this;
+      field.querySelectorAll('.ad-stone').forEach(function(el){
+        el.addEventListener('click',function(){ self.onClick(host, parseInt(el.dataset.i), el); });
+      });
+    },
+    onClick(host, idx, el){
+      if(!this.active) return;
+      var s = this.stones[idx];
+      if(s.clicked) return;
+      if(s.isTarget){
+        s.clicked = true;
+        this.correct++;
+        el.classList.add('clicked-correct');
+        host.querySelector('#ad-correct').textContent = this.correct;
+        var self=this;
+        setTimeout(function(){ self.nextRound(host); }, 300);
+      }else{
+        this.wrong++;
+        el.classList.add('clicked-wrong');
+        var self2=this;
+        setTimeout(function(){el.classList.remove('clicked-wrong');},300);
+      }
+    },
+    finish(host){
+      if(!this.active) return;
+      this.active = false;
+      clearInterval(this.timerId);
+      this.timerId = null;
+      var s = (Date.now()-this.startedAt)/1000;
+      var lv = this.LEVELS[this.levelIdx];
+      var totalAns = this.correct + this.wrong;
+      var accuracy = totalAns>0 ? Math.round(this.correct / totalAns * 100) : 0;
+      var bestKey = 'luobo_brain_ad_'+lv.count+'_best';
+      var prev = parseFloat(localStorage.getItem(bestKey)||'0');
+      var avgPerRound = s / this.totalRounds;
+      var score = accuracy * 10 - avgPerRound * 5;
+      var isBest = score > prev;
+      if(isBest) localStorage.setItem(bestKey, score.toFixed(1));
+      Brain.checkin('antidistract');
+      var grade = accuracy>=90 && this.wrong<=2 ? '优秀 ⭐⭐⭐' : accuracy>=75 ? '良好 ⭐⭐' : accuracy>=55 ? '一般 ⭐' : '继续加油 💪';
+      var result = document.createElement('div');
+      result.className = 'brain-result-panel';
+      result.innerHTML = '\
+        <div class="result-main">'+accuracy+'%</div>\
+        <div class="result-label">正确率 · '+this.correct+' 对 / '+this.wrong+' 错</div>\
+        <div class="result-detail">'+lv.name+' · 共 '+this.totalRounds+' 题 · 用时 '+s.toFixed(1)+'s · 平均每题 '+avgPerRound.toFixed(1)+'s</div>\
+        <div class="result-grade">评级：'+grade+'</div>\
+        <div class="result-best">'+(isBest?'🎉 破纪录！':(prev?('历史最佳综合分 '+prev):''))+'</div>\
+        <button class="result-btn" id="ad-again">再来一局</button>\
+        <button class="result-btn secondary" id="ad-change">换个难度</button>\
+      ';
+      host.querySelector('.ad-stage').after(result);
+      var self = this;
+      result.querySelector('#ad-again').addEventListener('click',function(){
+        result.remove();
+        self.start(host);
+      });
+      result.querySelector('#ad-change').addEventListener('click',function(){
+        result.remove();
+        self.levelIdx = 1;
+        self.init(host);
+      });
+    }
+  };
+
+  // ========== v2.0 · 规律发现 (Pattern Sequence) ==========
+  Brain.tools.patternseq = {
+    LEVELS:[
+      {name:'入门 · 5题',count:5},
+      {name:'进阶 · 10题',count:10},
+      {name:'挑战 · 15题',count:15}
+    ],
+    levelIdx:1, questions:[], idx:0, correct:0, wrong:0, startedAt:null, answered:false,
+    SYMBOLS:['长','尖','飞','扳','虎','断','鼓','退','顶','挂','卡','点','跳','压','冲','挡'],
+    init(host){
+      host.innerHTML = '\
+        <div class="brain-intro-text">\
+          <p>展示一串有规律的<span class="hl">图形序列</span>，缺一个，从四个选项中选出正确的那个。</p>\
+          <ul>\
+            <li>用围棋术语符号做序列元素：长→尖→飞→…</li>\
+            <li>规律类型包括：递增、递减、循环、交替、对称等。</li>\
+            <li>训练点：归纳推理、模式识别——围棋中"发现棋形规律"的思维基础。</li>\
+          </ul>\
+        </div>\
+        <div class="brain-diff-row">\
+          <span class="diff-label">选择题量：</span>\
+          <button class="diff-btn" data-i="0">入门 · 5题</button>\
+          <button class="diff-btn active" data-i="1">进阶 · 10题</button>\
+          <button class="diff-btn" data-i="2">挑战 · 15题</button>\
+          <button class="primary-btn" id="ps-start">开始 →</button>\
+        </div>\
+        <div class="pseq-status">\
+          <div>第 <b id="ps-q">0</b> / <span id="ps-total">0</span> 题</div>\
+          <div>正确：<b id="ps-correct">0</b></div>\
+          <div>用时：<b id="ps-time">00.00</b></div>\
+        </div>\
+        <div class="pseq-stage" id="ps-stage">\
+          <div style="text-align:center;color:#8b7550;padding:60px 0;font-size:14px">选择难度后点击"开始"</div>\
+        </div>\
+      ';
+      var self = this;
+      host.querySelectorAll('.diff-btn').forEach(function(btn){
+        btn.addEventListener('click',function(){
+          self.levelIdx = parseInt(btn.dataset.i);
+          host.querySelectorAll('.diff-btn').forEach(function(b){b.classList.remove('active');});
+          btn.classList.add('active');
+        });
+      });
+      host.querySelector('#ps-start').addEventListener('click',function(){ self.start(host); });
+    },
+    generateQuestion(){
+      var types = ['repeat','alternate','increment','mirror'];
+      var type = types[Math.floor(Math.random()*types.length)];
+      var syms = this.SYMBOLS;
+      var seq = [], answer = '', options = [];
+      if(type==='repeat'){
+        var cycleLen = Math.floor(Math.random()*2)+2;
+        var cycle = [];
+        for(var i=0;i<cycleLen;i++){
+          var s;
+          do{ s = syms[Math.floor(Math.random()*syms.length)]; }
+          while(cycle.indexOf(s)>=0);
+          cycle.push(s);
+        }
+        var seqLen = cycleLen * 2 + 1;
+        for(var i=0;i<seqLen;i++) seq.push(cycle[i%cycleLen]);
+        var missIdx = seqLen - 1;
+        answer = seq[missIdx];
+        seq[missIdx] = '?';
+        options = [answer];
+        while(options.length < 4){
+          var rs = syms[Math.floor(Math.random()*syms.length)];
+          if(options.indexOf(rs)<0) options.push(rs);
+        }
+      }else if(type==='alternate'){
+        var a2 = syms[Math.floor(Math.random()*syms.length)];
+        var b2;
+        do{ b2 = syms[Math.floor(Math.random()*syms.length)]; } while(b2===a2);
+        var pattern = Math.random() < 0.5 ? [a2,b2] : [a2,a2,b2,b2];
+        for(var i=0;i<6;i++) seq.push(pattern[i%pattern.length]);
+        answer = seq[seq.length-1];
+        seq[seq.length-1] = '?';
+        options = [answer, b2, a2];
+        var extra = syms[Math.floor(Math.random()*syms.length)];
+        if(options.indexOf(extra)<0) options.push(extra);
+        while(options.length<4){
+          var rs2 = syms[Math.floor(Math.random()*syms.length)];
+          if(options.indexOf(rs2)<0) options.push(rs2);
+        }
+      }else if(type==='increment'){
+        var startIdx = Math.floor(Math.random()*(syms.length-6));
+        seq = [];
+        for(var i=0;i<5;i++) seq.push(syms[startIdx + i]);
+        answer = syms[startIdx + 5];
+        seq[4] = '?';
+        options = [answer];
+        var offsets = [-2,-1,1,2,3];
+        for(var o=0;o<offsets.length;o++){
+          var s3 = syms[startIdx + 4 + offsets[o]];
+          if(s3 && options.indexOf(s3)<0) options.push(s3);
+          if(options.length>=4) break;
+        }
+        while(options.length<4){
+          var rs3 = syms[Math.floor(Math.random()*syms.length)];
+          if(options.indexOf(rs3)<0) options.push(rs3);
+        }
+      }else{
+        var a3 = syms[Math.floor(Math.random()*syms.length)];
+        var b3,c3;
+        do{ b3 = syms[Math.floor(Math.random()*syms.length)]; } while(b3===a3);
+        do{ c3 = syms[Math.floor(Math.random()*syms.length)]; } while(c3===a3||c3===b3);
+        seq = [a3, b3, c3, b3, '?'];
+        answer = a3;
+        options = [a3, b3, c3];
+        var extra2 = syms[Math.floor(Math.random()*syms.length)];
+        if(options.indexOf(extra2)<0) options.push(extra2);
+        while(options.length<4){
+          var rs4 = syms[Math.floor(Math.random()*syms.length)];
+          if(options.indexOf(rs4)<0) options.push(rs4);
+        }
+      }
+      for(var i=options.length-1;i>0;i--){
+        var j = Math.floor(Math.random()*(i+1));
+        var tmp = options[i]; options[i]=options[j]; options[j]=tmp;
+      }
+      return {seq:seq, answer:answer, options:options};
+    },
+    start(host){
+      var lv = this.LEVELS[this.levelIdx];
+      this.questions = [];
+      for(var i=0;i<lv.count;i++) this.questions.push(this.generateQuestion());
+      this.idx = 0;
+      this.correct = 0;
+      this.wrong = 0;
+      this.startedAt = Date.now();
+      var self=this;
+      if(this.timerId) clearInterval(this.timerId);
+      this.timerId = setInterval(function(){
+        var t = (Date.now()-self.startedAt)/1000;
+        var el = host.querySelector('#ps-time');
+        if(el) el.textContent = t.toFixed(2).padStart(5,'0');
+      }, 50);
+      host.querySelector('#ps-total').textContent = lv.count;
+      host.querySelector('#ps-correct').textContent = '0';
+      host.querySelector('#ps-q').textContent = '0';
+      this.showQuestion(host);
+    },
+    showQuestion(host){
+      if(this.idx >= this.questions.length){
+        this.finish(host);
+        return;
+      }
+      this.answered = false;
+      var q = this.questions[this.idx];
+      host.querySelector('#ps-q').textContent = this.idx + 1;
+      var stage = host.querySelector('#ps-stage');
+      var seqHtml = '';
+      for(var i=0;i<q.seq.length;i++){
+        var s = q.seq[i];
+        seqHtml += '<div class="pseq-item '+(s==='?'?'question':'')+'">'+s+'</div>';
+      }
+      var optHtml = '';
+      for(var i=0;i<q.options.length;i++){
+        optHtml += '<div class="pseq-option" data-i="'+i+'">'+q.options[i]+'</div>';
+      }
+      stage.innerHTML = '\
+        <div class="pseq-sequence">'+seqHtml+'</div>\
+        <div style="text-align:center;color:#6b5a3a;font-size:13px">选出缺失的那个：</div>\
+        <div class="pseq-options">'+optHtml+'</div>\
+      ';
+      var self = this;
+      stage.querySelectorAll('.pseq-option').forEach(function(el){
+        el.addEventListener('click',function(){ self.onAnswer(host, parseInt(el.dataset.i), el); });
+      });
+    },
+    onAnswer(host, optIdx, el){
+      if(this.answered) return;
+      this.answered = true;
+      var q = this.questions[this.idx];
+      var selected = q.options[optIdx];
+      if(selected === q.answer){
+        this.correct++;
+        el.classList.add('correct');
+        host.querySelector('#ps-correct').textContent = this.correct;
+      }else{
+        this.wrong++;
+        el.classList.add('wrong');
+        var opts = host.querySelectorAll('.pseq-option');
+        for(var i=0;i<opts.length;i++){
+          if(q.options[parseInt(opts[i].dataset.i)] === q.answer) opts[i].classList.add('correct');
+        }
+      }
+      this.idx++;
+      var self = this;
+      setTimeout(function(){ self.showQuestion(host); }, 900);
+    },
+    finish(host){
+      clearInterval(this.timerId);
+      this.timerId = null;
+      var s = (Date.now()-this.startedAt)/1000;
+      var lv = this.LEVELS[this.levelIdx];
+      var accuracy = Math.round(this.correct/lv.count*100);
+      var bestKey = 'luobo_brain_pseq_'+lv.count+'_best';
+      var prev = parseInt(localStorage.getItem(bestKey)||'0');
+      var isBest = this.correct > prev;
+      if(isBest) localStorage.setItem(bestKey, this.correct);
+      Brain.checkin('patternseq');
+      var grade = accuracy>=90?'优秀 ⭐⭐⭐':accuracy>=70?'良好 ⭐⭐':accuracy>=50?'一般 ⭐':'继续加油 💪';
+      var stage = host.querySelector('#ps-stage');
+      stage.innerHTML = '\
+        <div class="brain-result-panel" style="margin-top:0;border:0;padding:0">\
+          <div class="result-main">'+accuracy+'%</div>\
+          <div class="result-label">正确率 · '+this.correct+' / '+lv.count+'</div>\
+          <div class="result-detail">用时 '+s.toFixed(1)+'s · 平均每题 '+(s/lv.count).toFixed(1)+'s</div>\
+          <div class="result-grade">评级：'+grade+'</div>\
+          <div class="result-best">'+(isBest?'🎉 破纪录！':(prev?('历史最佳 '+prev+' 题正确'):''))+'</div>\
+          <button class="result-btn" id="ps-again">再来一次</button>\
+          <button class="result-btn secondary" id="ps-change">换个难度</button>\
+        </div>\
+      ';
+      var self = this;
+      stage.querySelector('#ps-again').addEventListener('click',function(){ self.start(host); });
+      stage.querySelector('#ps-change').addEventListener('click',function(){
+        self.levelIdx = 1;
+        self.init(host);
+      });
+    }
+  };
+
+  // ========== v2.0 · 气的计算 (Qi Calculation) ==========
+  Brain.tools.qicalc = {
+    LEVELS:[
+      {name:'入门 · 单块',size:5,complexity:'single'},
+      {name:'进阶 · 两块',size:6,complexity:'double'},
+      {name:'挑战 · 复杂',size:7,complexity:'complex'}
+    ],
+    levelIdx:0, board:[], size:0, targetColor:'black', answer:0, correct:0, total:0, startedAt:null, timerId:null,
+    init(host){
+      host.innerHTML = '\
+        <div class="brain-intro-text">\
+          <p>棋盘上摆着棋形，计算<span class="hl">指定颜色棋子的气数</span>（相邻空交叉点数量），把答案填进去。</p>\
+          <ul>\
+            <li>气 = 一块棋子上下左右相邻的空交叉点总数。</li>\
+            <li>同色棋子相连算一块，它们的气合在一起算。</li>\
+            <li>初级只有一块棋，进阶有两块，挑战级含复杂棋形。</li>\
+            <li>训练点：气的概念是围棋最核心的基础，数气快不快直接影响计算速度。</li>\
+          </ul>\
+        </div>\
+        <div class="brain-diff-row">\
+          <span class="diff-label">选择难度：</span>\
+          <button class="diff-btn active" data-i="0">入门 · 单块</button>\
+          <button class="diff-btn" data-i="1">进阶 · 两块</button>\
+          <button class="diff-btn" data-i="2">挑战 · 复杂</button>\
+        </div>\
+        <div class="qicalc-status">\
+          <div>第 <b id="qi-q">0</b> 题</div>\
+          <div>正确：<b id="qi-correct">0</b></div>\
+          <div>用时：<b id="qi-time">00.00</b></div>\
+        </div>\
+        <div class="qicalc-stage">\
+          <div class="qicalc-question" id="qi-question">计算 <b>黑</b> 棋的气数</div>\
+          <div class="qicalc-board" id="qi-board"></div>\
+          <div class="qicalc-input-row">\
+            <input type="number" id="qi-input" min="0" max="30" placeholder="?">\
+            <button id="qi-submit">确认</button>\
+            <button id="qi-next" style="background:#c7b58f;display:none">下一题 →</button>\
+          </div>\
+        </div>\
+      ';
+      var self = this;
+      host.querySelectorAll('.diff-btn').forEach(function(btn){
+        btn.addEventListener('click',function(){
+          self.levelIdx = parseInt(btn.dataset.i);
+          self.correct = 0; self.total = 0;
+          self.startedAt = null;
+          host.querySelectorAll('.diff-btn').forEach(function(b){b.classList.remove('active');});
+          btn.classList.add('active');
+          self.nextQuestion(host);
+        });
+      });
+      this.correct = 0; this.total = 0;
+      this.startedAt = null;
+      this.nextQuestion(host);
+    },
+    nextQuestion(host){
+      var lv = this.LEVELS[this.levelIdx];
+      this.size = lv.size;
+      this.total++;
+      this.targetColor = Math.random() < 0.5 ? 'black' : 'white';
+      var other = this.targetColor === 'black' ? 'white' : 'black';
+      var s = lv.size;
+      this.board = [];
+      for(var r=0;r<s;r++){
+        var row = [];
+        for(var c=0;c<s;c++) row.push(0);
+        this.board.push(row);
+      }
+      var self = this;
+      function addGroup(sx,sy,count){
+        var group = [[sx,sy]];
+        self.board[sx][sy] = 1;
+        var added = 1;
+        var attempts = 0;
+        while(added < count && attempts < 50){
+          var pick = group[Math.floor(Math.random()*group.length)];
+          var dirs = [[-1,0],[1,0],[0,-1],[0,1]];
+          var d = dirs[Math.floor(Math.random()*4)];
+          var nr = pick[0]+d[0], nc = pick[1]+d[1];
+          if(nr>=0&&nr<s&&nc>=0&&nc<s&&self.board[nr][nc]===0){
+            self.board[nr][nc] = 1;
+            group.push([nr,nc]);
+            added++;
+          }
+          attempts++;
+        }
+      }
+      if(lv.complexity === 'single'){
+        var cr = Math.floor(s/2), cc = Math.floor(s/2);
+        var cnt = 2 + Math.floor(Math.random()*4);
+        addGroup(cr, cc, cnt);
+      }else if(lv.complexity === 'double'){
+        addGroup(1+Math.floor(s/4), 1+Math.floor(s/4), 2+Math.floor(Math.random()*3));
+        addGroup(Math.floor(s*2/3), Math.floor(s*2/3), 2+Math.floor(Math.random()*3));
+      }else{
+        var groups = 2 + Math.floor(Math.random()*2);
+        for(var g=0;g<groups;g++){
+          var tries = 0;
+          while(tries < 30){
+            var gr = 1+Math.floor(Math.random()*(s-2));
+            var gc = 1+Math.floor(Math.random()*(s-2));
+            if(this.board[gr][gc]===0){
+              addGroup(gr, gc, 2+Math.floor(Math.random()*3));
+              break;
+            }
+            tries++;
+          }
+        }
+        var oppCount = 2 + Math.floor(Math.random()*4);
+        var placed = 0, tries2 = 0;
+        while(placed < oppCount && tries2 < 100){
+          var rr = Math.floor(Math.random()*s);
+          var rc = Math.floor(Math.random()*s);
+          if(this.board[rr][rc] === 0){
+            this.board[rr][rc] = 2;
+            placed++;
+          }
+          tries2++;
+        }
+      }
+      this.answer = this.countQi(1);
+      host.querySelector('#qi-q').textContent = this.total;
+      host.querySelector('#qi-correct').textContent = this.correct;
+      host.querySelector('#qi-question').innerHTML = '计算 <b>'+(this.targetColor==='black'?'● 黑':'○ 白')+'</b> 棋的气数';
+      var boardEl = host.querySelector('#qi-board');
+      boardEl.style.gridTemplateColumns = 'repeat('+s+',1fr)';
+      var html = '';
+      for(var r=0;r<s;r++){
+        for(var c=0;c<s;c++){
+          html += '<div class="qicalc-cell">';
+          if(this.board[r][c]===1) html += '<div class="stone '+this.targetColor+'"></div>';
+          else if(this.board[r][c]===2) html += '<div class="stone '+other+'"></div>';
+          html += '</div>';
+        }
+      }
+      boardEl.innerHTML = html;
+      var input = host.querySelector('#qi-input');
+      input.value = '';
+      input.style.display = '';
+      input.style.borderColor = '';
+      var submitBtn = host.querySelector('#qi-submit');
+      submitBtn.style.display = '';
+      var nextBtn = host.querySelector('#qi-next');
+      nextBtn.style.display = 'none';
+      nextBtn.textContent = '下一题 →';
+      input.focus();
+      var self2 = this;
+      function submitHandler(){ self2.checkAnswer(host); }
+      submitBtn.onclick = submitHandler;
+      input.onkeydown = function(e){ if(e.key==='Enter') submitHandler(); };
+      if(!this.startedAt){
+        this.startedAt = Date.now();
+        if(this.timerId) clearInterval(this.timerId);
+        this.timerId = setInterval(function(){
+          var t = (Date.now()-self2.startedAt)/1000;
+          var el = host.querySelector('#qi-time');
+          if(el) el.textContent = t.toFixed(2).padStart(5,'0');
+        },50);
+      }
+    },
+    countQi(colorCode){
+      var s = this.size;
+      var visited = [];
+      for(var r=0;r<s;r++){
+        var vr = [];
+        for(var c=0;c<s;c++) vr.push(false);
+        visited.push(vr);
+      }
+      var totalQi = 0;
+      for(var r=0;r<s;r++){
+        for(var c=0;c<s;c++){
+          if(this.board[r][c]===colorCode && !visited[r][c]){
+            var groupQi = {};
+            var queue = [[r,c]];
+            visited[r][c] = true;
+            while(queue.length>0){
+              var cur = queue.shift();
+              var cr=cur[0], cc=cur[1];
+              var dirs = [[-1,0],[1,0],[0,-1],[0,1]];
+              for(var d=0;d<4;d++){
+                var nr=cr+dirs[d][0], nc=cc+dirs[d][1];
+                if(nr<0||nr>=s||nc<0||nc>=s) continue;
+                if(this.board[nr][nc]===0) groupQi[nr*s+nc] = true;
+                else if(this.board[nr][nc]===colorCode && !visited[nr][nc]){
+                  visited[nr][nc] = true;
+                  queue.push([nr,nc]);
+                }
+              }
+            }
+            var cnt = 0;
+            for(var k in groupQi) if(groupQi[k]) cnt++;
+            totalQi += cnt;
+          }
+        }
+      }
+      return totalQi;
+    },
+    checkAnswer(host){
+      var val = parseInt(host.querySelector('#qi-input').value);
+      if(isNaN(val)) return;
+      var correct = val === this.answer;
+      if(correct) this.correct++;
+      host.querySelector('#qi-correct').textContent = this.correct;
+      var input = host.querySelector('#qi-input');
+      input.style.borderColor = correct ? '#4a8556' : '#c94a4a';
+      var submitBtn = host.querySelector('#qi-submit');
+      submitBtn.style.display = 'none';
+      var nextBtn = host.querySelector('#qi-next');
+      nextBtn.style.display = '';
+      var qq = host.querySelector('#qi-question');
+      qq.innerHTML = (correct?'✓ 正确！':'✗ 错误')+' · 气数是 <b>'+this.answer+'</b>'+(correct?'':'，你答了 '+val);
+      qq.style.color = correct ? '#4a8556' : '#c94a4a';
+      var self = this;
+      nextBtn.onclick = function(){
+        qq.style.color = '';
+        if(self.total >= 10){
+          self.finish(host);
+        }else{
+          self.nextQuestion(host);
+        }
+      };
+      if(this.total >= 10){
+        nextBtn.textContent = '查看结果';
+      }
+    },
+    finish(host){
+      clearInterval(this.timerId);
+      this.timerId = null;
+      var s = (Date.now()-this.startedAt)/1000;
+      var lv = this.LEVELS[this.levelIdx];
+      var accuracy = Math.round(this.correct/this.total*100);
+      var bestKey = 'luobo_brain_qicalc_'+lv.complexity+'_best';
+      var prev = parseInt(localStorage.getItem(bestKey)||'0');
+      var isBest = this.correct > prev;
+      if(isBest) localStorage.setItem(bestKey, this.correct);
+      Brain.checkin('qicalc');
+      var grade = accuracy>=90?'优秀 ⭐⭐⭐':accuracy>=70?'良好 ⭐⭐':accuracy>=50?'一般 ⭐':'继续加油 💪';
+      host.innerHTML = '\
+        <div class="brain-result-panel">\
+          <div class="result-main">'+accuracy+'%</div>\
+          <div class="result-label">正确率 · '+this.correct+' / '+this.total+'</div>\
+          <div class="result-detail">用时 '+s.toFixed(1)+'s · 平均每题 '+(s/this.total).toFixed(1)+'s</div>\
+          <div class="result-grade">评级：'+grade+'</div>\
+          <div class="result-best">'+(isBest?'🎉 破纪录！':(prev?('历史最佳 '+prev+' 题正确'):''))+'</div>\
+          <button class="result-btn" id="qi-again">再来一组</button>\
+          <button class="result-btn secondary" id="qi-change">换个难度</button>\
+        </div>\
+      ';
+      var self = this;
+      host.querySelector('#qi-again').addEventListener('click',function(){
+        self.correct = 0; self.total = 0;
+        self.startedAt = null;
+        self.init(host);
+      });
+      host.querySelector('#qi-change').addEventListener('click',function(){
+        self.levelIdx = 1;
+        self.correct = 0; self.total = 0;
+        self.startedAt = null;
+        self.init(host);
+      });
+    }
+  };
+
+  // ========== v2.0 · 死活速判 (Life/Death Fast Judgment) ==========
+  Brain.tools.lifefast = {
+    LEVELS:[
+      {name:'入门 · 基础型',count:8},
+      {name:'进阶 · 常见型',count:12},
+      {name:'挑战 · 混合题',count:15}
+    ],
+    levelIdx:0, questions:[], idx:0, correct:0, wrong:0, startedAt:null, timerId:null, answered:false,
+    QUESTION_BANK:[
+      {board:[
+        [0,0,0,0,0],
+        [0,2,2,2,0],
+        [2,1,1,1,2],
+        [2,1,0,1,2],
+        [0,2,2,2,0]
+      ], answer:'死', note:'直三：中间一点死'},
+      {board:[
+        [0,0,0,0,0],
+        [0,2,2,2,0],
+        [2,1,1,2,0],
+        [2,1,0,1,2],
+        [0,2,2,2,0]
+      ], answer:'死', note:'弯三：一点死'},
+      {board:[
+        [0,2,2,2,0],
+        [2,1,1,1,2],
+        [2,1,1,1,2],
+        [2,1,1,1,2],
+        [0,2,2,2,0]
+      ], answer:'死', note:'方四：不点也是死'},
+      {board:[
+        [0,0,0,0,0],
+        [0,2,2,2,0],
+        [2,1,1,1,2],
+        [2,1,1,1,2],
+        [0,2,2,2,0]
+      ], answer:'活', note:'直四：活棋'},
+      {board:[
+        [0,2,2,0,0],
+        [2,1,1,2,0],
+        [2,1,1,1,2],
+        [2,1,1,1,2],
+        [0,2,2,2,0]
+      ], answer:'活', note:'曲四：活棋'},
+      {board:[
+        [0,0,2,0,0],
+        [0,2,1,2,0],
+        [2,1,1,1,2],
+        [0,2,1,2,0],
+        [0,0,2,0,0]
+      ], answer:'死', note:'花五：中心点死'},
+      {board:[
+        [0,0,0,0,0],
+        [0,2,2,2,0],
+        [2,1,0,1,2],
+        [2,1,1,0,2],
+        [0,2,2,2,0]
+      ], answer:'活', note:'两眼活：两只真眼'},
+      {board:[
+        [0,0,0,0,0],
+        [0,2,2,2,0],
+        [2,1,0,1,2],
+        [2,2,1,1,2],
+        [0,2,2,2,0]
+      ], answer:'死', note:'假眼：只有一只真眼'},
+      {board:[
+        [0,2,2,0,0],
+        [2,1,0,2,0],
+        [2,0,1,2,0],
+        [2,1,2,0,0],
+        [0,2,0,0,0]
+      ], answer:'打劫', note:'劫争：打劫活'},
+      {board:[
+        [0,0,0,0,0],
+        [2,2,2,2,2],
+        [2,1,0,1,2],
+        [2,1,0,1,2],
+        [2,2,2,2,2]
+      ], answer:'双活', note:'无眼双活：公气双活'},
+      {board:[
+        [0,2,2,2,0],
+        [2,1,1,1,2],
+        [2,1,1,1,2],
+        [2,1,1,2,0],
+        [0,2,2,0,0]
+      ], answer:'死', note:'刀五：一点死'},
+      {board:[
+        [0,2,2,2,0],
+        [2,1,1,1,2],
+        [2,1,1,1,2],
+        [0,2,1,2,0],
+        [0,0,2,0,0]
+      ], answer:'活', note:'板六：活棋'}
+    ],
+    init(host){
+      host.innerHTML = '\
+        <div class="brain-intro-text">\
+          <p>展示一个死活题形状，在限时内判断是<span class="hl">活棋 / 死棋 / 打劫 / 双活</span>。训练死活直觉，提高一眼判死活的能力。</p>\
+          <ul>\
+            <li>棋盘上黑棋是被包围的一方，判断黑棋的死活状态。</li>\
+            <li>四选一：活棋、死棋、打劫、双活。</li>\
+            <li>训练点：死活直觉、棋形敏感度——围棋水平的核心指标之一。</li>\
+          </ul>\
+        </div>\
+        <div class="brain-diff-row">\
+          <span class="diff-label">选择难度：</span>\
+          <button class="diff-btn active" data-i="0">入门 · 基础型</button>\
+          <button class="diff-btn" data-i="1">进阶 · 常见型</button>\
+          <button class="diff-btn" data-i="2">挑战 · 混合题</button>\
+          <button class="primary-btn" id="lf-start">开始 →</button>\
+        </div>\
+        <div class="lifefast-status">\
+          <div>第 <b id="lf-q">0</b> / <span id="lf-total">0</span> 题</div>\
+          <div>正确：<b id="lf-correct">0</b></div>\
+          <div>用时：<b id="lf-time">00.00</b></div>\
+        </div>\
+        <div class="lifefast-stage" id="lf-stage">\
+          <div style="text-align:center;color:#8b7550;padding:100px 0;font-size:14px">选择难度后点击"开始"</div>\
+        </div>\
+      ';
+      var self = this;
+      host.querySelectorAll('.diff-btn').forEach(function(btn){
+        btn.addEventListener('click',function(){
+          self.levelIdx = parseInt(btn.dataset.i);
+          host.querySelectorAll('.diff-btn').forEach(function(b){b.classList.remove('active');});
+          btn.classList.add('active');
+        });
+      });
+      host.querySelector('#lf-start').addEventListener('click',function(){ self.start(host); });
+    },
+    start(host){
+      var lv = this.LEVELS[this.levelIdx];
+      var bank = this.QUESTION_BANK.slice();
+      for(var i=bank.length-1;i>0;i--){
+        var j = Math.floor(Math.random()*(i+1));
+        var tmp = bank[i]; bank[i]=bank[j]; bank[j]=tmp;
+      }
+      while(bank.length < lv.count) bank = bank.concat(bank);
+      this.questions = bank.slice(0, lv.count);
+      this.idx = 0;
+      this.correct = 0;
+      this.wrong = 0;
+      this.startedAt = Date.now();
+      var self=this;
+      if(this.timerId) clearInterval(this.timerId);
+      this.timerId = setInterval(function(){
+        var t = (Date.now()-self.startedAt)/1000;
+        var el = host.querySelector('#lf-time');
+        if(el) el.textContent = t.toFixed(2).padStart(5,'0');
+      }, 50);
+      host.querySelector('#lf-total').textContent = lv.count;
+      host.querySelector('#lf-correct').textContent = '0';
+      host.querySelector('#lf-q').textContent = '0';
+      this.showQuestion(host);
+    },
+    showQuestion(host){
+      if(this.idx >= this.questions.length){
+        this.finish(host);
+        return;
+      }
+      this.answered = false;
+      var q = this.questions[this.idx];
+      host.querySelector('#lf-q').textContent = this.idx + 1;
+      var stage = host.querySelector('#lf-stage');
+      var bs = q.board.length;
+      var boardHtml = '';
+      for(var r=0;r<bs;r++){
+        for(var c=0;c<bs;c++){
+          boardHtml += '<div class="lifefast-cell">';
+          if(q.board[r][c]===1) boardHtml += '<div class="stone black"></div>';
+          else if(q.board[r][c]===2) boardHtml += '<div class="stone white"></div>';
+          boardHtml += '</div>';
+        }
+      }
+      stage.innerHTML = '\
+        <div style="text-align:center;margin-bottom:10px;font-size:13px;color:#6b5a3a">判断 <b style="color:#3d2817">黑棋</b> 的死活状态</div>\
+        <div class="lifefast-board" style="grid-template-columns:repeat('+bs+',1fr);display:inline-grid">'+boardHtml+'</div>\
+        <div class="lifefast-options">\
+          <button class="lifefast-btn" data-ans="活棋">活棋</button>\
+          <button class="lifefast-btn" data-ans="死棋">死棋</button>\
+          <button class="lifefast-btn" data-ans="打劫">打劫</button>\
+          <button class="lifefast-btn" data-ans="双活">双活</button>\
+        </div>\
+      ';
+      var self = this;
+      stage.querySelectorAll('.lifefast-btn').forEach(function(btn){
+        btn.addEventListener('click',function(){ self.onAnswer(host, btn.dataset.ans, btn); });
+      });
+    },
+    onAnswer(host, ans, btn){
+      if(this.answered) return;
+      this.answered = true;
+      var q = this.questions[this.idx];
+      var correct = ans === q.answer;
+      if(correct){
+        this.correct++;
+        btn.classList.add('correct');
+        host.querySelector('#lf-correct').textContent = this.correct;
+      }else{
+        this.wrong++;
+        btn.classList.add('wrong');
+        var btns = host.querySelectorAll('.lifefast-btn');
+        for(var i=0;i<btns.length;i++){
+          if(btns[i].dataset.ans === q.answer) btns[i].classList.add('correct');
+        }
+      }
+      var noteEl = document.createElement('div');
+      noteEl.style.cssText = 'margin-top:12px;padding:8px 12px;background:#faf5e6;border-radius:4px;font-size:13px;color:#5a4a2a';
+      noteEl.innerHTML = '📖 <b>'+q.note+'</b>';
+      host.querySelector('.lifefast-options').after(noteEl);
+      this.idx++;
+      var self = this;
+      setTimeout(function(){ self.showQuestion(host); }, 1500);
+    },
+    finish(host){
+      clearInterval(this.timerId);
+      this.timerId = null;
+      var s = (Date.now()-this.startedAt)/1000;
+      var lv = this.LEVELS[this.levelIdx];
+      var accuracy = Math.round(this.correct/lv.count*100);
+      var bestKey = 'luobo_brain_lifefast_'+lv.count+'_best';
+      var prev = parseInt(localStorage.getItem(bestKey)||'0');
+      var isBest = this.correct > prev;
+      if(isBest) localStorage.setItem(bestKey, this.correct);
+      Brain.checkin('lifefast');
+      var grade = accuracy>=90?'优秀 ⭐⭐⭐':accuracy>=70?'良好 ⭐⭐':accuracy>=50?'一般 ⭐':'继续加油 💪';
+      var stage = host.querySelector('#lf-stage');
+      stage.innerHTML = '\
+        <div class="brain-result-panel" style="margin-top:0;border:0;padding:0">\
+          <div class="result-main">'+accuracy+'%</div>\
+          <div class="result-label">正确率 · '+this.correct+' / '+lv.count+'</div>\
+          <div class="result-detail">用时 '+s.toFixed(1)+'s · 平均每题 '+(s/lv.count).toFixed(1)+'s</div>\
+          <div class="result-grade">评级：'+grade+'</div>\
+          <div class="result-best">'+(isBest?'🎉 破纪录！':(prev?('历史最佳 '+prev+' 题正确'):''))+'</div>\
+          <button class="result-btn" id="lf-again">再来一组</button>\
+          <button class="result-btn secondary" id="lf-change">换个难度</button>\
+        </div>\
+      ';
+      var self = this;
+      stage.querySelector('#lf-again').addEventListener('click',function(){ self.start(host); });
+      stage.querySelector('#lf-change').addEventListener('click',function(){
+        self.levelIdx = 1;
+        self.init(host);
+      });
+    }
+  };
+
+  // ========== v2.0 · 手筋识别 (Tesuji) ==========
+  Brain.tools.tesuji = {
+    LEVELS:[
+      {name:'入门 · 5题',count:5},
+      {name:'进阶 · 10题',count:10},
+      {name:'挑战 · 15题',count:15}
+    ],
+    levelIdx:0, questions:[], idx:0, correct:0, startedAt:null, timerId:null, answered:false,
+    QUESTION_BANK:[
+      {desc:'黑先，吃白二子，手筋是？',board:[
+        [0,0,0,0,0],
+        [0,2,2,0,0],
+        [2,1,2,2,0],
+        [2,1,1,2,0],
+        [0,2,0,0,0]
+      ],options:['A 征吃','B 枷吃','C 关门吃','D 倒扑'],answer:1,note:'枷吃：像笼子一样罩住对方，经典手筋'},
+      {desc:'黑先，破白眼位要点？',board:[
+        [0,2,2,2,0],
+        [2,1,1,1,2],
+        [2,1,0,1,2],
+        [2,1,1,1,2],
+        [0,2,2,2,0]
+      ],options:['A 扳','B 点方','C 长','D 扑'],answer:1,note:'点方：击中方形眼位的中心点'},
+      {desc:'黑先，两块黑棋如何联络？',board:[
+        [2,1,0,1,2],
+        [2,2,0,2,2],
+        [0,0,0,0,0],
+        [0,0,0,0,0],
+        [0,0,0,0,0]
+      ],options:['A 飞','B 尖','C 虎','D 断'],answer:1,note:'尖：小尖联络，最坚实的连接'},
+      {desc:'黑先，对白威胁最大的是？',board:[
+        [0,2,2,2,0],
+        [2,1,1,1,2],
+        [2,1,0,0,0],
+        [2,1,0,0,0],
+        [0,0,0,0,0]
+      ],options:['A 扳','B 断','C 长','D 跳'],answer:1,note:'断：切断对方联络，进攻要领'},
+      {desc:'黑先，如何吃角上白棋？',board:[
+        [2,2,2,0,0],
+        [2,1,1,2,0],
+        [2,1,0,0,0],
+        [0,2,0,0,0],
+        [0,0,0,0,0]
+      ],options:['A 扳','B 点','C 长','D 扑'],answer:3,note:'扑：送吃一子紧气，倒扑吃子'},
+      {desc:'黑先，这步棋叫什么？',board:[
+        [0,0,0,0,0],
+        [0,2,0,0,0],
+        [0,0,1,0,0],
+        [0,0,0,2,0],
+        [0,0,0,0,0]
+      ],options:['A 小飞','B 大飞','C 拆二','D 尖'],answer:0,note:'小飞：日字形对角走法'},
+      {desc:'黑先，救出黑●一子的手筋？',board:[
+        [0,2,2,2,0],
+        [2,1,2,1,2],
+        [0,2,1,2,0],
+        [0,0,2,0,0],
+        [0,0,0,0,0]
+      ],options:['A 直接逃','B 反打吃','C 关门吃','D 征子'],answer:1,note:'反打吃：以攻为守，通过打吃摆脱困境'},
+      {desc:'黑先，吃白棋的手筋？',board:[
+        [0,0,2,2,2],
+        [0,2,1,1,2],
+        [2,1,1,0,2],
+        [0,2,0,2,0],
+        [0,0,0,0,0]
+      ],options:['A 双打吃','B 征吃','C 关门吃','D 倒扑'],answer:0,note:'双打吃：一步同时打吃两块白子'}
+    ],
+    init(host){
+      host.innerHTML = '\
+        <div class="brain-intro-text">\
+          <p>展示一个围棋局部局面，从 4 个选项中选出<span class="hl">正确的手筋</span>（关键招法）。训练棋感和战术嗅觉。</p>\
+          <ul>\
+            <li>题目类型：吃子手筋、对杀手筋、连接手筋、死活要点等。</li>\
+            <li>四选一，凭第一感快速判断。</li>\
+            <li>训练点：棋感、手筋识别、战术直觉——围棋中"第一感"的训练方法。</li>\
+          </ul>\
+        </div>\
+        <div class="brain-diff-row">\
+          <span class="diff-label">选择难度：</span>\
+          <button class="diff-btn active" data-i="0">入门 · 5题</button>\
+          <button class="diff-btn" data-i="1">进阶 · 10题</button>\
+          <button class="diff-btn" data-i="2">挑战 · 15题</button>\
+          <button class="primary-btn" id="tj-start">开始 →</button>\
+        </div>\
+        <div class="tesuji-status">\
+          <div>第 <b id="tj-q">0</b> / <span id="tj-total">0</span> 题</div>\
+          <div>正确：<b id="tj-correct">0</b></div>\
+          <div>用时：<b id="tj-time">00.00</b></div>\
+        </div>\
+        <div class="tesuji-stage" id="tj-stage">\
+          <div style="text-align:center;color:#8b7550;padding:100px 0;font-size:14px">选择难度后点击"开始"</div>\
+        </div>\
+      ';
+      var self = this;
+      host.querySelectorAll('.diff-btn').forEach(function(btn){
+        btn.addEventListener('click',function(){
+          self.levelIdx = parseInt(btn.dataset.i);
+          host.querySelectorAll('.diff-btn').forEach(function(b){b.classList.remove('active');});
+          btn.classList.add('active');
+        });
+      });
+      host.querySelector('#tj-start').addEventListener('click',function(){ self.start(host); });
+    },
+    start(host){
+      var lv = this.LEVELS[this.levelIdx];
+      var bank = this.QUESTION_BANK.slice();
+      for(var i=bank.length-1;i>0;i--){
+        var j = Math.floor(Math.random()*(i+1));
+        var tmp = bank[i]; bank[i]=bank[j]; bank[j]=tmp;
+      }
+      while(bank.length < lv.count) bank = bank.concat(bank);
+      this.questions = bank.slice(0, lv.count);
+      this.idx = 0;
+      this.correct = 0;
+      this.startedAt = Date.now();
+      var self=this;
+      if(this.timerId) clearInterval(this.timerId);
+      this.timerId = setInterval(function(){
+        var t = (Date.now()-self.startedAt)/1000;
+        var el = host.querySelector('#tj-time');
+        if(el) el.textContent = t.toFixed(2).padStart(5,'0');
+      }, 50);
+      host.querySelector('#tj-total').textContent = lv.count;
+      host.querySelector('#tj-correct').textContent = '0';
+      host.querySelector('#tj-q').textContent = '0';
+      this.showQuestion(host);
+    },
+    showQuestion(host){
+      if(this.idx >= this.questions.length){
+        this.finish(host);
+        return;
+      }
+      this.answered = false;
+      var q = this.questions[this.idx];
+      host.querySelector('#tj-q').textContent = this.idx + 1;
+      var stage = host.querySelector('#tj-stage');
+      var bs = q.board.length;
+      var boardHtml = '';
+      for(var r=0;r<bs;r++){
+        for(var c=0;c<bs;c++){
+          boardHtml += '<div class="tesuji-cell">';
+          if(q.board[r][c]===1) boardHtml += '<div class="stone black"></div>';
+          else if(q.board[r][c]===2) boardHtml += '<div class="stone white"></div>';
+          else if(q.board[r][c]===3){ boardHtml += '<div class="stone white"></div><div class="mark">△</div>'; }
+          boardHtml += '</div>';
+        }
+      }
+      var optHtml = '';
+      for(var i=0;i<q.options.length;i++){
+        optHtml += '<div class="tesuji-option" data-i="'+i+'">'+q.options[i]+'</div>';
+      }
+      stage.innerHTML = '\
+        <div style="text-align:center;margin-bottom:10px;font-size:14px;color:#3d2817;font-weight:600">'+q.desc+'</div>\
+        <div class="tesuji-board" style="grid-template-columns:repeat('+bs+',1fr);display:inline-grid">'+boardHtml+'</div>\
+        <div class="tesuji-options">'+optHtml+'</div>\
+      ';
+      var self = this;
+      stage.querySelectorAll('.tesuji-option').forEach(function(el){
+        el.addEventListener('click',function(){ self.onAnswer(host, parseInt(el.dataset.i), el); });
+      });
+    },
+    onAnswer(host, optIdx, el){
+      if(this.answered) return;
+      this.answered = true;
+      var q = this.questions[this.idx];
+      var correct = optIdx === q.answer;
+      if(correct){
+        this.correct++;
+        el.classList.add('correct');
+        host.querySelector('#tj-correct').textContent = this.correct;
+      }else{
+        el.classList.add('wrong');
+        var opts = host.querySelectorAll('.tesuji-option');
+        for(var i=0;i<opts.length;i++){
+          if(parseInt(opts[i].dataset.i) === q.answer) opts[i].classList.add('correct');
+        }
+      }
+      var noteEl = document.createElement('div');
+      noteEl.style.cssText = 'margin-top:12px;padding:8px 12px;background:#faf5e6;border-radius:4px;font-size:13px;color:#5a4a2a;text-align:left';
+      noteEl.innerHTML = '💡 <b>正解</b>：'+q.options[q.answer]+'<br><span style="color:#8b7550;font-size:12px">'+q.note+'</span>';
+      host.querySelector('.tesuji-options').after(noteEl);
+      this.idx++;
+      var self = this;
+      setTimeout(function(){ self.showQuestion(host); }, 1800);
+    },
+    finish(host){
+      clearInterval(this.timerId);
+      this.timerId = null;
+      var s = (Date.now()-this.startedAt)/1000;
+      var lv = this.LEVELS[this.levelIdx];
+      var accuracy = Math.round(this.correct/lv.count*100);
+      var bestKey = 'luobo_brain_tesuji_'+lv.count+'_best';
+      var prev = parseInt(localStorage.getItem(bestKey)||'0');
+      var isBest = this.correct > prev;
+      if(isBest) localStorage.setItem(bestKey, this.correct);
+      Brain.checkin('tesuji');
+      var grade = accuracy>=90?'优秀 ⭐⭐⭐':accuracy>=70?'良好 ⭐⭐':accuracy>=50?'一般 ⭐':'继续加油 💪';
+      var stage = host.querySelector('#tj-stage');
+      stage.innerHTML = '\
+        <div class="brain-result-panel" style="margin-top:0;border:0;padding:0">\
+          <div class="result-main">'+accuracy+'%</div>\
+          <div class="result-label">正确率 · '+this.correct+' / '+lv.count+'</div>\
+          <div class="result-detail">用时 '+s.toFixed(1)+'s · 平均每题 '+(s/lv.count).toFixed(1)+'s</div>\
+          <div class="result-grade">评级：'+grade+'</div>\
+          <div class="result-best">'+(isBest?'🎉 破纪录！':(prev?('历史最佳 '+prev+' 题正确'):''))+'</div>\
+          <button class="result-btn" id="tj-again">再来一组</button>\
+          <button class="result-btn secondary" id="tj-change">换个难度</button>\
+        </div>\
+      ';
+      var self = this;
+      stage.querySelector('#tj-again').addEventListener('click',function(){ self.start(host); });
+      stage.querySelector('#tj-change').addEventListener('click',function(){
+        self.levelIdx = 1;
+        self.init(host);
+      });
+    }
+  };
+
+  // ========== v2.0 · 坐标记忆 (Coordinate Memory) ==========
+  Brain.tools.coordmem = {
+    LEVELS:[
+      {name:'入门 · 4个',size:5,count:4},
+      {name:'进阶 · 6个',size:7,count:6},
+      {name:'挑战 · 9个',size:9,count:9}
+    ],
+    levelIdx:1, sequence:[], userInput:[], size:0, count:0, phase:'ready', startedAt:null, currentCount:0,
+    init(host){
+      host.innerHTML = '\
+        <div class="brain-intro-text">\
+          <p>棋盘交叉点依次亮起（带坐标显示），请<span class="hl">按顺序点击复现</span>。同时训练坐标熟练度和空间记忆。</p>\
+          <ul>\
+            <li>每个点亮起约 1 秒，记住它的坐标位置和顺序。</li>\
+            <li>全部亮完后，按同样顺序点击棋盘上的位置。</li>\
+            <li>训练点：坐标熟练度 + 空间记忆——下盲棋的基础能力。</li>\
+          </ul>\
+        </div>\
+        <div class="brain-diff-row">\
+          <span class="diff-label">选择难度：</span>\
+          <button class="diff-btn" data-i="0">入门 · 4个</button>\
+          <button class="diff-btn active" data-i="1">进阶 · 6个</button>\
+          <button class="diff-btn" data-i="2">挑战 · 9个</button>\
+        </div>\
+        <div class="coordmem-status">\
+          <div>关卡：<b id="cm-level">1</b></div>\
+          <div>进度：<b id="cm-progress">0</b> / <span id="cm-count">0</span></div>\
+          <div>最高纪录：<b id="cm-best">0</b></div>\
+        </div>\
+        <div class="coordmem-stage">\
+          <div style="text-align:center;margin-bottom:10px;font-size:13px;color:#6b5a3a" id="cm-hint">选择难度后点击开始</div>\
+          <div class="coordmem-board" id="cm-board"></div>\
+        </div>\
+      ';
+      var self = this;
+      host.querySelectorAll('.diff-btn').forEach(function(btn){
+        btn.addEventListener('click',function(){
+          self.levelIdx = parseInt(btn.dataset.i);
+          host.querySelectorAll('.diff-btn').forEach(function(b){b.classList.remove('active');});
+          btn.classList.add('active');
+          self.renderReady(host);
+        });
+      });
+      this.renderReady(host);
+    },
+    renderReady(host){
+      var lv = this.LEVELS[this.levelIdx];
+      var best = parseInt(localStorage.getItem('luobo_brain_coordmem_best')||'0');
+      host.querySelector('#cm-count').textContent = lv.count;
+      host.querySelector('#cm-best').textContent = best;
+      host.querySelector('#cm-level').textContent = '1';
+      host.querySelector('#cm-progress').textContent = '0';
+      host.querySelector('#cm-hint').innerHTML = '记忆 <b>'+lv.count+'</b> 个坐标位置，按顺序复现。<br><button class="result-btn" id="cm-start" style="margin-top:10px">开始 →</button>';
+      this.drawBoard(host, lv.size);
+      var self = this;
+      var startBtn = host.querySelector('#cm-start');
+      if(startBtn) startBtn.addEventListener('click',function(){ self.startRound(host); });
+    },
+    drawBoard(host, size){
+      var board = host.querySelector('#cm-board');
+      var cols = [], rows = [];
+      for(var c=0;c<size;c++) cols.push(String.fromCharCode(65+c));
+      for(var r=0;r<size;r++) rows.push(size - r);
+      board.style.gridTemplateColumns = '20px repeat('+size+',1fr) 20px';
+      board.style.gridTemplateRows = '20px repeat('+size+',1fr) 20px';
+      var html = '';
+      html += '<div></div>';
+      for(var c=0;c<size;c++) html += '<div class="coordmem-cell col-label">'+cols[c]+'</div>';
+      html += '<div></div>';
+      for(var r=0;r<size;r++){
+        html += '<div class="coordmem-cell row-label">'+rows[r]+'</div>';
+        for(var c=0;c<size;c++){
+          html += '<div class="coordmem-cell" data-r="'+r+'" data-c="'+c+'"></div>';
+        }
+        html += '<div class="coordmem-cell row-label">'+rows[r]+'</div>';
+      }
+      html += '<div></div>';
+      for(var c=0;c<size;c++) html += '<div class="coordmem-cell col-label">'+cols[c]+'</div>';
+      html += '<div></div>';
+      board.innerHTML = html;
+    },
+    startRound(host){
+      var lv = this.LEVELS[this.levelIdx];
+      this.size = lv.size;
+      this.currentCount = lv.count;
+      var pool = [];
+      for(var r=0;r<lv.size;r++){
+        for(var c=0;c<lv.size;c++) pool.push([r,c]);
+      }
+      for(var i=pool.length-1;i>0;i--){
+        var j = Math.floor(Math.random()*(i+1));
+        var tmp = pool[i]; pool[i]=pool[j]; pool[j]=tmp;
+      }
+      this.sequence = pool.slice(0, lv.count);
+      this.userInput = [];
+      this.phase = 'showing';
+      host.querySelector('#cm-hint').textContent = '记住亮灯顺序...';
+      host.querySelector('#cm-progress').textContent = '0';
+      this.drawBoard(host, lv.size);
+      this.playSequence(host, 0);
+    },
+    playSequence(host, idx){
+      var self = this;
+      if(idx >= this.sequence.length){
+        setTimeout(function(){ self.startInput(host); }, 500);
+        return;
+      }
+      var pos = this.sequence[idx];
+      var r = pos[0], c = pos[1];
+      var cell = host.querySelector('.coordmem-cell[data-r="'+r+'"][data-c="'+c+'"]');
+      if(cell){
+        cell.classList.add('lit');
+        setTimeout(function(){ cell.classList.remove('lit'); }, 600);
+      }
+      host.querySelector('#cm-progress').textContent = idx + 1;
+      setTimeout(function(){ self.playSequence(host, idx+1); }, 900);
+    },
+    startInput(host){
+      this.phase = 'input';
+      this.userInput = [];
+      host.querySelector('#cm-hint').textContent = '按顺序点击 → 第 1 个';
+      host.querySelector('#cm-progress').textContent = '0';
+      var cells = host.querySelectorAll('.coordmem-cell[data-r][data-c]');
+      var self = this;
+      cells.forEach(function(cell){
+        cell.addEventListener('click', function(){ self.onCellClick(host, cell); });
+      });
+    },
+    onCellClick(host, cell){
+      if(this.phase !== 'input') return;
+      var r = parseInt(cell.dataset.r);
+      var c = parseInt(cell.dataset.c);
+      var step = this.userInput.length;
+      var expected = this.sequence[step];
+      if(r === expected[0] && c === expected[1]){
+        cell.classList.add('lit');
+        this.userInput.push([r,c]);
+        host.querySelector('#cm-progress').textContent = this.userInput.length;
+        if(this.userInput.length < this.sequence.length){
+          host.querySelector('#cm-hint').textContent = '正确！第 '+(this.userInput.length+1)+' 个';
+        }else{
+          this.roundWin(host);
+        }
+      }else{
+        cell.classList.add('user-click');
+        var self=this;
+        setTimeout(function(){cell.classList.remove('user-click');}, 500);
+        this.roundLose(host);
+      }
+    },
+    roundWin(host){
+      this.phase = 'result';
+      host.querySelector('#cm-hint').innerHTML = '<span style="color:#4a8556">✓ 全部正确！</span>';
+      var best = parseInt(localStorage.getItem('luobo_brain_coordmem_best')||'0');
+      if(this.currentCount > best){
+        localStorage.setItem('luobo_brain_coordmem_best', this.currentCount);
+        host.querySelector('#cm-best').textContent = this.currentCount;
+      }
+      Brain.checkin('coordmem');
+      var curLvl = parseInt(host.querySelector('#cm-level').textContent);
+      var nextLvl = curLvl + 1;
+      host.querySelector('#cm-level').textContent = nextLvl;
+      this.currentCount++;
+      var self = this;
+      setTimeout(function(){
+        host.querySelector('#cm-hint').innerHTML = '进入下一关：<b>'+self.currentCount+'</b> 个点<br><button class="result-btn" id="cm-next" style="margin-top:10px">继续 →</button>';
+        var nextBtn = host.querySelector('#cm-next');
+        if(nextBtn) nextBtn.addEventListener('click', function(){ self.startNextRound(host); });
+      }, 800);
+    },
+    startNextRound(host){
+      var size = this.size;
+      var pool = [];
+      for(var r=0;r<size;r++){
+        for(var c=0;c<size;c++) pool.push([r,c]);
+      }
+      for(var i=pool.length-1;i>0;i--){
+        var j = Math.floor(Math.random()*(i+1));
+        var tmp = pool[i]; pool[i]=pool[j]; pool[j]=tmp;
+      }
+      var count = Math.min(this.currentCount, size*size - 1);
+      this.sequence = pool.slice(0, count);
+      this.userInput = [];
+      this.phase = 'showing';
+      host.querySelector('#cm-hint').textContent = '记住亮灯顺序...';
+      host.querySelector('#cm-progress').textContent = '0';
+      this.drawBoard(host, size);
+      this.playSequence(host, 0);
+    },
+    roundLose(host){
+      this.phase = 'result';
+      var step = this.userInput.length;
+      var total = this.sequence.length;
+      for(var i=0;i<this.sequence.length;i++){
+        var r = this.sequence[i][0], c = this.sequence[i][1];
+        var cell = host.querySelector('.coordmem-cell[data-r="'+r+'"][data-c="'+c+'"]');
+        if(cell){
+          cell.classList.add('lit');
+          var badge = document.createElement('span');
+          badge.style.cssText = 'position:absolute;top:0;left:0;background:var(--seal);color:#fff;font-size:10px;padding:1px 4px;border-radius:0 0 4px 0;z-index:5;font-family:monospace';
+          badge.textContent = i+1;
+          cell.style.position = 'relative';
+          cell.appendChild(badge);
+        }
+      }
+      host.querySelector('#cm-hint').innerHTML = '\
+        <div style="margin-bottom:8px">游戏结束 · 正确 <b>'+step+'</b> / '+total+'</div>\
+        <div style="font-size:12px;color:#8b7550;margin-bottom:10px">亮灯位置已标出，数字为顺序</div>\
+        <button class="result-btn" id="cm-restart">重新开始</button>\
+      ';
+      var self = this;
+      host.querySelector('#cm-restart').addEventListener('click',function(){ self.init(host); });
+    }
+  };
+
+  // ==== 启动 ====
+  function boot(){
+    Brain.renderList();
+    window.__luoboBrain = Brain;
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot);
+  else boot();
+})();
+;
