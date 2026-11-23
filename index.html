@@ -19,7 +19,9 @@
     <meta name="baidu-site-verification" content="codeva-VRZw9q8lGz" />
     <!-- P0-2: Tailwind 预编译 CSS（替代 CDN 阻塞脚本 + inline config，节省 ~400 KB 网络请求） -->
     <link rel="stylesheet" href="/assets/css/tailwind.min.css">
-  <link href="/assets/fonts/fonts.css" rel="stylesheet">
+  <!-- 九期：fonts.css(115KB/113个@font-face)移出渲染阻塞路径。media=print 触发下载但不阻塞首屏，onload 切回 all 应用；内部 font-display:swap 已在，文字先以系统字体显示再换入，noscript 兜底。注：preload as=style 本地 A/B(n=6) 实测反而更慢(高优先级预取与 site-core/LCP 抢带宽)，故用 print 模式，与 site-panels.css 一致 -->
+  <link rel="stylesheet" href="/assets/fonts/fonts.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="/assets/fonts/fonts.css"></noscript>
   <link rel="stylesheet" href="/assets/css/site-core.css">
   <link rel="stylesheet" href="/assets/css/site-panels.css" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="/assets/css/site-panels.css"></noscript>

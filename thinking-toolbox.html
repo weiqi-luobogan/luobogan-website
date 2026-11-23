@@ -9,7 +9,9 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32.png">
 <meta name="theme-color" content="#F5F0E6">
 <link rel="stylesheet" href="/assets/css/tailwind.min.css">
-<link href="/assets/fonts/fonts.css" rel="stylesheet">
+<!-- 九期：fonts.css 移出渲染阻塞路径（同 index.html）。media=print 触发下载不阻塞，onload 切 all 应用，font-display:swap 已在，noscript 兜底。preload 实测更慢故不用 -->
+<link rel="stylesheet" href="/assets/fonts/fonts.css" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="/assets/fonts/fonts.css"></noscript>
 <link rel="stylesheet" href="/assets/css/site-core.css">
 <link rel="stylesheet" href="/assets/css/site-panels.css">
 <style>/* 独立页：思维训练室段落常态显示（首页中为点击展开的折叠面板） */ #brain-training.collapsible{display:block;position:static;inset:auto;overflow:visible}</style>
