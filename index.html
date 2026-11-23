@@ -807,7 +807,10 @@
 </section>
 
 <!-- ===== Teaching 教学理念 ===== -->
-<section id="teaching" class="bg-paper py-24 border-y border-line">
+<!-- hotfix 2026-11-23：补回 collapsible。桌面端 html/body 为 100vh+overflow:hidden 的横向翻页 deck，
+     非折叠段在桌面不可达（window.scrollTo 无效），导致 hero「了解课程」/showcase 产品卡/侧栏「教学理念」点击无反应；
+     overlay 样式 site-core.css:267 的 #teaching.collapsible.open 本就为其预留。移动端同步改为 overlay 打开，与其他板块 IA 一致。 -->
+<section id="teaching" class="bg-paper py-24 border-y border-line collapsible">
   <div class="max-w-5xl mx-auto px-6 fade-in">
     <h2 class="section-title">教学理念</h2>
     <p class="section-lead">

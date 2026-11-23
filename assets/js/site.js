@@ -1285,9 +1285,14 @@ function showParentGuide(){
   if(parentEntry) parentEntry.style.display='none';
   if(pcg) pcg.classList.add('hidden');
   if(pg){ pg.classList.remove('hidden'); }
+  // hotfix 2026-11-23：#teaching 已改 collapsible overlay，window.scrollTo 对其无效；
+  // 先开面板再在面板滚动容器内定位
   if(t){
-    var y = t.getBoundingClientRect().top + window.pageYOffset - 20;
-    window.scrollTo({top:y, behavior:'smooth'});
+    if(typeof window.openSection === 'function') window.openSection('teaching');
+    setTimeout(function(){
+      var pg2 = document.getElementById('parent-guide');
+      if(pg2 && pg2.scrollIntoView) pg2.scrollIntoView({behavior:'smooth', block:'start'});
+    }, 380);
   }
 }
 function hideParentGuide(){
@@ -1301,8 +1306,8 @@ function hideParentGuide(){
   if(parentEntry) parentEntry.style.display='';
   var t = document.getElementById('teaching');
   if(t){
-    var y = t.getBoundingClientRect().top + window.pageYOffset - 20;
-    window.scrollTo({top:y, behavior:'smooth'});
+    // overlay 滚动容器回顶（openSection 打开时亦会重置，此处兜底）
+    t.scrollTop = 0;
   }
 }
 // ===== 给家长的建议 v6 END =====
@@ -2575,4 +2580,10 @@ function hideParentGuide(){
       // fallback：不支持 IO 的浏览器直接加载
       window.__luoboEnsureTeaching();
     }
+    // hotfix 2026-11-23：#teaching 改 collapsible 后基态 display:none，IO 不再触发；
+    // 照 edulab 同款兜底：overlay 打开（.open）时确保按需脚本加载（与 IO 互斥断开，不会重复加载）
+    var mo = new MutationObserver(function(){
+      if(sec.classList.contains('open')){ mo.disconnect(); window.__luoboEnsureTeaching(); }
+    });
+    mo.observe(sec, {attributes:true, attributeFilter:['class']});
   })();
