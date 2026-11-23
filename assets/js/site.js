@@ -1243,65 +1243,6 @@ window.__luoboInitCulture = function() {
 // ===== Teaching 教学理念 =====
     
 ;
-(function(){
-  var home = document.getElementById('teaching-home');
-  var list = document.getElementById('teaching-list');
-  var detail = document.getElementById('teaching-detail');
-  if (!home) return;
-  function renderHome(){
-    home.innerHTML = TEACHING_DATA.sections.map(function(s){
-      return '<button class="teaching-entry" onclick="showTeachingList(\''+s.id+'\')">'
-           + '<div class="teaching-entry-icon">'+s.icon+'</div>'
-           + '<div class="teaching-entry-title">'+s.title+'</div>'
-           + '<div class="teaching-entry-desc">'+s.desc+'</div>'
-           + '<div class="teaching-entry-count">'+s.articles.length+' 篇</div>'
-           + '</button>';
-    }).join('');
-  }
-  window.showTeachingList = function(id){
-    var s = TEACHING_DATA.sections.find(function(x){ return x.id === id; });
-    if (!s) return;
-    home.classList.add('hidden');
-    detail.classList.add('hidden');
-    list.classList.remove('hidden');
-    document.getElementById('teaching-list-title').textContent = s.title;
-    var body = document.getElementById('teaching-list-body');
-    if (s.articles.length){
-      body.innerHTML = s.articles.map(function(a, k){
-        return '<div class="teaching-list-item" onclick="showTeachingDetail(\''+id+'\','+k+')">'
-             + '<h4>'+a.title+'</h4>'
-             + '<p>'+(a.summary || '')+'</p>'
-             + '</div>';
-      }).join('');
-    } else {
-      body.innerHTML = '<p class="text-gray-soft text-sm py-8">这个板块正在整理中，很快上线。</p>';
-    }
-    window.__teachingCurSection = id;
-    window.scrollTo({top: document.getElementById('teaching').offsetTop - 60, behavior: 'smooth'});
-  };
-  window.showTeachingDetail = function(id, k){
-    var s = TEACHING_DATA.sections.find(function(x){ return x.id === id; });
-    if (!s || !s.articles[k]) return;
-    var a = s.articles[k];
-    home.classList.add('hidden');
-    list.classList.add('hidden');
-    detail.classList.remove('hidden');
-    document.getElementById('teaching-detail-title').textContent = a.title;
-    document.getElementById('teaching-detail-meta').textContent = a.meta || '';
-    document.getElementById('teaching-detail-body').innerHTML = a.body || '';
-    window.scrollTo({top: document.getElementById('teaching').offsetTop - 60, behavior: 'smooth'});
-  };
-  window.showTeachingHome = function(){
-    list.classList.add('hidden');
-    detail.classList.add('hidden');
-    home.classList.remove('hidden');
-  };
-  window.teachingBackToList = function(){
-    if (window.__teachingCurSection) showTeachingList(window.__teachingCurSection);
-    else showTeachingHome();
-  };
-  renderHome();
-})();
 
 // ===== 练棋建议 v1 =====
 (function(){
@@ -2633,143 +2574,6 @@ function hideParentGuide(){
   })();
 })();
 ;
-  // ===== 启蒙教学研讨 - 密钥板块脚本 v2（账号+密码）=====
-  (function() {
-    const STORAGE_KEY = "edulab_unlock_v2";
-    const EXPIRE_DAYS = 30;
-
-    // 内容加密 key 混淆存储（前端反编译仍可拿到，静态站固有限制）
-    const _mkArr = ["luobogan", "edulab", "master", "2026"];
-    function _mk() { return _mkArr.join("-"); }
-
-    function sha256(text) {
-      return CryptoJS.SHA256(text).toString(CryptoJS.enc.Hex);
-    }
-
-    function aesDecrypt(cipherB64, password) {
-      try {
-        const decrypted = CryptoJS.AES.decrypt(cipherB64, password);
-        return decrypted.toString(CryptoJS.enc.Utf8);
-      } catch(e) {
-        return null;
-      }
-    }
-
-    function saveUnlock(account) {
-      const payload = { account: account, expire: Date.now() + EXPIRE_DAYS * 86400000 };
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
-    }
-
-    function readUnlock() {
-      try {
-        const raw = localStorage.getItem(STORAGE_KEY);
-        if (!raw) return null;
-        const data = JSON.parse(raw);
-        if (data.expire && data.expire > Date.now() && data.account) return data.account;
-        localStorage.removeItem(STORAGE_KEY);
-        return null;
-      } catch(e) { return null; }
-    }
-
-    window.submitEdulabKey = async function() {
-      const accInput = document.getElementById("edulab-account-input");
-      const pwdInput = document.getElementById("edulab-pass-input");
-      const msg = document.getElementById("edulab-gate-msg");
-      const account = (accInput.value || "").trim().toUpperCase();
-      const password = (pwdInput.value || "").trim();
-
-      if (!account || !password) {
-        msg.textContent = "请输入账号和密码";
-        msg.className = "gate-msg";
-        return;
-      }
-
-      // P0-3: 按需加载 crypto-js（首次点击时下载 60 KB）
-      if (typeof CryptoJS === "undefined") {
-        msg.textContent = "正在加载安全组件…";
-        msg.className = "gate-msg";
-        try {
-          await window.__luoboLoadScript("/assets/vendor/crypto-js.min.js");
-        } catch(e) {
-          msg.textContent = "安全组件加载失败，请检查网络后重试";
-          msg.className = "gate-msg";
-          return;
-        }
-      }
-      const hash = sha256(account + ":" + password);
-      if (window.EDULAB_DATA.hashList.indexOf(hash) >= 0) {
-        saveUnlock(account);
-        msg.textContent = "✓ 登录成功，正在进入…";
-        msg.className = "gate-msg ok";
-        setTimeout(() => unlockEdulab(account), 400);
-      } else {
-        msg.textContent = "账号或密码不正确，请检查后重试";
-        msg.className = "gate-msg";
-      }
-    };
-
-    function unlockEdulab(account) {
-      document.getElementById("edulab-gate").style.display = "none";
-      document.getElementById("edulab-content").style.display = "block";
-      document.getElementById("edulab-current-account").textContent = account;
-      // 用 master key 解密所有卡片内容
-      const mk = _mk();
-      window.EDULAB_DATA.cards.forEach(c => {
-        c._plain = aesDecrypt(c.cipher, mk);
-      });
-    }
-
-    window.openEdulabCard = function(cardId) {
-      const card = window.EDULAB_DATA.cards.find(c => c.id === cardId);
-      if (!card || !card._plain) return;
-      document.getElementById("edulab-content").style.display = "none";
-      document.getElementById("edulab-detail").style.display = "block";
-      document.getElementById("edulab-detail-content").innerHTML =
-        '<h3 style="font-size:22px;color:var(--ink);letter-spacing:3px;margin-bottom:8px;">' +
-        card.icon + ' ' + card.title + '</h3>' +
-        '<p style="color:var(--gray-soft);font-size:13px;margin-bottom:20px;line-height:1.7;">' +
-        card.intro + '</p>' + card._plain;
-      window.scrollTo({ top: document.getElementById("edulab").offsetTop - 40, behavior: "smooth" });
-    };
-
-    window.closeEdulabCard = function() {
-      document.getElementById("edulab-detail").style.display = "none";
-      document.getElementById("edulab-content").style.display = "block";
-    };
-
-    window.logoutEdulab = function() {
-      if (!confirm("确定要退出登录吗？下次进入需要重新输入账号密码。")) return;
-      localStorage.removeItem(STORAGE_KEY);
-      document.getElementById("edulab-detail").style.display = "none";
-      document.getElementById("edulab-content").style.display = "none";
-      document.getElementById("edulab-gate").style.display = "block";
-      document.getElementById("edulab-account-input").value = "";
-      document.getElementById("edulab-pass-input").value = "";
-      document.getElementById("edulab-gate-msg").textContent = "";
-    };
-
-    document.addEventListener("DOMContentLoaded", function() {
-      const accInput = document.getElementById("edulab-account-input");
-      const pwdInput = document.getElementById("edulab-pass-input");
-      [accInput, pwdInput].forEach(el => {
-        if (el) el.addEventListener("keydown", function(e) {
-          if (e.key === "Enter") submitEdulabKey();
-        });
-      });
-      // ===== v3.2: Owner Mode（本机永久免登，优先级最高）=====
-      // 主人 F12 控制台执行 localStorage.setItem('luobogan_owner','1'); 即可激活
-      if (localStorage.getItem('luobogan_owner') === '1') {
-        unlockEdulab('OWNER');
-        return;
-      }
-      // 自动登录（30 天免登）
-      const savedAccount = readUnlock();
-      if (savedAccount) {
-        unlockEdulab(savedAccount);
-      }
-    });
-  })();
-;
 (function(){
   try{
     if(sessionStorage.getItem('luobo_ink_shown')==='1'){
@@ -3402,9 +3206,17 @@ function hideParentGuide(){
     if (name === 'luobo') { syncLuoboView(); }
     if (name === 'luck')  { syncLuckView(); }
     if (name === 'teacher') {
-      var cfg = readJSON(STORAGE_TEACHER, null);
-      if (!cfg) { openTeacherConfig(); }
-      else if (!$('teacher-title').__inited) { renderTeacherCard(); $('teacher-title').__inited = true; }
+      // 五期：teacher_cards.js 按需加载
+      var ensureTeacher = function(){
+        var cfg = readJSON(STORAGE_TEACHER, null);
+        if (!cfg) { openTeacherConfig(); }
+        else if (!$('teacher-title').__inited) { renderTeacherCard(); $('teacher-title').__inited = true; }
+      };
+      if (typeof TEACHER_CARDS === 'undefined') {
+        window.__luoboLoadScript('/assets/data/teacher_cards.js').then(ensureTeacher);
+      } else {
+        ensureTeacher();
+      }
     }
   }
 
@@ -5224,4 +5036,52 @@ window.__luoboCultureFix21 = function(){
       if(sec.classList.contains('open')){ mo.disconnect(); window.__luoboEnsureCulture(); }
     });
     mo.observe(sec, {attributes:true, attributeFilter:['class']});
+  })();
+
+;
+  // ===== 五期：启蒙教学研讨按需加载 =====
+  // edulab_data.js(66KB) + edulab-lazy.js(6KB) 不再首屏执行；#edulab 加 .open 时拉取
+  (function(){
+    var sec = document.getElementById('edulab');
+    if(!sec) return;
+    var loading = false;
+    window.__luoboEnsureEdulab = function(){
+      if(loading) return window.__luoboEdulabPromise;
+      loading = true;
+      window.__luoboEdulabPromise = window.__luoboLoadScript('/assets/data/edulab_data.js').then(function(){
+        return window.__luoboLoadScript('/assets/js/edulab-lazy.js');
+      });
+      return window.__luoboEdulabPromise;
+    };
+    if(sec.classList.contains('open')){ window.__luoboEnsureEdulab(); return; }
+    var mo = new MutationObserver(function(){
+      if(sec.classList.contains('open')){ mo.disconnect(); window.__luoboEnsureEdulab(); }
+    });
+    mo.observe(sec, {attributes:true, attributeFilter:['class']});
+  })();
+
+;
+  // ===== 五期：教学理念板块按需加载 =====
+  // teaching_data.js(69KB) + teaching-lazy.js(3KB) 不再首屏执行；#teaching 进入视口前 200px 触发
+  (function(){
+    var sec = document.getElementById('teaching');
+    if(!sec) return;
+    var loading = false;
+    window.__luoboEnsureTeaching = function(){
+      if(loading) return window.__luoboTeachingPromise;
+      loading = true;
+      window.__luoboTeachingPromise = window.__luoboLoadScript('/assets/data/teaching_data.js').then(function(){
+        return window.__luoboLoadScript('/assets/js/teaching-lazy.js');
+      });
+      return window.__luoboTeachingPromise;
+    };
+    if('IntersectionObserver' in window){
+      var io = new IntersectionObserver(function(entries){
+        if(entries[0].isIntersecting){ io.disconnect(); window.__luoboEnsureTeaching(); }
+      }, {rootMargin:'200px'});
+      io.observe(sec);
+    } else {
+      // fallback：不支持 IO 的浏览器直接加载
+      window.__luoboEnsureTeaching();
+    }
   })();
