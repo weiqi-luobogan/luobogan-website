@@ -1028,3 +1028,16 @@
 .deck-motif .st-b { fill: var(--ink); fill-opacity: .18; }
 .deck-motif .st-w { fill: var(--paper); stroke: var(--ink); stroke-width: .45; stroke-opacity: .32; }
 @media (min-width: 901px) { .deck-motif { display: block; } }
+
+/* ===== 批3 S4：卡片三段式结构件（身份3卡 + 课程卡；文化4卡在 site-panels）===== */
+/* 身份3卡：原内联样式收编进 CSS；顶2px墨线 + 右上鬼影中文数字 + 底部 meta 沉底 */
+#role-router .role-card { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; border: 1px solid var(--line); border-top: 2px solid var(--ink); background: #fff; color: var(--ink); text-decoration: none; padding: 28px 20px 18px; transition: box-shadow .25s, transform .2s; }
+#role-router .role-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(168, 54, 42, 0.08); }
+.rc-num { position: absolute; top: 12px; right: 14px; font-size: 30px; line-height: 1; font-weight: 700; color: var(--ink); opacity: .1; }
+.role-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+.role-hook { font-size: .85rem; color: var(--gray-soft); line-height: 1.6; margin: 0 0 16px; }
+.role-meta { margin-top: auto; padding-top: 10px; border-top: 1px solid var(--line); width: 100%; font-size: 12px; color: var(--seal); letter-spacing: .12em; }
+/* 课程卡：仅 #projects（围棋课程）作用域，不波及图书/留言板/表单等同用 .card 的区块 */
+#projects .card { position: relative; border-top: 2px solid var(--ink); }
+.tcard-num { position: absolute; top: 12px; right: 16px; font-size: 32px; line-height: 1; font-weight: 700; color: var(--ink); opacity: .1; }
+#projects .tcard-foot { margin-top: auto; padding-top: 10px; border-top: 1px solid var(--line); }
