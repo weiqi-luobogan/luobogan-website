@@ -1318,7 +1318,7 @@ function hideParentGuide(){
 /* ===== 折叠板块交互（独占展开）===== */
 (function(){
   const HEADER_OFFSET = 72;
-  const HORIZONTAL_SLIDE_IDS = ['hero','showcase','mission'];
+  const HORIZONTAL_SLIDE_IDS = ['hero','showcase','directory','mission'];
   function scrollToEl(el){
     if(!el) return;
     // 桌面端横向翻页 3 段之一，走 goToSlide（横向 scroll）
@@ -1550,7 +1550,7 @@ function hideParentGuide(){
     }
   });
   // 横向翻页：page-track 元素 scrollLeft / viewport width
-  const SLIDE_IDS = ['hero','showcase','mission'];
+  const SLIDE_IDS = ['hero','showcase','directory','mission'];
   function pageTrack(){ return document.getElementById('pageTrack'); }
   function currentSlideIdx(){
     const pt = pageTrack();

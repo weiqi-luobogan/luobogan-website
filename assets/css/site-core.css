@@ -294,7 +294,7 @@
       z-index: 1;
     }
     .page-track::-webkit-scrollbar { display: none; }
-    .page-track > section#hero, .page-track > section#showcase, .page-track > section#mission {
+    .page-track > section#hero, .page-track > section#showcase, .page-track > section#directory, .page-track > section#mission {
       scroll-snap-align: start;
       scroll-snap-stop: always;
       flex: 0 0 100vw;
@@ -314,7 +314,7 @@
     section#hero { padding-top: 100px !important; padding-bottom: 60px !important; }
     section#mission { padding-top: 84px !important; padding-bottom: 60px !important; }
     /* fix: flex column + mx-auto 会禁用 stretch，导致 wrapper 塌陷到 content-min-width。显式 100% 宽度让 max-width 与 mx-auto 正常生效 */
-    section#hero > div, section#showcase > div, section#mission > div { width: 100%; }
+    section#hero > div, section#showcase > div, section#directory > div, section#mission > div { width: 100%; }
     /* showcase 内部压缩，尽量塞入一屏 */
     section#showcase .showcase-frame { max-height: calc(100vh - 200px); }
     /* 面板打开时，把横向翻页 track 藏起来（避免键盘/滚轮冲突） */
@@ -522,14 +522,80 @@
   .col-badge-q4 { background: #7a6a3f; }
   .col-title { margin-top: 8px; font-size: 15px; font-weight: 700; color: var(--ink); letter-spacing: 0.05em; }
   .col-src { margin-top: 2px; font-size: 11px; color: var(--gray-soft); }
-  .col-list { margin-top: 10px; padding-left: 22px; list-style: decimal; color: var(--ink); }
-  .col-list li { font-size: 12px; line-height: 1.85; padding-left: 3px; }
+  /* S4 课表日程表化：从裸编号清单改"月份轴 + 讲次 timeline" */
+  .col-list { margin-top: 10px; padding-left: 0; list-style: none; counter-reset: lec; color: var(--ink); }
+  .col-list li { counter-increment: lec; position: relative; padding-left: 28px; font-size: 12px; line-height: 1.85; }
+  .col-list li::before {
+    content: counter(lec, decimal-leading-zero);
+    position: absolute; left: 0; top: 1px;
+    font-family: 'Cormorant Garamond', 'Inter', serif;
+    font-size: 11px; font-weight: 700; color: var(--seal);
+    letter-spacing: 0; line-height: 1.7;
+  }
+  .col-list li::after {
+    content: ''; position: absolute; left: 7px; top: 20px; bottom: -3px;
+    border-left: 1px dotted rgba(139, 58, 58, 0.28);
+  }
+  .col-list li:last-child::after { display: none; }
   @media (min-width: 768px) { .col-list li { font-size: 12.5px; } }
   .col-list-two { column-count: 1; }
-  @media (min-width: 900px) { .col-list-two { column-count: 2; column-gap: 20px; } }
+  @media (min-width: 900px) {
+    .col-list-two { column-count: 2; column-gap: 22px; }
+    .col-list-two li { break-inside: avoid; }
+    .col-list-two li::after { display: none; }
+  }
   .col-list .li-done { color: #8a8a8a; text-decoration: line-through; text-decoration-color: rgba(0,0,0,0.25); }
-  .col-list .li-done .chk { display: inline-block; margin-left: -18px; margin-right: 6px; width: 14px; color: #38753b; font-weight: 700; text-decoration: none; }
+  .col-list .li-done::before { content: '✓'; font-family: inherit; font-size: 13px; color: #38753b; left: 2px; top: 0; line-height: 1.6; }
+  .col-list .li-done .chk { display: none; }
+  /* 月份分隔行：不占 counter，右侧一条虚线延伸 */
+  .col-list .li-month {
+    counter-increment: none;
+    display: flex; align-items: center; gap: 10px;
+    padding-left: 0; margin: 12px 0 6px;
+    font-size: 10.5px; letter-spacing: 0.22em; color: var(--seal); font-weight: 700;
+    line-height: 1.4;
+  }
+  .col-list .li-month:first-child { margin-top: 2px; }
+  .col-list .li-month::before { content: none; }
+  .col-list .li-month::after {
+    content: ''; position: static; flex: 1; height: 0;
+    border-left: none; border-top: 1px dashed rgba(139, 58, 58, 0.32);
+  }
+  @media (min-width: 900px) { .col-list-two .li-month { display: none; } }
   .schedule-foot { margin-top: 12px; text-align: center; font-size: 11px; color: var(--gray-soft); letter-spacing: 0.15em; padding-top: 8px; border-top: 1px dashed var(--line); }
+
+  /* ===== S3b 目录带（桌面 deck 第 3 页 · 6 张 overlay 入口摘要卡）===== */
+  .dir-head { text-align: center; padding-bottom: 22px; }
+  .dir-eyebrow { font-size: 10.5px; letter-spacing: 0.32em; color: var(--seal); font-weight: 600; }
+  .dir-title { margin-top: 10px; font-family: 'Noto Serif SC', serif; font-size: 26px; font-weight: 700; color: var(--ink); letter-spacing: 0.08em; line-height: 1.4; }
+  .dir-sub { margin-top: 8px; font-size: 12.5px; color: var(--gray-soft); letter-spacing: 0.1em; }
+  .dir-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 6px; }
+  .dir-card {
+    position: relative; display: flex; flex-direction: column;
+    border: 1px solid var(--line); border-top: 2px solid var(--ink);
+    background: #fff; padding: 20px 18px 14px;
+    color: var(--ink); text-decoration: none;
+    transition: transform .2s, box-shadow .25s;
+    min-height: 176px;
+  }
+  .dir-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(168,54,42,0.08); }
+  .dir-num {
+    position: absolute; top: 12px; right: 14px;
+    font-family: 'Noto Serif SC', serif;
+    font-size: 46px; font-weight: 700; color: var(--ink); opacity: 0.08;
+    line-height: 1; letter-spacing: 0; pointer-events: none;
+  }
+  .dir-cat { font-size: 10.5px; letter-spacing: 0.3em; color: var(--seal); font-weight: 600; }
+  .dir-name { margin-top: 8px; font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); letter-spacing: 0.08em; }
+  .dir-hook { margin: 10px 0 0; font-size: 12.5px; color: var(--gray-soft); line-height: 1.7; }
+  .dir-meta {
+    margin-top: auto; padding-top: 12px;
+    border-top: 1px solid rgba(139,58,58,0.18);
+    font-size: 11px; color: var(--ink); letter-spacing: 0.1em;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .dir-arrow { color: var(--seal); font-size: 14px; line-height: 1; }
+  @media (max-width: 900px) { #directory { display: none; } }
 
   /* ===== mission 简介 ===== */
   .mission-text { color: var(--ink); letter-spacing: 0.05em; }
@@ -563,6 +629,11 @@
     section#hero { padding-top: 68px !important; padding-bottom: 12px !important; }
     section#showcase { padding-top: 8px !important; padding-bottom: 8px !important; }
     section#mission { padding-top: 12px !important; padding-bottom: 20px !important; }
+    /* S6 移动节奏：首页后半段 section 上下 padding 收紧 ~25%，消除空带叠加 */
+    section#social-proof { padding-top: 22px !important; padding-bottom: 22px !important; }
+    section#role-router { padding-top: 28px !important; padding-bottom: 28px !important; }
+    section#xxyd-entry { padding-top: 36px !important; padding-bottom: 36px !important; }
+    footer { padding-top: 30px !important; padding-bottom: 30px !important; }
     .hero-tag { font-size: 10px; letter-spacing: 0.25em; }
     .hero-creed { font-size: 15px; margin-top: 20px; padding-top: 16px; letter-spacing: 0.1em; }
     .hero-mission { margin-top: 18px; font-size: 13px; line-height: 1.75; }
@@ -575,8 +646,11 @@
     .schedule-col { padding: 10px 12px; }
     .col-title { font-size: 13.5px; margin-top: 6px; }
     .col-src { font-size: 10.5px; }
-    .col-list { padding-left: 20px; margin-top: 6px; }
-    .col-list li { font-size: 11.5px; line-height: 1.65; }
+    .col-list { margin-top: 8px; }
+    .col-list li { font-size: 11.5px; line-height: 1.75; padding-left: 26px; }
+    .col-list li::before { font-size: 10.5px; top: 2px; }
+    .col-list li::after { left: 6px; top: 19px; }
+    .col-list .li-month { font-size: 10px; letter-spacing: 0.18em; margin: 10px 0 4px; }
     .schedule-foot { font-size: 10.5px; margin-top: 8px; padding-top: 6px; letter-spacing: 0.1em; }
     .showcase-caption { font-size: 13px; margin-top: 10px; }
     .showcase-dots { margin-top: 10px; gap: 8px; }
