@@ -1,12 +1,15 @@
 /** @type {import('tailwindcss').Config} */
 // Tailwind 预编译配置（P0-2 优化）
-// 扫描 index.html / thinking-toolbox.html / agreements.html 生成实际用到的 CSS 类
+// 扫描 index.html / thinking-toolbox.html / agreements.html / teacher-map.html 生成实际用到的 CSS 类
 // 输出到 assets/css/tailwind.min.css，替代原 CDN 阻塞脚本
 module.exports = {
   content: [
     './index.html',
     './thinking-toolbox.html',
-    './agreements.html'
+    './agreements.html',
+    './teacher-map.html',
+    './assets/js/site.js',
+    './assets/data/*.js'
   ],
   // 显式声明必须生成的类（防止扫描器在长行/复杂字符串中漏检）
   safelist: [
