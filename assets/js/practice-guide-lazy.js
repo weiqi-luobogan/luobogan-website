@@ -507,3 +507,458 @@
     });
   })();
 })();
+// ===== 模块 F · 学情反馈单 =====
+(function(){
+  var RAD_LABELS = ['计算力','死活对杀','手筋招法','布局大局','官子收官','定式棋形'];
+  var BAR_LABELS = ['学习兴趣','课堂专注','抗挫能力','复盘反思','家庭配合'];
+
+  // 滑块联动数值
+  document.querySelectorAll('.feedback-form input[type=range]').forEach(function(el){
+    el.addEventListener('input', function(){
+      var tid = el.getAttribute('data-target');
+      if (tid) {
+        var tgt = document.getElementById(tid);
+        if (tgt) tgt.textContent = el.value;
+      }
+      window.generateFeedback && window.generateFeedback();
+    });
+  });
+  // 其他输入实时预览
+  ['fb-name','fb-teacher','fb-period','fb-stage','fb-strength','fb-weakness','fb-advice'].forEach(function(id){
+    var el = document.getElementById(id);
+    if (el) {
+      var evt = (el.tagName === 'SELECT') ? 'change' : 'input';
+      el.addEventListener(evt, function(){ window.generateFeedback && window.generateFeedback(); });
+    }
+  });
+
+  function getData(){
+    var name = (document.getElementById('fb-name').value || '').trim() || '学员';
+    var teacher = (document.getElementById('fb-teacher').value || '').trim() || '老师';
+    var period = document.getElementById('fb-period').value;
+    var stage = document.getElementById('fb-stage').value;
+    var radVals = [];
+    for (var i=1;i<=6;i++) radVals.push(parseFloat(document.getElementById('fb-rad-'+i).textContent));
+    var barVals = [];
+    for (var j=1;j<=5;j++) barVals.push(parseFloat(document.getElementById('fb-bar-'+j).textContent));
+    return {
+      name: name, teacher: teacher, period: period, stage: stage,
+      radVals: radVals, barVals: barVals,
+      strength: (document.getElementById('fb-strength').value||'').trim(),
+      weakness: (document.getElementById('fb-weakness').value||'').trim(),
+      advice:   (document.getElementById('fb-advice').value||'').trim()
+    };
+  }
+
+  function drawRadar(ctx, cx, cy, R, labels, vals, maxVal){
+    var n = labels.length;
+    // 底网 5 层
+    for (var k=1;k<=5;k++){
+      ctx.beginPath();
+      for (var i=0;i<n;i++){
+        var ang = -Math.PI/2 + i * 2*Math.PI/n;
+        var r = R * k/5;
+        var x = cx + r*Math.cos(ang);
+        var y = cy + r*Math.sin(ang);
+        (i===0)?ctx.moveTo(x,y):ctx.lineTo(x,y);
+      }
+      ctx.closePath();
+      ctx.strokeStyle = (k===5)?'#a89a7f':'#d8cfbc';
+      ctx.lineWidth = (k===5)?1.5:1;
+      ctx.stroke();
+    }
+    // 辐射线
+    ctx.strokeStyle = '#d8cfbc';
+    ctx.lineWidth = 1;
+    for (var i=0;i<n;i++){
+      var ang = -Math.PI/2 + i * 2*Math.PI/n;
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.lineTo(cx + R*Math.cos(ang), cy + R*Math.sin(ang));
+      ctx.stroke();
+    }
+    // 数据多边形
+    ctx.beginPath();
+    for (var i=0;i<n;i++){
+      var ang = -Math.PI/2 + i * 2*Math.PI/n;
+      var r = R * vals[i]/maxVal;
+      var x = cx + r*Math.cos(ang);
+      var y = cy + r*Math.sin(ang);
+      (i===0)?ctx.moveTo(x,y):ctx.lineTo(x,y);
+    }
+    ctx.closePath();
+    ctx.fillStyle = 'rgba(168,54,42,0.22)';
+    ctx.fill();
+    ctx.strokeStyle = '#a8362a';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    // 数据点
+    for (var i=0;i<n;i++){
+      var ang = -Math.PI/2 + i * 2*Math.PI/n;
+      var r = R * vals[i]/maxVal;
+      var x = cx + r*Math.cos(ang);
+      var y = cy + r*Math.sin(ang);
+      ctx.beginPath();
+      ctx.arc(x, y, 4, 0, Math.PI*2);
+      ctx.fillStyle = '#a8362a';
+      ctx.fill();
+      ctx.strokeStyle = '#f8f5ef';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+    }
+    // 标签 + 分数
+    for (var i=0;i<n;i++){
+      var ang = -Math.PI/2 + i * 2*Math.PI/n;
+      var lx = cx + (R+28)*Math.cos(ang);
+      var ly = cy + (R+28)*Math.sin(ang);
+      ctx.fillStyle = '#2a2a2a';
+      ctx.font = '600 14px "Noto Serif SC", "Songti SC", serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(labels[i], lx, ly);
+      ctx.fillStyle = '#a8362a';
+      ctx.font = '700 13px Inter, sans-serif';
+      ctx.fillText(vals[i].toFixed(1), lx, ly + 16);
+    }
+    // 中心分数
+    var avg = vals.reduce(function(a,b){return a+b;},0) / vals.length;
+    ctx.fillStyle = '#a8362a';
+    ctx.font = '700 24px Inter, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(avg.toFixed(1), cx, cy - 8);
+    ctx.fillStyle = '#6b6b6b';
+    ctx.font = '400 11px "Noto Serif SC", serif';
+    ctx.fillText('技术均分', cx, cy + 12);
+  }
+
+  function drawBars(ctx, x, y, w, h, labels, vals, maxVal){
+    var n = labels.length;
+    var padL = 34, padR = 12, padT = 20, padB = 46;
+    var chartW = w - padL - padR;
+    var chartH = h - padT - padB;
+    var barW = chartW / (n * 1.6);
+    var gap = (chartW - barW*n) / (n-1);
+    var ox = x + padL, oy = y + padT;
+    // 参考线
+    ctx.font = '10px Inter, sans-serif';
+    ctx.textAlign = 'right';
+    ctx.textBaseline = 'middle';
+    for (var i=0;i<=5;i++){
+      var gy = oy + chartH - chartH * i/maxVal;
+      ctx.strokeStyle = (i===0)?'#a89a7f':(i%1===0?'#e6e0d5':'#f2ede2');
+      ctx.lineWidth = (i===0)?1.2:1;
+      ctx.beginPath();
+      ctx.moveTo(ox, gy);
+      ctx.lineTo(ox + chartW, gy);
+      ctx.stroke();
+      ctx.fillStyle = '#888';
+      ctx.fillText(i, ox-6, gy);
+    }
+    // 柱子
+    for (var i=0;i<n;i++){
+      var bx = ox + i * (barW + gap);
+      var bh = chartH * vals[i]/maxVal;
+      var by = oy + chartH - bh;
+      // 阴影
+      ctx.fillStyle = 'rgba(168,54,42,0.10)';
+      ctx.fillRect(bx+2, by+3, barW, bh);
+      // 主体渐变
+      var grad = ctx.createLinearGradient(bx, by, bx, by+bh);
+      grad.addColorStop(0, '#c74e3f');
+      grad.addColorStop(1, '#8a2a20');
+      ctx.fillStyle = grad;
+      ctx.fillRect(bx, by, barW, bh);
+      // 顶部亮线
+      ctx.fillStyle = 'rgba(255,255,255,0.35)';
+      ctx.fillRect(bx, by, barW, 2);
+      // 数值
+      ctx.fillStyle = '#a8362a';
+      ctx.font = '700 14px Inter, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'bottom';
+      ctx.fillText(vals[i].toFixed(1), bx + barW/2, by - 5);
+      // 标签
+      ctx.fillStyle = '#2a2a2a';
+      ctx.font = '600 13px "Noto Serif SC", "Songti SC", serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'top';
+      ctx.fillText(labels[i], bx + barW/2, oy + chartH + 10);
+    }
+  }
+
+  function wrapText(ctx, text, x, y, maxW, lineH){
+    if (!text) return y;
+    var chars = String(text).split('');
+    var line = '';
+    for (var i=0;i<chars.length;i++){
+      var c = chars[i];
+      if (c === '\n') {
+        ctx.fillText(line, x, y);
+        line = '';
+        y += lineH;
+        continue;
+      }
+      var test = line + c;
+      if (ctx.measureText(test).width > maxW && line){
+        ctx.fillText(line, x, y);
+        line = c;
+        y += lineH;
+      } else {
+        line = test;
+      }
+    }
+    if (line) { ctx.fillText(line, x, y); y += lineH; }
+    return y;
+  }
+
+  window.generateFeedback = function(){
+    var d = getData();
+    var canvas = document.getElementById('fb-canvas');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var W = canvas.width, H = canvas.height;
+
+    // 底纸
+    ctx.fillStyle = '#f8f5ef';
+    ctx.fillRect(0,0,W,H);
+    // 双边框
+    ctx.strokeStyle = '#a8362a';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(28, 28, W-56, H-56);
+    ctx.strokeStyle = 'rgba(168,54,42,0.35)';
+    ctx.lineWidth = 0.8;
+    ctx.strokeRect(38, 38, W-76, H-76);
+
+    // 顶部品牌条（左）
+    ctx.fillStyle = '#a8362a';
+    ctx.fillRect(60, 60, 6, 40);
+    // 标题
+    ctx.fillStyle = '#1a1a1a';
+    ctx.font = '700 30px "Noto Serif SC", "Songti SC", serif';
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'top';
+    ctx.fillText('学 情 反 馈 单', 78, 62);
+    ctx.fillStyle = '#8a6b1a';
+    ctx.font = '400 13px "Noto Serif SC", serif';
+    ctx.fillText('· 围棋是普通孩子的教育 ·', 82, 102);
+
+    // 印章（右）
+    ctx.save();
+    ctx.translate(W-100, 88);
+    ctx.rotate(-0.06);
+    ctx.fillStyle = '#a8362a';
+    ctx.fillRect(-30, -30, 60, 60);
+    ctx.fillStyle = '#f8f5ef';
+    ctx.font = '700 15px "Noto Serif SC", serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('萝卜', 0, -10);
+    ctx.fillText('围棋', 0, 10);
+    ctx.restore();
+
+    // 分割线
+    var y = 140;
+    ctx.strokeStyle = '#c9c0af';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(60, y); ctx.lineTo(W-60, y);
+    ctx.stroke();
+
+    // 基本信息栏
+    y += 20;
+    ctx.fillStyle = '#6b6b6b';
+    ctx.font = '400 13px "Noto Serif SC", serif';
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('学员', 76, y+18);
+    ctx.fillStyle = '#a8362a';
+    ctx.font = '700 26px "Noto Serif SC", serif';
+    ctx.fillText(d.name, 118, y+18);
+
+    ctx.fillStyle = '#6b6b6b';
+    ctx.font = '400 13px "Noto Serif SC", serif';
+    ctx.textAlign = 'right';
+    ctx.fillText('周期：' + d.period + '   |   ' + d.stage, W-80, y+8);
+    ctx.fillText('授课老师：' + d.teacher, W-80, y+30);
+
+    y += 50;
+    // 装饰虚线
+    ctx.strokeStyle = '#e6e0d5';
+    ctx.setLineDash([4,4]);
+    ctx.beginPath();
+    ctx.moveTo(60, y); ctx.lineTo(W-60, y);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // 图表区标题
+    y += 22;
+    ctx.fillStyle = '#a8362a';
+    ctx.font = '700 15px "Noto Serif SC", serif';
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'top';
+    ctx.fillText('▍技术能力雷达', 76, y);
+    ctx.fillText('▍学习状态柱状', 478, y);
+    ctx.fillStyle = '#888';
+    ctx.font = '400 12px "Noto Serif SC", serif';
+    ctx.fillText('（对棋艺六个维度的当期评估）', 202, y+3);
+    ctx.fillText('（对学习状态五个维度的当期评估）', 604, y+3);
+
+    // 雷达 + 柱状
+    drawRadar(ctx, 240, y + 200, 130, RAD_LABELS, d.radVals, 5);
+    drawBars(ctx, 460, y + 40, 400, 310, BAR_LABELS, d.barVals, 5);
+
+    // 分割线
+    y = 660;
+    ctx.strokeStyle = '#c9c0af';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(60, y); ctx.lineTo(W-60, y);
+    ctx.stroke();
+
+    // 老师寄语
+    y += 20;
+    ctx.fillStyle = '#a8362a';
+    ctx.font = '700 16px "Noto Serif SC", serif';
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'top';
+    ctx.fillText('▍老师寄语', 76, y);
+    y += 32;
+
+    var blocks = [
+      { title: '✿ 本期亮点', text: d.strength || '（老师未填写）', color: '#2e7d5d', bg: 'rgba(46,125,93,0.06)' },
+      { title: '△ 需要加强', text: d.weakness || '（老师未填写）', color: '#8a6b1a', bg: 'rgba(138,107,26,0.06)' },
+      { title: '❤ 家长建议', text: d.advice   || '（老师未填写）', color: '#a8362a', bg: 'rgba(168,54,42,0.06)' }
+    ];
+    blocks.forEach(function(b){
+      // 背景
+      var blockY = y;
+      ctx.fillStyle = b.bg;
+      // 先测算高度
+      ctx.font = '400 15px "Noto Serif SC", "Songti SC", serif';
+      var testX = 108, testMaxW = W - 108 - 76;
+      var lines = 0, ln = '';
+      for (var i=0;i<b.text.length;i++){
+        var t = ln + b.text[i];
+        if (ctx.measureText(t).width > testMaxW && ln){ lines++; ln = b.text[i]; }
+        else ln = t;
+      }
+      if (ln) lines++;
+      var boxH = 30 + lines * 24 + 10;
+      ctx.fillRect(76, blockY - 2, W-152, boxH);
+      // 左侧色条
+      ctx.fillStyle = b.color;
+      ctx.fillRect(76, blockY - 2, 4, boxH);
+      // 标题
+      ctx.fillStyle = b.color;
+      ctx.font = '700 15px "Noto Serif SC", serif';
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'top';
+      ctx.fillText(b.title, 96, blockY + 6);
+      // 正文
+      ctx.fillStyle = '#2a2a2a';
+      ctx.font = '400 15px "Noto Serif SC", "Songti SC", serif';
+      y = wrapText(ctx, b.text, 108, blockY + 30, W - 108 - 76, 24);
+      y += 14;
+    });
+
+    // 底部落款
+    y = H - 110;
+    ctx.strokeStyle = '#c9c0af';
+    ctx.beginPath();
+    ctx.moveTo(60, y); ctx.lineTo(W-60, y);
+    ctx.stroke();
+    y += 20;
+    var now = new Date();
+    var pad2 = function(n){ return String(n).padStart(2,'0'); };
+    var todayStr = now.getFullYear() + '-' + pad2(now.getMonth()+1) + '-' + pad2(now.getDate());
+    ctx.fillStyle = '#6b6b6b';
+    ctx.font = '400 13px "Noto Serif SC", serif';
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('授课老师签名：' + d.teacher, 76, y);
+    ctx.textAlign = 'right';
+    ctx.fillText('签发日期：' + todayStr, W-76, y);
+    y += 26;
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#a8362a';
+    ctx.font = 'italic 400 13px "Noto Serif SC", serif';
+    ctx.fillText('萝卜干围棋教育  ·  weiqiluobogan.com  ·  段位是结果，能力是因', W/2, y);
+
+    // 结果区淡入
+    var preview = document.getElementById('fb-preview');
+    if (preview){
+      preview.classList.remove('flash-in');
+      void preview.offsetWidth;
+      preview.classList.add('flash-in');
+    }
+  };
+
+  window.downloadFeedback = function(kind){
+    var d = getData();
+    if (kind === 'png'){
+      window.generateFeedback();
+      var canvas = document.getElementById('fb-canvas');
+      var url = canvas.toDataURL('image/png');
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = '学情反馈单_' + d.name + '_' + new Date().toISOString().slice(0,10) + '.png';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      return;
+    }
+    if (kind === 'csv'){
+      var csv = [];
+      csv.push(['围棋学情反馈单 · 数据模板']);
+      csv.push(['学员姓名', d.name]);
+      csv.push(['授课老师', d.teacher]);
+      csv.push(['反馈周期', d.period]);
+      csv.push(['当前阶段', d.stage]);
+      csv.push(['签发日期', new Date().toISOString().slice(0,10)]);
+      csv.push([]);
+      csv.push(['【技术能力评分】1~5 分  ·  维度含义：1=启蒙 / 2=在学 / 3=能应用 / 4=熟练 / 5=可讲给别人听']);
+      csv.push(['维度','评分','老师批注']);
+      RAD_LABELS.forEach(function(lb, i){ csv.push([lb, d.radVals[i], '']); });
+      var radAvg = d.radVals.reduce(function(a,b){return a+b;},0) / d.radVals.length;
+      csv.push(['技术均分', radAvg.toFixed(2), '']);
+      csv.push([]);
+      csv.push(['【学习状态评分】1~5 分']);
+      csv.push(['维度','评分','老师批注']);
+      BAR_LABELS.forEach(function(lb, i){ csv.push([lb, d.barVals[i], '']); });
+      var barAvg = d.barVals.reduce(function(a,b){return a+b;},0) / d.barVals.length;
+      csv.push(['状态均分', barAvg.toFixed(2), '']);
+      csv.push([]);
+      csv.push(['【老师寄语】']);
+      csv.push(['✿ 本期亮点', d.strength]);
+      csv.push(['△ 需要加强', d.weakness]);
+      csv.push(['❤ 家长建议', d.advice]);
+      csv.push([]);
+      csv.push(['【使用说明】']);
+      csv.push(['1. 每月/每季度末，老师根据孩子实际表现填写打分']);
+      csv.push(['2. 打分口径：1=启蒙 / 2=在学 / 3=能应用 / 4=熟练 / 5=可讲给别人听']);
+      csv.push(['3. 三段寄语建议每段不超 50 字，具体到一件可观察的事，避免空泛表述']);
+      csv.push(['4. 生成 PNG 后直发家长群/私聊；CSV 用于机构长期存档，便于横向比较']);
+      csv.push(['5. 建议同一学员每季度做一次，能形成"能力成长曲线"']);
+      var csvStr = '\ufeff' + csv.map(function(row){
+        return row.map(function(cell){
+          var s = cell == null ? '' : String(cell);
+          s = s.replace(/"/g, '""');
+          return /[",\n\r]/.test(s) ? '"'+s+'"' : s;
+        }).join(',');
+      }).join('\r\n');
+      var blob = new Blob([csvStr], { type: 'text/csv;charset=utf-8;' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = '学情反馈模板_' + d.name + '_' + new Date().toISOString().slice(0,10) + '.csv';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+    }
+  };
+
+  // 首次渲染
+  if (document.getElementById('fb-canvas')){
+    // 字体可能还没加载完，稍微延后一下
+    setTimeout(function(){ window.generateFeedback(); }, 50);
+  }
+})();
+// ===== 学情反馈单 END =====
