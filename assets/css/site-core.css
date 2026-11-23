@@ -210,9 +210,17 @@
     .teaching-body ul, .teaching-body ol { margin: 12px 0; padding-left: 24px; }
     .teaching-body li { margin: 6px 0; }
     /* ===== 右侧悬浮索引栏 ===== */
-    .side-nav { position: fixed; right: 18px; top: 50%; transform: translateY(-50%); z-index: 40; display: flex; flex-direction: column; gap: 6px; }
-    .side-nav a { display: block; padding: 9px 14px; background: rgba(255,255,255,0.88); border: 1px solid var(--line); font-size: 14px; color: var(--ink); text-decoration: none; border-radius: 3px; transition: all 0.25s; letter-spacing: 0.05em; -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); text-align: center; min-width: 84px; font-weight: 500; }
-    .side-nav a:hover { background: var(--seal); color: #fff; border-color: var(--seal); transform: translateX(-4px); }
+    .side-nav { position: fixed; right: 22px; top: 50%; transform: translateY(-50%); z-index: 40; display: flex; flex-direction: column; gap: 2px; align-items: flex-start; }
+    /* 批2 S3a：白盒按钮 → 竖排文字链目录（去底去框去 blur；当前项朱红竖线，hover 朱红下划墨线）*/
+    .side-nav a { position: relative; display: block; padding: 6px 10px 6px 14px; background: none; border: none; font-size: 13.5px; color: var(--ink); text-decoration: none; transition: color .2s; letter-spacing: 0.08em; text-align: left; font-weight: 500; }
+    .side-nav a::before { content: ''; position: absolute; left: 2px; top: 22%; bottom: 22%; width: 2px; background: var(--seal); transform: scaleY(0); transition: transform .2s; }
+    .side-nav a::after { content: ''; position: absolute; left: 14px; right: 10px; bottom: 3px; height: 1px; background: var(--seal); transform: scaleX(0); transform-origin: left; transition: transform .25s; }
+    .side-nav a:hover { color: var(--seal); }
+    .side-nav a:hover::after { transform: scaleX(1); }
+    .side-nav a.active { color: var(--seal); font-weight: 600; }
+    .side-nav a.active::before { transform: scaleY(1); }
+    /* 批2 S3a：宽屏下目录浮于 overlay 之上（z-65 > overlay z-60），当前项朱红竖线才可见；901-1279px 余量不足保持原层级 */
+    @media (min-width: 1280px) { .side-nav { z-index: 65; } }
     @media (max-width: 900px) {
       .side-nav {
         position: fixed; top: 0; right: -280px;
@@ -1010,3 +1018,13 @@
 .footer-cta-title { font-size: 13px; color: var(--ink); letter-spacing: .12em; font-weight: 600; margin: 4px 0 0; }
 .footer-cta-sub { font-size: 12px; color: var(--gray-soft); margin: 0; }
 .footer-cta-link { color: var(--seal); text-decoration: underline; text-underline-offset: 3px; }
+
+/* ===== 批2 S2：deck 棋盘图形母题（仅桌面装饰层，绝对定位 0 CLS / 0 请求）===== */
+#hero, #showcase, #mission { position: relative; }
+#hero > div, #showcase > div, #mission > div { position: relative; z-index: 1; }
+.deck-motif { display: none; position: absolute; left: 16px; bottom: 16px; width: min(42vw, 460px); aspect-ratio: 1 / 1; pointer-events: none; z-index: 0; }
+.deck-motif.motif-md { width: min(32vw, 360px); }
+.deck-motif .mt-grid { fill: none; stroke: var(--ink); stroke-width: .16; stroke-opacity: .09; color: var(--ink); }
+.deck-motif .st-b { fill: var(--ink); fill-opacity: .18; }
+.deck-motif .st-w { fill: var(--paper); stroke: var(--ink); stroke-width: .45; stroke-opacity: .32; }
+@media (min-width: 901px) { .deck-motif { display: block; } }
