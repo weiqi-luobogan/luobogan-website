@@ -5,10 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>第 2 课 · 谜底藏在谜面里 · 围棋老师的选题课 | 学习园地 · 萝卜干聊围棋教育</title>
 <meta name="description" content="围棋老师自媒体招生十次课 · 第 2 课 · 选题。学生反推法三步走 + 6 种选题方法对比 + 选题打分卡 5 维度实时评估。谜底就藏在你已有的学生身上。">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="icon" href="../assets/logo.jpg" type="image/jpeg">
+<link href="../assets/fonts/fonts.css" rel="stylesheet">
+<link rel="icon" href="../assets/logo.webp" type="image/jpeg">
 <style>
   :root{
     --ink:#1a1a1a; --ink-soft:#2a2a2a;
@@ -481,7 +479,7 @@
 <header class="site-header">
   <div class="header-inner">
     <a href="../" class="brand">
-      <img src="../assets/logo.jpg" alt="萝卜干">
+      <img src="../assets/logo.webp" alt="萝卜干">
       <span>萝卜干</span>
       <small>· 学习园地</small>
     </a>
@@ -1087,7 +1085,7 @@
     <h2 class="section-title">加微信 · 把选题打分卡发我点评一次</h2>
     <p class="section-subtitle">这是第 2 课的专属福利：把你打过分的选题诊断卡发给我，我会亲自点评一次，帮你调整维度权重。</p>
     <div class="contact-final">
-      <img src="../assets/wechat-qr.jpg" alt="萝卜干微信二维码">
+      <img src="../assets/wechat-qr.webp" alt="萝卜干微信二维码">
       <div class="c-wx">yxwq0909</div>
       <div class="c-note">
         添加时备注：<span class="hl">「第 2 课选题打分卡点评」</span><br>
@@ -1108,7 +1106,7 @@
     <button class="close" id="modalClose">×</button>
     <div class="m-t">把选题诊断卡发我，免费点评一次</div>
     <div class="m-d">这是第 2 课的作业礼物 —— 帮你把打分卡里的短板找出来，调整维度权重。</div>
-    <img src="../assets/wechat-qr.jpg" alt="萝卜干微信">
+    <img src="../assets/wechat-qr.webp" alt="萝卜干微信">
     <div class="m-wx">yxwq0909</div>
     <div class="m-note">添加时备注「第 2 课选题打分卡点评」</div>
   </div>
@@ -1324,8 +1322,8 @@ const STYLE_DATA = {
   qrImg.crossOrigin = 'anonymous';
   logoImg.onload = () => logoLoaded = true;
   qrImg.onload = () => qrLoaded = true;
-  logoImg.src = '../assets/logo.jpg';
-  qrImg.src = '../assets/wechat-qr.jpg';
+  logoImg.src = '../assets/logo.webp';
+  qrImg.src = '../assets/wechat-qr.webp';
 
   btnGen.addEventListener('click', () => {
     const title = titleInput.value.trim();

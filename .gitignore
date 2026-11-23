@@ -1,0 +1,30 @@
+# 备份文件
+*.bak
+*.bak.*
+index.html.bak*
+**/index.html.bak*
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# 本地工具/脚本产物
+.local/
+tmp/
+*.log
+
+# 编辑器
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Tailwind 构建中间件（保留最终产物 assets/css/tailwind.min.css 到版本控制）
+tailwind.input.css.map

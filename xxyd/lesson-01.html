@@ -5,10 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>第 1 课 · 账号定位 + 赛道现状 | 学习园地 · 萝卜干聊围棋教育</title>
 <meta name="description" content="围棋老师自媒体招生十次课 · 第 1 课。先想清楚定位，再开机拍摄。附三类账号自测 / 三秒真伪定位自检 / 个人 IP 定位卡 V0.1 生成器。">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="icon" href="../assets/logo.jpg" type="image/jpeg">
+<link href="../assets/fonts/fonts.css" rel="stylesheet">
+<link rel="icon" href="../assets/logo.webp" type="image/jpeg">
 <style>
   :root{
     --ink:#1a1a1a; --ink-soft:#2a2a2a;
@@ -432,7 +430,7 @@
 <header class="site-header">
   <div class="header-inner">
     <a href="../" class="brand">
-      <img src="../assets/logo.jpg" alt="萝卜干">
+      <img src="../assets/logo.webp" alt="萝卜干">
       <span>萝卜干</span>
       <small>· 学习园地</small>
     </a>
@@ -918,7 +916,7 @@
     <h2 class="section-title">加微信 · 把定位卡发我点评一次</h2>
     <p class="section-subtitle">这是第 1 课的专属福利：把你生成的定位卡发给我，我会亲自点评一次，就当作是学习礼物。</p>
     <div class="contact-final">
-      <img src="../assets/wechat-qr.jpg" alt="萝卜干微信二维码">
+      <img src="../assets/wechat-qr.webp" alt="萝卜干微信二维码">
       <div class="c-wx">yxwq0909</div>
       <div class="c-note">
         添加时备注：<span class="hl">「第 1 课定位卡点评」</span><br>
@@ -939,7 +937,7 @@
     <button class="close" id="modalClose">×</button>
     <div class="m-t">把定位卡发我，免费点评一次</div>
     <div class="m-d">这是第 1 课的作业礼物 —— 找到你定位卡里最需要打磨的那根钉子。</div>
-    <img src="../assets/wechat-qr.jpg" alt="萝卜干微信">
+    <img src="../assets/wechat-qr.webp" alt="萝卜干微信">
     <div class="m-wx">yxwq0909</div>
     <div class="m-note">添加时备注「第 1 课定位卡点评」</div>
   </div>
@@ -1127,8 +1125,8 @@ const CHECK_RESULTS = {
   qrImg.crossOrigin = 'anonymous';
   logoImg.onload = () => logoLoaded = true;
   qrImg.onload = () => qrLoaded = true;
-  logoImg.src = '../assets/logo.jpg';
-  qrImg.src = '../assets/wechat-qr.jpg';
+  logoImg.src = '../assets/logo.webp';
+  qrImg.src = '../assets/wechat-qr.webp';
 
   btnGen.addEventListener('click', () => {
     const identity = document.getElementById('f-identity').value.trim();
