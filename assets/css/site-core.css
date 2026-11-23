@@ -997,3 +997,16 @@
 .mm-node:hover{filter:drop-shadow(0 0 6px rgba(196,139,58,.85))}
 .mm-node.highlight circle:first-child{stroke:#c48b3a;stroke-width:2.5}
 @media(max-width:520px){#mm-panel{padding:18px 14px} #mm-panel .mm-tab{padding:5px 12px;font-size:12.5px;letter-spacing:2px} #mm-panel .mm-auto-tag{width:100%;margin-left:0;margin-top:4px}}
+
+/* ===== 批1 S1：单色线描图标系统（替换系统 emoji）===== */
+.ico { fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.tb-ico { width: 22px; height: 22px; display: block; margin: 0 auto 5px; }
+.role-ico { width: 40px; height: 40px; display: block; margin: 0 auto 12px; color: var(--seal); }
+.nav-ico { width: 15px; height: 15px; display: inline-block; vertical-align: -2px; margin-right: 3px; }
+
+/* ===== 批1 S5：页脚转化钩子 ===== */
+.footer-cta { display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; }
+.footer-qr { width: 104px; height: 104px; object-fit: contain; background: #fff; border: 1px solid var(--line); border-radius: 6px; padding: 4px; }
+.footer-cta-title { font-size: 13px; color: var(--ink); letter-spacing: .12em; font-weight: 600; margin: 4px 0 0; }
+.footer-cta-sub { font-size: 12px; color: var(--gray-soft); margin: 0; }
+.footer-cta-link { color: var(--seal); text-decoration: underline; text-underline-offset: 3px; }
