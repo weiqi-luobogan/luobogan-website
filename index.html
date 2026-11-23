@@ -20,7 +20,9 @@
     <!-- P0-2: Tailwind 预编译 CSS（替代 CDN 阻塞脚本 + inline config，节省 ~400 KB 网络请求） -->
     <link rel="stylesheet" href="/assets/css/tailwind.min.css">
   <link href="/assets/fonts/fonts.css" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/css/site.css">
+  <link rel="stylesheet" href="/assets/css/site-core.css">
+  <link rel="stylesheet" href="/assets/css/site-panels.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="/assets/css/site-panels.css"></noscript>
   <!-- P0-3: crypto-js/xlsx 改为按需动态加载（本地 /assets/vendor/），首屏不再阻塞 -->
 <script defer src="/assets/js/site.js"></script>
 
