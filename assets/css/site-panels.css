@@ -277,7 +277,7 @@
     .quiztype-detail .ppt-figure { margin: 20px 0 0; padding: 10px; background: #fff; }
     .quiztype-detail .ppt-figure .ppt-cap { text-align: left; padding-left: 4px; }
     .lightbox-overlay { position: fixed; inset: 0; background: rgba(20,15,10,0.86); z-index: 9999; display: none; align-items: center; justify-content: center; padding: 40px; cursor: zoom-out; }
-    .lightbox-overlay.show { display: flex; }
+    .lightbox-overlay.show { display: flex; animation: maskFadeIn 0.22s ease-out; }
     .lightbox-overlay img { max-width: 100%; max-height: 100%; box-shadow: 0 12px 40px rgba(0,0,0,0.5); background: #fff; }
     .lightbox-close { position: absolute; top: 18px; right: 24px; color: #fff; font-size: 26px; background: none; border: none; cursor: pointer; font-family: inherit; letter-spacing: 0.1em; }
     .lightbox-close:hover { color: #f4c96a; }
@@ -1950,10 +1950,8 @@ font-size:13px;border:1px solid var(--line,#d9c9a0);background:#fff;color:#5a4a2
   background: rgba(0,0,0,.42);
   z-index: 9998;
   display: none;
-  opacity: 0;
-  transition: opacity .28s ease;
 }
-#daily-ritual-mask.show { display:block; opacity:1; }
+#daily-ritual-mask.show { display:block; animation: maskFadeIn .28s ease-out both; }
 
 /* 抽屉主面板 */
 #daily-ritual-panel {
@@ -2561,7 +2559,7 @@ header .nav-luobo-ext.dr-entry-btn-alt:hover {
 .luobo-toast.show{opacity:1}
 /* ============ CG · 课堂小游戏 全屏覆盖层样式 ============ */
 #cg-overlay{position:fixed;inset:0;z-index:9998;background:#f8f5ef;display:none;overflow-y:auto;font-family:'Noto Serif SC','Songti SC','STSong',serif;color:#1a1a1a;}
-#cg-overlay.cg-open{display:block;}
+#cg-overlay.cg-open{display:block;animation:panelIn .28s ease-out both;}
 .cg-shell{max-width:1180px;margin:0 auto;padding:24px 24px 64px;}
 .cg-topbar{position:sticky;top:0;background:#f8f5ef;border-bottom:1px solid #e6e0d5;padding:16px 24px;margin:-24px -24px 20px;z-index:5;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
 .cg-topbar h1{font-size:20px;font-weight:900;margin:0;color:#1a1a1a;letter-spacing:.04em;}

@@ -105,8 +105,9 @@
     .card h3.text-xl { font-size: 22px; }
     .card p + p { margin-top: 0.6rem; }
     .fade-in {
-      opacity: 1;
-      transform: none;
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 0.4s ease-out, transform 0.4s ease-out;
     }
     .fade-in.visible {
       opacity: 1;
@@ -270,11 +271,26 @@
     scrollbar-width: none;
     padding-top: 68px !important;
     padding-bottom: 60px !important;
+    animation: panelIn 0.28s ease-out both;
   }
   .collapsible.open::-webkit-scrollbar { display: none; }
   #about.collapsible.open, #ability-test.collapsible.open, #interact.collapsible.open, #contact.collapsible.open, #projects.collapsible.open, #teaching.collapsible.open { background: var(--paper-2); }
   @keyframes panelIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes fadeSlideIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes maskFadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes skeletonPulse { 0%, 100% { opacity: 0.35; } 50% { opacity: 0.75; } }
+  /* 懒加载骨架屏 */
+  .luobo-skeleton { position: relative; min-height: 180px; background: var(--paper-2); border-radius: 6px; overflow: hidden; }
+  .luobo-skeleton::after { content: ''; position: absolute; inset: 0; background: rgba(139,58,58,0.04); animation: skeletonPulse 1.4s ease-in-out infinite; }
+  .luobo-skeleton-text { height: 12px; margin: 12px 16px; border-radius: 3px; background: rgba(139,58,58,0.07); }
+  .luobo-skeleton-text:first-child { margin-top: 20px; width: 60%; }
+  .luobo-skeleton-text:nth-child(2) { width: 85%; }
+  .luobo-skeleton-text:nth-child(3) { width: 70%; }
+  /* 分享图弹窗（微信/iOS 长按保存） */
+  .luobo-share-modal { position: fixed; inset: 0; z-index: 100000; background: rgba(20,15,8,0.82); display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 24px; animation: maskFadeIn 0.25s ease-out; }
+  .luobo-share-modal img { max-width: 88vw; max-height: 72vh; border-radius: 6px; box-shadow: 0 8px 32px rgba(0,0,0,0.4); background: #fff; }
+  .luobo-share-modal .share-tip { color: #f0e4c8; font-size: 14px; margin-top: 14px; letter-spacing: 1px; text-align: center; line-height: 1.6; }
+  .luobo-share-modal .share-close { margin-top: 16px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); color: #fff; padding: 8px 24px; border-radius: 20px; font-size: 14px; cursor: pointer; letter-spacing: 1px; }
   body.body-lock { overflow: hidden; }
 
   /* ===== 桌面端 scroll-snap 横向翻页（左右滑）===== */
@@ -997,7 +1013,7 @@
 #ink-landing-mask .ink-brand{position:absolute;bottom:26px;font-family:"KaiTi",serif;font-size:11px;color:#8a7a5c;letter-spacing:6px;opacity:.65}
 @media(max-width:520px){#ink-landing-mask canvas{width:320px!important;height:320px!important}#ink-landing-mask .ink-title{font-size:18px}}
 #hb-mask{position:fixed;inset:0;z-index:9997;background:rgba(20,15,8,.55);display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
-#hb-mask.show{display:flex}
+#hb-mask.show{display:flex;animation:maskFadeIn .25s ease-out}
 #hb-panel{background:linear-gradient(140deg,#f4ead2 0%,#e8d8b0 100%);border:1px solid #b09a70;border-radius:8px;padding:20px 22px 18px;box-shadow:0 12px 40px rgba(50,35,10,.35);max-width:92vw;font-family:"KaiTi","STKaiti","Songti SC","SimSun",serif}
 #hb-panel .hb-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;gap:12px}
 #hb-panel .hb-title{font-size:16px;color:#3a2a10;letter-spacing:3px}
@@ -1014,7 +1030,7 @@
 #hb-toast.show{opacity:1}
 @media(max-width:520px){#hb-panel canvas{width:280px!important;height:280px!important}}
 #quiz-mask{position:fixed;inset:0;z-index:9996;background:rgba(20,15,8,.6);display:none;align-items:center;justify-content:center;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:20px}
-#quiz-mask.show{display:flex}
+#quiz-mask.show{display:flex;animation:maskFadeIn .25s ease-out}
 #quiz-panel{background:linear-gradient(150deg,#faf1d8 0%,#eddab0 100%);border:1px solid #b09a70;border-radius:10px;padding:26px 28px 22px;box-shadow:0 16px 50px rgba(50,35,10,.4);max-width:520px;width:100%;max-height:92vh;overflow-y:auto;font-family:"KaiTi","STKaiti","Songti SC","SimSun",serif;color:#3a2a10}
 #quiz-panel .q-close{position:absolute;top:14px;right:20px;font-size:20px;color:#8a7042;background:transparent;border:none;cursor:pointer;line-height:1}
 #quiz-panel .q-close:hover{color:#3a2a10}
@@ -1049,7 +1065,7 @@
 #quiz-launcher-btn .q-launcher-icon{display:none}
 @media(max-width:520px){#quiz-panel{padding:22px 18px 18px}#quiz-panel .q-title{font-size:18px}}
 #mm-mask{position:fixed;inset:0;z-index:9994;background:rgba(15,10,5,.7);display:none;align-items:center;justify-content:center;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:16px}
-#mm-mask.show{display:flex}
+#mm-mask.show{display:flex;animation:maskFadeIn .25s ease-out}
 #mm-panel{background:linear-gradient(150deg,#f7edcf 0%,#e8d5a8 100%);border:1px solid #b09a70;border-radius:10px;padding:22px 24px;box-shadow:0 16px 50px rgba(50,35,10,.4);max-width:1100px;width:100%;max-height:94vh;overflow:auto;font-family:"KaiTi","STKaiti","Songti SC","SimSun",serif;color:#3a2a10;position:relative}
 #mm-panel .mm-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;gap:12px;flex-wrap:wrap}
 #mm-panel .mm-title{font-size:22px;letter-spacing:6px;color:#3a2a10}

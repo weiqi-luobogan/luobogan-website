@@ -1,33 +1,136 @@
-    // 全局脚本懒加载器：多次调用同一 URL 只加载一次
-    window.__luoboLoadScript = function(url) {
+    // 全局脚本懒加载器 v2：超时 + 重试 + 失败可恢复
+    window.__luoboLoadScript = function(url, _attempt) {
       window.__luoboLoadedScripts = window.__luoboLoadedScripts || {};
       if (window.__luoboLoadedScripts[url]) return window.__luoboLoadedScripts[url];
+      var attempt = _attempt || 0;
       var p = new Promise(function(resolve, reject) {
         var s = document.createElement('script');
+        var timer = setTimeout(function() {
+          s.onload = s.onerror = null;
+          if (s.parentNode) s.parentNode.removeChild(s);
+          reject(new Error('timeout: ' + url));
+        }, 15000);
         s.src = url;
         s.async = true;
-        s.onload = function() { resolve(); };
-        s.onerror = function() { reject(new Error('failed to load ' + url)); };
+        s.onload = function() { clearTimeout(timer); resolve(); };
+        s.onerror = function() { clearTimeout(timer); if (s.parentNode) s.parentNode.removeChild(s); reject(new Error('failed: ' + url)); };
         document.head.appendChild(s);
+      }).catch(function(err) {
+        // 清除缓存使重试成为可能
+        delete window.__luoboLoadedScripts[url];
+        if (attempt < 1) {
+          // 2 秒后自动重试一次
+          return new Promise(function(r) { setTimeout(r, 2000); }).then(function() {
+            return window.__luoboLoadScript(url, attempt + 1);
+          });
+        }
+        // 重试用尽，通知用户
+        console.warn('[luobo-load]', err.message);
+        if (window.showToast) window.showToast('加载失败，请检查网络后重试');
+        throw err;
       });
       window.__luoboLoadedScripts[url] = p;
       return p;
     };
-  
-;
-    // header 更多下拉：点击外部关闭
-    document.addEventListener('click', function(e) {
-      var dd = document.querySelector('.header-dropdown');
-      if (dd && !e.target.closest('.relative')) dd.style.display = 'none';
-    });
-    // toggle
-    document.querySelectorAll('.header-dropdown').forEach(function(dd) {
-      var btn = dd.previousElementSibling;
-      if (btn) btn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        dd.style.display = dd.style.display === 'block' ? 'none' : 'block';
+    // 骨架屏注入/移除工具
+    window.__luoboSkeleton = {
+      show: function(container) {
+        if (!container || container.querySelector('.luobo-skeleton')) return;
+        var sk = document.createElement('div');
+        sk.className = 'luobo-skeleton';
+        sk.innerHTML = '<div class="luobo-skeleton-text"></div><div class="luobo-skeleton-text"></div><div class="luobo-skeleton-text"></div>';
+        container.appendChild(sk);
+      },
+      hide: function(container) {
+        if (!container) return;
+        var sk = container.querySelector('.luobo-skeleton');
+        if (sk) sk.parentNode.removeChild(sk);
+      }
+    };
+    // ===== 微信/iOS 分享图统一工具 v1 =====
+    // 策略：navigator.share(files) → 弹窗长按保存 → clipboard 兜底
+    window.__luoboShareImage = function(canvasOrBlob, filename) {
+      var getBlob = function(cb) {
+        if (canvasOrBlob instanceof Blob) { cb(canvasOrBlob); return; }
+        if (canvasOrBlob instanceof HTMLCanvasElement) {
+          canvasOrBlob.toBlob(function(b) { cb(b); }, 'image/png');
+          return;
+        }
+        cb(null);
+      };
+      getBlob(function(blob) {
+        if (!blob) { if(window.showToast) window.showToast('图片生成失败'); return; }
+        var file = new File([blob], filename || 'share.png', { type: 'image/png' });
+        // 优先：Web Share API Level 2（Android Chrome、iOS Safari 15+）
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          navigator.share({ files: [file], title: '萝卜干围棋' }).catch(function(){});
+          return;
+        }
+        // 次选：弹窗显示图片 → 长按保存（微信/iOS 通用方案）
+        var url = URL.createObjectURL(blob);
+        var modal = document.createElement('div');
+        modal.className = 'luobo-share-modal';
+        modal.innerHTML = '<img src="' + url + '" alt="分享图">' +
+          '<div class="share-tip">长按图片保存到相册<br>再打开微信分享到朋友圈</div>' +
+          '<button class="share-close">关闭</button>';
+        document.body.appendChild(modal);
+        modal.querySelector('.share-close').addEventListener('click', function() {
+          document.body.removeChild(modal);
+          setTimeout(function(){ URL.revokeObjectURL(url); }, 500);
+        });
+        modal.addEventListener('click', function(e) {
+          if (e.target === modal) {
+            document.body.removeChild(modal);
+            setTimeout(function(){ URL.revokeObjectURL(url); }, 500);
+          }
+        });
+        // 兜底：尝试复制到剪贴板
+        if (navigator.clipboard && navigator.clipboard.write && typeof ClipboardItem !== 'undefined') {
+          try {
+            navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]).then(function() {
+              if(window.showToast) window.showToast('图片已复制到剪贴板');
+            }).catch(function(){});
+          } catch(e){}
+        }
       });
-    });
+    };
+
+;
+    // header 更多下拉 v2：统一状态管理，消除 inline onclick 冲突
+    (function(){
+      function closeAllDropdowns() {
+        document.querySelectorAll('.header-dropdown').forEach(function(dd) {
+          dd.style.display = 'none';
+        });
+      }
+      // toggle 绑定：button 紧邻 .header-dropdown
+      document.querySelectorAll('.header-dropdown').forEach(function(dd) {
+        var btn = dd.previousElementSibling;
+        if (btn) btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          var isOpen = dd.style.display === 'block';
+          closeAllDropdowns();
+          if (!isOpen) {
+            dd.style.display = 'block';
+            dd.style.animation = 'fadeSlideIn .2s ease-out';
+          }
+        });
+        // 点击下拉项后关闭
+        dd.addEventListener('click', function(e) {
+          if (e.target.closest('a')) closeAllDropdowns();
+        });
+      });
+      // 点击外部关闭
+      document.addEventListener('click', function(e) {
+        if (!e.target.closest('.header-dropdown') && !e.target.closest('.relative button')) {
+          closeAllDropdowns();
+        }
+      });
+      // ESC 关闭
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeAllDropdowns();
+      });
+    })();
     
 ;
 function toggleShixunDetail(btn) {
@@ -490,17 +593,9 @@ function toggleShixunDetail(btn) {
 
   function downloadPoster(){
     var canvas = document.getElementById('ct-poster-canvas');
-    try {
-      var url = canvas.toDataURL('image/png');
-      var a = document.createElement('a');
-      a.href = url;
-      a.download = '专注力测试-' + (state.info && state.info.nick || '匿名') + '-' + Date.now() + '.png';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-    } catch(e) {
-      alert('下载失败，请长按海报保存到相册');
-    }
+    if (!canvas) return;
+    var fname = '专注力测试-' + (state.info && state.info.nick || '匿名') + '.png';
+    window.__luoboShareImage(canvas, fname);
   }
 
   // ==== 复制微信号 ====
@@ -727,7 +822,7 @@ function toggleShixunDetail(btn) {
       document.getElementById('test-selector').style.display = 'none';
       document.getElementById('test-quiz').style.display = 'block';
       renderQuestion();
-      window.scrollTo({top: document.getElementById('ability-test').offsetTop - 20, behavior: 'smooth'});
+      (function(){ var p=document.getElementById('ability-test'); if(p&&p.classList.contains('open')) p.scrollTo({top:0,behavior:'smooth'}); })();
     });
 
     // ===== 渲染题目 =====
@@ -821,7 +916,7 @@ function toggleShixunDetail(btn) {
       document.getElementById('res-comment').textContent = genComment(total, level, state.role, state.dimScore, state.dimMax);
       document.getElementById('radar-wrap').innerHTML = renderRadar(state.dimScore, state.dimMax, level.color);
       document.getElementById('certificate-wrap').innerHTML = renderCert(total, level, state.role, state.dimScore, state.dimMax);
-      window.scrollTo({top: document.getElementById('ability-test').offsetTop - 20, behavior: 'smooth'});
+      (function(){ var p=document.getElementById('ability-test'); if(p&&p.classList.contains('open')) p.scrollTo({top:0,behavior:'smooth'}); })();
     }
 
     // ===== 雷达图 =====
@@ -1027,17 +1122,11 @@ function toggleShixunDetail(btn) {
         const ctx = cvs.getContext('2d');
         ctx.scale(scale, scale);
         ctx.drawImage(img, 0, 0);
-        cvs.toBlob(png => {
-          const pngUrl = URL.createObjectURL(png);
-          const a = document.createElement('a');
-          a.href = pngUrl;
-          const lvName = document.getElementById('res-level').textContent;
-          a.download = '萝卜干围棋认证-' + lvName + '.png';
-          a.click();
-          setTimeout(() => { URL.revokeObjectURL(pngUrl); URL.revokeObjectURL(url); }, 1000);
-        }, 'image/png');
+        URL.revokeObjectURL(url);
+        const lvName = document.getElementById('res-level').textContent;
+        window.__luoboShareImage(cvs, '萝卜干围棋认证-' + lvName + '.png');
       };
-      img.onerror = () => { alert('证书下载失败，请刷新页面重试'); URL.revokeObjectURL(url); };
+      img.onerror = () => { if(window.showToast) window.showToast('证书生成失败，请刷新重试'); URL.revokeObjectURL(url); };
       img.src = url;
     });
 
@@ -1046,7 +1135,7 @@ function toggleShixunDetail(btn) {
       document.getElementById('test-result').style.display = 'none';
       document.getElementById('test-intro').style.display = 'block';
       document.getElementById('test-selector').style.display = 'flex';
-      window.scrollTo({top: document.getElementById('ability-test').offsetTop - 20, behavior: 'smooth'});
+      (function(){ var p=document.getElementById('ability-test'); if(p&&p.classList.contains('open')) p.scrollTo({top:0,behavior:'smooth'}); })();
     });
 
     // ===== 换另一版 =====
@@ -1059,7 +1148,7 @@ function toggleShixunDetail(btn) {
       document.getElementById('test-result').style.display = 'none';
       document.getElementById('test-intro').style.display = 'block';
       document.getElementById('test-selector').style.display = 'flex';
-      window.scrollTo({top: document.getElementById('ability-test').offsetTop - 20, behavior: 'smooth'});
+      (function(){ var p=document.getElementById('ability-test'); if(p&&p.classList.contains('open')) p.scrollTo({top:0,behavior:'smooth'}); })();
     });
   })();
 
@@ -1127,7 +1216,8 @@ window.__luoboInitCulture = function() {
       }
 
       function scrollToCulture() {
-        window.scrollTo({ top: document.getElementById('culture').offsetTop - 20, behavior: 'smooth' });
+        var p = document.getElementById('culture');
+        if (p && p.classList.contains('open')) p.scrollTo({ top: 0, behavior: 'smooth' });
       }
 
       // 绑定入口卡片
@@ -1252,9 +1342,14 @@ window.__luoboInitCulture = function() {
   var loaded = false;
   window.showPracticeGuide = function(){
     if(loaded){ return; }
-    loaded = true;
+    var container = document.getElementById('practice-guide') || document.getElementById('teaching');
+    window.__luoboSkeleton.show(container);
     window.__luoboLoadScript('/assets/js/practice-guide-lazy.js').then(function(){
+      loaded = true;
+      window.__luoboSkeleton.hide(container);
       window.showPracticeGuide();
+    }).catch(function(){
+      window.__luoboSkeleton.hide(container);
     });
   };
   window.hidePracticeGuide = function(){
@@ -1340,34 +1435,56 @@ function hideParentGuide(){
     }
     window.scrollTo({ top: Math.max(0, target), behavior: 'smooth' });
   }
+  var _scrollPositions = {}; // 面板滚动位置记忆
   function openSection(id){
-    // 独占模式：关闭其他
-    document.querySelectorAll('.collapsible.open').forEach(el => {
-      if(el.id !== id) el.classList.remove('open');
-    });
-    const target = document.getElementById(id);
-    if(!target) return;
-    if(target.classList.contains('collapsible')){
-      target.classList.add('open');
-      document.body.classList.add('body-lock');
-      // 面板内滚动重置到顶部
-      setTimeout(() => { target.scrollTop = 0; }, 30);
+    var doOpen = function() {
+      // 独占模式：保存其他面板的滚动位置并关闭
+      document.querySelectorAll('.collapsible.open').forEach(el => {
+        if(el.id !== id) {
+          _scrollPositions[el.id] = el.scrollTop;
+          el.classList.remove('open');
+        }
+      });
+      const target = document.getElementById(id);
+      if(!target) return;
+      if(target.classList.contains('collapsible')){
+        target.classList.add('open');
+        document.body.classList.add('body-lock');
+        // 恢复上次滚动位置（首次打开则为 0）
+        var saved = _scrollPositions[id] || 0;
+        setTimeout(() => { target.scrollTop = saved; }, 30);
+      } else {
+        // 非折叠段（hero/showcase/mission/contact）走滚动
+        setTimeout(() => scrollToEl(target), 60);
+      }
+      // 更新 side-nav active
+      document.querySelectorAll('.side-nav a').forEach(a => a.classList.remove('active'));
+      const btn = document.querySelector('.side-nav a[data-target="' + id + '"]');
+      if(btn) btn.classList.add('active');
+      // 关闭移动端菜单
+      document.querySelector('.side-nav').classList.remove('mobile-open');
+      document.body.classList.remove('side-open');
+    };
+    if (document.startViewTransition) {
+      document.startViewTransition(doOpen);
     } else {
-      // 非折叠段（hero/showcase/mission/contact）走滚动
-      setTimeout(() => scrollToEl(target), 60);
+      doOpen();
     }
-    // 更新 side-nav active
-    document.querySelectorAll('.side-nav a').forEach(a => a.classList.remove('active'));
-    const btn = document.querySelector('.side-nav a[data-target="' + id + '"]');
-    if(btn) btn.classList.add('active');
-    // 关闭移动端菜单
-    document.querySelector('.side-nav').classList.remove('mobile-open');
-    document.body.classList.remove('side-open');
   }
   function closeAllPanels(){
-    document.querySelectorAll('.collapsible.open').forEach(el => el.classList.remove('open'));
-    document.body.classList.remove('body-lock');
-    document.querySelectorAll('.side-nav a').forEach(a => a.classList.remove('active'));
+    var doClose = function() {
+      document.querySelectorAll('.collapsible.open').forEach(el => {
+        _scrollPositions[el.id] = el.scrollTop;
+        el.classList.remove('open');
+      });
+      document.body.classList.remove('body-lock');
+      document.querySelectorAll('.side-nav a').forEach(a => a.classList.remove('active'));
+    };
+    if (document.startViewTransition) {
+      document.startViewTransition(doClose);
+    } else {
+      doClose();
+    }
   }
   // ===== LUOBO-OPENSECTION-EXPOSE v1.0 START =====
   // v3.14 fix18 · 大师星图点击跳转彻底修复：openSection 暴露到 window，供 __luoboJumpToMaster 调用
@@ -1615,18 +1732,6 @@ function hideParentGuide(){
   });
   // 初始化
   setTimeout(() => updateSlideDots(0), 100);
-
-  // ===== v3.1: side-nav 点击 → 新标签页打开（不覆盖旧页面）=====
-  document.addEventListener('click', function(e) {
-    const a = e.target.closest('.side-nav a.nav-toggle');
-    if (!a) return;
-    e.preventDefault();
-    e.stopImmediatePropagation();
-    const id = a.dataset.target || '';
-    const url = new URL(window.location.href);
-    url.hash = id;
-    window.open(url.toString(), '_blank', 'noopener');
-  }, true); // capture 阶段：早于原独占 handler
 
   // ===== v3.1: URL 带 hash 且指向 collapsible → 自动展开 =====
   (function autoExpandFromHash() {
@@ -1921,12 +2026,7 @@ function hideParentGuide(){
     ctx.fillText('\u2015\u2015 \u841d\u535c\u5e72\u56f4\u68cb\u6559\u80b2 \u00b7 \u542f\u8499\u4e13\u7532 \u2015\u2015',360,980);
     ctx.font='bold 20px "KaiTi",serif';ctx.fillStyle='#3a2a10';
     ctx.fillText('\u5fae\u4fe1: '+CONTACT_WX,360,1020);
-    var url=cvs.toDataURL('image/png');
-    var a=document.createElement('a');
-    a.href=url;
-    a.download='luobo_go_quiz_'+m.name+'.png';
-    document.body.appendChild(a);a.click();
-    setTimeout(function(){document.body.removeChild(a);},400);
+    window.__luoboShareImage(cvs, 'luobo_go_quiz_'+m.name+'.png');
   }
   function wrap(ctx,text,maxW){
     var out=[],cur='';
@@ -2183,10 +2283,10 @@ function hideParentGuide(){
   var loaded = false;
   window.__luoboOpenDailyRitual = function(tab){
     if(loaded){ return; }
-    loaded = true;
     window.__luoboLoadScript('/assets/js/daily-ritual-lazy.js').then(function(){
+      loaded = true;
       window.__luoboOpenDailyRitual(tab);
-    });
+    }).catch(function(){});
   };
 })();
 ;
@@ -2359,6 +2459,7 @@ function hideParentGuide(){
     clearTimeout(t.__luoboTimer);
     t.__luoboTimer = setTimeout(function(){ t.classList.remove('show'); }, 1800);
   }
+  window.showToast = showToast;
 
   function copyLink(url){
     if(navigator.clipboard && navigator.clipboard.writeText){
@@ -2488,10 +2589,10 @@ function hideParentGuide(){
   var loaded = false;
   window.openClassroomGames = function(){
     if(loaded){ return; }
-    loaded = true;
     window.__luoboLoadScript('/assets/js/classroom-games-lazy.js').then(function(){
+      loaded = true;
       window.openClassroomGames();
-    });
+    }).catch(function(){});
   };
   window.closeClassroomGames = function(){};
 })();
@@ -2502,9 +2603,17 @@ function hideParentGuide(){
   (function(){
     var sec = document.getElementById('brain-training');
     if(!sec) return;
-    if(sec.classList.contains('open')){ window.__luoboLoadScript('/assets/js/brain-games.js'); return; }
+    function loadBrain() {
+      window.__luoboSkeleton.show(sec);
+      window.__luoboLoadScript('/assets/js/brain-games.js').then(function(){
+        window.__luoboSkeleton.hide(sec);
+      }).catch(function(){
+        window.__luoboSkeleton.hide(sec);
+      });
+    }
+    if(sec.classList.contains('open')){ loadBrain(); return; }
     var mo = new MutationObserver(function(){
-      if(sec.classList.contains('open')){ mo.disconnect(); window.__luoboLoadScript('/assets/js/brain-games.js'); }
+      if(sec.classList.contains('open')){ mo.disconnect(); loadBrain(); }
     });
     mo.observe(sec, {attributes:true, attributeFilter:['class']});
   })();
@@ -2519,11 +2628,16 @@ function hideParentGuide(){
     window.__luoboEnsureCulture = function(){
       if(loading) return window.__luoboCulturePromise;
       loading = true;
+      window.__luoboSkeleton.show(sec);
       window.__luoboCulturePromise = window.__luoboLoadScript('/assets/data/culture_data.js').then(function(){
         return window.__luoboLoadScript('/assets/js/culture-fix21.js');
       }).then(function(){
+        window.__luoboSkeleton.hide(sec);
         if(typeof window.__luoboInitCulture === 'function') window.__luoboInitCulture();
         if(typeof window.__luoboCultureFix21 === 'function') window.__luoboCultureFix21();
+      }).catch(function(){
+        window.__luoboSkeleton.hide(sec);
+        loading = false; // 允许重试
       });
       return window.__luoboCulturePromise;
     };
@@ -2544,8 +2658,14 @@ function hideParentGuide(){
     window.__luoboEnsureEdulab = function(){
       if(loading) return window.__luoboEdulabPromise;
       loading = true;
+      window.__luoboSkeleton.show(sec);
       window.__luoboEdulabPromise = window.__luoboLoadScript('/assets/data/edulab_data.js').then(function(){
         return window.__luoboLoadScript('/assets/js/edulab-lazy.js');
+      }).then(function(){
+        window.__luoboSkeleton.hide(sec);
+      }).catch(function(){
+        window.__luoboSkeleton.hide(sec);
+        loading = false;
       });
       return window.__luoboEdulabPromise;
     };
@@ -2566,8 +2686,14 @@ function hideParentGuide(){
     window.__luoboEnsureTeaching = function(){
       if(loading) return window.__luoboTeachingPromise;
       loading = true;
+      window.__luoboSkeleton.show(sec);
       window.__luoboTeachingPromise = window.__luoboLoadScript('/assets/data/teaching_data.js').then(function(){
         return window.__luoboLoadScript('/assets/js/teaching-lazy.js');
+      }).then(function(){
+        window.__luoboSkeleton.hide(sec);
+      }).catch(function(){
+        window.__luoboSkeleton.hide(sec);
+        loading = false;
       });
       return window.__luoboTeachingPromise;
     };
