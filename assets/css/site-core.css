@@ -1008,8 +1008,8 @@
 #ink-landing-mask .ink-title{font-family:"KaiTi","STKaiti","Songti SC","SimSun",serif;font-size:22px;letter-spacing:8px;color:#4a3a26;margin-bottom:18px;opacity:.85;text-shadow:0 1px 0 rgba(255,255,255,.6)}
 #ink-landing-mask .ink-sub{font-family:"KaiTi","STKaiti",serif;font-size:13px;letter-spacing:4px;color:#7a6a4c;margin-top:14px;opacity:.7}
 #ink-landing-mask canvas{background:linear-gradient(135deg,#f0e4c8 0%,#e6d5ae 100%);border:1px solid #b09a70;box-shadow:0 8px 30px rgba(80,60,30,.25),inset 0 0 40px rgba(120,90,50,.12);border-radius:2px}
-#ink-landing-mask .ink-skip{position:absolute;top:18px;right:22px;font-family:"KaiTi","STKaiti",serif;font-size:14px;color:#6a5a3c;background:rgba(255,255,255,.35);border:1px solid rgba(120,90,50,.35);padding:6px 14px;border-radius:16px;cursor:pointer;letter-spacing:2px;transition:all .25s}
-#ink-landing-mask .ink-skip:hover{background:rgba(255,255,255,.6);color:#3a2a10}
+#ink-landing-mask .ink-skip{position:absolute;top:16px;right:16px;min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center;font-family:"KaiTi","STKaiti",serif;font-size:15px;color:#3a2a10;background:rgba(255,255,255,.55);border:1px solid rgba(120,90,50,.45);padding:10px 20px;border-radius:22px;cursor:pointer;letter-spacing:2px;transition:all .25s;touch-action:manipulation}
+#ink-landing-mask .ink-skip:hover{background:rgba(255,255,255,.8);color:#241806}
 #ink-landing-mask .ink-brand{position:absolute;bottom:26px;font-family:"KaiTi",serif;font-size:11px;color:#8a7a5c;letter-spacing:6px;opacity:.65}
 @media(max-width:520px){#ink-landing-mask canvas{width:320px!important;height:320px!important}#ink-landing-mask .ink-title{font-size:18px}}
 #hb-mask{position:fixed;inset:0;z-index:9997;background:rgba(20,15,8,.55);display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
@@ -1131,3 +1131,189 @@
 #projects .card { position: relative; border-top: 2px solid var(--ink); }
 .tcard-num { position: absolute; top: 12px; right: 16px; font-size: 32px; line-height: 1; font-weight: 700; color: var(--ink); opacity: .1; }
 #projects .tcard-foot { margin-top: auto; padding-top: 10px; border-top: 1px solid var(--line); }
+
+/* ===== 互动体感第二期：微交互反馈 + 移动触摸体感 ===== */
+
+/* 2.1 全站按压反馈 */
+button, .nav-toggle, .role-card, .card, .tool-card, .culture-entry,
+.dir-card, .q-opt, .hb-btn, .q-btn, .opt-btn, .tab-btn,
+.test-tab-btn, .mm-tab, .dr-tab-btn, .stage-tab, .luobo-share-btn {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(139,58,58,0.08);
+  transition: transform 0.1s ease, opacity 0.1s ease;
+}
+button:active, .nav-toggle:active, .role-card:active, .card:active,
+.tool-card:active, .culture-entry:active, .dir-card:active,
+.q-opt:active, .hb-btn:active, .q-btn:active, .opt-btn:active,
+.tab-btn:active, .test-tab-btn:active, .mm-tab:active,
+.dr-tab-btn:active, .stage-tab:active, .luobo-share-btn:active {
+  transform: scale(0.97);
+  opacity: 0.85;
+}
+
+/* 2.2 统一 tab 切换 crossfade */
+@keyframes tabFadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.test-panel.active, .dr-panel.active, .stage-panel.active,
+.mm-tab-content.active, #tools .toolgroup.active {
+  animation: tabFadeIn 0.28s ease-out both;
+}
+
+/* 2.3 表单按钮异步态 */
+@keyframes btnSpin { to { transform: rotate(360deg); } }
+.btn-async { position: relative; pointer-events: none; opacity: 0.75; }
+.btn-async::after {
+  content: ''; position: absolute; right: 10px; top: 50%; margin-top: -6px;
+  width: 12px; height: 12px; border: 2px solid currentColor;
+  border-top-color: transparent; border-radius: 50%;
+  animation: btnSpin 0.6s linear infinite;
+}
+.btn-success { background: #38753b !important; border-color: #38753b !important; color: #fff !important; pointer-events: none; }
+
+/* 2.4 输入焦点反馈 */
+input:focus-visible, textarea:focus-visible, select:focus-visible {
+  outline: none;
+  border-color: var(--seal) !important;
+  box-shadow: 0 0 0 3px rgba(139,58,58,0.1);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+button:focus-visible, a:focus-visible, [tabindex]:focus-visible {
+  outline: 2px solid var(--seal);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+/* 2.5 sticky 移动端 CTA：复用已有底部 TabBar 的「联系」项，过 hero 后升级为「预约试听」强调态。
+   不新增第二条固定栏（避免与 mobile-tabbar 堆叠、保持朴素专业风、零 CLS）。 */
+.mobile-tabbar a.cta-hot { color: var(--seal); }
+.mobile-tabbar a.cta-hot .mobile-tabbar-label {
+  position: relative;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 11px;
+  background: rgba(139,58,58,0.1);
+  transition: background 0.3s ease, transform 0.3s cubic-bezier(0.22,0.61,0.36,1);
+}
+.mobile-tabbar a.cta-hot.tb-ico-wrap .tb-ico { color: var(--seal); }
+
+/* 2.6 触摸目标 + 安全区 */
+@media (max-width: 900px) {
+  .slide-dot, .showcase-dot { position: relative; }
+  .slide-dot::after, .showcase-dot::after { content: ''; position: absolute; inset: -18px; /* 8px dot + 18px*2 = 44px touch target */ }
+  .dr-tab-btn, .mm-tab, .stage-tab { min-height: 44px; padding: 10px 16px; }
+  .header-dropdown a { padding: 12px 18px; min-height: 44px; display: flex; align-items: center; }
+  .mobile-tabbar { padding-bottom: env(safe-area-inset-bottom, 0px); }
+  .collapsible.open { padding-bottom: calc(40px + env(safe-area-inset-bottom, 0px)) !important; }
+}
+
+/* 2.7 数字滚动计数 */
+.count-up { font-variant-numeric: tabular-nums; }
+
+/* ===== 第三期 · 分享传播 + 克制 delight ===== */
+
+/* 3.5 品牌化原生 <dialog>（替代 alert/confirm，免费 focus trap + ESC + top layer） */
+.luobo-dialog {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--paper, #fdfbf5);
+  color: var(--ink);
+  padding: 26px 26px 20px;
+  max-width: min(88vw, 400px);
+  box-shadow: 0 16px 48px rgba(40,30,15,0.22);
+  font-family: 'Noto Serif SC', serif;
+}
+.luobo-dialog::backdrop { background: rgba(20,15,8,0.42); }
+.luobo-dialog .luobo-dialog-msg {
+  margin: 0 0 20px;
+  font-size: 14.5px;
+  line-height: 1.75;
+  white-space: pre-line;
+  text-align: left;
+  color: var(--ink);
+}
+.luobo-dialog .luobo-dialog-btns { display: flex; justify-content: flex-end; gap: 10px; }
+.luobo-dialog .luobo-dialog-btns button {
+  min-height: 40px;
+  padding: 8px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: inherit;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform 0.1s, background 0.2s;
+}
+.luobo-dialog .luobo-dialog-btns button:active { transform: scale(0.96); }
+.luobo-dialog .ld-cancel { background: transparent; border: 1px solid var(--line); color: var(--ink); }
+.luobo-dialog .ld-ok { background: var(--seal); border: 1px solid var(--seal); color: #fff; }
+.luobo-dialog[open] { animation: panelIn 0.24s ease-out both; }
+
+/* 3.2 主 CTA「落子」反馈：单元素墨韵环（transform/opacity，无彩带） */
+.stone-ripple {
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 14px; height: 14px;
+  margin: -7px 0 0 -7px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.85);
+  pointer-events: none;
+  animation: stoneRipple 0.5s ease-out forwards;
+}
+@keyframes stoneRipple {
+  from { transform: scale(0.4); opacity: 0.9; }
+  to   { transform: scale(4.2); opacity: 0; }
+}
+.stone-drop {
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 12px; height: 12px;
+  margin: -6px 0 0 -6px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #fff 0%, #d8d2c0 60%, #b8b09a 100%);
+  pointer-events: none;
+  animation: stoneDrop 0.34s cubic-bezier(0.22,0.61,0.36,1) forwards;
+}
+@keyframes stoneDrop {
+  from { transform: scale(1.8); opacity: 0; }
+  60%  { transform: scale(0.92); opacity: 1; }
+  to   { transform: scale(1); opacity: 0; }
+}
+.cta-stone-host { position: relative; overflow: visible; }
+
+/* 3.3 大师星图触屏：首触点节点弹出底部简介条（bottom-sheet），再点跳文章 */
+#mm-panel .mm-tip.mm-tip-pinned {
+  position: absolute;
+  left: 12px; right: 12px; bottom: 12px;
+  top: auto;
+  max-width: none;
+  opacity: 1;
+  pointer-events: auto;
+  padding: 12px 14px;
+  animation: tabFadeIn 0.24s ease-out both;
+}
+#mm-panel .mm-tip.mm-tip-pinned .mm-tip-hint {
+  display: block;
+  margin-top: 6px;
+  font-size: 11px;
+  color: rgba(240,228,200,0.65);
+  letter-spacing: 1px;
+}
+
+
+/* ===== 第四期 · 无障碍与健壮性 ===== */
+
+/* 4.5 prefers-reduced-motion：全局把动效收敛到 ≤100ms opacity */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .fade-in { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .stone-ripple, .stone-drop { display: none !important; }
+}
+
+/* 4.6 content-visibility：页脚长块降渲染成本（auto 尺寸防 CLS） */
+footer {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 480px;
+}

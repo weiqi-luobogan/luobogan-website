@@ -2049,6 +2049,15 @@ font-size:13px;border:1px solid var(--line,#d9c9a0);background:#fff;color:#5a4a2
 .dr-cal-day.today {
   outline: 2px solid var(--dr-gold); outline-offset: -2px;
 }
+/* 3.6 打卡仪式感：今日格"落子"式着陆（圆→方，纯 transform，无声音/彩带） */
+.dr-cal-day.checked.stone-land {
+  animation: stoneLand 0.45s cubic-bezier(0.22,0.61,0.36,1);
+}
+@keyframes stoneLand {
+  0%   { transform: scale(1.7); border-radius: 50%; }
+  60%  { transform: scale(0.94); border-radius: 50%; }
+  100% { transform: scale(1); border-radius: 4px; }
+}
 
 /* ============ 萝卜精 tab ============ */
 .luobo-quote-card {

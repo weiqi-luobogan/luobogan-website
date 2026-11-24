@@ -105,14 +105,20 @@
     };
 
     window.logoutEdulab = function() {
-      if (!confirm("确定要退出登录吗？下次进入需要重新输入账号密码。")) return;
-      localStorage.removeItem(STORAGE_KEY);
-      document.getElementById("edulab-detail").style.display = "none";
-      document.getElementById("edulab-content").style.display = "none";
-      document.getElementById("edulab-gate").style.display = "block";
-      document.getElementById("edulab-account-input").value = "";
-      document.getElementById("edulab-pass-input").value = "";
-      document.getElementById("edulab-gate-msg").textContent = "";
+      var doLogout = function() {
+        localStorage.removeItem(STORAGE_KEY);
+        document.getElementById("edulab-detail").style.display = "none";
+        document.getElementById("edulab-content").style.display = "none";
+        document.getElementById("edulab-gate").style.display = "block";
+        document.getElementById("edulab-account-input").value = "";
+        document.getElementById("edulab-pass-input").value = "";
+        document.getElementById("edulab-gate-msg").textContent = "";
+      };
+      if (window.__luoboDialog && window.__luoboDialog.confirm) {
+        window.__luoboDialog.confirm("确定要退出登录吗？下次进入需要重新输入账号密码。").then(function(ok){ if(ok) doLogout(); });
+      } else if (confirm("确定要退出登录吗？下次进入需要重新输入账号密码。")) {
+        doLogout();
+      }
     };
 
     // 五期：本文件由懒加载注入，DOM 已 ready，直接执行

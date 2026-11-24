@@ -225,6 +225,12 @@
       var snap = pickAndSaveLuoboQuote();
       renderLuoboQuoteFromSnapshot(snap);
       markToday();
+      // 3.6 打卡仪式感：今日格"落子"着陆动画
+      var todayCell = document.querySelector('.dr-cal-day.today.checked');
+      if (todayCell) {
+        todayCell.classList.add('stone-land');
+        setTimeout(function(){ todayCell.classList.remove('stone-land'); }, 600);
+      }
       setLuoboView('result');
       if (btn) btn.disabled = false;
       showToast('打卡成功');

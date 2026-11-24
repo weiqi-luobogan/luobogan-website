@@ -603,7 +603,7 @@ function toggleShixunDetail(btn) {
     var wx = 'yxwq0909';
     var done = function(){
       if (window.showToast) window.showToast('微信号已复制，请去微信搜索添加');
-      else alert('微信号已复制：' + wx + '\n请去微信搜索添加');
+      else window.__luoboDialog.alert('微信号已复制：' + wx + '\n请去微信搜索添加');
     };
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(wx).then(done, function(){ fallbackCopyText(wx, done); });
@@ -620,7 +620,7 @@ function toggleShixunDetail(btn) {
       document.body.removeChild(i);
       cb && cb();
     } catch(e){
-      alert('请手动复制微信号：' + txt);
+      window.__luoboDialog.alert('请手动复制微信号：' + txt);
     }
   }
 
@@ -628,7 +628,8 @@ function toggleShixunDetail(btn) {
   function submitSample(){
     var list = loadHistory();
     if (!list.length) {
-      alert('请先完成一次测试');
+      if (window.showToast) window.showToast('请先完成一次测试');
+      else window.__luoboDialog.alert('请先完成一次测试');
       return;
     }
     var rec = list[0];
@@ -648,10 +649,11 @@ function toggleShixunDetail(btn) {
       window.location.href = mailto;
       setTimeout(function(){
         if (window.showToast) window.showToast('已尝试打开邮件客户端，本次数据也已保存在本地');
-        else alert('已尝试打开邮件客户端，本次数据也已保存在本地');
+        else window.__luoboDialog.alert('已尝试打开邮件客户端，本次数据也已保存在本地');
       }, 500);
     } catch(e){
-      alert('感谢参与，样本已记录到本地');
+      if (window.showToast) window.showToast('感谢参与，样本已记录到本地');
+      else window.__luoboDialog.alert('感谢参与，样本已记录到本地');
     }
   }
 
@@ -721,19 +723,19 @@ function toggleShixunDetail(btn) {
       var elapsed = Date.now() - loadedAt;
       if(elapsed < 3000){
         ev.preventDefault();
-        alert('留言太快啦，稍等几秒再点提交～');
+        window.showToast('留言太快啦，稍等几秒再点提交～');
         return;
       }
       if(!hasHumanBehavior){
         ev.preventDefault();
-        alert('检测到异常行为，请正常浏览页面后再试。');
+        window.showToast('检测到异常行为，请正常浏览页面后再试。');
         return;
       }
       var last = parseInt(localStorage.getItem('_lbg_msg_ts') || '0', 10);
       if(Date.now() - last < 60000){
         ev.preventDefault();
         var wait = Math.ceil((60000 - (Date.now() - last))/1000);
-        alert('每分钟只能留言一次，请 ' + wait + ' 秒后再来。');
+        window.showToast('每分钟只能留言一次，请 ' + wait + ' 秒后再来。');
         return;
       }
       localStorage.setItem('_lbg_msg_ts', String(Date.now()));
@@ -1436,6 +1438,13 @@ function hideParentGuide(){
     window.scrollTo({ top: Math.max(0, target), behavior: 'smooth' });
   }
   var _scrollPositions = {}; // 面板滚动位置记忆
+    // 静默 View Transition 被跳过/中断时的 reject（ready/finished/done/updateCallbackDone 全捕获）
+  function __luoboSilenceVT(vt){
+    if(!vt) return;
+    ['ready','finished','done','updateCallbackDone'].forEach(function(k){
+      if(vt[k] && typeof vt[k].catch === 'function') vt[k].catch(function(){});
+    });
+  }
   function openSection(id){
     var doOpen = function() {
       // 独占模式：保存其他面板的滚动位置并关闭
@@ -1466,7 +1475,9 @@ function hideParentGuide(){
       document.body.classList.remove('side-open');
     };
     if (document.startViewTransition) {
-      document.startViewTransition(doOpen);
+      // 捕获 VT 被中断时的 reject，避免 unhandled rejection（快速连开/连关时常见）
+      var vt1 = document.startViewTransition(doOpen);
+      __luoboSilenceVT(vt1);
     } else {
       doOpen();
     }
@@ -1481,7 +1492,8 @@ function hideParentGuide(){
       document.querySelectorAll('.side-nav a').forEach(a => a.classList.remove('active'));
     };
     if (document.startViewTransition) {
-      document.startViewTransition(doClose);
+      var vt2 = document.startViewTransition(doClose);
+      __luoboSilenceVT(vt2);
     } else {
       doClose();
     }
@@ -1803,10 +1815,10 @@ function hideParentGuide(){
   }
   var stones=[
     {gx:4,gy:4,color:'B',t0:0},
-    {gx:5,gy:3,color:'W',t0:350},
-    {gx:3,gy:4,color:'B',t0:700},
-    {gx:5,gy:5,color:'W',t0:1050},
-    {gx:4,gy:2,color:'B',t0:1400}
+    {gx:5,gy:3,color:'W',t0:220},
+    {gx:3,gy:4,color:'B',t0:440},
+    {gx:5,gy:5,color:'W',t0:660},
+    {gx:4,gy:2,color:'B',t0:880}
   ];
   var start=performance.now();
   var stopped=false;
@@ -1819,10 +1831,10 @@ function hideParentGuide(){
       var s=stones[i];
       if(t<s.t0){continue;}
       var elapsed=t-s.t0;
-      var phase=Math.min(1,elapsed/600);
+      var phase=Math.min(1,elapsed/420);
       drawInkStone(s.gx,s.gy,s.color,phase);
     }
-    if(t<2500){requestAnimationFrame(loop);}
+    if(t<1500){requestAnimationFrame(loop);}
     else{finish();}
   }
   function finish(){
@@ -1837,6 +1849,8 @@ function hideParentGuide(){
     },700);
   }
   if(skip){skip.addEventListener('click',finish);}
+  // 3.4 点遮罩任意处即可跳过，首交互不被阻塞
+  mask.addEventListener('click',finish);
   requestAnimationFrame(loop);
 })();
 ;
@@ -1970,62 +1984,71 @@ function hideParentGuide(){
     document.getElementById('q-share').addEventListener('click',function(){makeShareImage(m);});
   }
   function makeShareImage(m){
+    // 3.1 可转发卡片：干净留白 + 单一强调色（朱红），去渐变去花哨
     var cvs=document.createElement('canvas');
     cvs.width=720;cvs.height=1080;
     var ctx=cvs.getContext('2d');
-    var g=ctx.createLinearGradient(0,0,720,1080);
-    g.addColorStop(0,'#faf1d8');g.addColorStop(1,'#e8d29a');
-    ctx.fillStyle=g;ctx.fillRect(0,0,720,1080);
-    ctx.strokeStyle='rgba(120,90,50,.35)';ctx.lineWidth=2;
-    ctx.strokeRect(28,28,720-56,1080-56);
-    ctx.fillStyle='#8a5a20';ctx.font='24px "KaiTi","STKaiti",serif';
+    var PAPER='#fdfbf5', INK='#2b2724', GRAY='#8a857e', SEAL='#a8362a';
+    ctx.fillStyle=PAPER;ctx.fillRect(0,0,720,1080);
+    // 顶部细朱红压线 + 眉题
+    ctx.fillStyle=SEAL;ctx.fillRect(64,84,44,4);
+    ctx.textAlign='left';
+    ctx.font='20px "KaiTi","STKaiti",serif';
+    ctx.fillStyle=SEAL;
+    ctx.fillText('你是哪位棋手',64,140);
+    ctx.font='14px "KaiTi",serif';
+    ctx.fillStyle=GRAY;
+    ctx.fillText('8 道小题 · 找到你的棋风大师',64,170);
+    // 主结果：大留白 + 单一强调
     ctx.textAlign='center';
-    ctx.fillText('\u4f60\u662f\u54ea\u4f4d\u68cb\u624b',360,110);
-    ctx.font='16px "KaiTi","STKaiti",serif';
-    ctx.fillStyle='#8a7042';
-    ctx.fillText('8\u9053\u5c0f\u9898 \u00b7 \u627e\u5230\u4f60\u7684\u68cb\u98ce\u5927\u5e08',360,140);
-    ctx.font='14px "KaiTi",serif';ctx.fillStyle='#7a5a20';
-    ctx.fillText('\u4f60\u662f\u2026\u2026',360,220);
-    ctx.font='bold 72px "KaiTi","STKaiti",serif';ctx.fillStyle='#3a2a10';
-    ctx.fillText(m.name,360,310);
-    ctx.font='20px "KaiTi",serif';ctx.fillStyle='#8a5a20';
-    ctx.fillText(m.alias,360,350);
-    var keysX=360,keysY=410;
+    ctx.font='15px "KaiTi",serif';ctx.fillStyle=GRAY;
+    ctx.fillText('你 是',360,300);
+    ctx.font='bold 84px "KaiTi","STKaiti",serif';ctx.fillStyle=INK;
+    ctx.fillText(m.name,360,392);
+    ctx.font='22px "KaiTi",serif';ctx.fillStyle=SEAL;
+    ctx.fillText(m.alias,360,436);
+    // 关键词 pills（描边朱红，无填充渐变）
     ctx.font='16px "KaiTi",serif';
-    var totalW=0,gaps=[];
+    var keysY=500,totalW=0,gaps=[];
     for(var i=0;i<m.keys.length;i++){
-      var w=ctx.measureText(m.keys[i]).width+30;
+      var w=ctx.measureText(m.keys[i]).width+34;
       gaps.push(w);totalW+=w;
     }
-    totalW+=(m.keys.length-1)*10;
+    totalW+=(m.keys.length-1)*12;
     var startX=(720-totalW)/2;
     for(var j=0;j<m.keys.length;j++){
-      ctx.fillStyle='rgba(196,139,58,.2)';
-      ctx.strokeStyle='rgba(196,139,58,.55)';
-      ctx.beginPath();
       var w2=gaps[j];
-      ctx.roundRect?ctx.roundRect(startX,keysY-20,w2,32,16):ctx.rect(startX,keysY-20,w2,32);
-      ctx.fill();ctx.stroke();
-      ctx.fillStyle='#7a4a10';
+      ctx.strokeStyle='rgba(168,54,42,.5)';ctx.lineWidth=1.5;
+      ctx.beginPath();
+      if(ctx.roundRect){ctx.roundRect(startX,keysY-22,w2,36,18);}else{ctx.rect(startX,keysY-22,w2,36);}
+      ctx.stroke();
+      ctx.fillStyle=SEAL;
       ctx.textAlign='center';
-      ctx.fillText(m.keys[j],startX+w2/2,keysY);
-      startX+=w2+10;
+      ctx.fillText(m.keys[j],startX+w2/2,keysY+2);
+      startX+=w2+12;
     }
-    ctx.font='18px "KaiTi",serif';ctx.fillStyle='#4a3a20';
-    ctx.textAlign='center';
-    var lines=wrap(ctx,m.intro,600);
-    var y=490;
-    for(var k=0;k<lines.length;k++){ctx.fillText(lines[k],360,y);y+=30;}
-    y+=20;
-    ctx.font='16px "KaiTi",serif';ctx.fillStyle='#8a5a20';
-    ctx.fillText('\u68cb\u98ce: '+m.style,360,y);y+=44;
-    ctx.font='16px "KaiTi",serif';ctx.fillStyle='#5a3a10';
-    var alines=wrap(ctx,m.action,600);
-    for(var q=0;q<alines.length;q++){ctx.fillText(alines[q],360,y);y+=28;}
-    ctx.font='14px "KaiTi",serif';ctx.fillStyle='#8a7042';
-    ctx.fillText('\u2015\u2015 \u841d\u535c\u5e72\u56f4\u68cb\u6559\u80b2 \u00b7 \u542f\u8499\u4e13\u7532 \u2015\u2015',360,980);
-    ctx.font='bold 20px "KaiTi",serif';ctx.fillStyle='#3a2a10';
-    ctx.fillText('\u5fae\u4fe1: '+CONTACT_WX,360,1020);
+    // 分隔发丝线
+    ctx.strokeStyle='rgba(43,39,36,.12)';ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(64,560);ctx.lineTo(656,560);ctx.stroke();
+    // 简介正文（左对齐更耐读）
+    ctx.font='19px "KaiTi",serif';ctx.fillStyle=INK;
+    ctx.textAlign='left';
+    var lines=wrap(ctx,m.intro,592);
+    var y=612;
+    for(var k=0;k<lines.length;k++){ctx.fillText(lines[k],64,y);y+=34;}
+    y+=16;
+    ctx.font='17px "KaiTi",serif';ctx.fillStyle=SEAL;
+    ctx.fillText('棋风 · '+m.style,64,y);y+=40;
+    ctx.font='16px "KaiTi",serif';ctx.fillStyle=GRAY;
+    var alines=wrap(ctx,m.action,592);
+    for(var q=0;q<alines.length;q++){ctx.fillText(alines[q],64,y);y+=30;}
+    // 底部落款：单一朱红点 + 灰字
+    ctx.fillStyle=SEAL;
+    ctx.beginPath();ctx.arc(70,986,5,0,Math.PI*2);ctx.fill();
+    ctx.font='15px "KaiTi",serif';ctx.fillStyle=GRAY;
+    ctx.textAlign='left';
+    ctx.fillText('萝卜干围棋教育 · 启蒙专甲',86,992);
+    ctx.fillText('微信 '+CONTACT_WX,86,1020);
     window.__luoboShareImage(cvs, 'luobo_go_quiz_'+m.name+'.png');
   }
   function wrap(ctx,text,maxW){
@@ -2066,6 +2089,7 @@ function hideParentGuide(){
   if(!mask||!wrap){return;}
   var currentTab='men';
   var autoTimer=null;
+  var mmLastTouch=null;
   var AUTO_INTERVAL=3000;
   function xOf(ep, epochs, padL, colW){for(var i=0;i<epochs.length;i++){if(epochs[i][0]===ep){return padL+colW*i+colW/2;}}return padL;}
   function yOf(region, padT, rowH){for(var i=0;i<REGIONS.length;i++){if(REGIONS[i][0]===region){return padT+rowH*i+rowH/2;}}return padT;}
@@ -2135,6 +2159,8 @@ function hideParentGuide(){
   }
   function renderTab(tabKey, animate){
     var meta=TAB_META[tabKey]||TAB_META.men;
+    mmLastTouch=null;
+    if(tip){ tip.classList.remove('show','mm-tip-pinned'); }
     if(animate){
       wrap.classList.add('fading');
       setTimeout(function(){
@@ -2183,10 +2209,19 @@ function hideParentGuide(){
         jumpTo(name);
       });
       // v3.13 fix13 · 追加 touchend 事件，规避移动端 hover 抢占 click
+      // 3.3 触屏两阶段：首触点节点弹出底部简介条，再点同一节点才跳文章
       nodes[i].addEventListener('touchend',function(e){
         e.preventDefault();
         var name=e.currentTarget.getAttribute('data-name');
-        console.log('[mm-node touchend]', name);
+        var brief=e.currentTarget.getAttribute('data-brief');
+        if(mmLastTouch!==name){
+          mmLastTouch=name;
+          tip.innerHTML='<div class="mm-tip-name">'+name+'</div><div>'+brief+'</div><span class="mm-tip-hint">再点一次查看对应文章</span>';
+          tip.classList.add('show','mm-tip-pinned');
+          return;
+        }
+        mmLastTouch=null;
+        tip.classList.remove('show','mm-tip-pinned');
         jumpTo(name);
       },{passive:false});
     }
@@ -2224,7 +2259,7 @@ function hideParentGuide(){
         setTimeout(function(){found.style.background=origBg||'';found.style.transition=orig||'';},1800);
       },400);
     }else{
-      alert(name+'\n\n'+(getBriefByName(name)||'')+'\n\n(&#26410;&#25214;&#21040;&#23545;&#24212;&#25991;&#31456;&#65292;&#35831;&#21040;&#22260;&#26827;&#25991;&#21270;&#26495;&#22359;&#25214;&#25214;)');
+      window.__luoboDialog.alert(name+'\n\n'+(getBriefByName(name)||'')+'\n\n（未找到对应文章，请到围棋文化板块找找）');
     }
   }
   function getBriefByName(name){
@@ -2263,7 +2298,12 @@ function hideParentGuide(){
     renderTab('men', false);
     mask.classList.add('show');
     mask.setAttribute('aria-hidden','false');
-    startAuto();
+    // 3.3 移除未经请求的自动轮播：默认手动模式
+    stopAuto();
+    autoTag.classList.remove('hide');
+    autoTag.textContent='手动模式 · 点击 tab 切换';
+    mmLastTouch=null;
+    if(tip){ tip.classList.remove('show','mm-tip-pinned'); }
   }
   function close(){
     mask.classList.remove('show');
@@ -2452,6 +2492,8 @@ function hideParentGuide(){
       t = document.createElement('div');
       t.id = 'luobo-toast-el';
       t.className = 'luobo-toast';
+      t.setAttribute('role', 'status');          // 4.3 异步消息 aria-live
+      t.setAttribute('aria-live', 'polite');
       document.body.appendChild(t);
     }
     t.textContent = msg;
@@ -2713,3 +2755,308 @@ function hideParentGuide(){
     });
     mo.observe(sec, {attributes:true, attributeFilter:['class']});
   })();
+
+;
+// ===== 第二期 · 互动体感 JS（2.5 sticky CTA / 2.7 count-up / 2.3 表单异步态）=====
+(function(){
+  if(!('IntersectionObserver' in window)) return;
+
+  // --- 2.5 过 hero 后，底部 TabBar「联系」升级为「预约试听」强调态（不新增第二条固定栏）---
+  (function(){
+    var hero = document.getElementById('hero');
+    var contactTab = document.querySelector('#mobileTabbar a[data-tab="contact"]');
+    if(!hero || !contactTab) return;
+    var label = contactTab.querySelector('.mobile-tabbar-label');
+    var origLabel = label ? label.textContent : '';
+    var io = new IntersectionObserver(function(entries){
+      var heroVisible = entries[0].isIntersecting;
+      if(heroVisible){
+        contactTab.classList.remove('cta-hot');
+        if(label) label.textContent = origLabel || '联系';
+        contactTab.setAttribute('aria-label', '联系我们');
+      } else {
+        contactTab.classList.add('cta-hot');
+        if(label) label.textContent = '预约试听';
+        contactTab.setAttribute('aria-label', '预约试听');
+      }
+    }, { threshold: 0, rootMargin: '-60px 0px 0px 0px' });
+    io.observe(hero);
+  })();
+
+  // --- 2.7 社会证明数字滚动计数（IO 触发一次，rAF，≤1.1s，保留后缀）---
+  (function(){
+    var sec = document.getElementById('social-proof');
+    if(!sec) return;
+    var nodes = sec.querySelectorAll('.text-3xl, .text-4xl');
+    var targets = [];
+    Array.prototype.forEach.call(nodes, function(el){
+      var raw = (el.textContent || '').trim();
+      var m = raw.match(/^(\d+)(.*)$/);   // 仅纯数字开头（10+ / 4 / 12）参与，"数百" 跳过
+      if(!m) return;
+      el.classList.add('count-up');
+      targets.push({ el: el, to: parseInt(m[1], 10), suffix: m[2] || '' });
+    });
+    if(!targets.length) return;
+    var done = false;
+    function animate(){
+      if(done) return; done = true;
+      targets.forEach(function(t){ t.el.textContent = '0' + t.suffix; }); // 触发瞬间归零，无缝起跳
+      var dur = 1000, t0 = null;
+      function step(ts){
+        if(t0 === null) t0 = ts;
+        var p = Math.min(1, (ts - t0) / dur);
+        var e = 1 - Math.pow(1 - p, 3);   // easeOutCubic
+        targets.forEach(function(t){
+          t.el.textContent = Math.round(t.to * e) + t.suffix;
+        });
+        if(p < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+    // 不预置 0：IO 未触发（如桌面 deck 未滚到）时保留原始终值，杜绝"卡在 0"回归
+    var io2 = new IntersectionObserver(function(entries){
+      if(entries[0].isIntersecting){ io2.disconnect(); animate(); }
+    }, { threshold: 0.4 });
+    io2.observe(sec);
+  })();
+
+  // --- 2.3 msg-form 提交按钮异步态：idle → loading → success（mailto 仍由内联 handler 触发）---
+  (function(){
+    var form = document.getElementById('msg-form');
+    if(!form) return;
+    form.addEventListener('submit', function(){
+      var btn = form.querySelector('button[type=submit]');
+      if(!btn || btn.classList.contains('btn-async')) return;
+      var orig = btn.textContent;
+      btn.classList.add('btn-async');
+      btn.textContent = '正在生成邮件';
+      setTimeout(function(){
+        btn.classList.remove('btn-async');
+        btn.classList.add('btn-success');
+        btn.textContent = '✓ 已打开邮件客户端';
+        setTimeout(function(){
+          btn.classList.remove('btn-success');
+          btn.textContent = orig;
+        }, 2600);
+      }, 700);
+    });
+  })();
+})();
+
+;
+// ===== 第三期 · 分享传播 + 克制 delight JS（3.5 dialog / 3.2 落子反馈）=====
+
+// --- 3.5 品牌化原生 <dialog>，替代阻塞式 alert()/confirm() ---
+window.__luoboDialog = (function(){
+  var dlg=null, msgEl=null, okBtn=null, cancelBtn=null, resolver=null;
+  function ensure(){
+    if(dlg) return dlg;
+    dlg=document.createElement('dialog');
+    dlg.className='luobo-dialog';
+    dlg.setAttribute('aria-modal','true');
+    var p=document.createElement('p'); p.className='luobo-dialog-msg';
+    var btns=document.createElement('div'); btns.className='luobo-dialog-btns';
+    cancelBtn=document.createElement('button'); cancelBtn.type='button'; cancelBtn.className='ld-cancel'; cancelBtn.textContent='取消';
+    okBtn=document.createElement('button'); okBtn.type='button'; okBtn.className='ld-ok'; okBtn.textContent='确定';
+    btns.appendChild(cancelBtn); btns.appendChild(okBtn);
+    dlg.appendChild(p); dlg.appendChild(btns);
+    msgEl=p;
+    okBtn.addEventListener('click',function(){ var r=resolver; resolver=null; try{dlg.close();}catch(e){} if(r)r(true); });
+    cancelBtn.addEventListener('click',function(){ var r=resolver; resolver=null; try{dlg.close();}catch(e){} if(r)r(false); });
+    dlg.addEventListener('cancel',function(){ var r=resolver; resolver=null; if(r)r(false); });
+    dlg.addEventListener('close',function(){ var r=resolver; if(r){ resolver=null; r(false); } });
+    document.body.appendChild(dlg);
+    return dlg;
+  }
+  return {
+    alert:function(msg){
+      ensure();
+      msgEl.textContent=msg;
+      cancelBtn.style.display='none';
+      okBtn.textContent='知道了';
+      if(typeof dlg.showModal==='function'){ if(!dlg.open) dlg.showModal(); }
+      else if(window.showToast){ window.showToast(String(msg).split('\n')[0]); }
+    },
+    confirm:function(msg){
+      ensure();
+      msgEl.textContent=msg;
+      cancelBtn.style.display='';
+      okBtn.textContent='确定';
+      return new Promise(function(res){
+        resolver=res;
+        if(typeof dlg.showModal==='function'){ if(!dlg.open) dlg.showModal(); }
+        else { var r=resolver; resolver=null; r(false); }
+      });
+    }
+  };
+})();
+
+// --- 3.2 主 CTA「落子」反馈：点击时一枚棋子 scale 入 + 墨韵环（单元素，300-500ms）---
+(function(){
+  function burst(host){
+    if(!host || host.querySelector('.stone-drop')) return;
+    host.classList.add('cta-stone-host');
+    var drop=document.createElement('span'); drop.className='stone-drop';
+    var ripple=document.createElement('span'); ripple.className='stone-ripple';
+    host.appendChild(drop); host.appendChild(ripple);
+    setTimeout(function(){
+      if(drop.parentNode) drop.parentNode.removeChild(drop);
+      if(ripple.parentNode) ripple.parentNode.removeChild(ripple);
+    }, 600);
+  }
+  document.addEventListener('click', function(ev){
+    var t = ev.target && ev.target.closest ? ev.target.closest('.hero-cta-btn, #mobileTabbar a.cta-hot') : null;
+    if(t) burst(t);
+  }, true);
+})();
+
+;
+// ===== 第四期 · 无障碍与健壮性 JS（4.1 focus trap/restore · 4.2 inert · 4.3 ARIA · 4.4 ESC）=====
+(function(){
+  var FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+  var activePanel = null;
+  var lastFocused = null;
+
+  function visibleFocusables(panel){
+    var nodes = panel.querySelectorAll(FOCUSABLE);
+    var list = [];
+    for(var i=0;i<nodes.length;i++){
+      var r = nodes[i].getBoundingClientRect();
+      if(r.width > 0 && r.height > 0) list.push(nodes[i]);
+    }
+    return list;
+  }
+
+  function onKeydown(ev){
+    // 4.4 ESC：先关移动抽屉，再关 overlay
+    if(ev.key === 'Escape'){
+      if(document.body.classList.contains('side-open')){
+        var sn = document.querySelector('.side-nav');
+        if(sn){ sn.classList.remove('mobile-open'); document.body.classList.remove('side-open'); }
+        return;
+      }
+      if(activePanel){ ev.preventDefault(); if(window.closeAllPanels) window.closeAllPanels(); }
+      return;
+    }
+    // 4.1 focus trap
+    if(ev.key !== 'Tab' || !activePanel) return;
+    var list = visibleFocusables(activePanel);
+    if(!list.length){ ev.preventDefault(); return; }
+    var first = list[0], last = list[list.length-1];
+    var ae = document.activeElement;
+    if(!activePanel.contains(ae)){ ev.preventDefault(); first.focus(); return; }
+    if(ev.shiftKey && ae === first){ ev.preventDefault(); last.focus(); }
+    else if(!ev.shiftKey && ae === last){ ev.preventDefault(); first.focus(); }
+  }
+
+  // 4.2 背景 inert：overlay 打开时把 body 其余直接子节点置 inert
+  function setInert(on){
+    var kids = document.body.children;
+    for(var i=0;i<kids.length;i++){
+      var el = kids[i];
+      if(el.nodeType !== 1) continue;
+      if(el === activePanel) continue;
+      if(el.id === 'luobo-toast-el') continue;
+      if(el.tagName === 'SCRIPT' || el.tagName === 'STYLE') continue;
+      if(on){ el.setAttribute('inert',''); } else { el.removeAttribute('inert'); }
+    }
+  }
+
+  function activate(panel){
+    if(activePanel === panel) return;
+    if(activePanel) deactivate();
+    activePanel = panel;
+    if(!panel) return;
+    lastFocused = (document.activeElement && document.activeElement !== document.body) ? document.activeElement : null;
+    document.addEventListener('keydown', onKeydown, true);
+    setInert(true);
+    panel.setAttribute('role', 'dialog');
+    panel.setAttribute('aria-modal', 'true');
+    setTimeout(function(){
+      if(!activePanel) return;
+      var list = visibleFocusables(activePanel);
+      if(list.length){ list[0].focus(); }
+      else { activePanel.setAttribute('tabindex', '-1'); activePanel.focus(); }  // 纯文本面板：聚焦容器本身
+    }, 80);
+  }
+  function deactivate(){
+    if(!activePanel) return;
+    activePanel.removeAttribute('aria-modal');
+    activePanel.removeAttribute('role');
+    activePanel.removeAttribute('tabindex');
+    activePanel = null;
+    document.removeEventListener('keydown', onKeydown, true);
+    setInert(false);
+    if(lastFocused && document.body.contains(lastFocused)){
+      try{ lastFocused.focus(); }catch(e){}
+    }
+    lastFocused = null;
+  }
+
+  function sync(){
+    var open = document.querySelector('.collapsible.open');
+    if(open) activate(open);
+    else deactivate();
+    syncNavAria();
+  }
+
+  // 包装 openSection / closeAllPanels，开合后同步焦点与 inert
+  var _open = window.openSection, _close = window.closeAllPanels;
+  if(typeof _open === 'function' && !_open.__a11yWrapped){
+    var wo = function(){ var r = _open.apply(this, arguments); setTimeout(sync, 60); return r; };
+    wo.__a11yWrapped = true; window.openSection = wo;
+  }
+  if(typeof _close === 'function' && !_close.__a11yWrapped){
+    var wc = function(){ var r = _close.apply(this, arguments); setTimeout(sync, 60); return r; };
+    wc.__a11yWrapped = true; window.closeAllPanels = wc;
+  }
+
+  // 4.3 nav-toggle 的 aria-expanded / aria-controls 同步
+  function syncNavAria(){
+    var toggles = document.querySelectorAll('.nav-toggle[data-target]');
+    for(var i=0;i<toggles.length;i++){
+      var t = toggles[i];
+      var id = t.getAttribute('data-target');
+      var panel = document.getElementById(id);
+      if(!panel) continue;
+      t.setAttribute('aria-controls', id);
+      var isCollapsible = panel.classList.contains('collapsible');
+      if(isCollapsible){
+        t.setAttribute('aria-expanded', panel.classList.contains('open') ? 'true' : 'false');
+      }
+    }
+  }
+  syncNavAria();
+  var _syncTimer = null;
+  document.addEventListener('click', function(){
+    clearTimeout(_syncTimer);
+    _syncTimer = setTimeout(syncNavAria, 120);
+  }, true);
+
+  // 4.3 tab 系统 aria-selected + roving tabindex（委托，覆盖 5 套 tab）
+  var TAB_SEL = '.tab-btn, .dr-tab-btn, .mm-tab, .stage-tab';
+  function initTabAria(container){
+    var tabs = container.querySelectorAll(TAB_SEL);
+    for(var i=0;i<tabs.length;i++){
+      tabs[i].setAttribute('role', 'tab');
+      if(!tabs[i].hasAttribute('aria-selected')){
+        tabs[i].setAttribute('aria-selected', tabs[i].classList.contains('active') ? 'true' : 'false');
+      }
+    }
+  }
+  document.addEventListener('click', function(ev){
+    var tab = ev.target && ev.target.closest ? ev.target.closest(TAB_SEL) : null;
+    if(!tab) return;
+    var parent = tab.parentElement;
+    if(!parent) return;
+    var siblings = parent.querySelectorAll(TAB_SEL);
+    for(var i=0;i<siblings.length;i++){
+      var on = (siblings[i] === tab);
+      siblings[i].setAttribute('aria-selected', on ? 'true' : 'false');
+      siblings[i].setAttribute('tabindex', on ? '0' : '-1');
+    }
+  }, true);
+  // 初始化已有 tab 组
+  var groups = document.querySelectorAll('#tools, #daily-ritual-panel, #mm-panel, #abilitytest, .test-tabs');
+  for(var g=0; g<groups.length; g++){ initTabAria(groups[g]); }
+})();
