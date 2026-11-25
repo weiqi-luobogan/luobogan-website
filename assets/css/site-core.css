@@ -78,9 +78,11 @@
       font-weight: 500;
     }
     .section-title {
-      font-size: 1.75rem;
+      /* 第一期 #3:巨型字排版 clamp(1.75rem→2.75rem),字距从 0.08em 压紧到 0.04em,行高 1.2 */
+      font-size: clamp(1.75rem, 3.5vw, 2.75rem);
       font-weight: 700;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.04em;
+      line-height: 1.2;
       position: relative;
       padding-bottom: 0.75rem;
       margin-bottom: 2.5rem;
@@ -90,7 +92,7 @@
       position: absolute;
       left: 0;
       bottom: 0;
-      width: 2.5rem;
+      width: clamp(2.5rem, 4vw, 4rem);
       height: 2px;
       background: var(--seal);
     }
@@ -540,7 +542,33 @@
 
   /* ===== hero 简化 ===== */
   .hero-tag { font-size: 13px; letter-spacing: 0.4em; color: var(--seal); font-weight: 600; opacity: 0.85; }
-  .hero-h1 { color: var(--ink); }
+  .hero-h1 {
+    color: var(--ink);
+    /* 第一期 #3:巨型字排版 clamp(2.2rem→4.5rem),行高 1.15 压紧,字距 -0.01em 微收 */
+    font-size: clamp(2.2rem, 5.5vw, 4.5rem);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+  /* 第一期 #4:竖排点睛(桌面 ≥901px 专属,移动端隐藏避免挤压)
+     两列 vertical-rl 从右到左:棋以载道/教以成人;朱红小字,克制装饰,不干扰主信息 */
+  .hero-vertical-type {
+    display: none;
+    position: absolute;
+    left: 36px;
+    top: 130px;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-size: 13px;
+    letter-spacing: 0.4em;
+    color: var(--seal);
+    line-height: 1.6;
+    z-index: 1;
+    pointer-events: none;
+    font-weight: 500;
+    opacity: 0.85;
+  }
+  .hero-vertical-type span { display: block; }
+  @media (min-width: 901px) { .hero-vertical-type { display: block; } }
 
   /* ===== showcase 自适应高度 ===== */
   .showcase-frame { padding-bottom: 0 !important; min-height: 680px; height: auto; display: flex; align-items: stretch; }
@@ -679,7 +707,8 @@
     .hero-tag { font-size: 10px; letter-spacing: 0.25em; }
     .hero-creed { font-size: 15px; margin-top: 20px; padding-top: 16px; letter-spacing: 0.1em; }
     .hero-mission { margin-top: 18px; font-size: 13px; line-height: 1.75; }
-    .hero-h1 { font-size: 20px !important; line-height: 1.4 !important; letter-spacing: 0.08em !important; }
+    /* 第一期 #3:移动端巨型字改 clamp(1.6rem→2.2rem),保留 line-height/letter-spacing 微调,不再强制 20px */
+    .hero-h1 { font-size: clamp(1.6rem, 6vw, 2.2rem) !important; line-height: 1.25 !important; letter-spacing: 0.02em !important; }
     .schedule-card { padding: 10px 10px; }
     .schedule-head { padding-bottom: 8px; }
     .schedule-title { font-size: 17px; letter-spacing: 0.08em; }

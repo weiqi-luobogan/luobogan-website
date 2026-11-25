@@ -131,7 +131,8 @@
   </svg>
   <div class="max-w-4xl mx-auto px-6 text-center fade-in">
     <div class="hero-tag">LUO BO GAN · MISSION</div>
-    <h1 class="hero-h1 mt-2 text-3xl md:text-6xl font-bold leading-snug tracking-wider">
+    <!-- 第一期 #3:去掉 Tailwind text-3xl md:text-6xl leading-snug tracking-wider,改由 .hero-h1 CSS clamp 控制巨型字排版 -->
+    <h1 class="hero-h1 mt-2 font-bold">
       让围棋，成为每个普通孩子<br>都能享受的智力教育
     </h1>
     <p class="hero-subtitle mt-4 md:mt-6 text-sm md:text-base text-gray-soft tracking-wide leading-relaxed" style="max-width:520px;margin-left:auto;margin-right:auto;">
@@ -141,6 +142,11 @@
       <a href="#contact" class="hero-cta-btn nav-toggle" data-target="contact" style="display:inline-block;background:var(--seal);color:#fff;padding:.85rem 2rem;font-size:.95rem;font-weight:600;letter-spacing:.06em;border:none;cursor:pointer;transition:background .2s,transform .15s;text-decoration:none">预约试听</a>
       <a href="#teaching" class="nav-toggle" data-target="teaching" style="display:inline-block;border:1px solid var(--ink);color:var(--ink);padding:.85rem 2rem;font-size:.95rem;letter-spacing:.06em;transition:background .2s;text-decoration:none">了解课程</a>
     </div>
+  </div>
+  <!-- 第一期 #4:竖排点睛(桌面 ≥901px 专属,移动端隐藏避免挤压;两列 vertical-rl 从右到左:棋以载道/教以成人) -->
+  <div class="hero-vertical-type" aria-hidden="true">
+    <span>棋以载道</span>
+    <span>教以成人</span>
   </div>
 </section>
 
