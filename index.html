@@ -67,6 +67,8 @@
 <!-- 第一期 #1:颗粒覆层(高频 feTurbulence,multiply 混合,消除数字产品塑料感)
      z-index 9000 高于常规内容低于所有 modal/mask;pointer-events none 不阻挡交互;prefers-contrast:high 降级隐藏 -->
 <div class="texture-grain" aria-hidden="true"></div>
+<!-- 第一期 #5:阅读进度条(移动端纵向滚动专属,CSS scroll() timeline 原生,零 JS;不支持的浏览器自动隐藏) -->
+<div class="scroll-progress" aria-hidden="true"></div>
 <!-- ===== 批1 S1:单色线描图标 sprite(替换系统 emoji;stroke 继承 currentColor,随主题色/active 态变色)===== -->
 <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11.2 12 4.6 20 11.2"/><path d="M6.6 9.8V19.4H17.4V9.8"/><circle cx="12" cy="14.6" r="1.8"/></symbol>

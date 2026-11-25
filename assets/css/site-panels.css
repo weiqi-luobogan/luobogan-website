@@ -79,6 +79,20 @@
       position: relative;
       display: flex;
       flex-direction: column;
+      overflow: hidden;
+    }
+    /* 第一期 #6:culture-entry 朱红描边增强(底部细线 hover 划出,与 card/role-card 统一) */
+    .culture-entry::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--seal);
+      transform: scaleX(0);
+      transform-origin: 0 50%;
+      transition: transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
     }
     .culture-entry:hover {
       border-color: var(--seal);
@@ -86,6 +100,7 @@
       transform: translateY(-3px);
       box-shadow: 0 8px 24px rgba(168, 54, 42, 0.08);
     }
+    .culture-entry:hover::after { transform: scaleX(1); }
     /* 批3 S4：三段式头部——大号中文数字 + 眉题 + 右上线描图标 */
     .ce-head { display: flex; align-items: flex-end; margin-bottom: 16px; }
     .ce-num { font-size: 38px; line-height: 1; font-weight: 700; color: var(--ink); letter-spacing: .04em; }

@@ -37,6 +37,52 @@
       .texture-grain { display: none; }
       body { background-image: none; }
     }
+    /* 第一期 #5:阅读进度条——顶部 2px 朱红线,CSS scroll() timeline 原生实现,零 JS
+       仅移动端(纵向滚动)启用;桌面横向 deck 用 dots 导航已有进度指示,不显示进度条
+       @supports 确保不支持 scroll-timeline 的浏览器(Safari/Firefox 旧版)不显示静态卡 0 条 */
+    .scroll-progress {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 2px;
+      width: 100%;
+      background: var(--seal);
+      transform: scaleX(0);
+      transform-origin: 0 50%;
+      z-index: 9500;
+      pointer-events: none;
+    }
+    @supports (animation-timeline: scroll()) {
+      @media (max-width: 900px) {
+        .scroll-progress {
+          display: block;
+          animation: scrollProgressGrow linear both;
+          animation-timeline: scroll(root block);
+        }
+      }
+    }
+    @keyframes scrollProgressGrow { to { transform: scaleX(1); } }
+    /* 第一期 #8:卡片 stagger 交错入场——父 .fade-in 可见时子卡片按序浮出
+       默认 opacity:1 兜底(IO 未触发/桌面 overlay 不隐藏内容),仅 .visible 后播放入场动画 */
+    .fade-in.visible .role-card,
+    .fade-in.visible .culture-entry {
+      animation: cardStagger 0.45s ease-out both;
+    }
+    .fade-in.visible .role-card:nth-child(2),
+    .fade-in.visible .culture-entry:nth-child(2) { animation-delay: 70ms; }
+    .fade-in.visible .role-card:nth-child(3),
+    .fade-in.visible .culture-entry:nth-child(3) { animation-delay: 140ms; }
+    .fade-in.visible .culture-entry:nth-child(4) { animation-delay: 210ms; }
+    @keyframes cardStagger {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .fade-in.visible .role-card,
+      .fade-in.visible .culture-entry { animation: none; }
+      .scroll-progress { display: none !important; }
+    }
     .font-inter { font-family: 'Inter', sans-serif; }
     .bg-paper {
       background-color: var(--paper);
@@ -148,11 +194,26 @@
       transition: transform 0.3s, box-shadow 0.3s;
       display: flex;
       flex-direction: column;
+      position: relative;
+    }
+    /* 第一期 #6:卡片朱红描边增强——hover 时左下朱红细线 scaleX 0→1 划出,补足现有抬升的交互层次 */
+    .card::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--seal);
+      transform: scaleX(0);
+      transform-origin: 0 50%;
+      transition: transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
     }
     .card:hover {
       transform: translateY(-3px);
       box-shadow: 0 10px 30px rgba(26,26,26,0.06);
     }
+    .card:hover::after { transform: scaleX(1); }
     .placeholder {
       background: var(--paper-2);
       border: 1px dashed var(--line);
@@ -1176,8 +1237,11 @@
 
 /* ===== 批3 S4：卡片三段式结构件（身份3卡 + 课程卡；文化4卡在 site-panels）===== */
 /* 身份3卡：原内联样式收编进 CSS；顶2px墨线 + 右上鬼影中文数字 + 底部 meta 沉底 */
-#role-router .role-card { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; border: 1px solid var(--line); border-top: 2px solid var(--ink); background: #fff; color: var(--ink); text-decoration: none; padding: 28px 20px 18px; transition: box-shadow .25s, transform .2s; }
+#role-router .role-card { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; border: 1px solid var(--line); border-top: 2px solid var(--ink); background: #fff; color: var(--ink); text-decoration: none; padding: 28px 20px 18px; transition: box-shadow .25s, transform .2s; overflow: hidden; }
+/* 第一期 #6:role-card 朱红描边增强(底部细线 hover 划出) */
+#role-router .role-card::after { content: ''; position: absolute; left: 0; bottom: 0; width: 100%; height: 2px; background: var(--seal); transform: scaleX(0); transform-origin: 0 50%; transition: transform .35s cubic-bezier(0.22,0.61,0.36,1); }
 #role-router .role-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(168, 54, 42, 0.08); }
+#role-router .role-card:hover::after { transform: scaleX(1); }
 .rc-num { position: absolute; top: 12px; right: 14px; font-size: 30px; line-height: 1; font-weight: 700; color: var(--ink); opacity: .1; }
 .role-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
 .role-hook { font-size: .85rem; color: var(--gray-soft); line-height: 1.6; margin: 0 0 16px; }
