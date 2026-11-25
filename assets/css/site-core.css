@@ -515,8 +515,12 @@
   /* ===== hero 简化 ===== */
   .hero-tag { font-size: 13px; letter-spacing: 0.4em; color: var(--seal); font-weight: 600; opacity: 0.85; }
   .hero-h1 { color: var(--ink); }
-  /* A止血(2026-11-25): hero-subtitle 走系统衬线, 避开 Noto Serif SC 分片 swap 把 LCP 拖到 8.7s; B方案(定制子集字体)后续替换 */
-  .hero-subtitle { font-family: "Songti SC", "SimSun", "Noto Serif CJK SC", "Source Han Serif SC", Georgia, "Times New Roman", serif; }
+  /* A止血v2(2026-11-25): hero 区块所有中文文本走系统衬线, 彻底断开 Noto Serif SC 分片 swap 链路.
+     v1 只改 hero-subtitle 时 LCP 会切到 hero-h1(同样继承 body 的 Noto Serif SC), 绝对时长不变.
+     B方案(hero 定制子集字体)后续替换以恢复 Noto Serif SC 精确视觉. */
+  .hero-h1, .hero-subtitle, .hero-creed, .hero-mission {
+    font-family: "Songti SC", "SimSun", "Noto Serif CJK SC", "Source Han Serif SC", Georgia, "Times New Roman", serif;
+  }
 
   /* ===== showcase 自适应高度 ===== */
   .showcase-frame { padding-bottom: 0 !important; min-height: 680px; height: auto; display: flex; align-items: stretch; }
