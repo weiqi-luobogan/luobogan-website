@@ -650,8 +650,9 @@
   .hero-tag { font-size: 13px; letter-spacing: 0.4em; color: var(--seal); font-weight: 600; opacity: 0.85; }
   .hero-h1 {
     color: var(--ink);
-    /* 第一期 #3:巨型字排版 clamp(2.2rem→4.5rem),行高 1.15 压紧,字距 -0.01em 微收 */
-    font-size: clamp(2.2rem, 5.5vw, 4.5rem);
+    /* 第一期 #3:巨型字排版 clamp(2.2rem→4.25rem),行高 1.15 压紧,字距 -0.01em 微收
+       上限 4.25rem(68px) 保证 12 字首行(让围棋，成为每个普通孩子)在 max-w-4xl 内不孤行换行 */
+    font-size: clamp(2.2rem, 5vw, 4.25rem);
     line-height: 1.15;
     letter-spacing: -0.01em;
   }
@@ -674,6 +675,9 @@
     opacity: 0.85;
   }
   .hero-vertical-type span { display: block; }
+  /* #hero > div 的 position:relative(ID 选择器)会压过 .hero-vertical-type 的 absolute,
+     故用更高特异度 #hero .hero-vertical-type 强制 absolute 定位到左上角 */
+  #hero .hero-vertical-type { position: absolute; left: 36px; top: 130px; width: auto; }
   @media (min-width: 901px) { .hero-vertical-type { display: block; } }
 
   /* ===== showcase 自适应高度 ===== */
