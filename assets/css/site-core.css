@@ -104,22 +104,24 @@
     .card h3 { color: var(--ink); letter-spacing: 0.04em; }
     .card h3.text-xl { font-size: 22px; }
     .card p + p { margin-top: 0.6rem; }
+    /* A止血v4(2026-11-25) 根治: .fade-in 全站改 CSS animation, 彻底断开 IO 回调依赖.
+       踩坑路径:
+         v1/v2 误判为字体 swap, 改 hero 中文字体栈 → LCP 元素在 hero-subtitle/hero-h1 之间切换, 时长 8.7s 不变.
+         v3 只修 hero (#hero > .fade-in) → LCP 切到 div.col-title (下一个 .fade-in 元素), 时长仍 8.7s.
+       根因: site.js:706 的 IntersectionObserver 回调在移动 4x CPU throttling + 6 个 long tasks 下
+             延迟到 8s+ 才跑, .fade-in { opacity: 0 } 基态让所有 fade-in 元素在 IO 触发前不可见,
+             元素从 opacity:0 → 1 的时刻成为 LCP.
+       v4 方案: CSS animation 在样式到位后立即开始, 0.5s 完成淡入, 不依赖 JS/IO.
+       代价: 滚动区域失去"进入视口时才淡入"的效果, 页面加载即全站淡入完毕. */
     .fade-in {
-      opacity: 0;
-      transform: translateY(14px);
-      transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+      animation: fadeInUp 0.5s ease-out both;
     }
     .fade-in.visible {
+      /* 向前兼容: JS 仍会加 .visible 类, 现在无实际作用 (animation 已保证 opacity:1) */
       opacity: 1;
       transform: none;
     }
-    /* A止血v3(2026-11-25): hero 首屏 fade-in 改走 CSS animation 立即触发, 不依赖 IO 回调.
-       原因: 主线程被 long tasks 阻塞时 IO 回调延迟到 8s+, hero 从 opacity:0 → 1 的时刻成了 LCP.
-       CSS animation 在样式到位后立即开始, 0.5s 完成淡入, LCP 回落到 ~FCP. */
-    #hero > .fade-in {
-      animation: heroFadeIn 0.5s ease-out both;
-    }
-    @keyframes heroFadeIn {
+    @keyframes fadeInUp {
       from { opacity: 0; transform: translateY(14px); }
       to   { opacity: 1; transform: none; }
     }
