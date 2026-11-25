@@ -78,10 +78,55 @@
       from { opacity: 0; transform: translateY(14px); }
       to   { opacity: 1; transform: none; }
     }
+    /* 第一期 #7:围棋格言无缝跑马灯——纯 CSS animation,两份 content 保证 translateX(-50%) 无缝循环 */
+    .marquee-band {
+      overflow: hidden;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: var(--paper-2);
+      padding: 13px 0;
+      position: relative;
+      /* 两端淡出遮罩,避免文字硬切边缘 */
+      -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
+      mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
+    }
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: marqueeScroll 46s linear infinite;
+    }
+    .marquee-content {
+      display: flex;
+      flex-shrink: 0;
+      align-items: center;
+    }
+    .marquee-content span {
+      font-size: 14px;
+      letter-spacing: 0.14em;
+      color: var(--ink);
+      padding: 0 26px;
+      white-space: nowrap;
+      position: relative;
+      font-weight: 500;
+    }
+    /* 朱红分隔点 */
+    .marquee-content span::after {
+      content: '·';
+      position: absolute;
+      right: -3px;
+      color: var(--seal);
+      font-weight: 700;
+    }
+    @keyframes marqueeScroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    .marquee-band:hover .marquee-track { animation-play-state: paused; }
     @media (prefers-reduced-motion: reduce) {
       .fade-in.visible .role-card,
       .fade-in.visible .culture-entry { animation: none; }
       .scroll-progress { display: none !important; }
+      .marquee-track { animation: none; }
     }
     .font-inter { font-family: 'Inter', sans-serif; }
     .bg-paper {
