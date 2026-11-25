@@ -113,6 +113,16 @@
       opacity: 1;
       transform: none;
     }
+    /* A止血v3(2026-11-25): hero 首屏 fade-in 改走 CSS animation 立即触发, 不依赖 IO 回调.
+       原因: 主线程被 long tasks 阻塞时 IO 回调延迟到 8s+, hero 从 opacity:0 → 1 的时刻成了 LCP.
+       CSS animation 在样式到位后立即开始, 0.5s 完成淡入, LCP 回落到 ~FCP. */
+    #hero > .fade-in {
+      animation: heroFadeIn 0.5s ease-out both;
+    }
+    @keyframes heroFadeIn {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: none; }
+    }
     .card {
       background: white;
       border: 1px solid var(--line);
