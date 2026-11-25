@@ -2734,3 +2734,438 @@ header .nav-luobo-ext.dr-entry-btn-alt:hover {
 
 /* 底部信息 */
 .cg-footer-note{margin-top:28px;padding:14px 18px;background:#fbf6e9;border-left:3px solid #c8b48a;font-size:12px;color:#8a7550;line-height:1.75;border-radius:0 6px 6px 0;}
+
+
+/* ============================================================
+   P1-3(2026-11-25) 从 site-core.css 迁入的弹层/面板专属样式
+   （首屏不可见，随 media=print→all 异步应用，减少渲染阻塞 CSS）
+   - #tools 工具库弹层 (LUOBO-TOOLS-V2)
+   - .shixun-* 师训营 (#projects 弹层)
+   - #hb/#quiz/#mm 模态弹层 + 遮罩
+   注：@keyframes 为全局，仍留在 site-core.css，跨表可用
+   ============================================================ */
+/* ===== LUOBO-TOOLS-V2 CSS START ===== */
+#tools .tools-intro { max-width: 720px; margin: 0 auto 32px; text-align:center; color:#5a5348; line-height:1.85; font-size:15px; }
+#tools .tab-bar { display:flex; justify-content:center; gap:0; border-bottom:1px solid #d9d3c4; margin-bottom:28px; flex-wrap:wrap; }
+#tools .tab-btn { background:transparent; border:none; padding:12px 24px; font-size:15px; color:#7a7160; cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-1px; transition: color .2s, border-color .2s; font-family:inherit; }
+#tools .tab-btn.active { color:#8b3a3a; border-bottom-color:#8b3a3a; font-weight:600; }
+#tools .tab-btn:hover { color:#8b3a3a; }
+#tools .tab-btn .tab-count { color:#a89f8a; font-size:12px; margin-left:4px; }
+#tools .toolgroup { display:none; }
+#tools .toolgroup.active { display:block; animation: fadeIn .3s ease; }
+@keyframes fadeIn { from { opacity:0; transform: translateY(4px);} to { opacity:1; transform: translateY(0);} }
+#tools .tool-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:16px; max-width: 1100px; margin: 0 auto; }
+#tools .tool-card { background:#fbf8f0; border:1px solid #d9d3c4; padding:20px 22px; cursor:pointer; transition: all .2s; position:relative; }
+#tools .tool-card:hover { border-color:#8b3a3a; background:#f7f0e0; transform: translateY(-2px); }
+#tools .tool-card .tool-num { position:absolute; top:12px; right:14px; font-size:11px; color:#a89f8a; font-family: 'Courier New', monospace; letter-spacing:1px; }
+#tools .tool-card .tool-title { font-size:16px; font-weight:600; color:#3d3d3d; margin-bottom:10px; }
+#tools .tool-card .tool-intro { font-size:13px; color:#6a6355; line-height:1.7; }
+#tools .tool-card .tool-cta { margin-top:12px; color:#8b3a3a; font-size:13px; }
+#tools .tool-panel { display:none; background:#fbf8f0; border:1px solid #d9d3c4; padding:28px 32px; margin-top:20px; max-width: 1100px; margin-left:auto; margin-right:auto; }
+#tools .tool-panel.active { display:block; }
+#tools .tool-panel-head { display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #d9d3c4; padding-bottom:14px; margin-bottom:22px; }
+#tools .tool-panel-title { font-size:19px; font-weight:600; color:#3d3d3d; }
+#tools .tool-panel-close { background:transparent; border:1px solid #a89f8a; padding:6px 14px; color:#7a7160; cursor:pointer; font-size:13px; font-family:inherit; }
+#tools .tool-panel-close:hover { border-color:#8b3a3a; color:#8b3a3a; }
+#tools .tool-panel-body { color:#3d3d3d; line-height:1.85; font-size:14px; }
+#tools .tool-panel-body h4 { font-size:15px; margin: 20px 0 10px; color:#8b3a3a; }
+#tools .tool-panel-body h5 { font-size:14px; margin: 14px 0 6px; color:#3d3d3d; font-weight:600; }
+#tools .tool-panel-body ul { padding-left: 22px; }
+#tools .tool-panel-body ol { padding-left: 22px; }
+#tools .tool-panel-body li { margin-bottom:6px; }
+#tools .tool-panel-body table { border-collapse:collapse; width:100%; margin:12px 0; font-size:13px; }
+#tools .tool-panel-body th, #tools .tool-panel-body td { border:1px solid #d9d3c4; padding:8px 10px; text-align:left; vertical-align:top; }
+#tools .tool-panel-body th { background:#f0e9d8; font-weight:600; }
+#tools .tool-panel-body blockquote { border-left:3px solid #8b3a3a; margin: 12px 0; padding: 4px 16px; color:#5a5348; background:#f7f0e0; font-size:13.5px; }
+#tools .tool-panel-body .qa-item { border-bottom:1px dashed #d9d3c4; padding:14px 0; }
+#tools .tool-panel-body .qa-item:last-child { border-bottom:none; }
+#tools .tool-panel-body .qa-q { font-weight:600; color:#3d3d3d; margin-bottom:8px; }
+#tools .tool-panel-body .qa-q::before { content:"Q · "; color:#8b3a3a; font-weight:600; }
+#tools .tool-panel-body .qa-a { color:#5a5348; padding-left:22px; }
+#tools .tool-panel-body .qa-a::before { content:"A · "; color:#5a8a5a; font-weight:600; margin-left:-22px; margin-right:6px; }
+#tools .tool-panel-body .step-block { margin:16px 0; padding:14px 18px; background:#fff; border-left:3px solid #8b3a3a; }
+#tools .tool-panel-body .step-block .step-num { font-weight:600; color:#8b3a3a; margin-bottom:6px; }
+#tools .tool-panel-body .step-block .step-title { font-weight:600; margin-bottom:6px; }
+#tools .tool-panel-body .tag-chip { display:inline-block; background:#f0e9d8; padding:3px 10px; border-radius:2px; margin:2px 4px 2px 0; font-size:12px; color:#5a5348; }
+#tools .print-hint { text-align:center; color:#a89f8a; font-size:12px; margin-top:24px; }
+#tools .search-bar { max-width:400px; margin: 0 auto 20px; }
+#tools .search-bar input { width:100%; padding:9px 14px; border:1px solid #d9d3c4; background:#fbf8f0; font-family:inherit; font-size:14px; color:#3d3d3d; }
+#tools .search-bar input:focus { outline:none; border-color:#8b3a3a; }
+@media (max-width: 640px) {
+  #tools .tab-btn { padding:10px 14px; font-size:13px; }
+  #tools .tool-grid { grid-template-columns: 1fr; gap:12px; }
+  #tools .tool-card { padding:16px 18px; }
+  #tools .tool-panel { padding:20px 18px; }
+  #tools .tool-panel-body { font-size:13px; }
+  #tools .tool-panel-body table { font-size:12px; }
+  #tools .tool-panel-body th, #tools .tool-panel-body td { padding:6px 8px; }
+}
+@media print {
+  #tools .tab-bar, #tools .tool-card, #tools .tool-panel-close, #tools .search-bar, #tools .print-hint { display:none !important; }
+  #tools .toolgroup, #tools .tool-panel { display:block !important; page-break-inside: avoid; }
+}
+/* ===== LUOBO-TOOLS-V2 CSS END ===== */
+
+  /* 师训营特色卡片 */
+  .shixun-feature {
+    background: linear-gradient(135deg, #faf7f0 0%, #f5efe3 100%);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 32px 30px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+  }
+  .shixun-feature:hover {
+    box-shadow: 0 8px 28px rgba(168,54,42,0.1);
+    transform: translateY(-2px);
+  }
+  .shixun-feature::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--seal);
+  }
+  .shixun-feature-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .shixun-feature-left {
+    flex: 1;
+    min-width: 280px;
+  }
+  .shixun-badge {
+    display: inline-block;
+    background: var(--seal);
+    color: #fff;
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 3px;
+    letter-spacing: 0.1em;
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+  .shixun-feature h3 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 10px;
+    letter-spacing: 0.02em;
+  }
+  .shixun-feature-sub {
+    font-size: 14px;
+    color: #6b6b6b;
+    line-height: 1.8;
+    margin-bottom: 16px;
+  }
+  .shixun-feature-sub .hl {
+    color: var(--seal);
+    font-weight: 600;
+  }
+  .shixun-highlights {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+  .shixun-highlight-tag {
+    background: #fff;
+    border: 1px solid var(--line);
+    padding: 5px 12px;
+    font-size: 12.5px;
+    color: var(--ink);
+    border-radius: 3px;
+  }
+  .shixun-cta-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .shixun-btn-primary {
+    display: inline-block;
+    background: var(--seal);
+    color: #fff;
+    padding: 10px 24px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .shixun-btn-primary:hover {
+    background: #8b2c20;
+  }
+  .shixun-btn-outline {
+    display: inline-block;
+    background: transparent;
+    color: var(--seal);
+    border: 1px solid var(--seal);
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .shixun-btn-outline:hover {
+    background: rgba(168,54,42,0.06);
+  }
+  .shixun-feature-right {
+    width: 200px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .shixun-price-img {
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid var(--line);
+    background: #fff;
+  }
+  .shixun-price-label {
+    font-size: 12px;
+    color: #999;
+    margin-top: 6px;
+    letter-spacing: 0.05em;
+  }
+
+  /* 详情展开区 */
+  .shixun-detail {
+    display: none;
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 1px dashed var(--line);
+  }
+  .shixun-detail.open {
+    display: block;
+  }
+  .shixun-detail h4 {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--seal);
+    margin: 22px 0 10px;
+    padding-left: 10px;
+    border-left: 3px solid var(--seal);
+  }
+  .shixun-detail h4:first-child {
+    margin-top: 0;
+  }
+  .shixun-detail p {
+    font-size: 14px;
+    color: #444;
+    line-height: 1.9;
+    margin: 10px 0;
+  }
+  .shixun-detail .hl {
+    color: var(--seal);
+    font-weight: 600;
+  }
+  .shixun-modules {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin: 16px 0;
+  }
+  .shixun-module-card {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 16px 14px;
+    text-align: center;
+  }
+  .shixun-module-icon {
+    font-size: 26px;
+    margin-bottom: 8px;
+  }
+  .shixun-module-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .shixun-module-desc {
+    font-size: 12.5px;
+    color: #888;
+    line-height: 1.6;
+  }
+  .shixun-module-count {
+    font-size: 12px;
+    color: var(--seal);
+    margin-top: 8px;
+    font-weight: 500;
+  }
+  .shixun-tools {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin: 14px 0;
+  }
+  .shixun-tool-tag {
+    background: #fff;
+    border: 1px solid var(--line);
+    padding: 10px 8px;
+    font-size: 12.5px;
+    text-align: center;
+    border-radius: 3px;
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .shixun-science-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin: 14px 0;
+  }
+  .shixun-science-item {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 14px;
+  }
+  .shixun-science-item h5 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .shixun-science-item p {
+    font-size: 12.5px;
+    color: #777;
+    line-height: 1.7;
+    margin: 0;
+  }
+  .shixun-bottom-cta {
+    margin-top: 26px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 4px;
+    border: 1px solid var(--line);
+    text-align: center;
+  }
+  .shixun-bottom-cta p {
+    font-size: 15px;
+    color: var(--ink);
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+  @media (max-width: 768px) {
+    .shixun-feature { padding: 24px 18px; }
+    .shixun-feature-right { width: 100%; order: -1; margin-bottom: 16px; }
+    .shixun-feature-right img { max-width: 220px; }
+    .shixun-modules { grid-template-columns: 1fr; }
+    .shixun-tools { grid-template-columns: repeat(3, 1fr); }
+    .shixun-science-grid { grid-template-columns: 1fr; }
+  }
+
+#hb-mask{position:fixed;inset:0;z-index:9997;background:rgba(20,15,8,.55);display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+#hb-mask.show{display:flex;animation:maskFadeIn .25s ease-out}
+#hb-panel{background:linear-gradient(140deg,#f4ead2 0%,#e8d8b0 100%);border:1px solid #b09a70;border-radius:8px;padding:20px 22px 18px;box-shadow:0 12px 40px rgba(50,35,10,.35);max-width:92vw;font-family:"KaiTi","STKaiti","Songti SC","SimSun",serif}
+#hb-panel .hb-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;gap:12px}
+#hb-panel .hb-title{font-size:16px;color:#3a2a10;letter-spacing:3px}
+#hb-panel .hb-badge{font-size:11px;color:#8a7042;letter-spacing:2px;background:rgba(255,255,255,.35);padding:3px 8px;border-radius:10px;border:1px solid rgba(120,90,50,.3)}
+#hb-panel canvas{background:linear-gradient(135deg,#f0e4c8 0%,#e6d5ae 100%);border:1px solid #b09a70;border-radius:2px;box-shadow:inset 0 0 24px rgba(120,90,50,.14);display:block;margin:6px auto 8px;cursor:crosshair}
+#hb-panel .hb-status{text-align:center;font-size:13px;color:#4a3a20;letter-spacing:2px;margin:4px 0 10px}
+#hb-panel .hb-status .hb-turn-dot{display:inline-block;width:10px;height:10px;border-radius:50%;vertical-align:middle;margin-right:6px;border:1px solid #6a5a3c}
+#hb-panel .hb-btns{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+#hb-panel .hb-btn{font-family:inherit;font-size:12px;color:#3a2a10;background:rgba(255,255,255,.5);border:1px solid rgba(120,90,50,.4);padding:6px 14px;border-radius:14px;cursor:pointer;letter-spacing:2px;transition:all .2s}
+#hb-panel .hb-btn:hover{background:rgba(255,255,255,.8);color:#1a0f00}
+#hb-panel .hb-btn.hb-close{background:rgba(180,80,60,.15);border-color:rgba(180,80,60,.4);color:#7a3020}
+#hb-panel .hb-hint{text-align:center;font-size:10.5px;color:#8a7a5c;letter-spacing:2px;margin-top:10px;opacity:.75}
+#hb-toast{position:fixed;bottom:80px;right:24px;z-index:10000;background:rgba(40,25,10,.85);color:#f0e4c8;padding:10px 16px;border-radius:16px;font-family:"KaiTi",serif;font-size:12px;letter-spacing:2px;opacity:0;transition:opacity .3s;pointer-events:none;border:1px solid rgba(240,228,200,.25)}
+#hb-toast.show{opacity:1}
+@media(max-width:520px){#hb-panel canvas{width:280px!important;height:280px!important}}
+#quiz-mask{position:fixed;inset:0;z-index:9996;background:rgba(20,15,8,.6);display:none;align-items:center;justify-content:center;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:20px}
+#quiz-mask.show{display:flex;animation:maskFadeIn .25s ease-out}
+#quiz-panel{background:linear-gradient(150deg,#faf1d8 0%,#eddab0 100%);border:1px solid #b09a70;border-radius:10px;padding:26px 28px 22px;box-shadow:0 16px 50px rgba(50,35,10,.4);max-width:520px;width:100%;max-height:92vh;overflow-y:auto;font-family:"KaiTi","STKaiti","Songti SC","SimSun",serif;color:#3a2a10}
+#quiz-panel .q-close{position:absolute;top:14px;right:20px;font-size:20px;color:#8a7042;background:transparent;border:none;cursor:pointer;line-height:1}
+#quiz-panel .q-close:hover{color:#3a2a10}
+#quiz-panel .q-head{text-align:center;margin-bottom:18px}
+#quiz-panel .q-title{font-size:22px;letter-spacing:6px;margin-bottom:6px}
+#quiz-panel .q-subtitle{font-size:12px;color:#8a7042;letter-spacing:3px;opacity:.85}
+#quiz-panel .q-progress{height:5px;background:rgba(120,90,50,.15);border-radius:3px;overflow:hidden;margin:14px 0 18px}
+#quiz-panel .q-progress-bar{height:100%;background:linear-gradient(90deg,#c48b3a,#8a5a20);transition:width .35s ease;width:0%}
+#quiz-panel .q-num{font-size:11px;color:#8a7042;letter-spacing:2px;margin-bottom:8px}
+#quiz-panel .q-question{font-size:16px;letter-spacing:2px;margin-bottom:16px;line-height:1.6}
+#quiz-panel .q-opts{display:flex;flex-direction:column;gap:10px}
+#quiz-panel .q-opt{background:rgba(255,255,255,.5);border:1px solid rgba(120,90,50,.4);border-radius:6px;padding:12px 14px;cursor:pointer;font-family:inherit;font-size:14px;color:#3a2a10;text-align:left;letter-spacing:1.5px;transition:all .2s}
+#quiz-panel .q-opt:hover{background:rgba(255,255,255,.85);border-color:rgba(120,90,50,.7);transform:translateX(4px)}
+#quiz-panel .q-result-title{font-size:14px;color:#8a7042;letter-spacing:4px;margin-bottom:6px;text-align:center}
+#quiz-panel .q-result-name{font-size:28px;letter-spacing:8px;text-align:center;margin-bottom:6px;color:#3a2a10;font-weight:700}
+#quiz-panel .q-result-alias{font-size:13px;color:#8a5a20;letter-spacing:3px;text-align:center;margin-bottom:14px}
+#quiz-panel .q-result-keys{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+#quiz-panel .q-key{background:rgba(196,139,58,.15);border:1px solid rgba(196,139,58,.45);color:#7a4a10;padding:3px 12px;border-radius:12px;font-size:11.5px;letter-spacing:2px}
+#quiz-panel .q-result-intro{font-size:13.5px;line-height:1.85;color:#4a3a20;margin-bottom:14px;text-indent:2em}
+#quiz-panel .q-result-style{background:rgba(255,255,255,.4);border-left:3px solid #c48b3a;padding:10px 14px;font-size:12.5px;letter-spacing:2px;color:#5a4a20;margin-bottom:14px}
+#quiz-panel .q-result-action{background:linear-gradient(140deg,rgba(196,139,58,.15),rgba(138,90,32,.1));border:1px dashed rgba(138,90,32,.5);padding:12px 14px;font-size:13px;letter-spacing:1.5px;line-height:1.7;color:#5a3a10;margin-bottom:12px;border-radius:4px}
+#quiz-panel .q-cta{text-align:center;background:rgba(196,139,58,.1);padding:14px 12px;border-radius:6px;margin-bottom:12px}
+#quiz-panel .q-cta-text{font-size:12.5px;color:#5a4a20;letter-spacing:2px;margin-bottom:6px}
+#quiz-panel .q-cta-wx{font-size:15px;color:#3a2a10;letter-spacing:3px;font-weight:700}
+#quiz-panel .q-btns{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:8px}
+#quiz-panel .q-btn{font-family:inherit;font-size:13px;color:#3a2a10;background:rgba(255,255,255,.6);border:1px solid rgba(120,90,50,.5);padding:8px 18px;border-radius:16px;cursor:pointer;letter-spacing:2px;transition:all .2s}
+#quiz-panel .q-btn:hover{background:rgba(255,255,255,.9)}
+#quiz-panel .q-btn.q-primary{background:linear-gradient(135deg,#c48b3a,#8a5a20);color:#fff;border-color:#8a5a20}
+#quiz-panel .q-btn.q-primary:hover{background:linear-gradient(135deg,#d49b4a,#9a6a30);color:#fff}
+#quiz-launcher-btn{display:none !important}
+#quiz-launcher-btn:hover{transform:none}
+#quiz-launcher-btn .q-launcher-icon{display:none}
+@media(max-width:520px){#quiz-panel{padding:22px 18px 18px}#quiz-panel .q-title{font-size:18px}}
+#mm-mask{position:fixed;inset:0;z-index:9994;background:rgba(15,10,5,.7);display:none;align-items:center;justify-content:center;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:16px}
+#mm-mask.show{display:flex;animation:maskFadeIn .25s ease-out}
+#mm-panel{background:linear-gradient(150deg,#f7edcf 0%,#e8d5a8 100%);border:1px solid #b09a70;border-radius:10px;padding:22px 24px;box-shadow:0 16px 50px rgba(50,35,10,.4);max-width:1100px;width:100%;max-height:94vh;overflow:auto;font-family:"KaiTi","STKaiti","Songti SC","SimSun",serif;color:#3a2a10;position:relative}
+#mm-panel .mm-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;gap:12px;flex-wrap:wrap}
+#mm-panel .mm-title{font-size:22px;letter-spacing:6px;color:#3a2a10}
+#mm-panel .mm-subtitle{font-size:12px;color:#8a7042;letter-spacing:3px;opacity:.85}
+#mm-panel .mm-close{position:absolute;top:14px;right:20px;font-size:22px;color:#8a7042;background:transparent;border:none;cursor:pointer;line-height:1;z-index:3}
+#mm-panel .mm-close:hover{color:#3a2a10}
+#mm-panel .mm-tabs{display:flex;gap:8px;margin:10px 0 4px;align-items:center;flex-wrap:wrap}
+#mm-panel .mm-tab{padding:6px 16px;background:rgba(255,255,255,.35);border:1px solid rgba(120,90,50,.35);border-radius:20px;cursor:pointer;font-family:inherit;color:#5a4a20;font-size:13.5px;letter-spacing:3px;transition:all .25s}
+#mm-panel .mm-tab.active{background:linear-gradient(135deg,#c48b3a,#a06720);color:#fff8e8;border-color:#8a6a3a;box-shadow:0 2px 6px rgba(160,103,32,.35)}
+#mm-panel .mm-tab:hover:not(.active){background:rgba(196,139,58,.22)}
+#mm-panel .mm-auto-tag{font-size:11px;color:#8a7042;letter-spacing:1.5px;opacity:.75;margin-left:auto;user-select:none}
+#mm-panel .mm-auto-tag.hide{opacity:0;transition:opacity .3s}
+#mm-panel .mm-svg-wrap{width:100%;overflow-x:auto;margin-top:10px;background:linear-gradient(135deg,#faf1d8,#e6d5ae);border:1px solid rgba(120,90,50,.35);border-radius:6px;padding:8px;transition:opacity .35s ease}
+#mm-panel .mm-svg-wrap.fading{opacity:0.12}
+#mm-panel svg{display:block;min-width:1080px}
+#mm-panel .mm-legend{display:flex;gap:18px;justify-content:center;margin-top:14px;flex-wrap:wrap;font-size:12px;color:#5a4a20;letter-spacing:2px}
+#mm-panel .mm-legend .mm-legend-item{display:flex;align-items:center;gap:6px}
+#mm-panel .mm-legend .mm-dot{width:14px;height:14px;border-radius:50%;display:inline-block;border:1px solid rgba(0,0,0,.3)}
+#mm-panel .mm-dot.mm-b{background:radial-gradient(circle at 30% 30%,#555,#080808)}
+#mm-panel .mm-dot.mm-w{background:radial-gradient(circle at 30% 30%,#fff,#c8bfa2)}
+#mm-panel .mm-tip{position:absolute;background:rgba(30,20,10,.92);color:#f0e4c8;padding:8px 12px;border-radius:6px;font-size:12.5px;letter-spacing:1.5px;line-height:1.55;pointer-events:none;opacity:0;transition:opacity .18s;max-width:260px;z-index:2;border:1px solid rgba(240,228,200,.25);box-shadow:0 4px 14px rgba(0,0,0,.35)}
+#mm-panel .mm-tip.show{opacity:1}
+#mm-panel .mm-tip .mm-tip-name{font-weight:700;font-size:14px;margin-bottom:4px;color:#f7d68a}
+#mm-panel .mm-hint{text-align:center;font-size:11.5px;color:#8a7a5c;letter-spacing:2px;margin-top:12px;opacity:.75}
+#mm-launcher-btn{display:none !important}
+.mm-node{cursor:pointer;transition:all .2s}
+.mm-node:hover{filter:drop-shadow(0 0 6px rgba(196,139,58,.85))}
+.mm-node.highlight circle:first-child{stroke:#c48b3a;stroke-width:2.5}
+@media(max-width:520px){#mm-panel{padding:18px 14px} #mm-panel .mm-tab{padding:5px 12px;font-size:12.5px;letter-spacing:2px} #mm-panel .mm-auto-tag{width:100%;margin-left:0;margin-top:4px}}
+
+/* 3.3 大师星图触屏：首触点节点弹出底部简介条（bottom-sheet），再点跳文章 */
+#mm-panel .mm-tip.mm-tip-pinned {
+  position: absolute;
+  left: 12px; right: 12px; bottom: 12px;
+  top: auto;
+  max-width: none;
+  opacity: 1;
+  pointer-events: auto;
+  padding: 12px 14px;
+  animation: tabFadeIn 0.24s ease-out both;
+}
+#mm-panel .mm-tip.mm-tip-pinned .mm-tip-hint {
+  display: block;
+  margin-top: 6px;
+  font-size: 11px;
+  color: rgba(240,228,200,0.65);
+  letter-spacing: 1px;
+}
