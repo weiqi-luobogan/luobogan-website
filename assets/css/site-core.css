@@ -7,20 +7,46 @@
       --seal-light: #c74e3f;
       --gray: #4a4a4a;
       --line: #e6e0d5;
+      /* 第一期 #2 宣纸纹理:低频 feTurbulence 纤维,极淡暖色,叠在 paper/paper-2 底色上
+         用 CSS 变量避免 body/.bg-paper/.bg-paper-2 三处重复 data URI */
+      --xuan-texture: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.04' numOctaves='5' seed='3'/%3E%3CfeColorMatrix values='0 0 0 0 0.72 0 0 0 0 0.62 0 0 0 0 0.45 0 0 0 0.10 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E");
     }
     body {
       font-family: 'Noto Serif SC', 'Songti SC', serif;
-      background: var(--paper);
+      background-color: var(--paper);
+      background-image: var(--xuan-texture);
+      background-repeat: repeat;
       color: var(--ink);
       line-height: 1.75;
       letter-spacing: 0.02em;
     }
+    /* 第一期 #1 颗粒覆层:高频 feTurbulence,multiply 混合模拟胶片颗粒,消除数字产品塑料感
+       z-index 9000 = 高于常规内容(1-70)低于所有 modal/mask(9994+);pointer-events none 不阻挡交互 */
+    .texture-grain {
+      position: fixed;
+      inset: 0;
+      z-index: 9000;
+      pointer-events: none;
+      opacity: 0.05;
+      mix-blend-mode: multiply;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.10 0 0 0 0 0.08 0 0 0 0 0.05 0 0 0 0.7 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+    }
+    /* 高对比度模式降级:颗粒可能干扰可读性,直接隐藏 */
+    @media (prefers-contrast: high) {
+      .texture-grain { display: none; }
+      body { background-image: none; }
+    }
     .font-inter { font-family: 'Inter', sans-serif; }
     .bg-paper {
       background-color: var(--paper);
-      background-image: radial-gradient(circle at 50% 50%, rgba(168,54,42,0.015) 0%, transparent 70%);
+      /* 第一期 #2:宣纸纹理叠在朱红 radial 之上(逗号分隔,第一个在上层) */
+      background-image: var(--xuan-texture), radial-gradient(circle at 50% 50%, rgba(168,54,42,0.015) 0%, transparent 70%);
     }
-    .bg-paper-2 { background-color: var(--paper-2); }
+    .bg-paper-2 {
+      background-color: var(--paper-2);
+      background-image: var(--xuan-texture);
+    }
     .text-seal { color: var(--seal); }
     .bg-seal { background: var(--seal); }
     .text-gray-soft { color: var(--gray); }

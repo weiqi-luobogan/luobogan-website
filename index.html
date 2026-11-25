@@ -64,7 +64,10 @@
 
 </head>
 <body>
-<!-- ===== 批1 S1：单色线描图标 sprite（替换系统 emoji；stroke 继承 currentColor，随主题色/active 态变色）===== -->
+<!-- 第一期 #1:颗粒覆层(高频 feTurbulence,multiply 混合,消除数字产品塑料感)
+     z-index 9000 高于常规内容低于所有 modal/mask;pointer-events none 不阻挡交互;prefers-contrast:high 降级隐藏 -->
+<div class="texture-grain" aria-hidden="true"></div>
+<!-- ===== 批1 S1:单色线描图标 sprite(替换系统 emoji;stroke 继承 currentColor,随主题色/active 态变色)===== -->
 <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11.2 12 4.6 20 11.2"/><path d="M6.6 9.8V19.4H17.4V9.8"/><circle cx="12" cy="14.6" r="1.8"/></symbol>
   <symbol id="i-books" viewBox="0 0 24 24"><path d="M12 6.6C10.1 5.2 7.6 4.6 4.6 4.6V18.4C7.6 18.4 10.1 19 12 20.2C13.9 19 16.4 18.4 19.4 18.4V4.6C16.4 4.6 13.9 5.2 12 6.6Z"/><path d="M12 6.6V20.2"/></symbol>
