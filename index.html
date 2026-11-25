@@ -135,9 +135,7 @@
   <div class="max-w-4xl mx-auto px-6 text-center fade-in">
     <div class="hero-tag">LUO BO GAN · MISSION</div>
     <!-- 第一期 #3:去掉 Tailwind text-3xl md:text-6xl leading-snug tracking-wider,改由 .hero-h1 CSS clamp 控制巨型字排版 -->
-    <h1 class="hero-h1 mt-2 font-bold">
-      让围棋，成为每个普通孩子<br>都能享受的智力教育
-    </h1>
+    <h1 class="hero-h1 mt-2 font-bold"><span class="ch">让</span><span class="ch">围</span><span class="ch">棋</span><span class="ch">，</span><span class="ch">成</span><span class="ch">为</span><span class="ch">每</span><span class="ch">个</span><span class="ch">普</span><span class="ch">通</span><span class="ch">孩</span><span class="ch">子</span><br><span class="ch">都</span><span class="ch">能</span><span class="ch">享</span><span class="ch">受</span><span class="ch">的</span><span class="ch">智</span><span class="ch">力</span><span class="ch">教</span><span class="ch">育</span></h1>
     <p class="hero-subtitle mt-4 md:mt-6 text-sm md:text-base text-gray-soft tracking-wide leading-relaxed" style="max-width:520px;margin-left:auto;margin-right:auto;">
       十多年围棋教育深耕 · 四本家校共育手册 · 全国机构都在用的教学体系
     </p>
@@ -357,6 +355,114 @@
     <div class="mt-4 flex flex-wrap gap-4 justify-center">
       <a href="#contact" class="btn-primary nav-toggle" data-target="contact">加我微信</a>
       <a href="#projects" class="btn-secondary nav-toggle" data-target="projects">看正在做什么</a>
+      <a href="#game" class="btn-secondary nav-toggle" data-target="game">看一局棋怎么走</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 第二期 #10：一局棋四阶段叙事（桌面 deck 第 5 页 · 移动 sticky 板 + 4 阶段滚动）=====
+     棋盘 SVG 静态绘 9×9 网格 + 5 星位；st-1..st-4 四组棋子随 data-stage 累加显示；
+     移动 IO 在 site.js 中根据当前 stage 中心距视口中心远近设置 data-stage；桌面 deck 内始终 data-stage="4" 全显。
+     spine 是 .game-stages::before 竖线，.fade-in.visible 后 scaleY 0→1（1.4s）实现"随滚动描出"感（第二期 #9 线绘揭示）。 -->
+<section id="game" class="bg-paper" data-stage="0">
+  <div class="game-wrap fade-in">
+    <div class="game-head">
+      <div class="dir-eyebrow">LUO BO GAN · ONE GAME</div>
+      <h2 class="dir-title">一局棋的四段路</h2>
+      <p class="dir-sub">从占角到复盘，看看一盘棋是怎么走完的</p>
+    </div>
+    <div class="game-body">
+      <div class="game-board">
+        <svg viewBox="0 0 320 320" aria-hidden="true" focusable="false">
+          <rect x="10" y="10" width="300" height="300" fill="#f0e5c8" stroke="var(--line)" stroke-width="1"/>
+          <g stroke="#8b7a5c" stroke-width="1" fill="none">
+            <line x1="20" y1="20" x2="300" y2="20"/>
+            <line x1="20" y1="55" x2="300" y2="55"/>
+            <line x1="20" y1="90" x2="300" y2="90"/>
+            <line x1="20" y1="125" x2="300" y2="125"/>
+            <line x1="20" y1="160" x2="300" y2="160"/>
+            <line x1="20" y1="195" x2="300" y2="195"/>
+            <line x1="20" y1="230" x2="300" y2="230"/>
+            <line x1="20" y1="265" x2="300" y2="265"/>
+            <line x1="20" y1="300" x2="300" y2="300"/>
+            <line x1="20" y1="20" x2="20" y2="300"/>
+            <line x1="55" y1="20" x2="55" y2="300"/>
+            <line x1="90" y1="20" x2="90" y2="300"/>
+            <line x1="125" y1="20" x2="125" y2="300"/>
+            <line x1="160" y1="20" x2="160" y2="300"/>
+            <line x1="195" y1="20" x2="195" y2="300"/>
+            <line x1="230" y1="20" x2="230" y2="300"/>
+            <line x1="265" y1="20" x2="265" y2="300"/>
+            <line x1="300" y1="20" x2="300" y2="300"/>
+          </g>
+          <g fill="#8b7a5c">
+            <circle cx="90" cy="90" r="2.6"/>
+            <circle cx="230" cy="90" r="2.6"/>
+            <circle cx="90" cy="230" r="2.6"/>
+            <circle cx="230" cy="230" r="2.6"/>
+            <circle cx="160" cy="160" r="2.6"/>
+          </g>
+          <g class="stones st-1">
+            <circle cx="90" cy="90" r="11" fill="#1a1a1a"/>
+            <circle cx="230" cy="230" r="11" fill="#1a1a1a"/>
+            <circle cx="230" cy="90" r="11" fill="#fdfaf3" stroke="#1a1a1a" stroke-width="0.7"/>
+            <circle cx="90" cy="230" r="11" fill="#fdfaf3" stroke="#1a1a1a" stroke-width="0.7"/>
+          </g>
+          <g class="stones st-2">
+            <circle cx="160" cy="125" r="11" fill="#1a1a1a"/>
+            <circle cx="125" cy="160" r="11" fill="#1a1a1a"/>
+            <circle cx="195" cy="160" r="11" fill="#1a1a1a"/>
+            <circle cx="160" cy="195" r="11" fill="#fdfaf3" stroke="#1a1a1a" stroke-width="0.7"/>
+            <circle cx="195" cy="125" r="11" fill="#fdfaf3" stroke="#1a1a1a" stroke-width="0.7"/>
+            <circle cx="125" cy="195" r="11" fill="#fdfaf3" stroke="#1a1a1a" stroke-width="0.7"/>
+          </g>
+          <g class="stones st-3">
+            <circle cx="55" cy="90" r="11" fill="#1a1a1a"/>
+            <circle cx="265" cy="230" r="11" fill="#1a1a1a"/>
+            <circle cx="55" cy="230" r="11" fill="#fdfaf3" stroke="#1a1a1a" stroke-width="0.7"/>
+            <circle cx="265" cy="90" r="11" fill="#fdfaf3" stroke="#1a1a1a" stroke-width="0.7"/>
+          </g>
+          <g class="stones st-4">
+            <circle cx="90" cy="90" r="15" fill="none" stroke="var(--seal)" stroke-width="1.6"/>
+            <circle cx="160" cy="160" r="15" fill="none" stroke="var(--seal)" stroke-width="1.6"/>
+            <circle cx="195" cy="125" r="15" fill="none" stroke="var(--seal)" stroke-width="1.6"/>
+          </g>
+        </svg>
+      </div>
+      <ol class="game-stages">
+        <li class="game-stage" data-stage="1">
+          <span class="stage-node" aria-hidden="true"></span>
+          <div class="stage-body">
+            <div class="stage-num">壹</div>
+            <h3 class="stage-title">布局 · 占角拆边</h3>
+            <p class="stage-copy">开局先占角、再拆边。金角银边草肚皮——用最少的子围出最大的空，是一盘棋的地基。</p>
+          </div>
+        </li>
+        <li class="game-stage" data-stage="2">
+          <span class="stage-node" aria-hidden="true"></span>
+          <div class="stage-body">
+            <div class="stage-num">贰</div>
+            <h3 class="stage-title">中盘 · 短兵相接</h3>
+            <p class="stage-copy">棋子碰到一起，就要算死活、看轻重。攻与守、弃与取，全在这几十手里定形。</p>
+          </div>
+        </li>
+        <li class="game-stage" data-stage="3">
+          <span class="stage-node" aria-hidden="true"></span>
+          <div class="stage-body">
+            <div class="stage-num">叁</div>
+            <h3 class="stage-title">官子 · 锱铢必较</h3>
+            <p class="stage-copy">大势已定，比拼的是细节。一目两目的地收，先手后手要算清，胜负常常在这里翻转。</p>
+          </div>
+        </li>
+        <li class="game-stage" data-stage="4">
+          <span class="stage-node" aria-hidden="true"></span>
+          <div class="stage-body">
+            <div class="stage-num">肆</div>
+            <h3 class="stage-title">复盘 · 回头再看</h3>
+            <p class="stage-copy">棋下完，把关键处圈出来重走一遍。这一步做得扎实，下一盘才会更强——学棋最贵的功课。</p>
+          </div>
+        </li>
+      </ol>
     </div>
   </div>
 </section>
@@ -3737,6 +3843,7 @@ AI 是训练工具，不是老师替身<br>
   <div class="slide-dot" data-idx="1" title="课表 · 图书"></div>
   <div class="slide-dot" data-idx="2" title="内容目录"></div>
   <div class="slide-dot" data-idx="3" title="使命"></div>
+  <div class="slide-dot" data-idx="4" title="一局棋"></div>
 </div>
 
 

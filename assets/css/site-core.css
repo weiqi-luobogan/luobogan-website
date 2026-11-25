@@ -444,7 +444,7 @@
       z-index: 1;
     }
     .page-track::-webkit-scrollbar { display: none; }
-    .page-track > section#hero, .page-track > section#showcase, .page-track > section#directory, .page-track > section#mission {
+    .page-track > section#hero, .page-track > section#showcase, .page-track > section#directory, .page-track > section#mission, .page-track > section#game {
       scroll-snap-align: start;
       scroll-snap-stop: always;
       flex: 0 0 100vw;
@@ -464,7 +464,7 @@
     section#hero { padding-top: 100px !important; padding-bottom: 60px !important; }
     section#mission { padding-top: 84px !important; padding-bottom: 60px !important; }
     /* fix: flex column + mx-auto 会禁用 stretch，导致 wrapper 塌陷到 content-min-width。显式 100% 宽度让 max-width 与 mx-auto 正常生效 */
-    section#hero > div, section#showcase > div, section#directory > div, section#mission > div { width: 100%; }
+    section#hero > div, section#showcase > div, section#directory > div, section#mission > div, section#game > div { width: 100%; }
     /* showcase 内部压缩，尽量塞入一屏 */
     section#showcase .showcase-frame { max-height: calc(100vh - 200px); }
     /* 面板打开时，把横向翻页 track 藏起来（避免键盘/滚轮冲突） */
@@ -1485,3 +1485,231 @@ footer {
   content-visibility: auto;
   contain-intrinsic-size: auto 480px;
 }
+
+/* ================================================================
+   第二期 · 高级感升级（2026-11-25）
+   #9 SVG 线绘揭示（合入 #10 spine）
+   #10 一局棋四阶段叙事（deck 第 5 slide + 移动 sticky 板）
+   #11 微插画动效（section-title 毛笔 underline / role-ico hover 弹跳）
+   #12 SplitText hero 逐字揭示（.ch span + JS 设置 animation-delay）
+   全部原生 CSS/JS，零新依赖；reduced-motion 自动降级
+   ================================================================ */
+
+/* ---------- #12 hero 逐字揭示 ---------- */
+.hero-h1 .ch {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+.fade-in.visible .hero-h1 .ch {
+  animation: heroCharIn 0.44s cubic-bezier(0.2, 0.75, 0.25, 1) both;
+}
+@keyframes heroCharIn {
+  from { opacity: 0; transform: translateY(0.32em) scale(0.94); filter: blur(3px); }
+  to   { opacity: 1; transform: none; filter: blur(0); }
+}
+
+/* ---------- #11 section-title 毛笔 underline：.fade-in.visible 后 scaleX 0→1 ---------- */
+.section-title::after {
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  transition: transform 0.75s cubic-bezier(0.2, 0.7, 0.2, 1) 0.1s;
+  height: 2.5px;
+  background: linear-gradient(90deg, var(--seal) 0%, var(--seal) 65%, rgba(168, 54, 42, 0.5) 100%);
+}
+.fade-in.visible .section-title::after { transform: scaleX(1); }
+/* 独立标题（不在 .fade-in 内）用 IO 加 .in-view 兜底 */
+.section-title.in-view::after { transform: scaleX(1); }
+
+/* ---------- #11 role-card 图标 hover 微动（落子弹跳 + 微旋转） ---------- */
+.role-card .role-ico { transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.role-card:hover .role-ico { transform: translateY(-3px) rotate(-5deg) scale(1.1); }
+
+/* ---------- #11 culture-entry / dir-card hover 微动 ---------- */
+.culture-entry .ce-ico { transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.culture-entry:hover .ce-ico { transform: scale(1.12) rotate(4deg); }
+
+/* ---------- #10 一局棋四阶段 · 基础布局 ---------- */
+#game {
+  padding: 32px 0 40px;
+  position: relative;
+}
+#game .game-wrap {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.game-head { text-align: center; margin-bottom: 24px; }
+.game-body { position: relative; }
+
+/* 棋盘 SVG */
+.game-board { width: 100%; max-width: 320px; margin: 0 auto; }
+.game-board svg { width: 100%; height: auto; display: block; }
+
+/* stages 排布 */
+.game-stages {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 32px;
+  position: relative;
+}
+/* 竖脊线（#9 SVG-draw 效果 · scaleY 从 0 到 1，随 .fade-in.visible 触发） */
+.game-stages::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 6px;
+  bottom: 6px;
+  width: 1.5px;
+  background: linear-gradient(180deg, var(--seal) 0%, var(--seal) 70%, rgba(168, 54, 42, 0.35) 100%);
+  transform: scaleY(0);
+  transform-origin: 50% 0;
+  transition: transform 1.6s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
+}
+.fade-in.visible .game-stages::before { transform: scaleY(1); }
+
+/* stage 项 */
+.game-stage { position: relative; padding: 14px 0 22px; }
+.stage-node {
+  position: absolute;
+  left: -32px;
+  top: 22px;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 2px solid var(--seal);
+  box-sizing: border-box;
+  transform: scale(0.55);
+  opacity: 0.35;
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s, background 0.3s;
+}
+.stage-num {
+  display: inline-block;
+  font-size: 11.5px;
+  letter-spacing: 0.32em;
+  color: var(--seal);
+  font-weight: 600;
+  margin-bottom: 4px;
+  opacity: 0.85;
+  font-family: 'Cormorant Garamond', 'Inter', sans-serif;
+}
+.stage-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: 0.05em;
+  margin: 0 0 8px;
+  line-height: 1.3;
+}
+.stage-copy {
+  font-size: 14.5px;
+  line-height: 1.85;
+  color: var(--gray);
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+/* stage 激活：当前 data-stage 匹配的 stage node 弹出填色 */
+#game[data-stage="1"] .game-stage[data-stage="1"] .stage-node,
+#game[data-stage="2"] .game-stage[data-stage="2"] .stage-node,
+#game[data-stage="3"] .game-stage[data-stage="3"] .stage-node,
+#game[data-stage="4"] .game-stage[data-stage="4"] .stage-node {
+  transform: scale(1);
+  opacity: 1;
+  background: var(--seal);
+}
+/* stage body 微高亮 */
+#game[data-stage="1"] .game-stage[data-stage="1"] .stage-title,
+#game[data-stage="2"] .game-stage[data-stage="2"] .stage-title,
+#game[data-stage="3"] .game-stage[data-stage="3"] .stage-title,
+#game[data-stage="4"] .game-stage[data-stage="4"] .stage-title {
+  color: var(--seal);
+}
+.stage-title { transition: color 0.35s ease-out; }
+
+/* 棋子累加显示：st-1..st-N 依据 data-stage */
+.stones { opacity: 0; transition: opacity 0.55s ease-out; }
+#game[data-stage="1"] .stones.st-1,
+#game[data-stage="2"] .stones.st-1, #game[data-stage="2"] .stones.st-2,
+#game[data-stage="3"] .stones.st-1, #game[data-stage="3"] .stones.st-2, #game[data-stage="3"] .stones.st-3,
+#game[data-stage="4"] .stones.st-1, #game[data-stage="4"] .stones.st-2, #game[data-stage="4"] .stones.st-3, #game[data-stage="4"] .stones.st-4 {
+  opacity: 1;
+}
+
+/* ---------- 移动端：sticky 板 + 高 stage（滚动叙事） ---------- */
+@media (max-width: 900px) {
+  #game { padding: 24px 0 40px; }
+  .game-body { display: block; }
+  .game-board {
+    position: sticky;
+    top: 74px;
+    z-index: 5;
+    max-width: 200px;
+    padding: 8px 0 12px;
+    background: linear-gradient(180deg, var(--paper) 55%, rgba(248, 245, 239, 0.9) 80%, rgba(248, 245, 239, 0));
+    margin-bottom: 4px;
+  }
+  .game-stages {
+    padding-left: 40px;
+    margin-top: 8px;
+  }
+  .game-stages::before { left: 12px; }
+  .stage-node { left: -34px; top: 26px; }
+  .game-stage {
+    min-height: 55vh;
+    padding: 24px 0 32px;
+    display: flex;
+    align-items: center;
+  }
+  /* 首阶段贴顶（紧跟 sticky 板下方），避免首屏板与文字间大片空白 */
+  .game-stage:first-child {
+    min-height: 46vh;
+    align-items: flex-start;
+    padding-top: 10px;
+  }
+  .stage-body { width: 100%; }
+  .stage-title { font-size: 22px; }
+  .stage-copy { font-size: 15px; }
+}
+
+/* ---------- 桌面端：section 是 deck 第 5 slide，板左 · stages 右 ---------- */
+@media (min-width: 901px) {
+  #game { padding: 0; }
+  #game .game-wrap { padding: 0 32px; }
+  .game-body {
+    display: flex;
+    align-items: flex-start;
+    gap: 44px;
+    max-width: 880px;
+    margin: 0 auto;
+  }
+  .game-board {
+    flex: 0 0 auto;
+    width: 300px;
+    max-width: 300px;
+    position: sticky;
+    top: 100px;
+  }
+  .game-stages {
+    flex: 1;
+    padding-left: 36px;
+  }
+  .game-stage {
+    padding: 8px 0 16px;
+    min-height: 0;
+  }
+  .stage-title { font-size: 19px; }
+  .stage-copy { font-size: 13.5px; line-height: 1.75; }
+}
+
+/* ---------- reduced-motion 降级：所有 Phase-2 动效瞬现 ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .hero-h1 .ch { animation: none !important; opacity: 1 !important; transform: none !important; filter: none !important; }
+  .section-title::after { transform: scaleX(1) !important; transition: none !important; }
+  .game-stages::before { transform: scaleY(1) !important; transition: none !important; }
+  .stones { transition: none !important; }
+  .stage-node { transition: none !important; }
+  .role-card:hover .role-ico,
+  .culture-entry:hover .ce-ico { transform: none !important; }
+}
+

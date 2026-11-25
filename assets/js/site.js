@@ -710,6 +710,82 @@ function toggleShixunDetail(btn) {
   }, { threshold: 0.1 });
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
+  /* ===== 第二期 #10：一局棋四阶段 · stage tracking =====
+     移动端：section#game 高 220vh+，board sticky 顶部；stage 元素中心距视口中心最近者设为当前 data-stage。
+     桌面端：section#game 是横向 deck 第 5 slide（100vh），无需 sticky；直接把 data-stage 设为 4（全显）。
+     reduced-motion 亦全显，避免动效依赖。*/
+  (function(){
+    const game = document.getElementById('game');
+    if(!game) return;
+    const stages = Array.from(game.querySelectorAll('.game-stage'));
+    if(!stages.length) return;
+    const isDesktop = () => window.innerWidth >= 901;
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function setStage(n){
+      const cur = game.getAttribute('data-stage');
+      if(cur !== String(n)) game.setAttribute('data-stage', String(n));
+    }
+    if(isDesktop() || reduce){
+      setStage(4);
+    }
+    // 移动端 IO：每 stage 50% 可见即认定当前
+    if(!isDesktop() && !reduce && 'IntersectionObserver' in window){
+      let visibleSet = new Set();
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if(e.isIntersecting) visibleSet.add(e.target);
+          else visibleSet.delete(e.target);
+        });
+        // 取可见 stage 中 data-stage 最小者（用户滚到哪儿，棋子累积到哪儿）
+        let maxSeen = 0;
+        visibleSet.forEach(el => {
+          const n = parseInt(el.getAttribute('data-stage') || '0', 10);
+          if(n > maxSeen) maxSeen = n;
+        });
+        // 若已滚过所有 stage，保持 4；否则至少 1
+        if(maxSeen === 0 && game.getBoundingClientRect().top < 0) maxSeen = 4;
+        if(maxSeen > 0) setStage(maxSeen);
+      }, { threshold: 0.5 });
+      stages.forEach(el => io.observe(el));
+    }
+    // resize 时切换桌面/移动模式
+    let resizeTimer = null;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        if(isDesktop() || reduce) setStage(4);
+      }, 200);
+    }, { passive: true });
+  })();
+
+  /* ===== 第二期 #12：hero-h1 .ch 逐字揭示 · 依序设置 animation-delay =====
+     CSS 侧 .fade-in.visible .hero-h1 .ch { animation: heroCharIn ... both }
+     这里只负责按序注入 delay（34ms 步进），跳过 <br>；总时长 23 字 × 34ms ≈ 780ms */
+  (function(){
+    const chars = document.querySelectorAll('.hero-h1 .ch');
+    if(!chars.length) return;
+    chars.forEach((el, i) => {
+      el.style.animationDelay = (i * 34) + 'ms';
+    });
+  })();
+
+  /* ===== 第二期 #11：section-title 毛笔 underline · 独立 IO 兜底 =====
+     若 section-title 不在 .fade-in 容器内，加 .in-view 让 ::after 画线 */
+  (function(){
+    if(!('IntersectionObserver' in window)) return;
+    const titles = document.querySelectorAll('.section-title');
+    if(!titles.length) return;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if(e.isIntersecting){
+          e.target.classList.add('in-view');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    titles.forEach(el => io.observe(el));
+  })();
+
   // ===== 留言板反轰炸软防 =====
   (function(){
     var form = document.getElementById('msg-form');
@@ -1415,7 +1491,7 @@ function hideParentGuide(){
 /* ===== 折叠板块交互（独占展开）===== */
 (function(){
   const HEADER_OFFSET = 72;
-  const HORIZONTAL_SLIDE_IDS = ['hero','showcase','directory','mission'];
+  const HORIZONTAL_SLIDE_IDS = ['hero','showcase','directory','mission','game'];
   function scrollToEl(el){
     if(!el) return;
     // 桌面端横向翻页 3 段之一，走 goToSlide（横向 scroll）
@@ -1679,7 +1755,7 @@ function hideParentGuide(){
     }
   });
   // 横向翻页：page-track 元素 scrollLeft / viewport width
-  const SLIDE_IDS = ['hero','showcase','directory','mission'];
+  const SLIDE_IDS = ['hero','showcase','directory','mission','game'];
   function pageTrack(){ return document.getElementById('pageTrack'); }
   function currentSlideIdx(){
     const pt = pageTrack();
