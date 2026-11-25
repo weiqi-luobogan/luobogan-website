@@ -22,9 +22,15 @@
   <!-- ===== LUOBO-CRITICAL-FONT-V1 START ===== -->
   <!-- 第四期 P0：首页专用 Noto Serif SC 可变字体子集（index.html + site.js 全部 1770 字，wght 200-900 单文件 723KB）。
        替代原 fonts.css 101 个 unicode-range 分片在首屏并发拉取的 28 个子集（1.85MB / 17s 长尾 / 移动 LCP 10.6s 根因）。
-       preload 提前发现（现为唯一 LCP 字体资源），内联 @font-face 声明早于异步 fonts.css，cascade 优先命中；
-       子集外字符（弹层懒加载文案）仍由下方异步 fonts.css 分片兜底，font-display:swap 保证不阻塞。 -->
+       preload 提前发现（现为唯一 LCP 字体资源）。
+       ⚠ cascade 顺序关键：@font-face 同 family+descriptor 且 unicode-range 重叠时，文档序【后声明者胜】。
+       故内联 @font-face 必须放在异步 fonts.css <link> 之后（见下方），否则 fonts.css 分片会反客为主、首屏仍并发拉 28 子集。
+       子集外字符（弹层懒加载文案）仍由 fonts.css 分片兜底，font-display:swap 保证不阻塞。 -->
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/noto-sc-homepage.woff2" crossorigin>
+  <!-- 九期：fonts.css(115KB/113个@font-face)移出渲染阻塞路径。media=print 触发下载但不阻塞首屏，onload 切回 all 应用；内部 font-display:swap 已在，文字先以系统字体显示再换入，noscript 兜底。注：preload as=style 本地 A/B(n=6) 实测反而更慢(高优先级预取与 site-core/LCP 抢带宽)，故用 print 模式，与 site-panels.css 一致。第四期起仅作子集外字符兜底。 -->
+  <link rel="stylesheet" href="/assets/fonts/fonts.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="/assets/fonts/fonts.css"></noscript>
+  <!-- critical @font-face 置于 fonts.css 之后 → 文档序更晚 → 对首页字符 cascade 胜出，浏览器只下载本子集、不再拉 fonts.css 重叠分片 -->
   <style>
     @font-face {
       font-family: 'Noto Serif SC';
@@ -35,9 +41,6 @@
     }
   </style>
   <!-- ===== LUOBO-CRITICAL-FONT-V1 END ===== -->
-  <!-- 九期：fonts.css(115KB/113个@font-face)移出渲染阻塞路径。media=print 触发下载但不阻塞首屏，onload 切回 all 应用；内部 font-display:swap 已在，文字先以系统字体显示再换入，noscript 兜底。注：preload as=style 本地 A/B(n=6) 实测反而更慢(高优先级预取与 site-core/LCP 抢带宽)，故用 print 模式，与 site-panels.css 一致。第四期起仅作子集外字符兜底。 -->
-  <link rel="stylesheet" href="/assets/fonts/fonts.css" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="/assets/fonts/fonts.css"></noscript>
   <link rel="stylesheet" href="/assets/css/site-core.css">
   <link rel="stylesheet" href="/assets/css/site-panels.css" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="/assets/css/site-panels.css"></noscript>
