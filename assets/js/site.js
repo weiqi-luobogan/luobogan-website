@@ -1116,7 +1116,7 @@ function hideParentGuide(){
   }
   function undo(){if(stones.length){stones.pop();turn=(turn==='B')?'W':'B';draw();}}
   function clearAll(){stones=[];turn='B';draw();}
-  function showToast(){toast.classList.add('show');setTimeout(function(){toast.classList.remove('show');},1600);}
+  function showToast(){if(!toast)return;toast.classList.add('show');setTimeout(function(){toast.classList.remove('show');},1600);}
   function open(){mask.classList.add('show');mask.setAttribute('aria-hidden','false');draw();showToast();}
   function close(){mask.classList.remove('show');mask.setAttribute('aria-hidden','true');}
   cvs.addEventListener('click',onClick);
@@ -1133,7 +1133,7 @@ function hideParentGuide(){
 ;
 (function(){
   var MASTERS={"wuqingyuan": {"name": "吴清源", "alias": "昭和棋圣", "keys": ["新布局", "六合", "革新"], "intro": "从福建到日本的天才棋手。他与木谷实创立的新布局理论，彻底颠覆了三三小目的传统开局；晚年提出\"六合\"理念，追求棋盘上的整体和谐。", "style": "大局观 · 开创性 · 不拘定式", "action": "你天生有战略家的气质，欢迎来聊聊你对\"棋无定式\"的理解。"}, "lichanghao": {"name": "李昌镐", "alias": "石佛 · 半目大师", "keys": ["稳健", "官子", "铁大门"], "intro": "韩国旗手，14 岁夺得世界冠军。棋风像一堵铁大门，官子精准到误差半目之内，被称为\"上帝之子\"。", "style": "稳健派 · 完璧主义 · 精准官子", "action": "稳健派家长最放心的路线，欢迎围观萝卜干的稳扎稳打式教研。"}, "xufengzhu": {"name": "徐奉洙", "alias": "野草派 · 徐坛主", "keys": ["意外", "力战", "韧性"], "intro": "韩国老将，年少不学棋而先打工，20 岁才正式拜师。棋风像野草，烧不尽吹又生；逆境翻盘是他的拿手好戏。", "style": "韧性派 · 逆境王 · 险中求胜", "action": "韧性是一切启蒙的底色，欢迎聊聊怎么让孩子学会\"不放弃\"。"}, "tengzexiuxing": {"name": "藤泽秀行", "alias": "秀行棋圣", "keys": ["洒脱", "灵感", "大师风范"], "intro": "日本传奇棋圣，酒不离手棋不离身。他说过：\"我对棋的了解也不过百分之十\"。豪迈中有诗意，是真正的江湖大师。", "style": "写意派 · 灵感型 · 江湖气度", "action": "真正的启蒙从不紧绷，欢迎和萝卜干聊聊\"放手学棋\"的分寸。"}, "gaochuange": {"name": "高川格", "alias": "流水不争先", "keys": ["流水", "平静", "韧性"], "intro": "日本九段，连续九年蝉联本因坊。他的名言是\"流水不争先\"——像水一样绕过障碍，静静地赢下棋局。", "style": "平静派 · 长跑型 · 不争而胜", "action": "不争一时的家长最难得，欢迎聊聊怎么让孩子在慢中出彩。"}, "wugongzhengshu": {"name": "武宫正树", "alias": "宇宙流", "keys": ["外势", "浪漫", "大模样"], "intro": "日本九段，独创\"宇宙流\"——不占实地，专筑外势。他的每一盘棋都像一幅画，宏大而浪漫。", "style": "浪漫派 · 大模样 · 审美优先", "action": "审美派家长最喜欢，欢迎聊聊怎么让孩子学出\"美感\"。"}, "caoxunxuan": {"name": "曹薰铉", "alias": "燕子飞刀", "keys": ["战斗", "快棋", "锐利"], "intro": "韩国现代围棋之父，快棋战神。他的棋短兵相接，出手迅捷如燕；是李昌镐的启蒙老师。", "style": "战斗派 · 快棋型 · 锐利凌厉", "action": "竞技家长最认可的路线，欢迎聊聊怎么在实战中稳步提高。"}, "maxiaochun": {"name": "马晓春", "alias": "中国妖刀", "keys": ["妖刀", "灵动", "艺术"], "intro": "第一位夺得世界冠军的中国棋手。棋风灵动如刀，每盘都能下出一两个惊人的妙手，是艺术家型的棋手。", "style": "艺术派 · 灵动型 · 妙手频现", "action": "艺术家型家长最偏爱，欢迎聊聊怎么让孩子下出\"灵光\"。"}};
-  var QUESTIONS=[{"q": "你偏爱的开局风格是？", "opts": [["先占大场，简明扎实", "lichanghao"], ["追求外势的浪漫铺陈", "wugongzhengshu"], ["突破定式的新布局思路", "wuqingyuan"], ["随手拈来，先看对手反应", "tengzexiuxing"]]}, {"q": "面对不利局面，你的第一反应是？", "opts": [["稳住阵脚，等对手犯错", "gaochuange"], ["拼一次，野火也能烧出生机", "xufengzhu"], ["换一个大局思路重新定盘", "wuqingyuan"], ["用一手妖刀翻盘", "maxiaochun"]]}, {"q": "你最欣赏的对局是？", "opts": [["一子撑起半盘大势", "wugongzhengshu"], ["中盘一击定江山", "caoxunxuan"], ["布局深远，从容不迫", "gaochuange"], ["险中求胜的一击", "xufengzhu"]]}, {"q": "学棋方式你更倾向于？", "opts": [["反复复盘经典名局", "maxiaochun"], ["大量实战积累经验", "caoxunxuan"], ["研究布局革新的思路", "wuqingyuan"], ["观棋千局，感悟为主", "tengzexiuxing"]]}, {"q": "你最喜欢的一手棋是？", "opts": [["意料之外的妖刀", "maxiaochun"], ["一子成模的宇宙外势", "wugongzhengshu"], ["精准无双的官子", "lichanghao"], ["犀利凌厉的攻杀", "caoxunxuan"]]}, {"q": "你的性格底色更像？", "opts": [["沉稳内敛，凡事求稳", "lichanghao"], ["韧性顽强，逆境不服", "xufengzhu"], ["洒脱写意，随心所欲", "tengzexiuxing"], ["平和淡然，如水行山", "gaochuange"]]}, {"q": "你希望自己下棋像谁？", "opts": [["一手定乾坤的战略家", "wuqingyuan"], ["一子铸就大势的浪漫派", "wugongzhengshu"], ["兵行险着的野草派", "xufengzhu"], ["一子含花的艺术家", "maxiaochun"]]}, {"q": "关于胜负，你更认可？", "opts": [["半目胜也是完美", "lichanghao"], ["一战决出高下", "caoxunxuan"], ["平和落子，不争先亦不失后", "gaochuange"], ["顺其自然，赢了也无所谓", "tengzexiuxing"]]}];
+  var QUESTIONS=[{"q": "你偏爱的开局风格是？", "opts": [["先占大场，简明扎实", "lichanghao"], ["追求外势的浪漫铺陈", "wugongzhengshu"], ["突破定式的新布局思路", "wuqingyuan"], ["随手拈来，先看对手反应", "tengzexiuxing"]]}, {"q": "面对不利局面，你的第一反应是？", "opts": [["稳住阵脚，等对手犯错", "gaochuange"], ["拼一次，野火也能烧出生机", "xufengzhu"], ["换一个大局思路重新定盘", "wuqingyuan"], ["用一手妖刀翻盘", "maxiaochun"]]}, {"q": "你最欣赏的对局是？", "opts": [["一子撑起半盘大势", "wugongzhengshu"], ["中盘一击定江山", "caoxunxuan"], ["布局深远，从容不迫", "gaochuange"], ["险中求胜的一击", "xufengzhu"]]}, {"q": "学棋方式你更倾向于？", "opts": [["反复复盘经典名局", "maxiaochun"], ["大量实战积累经验", "caoxunxuan"], ["研究布局革新的思路", "wuqingyuan"], ["观棋千局，感悟为主", "tengzexiuxing"]]}, {"q": "你最喜欢的一手棋是？", "opts": [["意料之外的妖刀", "maxiaochun"], ["一子成势的宇宙外势", "wugongzhengshu"], ["精准无双的官子", "lichanghao"], ["犀利凌厉的攻杀", "caoxunxuan"]]}, {"q": "你的性格底色更像？", "opts": [["沉稳内敛，凡事求稳", "lichanghao"], ["韧性顽强，逆境不服", "xufengzhu"], ["洒脱写意，随心所欲", "tengzexiuxing"], ["平和淡然，如水行山", "gaochuange"]]}, {"q": "你希望自己下棋像谁？", "opts": [["一手定乾坤的战略家", "wuqingyuan"], ["一子铸就大势的浪漫派", "wugongzhengshu"], ["兵行险着的野草派", "xufengzhu"], ["一子含花的艺术家", "maxiaochun"]]}, {"q": "关于胜负，你更认可？", "opts": [["半目胜也是完美", "lichanghao"], ["一战决出高下", "caoxunxuan"], ["平和落子，不争先亦不失后", "gaochuange"], ["顺其自然，赢了也无所谓", "tengzexiuxing"]]}];
   var CONTACT_WX='yxwq0909';
   var mask=document.getElementById('quiz-mask');
   var body=document.getElementById('quiz-body');
@@ -1253,7 +1253,7 @@ function hideParentGuide(){
     ctx.beginPath();ctx.arc(70,986,5,0,Math.PI*2);ctx.fill();
     ctx.font='15px "KaiTi",serif';ctx.fillStyle=GRAY;
     ctx.textAlign='left';
-    ctx.fillText('萝卜干围棋教育 · 启蒙专甲',86,992);
+    ctx.fillText('萝卜干围棋教育 · 启蒙专栏',86,992);
     ctx.fillText('微信 '+CONTACT_WX,86,1020);
     window.__luoboShareImage(cvs, 'luobo_go_quiz_'+m.name+'.png');
   }
@@ -1618,10 +1618,10 @@ function hideParentGuide(){
   var DEFAULT_DESC = '多年围棋教学一线，专注少儿围棋教师系统成长与围棋家庭教育。';
   var SECTION_META = {
     'hero':      {t:'萝卜干 · 围棋教育 | 教师成长与围棋家庭教育', d:DEFAULT_DESC},
-    'showcase':  {t:'家校共育四书 · 萝卜干围棋教育', d:'家校共育四书：围棋教师成长手册、校长治校指南、家长成长手册、家庭围棋教育手册。'},
+    'showcase':  {t:'家校共育四书 · 萝卜干围棋教育', d:'家校共育四书：围棋教师成长手册、围棋校长经营手册、家长成长手册、家庭围棋教育手册。'},
     'mission':   {t:'我们做什么 · 萝卜干围棋教育', d:'教师训练营、家长成长、家庭教育、围棋教研。'},
     'culture':   {t:'围棋文化 · 萝卜干围棋教育', d:'围棋历史、大师传记、经典古谱、围棋故事——走进五千年围棋文化。'},
-    'tools':     {t:'教学工具箱 · 萝卜干围棋教育', d:'围棋教师、校长、家长、家庭教育——四个角色的实用工具与深度专题。'},
+    'tools':     {t:'教学工具下载 · 萝卜干围棋教育', d:'围棋教师、校长、家长、家庭教育——四个角色的实用工具与深度专题。'},
     'brain':     {t:'思维训练室 · 萝卜干围棋教育', d:'围棋思维力训练：7 种脑力训练小工具，家长和孩子一起玩。'},
     'parents':   {t:'家长成长 · 萝卜干围棋教育', d:'孩子学围棋的家长该怎么陪伴——分级家长成长指南。'},
     'teacher':   {t:'教师成长 · 萝卜干围棋教育', d:'围棋教师从入行到独立成师的完整路径。'},
